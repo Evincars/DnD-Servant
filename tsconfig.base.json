@@ -11,7 +11,8 @@
       "@dn-d-servant/data-access": ["libs/data-access/src/index.ts"],
       "@dn-d-servant/character-sheet-feature": [
         "libs/character-sheet/feature/src/index.ts"
-      ]
+      ],
+      "@dn-d-servant/util": ["libs/util/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,1 +1,1 @@
-export * from './lib/character-sheet-feature/character-sheet-feature';
+export * from './lib/character-sheet.component';
