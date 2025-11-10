@@ -13,10 +13,13 @@ import { MatDivider } from '@angular/material/divider';
   template: `
     <mat-sidenav-container class="container">
       <mat-sidenav #sidenav mode="over">
-        <button matButton (click)="sidenav.toggle()">
-          <mat-icon matPrefix>close</mat-icon>
-          Close menu
-        </button>
+        <mat-toolbar class="toolbar">
+          <button matButton (click)="sidenav.toggle()">
+            <mat-icon matPrefix>close</mat-icon>
+            Close menu
+          </button>
+        </mat-toolbar>
+
         <mat-divider class="u-mb-3 u-mt-3" />
         <button matButton class="u-mb-3 u-mt-3">Karta postavy</button>
       </mat-sidenav>
@@ -28,7 +31,7 @@ import { MatDivider } from '@angular/material/divider';
           </button>
           <span>D&D Servant</span>
         </mat-toolbar>
-        <div class="main-content u-flex-col u-overflow-auto u-mt-5">
+        <div class="main-content u-flex-col u-overflow-auto">
           <p>Vítejte v D&D Servant! Toto je vaše digitální karta postavy pro hraní Dungeons & Dragons.</p>
           <character-sheet />
         </div>
@@ -44,12 +47,13 @@ import { MatDivider } from '@angular/material/divider';
           right: 0;
       }
       .main-content {
-        width: 70%;
+        width: 1310px;
         margin: 0 auto;
         border: 2px solid #333;
         padding: var(--spacing-3);
         border-radius: var(--border-radius-2);
         background: #111;
+        margin-top: var(--spacing-3) !important;
       }
   `,
   imports: [
