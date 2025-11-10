@@ -1,2 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@use './app/styles/utils';
+@use './app/styles/spacing-variables';
+@use '@angular/material' as mat;
+
 @import '@angular/material/prebuilt-themes/cyan-orange.css';
+@import 'material-symbols/outlined.css';
+
+:root {
+  @include mat.toolbar-overrides((
+          container-background-color: #222,
+          container-text-color: red,
+  ));
+}
