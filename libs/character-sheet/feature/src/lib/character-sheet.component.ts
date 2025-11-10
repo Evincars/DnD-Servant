@@ -11,7 +11,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     <input id="name" class="field" style="top:8.7%; left:4.5%; width:14%;" placeholder="Zázemí" />
     <input id="name" class="field" style="top:8.7%; left:19.5%; width:14%;" placeholder="Přesvědčení" />
 
-    <input id="name" class="field" style="top:8%; left:42%; width:15%; text-align: center" placeholder="Jméno postavy" />
+    <input
+      id="name"
+      class="field"
+      style="top:8%; left:42%; width:15%; text-align: center; font-weight: bold"
+      placeholder="Jméno postavy"
+    />
 
     <input id="name" class="field" style="top:5.1%; left:65.5%; width:14%;" placeholder="Úroveň" />
     <input id="name" class="field" style="top:5.1%; left:80.3%; width:14%;" placeholder="Zkušenost" />
@@ -29,11 +34,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       pointer-events: auto;
       background: transparent;
       border: 1px solid rgba(0,0,0,0.12);
-      border-radius:4px;
-      padding:4px 6px;
-      font-size: clamp(10px, 1vw, 14px);
+      border-radius: var(--border-radius-1);
+      padding: 4px 6px;
+      font-size: clamp(16px, 4vw, 16px);
+      font-weight: bold;
       color: black;
-      outline:none;
+      outline: none;
     }
     .field:focus {
       box-shadow:0 0 0 3px rgba(63,131,255,0.18);
