@@ -2,26 +2,28 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { CharacterSheetComponent } from '@dn-d-servant/character-sheet-feature';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPrefix } from '@angular/material/form-field';
 import { MatDivider } from '@angular/material/divider';
+import { routes } from './app.routes';
 
 @Component({
   selector: 'app-root',
   template: `
     <mat-sidenav-container class="container">
-      <mat-sidenav #sidenav mode="over" class="sidenav">
-        <mat-toolbar class="toolbar">
-          <button matButton (click)="sidenav.toggle()">
+      <mat-sidenav #sidenav mode="over">
+        <mat-toolbar class="toolbar u-flex u-align-end u-justify-end">
+          <button matButton="outlined" (click)="sidenav.toggle()" class="font">
             <mat-icon matPrefix>close</mat-icon>
             Close menu
           </button>
         </mat-toolbar>
 
         <mat-divider class="u-mb-3 u-mt-3" />
-        <button matButton class="u-mb-3 u-mt-3">Karta postavy</button>
+        <a [routerLink]="routes.characterSheet">
+          <button matButton="tonal" class="u-mb-3 u-mt-3 u-w-100 font">Karta postavy</button>
+        </a>
       </mat-sidenav>
 
       <mat-sidenav-content>
@@ -33,14 +35,14 @@ import { MatDivider } from '@angular/material/divider';
           <span>Servant</span>
         </mat-toolbar>
         <div class="main-content u-flex-col u-overflow-auto">
-          <p>Vítejte v D&D Servant! Toto je vaše digitální karta postavy pro hraní Dungeons & Dragons.</p>
-          <character-sheet />
+          <p>Vítejte v J&D Servant! Toto je vaše digitální karta postavy pro hraní.</p>
+          <router-outlet />
         </div>
       </mat-sidenav-content>
     </mat-sidenav-container>
   `,
   styles: `
-    .sidenav {
+    .font {
       font-family: 'Mikadan', sans-serif;
     }
     .container {
@@ -72,7 +74,6 @@ import { MatDivider } from '@angular/material/divider';
     MatSidenav,
     MatButton,
     MatSidenavContent,
-    CharacterSheetComponent,
     MatIconModule,
     MatPrefix,
     MatToolbar,
@@ -80,4 +81,6 @@ import { MatDivider } from '@angular/material/divider';
     MatDivider,
   ],
 })
-export class App {}
+export class App {
+  protected readonly routes = routes;
+}

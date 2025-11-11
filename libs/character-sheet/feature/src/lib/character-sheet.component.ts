@@ -81,29 +81,29 @@ import { CharacterSheetForm, TopInfoForm } from './character-sheet-form';
       <input type="checkbox" class="field checkbox" style="top:26.5%; left:56.1%;" />
 
       <!--    Saving throws -->
-      <input type="checkbox" class="field checkbox" style="top:31.5%; left:33.8%;" />
+      <input type="checkbox" class="field checkbox red-checkbox" style="top:31.5%; left:33.8%;" />
       <input class="field" style="top:30.8%; left:42.3%; width:4.7%; text-align: center;" placeholder="SIL" />
-      <input type="checkbox" class="field checkbox" style="top:33%; left:33.8%;" />
+      <input type="checkbox" class="field checkbox red-checkbox" style="top:33%; left:33.8%;" />
       <input class="field" style="top:32.4%; left:42.3%; width:4.7%; text-align: center;" placeholder="OBR" />
-      <input type="checkbox" class="field checkbox" style="top:34.6%; left:33.8%;" />
+      <input type="checkbox" class="field checkbox red-checkbox" style="top:34.6%; left:33.8%;" />
       <input class="field" style="top:34%; left:42.3%; width:4.7%; text-align: center;" placeholder="ODL" />
-      <input type="checkbox" class="field checkbox" style="top:36.2%; left:33.8%;" />
+      <input type="checkbox" class="field checkbox red-checkbox" style="top:36.2%; left:33.8%;" />
       <input class="field" style="top:35.6%; left:42.3%; width:4.7%; text-align: center;" placeholder="INT" />
-      <input type="checkbox" class="field checkbox" style="top:37.7%; left:33.8%;" />
+      <input type="checkbox" class="field checkbox red-checkbox" style="top:37.7%; left:33.8%;" />
       <input class="field" style="top:37.2%; left:42.3%; width:4.7%; text-align: center;" placeholder="MDR" />
-      <input type="checkbox" class="field checkbox" style="top:39.3%; left:33.8%;" />
+      <input type="checkbox" class="field checkbox red-checkbox" style="top:39.3%; left:33.8%;" />
       <input class="field" style="top:38.7%; left:42.3%; width:4.7%; text-align: center;" placeholder="CHA" />
 
       <!--    passive skills -->
-      <input type="checkbox" class="field checkbox" style="top:31.5%; left:48.1%;" />
+      <input type="checkbox" class="field checkbox red-checkbox" style="top:31.5%; left:48.1%;" />
       <input class="field" style="top:30.8%; left:56.7%; width:4.7%; text-align: center;" placeholder="ATL" />
-      <input type="checkbox" class="field checkbox" style="top:33%; left:48.1%;" />
+      <input type="checkbox" class="field checkbox red-checkbox" style="top:33%; left:48.1%;" />
       <input class="field" style="top:32.4%; left:56.7%; width:4.7%; text-align: center;" placeholder="AKR" />
-      <input type="checkbox" class="field checkbox" style="top:34.6%; left:48.1%;" />
+      <input type="checkbox" class="field checkbox red-checkbox" style="top:34.6%; left:48.1%;" />
       <input class="field" style="top:34%; left:56.7%; width:4.7%; text-align: center;" placeholder="NEN" />
-      <input type="checkbox" class="field checkbox" style="top:36.2%; left:48.1%;" />
+      <input type="checkbox" class="field checkbox red-checkbox" style="top:36.2%; left:48.1%;" />
       <input class="field" style="top:35.6%; left:56.7%; width:4.7%; text-align: center;" placeholder="VHL" />
-      <input type="checkbox" class="field checkbox" style="top:37.7%; left:48.1%;" />
+      <input type="checkbox" class="field checkbox red-checkbox" style="top:37.7%; left:48.1%;" />
       <input class="field" style="top:37.2%; left:56.7%; width:4.7%; text-align: center;" placeholder="VNI" />
       <!--    <input type="checkbox" class="field checkbox" style="top:39.3%; left:48.1%;" />-->
       <!--    <input class="field" style="top:38.7%; left:56.7%; width:4.7%; text-align: center;" placeholder="-" />-->
@@ -128,44 +128,44 @@ import { CharacterSheetForm, TopInfoForm } from './character-sheet-form';
 
       <!--    =============================================-->
       <!--    detailed skills-->
-      <input id="atletikaZdatnost" type="checkbox" class="field checkbox" style="top:22.8%; left:13.9%;" />
+      <input id="atletikaZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:22.8%; left:13.9%;" />
       <input id="atletika" class="field" style="top:22.2%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
-      <input id="akrobacieZdatnost" type="checkbox" class="field checkbox" style="top:26%; left:13.9%;" />
+      <input id="akrobacieZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:26%; left:13.9%;" />
       <input id="akrobacie" class="field" style="top:25.4%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
-      <input id="cachryZdatnost" type="checkbox" class="field checkbox" style="top:27.5%; left:13.9%;" />
+      <input id="cachryZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:27.5%; left:13.9%;" />
       <input id="cachry" class="field" style="top:27%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
-      <input id="nenapadnostZdatnost" type="checkbox" class="field checkbox" style="top:29.1%; left:13.9%;" />
+      <input id="nenapadnostZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:29.1%; left:13.9%;" />
       <input id="nenapadnost" class="field" style="top:28.6%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
 
-      <input id="historieZdatnost" type="checkbox" class="field checkbox" style="top:32.6%; left:13.9%;" />
+      <input id="historieZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:32.6%; left:13.9%;" />
       <input id="historie" class="field" style="top:32%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
-      <input id="mystikaZdatnost" type="checkbox" class="field checkbox" style="top:34.1%; left:13.9%;" />
+      <input id="mystikaZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:34.1%; left:13.9%;" />
       <input id="mystika" class="field" style="top:33.6%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
-      <input id="nabozenstviZdatnost" type="checkbox" class="field checkbox" style="top:35.7%; left:13.9%;" />
+      <input id="nabozenstviZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:35.7%; left:13.9%;" />
       <input id="nabozenstvi" class="field" style="top:35.2%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
-      <input id="patraniZdatnost" type="checkbox" class="field checkbox" style="top:37.3%; left:13.9%;" />
+      <input id="patraniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:37.3%; left:13.9%;" />
       <input id="patrani" class="field" style="top:36.7%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
-      <input id="prirodaZdatnost" type="checkbox" class="field checkbox" style="top:38.8%; left:13.9%;" />
+      <input id="prirodaZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:38.8%; left:13.9%;" />
       <input id="priroda" class="field" style="top:38.3%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
 
-      <input id="lekarstviZdatnost" type="checkbox" class="field checkbox" style="top:42.3%; left:13.9%;" />
+      <input id="lekarstviZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:42.3%; left:13.9%;" />
       <input id="lekarstvi" class="field" style="top:41.7%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
-      <input id="ovladaniZviratZdatnost" type="checkbox" class="field checkbox" style="top:43.8%; left:13.9%;" />
+      <input id="ovladaniZviratZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:43.8%; left:13.9%;" />
       <input id="ovladaniZvirat" class="field" style="top:43.3%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
-      <input id="prezitiZdatnost" type="checkbox" class="field checkbox" style="top:45.4%; left:13.9%;" />
+      <input id="prezitiZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:45.4%; left:13.9%;" />
       <input id="preziti" class="field" style="top:44.8%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
-      <input id="vhledZdatnost" type="checkbox" class="field checkbox" style="top:46.9%; left:13.9%;" />
+      <input id="vhledZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:46.9%; left:13.9%;" />
       <input id="vhled" class="field" style="top:46.4%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
-      <input id="vnimaniZdatnost" type="checkbox" class="field checkbox" style="top:48.5%; left:13.9%;" />
+      <input id="vnimaniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:48.5%; left:13.9%;" />
       <input id="vnimani" class="field" style="top:48%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
 
-      <input id="klamaniZdatnost" type="checkbox" class="field checkbox" style="top:52%; left:13.9%;" />
+      <input id="klamaniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:52%; left:13.9%;" />
       <input id="klamani" class="field" style="top:51.4%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
-      <input id="presvedcovaniZdatnost" type="checkbox" class="field checkbox" style="top:53.5%; left:13.9%;" />
+      <input id="presvedcovaniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:53.5%; left:13.9%;" />
       <input id="presvedcovani" class="field" style="top:53%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
-      <input id="vystupovaniZdatnost" type="checkbox" class="field checkbox" style="top:55.1%; left:13.9%;" />
+      <input id="vystupovaniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:55.1%; left:13.9%;" />
       <input id="vystupovani" class="field" style="top:54.6%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
-      <input id="zastrasovaniZdatnost" type="checkbox" class="field checkbox" style="top:56.7%; left:13.9%;" />
+      <input id="zastrasovaniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:56.7%; left:13.9%;" />
       <input id="zastrasovani" class="field" style="top:56.1%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
       <!--    =============================================-->
 
@@ -262,12 +262,13 @@ import { CharacterSheetForm, TopInfoForm } from './character-sheet-form';
       position: relative;
       display: block;
     }
+
     .field {
       position: absolute;
       box-sizing: border-box;
       pointer-events: auto;
       background: transparent;
-      border: 1px solid rgba(0,0,0,0.12);
+      border: 1px solid rgba(0, 0, 0, 0.12);
       border-radius: var(--border-radius-1);
       padding: 4px 6px;
       font-size: clamp(16px, 4vw, 16px);
@@ -275,24 +276,32 @@ import { CharacterSheetForm, TopInfoForm } from './character-sheet-form';
       color: black;
       outline: none;
     }
+
     .field:focus {
-      box-shadow:0 0 0 3px rgba(63,131,255,0.18);
+      box-shadow: 0 0 0 3px rgba(63, 131, 255, 0.18);
       border-color: #3f83ff;
     }
+
     .checkbox {
       width: 15px;
       height: 15px;
       /*accent-color: #3f83ff; !* Optional: matches focus color *!*/
       background: transparent;
       border-radius: var(--border-radius-1);
-      border: 1px solid rgba(0,0,0,0.12);
+      border: 1px solid rgba(0, 0, 0, 0.12);
       box-sizing: border-box;
       outline: none;
     }
+
+    .red-checkbox {
+      accent-color: #c81313;
+    }
+
     .checkbox:focus {
-      box-shadow: 0 0 0 3px rgba(63,131,255,0.18);
+      box-shadow: 0 0 0 3px rgba(63, 131, 255, 0.18);
       border-color: #3f83ff;
     }
+
     .textarea {
       resize: none;
     }
