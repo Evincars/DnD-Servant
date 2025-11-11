@@ -1,0 +1,119 @@
+[debug] [2025-11-11T01:27:48.482Z] ----------------------------------------------------------------------
+[debug] [2025-11-11T01:27:48.484Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\lasakada\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2025-11-11T01:27:48.484Z] CLI Version:   14.24.2
+[debug] [2025-11-11T01:27:48.485Z] Platform:      win32
+[debug] [2025-11-11T01:27:48.485Z] Node Version:  v22.13.1
+[debug] [2025-11-11T01:27:48.485Z] Time:          Tue Nov 11 2025 02:27:48 GMT+0100 (Central European Standard Time)
+[debug] [2025-11-11T01:27:48.485Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-11-11T01:27:48.697Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-11-11T01:27:48.697Z] > authorizing via signed-in user (lasak.ad@gmail.com)
+[debug] [2025-11-11T01:27:48.697Z] [iam] checking project dnd-servant for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-11-11T01:27:48.698Z] Checked if tokens are valid: true, expires at: 1762825528452
+[debug] [2025-11-11T01:27:48.698Z] Checked if tokens are valid: true, expires at: 1762825528452
+[debug] [2025-11-11T01:27:48.699Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/dnd-servant:testIamPermissions [none]
+[debug] [2025-11-11T01:27:48.699Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/dnd-servant:testIamPermissions x-goog-quota-user=projects/dnd-servant
+[debug] [2025-11-11T01:27:48.699Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/dnd-servant:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-11-11T01:27:49.489Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/dnd-servant:testIamPermissions 200
+[debug] [2025-11-11T01:27:49.489Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/dnd-servant:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-11-11T01:27:49.490Z] Checked if tokens are valid: true, expires at: 1762825528452
+[debug] [2025-11-11T01:27:49.490Z] Checked if tokens are valid: true, expires at: 1762825528452
+[debug] [2025-11-11T01:27:49.490Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/dnd-servant [none]
+[debug] [2025-11-11T01:27:49.800Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/dnd-servant 200
+[debug] [2025-11-11T01:27:49.800Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/dnd-servant {"projectId":"dnd-servant","projectNumber":"960571423054","displayName":"DnD-Servant","name":"projects/dnd-servant","resources":{"hostingSite":"dnd-servant"},"state":"ACTIVE","etag":"1_3ede22cf-4805-4457-afea-6173e32e2432"}
+[debug] [2025-11-11T01:27:54.857Z] Checked if tokens are valid: true, expires at: 1762825528452
+[debug] [2025-11-11T01:27:54.857Z] Checked if tokens are valid: true, expires at: 1762825528452
+[debug] [2025-11-11T01:27:54.857Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/dnd-servant/sites pageToken=&pageSize=10
+[debug] [2025-11-11T01:27:55.815Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/dnd-servant/sites 200
+[debug] [2025-11-11T01:27:55.815Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/dnd-servant/sites {"sites":[{"name":"projects/dnd-servant/sites/dnd-servant","defaultUrl":"https://dnd-servant.web.app","type":"DEFAULT_SITE"},{"name":"projects/dnd-servant/sites/dnd-servant-3409a","defaultUrl":"https://dnd-servant-3409a.web.app","appId":"1:960571423054:web:c9e666475047660a0cc61f","type":"USER_SITE"}]}
+[debug] [2025-11-11T01:27:55.816Z] Checked if tokens are valid: true, expires at: 1762825528452
+[debug] [2025-11-11T01:27:55.816Z] Checked if tokens are valid: true, expires at: 1762825528452
+[debug] [2025-11-11T01:27:55.816Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/dnd-servant/sites 
+[debug] [2025-11-11T01:27:56.059Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/dnd-servant/sites 200
+[debug] [2025-11-11T01:27:56.059Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/dnd-servant/sites {"sites":[{"name":"projects/dnd-servant/sites/dnd-servant","defaultUrl":"https://dnd-servant.web.app","type":"DEFAULT_SITE"},{"name":"projects/dnd-servant/sites/dnd-servant-3409a","defaultUrl":"https://dnd-servant-3409a.web.app","appId":"1:960571423054:web:c9e666475047660a0cc61f","type":"USER_SITE"}]}
+[debug] [2025-11-11T01:27:56.059Z] Checked if tokens are valid: true, expires at: 1762825528452
+[debug] [2025-11-11T01:27:56.060Z] Checked if tokens are valid: true, expires at: 1762825528452
+[debug] [2025-11-11T01:27:56.060Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/dnd-servant/webApps/-/config [none]
+[debug] [2025-11-11T01:27:56.614Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/dnd-servant/webApps/-/config 200
+[debug] [2025-11-11T01:27:56.614Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/dnd-servant/webApps/-/config {"projectId":"dnd-servant","storageBucket":"dnd-servant.firebasestorage.app","apiKey":"AIzaSyBP2KgMhqhfppDZHju6osE6gwtiq1WXFLo","authDomain":"dnd-servant.firebaseapp.com","messagingSenderId":"960571423054","projectNumber":"960571423054","version":"2"}
+[info] 
+   Thank you for trying our experimental support for Vite on Firebase Hosting.
+   While this integration is maintained by Googlers it is not a supported Firebase product.
+   Issues filed on GitHub will be addressed on a best-effort basis by maintainers and other community members.
+   The integration is known to work with Vite version 3 - 6. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/frameworks-overview
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2025-11-11T01:28:26.217Z] Could not resolve entry module "index.html".
+    at getRollupError (file:///C:/Users/lasakada/OneDrive%20-%20Tietoevry/Desktop/DnD-Servant/node_modules/rollup/dist/es/shared/parseAst.js:401:41)
+    at error (file:///C:/Users/lasakada/OneDrive%20-%20Tietoevry/Desktop/DnD-Servant/node_modules/rollup/dist/es/shared/parseAst.js:397:42)
+    at ModuleLoader.loadEntryModule (file:///C:/Users/lasakada/OneDrive%20-%20Tietoevry/Desktop/DnD-Servant/node_modules/rollup/dist/es/shared/node-entry.js:21585:20)
+    at async Promise.all (index 0)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2025-11-11T01:31:43.481Z] ----------------------------------------------------------------------
+[debug] [2025-11-11T01:31:43.483Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\lasakada\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2025-11-11T01:31:43.483Z] CLI Version:   14.24.2
+[debug] [2025-11-11T01:31:43.483Z] Platform:      win32
+[debug] [2025-11-11T01:31:43.483Z] Node Version:  v22.13.1
+[debug] [2025-11-11T01:31:43.484Z] Time:          Tue Nov 11 2025 02:31:43 GMT+0100 (Central European Standard Time)
+[debug] [2025-11-11T01:31:43.484Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-11-11T01:31:43.639Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-11-11T01:31:43.639Z] > authorizing via signed-in user (lasak.ad@gmail.com)
+[debug] [2025-11-11T01:31:43.639Z] [iam] checking project dnd-servant for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-11-11T01:31:43.640Z] Checked if tokens are valid: false, expires at: 1762825528452
+[debug] [2025-11-11T01:31:43.641Z] Checked if tokens are valid: false, expires at: 1762825528452
+[debug] [2025-11-11T01:31:43.641Z] > refreshing access token with scopes: []
+[debug] [2025-11-11T01:31:43.642Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-11-11T01:31:43.642Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-11T01:31:43.771Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-11-11T01:31:43.771Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-11T01:31:43.778Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/dnd-servant:testIamPermissions [none]
+[debug] [2025-11-11T01:31:43.778Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/dnd-servant:testIamPermissions x-goog-quota-user=projects/dnd-servant
+[debug] [2025-11-11T01:31:43.778Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/dnd-servant:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-11-11T01:31:44.499Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/dnd-servant:testIamPermissions 200
+[debug] [2025-11-11T01:31:44.499Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/dnd-servant:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-11-11T01:31:44.500Z] Checked if tokens are valid: true, expires at: 1762828302771
+[debug] [2025-11-11T01:31:44.500Z] Checked if tokens are valid: true, expires at: 1762828302771
+[debug] [2025-11-11T01:31:44.500Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/dnd-servant [none]
+[debug] [2025-11-11T01:31:44.766Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/dnd-servant 200
+[debug] [2025-11-11T01:31:44.766Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/dnd-servant {"projectId":"dnd-servant","projectNumber":"960571423054","displayName":"DnD-Servant","name":"projects/dnd-servant","resources":{"hostingSite":"dnd-servant"},"state":"ACTIVE","etag":"1_3ede22cf-4805-4457-afea-6173e32e2432"}
+[debug] [2025-11-11T01:31:49.204Z] Checked if tokens are valid: true, expires at: 1762828302771
+[debug] [2025-11-11T01:31:49.204Z] Checked if tokens are valid: true, expires at: 1762828302771
+[debug] [2025-11-11T01:31:49.204Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/dnd-servant/sites pageToken=&pageSize=10
+[debug] [2025-11-11T01:31:50.124Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/dnd-servant/sites 200
+[debug] [2025-11-11T01:31:50.124Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/dnd-servant/sites {"sites":[{"name":"projects/dnd-servant/sites/dnd-servant","defaultUrl":"https://dnd-servant.web.app","type":"DEFAULT_SITE"},{"name":"projects/dnd-servant/sites/dnd-servant-3409a","defaultUrl":"https://dnd-servant-3409a.web.app","appId":"1:960571423054:web:c9e666475047660a0cc61f","type":"USER_SITE"}]}
+[debug] [2025-11-11T01:31:50.124Z] Checked if tokens are valid: true, expires at: 1762828302771
+[debug] [2025-11-11T01:31:50.124Z] Checked if tokens are valid: true, expires at: 1762828302771
+[debug] [2025-11-11T01:31:50.124Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/dnd-servant/sites 
+[debug] [2025-11-11T01:31:50.354Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/dnd-servant/sites 200
+[debug] [2025-11-11T01:31:50.354Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/dnd-servant/sites {"sites":[{"name":"projects/dnd-servant/sites/dnd-servant","defaultUrl":"https://dnd-servant.web.app","type":"DEFAULT_SITE"},{"name":"projects/dnd-servant/sites/dnd-servant-3409a","defaultUrl":"https://dnd-servant-3409a.web.app","appId":"1:960571423054:web:c9e666475047660a0cc61f","type":"USER_SITE"}]}
+[debug] [2025-11-11T01:31:50.354Z] Checked if tokens are valid: true, expires at: 1762828302771
+[debug] [2025-11-11T01:31:50.354Z] Checked if tokens are valid: true, expires at: 1762828302771
+[debug] [2025-11-11T01:31:50.354Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/dnd-servant/webApps/-/config [none]
+[debug] [2025-11-11T01:31:50.718Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/dnd-servant/webApps/-/config 200
+[debug] [2025-11-11T01:31:50.718Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/dnd-servant/webApps/-/config {"projectId":"dnd-servant","storageBucket":"dnd-servant.firebasestorage.app","apiKey":"AIzaSyBP2KgMhqhfppDZHju6osE6gwtiq1WXFLo","authDomain":"dnd-servant.firebaseapp.com","messagingSenderId":"960571423054","projectNumber":"960571423054","version":"2"}
+[info] 
+   Thank you for trying our experimental support for Vite on Firebase Hosting.
+   While this integration is maintained by Googlers it is not a supported Firebase product.
+   Issues filed on GitHub will be addressed on a best-effort basis by maintainers and other community members.
+   The integration is known to work with Vite version 3 - 6. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/frameworks-overview
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2025-11-11T01:32:16.745Z] Could not resolve entry module "index.html".
+    at getRollupError (file:///C:/Users/lasakada/OneDrive%20-%20Tietoevry/Desktop/DnD-Servant/node_modules/rollup/dist/es/shared/parseAst.js:401:41)
+    at error (file:///C:/Users/lasakada/OneDrive%20-%20Tietoevry/Desktop/DnD-Servant/node_modules/rollup/dist/es/shared/parseAst.js:397:42)
+    at ModuleLoader.loadEntryModule (file:///C:/Users/lasakada/OneDrive%20-%20Tietoevry/Desktop/DnD-Servant/node_modules/rollup/dist/es/shared/node-entry.js:21585:20)
+    at async Promise.all (index 0)
+[error] 
+[error] Error: An unexpected error has occurred.
