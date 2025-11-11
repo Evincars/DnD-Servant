@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -7,6 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPrefix } from '@angular/material/form-field';
 import { MatDivider } from '@angular/material/divider';
 import { routes } from './app.routes';
+import { AuthService } from '@dn-d-servant/util';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-root',
@@ -40,12 +42,15 @@ import { routes } from './app.routes';
           </div>
           <div class="author-info">
             <span>
+              @if (authService.currentUser()) { Přihlášen
+              <b class="username u-mr-3">{{ authService.currentUser()!.username }}</b>
+              }
               <a class="link token" [routerLink]="routes.login">Přihlásit</a>
-              |
-              <a class="link token" href="/#">Odhlásit</a>
-              |
+              @if (authService.currentUser()) { |
+              <a class="link token" href="#" (click)="this.authService.logout()">Odhlásit</a>
+              } @if (authService.currentUser() === null) { |
               <a class="link token u-mr-9" [routerLink]="routes.register">Registrovat</a>
-              Created by
+              } Created by
               <a class="link" target="_blank" href="https://lasak.netlify.app/">lasaks.eu</a>
             </span>
           </div>
@@ -98,6 +103,9 @@ import { routes } from './app.routes';
       border-radius: var(--border-radius-1);
       padding: var(--spacing-1) var(--spacing-2);
     }
+    .username {
+      font-size: 18px;
+    }
   `,
   imports: [
     RouterModule,
@@ -112,6 +120,22 @@ import { routes } from './app.routes';
     MatDivider,
   ],
 })
-export class App {
-  protected readonly routes = routes;
+export class App implements OnInit {
+  authService = inject(AuthService);
+  destroyRef = inject(DestroyRef);
+
+  routes = routes;
+
+  ngOnInit(): void {
+    this.authService.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
+      if (user) {
+        this.authService.currentUser.set({
+          email: user.email!,
+          username: user.displayName!,
+        });
+      } else {
+        this.authService.currentUser.set(null);
+      }
+    });
+  }
 }

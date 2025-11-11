@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from '@dn-d-servant/util';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'login',
@@ -32,6 +34,8 @@ export class LoginComponent {
   fb = inject(FormBuilder);
   http = inject(HttpClient);
   router = inject(Router);
+  authService = inject(AuthService);
+  destroyRef = inject(DestroyRef);
 
   form = this.fb.nonNullable.group({
     email: ['', Validators.required],
@@ -40,6 +44,17 @@ export class LoginComponent {
   errorMessage: string | null = null;
 
   onSubmit(): void {
-    console.log('login');
+    const rawForm = this.form.getRawValue();
+    this.authService
+      .login(rawForm.email, rawForm.password)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.router.navigateByUrl('/');
+        },
+        error: err => {
+          this.errorMessage = err.code;
+        },
+      });
   }
 }
