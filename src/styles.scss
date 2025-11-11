@@ -7,6 +7,8 @@
 @import 'material-symbols/outlined.css';
 
 :root {
+  font-family: 'Mikadan', sans-serif;
+
   @include mat.toolbar-overrides((
           container-background-color: #222,
           container-text-color: red,

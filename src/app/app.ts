@@ -12,7 +12,7 @@ import { MatDivider } from '@angular/material/divider';
   selector: 'app-root',
   template: `
     <mat-sidenav-container class="container">
-      <mat-sidenav #sidenav mode="over">
+      <mat-sidenav #sidenav mode="over" class="sidenav">
         <mat-toolbar class="toolbar">
           <button matButton (click)="sidenav.toggle()">
             <mat-icon matPrefix>close</mat-icon>
@@ -29,7 +29,8 @@ import { MatDivider } from '@angular/material/divider';
           <button matIconButton (click)="sidenav.toggle()">
             <mat-icon matPrefix>menu</mat-icon>
           </button>
-          <span>D&D Servant</span>
+          <img src="JaD-logo.png" alt="Dungeons & Dragons Logo" class="logo u-mr-3" />
+          <span>Servant</span>
         </mat-toolbar>
         <div class="main-content u-flex-col u-overflow-auto">
           <p>Vítejte v D&D Servant! Toto je vaše digitální karta postavy pro hraní Dungeons & Dragons.</p>
@@ -39,22 +40,31 @@ import { MatDivider } from '@angular/material/divider';
     </mat-sidenav-container>
   `,
   styles: `
-      .container {
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-      }
-      .main-content {
-        width: 1310px;
-        margin: 0 auto;
-        border: 2px solid #333;
-        padding: var(--spacing-3);
-        border-radius: var(--border-radius-2);
-        background: #111;
-        margin-top: var(--spacing-3) !important;
-      }
+    .sidenav {
+      font-family: 'Mikadan', sans-serif;
+    }
+    .container {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    .main-content {
+      width: 1310px;
+      margin: 0 auto;
+      border: 2px solid #333;
+      padding: var(--spacing-3);
+      border-radius: var(--border-radius-2);
+      background: #111;
+      margin-top: var(--spacing-3) !important;
+    }
+    .toolbar {
+      font-family: 'Mikadan', sans-serif;
+    }
+    .logo {
+      height: 60px;
+    }
   `,
   imports: [
     RouterModule,

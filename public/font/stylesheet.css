@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Mikadan';
+    src: url('Mikadan-Regular.eot');
+    src: local('Mikadan'), local('Mikadan-Regular'),
+        url('Mikadan-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Mikadan-Regular.woff2') format('woff2'),
+        url('Mikadan-Regular.woff') format('woff'),
+        url('Mikadan-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
