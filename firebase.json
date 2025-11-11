@@ -1,11 +1,9 @@
 {
   "hosting": {
+    "site": "dnd-servant-3409a",
+    "public": "public",
     "source": ".",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "frameworksBackend": {
       "region": "europe-west1"
     }
