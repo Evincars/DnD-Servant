@@ -22,10 +22,10 @@ import { routes } from './app.routes';
 
         <mat-divider class="u-mb-3 u-mt-3" />
         <a [routerLink]="routes.characterSheet">
-          <button matButton="tonal" class="u-mb-3 u-mt-3 u-w-100 font">Karta postavy</button>
+          <button matButton="tonal" class="u-mb-3 u-mt-3 u-w-100 font" (click)="sidenav.toggle()">Karta postavy</button>
         </a>
         <a [routerLink]="routes.dmScreen">
-          <button matButton="tonal" class="u-mb-3 u-mt-3 u-w-100 font">PH zástěna</button>
+          <button matButton="tonal" class="u-mb-3 u-mt-3 u-w-100 font" (click)="sidenav.toggle()">PH zástěna</button>
         </a>
       </mat-sidenav>
 
@@ -40,13 +40,17 @@ import { routes } from './app.routes';
           </div>
           <div class="author-info">
             <span>
+              <a class="link token" [routerLink]="routes.login">Přihlásit</a>
+              |
+              <a class="link token" href="/#">Odhlásit</a>
+              |
+              <a class="link token u-mr-9" [routerLink]="routes.register">Registrovat</a>
               Created by
               <a class="link" target="_blank" href="https://lasak.netlify.app/">lasaks.eu</a>
             </span>
           </div>
         </mat-toolbar>
         <div class="main-content u-flex-col u-overflow-auto">
-          <p>Vítejte v J&D Servant! Toto je vaše digitální karta postavy pro hraní.</p>
           <router-outlet />
         </div>
       </mat-sidenav-content>
@@ -87,6 +91,12 @@ import { routes } from './app.routes';
       &:hover {
         text-decoration: none;
       }
+    }
+    .token {
+      background: #333;
+      font-size: 16px;
+      border-radius: var(--border-radius-1);
+      padding: var(--spacing-1) var(--spacing-2);
     }
   `,
   imports: [
