@@ -24,15 +24,26 @@ import { routes } from './app.routes';
         <a [routerLink]="routes.characterSheet">
           <button matButton="tonal" class="u-mb-3 u-mt-3 u-w-100 font">Karta postavy</button>
         </a>
+        <a [routerLink]="routes.dmScreen">
+          <button matButton="tonal" class="u-mb-3 u-mt-3 u-w-100 font">PH zástěna</button>
+        </a>
       </mat-sidenav>
 
       <mat-sidenav-content>
-        <mat-toolbar class="toolbar">
-          <button matIconButton (click)="sidenav.toggle()">
-            <mat-icon matPrefix>menu</mat-icon>
-          </button>
-          <img src="JaD-logo.png" alt="Dungeons & Dragons Logo" class="logo u-mr-3" />
-          <span>Servant</span>
+        <mat-toolbar class="toolbar u-flex u-justify-between u-align-center">
+          <div class="u-flex u-align-center">
+            <button matIconButton (click)="sidenav.toggle()">
+              <mat-icon matPrefix>menu</mat-icon>
+            </button>
+            <img src="JaD-logo.png" alt="Dungeons & Dragons Logo" class="logo u-mr-3" />
+            <span>Servant</span>
+          </div>
+          <div class="author-info">
+            <span>
+              Created by
+              <a class="link" target="_blank" href="https://lasak.netlify.app/">lasaks.eu</a>
+            </span>
+          </div>
         </mat-toolbar>
         <div class="main-content u-flex-col u-overflow-auto">
           <p>Vítejte v J&D Servant! Toto je vaše digitální karta postavy pro hraní.</p>
@@ -66,6 +77,16 @@ import { routes } from './app.routes';
     }
     .logo {
       height: 60px;
+    }
+    .author-info {
+      font-size: 15px;
+    }
+    .link {
+      color: inherit;
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
     }
   `,
   imports: [
