@@ -5,3 +5,5 @@ export * from './lib/form/form-to-model-mapper';
 export * from './lib/local-storage.service';
 export * from './lib/user';
 export * from './lib/auth.service';
+export * from './lib/object-util';
+export * from './lib/form-util';
