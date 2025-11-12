@@ -722,85 +722,411 @@ import { CharacterSheetFormModelMappers } from './character-sheet-form-model-map
       ></textarea>
 
       <!--    Weapons / attacks 1st row -->
-      <input id="weapon1" class="field" style="top:58.7%; left:33.9%; width:20.3%" placeholder="Zbraň / útok" />
-      <input id="weapon1_bonus" class="field" style="top:58.7%; left:54.5%; width:6%" placeholder="Bonus" />
-      <input id="weapon1_hit" class="field" style="top:58.7%; left:60.9%; width:6%" placeholder="Zásah" />
-      <input id="weapon1_type" class="field" style="top:58.7%; left:67.4%; width:7.3%" placeholder="Typ" />
-      <input id="weapon1_distance" class="field" style="top:58.7%; left:75.1%; width:7.3%" placeholder="Dosah" />
-      <input id="weapon1_armorClass" class="field" style="top:58.7%; left:82.9%; width:7.3%" placeholder="Dosah" />
+      <input
+        [formControl]="weaponsControls.zbran1"
+        id="weapon1"
+        class="field"
+        style="top:58.7%; left:33.9%; width:20.3%"
+        placeholder="Zbraň / útok"
+      />
+      <input
+        [formControl]="weaponsControls.zbran1Bonus"
+        id="weapon1_bonus"
+        class="field"
+        style="top:58.7%; left:54.5%; width:6%"
+        placeholder="Bonus"
+      />
+      <input
+        [formControl]="weaponsControls.zbran1Zasah"
+        id="weapon1_hit"
+        class="field"
+        style="top:58.7%; left:60.9%; width:6%"
+        placeholder="Zásah"
+      />
+      <input
+        [formControl]="weaponsControls.zbran1Typ"
+        id="weapon1_type"
+        class="field"
+        style="top:58.7%; left:67.4%; width:7.3%"
+        placeholder="Typ"
+      />
+      <input
+        [formControl]="weaponsControls.zbran1Dosah"
+        id="weapon1_distance"
+        class="field"
+        style="top:58.7%; left:75.1%; width:7.3%"
+        placeholder="Dosah"
+      />
+      <input
+        [formControl]="weaponsControls.zbran1Oc"
+        id="weapon1_armorClass"
+        class="field"
+        style="top:58.7%; left:82.9%; width:7.3%"
+        placeholder="Dosah"
+      />
 
       <!--    Weapons / attacks 2nd row -->
-      <input id="weapon2" class="field" style="top:60.6%; left:33.9%; width:20.3%" placeholder="Zbraň / útok" />
-      <input id="weapon2_bonus" class="field" style="top:60.6%; left:54.5%; width:6%" placeholder="Bonus" />
-      <input id="weapon2_hit" class="field" style="top:60.6%; left:60.9%; width:6%" placeholder="Zásah" />
-      <input id="weapon2_type" class="field" style="top:60.6%; left:67.4%; width:7.3%" placeholder="Typ" />
-      <input id="weapon2_distance" class="field" style="top:60.6%; left:75.1%; width:7.3%" placeholder="Dosah" />
-      <input id="weapon2_armorClass" class="field" style="top:60.6%; left:82.9%; width:7.3%" placeholder="Dosah" />
+      <input
+        [formControl]="weaponsControls.zbran2"
+        id="weapon2"
+        class="field"
+        style="top:60.6%; left:33.9%; width:20.3%"
+        placeholder="Zbraň / útok"
+      />
+      <input
+        [formControl]="weaponsControls.zbran2Bonus"
+        id="weapon2_bonus"
+        class="field"
+        style="top:60.6%; left:54.5%; width:6%"
+        placeholder="Bonus"
+      />
+      <input
+        [formControl]="weaponsControls.zbran2Zasah"
+        id="weapon2_hit"
+        class="field"
+        style="top:60.6%; left:60.9%; width:6%"
+        placeholder="Zásah"
+      />
+      <input
+        [formControl]="weaponsControls.zbran2Typ"
+        id="weapon2_type"
+        class="field"
+        style="top:60.6%; left:67.4%; width:7.3%"
+        placeholder="Typ"
+      />
+      <input
+        [formControl]="weaponsControls.zbran2Dosah"
+        id="weapon2_distance"
+        class="field"
+        style="top:60.6%; left:75.1%; width:7.3%"
+        placeholder="Dosah"
+      />
+      <input
+        [formControl]="weaponsControls.zbran2Oc"
+        id="weapon2_armorClass"
+        class="field"
+        style="top:60.6%; left:82.9%; width:7.3%"
+        placeholder="Dosah"
+      />
 
       <!--    Weapons / attacks 3rd row -->
-      <input id="weapon3" class="field" style="top:62.5%; left:33.9%; width:20.3%" placeholder="Zbraň / útok" />
-      <input id="weapon3_bonus" class="field" style="top:62.5%; left:54.5%; width:6%" placeholder="Bonus" />
-      <input id="weapon3_hit" class="field" style="top:62.5%; left:60.9%; width:6%" placeholder="Zásah" />
-      <input id="weapon3_type" class="field" style="top:62.5%; left:67.4%; width:7.3%" placeholder="Typ" />
-      <input id="weapon3_distance" class="field" style="top:62.5%; left:75.1%; width:7.3%" placeholder="Dosah" />
-      <input id="weapon3_armorClass" class="field" style="top:62.5%; left:82.9%; width:7.3%" placeholder="Dosah" />
+      <input
+        [formControl]="weaponsControls.zbran3"
+        id="weapon3"
+        class="field"
+        style="top:62.5%; left:33.9%; width:20.3%"
+        placeholder="Zbraň / útok"
+      />
+      <input
+        [formControl]="weaponsControls.zbran3Bonus"
+        id="weapon3_bonus"
+        class="field"
+        style="top:62.5%; left:54.5%; width:6%"
+        placeholder="Bonus"
+      />
+      <input
+        [formControl]="weaponsControls.zbran3Zasah"
+        id="weapon3_hit"
+        class="field"
+        style="top:62.5%; left:60.9%; width:6%"
+        placeholder="Zásah"
+      />
+      <input
+        [formControl]="weaponsControls.zbran3Typ"
+        id="weapon3_type"
+        class="field"
+        style="top:62.5%; left:67.4%; width:7.3%"
+        placeholder="Typ"
+      />
+      <input
+        [formControl]="weaponsControls.zbran3Dosah"
+        id="weapon3_distance"
+        class="field"
+        style="top:62.5%; left:75.1%; width:7.3%"
+        placeholder="Dosah"
+      />
+      <input
+        [formControl]="weaponsControls.zbran3Oc"
+        id="weapon3_armorClass"
+        class="field"
+        style="top:62.5%; left:82.9%; width:7.3%"
+        placeholder="Dosah"
+      />
 
       <!--    Weapons / attacks 4th row -->
-      <input id="weapon4" class="field" style="top:64.4%; left:33.9%; width:20.3%" placeholder="Zbraň / útok" />
-      <input id="weapon4_bonus" class="field" style="top:64.4%; left:54.5%; width:6%" placeholder="Bonus" />
-      <input id="weapon4_hit" class="field" style="top:64.4%; left:60.9%; width:6%" placeholder="Zásah" />
-      <input id="weapon4_type" class="field" style="top:64.4%; left:67.4%; width:7.3%" placeholder="Typ" />
-      <input id="weapon4_distance" class="field" style="top:64.4%; left:75.1%; width:7.3%" placeholder="Dosah" />
-      <input id="weapon4_armorClass" class="field" style="top:64.4%; left:82.9%; width:7.3%" placeholder="Dosah" />
+      <input
+        [formControl]="weaponsControls.zbran4"
+        id="weapon4"
+        class="field"
+        style="top:64.4%; left:33.9%; width:20.3%"
+        placeholder="Zbraň / útok"
+      />
+      <input
+        [formControl]="weaponsControls.zbran4Bonus"
+        id="weapon4_bonus"
+        class="field"
+        style="top:64.4%; left:54.5%; width:6%"
+        placeholder="Bonus"
+      />
+      <input
+        [formControl]="weaponsControls.zbran4Zasah"
+        id="weapon4_hit"
+        class="field"
+        style="top:64.4%; left:60.9%; width:6%"
+        placeholder="Zásah"
+      />
+      <input
+        [formControl]="weaponsControls.zbran4Typ"
+        id="weapon4_type"
+        class="field"
+        style="top:64.4%; left:67.4%; width:7.3%"
+        placeholder="Typ"
+      />
+      <input
+        [formControl]="weaponsControls.zbran4Dosah"
+        id="weapon4_distance"
+        class="field"
+        style="top:64.4%; left:75.1%; width:7.3%"
+        placeholder="Dosah"
+      />
+      <input
+        [formControl]="weaponsControls.zbran4Oc"
+        id="weapon4_armorClass"
+        class="field"
+        style="top:64.4%; left:82.9%; width:7.3%"
+        placeholder="Dosah"
+      />
 
       <!--    Weapons / attacks 5th row -->
-      <input id="weapon5" class="field" style="top:66.3%; left:33.9%; width:20.3%" placeholder="Zbraň / útok" />
-      <input id="weapon5_bonus" class="field" style="top:66.3%; left:54.5%; width:6%" placeholder="Bonus" />
-      <input id="weapon5_hit" class="field" style="top:66.3%; left:60.9%; width:6%" placeholder="Zásah" />
-      <input id="weapon5_type" class="field" style="top:66.3%; left:67.4%; width:7.3%" placeholder="Typ" />
-      <input id="weapon5_distance" class="field" style="top:66.3%; left:75.1%; width:7.3%" placeholder="Dosah" />
-      <input id="weapon5_armorClass" class="field" style="top:66.3%; left:82.9%; width:7.3%" placeholder="Dosah" />
-
-      <input id="zdatnostSJednoduchymaZbranema" type="checkbox" class="field checkbox" style="top:68.8%; left:33.8%;" />
-      <input id="zdatnostSValecnymaZbranema" type="checkbox" class="field checkbox" style="top:68.8%; left:43.4%;" />
       <input
+        [formControl]="weaponsControls.zbran5"
+        id="weapon5"
+        class="field"
+        style="top:66.3%; left:33.9%; width:20.3%"
+        placeholder="Zbraň / útok"
+      />
+      <input
+        [formControl]="weaponsControls.zbran5Bonus"
+        id="weapon5_bonus"
+        class="field"
+        style="top:66.3%; left:54.5%; width:6%"
+        placeholder="Bonus"
+      />
+      <input
+        [formControl]="weaponsControls.zbran5Zasah"
+        id="weapon5_hit"
+        class="field"
+        style="top:66.3%; left:60.9%; width:6%"
+        placeholder="Zásah"
+      />
+      <input
+        [formControl]="weaponsControls.zbran5Typ"
+        id="weapon5_type"
+        class="field"
+        style="top:66.3%; left:67.4%; width:7.3%"
+        placeholder="Typ"
+      />
+      <input
+        [formControl]="weaponsControls.zbran5Dosah"
+        id="weapon5_distance"
+        class="field"
+        style="top:66.3%; left:75.1%; width:7.3%"
+        placeholder="Dosah"
+      />
+      <input
+        [formControl]="weaponsControls.zbran5Oc"
+        id="weapon5_armorClass"
+        class="field"
+        style="top:66.3%; left:82.9%; width:7.3%"
+        placeholder="Dosah"
+      />
+
+      <input
+        [formControl]="weaponsControls.zdatnostJednoduche"
+        id="zdatnostSJednoduchymaZbranema"
+        type="checkbox"
+        class="field checkbox"
+        style="top:68.8%; left:33.8%;"
+      />
+      <input
+        [formControl]="weaponsControls.zdatnostValecne"
+        id="zdatnostSValecnymaZbranema"
+        type="checkbox"
+        class="field checkbox"
+        style="top:68.8%; left:43.4%;"
+      />
+      <input
+        [formControl]="weaponsControls.dalsiZdatnosti"
         id="dalsiZdatnostSeZbrani"
         class="field"
         style="top:68.6%; left:50.9%; width:39.3%"
         placeholder="Další zdatnosti..."
       />
 
-      <input id="jazyky" class="field" style="top:74.1%; left:52.5%; width:37.6%" placeholder="Jazyky..." />
+      <input
+        [formControl]="languagesControls.jazyky"
+        id="jazyky"
+        class="field"
+        style="top:74.1%; left:52.5%; width:37.6%"
+        placeholder="Jazyky..."
+      />
       <textarea
+        [formControl]="languagesControls.schopnosti"
         class="field textarea"
         style="top:75.9%; left:48.4%; width:42%; height:381px;"
         placeholder="Schopnosti..."
       ></textarea>
 
       <!--    Inventory - column 1 -->
-      <input id="penize" class="field" style="top:74.2%; left:8.5%; width:37.8%" placeholder="Peníze" />
-      <input id="inventoryItemRow1" class="field" style="top:76.4%; left:5.2%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow2" class="field" style="top:78.4%; left:5.2%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow3" class="field" style="top:80.5%; left:5.2%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow4" class="field" style="top:82.6%; left:5.2%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow5" class="field" style="top:84.7%; left:5.2%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow6" class="field" style="top:86.8%; left:5.2%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow7" class="field" style="top:88.9%; left:5.2%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow8" class="field" style="top:91.0%; left:5.2%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow9" class="field" style="top:93.1%; left:5.2%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow10" class="field" style="top:95.2%; left:5.2%; width:19.4%" placeholder="*" />
+      <input
+        [formControl]="inventoryControls.penize"
+        id="penize"
+        class="field"
+        style="top:74.2%; left:8.5%; width:37.8%"
+        placeholder="Peníze"
+      />
+      <input
+        [formControl]="inventoryControls.radek1"
+        id="inventoryItemRow1"
+        class="field"
+        style="top:76.4%; left:5.2%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek2"
+        id="inventoryItemRow2"
+        class="field"
+        style="top:78.4%; left:5.2%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek3"
+        id="inventoryItemRow3"
+        class="field"
+        style="top:80.5%; left:5.2%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek4"
+        id="inventoryItemRow4"
+        class="field"
+        style="top:82.6%; left:5.2%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek5"
+        id="inventoryItemRow5"
+        class="field"
+        style="top:84.7%; left:5.2%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek6"
+        id="inventoryItemRow6"
+        class="field"
+        style="top:86.8%; left:5.2%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek7"
+        id="inventoryItemRow7"
+        class="field"
+        style="top:88.9%; left:5.2%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek8"
+        id="inventoryItemRow8"
+        class="field"
+        style="top:91.0%; left:5.2%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek9"
+        id="inventoryItemRow9"
+        class="field"
+        style="top:93.1%; left:5.2%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek10"
+        id="inventoryItemRow10"
+        class="field"
+        style="top:95.2%; left:5.2%; width:19.4%"
+        placeholder="*"
+      />
 
       <!--    Inventory - column 2 -->
-      <input id="inventoryItemRow11" class="field" style="top:76.4%; left:26.9%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow12" class="field" style="top:78.4%; left:26.9%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow13" class="field" style="top:80.5%; left:26.9%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow14" class="field" style="top:82.6%; left:26.9%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow15" class="field" style="top:84.7%; left:26.9%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow16" class="field" style="top:86.8%; left:26.9%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow17" class="field" style="top:88.9%; left:26.9%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow18" class="field" style="top:91.0%; left:26.9%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow19" class="field" style="top:93.1%; left:26.9%; width:19.4%" placeholder="*" />
-      <input id="inventoryItemRow20" class="field" style="top:95.2%; left:26.9%; width:19.4%" placeholder="*" />
+      <input
+        [formControl]="inventoryControls.radek11"
+        id="inventoryItemRow11"
+        class="field"
+        style="top:76.4%; left:26.9%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek12"
+        id="inventoryItemRow12"
+        class="field"
+        style="top:78.4%; left:26.9%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek13"
+        id="inventoryItemRow13"
+        class="field"
+        style="top:80.5%; left:26.9%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek14"
+        id="inventoryItemRow14"
+        class="field"
+        style="top:82.6%; left:26.9%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek15"
+        id="inventoryItemRow15"
+        class="field"
+        style="top:84.7%; left:26.9%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek16"
+        id="inventoryItemRow16"
+        class="field"
+        style="top:86.8%; left:26.9%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek17"
+        id="inventoryItemRow17"
+        class="field"
+        style="top:88.9%; left:26.9%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek18"
+        id="inventoryItemRow18"
+        class="field"
+        style="top:91.0%; left:26.9%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek19"
+        id="inventoryItemRow19"
+        class="field"
+        style="top:93.1%; left:26.9%; width:19.4%"
+        placeholder="*"
+      />
+      <input
+        [formControl]="inventoryControls.radek20"
+        id="inventoryItemRow20"
+        class="field"
+        style="top:95.2%; left:26.9%; width:19.4%"
+        placeholder="*"
+      />
 
       <button (click)="onSaveClick()" class="field button" style="top:0.5%; left:77%; width:19.4%">
         Uložit character sheet [enter]
