@@ -15,11 +15,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   template: `
     <mat-sidenav-container class="container">
       <mat-sidenav #sidenav mode="over">
-        <mat-toolbar class="toolbar u-flex u-align-end u-justify-end">
-          <button matButton="outlined" (click)="sidenav.toggle()" class="font">
-            <mat-icon matPrefix>close</mat-icon>
-            Close menu
-          </button>
+        <mat-toolbar class="toolbar u-flex u-justify-center">
+          <img src="JaD-logo.png" alt="Dungeons & Dragons Logo" class="logo" />
         </mat-toolbar>
 
         <mat-divider class="u-mb-3 u-mt-3" />
@@ -44,11 +41,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             <span>
               @if (authService.currentUser()) { Přihlášen
               <b class="username u-mr-3">{{ authService.currentUser()!.username }}</b>
-              }
-              <a class="link token" [routerLink]="routes.login">Přihlásit</a>
-              @if (authService.currentUser()) { |
               <a class="link token u-mr-9" href="#" (click)="this.authService.logout()">Odhlásit</a>
-              } @if (authService.currentUser() === null) { |
+              } @if (authService.currentUser() === null) {
+              <a class="link token" [routerLink]="routes.login">Přihlásit</a>
+              |
               <a class="link token u-mr-9" [routerLink]="routes.register">Registrovat</a>
               } Created by
               <a class="link" target="_blank" href="https://lasak.netlify.app/">lasaks.eu</a>

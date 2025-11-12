@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -10,10 +10,10 @@ import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 @Component({
   selector: 'register',
   template: `
-    <h1 class="title">Registrace</h1>
+    <h1 class="align-center">Registrace</h1>
 
-    @if (errorMessage) {
-    <div>{{ errorMessage }}</div>
+    @if (errorMessage()) {
+    <div class="align-center">{{ errorMessage() }}</div>
     }
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="u-flex-col u-gap-2">
@@ -55,7 +55,7 @@ export class RegisterComponent {
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
-  errorMessage: string | null = null;
+  errorMessage = signal<string | null>(null);
 
   onSubmit(): void {
     const rawForm = this.form.getRawValue();
@@ -67,7 +67,7 @@ export class RegisterComponent {
           this.router.navigateByUrl('/');
         },
         error: err => {
-          this.errorMessage = err.code;
+          this.errorMessage.set(err.code);
         },
       });
   }

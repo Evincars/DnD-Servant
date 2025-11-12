@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -10,10 +10,10 @@ import { MatButton } from '@angular/material/button';
 @Component({
   selector: 'login',
   template: `
-    <h1 class="u-w-100 title">Login</h1>
+    <h1 class="u-w-100 align-center">Login</h1>
 
-    @if (errorMessage) {
-    <div>{{ errorMessage }}</div>
+    @if (errorMessage()) {
+    <div class="align-center">{{ errorMessage() }}</div>
     }
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="u-flex-col u-gap-2">
@@ -33,7 +33,7 @@ import { MatButton } from '@angular/material/button';
       width: 300px;
       margin: 0 auto;
     }
-    .title {
+    .align-center {
       text-align: center;
     }
   `,
@@ -51,7 +51,7 @@ export class LoginComponent {
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
-  errorMessage: string | null = null;
+  errorMessage = signal<string | null>(null);
 
   onSubmit(): void {
     const rawForm = this.form.getRawValue();
@@ -63,7 +63,7 @@ export class LoginComponent {
           this.router.navigateByUrl('/');
         },
         error: err => {
-          this.errorMessage = err.code;
+          this.errorMessage.set(err.code);
         },
       });
   }
