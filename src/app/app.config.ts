@@ -11,17 +11,8 @@ import { appInitializer } from '@dn-d-servant/data-access';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { REALTIME_DB_URL_TOKEN } from '@dn-d-servant/util';
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyBP2KgMhqhfppDZHju6osE6gwtiq1WXFLo',
-  authDomain: 'dnd-servant.firebaseapp.com',
-  projectId: 'dnd-servant',
-  storageBucket: 'dnd-servant.firebasestorage.app',
-  messagingSenderId: '960571423054',
-  appId: '1:960571423054:web:c9e666475047660a0cc61f',
-  measurementId: 'G-WWQG229N8D',
-};
+import { environment, REALTIME_DB_URL_TOKEN } from '@dn-d-servant/util';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,7 +21,8 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
     provideHttpClient(),
-    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
     {
       provide: MAT_ICON_DEFAULT_OPTIONS,

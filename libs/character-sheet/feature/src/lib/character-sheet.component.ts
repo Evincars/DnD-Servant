@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CharacterSheetForm, TopInfoForm } from '../../../util/src/lib/character-sheet-form';
-import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
+import { CharacterSheetApiService, CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
 import { CharacterSheetFormModelMappers } from './character-sheet-form-model-mappers';
+import { catchError, of } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'character-sheet',
@@ -337,7 +339,9 @@ import { CharacterSheetFormModelMappers } from './character-sheet-form-model-map
 })
 export class CharacterSheetComponent implements OnInit {
   characterSheetStore = inject(CharacterSheetStore);
+  characterSheetApiService = inject(CharacterSheetApiService);
   authService = inject(AuthService);
+  destroyRef = inject(DestroyRef);
 
   infoMessage = signal('');
   fb = new FormBuilder().nonNullable;
@@ -367,7 +371,21 @@ export class CharacterSheetComponent implements OnInit {
         CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
       );
       request.username = this.authService.currentUser()!.username;
-      this.characterSheetStore.saveCharacterSheet(request);
+
+      console.log('exists', this.characterSheetApiService.getCharacterSheetByUsername(request.username));
+
+      this.characterSheetApiService
+        .addCharacterSheet(request)
+        .pipe(
+          takeUntilDestroyed(this.destroyRef),
+          catchError(error => {
+            this.infoMessage.set('Chyba při ukládání postavy: ' + error.message);
+            return of(null);
+          }),
+        )
+        .subscribe(response => {
+          console.log('Save response:', response);
+        });
     } else {
       this.infoMessage.set('Pro uložení postavy se musíte přihlásit.');
     }

@@ -13,30 +13,30 @@ export const CharacterSheetStore = signalStore(
     characterSheetError: '',
   }),
   withComputed(store => ({})),
-  withMethods((store, _characterSheetApiService = inject(CharacterSheetApiService)) => {
-    const saveCharacterSheet = rxMethod<CharacterSheetApiModel>(
-      pipe(
-        switchMap(req => {
-          return _characterSheetApiService.saveCharacterSheet(req).pipe(
-            tapResponse(
-              (_: any) => {
-                patchState(store, {
-                  characterSheetStored: true,
-                  characterSheetError: '',
-                });
-              },
-              (error: HttpErrorResponse) => {
-                patchState(store, {
-                  characterSheetStored: false,
-                  characterSheetError: 'Ukládání character sheetu se nezdařilo: ' + error.message,
-                });
-              },
-            ),
-          );
-        }),
-      ),
-    );
-    return { saveCharacterSheet };
+  withMethods(store => {
+    // const addCharacterSheet = rxMethod<CharacterSheetApiModel>(
+    //   pipe(
+    //     switchMap(req => {
+    //       return _characterSheetApiService.saveCharacterSheet(req).pipe(
+    //         tapResponse(
+    //           (_: any) => {
+    //             patchState(store, {
+    //               characterSheetStored: true,
+    //               characterSheetError: '',
+    //             });
+    //           },
+    //           (error: HttpErrorResponse) => {
+    //             patchState(store, {
+    //               characterSheetStored: false,
+    //               characterSheetError: 'Ukládání character sheetu se nezdařilo: ' + error.message,
+    //             });
+    //           },
+    //         ),
+    //       );
+    //     }),
+    //   ),
+    // );
+    return {};
   }),
   withHooks({}),
 );
