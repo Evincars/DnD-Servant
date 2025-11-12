@@ -121,7 +121,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     MatPrefix,
     MatToolbar,
     MatIconButton,
-    MatDivider,
   ],
 })
 export class App implements OnInit {

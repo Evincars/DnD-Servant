@@ -19,6 +19,7 @@ export type TopInfoForm = {
 };
 
 export type CharacterSheetApiModel = {
+  username: string;
   topInfo: {
     rasa?: string;
     povolani?: string;

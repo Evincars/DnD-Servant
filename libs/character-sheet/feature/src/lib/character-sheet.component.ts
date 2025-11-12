@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CharacterSheetForm, TopInfoForm } from '../../../util/src/lib/character-sheet-form';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
+import { AuthService, FormUtil } from '@dn-d-servant/util';
+import { CharacterSheetFormModelMappers } from './character-sheet-form-model-mappers';
 
 @Component({
   selector: 'character-sheet',
@@ -256,6 +258,18 @@ import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
       <input id="inventoryItemRow18" class="field" style="top:91.0%; left:26.9%; width:19.4%" placeholder="*" />
       <input id="inventoryItemRow19" class="field" style="top:93.1%; left:26.9%; width:19.4%" placeholder="*" />
       <input id="inventoryItemRow20" class="field" style="top:95.2%; left:26.9%; width:19.4%" placeholder="*" />
+
+      <button (click)="onSaveClick()" class="field button" style="top:0.5%; left:77%; width:19.4%">
+        Uložit character sheet [enter]
+      </button>
+      <p id="inventoryItemRow20" class="field" style="top:-0.5%; left:38.7%; width:22.4%">
+        @if (characterSheetStore.characterSheetStored()) { Uložení bylo úspěšné. } @else if
+        (characterSheetStore.characterSheetError()) {
+        {{ characterSheetStore.characterSheetError() }}
+        } @else if(infoMessage()) {
+        {{ infoMessage() }}
+        }
+      </p>
     </form>
   `,
   styles: `
@@ -276,6 +290,16 @@ import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
       font-weight: bold;
       color: black;
       outline: none;
+    }
+
+    .button {
+      background: rgba(17, 70, 209, 0.78);
+      color: white;
+      cursor: pointer;
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
     }
 
     .field:focus {
@@ -311,9 +335,11 @@ import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule],
 })
-export class CharacterSheetComponent {
+export class CharacterSheetComponent implements OnInit {
   characterSheetStore = inject(CharacterSheetStore);
+  authService = inject(AuthService);
 
+  infoMessage = signal('');
   fb = new FormBuilder().nonNullable;
   form = this.fb.group<CharacterSheetForm>({
     topInfo: this.fb.group<TopInfoForm>({
@@ -330,5 +356,20 @@ export class CharacterSheetComponent {
 
   get topInfoControls() {
     return this.form.controls.topInfo.controls;
+  }
+
+  ngOnInit() {}
+
+  onSaveClick() {
+    if (this.authService.currentUser()?.username) {
+      const request = FormUtil.convertFormToModel(
+        this.form.getRawValue(),
+        CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
+      );
+      request.username = this.authService.currentUser()!.username;
+      this.characterSheetStore.saveCharacterSheet(request);
+    } else {
+      this.infoMessage.set('Pro uložení postavy se musíte přihlásit.');
+    }
   }
 }
