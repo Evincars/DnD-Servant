@@ -47,7 +47,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
               }
               <a class="link token" [routerLink]="routes.login">Přihlásit</a>
               @if (authService.currentUser()) { |
-              <a class="link token" href="#" (click)="this.authService.logout()">Odhlásit</a>
+              <a class="link token u-mr-9" href="#" (click)="this.authService.logout()">Odhlásit</a>
               } @if (authService.currentUser() === null) { |
               <a class="link token u-mr-9" [routerLink]="routes.register">Registrovat</a>
               } Created by

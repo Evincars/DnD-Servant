@@ -4,34 +4,44 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatButton } from '@angular/material/button';
+import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 
 @Component({
   selector: 'register',
   template: `
-    <h1>Register</h1>
+    <h1 class="title">Registrace</h1>
 
     @if (errorMessage) {
     <div>{{ errorMessage }}</div>
     }
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div>
-        <input type="text" placeholder="Uživatelské jméno" formControlName="username" />
-      </div>
-      <div>
-        <input type="text" placeholder="Email" formControlName="email" />
-      </div>
-      <div>
-        <input type="password" placeholder="Heslo" formControlName="password" />
-      </div>
-      <div>
-        <button type="submit">Registrovat</button>
-      </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="u-flex-col u-gap-2">
+      <mat-form-field>
+        <mat-label>Už. jméno</mat-label>
+        <input type="text" matInput formControlName="username" placeholder="Evincars" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="pat@example.com" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Heslo</mat-label>
+        <input type="password" matInput formControlName="password" />
+      </mat-form-field>
+      <button type="submit" [disabled]="!form.valid" matButton="tonal">Registrovat se</button>
     </form>
   `,
-  styles: ``,
+  styles: `
+    form {
+      width: 300px;
+      margin: 0 auto;
+    }
+    .title {
+      text-align: center;
+    }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatButton, MatFormField, MatInput, MatLabel],
 })
 export class RegisterComponent {
   fb = inject(FormBuilder);

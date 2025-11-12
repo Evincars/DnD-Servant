@@ -4,31 +4,41 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'login',
   template: `
-    <h1>Login</h1>
+    <h1 class="u-w-100 title">Login</h1>
 
     @if (errorMessage) {
     <div>{{ errorMessage }}</div>
     }
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div>
-        <input type="text" placeholder="Email" formControlName="email" />
-      </div>
-      <div>
-        <input type="password" placeholder="Password" formControlName="password" />
-      </div>
-      <div>
-        <button type="submit">Sign In</button>
-      </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="u-flex-col u-gap-2">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="pat@example.com" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Heslo</mat-label>
+        <input type="password" matInput formControlName="password" />
+      </mat-form-field>
+      <button type="submit" [disabled]="!form.valid" matButton="tonal">Přihlásit se</button>
     </form>
   `,
-  styles: ``,
+  styles: `
+    form {
+      width: 300px;
+      margin: 0 auto;
+    }
+    .title {
+      text-align: center;
+    }
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatButton],
 })
 export class LoginComponent {
   fb = inject(FormBuilder);
