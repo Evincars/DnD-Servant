@@ -37,7 +37,7 @@ import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
       width: 300px;
       margin: 0 auto;
     }
-    .title {
+    .align-center {
       text-align: center;
     }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
