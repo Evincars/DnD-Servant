@@ -9,11 +9,32 @@ import { tapResponse } from '@ngrx/operators';
 
 export const CharacterSheetStore = signalStore(
   withState({
-    characterSheetStored: false,
+    characterSheet: undefined as CharacterSheetApiModel | undefined,
+    characterSheetSaved: false,
     characterSheetError: '',
   }),
   withComputed(store => ({})),
   withMethods((store, _characterSheetApiService = inject(CharacterSheetApiService)) => {
+    const getCharacterSheetByUsername = rxMethod<string>(
+      pipe(
+        switchMap(username => {
+          return _characterSheetApiService.getCharacterSheetByUsername(username).pipe(
+            tapResponse(
+              res => {
+                patchState(store, { characterSheet: res, characterSheetError: '', characterSheetSaved: false });
+              },
+              (error: HttpErrorResponse) => {
+                patchState(store, {
+                  characterSheetSaved: false,
+                  characterSheetError: 'GET: Načtení character sheetu se nezdařilo: ' + error.message,
+                });
+              },
+            ),
+          );
+        }),
+      ),
+    );
+
     const saveCharacterSheet = rxMethod<CharacterSheetApiModel>(
       pipe(
         switchMap(req => {
@@ -24,7 +45,7 @@ export const CharacterSheetStore = signalStore(
               },
               (error: HttpErrorResponse) => {
                 patchState(store, {
-                  characterSheetStored: false,
+                  characterSheetSaved: false,
                   characterSheetError: 'SAVE: Ukládání character sheetu se nezdařilo: ' + error.message,
                 });
               },
@@ -41,13 +62,13 @@ export const CharacterSheetStore = signalStore(
             tapResponse(
               (_: any) => {
                 patchState(store, {
-                  characterSheetStored: true,
+                  characterSheetSaved: true,
                   characterSheetError: '',
                 });
               },
               (error: HttpErrorResponse) => {
                 patchState(store, {
-                  characterSheetStored: false,
+                  characterSheetSaved: false,
                   characterSheetError: 'ADD: Ukládání character sheetu se nezdařilo: ' + error.message,
                 });
               },
@@ -64,13 +85,13 @@ export const CharacterSheetStore = signalStore(
             tapResponse(
               (_: any) => {
                 patchState(store, {
-                  characterSheetStored: true,
+                  characterSheetSaved: true,
                   characterSheetError: '',
                 });
               },
               (error: HttpErrorResponse) => {
                 patchState(store, {
-                  characterSheetStored: false,
+                  characterSheetSaved: false,
                   characterSheetError: 'UPDATE: Ukládání character sheetu se nezdařilo: ' + error.message,
                 });
               },
@@ -80,7 +101,7 @@ export const CharacterSheetStore = signalStore(
       ),
     );
 
-    return { saveCharacterSheet };
+    return { getCharacterSheetByUsername, saveCharacterSheet };
   }),
   withHooks({}),
 );

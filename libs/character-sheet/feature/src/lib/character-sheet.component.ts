@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  inject,
+  OnInit,
+  signal,
+  untracked,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CharacterSheetForm, TopInfoForm } from '../../../util/src/lib/character-sheet-form';
 import { CharacterSheetApiService, CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
@@ -265,7 +275,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         Uložit character sheet [enter]
       </button>
       <p id="inventoryItemRow20" class="field" style="top:-0.5%; left:38.7%; width:22.4%">
-        @if (characterSheetStore.characterSheetStored()) { Uložení bylo úspěšné. } @else if
+        @if (characterSheetStore.characterSheetSaved()) { Uložení bylo úspěšné. } @else if
         (characterSheetStore.characterSheetError()) {
         {{ characterSheetStore.characterSheetError() }}
         } @else if(infoMessage()) {
@@ -337,7 +347,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule],
 })
-export class CharacterSheetComponent implements OnInit {
+export class CharacterSheetComponent {
   characterSheetStore = inject(CharacterSheetStore);
   authService = inject(AuthService);
 
@@ -360,15 +370,40 @@ export class CharacterSheetComponent implements OnInit {
     return this.form.controls.topInfo.controls;
   }
 
-  ngOnInit() {}
+  constructor() {
+    const checkForUsername = effect(() => {
+      const username = this.authService.currentUser()?.username;
+
+      untracked(() => {
+        if (username) {
+          this.characterSheetStore.getCharacterSheetByUsername(username);
+        }
+      });
+    });
+
+    const checkForCharacterSheet = effect(() => {
+      const characterSheet = this.characterSheetStore.characterSheet();
+
+      untracked(() => {
+        if (characterSheet) {
+          const formValue = FormUtil.convertModelToForm(
+            characterSheet,
+            CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
+          );
+          this.form.patchValue(formValue);
+        }
+      });
+    });
+  }
 
   onSaveClick() {
-    if (this.authService.currentUser()?.username) {
+    const username = this.authService.currentUser()?.username;
+    if (username) {
       const request = FormUtil.convertFormToModel(
         this.form.getRawValue(),
         CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
       );
-      request.username = this.authService.currentUser()!.username;
+      request.username = username;
 
       this.characterSheetStore.saveCharacterSheet(request);
     } else {
