@@ -19,13 +19,20 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           <img src="JaD-logo.png" alt="Dungeons & Dragons Logo" class="logo" />
         </mat-toolbar>
 
-        <mat-divider class="u-mb-3 u-mt-3" />
-        <a [routerLink]="routes.characterSheet">
-          <button matButton="tonal" class="u-mb-3 u-mt-3 u-w-100 font" (click)="sidenav.toggle()">Karta postavy</button>
-        </a>
-        <a [routerLink]="routes.dmScreen">
-          <button matButton="tonal" class="u-mb-3 u-mt-3 u-w-100 font" (click)="sidenav.toggle()">PH zástěna</button>
-        </a>
+        <div class="u-flex-col u-pl-1 u-pr-1">
+          <a [routerLink]="routes.characterSheet">
+            <button matButton="tonal" class="u-mb-3 u-mt-3 u-w-100 font" (click)="sidenav.toggle()">
+              <mat-icon matPrefix>person_edit</mat-icon>
+              Karta postavy
+            </button>
+          </a>
+          <a [routerLink]="routes.dmScreen">
+            <button matButton="tonal" class="u-mb-3 u-mt-3 u-w-100 font" (click)="sidenav.toggle()">
+              <mat-icon matPrefix>full_coverage</mat-icon>
+              PH zástěna
+            </button>
+          </a>
+        </div>
       </mat-sidenav>
 
       <mat-sidenav-content>
@@ -60,6 +67,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styles: `
     .font {
       font-family: 'Mikadan', sans-serif;
+      font-size: 19px;
     }
     .container {
         position: absolute;
