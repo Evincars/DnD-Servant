@@ -11,6 +11,9 @@ import {
   SpellsAndAlchemistChestForm,
   Main6SkillsForm,
   AbilitiesForm,
+  WeaponsForm,
+  LanguagesForm,
+  InventoryForm,
 } from '@dn-d-servant/character-sheet-util';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
@@ -117,19 +120,19 @@ import { CharacterSheetFormModelMappers } from './character-sheet-form-model-map
       <input
         [formControl]="speedAndHealingDicesControls.smrtUspech1"
         type="checkbox"
-        class="field checkbox"
+        class="field checkbox dead-throw-success"
         style="top:23.5%; left:83.5%;"
       />
       <input
         [formControl]="speedAndHealingDicesControls.smrtUspech2"
         type="checkbox"
-        class="field checkbox"
+        class="field checkbox dead-throw-success"
         style="top:23.5%; left:85.9%;"
       />
       <input
         [formControl]="speedAndHealingDicesControls.smrtUspech3"
         type="checkbox"
-        class="field checkbox"
+        class="field checkbox dead-throw-success"
         style="top:23.5%; left:88.3%;"
       />
 
@@ -137,19 +140,19 @@ import { CharacterSheetFormModelMappers } from './character-sheet-form-model-map
       <input
         [formControl]="speedAndHealingDicesControls.smrtNeuspech1"
         type="checkbox"
-        class="field checkbox"
+        class="field checkbox dead-throw-fail"
         style="top:25.2%; left:83.5%;"
       />
       <input
         [formControl]="speedAndHealingDicesControls.smrtNeuspech2"
         type="checkbox"
-        class="field checkbox"
+        class="field checkbox dead-throw-fail"
         style="top:25.2%; left:85.9%;"
       />
       <input
         [formControl]="speedAndHealingDicesControls.smrtNeuspech3"
         type="checkbox"
-        class="field checkbox"
+        class="field checkbox dead-throw-fail"
         style="top:25.2%; left:88.2%;"
       />
 
@@ -379,63 +382,340 @@ import { CharacterSheetFormModelMappers } from './character-sheet-form-model-map
       />
 
       <!--    main 6 skills-->
-      <input class="field" style="top:18.6%; left:6.0%; width:3.8%; text-align: center" placeholder="SIL" />
-      <input class="field" style="top:20.8%; left:6.0%; width:3.8%; text-align: center" placeholder="SIL" />
-      <input class="field" style="top:27.8%; left:6.0%; width:3.8%; text-align: center" placeholder="OBR" />
-      <input class="field" style="top:30.0%; left:6.0%; width:3.8%; text-align: center" placeholder="OBR" />
-      <input class="field" style="top:37.4%; left:6.0%; width:3.8%; text-align: center" placeholder="ODL" />
-      <input class="field" style="top:39.6%; left:6.0%; width:3.8%; text-align: center" placeholder="ODL" />
-      <input class="field" style="top:47%; left:6.0%; width:3.8%; text-align: center" placeholder="INT" />
-      <input class="field" style="top:49.1%; left:6.0%; width:3.8%; text-align: center" placeholder="INT" />
-      <input class="field" style="top:56.3%; left:6.0%; width:3.8%; text-align: center" placeholder="MDR" />
-      <input class="field" style="top:58.4%; left:6.0%; width:3.8%; text-align: center" placeholder="MDR" />
-      <input class="field" style="top:65.8%; left:6.0%; width:3.8%; text-align: center" placeholder="CHA" />
-      <input class="field" style="top:68%; left:6.0%; width:3.8%; text-align: center" placeholder="CHA" />
+      <input
+        [formControl]="main6SkillsControls.silaOprava"
+        class="field main-skill"
+        style="top:18.3%; left:6.0%; width:3.8%; text-align: center;"
+        placeholder="SIL"
+      />
+      <input
+        [formControl]="main6SkillsControls.sila"
+        class="field"
+        style="top:20.8%; left:6.0%; width:3.8%; text-align: center"
+        placeholder="SIL"
+      />
+      <input
+        [formControl]="main6SkillsControls.obratnostOprava"
+        class="field main-skill"
+        style="top:27.4%; left:6.0%; width:3.8%; text-align: center"
+        placeholder="OBR"
+      />
+      <input
+        [formControl]="main6SkillsControls.obratnost"
+        class="field"
+        style="top:30.0%; left:6.0%; width:3.8%; text-align: center"
+        placeholder="OBR"
+      />
+      <input
+        [formControl]="main6SkillsControls.odolnostOprava"
+        class="field main-skill"
+        style="top:37%; left:6.0%; width:3.8%; text-align: center"
+        placeholder="ODL"
+      />
+      <input
+        [formControl]="main6SkillsControls.odolnost"
+        class="field"
+        style="top:39.6%; left:6.0%; width:3.8%; text-align: center"
+        placeholder="ODL"
+      />
+      <input
+        [formControl]="main6SkillsControls.inteligenceOprava"
+        class="field main-skill"
+        style="top:46.6%; left:6.0%; width:3.8%; text-align: center"
+        placeholder="INT"
+      />
+      <input
+        [formControl]="main6SkillsControls.inteligence"
+        class="field"
+        style="top:49.1%; left:6.0%; width:3.8%; text-align: center"
+        placeholder="INT"
+      />
+      <input
+        [formControl]="main6SkillsControls.moudrostOprava"
+        class="field main-skill"
+        style="top:55.9%; left:6.0%; width:3.8%; text-align: center"
+        placeholder="MDR"
+      />
+      <input
+        [formControl]="main6SkillsControls.moudrost"
+        class="field"
+        style="top:58.4%; left:6.0%; width:3.8%; text-align: center"
+        placeholder="MDR"
+      />
+      <input
+        [formControl]="main6SkillsControls.charismaOprava"
+        class="field main-skill"
+        style="top:65.5%; left:6.0%; width:3.8%; text-align: center"
+        placeholder="CHA"
+      />
+      <input
+        [formControl]="main6SkillsControls.charisma"
+        class="field"
+        style="top:68%; left:6.0%; width:3.8%; text-align: center"
+        placeholder="CHA"
+      />
 
       <!--    =============================================-->
       <!--    detailed skills-->
-      <input id="atletikaZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:22.8%; left:13.9%;" />
-      <input id="atletika" class="field" style="top:22.2%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
-      <input id="akrobacieZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:26%; left:13.9%;" />
-      <input id="akrobacie" class="field" style="top:25.4%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
-      <input id="cachryZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:27.5%; left:13.9%;" />
-      <input id="cachry" class="field" style="top:27%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
-      <input id="nenapadnostZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:29.1%; left:13.9%;" />
-      <input id="nenapadnost" class="field" style="top:28.6%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
+      <input
+        [formControl]="abilitiesControls.atletikaZdatnost"
+        id="atletikaZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:22.8%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.atletika"
+        id="atletika"
+        class="field"
+        style="top:22.2%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
+      <input
+        [formControl]="abilitiesControls.akrobacieZdatnost"
+        id="akrobacieZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:26%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.akrobacie"
+        id="akrobacie"
+        class="field"
+        style="top:25.4%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
+      <input
+        [formControl]="abilitiesControls.cachryZdatnost"
+        id="cachryZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:27.5%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.cachry"
+        id="cachry"
+        class="field"
+        style="top:27%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
+      <input
+        [formControl]="abilitiesControls.nenapadnostZdatnost"
+        id="nenapadnostZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:29.1%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.nenapadnost"
+        id="nenapadnost"
+        class="field"
+        style="top:28.6%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
 
-      <input id="historieZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:32.6%; left:13.9%;" />
-      <input id="historie" class="field" style="top:32%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
-      <input id="mystikaZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:34.1%; left:13.9%;" />
-      <input id="mystika" class="field" style="top:33.6%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
-      <input id="nabozenstviZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:35.7%; left:13.9%;" />
-      <input id="nabozenstvi" class="field" style="top:35.2%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
-      <input id="patraniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:37.3%; left:13.9%;" />
-      <input id="patrani" class="field" style="top:36.7%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
-      <input id="prirodaZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:38.8%; left:13.9%;" />
-      <input id="priroda" class="field" style="top:38.3%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
+      <input
+        [formControl]="abilitiesControls.historieZdatnost"
+        id="historieZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:32.6%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.historie"
+        id="historie"
+        class="field"
+        style="top:32%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
+      <input
+        [formControl]="abilitiesControls.mystikaZdatnost"
+        id="mystikaZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:34.1%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.mystika"
+        id="mystika"
+        class="field"
+        style="top:33.6%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
+      <input
+        [formControl]="abilitiesControls.nabozenstviZdatnost"
+        id="nabozenstviZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:35.7%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.nabozenstvi"
+        id="nabozenstvi"
+        class="field"
+        style="top:35.2%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
+      <input
+        [formControl]="abilitiesControls.patraniZdatnost"
+        id="patraniZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:37.3%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.patrani"
+        id="patrani"
+        class="field"
+        style="top:36.7%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
+      <input
+        [formControl]="abilitiesControls.prirodaZdatnost"
+        id="prirodaZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:38.8%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.priroda"
+        id="priroda"
+        class="field"
+        style="top:38.3%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
 
-      <input id="lekarstviZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:42.3%; left:13.9%;" />
-      <input id="lekarstvi" class="field" style="top:41.7%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
-      <input id="ovladaniZviratZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:43.8%; left:13.9%;" />
-      <input id="ovladaniZvirat" class="field" style="top:43.3%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
-      <input id="prezitiZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:45.4%; left:13.9%;" />
-      <input id="preziti" class="field" style="top:44.8%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
-      <input id="vhledZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:46.9%; left:13.9%;" />
-      <input id="vhled" class="field" style="top:46.4%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
-      <input id="vnimaniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:48.5%; left:13.9%;" />
-      <input id="vnimani" class="field" style="top:48%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
+      <input
+        [formControl]="abilitiesControls.atletikaZdatnost"
+        id="lekarstviZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:42.3%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.lekarstvi"
+        id="lekarstvi"
+        class="field"
+        style="top:41.7%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
+      <input
+        [formControl]="abilitiesControls.ovladaniZviratZdatnost"
+        id="ovladaniZviratZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:43.8%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.ovladaniZvirat"
+        id="ovladaniZvirat"
+        class="field"
+        style="top:43.3%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
+      <input
+        [formControl]="abilitiesControls.prezitiZdatnost"
+        id="prezitiZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:45.4%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.preziti"
+        id="preziti"
+        class="field"
+        style="top:44.8%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
+      <input
+        [formControl]="abilitiesControls.vhledZdatnost"
+        id="vhledZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:46.9%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.vhled"
+        id="vhled"
+        class="field"
+        style="top:46.4%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
+      <input
+        [formControl]="abilitiesControls.vnimaniZdatnost"
+        id="vnimaniZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:48.5%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.vnimani"
+        id="vnimani"
+        class="field"
+        style="top:48%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
 
-      <input id="klamaniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:52%; left:13.9%;" />
-      <input id="klamani" class="field" style="top:51.4%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
-      <input id="presvedcovaniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:53.5%; left:13.9%;" />
-      <input id="presvedcovani" class="field" style="top:53%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
-      <input id="vystupovaniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:55.1%; left:13.9%;" />
-      <input id="vystupovani" class="field" style="top:54.6%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
-      <input id="zastrasovaniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:56.7%; left:13.9%;" />
-      <input id="zastrasovani" class="field" style="top:56.1%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
+      <input
+        [formControl]="abilitiesControls.klamaniZdatnost"
+        id="klamaniZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:52%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.klamani"
+        id="klamani"
+        class="field"
+        style="top:51.4%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
+      <input
+        [formControl]="abilitiesControls.presvedcovaniZdatnost"
+        id="presvedcovaniZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:53.5%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.presvedcovani"
+        id="presvedcovani"
+        class="field"
+        style="top:53%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
+      <input
+        [formControl]="abilitiesControls.vystupovaniZdatnost"
+        id="vystupovaniZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:55.1%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.vystupovani"
+        id="vystupovani"
+        class="field"
+        style="top:54.6%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
+      <input
+        [formControl]="abilitiesControls.zastrasovaniZdatnost"
+        id="zastrasovaniZdatnost"
+        type="checkbox"
+        class="field checkbox red-checkbox"
+        style="top:56.7%; left:13.9%;"
+      />
+      <input
+        [formControl]="abilitiesControls.zastrasovani"
+        id="zastrasovani"
+        class="field"
+        style="top:56.1%; left:26.6%; width:5.4%; text-align: right"
+        placeholder="*"
+      />
       <!--    =============================================-->
 
       <textarea
+        [formControl]="form.controls.pomucky"
         class="field textarea"
         style="top:62%; left:13.9%; width:18.1%; height:167px;"
         placeholder="Pomůcky..."
@@ -560,6 +840,7 @@ import { CharacterSheetFormModelMappers } from './character-sheet-form-model-map
       color: white;
       cursor: pointer;
       text-decoration: underline;
+
       &:hover {
         text-decoration: none;
       }
@@ -592,6 +873,18 @@ import { CharacterSheetFormModelMappers } from './character-sheet-form-model-map
 
     .textarea {
       resize: none;
+    }
+
+    .main-skill {
+      font-family: 'Mikadan', sans-serif;
+      color: rgba(4, 61, 230, 0.78);
+      font-size: 22px;
+    }
+    .dead-throw-success {
+      accent-color: green;
+    }
+    .dead-throw-fail {
+      accent-color: red;
     }
   `,
   providers: [CharacterSheetStore],
@@ -739,6 +1032,74 @@ export class CharacterSheetComponent {
       zastrasovaniZdatnost: this.fb.control(''),
       zastrasovani: this.fb.control(''),
     }),
+    pomucky: this.fb.control(''),
+    weaponsForm: this.fb.group<WeaponsForm>({
+      zbran1: this.fb.control(''),
+      zbran1Bonus: this.fb.control(''),
+      zbran1Zasah: this.fb.control(''),
+      zbran1Typ: this.fb.control(''),
+      zbran1Dosah: this.fb.control(''),
+      zbran1Oc: this.fb.control(''),
+
+      zbran2: this.fb.control(''),
+      zbran2Bonus: this.fb.control(''),
+      zbran2Zasah: this.fb.control(''),
+      zbran2Typ: this.fb.control(''),
+      zbran2Dosah: this.fb.control(''),
+      zbran2Oc: this.fb.control(''),
+
+      zbran3: this.fb.control(''),
+      zbran3Bonus: this.fb.control(''),
+      zbran3Zasah: this.fb.control(''),
+      zbran3Typ: this.fb.control(''),
+      zbran3Dosah: this.fb.control(''),
+      zbran3Oc: this.fb.control(''),
+
+      zbran4: this.fb.control(''),
+      zbran4Bonus: this.fb.control(''),
+      zbran4Zasah: this.fb.control(''),
+      zbran4Typ: this.fb.control(''),
+      zbran4Dosah: this.fb.control(''),
+      zbran4Oc: this.fb.control(''),
+
+      zbran5: this.fb.control(''),
+      zbran5Bonus: this.fb.control(''),
+      zbran5Zasah: this.fb.control(''),
+      zbran5Typ: this.fb.control(''),
+      zbran5Dosah: this.fb.control(''),
+      zbran5Oc: this.fb.control(''),
+
+      zdatnostJednoduche: this.fb.control(''),
+      zdatnostValecne: this.fb.control(''),
+      dalsiZdatnosti: this.fb.control(''),
+    }),
+    languagesForm: this.fb.group<LanguagesForm>({
+      jazyky: this.fb.control(''),
+      schopnosti: this.fb.control(''),
+    }),
+    inventoryForm: this.fb.group<InventoryForm>({
+      penize: this.fb.control(''),
+      radek1: this.fb.control(''),
+      radek2: this.fb.control(''),
+      radek3: this.fb.control(''),
+      radek4: this.fb.control(''),
+      radek5: this.fb.control(''),
+      radek6: this.fb.control(''),
+      radek7: this.fb.control(''),
+      radek8: this.fb.control(''),
+      radek9: this.fb.control(''),
+      radek10: this.fb.control(''),
+      radek11: this.fb.control(''),
+      radek12: this.fb.control(''),
+      radek13: this.fb.control(''),
+      radek14: this.fb.control(''),
+      radek15: this.fb.control(''),
+      radek16: this.fb.control(''),
+      radek17: this.fb.control(''),
+      radek18: this.fb.control(''),
+      radek19: this.fb.control(''),
+      radek20: this.fb.control(''),
+    }),
   });
 
   get topInfoControls() {
@@ -767,6 +1128,26 @@ export class CharacterSheetComponent {
 
   get spellsAndAlchemistChestControls() {
     return this.form.controls.spellsAndAlchemistChestForm.controls;
+  }
+
+  get main6SkillsControls() {
+    return this.form.controls.main6SkillsForm.controls;
+  }
+
+  get abilitiesControls() {
+    return this.form.controls.abilitiesForm.controls;
+  }
+
+  get weaponsControls() {
+    return this.form.controls.weaponsForm.controls;
+  }
+
+  get languagesControls() {
+    return this.form.controls.languagesForm.controls;
+  }
+
+  get inventoryControls() {
+    return this.form.controls.inventoryForm.controls;
   }
 
   constructor() {

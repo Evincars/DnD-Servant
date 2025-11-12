@@ -14,6 +14,10 @@ export type CharacterSheetForm = {
   spellsAndAlchemistChestForm: FormGroup<SpellsAndAlchemistChestForm>;
   main6SkillsForm: FormGroup<Main6SkillsForm>;
   abilitiesForm: FormGroup<AbilitiesForm>;
+  pomucky: FormControl<string | undefined>;
+  weaponsForm: FormGroup<WeaponsForm>;
+  languagesForm: FormGroup<LanguagesForm>;
+  inventoryForm: FormGroup<InventoryForm>;
 };
 
 export type TopInfoForm = {
@@ -158,6 +162,77 @@ export type AbilitiesForm = {
   zastrasovani: FormControl<string | undefined>;
 };
 
+export type WeaponsForm = {
+  zbran1: FormControl<string | undefined>;
+  zbran1Bonus: FormControl<string | undefined>;
+  zbran1Zasah: FormControl<string | undefined>;
+  zbran1Typ: FormControl<string | undefined>;
+  zbran1Dosah: FormControl<string | undefined>;
+  zbran1Oc: FormControl<string | undefined>;
+
+  zbran2: FormControl<string | undefined>;
+  zbran2Bonus: FormControl<string | undefined>;
+  zbran2Zasah: FormControl<string | undefined>;
+  zbran2Typ: FormControl<string | undefined>;
+  zbran2Dosah: FormControl<string | undefined>;
+  zbran2Oc: FormControl<string | undefined>;
+
+  zbran3: FormControl<string | undefined>;
+  zbran3Bonus: FormControl<string | undefined>;
+  zbran3Zasah: FormControl<string | undefined>;
+  zbran3Typ: FormControl<string | undefined>;
+  zbran3Dosah: FormControl<string | undefined>;
+  zbran3Oc: FormControl<string | undefined>;
+
+  zbran4: FormControl<string | undefined>;
+  zbran4Bonus: FormControl<string | undefined>;
+  zbran4Zasah: FormControl<string | undefined>;
+  zbran4Typ: FormControl<string | undefined>;
+  zbran4Dosah: FormControl<string | undefined>;
+  zbran4Oc: FormControl<string | undefined>;
+
+  zbran5: FormControl<string | undefined>;
+  zbran5Bonus: FormControl<string | undefined>;
+  zbran5Zasah: FormControl<string | undefined>;
+  zbran5Typ: FormControl<string | undefined>;
+  zbran5Dosah: FormControl<string | undefined>;
+  zbran5Oc: FormControl<string | undefined>;
+
+  zdatnostJednoduche: FormControl<string | undefined>;
+  zdatnostValecne: FormControl<string | undefined>;
+  dalsiZdatnosti: FormControl<string | undefined>;
+};
+
+export type LanguagesForm = {
+  jazyky: FormControl<string | undefined>;
+  schopnosti: FormControl<string | undefined>;
+};
+
+export type InventoryForm = {
+  penize: FormControl<string | undefined>;
+
+  radek1: FormControl<string | undefined>;
+  radek2: FormControl<string | undefined>;
+  radek3: FormControl<string | undefined>;
+  radek4: FormControl<string | undefined>;
+  radek5: FormControl<string | undefined>;
+  radek6: FormControl<string | undefined>;
+  radek7: FormControl<string | undefined>;
+  radek8: FormControl<string | undefined>;
+  radek9: FormControl<string | undefined>;
+  radek10: FormControl<string | undefined>;
+  radek11: FormControl<string | undefined>;
+  radek12: FormControl<string | undefined>;
+  radek13: FormControl<string | undefined>;
+  radek14: FormControl<string | undefined>;
+  radek15: FormControl<string | undefined>;
+  radek16: FormControl<string | undefined>;
+  radek17: FormControl<string | undefined>;
+  radek18: FormControl<string | undefined>;
+  radek19: FormControl<string | undefined>;
+  radek20: FormControl<string | undefined>;
+};
+
 // ========== API Model ==========
 export type CharacterSheetApiModel = {
   username: string;
@@ -233,5 +308,135 @@ export type CharacterSheetApiModel = {
     vlastnost: string;
     utBonus: string;
     soZachrany: string;
+  };
+  main6SkillsForm: {
+    silaOprava: string;
+    sila: string;
+    obratnostOprava: string;
+    obratnost: string;
+    odolnostOprava: string;
+    odolnost: string;
+    inteligenceOprava: string;
+    inteligence: string;
+    moudrostOprava: string;
+    moudrost: string;
+    charismaOprava: string;
+    charisma: string;
+  };
+  abilitiesForm: {
+    // Sila
+    atletikaZdatnost: string;
+    atletika: string;
+
+    // Obratnost
+    akrobacieZdatnost: string;
+    akrobacie: string;
+    cachryZdatnost: string;
+    cachry: string;
+    nenapadnostZdatnost: string;
+    nenapadnost: string;
+
+    // Inteligence
+    historieZdatnost: string;
+    historie: string;
+    mystikaZdatnost: string;
+    mystika: string;
+    nabozenstviZdatnost: string;
+    nabozenstvi: string;
+    patraniZdatnost: string;
+    patrani: string;
+    prirodaZdatnost: string;
+    priroda: string;
+
+    // Moudrost
+    lekarstviZdatnost: string;
+    lekarstvi: string;
+    ovladaniZviratZdatnost: string;
+    ovladaniZvirat: string;
+    prezitiZdatnost: string;
+    preziti: string;
+    vhledZdatnost: string;
+    vhled: string;
+    vnimaniZdatnost: string;
+    vnimani: string;
+
+    // Charisma
+    klamaniZdatnost: string;
+    klamani: string;
+    presvedcovaniZdatnost: string;
+    presvedcovani: string;
+    vystupovaniZdatnost: string;
+    vystupovani: string;
+    zastrasovaniZdatnost: string;
+    zastrasovani: string;
+  };
+  pomucky: string | undefined;
+  weaponsForm: {
+    zbran1: string;
+    zbran1Bonus: string;
+    zbran1Zasah: string;
+    zbran1Typ: string;
+    zbran1Dosah: string;
+    zbran1Oc: string;
+
+    zbran2: string;
+    zbran2Bonus: string;
+    zbran2Zasah: string;
+    zbran2Typ: string;
+    zbran2Dosah: string;
+    zbran2Oc: string;
+
+    zbran3: string;
+    zbran3Bonus: string;
+    zbran3Zasah: string;
+    zbran3Typ: string;
+    zbran3Dosah: string;
+    zbran3Oc: string;
+
+    zbran4: string;
+    zbran4Bonus: string;
+    zbran4Zasah: string;
+    zbran4Typ: string;
+    zbran4Dosah: string;
+    zbran4Oc: string;
+
+    zbran5: string;
+    zbran5Bonus: string;
+    zbran5Zasah: string;
+    zbran5Typ: string;
+    zbran5Dosah: string;
+    zbran5Oc: string;
+
+    zdatnostJednoduche: string;
+    zdatnostValecne: string;
+    dalsiZdatnosti: string;
+  };
+  languagesForm: {
+    jazyky: string;
+    schopnosti: string;
+  };
+  inventoryForm: {
+    penize: string;
+
+    radek1: string;
+    radek2: string;
+    radek3: string;
+    radek4: string;
+    radek5: string;
+    radek6: string;
+    radek7: string;
+    radek8: string;
+    radek9: string;
+    radek10: string;
+    radek11: string;
+    radek12: string;
+    radek13: string;
+    radek14: string;
+    radek15: string;
+    radek16: string;
+    radek17: string;
+    radek18: string;
+    radek19: string;
+    radek20: string;
   };
 };
