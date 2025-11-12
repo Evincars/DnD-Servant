@@ -9,6 +9,8 @@ import {
   SavingThrowsForm,
   PassiveSkillsForm,
   SpellsAndAlchemistChestForm,
+  Main6SkillsForm,
+  AbilitiesForm,
 } from '@dn-d-servant/character-sheet-util';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
@@ -675,6 +677,67 @@ export class CharacterSheetComponent {
       vlastnost: this.fb.control(''),
       utBonus: this.fb.control(''),
       soZachrany: this.fb.control(''),
+    }),
+    main6SkillsForm: this.fb.group<Main6SkillsForm>({
+      silaOprava: this.fb.control(''),
+      sila: this.fb.control(''),
+      obratnostOprava: this.fb.control(''),
+      obratnost: this.fb.control(''),
+      odolnostOprava: this.fb.control(''),
+      odolnost: this.fb.control(''),
+      inteligenceOprava: this.fb.control(''),
+      inteligence: this.fb.control(''),
+      moudrostOprava: this.fb.control(''),
+      moudrost: this.fb.control(''),
+      charismaOprava: this.fb.control(''),
+      charisma: this.fb.control(''),
+    }),
+    abilitiesForm: this.fb.group<AbilitiesForm>({
+      // Sila
+      atletikaZdatnost: this.fb.control(''),
+      atletika: this.fb.control(''),
+
+      // Obratnost
+      akrobacieZdatnost: this.fb.control(''),
+      akrobacie: this.fb.control(''),
+      cachryZdatnost: this.fb.control(''),
+      cachry: this.fb.control(''),
+      nenapadnostZdatnost: this.fb.control(''),
+      nenapadnost: this.fb.control(''),
+
+      // Inteligence
+      historieZdatnost: this.fb.control(''),
+      historie: this.fb.control(''),
+      mystikaZdatnost: this.fb.control(''),
+      mystika: this.fb.control(''),
+      nabozenstviZdatnost: this.fb.control(''),
+      nabozenstvi: this.fb.control(''),
+      patraniZdatnost: this.fb.control(''),
+      patrani: this.fb.control(''),
+      prirodaZdatnost: this.fb.control(''),
+      priroda: this.fb.control(''),
+
+      // Moudrost
+      lekarstviZdatnost: this.fb.control(''),
+      lekarstvi: this.fb.control(''),
+      ovladaniZviratZdatnost: this.fb.control(''),
+      ovladaniZvirat: this.fb.control(''),
+      prezitiZdatnost: this.fb.control(''),
+      preziti: this.fb.control(''),
+      vhledZdatnost: this.fb.control(''),
+      vhled: this.fb.control(''),
+      vnimaniZdatnost: this.fb.control(''),
+      vnimani: this.fb.control(''),
+
+      // Charisma
+      klamaniZdatnost: this.fb.control(''),
+      klamani: this.fb.control(''),
+      presvedcovaniZdatnost: this.fb.control(''),
+      presvedcovani: this.fb.control(''),
+      vystupovaniZdatnost: this.fb.control(''),
+      vystupovani: this.fb.control(''),
+      zastrasovaniZdatnost: this.fb.control(''),
+      zastrasovani: this.fb.control(''),
     }),
   });
 

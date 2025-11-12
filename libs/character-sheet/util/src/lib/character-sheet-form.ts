@@ -12,6 +12,8 @@ export type CharacterSheetForm = {
   savingThrowsForm: FormGroup<SavingThrowsForm>;
   passiveSkillsForm: FormGroup<PassiveSkillsForm>;
   spellsAndAlchemistChestForm: FormGroup<SpellsAndAlchemistChestForm>;
+  main6SkillsForm: FormGroup<Main6SkillsForm>;
+  abilitiesForm: FormGroup<AbilitiesForm>;
 };
 
 export type TopInfoForm = {
@@ -93,7 +95,7 @@ export type SpellsAndAlchemistChestForm = {
   soZachrany: FormControl<string | undefined>;
 };
 
-export type Main6Skills = {
+export type Main6SkillsForm = {
   silaOprava: FormControl<string | undefined>;
   sila: FormControl<string | undefined>;
   obratnostOprava: FormControl<string | undefined>;
@@ -108,7 +110,53 @@ export type Main6Skills = {
   charisma: FormControl<string | undefined>;
 };
 
-export type Abilities = {};
+export type AbilitiesForm = {
+  // Sila
+  atletikaZdatnost: FormControl<string | undefined>;
+  atletika: FormControl<string | undefined>;
+
+  // Obratnost
+  akrobacieZdatnost: FormControl<string | undefined>;
+  akrobacie: FormControl<string | undefined>;
+  cachryZdatnost: FormControl<string | undefined>;
+  cachry: FormControl<string | undefined>;
+  nenapadnostZdatnost: FormControl<string | undefined>;
+  nenapadnost: FormControl<string | undefined>;
+
+  // Inteligence
+  historieZdatnost: FormControl<string | undefined>;
+  historie: FormControl<string | undefined>;
+  mystikaZdatnost: FormControl<string | undefined>;
+  mystika: FormControl<string | undefined>;
+  nabozenstviZdatnost: FormControl<string | undefined>;
+  nabozenstvi: FormControl<string | undefined>;
+  patraniZdatnost: FormControl<string | undefined>;
+  patrani: FormControl<string | undefined>;
+  prirodaZdatnost: FormControl<string | undefined>;
+  priroda: FormControl<string | undefined>;
+
+  // Moudrost
+  lekarstviZdatnost: FormControl<string | undefined>;
+  lekarstvi: FormControl<string | undefined>;
+  ovladaniZviratZdatnost: FormControl<string | undefined>;
+  ovladaniZvirat: FormControl<string | undefined>;
+  prezitiZdatnost: FormControl<string | undefined>;
+  preziti: FormControl<string | undefined>;
+  vhledZdatnost: FormControl<string | undefined>;
+  vhled: FormControl<string | undefined>;
+  vnimaniZdatnost: FormControl<string | undefined>;
+  vnimani: FormControl<string | undefined>;
+
+  // Charisma
+  klamaniZdatnost: FormControl<string | undefined>;
+  klamani: FormControl<string | undefined>;
+  presvedcovaniZdatnost: FormControl<string | undefined>;
+  presvedcovani: FormControl<string | undefined>;
+  vystupovaniZdatnost: FormControl<string | undefined>;
+  vystupovani: FormControl<string | undefined>;
+  zastrasovaniZdatnost: FormControl<string | undefined>;
+  zastrasovani: FormControl<string | undefined>;
+};
 
 // ========== API Model ==========
 export type CharacterSheetApiModel = {
