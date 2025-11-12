@@ -11,6 +11,7 @@ import { appInitializer } from '@dn-d-servant/data-access';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAuth, getAuth } from '@angular/fire/auth';
+import { REALTIME_DB_URL_TOKEN } from '@dn-d-servant/util';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBP2KgMhqhfppDZHju6osE6gwtiq1WXFLo',
@@ -34,6 +35,10 @@ export const appConfig: ApplicationConfig = {
     {
       provide: MAT_ICON_DEFAULT_OPTIONS,
       useValue: { fontSet: 'material-symbols-outlined' } satisfies MatIconDefaultOptions,
+    },
+    {
+      provide: REALTIME_DB_URL_TOKEN,
+      useValue: 'https://dnd-servant-default-rtdb.europe-west1.firebasedatabase.app/',
     },
   ],
 };

@@ -17,3 +17,16 @@ export type TopInfoForm = {
   zkusenosti: FormControl<string | undefined>;
   hrac: FormControl<string | undefined>;
 };
+
+export type CharacterSheetApiModel = {
+  topInfo: {
+    rasa?: string;
+    povolani?: string;
+    zazemi?: string;
+    presvedceni?: string;
+    jmenoPostavy?: string;
+    uroven?: string;
+    zkusenosti?: string;
+    hrac?: string;
+  };
+};

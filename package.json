@@ -17,6 +17,8 @@
     "@angular/platform-browser": "~20.3.0",
     "@angular/platform-browser-dynamic": "~20.3.0",
     "@angular/router": "~20.3.0",
+    "@ngrx/operators": "^20.1.0",
+    "@ngrx/signals": "^20.1.0",
     "@types/deep-equal": "^1.0.4",
     "@types/object-path": "^0.11.4",
     "clean-deep": "^3.4.0",

@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { CharacterSheetForm, TopInfoForm } from './character-sheet-form';
+import { CharacterSheetForm, TopInfoForm } from '../../../util/src/lib/character-sheet-form';
+import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 
 @Component({
   selector: 'character-sheet',
@@ -306,10 +307,13 @@ import { CharacterSheetForm, TopInfoForm } from './character-sheet-form';
       resize: none;
     }
   `,
+  providers: [CharacterSheetStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule],
 })
 export class CharacterSheetComponent {
+  characterSheetStore = inject(CharacterSheetStore);
+
   fb = new FormBuilder().nonNullable;
   form = this.fb.group<CharacterSheetForm>({
     topInfo: this.fb.group<TopInfoForm>({
