@@ -87,29 +87,29 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
       <!--    Saving throws -->
       <input type="checkbox" class="field checkbox red-checkbox" style="top:31.5%; left:33.8%;" />
-      <input class="field" style="top:30.8%; left:42.3%; width:4.7%; text-align: center;" placeholder="SIL" />
+      <input class="field" style="top:30.8%; left:42.3%; width:4.7%; text-align: right;" placeholder="SIL" />
       <input type="checkbox" class="field checkbox red-checkbox" style="top:33%; left:33.8%;" />
-      <input class="field" style="top:32.4%; left:42.3%; width:4.7%; text-align: center;" placeholder="OBR" />
+      <input class="field" style="top:32.4%; left:42.3%; width:4.7%; text-align: right;" placeholder="OBR" />
       <input type="checkbox" class="field checkbox red-checkbox" style="top:34.6%; left:33.8%;" />
-      <input class="field" style="top:34%; left:42.3%; width:4.7%; text-align: center;" placeholder="ODL" />
+      <input class="field" style="top:34%; left:42.3%; width:4.7%; text-align: right;" placeholder="ODL" />
       <input type="checkbox" class="field checkbox red-checkbox" style="top:36.2%; left:33.8%;" />
-      <input class="field" style="top:35.6%; left:42.3%; width:4.7%; text-align: center;" placeholder="INT" />
+      <input class="field" style="top:35.6%; left:42.3%; width:4.7%; text-align: right;" placeholder="INT" />
       <input type="checkbox" class="field checkbox red-checkbox" style="top:37.7%; left:33.8%;" />
-      <input class="field" style="top:37.2%; left:42.3%; width:4.7%; text-align: center;" placeholder="MDR" />
+      <input class="field" style="top:37.2%; left:42.3%; width:4.7%; text-align: right;" placeholder="MDR" />
       <input type="checkbox" class="field checkbox red-checkbox" style="top:39.3%; left:33.8%;" />
-      <input class="field" style="top:38.7%; left:42.3%; width:4.7%; text-align: center;" placeholder="CHA" />
+      <input class="field" style="top:38.7%; left:42.3%; width:4.7%; text-align: right;" placeholder="CHA" />
 
       <!--    passive skills -->
       <input type="checkbox" class="field checkbox red-checkbox" style="top:31.5%; left:48.1%;" />
-      <input class="field" style="top:30.8%; left:56.7%; width:4.7%; text-align: center;" placeholder="ATL" />
+      <input class="field" style="top:30.8%; left:56.7%; width:4.7%; text-align: right;" placeholder="ATL" />
       <input type="checkbox" class="field checkbox red-checkbox" style="top:33%; left:48.1%;" />
-      <input class="field" style="top:32.4%; left:56.7%; width:4.7%; text-align: center;" placeholder="AKR" />
+      <input class="field" style="top:32.4%; left:56.7%; width:4.7%; text-align: right;" placeholder="AKR" />
       <input type="checkbox" class="field checkbox red-checkbox" style="top:34.6%; left:48.1%;" />
-      <input class="field" style="top:34%; left:56.7%; width:4.7%; text-align: center;" placeholder="NEN" />
+      <input class="field" style="top:34%; left:56.7%; width:4.7%; text-align: right;" placeholder="NEN" />
       <input type="checkbox" class="field checkbox red-checkbox" style="top:36.2%; left:48.1%;" />
-      <input class="field" style="top:35.6%; left:56.7%; width:4.7%; text-align: center;" placeholder="VHL" />
+      <input class="field" style="top:35.6%; left:56.7%; width:4.7%; text-align: right;" placeholder="VHL" />
       <input type="checkbox" class="field checkbox red-checkbox" style="top:37.7%; left:48.1%;" />
-      <input class="field" style="top:37.2%; left:56.7%; width:4.7%; text-align: center;" placeholder="VNI" />
+      <input class="field" style="top:37.2%; left:56.7%; width:4.7%; text-align: right;" placeholder="VNI" />
       <!--    <input type="checkbox" class="field checkbox" style="top:39.3%; left:48.1%;" />-->
       <!--    <input class="field" style="top:38.7%; left:56.7%; width:4.7%; text-align: center;" placeholder="-" />-->
 
@@ -134,44 +134,44 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       <!--    =============================================-->
       <!--    detailed skills-->
       <input id="atletikaZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:22.8%; left:13.9%;" />
-      <input id="atletika" class="field" style="top:22.2%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="atletika" class="field" style="top:22.2%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
       <input id="akrobacieZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:26%; left:13.9%;" />
-      <input id="akrobacie" class="field" style="top:25.4%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="akrobacie" class="field" style="top:25.4%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
       <input id="cachryZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:27.5%; left:13.9%;" />
-      <input id="cachry" class="field" style="top:27%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="cachry" class="field" style="top:27%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
       <input id="nenapadnostZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:29.1%; left:13.9%;" />
-      <input id="nenapadnost" class="field" style="top:28.6%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="nenapadnost" class="field" style="top:28.6%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
 
       <input id="historieZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:32.6%; left:13.9%;" />
-      <input id="historie" class="field" style="top:32%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="historie" class="field" style="top:32%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
       <input id="mystikaZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:34.1%; left:13.9%;" />
-      <input id="mystika" class="field" style="top:33.6%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="mystika" class="field" style="top:33.6%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
       <input id="nabozenstviZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:35.7%; left:13.9%;" />
-      <input id="nabozenstvi" class="field" style="top:35.2%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="nabozenstvi" class="field" style="top:35.2%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
       <input id="patraniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:37.3%; left:13.9%;" />
-      <input id="patrani" class="field" style="top:36.7%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="patrani" class="field" style="top:36.7%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
       <input id="prirodaZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:38.8%; left:13.9%;" />
-      <input id="priroda" class="field" style="top:38.3%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="priroda" class="field" style="top:38.3%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
 
       <input id="lekarstviZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:42.3%; left:13.9%;" />
-      <input id="lekarstvi" class="field" style="top:41.7%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="lekarstvi" class="field" style="top:41.7%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
       <input id="ovladaniZviratZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:43.8%; left:13.9%;" />
-      <input id="ovladaniZvirat" class="field" style="top:43.3%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="ovladaniZvirat" class="field" style="top:43.3%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
       <input id="prezitiZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:45.4%; left:13.9%;" />
-      <input id="preziti" class="field" style="top:44.8%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="preziti" class="field" style="top:44.8%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
       <input id="vhledZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:46.9%; left:13.9%;" />
-      <input id="vhled" class="field" style="top:46.4%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="vhled" class="field" style="top:46.4%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
       <input id="vnimaniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:48.5%; left:13.9%;" />
-      <input id="vnimani" class="field" style="top:48%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="vnimani" class="field" style="top:48%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
 
       <input id="klamaniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:52%; left:13.9%;" />
-      <input id="klamani" class="field" style="top:51.4%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="klamani" class="field" style="top:51.4%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
       <input id="presvedcovaniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:53.5%; left:13.9%;" />
-      <input id="presvedcovani" class="field" style="top:53%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="presvedcovani" class="field" style="top:53%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
       <input id="vystupovaniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:55.1%; left:13.9%;" />
-      <input id="vystupovani" class="field" style="top:54.6%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="vystupovani" class="field" style="top:54.6%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
       <input id="zastrasovaniZdatnost" type="checkbox" class="field checkbox red-checkbox" style="top:56.7%; left:13.9%;" />
-      <input id="zastrasovani" class="field" style="top:56.1%; left:26.6%; width:5.4%; text-align: center" placeholder="*" />
+      <input id="zastrasovani" class="field" style="top:56.1%; left:26.6%; width:5.4%; text-align: right" placeholder="*" />
       <!--    =============================================-->
 
       <textarea
@@ -339,9 +339,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class CharacterSheetComponent implements OnInit {
   characterSheetStore = inject(CharacterSheetStore);
-  characterSheetApiService = inject(CharacterSheetApiService);
   authService = inject(AuthService);
-  destroyRef = inject(DestroyRef);
 
   infoMessage = signal('');
   fb = new FormBuilder().nonNullable;
@@ -372,20 +370,7 @@ export class CharacterSheetComponent implements OnInit {
       );
       request.username = this.authService.currentUser()!.username;
 
-      console.log('exists', this.characterSheetApiService.getCharacterSheetByUsername(request.username));
-
-      this.characterSheetApiService
-        .addCharacterSheet(request)
-        .pipe(
-          takeUntilDestroyed(this.destroyRef),
-          catchError(error => {
-            this.infoMessage.set('Chyba při ukládání postavy: ' + error.message);
-            return of(null);
-          }),
-        )
-        .subscribe(response => {
-          console.log('Save response:', response);
-        });
+      this.characterSheetStore.saveCharacterSheet(request);
     } else {
       this.infoMessage.set('Pro uložení postavy se musíte přihlásit.');
     }
