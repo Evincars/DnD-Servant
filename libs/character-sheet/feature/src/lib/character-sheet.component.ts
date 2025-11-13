@@ -459,6 +459,31 @@ import { NgClass } from '@angular/common';
 
       <input id="level-9-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:655px;" />
 
+      <!--      Alchemist chest-->
+      <input id="chest-usage-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:692px;" />
+      <input id="chest-usage-2" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:716px;" />
+      <input id="chest-usage-3" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:738px;" />
+      <input id="chest-usage-4" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:761px;" />
+      <input id="chest-usage-5" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:784px;" />
+
+      <input id="chest-usage-6" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:692px;" />
+      <input id="chest-usage-7" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:716px;" />
+      <input id="chest-usage-8" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:738px;" />
+      <input id="chest-usage-9" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:761px;" />
+      <input id="chest-usage-10" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:784px;" />
+
+      <input id="chest-usage-11" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:692px;" />
+      <input id="chest-usage-12" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:716px;" />
+      <input id="chest-usage-13" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:738px;" />
+      <input id="chest-usage-14" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:761px;" />
+      <input id="chest-usage-15" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:784px;" />
+
+      <input id="chest-usage-16" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:953px; left:692px;" />
+      <input id="chest-usage-17" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:953px; left:716px;" />
+      <input id="chest-usage-18" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:953px; left:738px;" />
+      <input id="chest-usage-19" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:953px; left:761px;" />
+      <input id="chest-usage-20" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:953px; left:784px;" />
+
       <!--    main 6 skills-->
       <input
         [formControl]="main6SkillsControls.silaOprava"
