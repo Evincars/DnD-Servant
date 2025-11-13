@@ -432,7 +432,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         class="field"
         type="number"
         style="top:913px; left:645px; width:45px; font-size: 13px;"
-        placeholder="S"
+        placeholder="S*"
       />
       <p
         class="label"
@@ -449,7 +449,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         class="field"
         type="number"
         style="top:938px; left:645px; width:45px; font-size: 13px;"
-        placeholder="S"
+        placeholder="Č*"
       />
       <p
         class="label"
@@ -466,7 +466,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         class="field"
         type="number"
         style="top:963px; left:645px; width:45px; font-size: 13px;"
-        placeholder="S"
+        placeholder="A*"
       />
 
       <input
