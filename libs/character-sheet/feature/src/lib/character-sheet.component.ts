@@ -1002,7 +1002,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek1"
         [ngClass]="this.inventoryClasses()[0]"
         id="inventoryItemRow1"
-        class="field"
+        class="field inventory-item"
         style="top:76.4%; left:5.2%; width:19.4%"
         placeholder="*"
       />
@@ -1010,7 +1010,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek2"
         [ngClass]="this.inventoryClasses()[1]"
         id="inventoryItemRow2"
-        class="field"
+        class="field inventory-item"
         style="top:78.4%; left:5.2%; width:19.4%"
         placeholder="*"
       />
@@ -1018,7 +1018,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek3"
         [ngClass]="this.inventoryClasses()[2]"
         id="inventoryItemRow3"
-        class="field"
+        class="field inventory-item"
         style="top:80.5%; left:5.2%; width:19.4%"
         placeholder="*"
       />
@@ -1026,7 +1026,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek4"
         [ngClass]="this.inventoryClasses()[3]"
         id="inventoryItemRow4"
-        class="field"
+        class="field inventory-item"
         style="top:82.6%; left:5.2%; width:19.4%"
         placeholder="*"
       />
@@ -1034,7 +1034,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek5"
         [ngClass]="this.inventoryClasses()[4]"
         id="inventoryItemRow5"
-        class="field"
+        class="field inventory-item"
         style="top:84.7%; left:5.2%; width:19.4%"
         placeholder="*"
       />
@@ -1042,7 +1042,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek6"
         [ngClass]="this.inventoryClasses()[5]"
         id="inventoryItemRow6"
-        class="field"
+        class="field inventory-item"
         style="top:86.8%; left:5.2%; width:19.4%"
         placeholder="*"
       />
@@ -1050,7 +1050,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek7"
         [ngClass]="this.inventoryClasses()[6]"
         id="inventoryItemRow7"
-        class="field"
+        class="field inventory-item"
         style="top:88.9%; left:5.2%; width:19.4%"
         placeholder="*"
       />
@@ -1058,7 +1058,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek8"
         [ngClass]="this.inventoryClasses()[7]"
         id="inventoryItemRow8"
-        class="field"
+        class="field inventory-item"
         style="top:91.0%; left:5.2%; width:19.4%"
         placeholder="*"
       />
@@ -1066,7 +1066,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek9"
         [ngClass]="this.inventoryClasses()[8]"
         id="inventoryItemRow9"
-        class="field"
+        class="field inventory-item"
         style="top:93.1%; left:5.2%; width:19.4%"
         placeholder="*"
       />
@@ -1074,7 +1074,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek10"
         [ngClass]="this.inventoryClasses()[9]"
         id="inventoryItemRow10"
-        class="field"
+        class="field inventory-item"
         style="top:95.2%; left:5.2%; width:19.4%"
         placeholder="*"
       />
@@ -1084,7 +1084,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek11"
         [ngClass]="this.inventoryClasses()[10]"
         id="inventoryItemRow11"
-        class="field"
+        class="field inventory-item"
         style="top:76.4%; left:26.9%; width:19.4%"
         placeholder="*"
       />
@@ -1092,7 +1092,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek12"
         [ngClass]="this.inventoryClasses()[11]"
         id="inventoryItemRow12"
-        class="field"
+        class="field inventory-item"
         style="top:78.4%; left:26.9%; width:19.4%"
         placeholder="*"
       />
@@ -1100,7 +1100,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek13"
         [ngClass]="this.inventoryClasses()[12]"
         id="inventoryItemRow13"
-        class="field"
+        class="field inventory-item"
         style="top:80.5%; left:26.9%; width:19.4%"
         placeholder="*"
       />
@@ -1108,7 +1108,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek14"
         [ngClass]="this.inventoryClasses()[13]"
         id="inventoryItemRow14"
-        class="field"
+        class="field inventory-item"
         style="top:82.6%; left:26.9%; width:19.4%"
         placeholder="*"
       />
@@ -1116,7 +1116,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek15"
         [ngClass]="this.inventoryClasses()[14]"
         id="inventoryItemRow15"
-        class="field"
+        class="field inventory-item"
         style="top:84.7%; left:26.9%; width:19.4%"
         placeholder="*"
       />
@@ -1124,7 +1124,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek16"
         [ngClass]="this.inventoryClasses()[15]"
         id="inventoryItemRow16"
-        class="field"
+        class="field inventory-item"
         style="top:86.8%; left:26.9%; width:19.4%"
         placeholder="*"
       />
@@ -1132,7 +1132,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek17"
         [ngClass]="this.inventoryClasses()[16]"
         id="inventoryItemRow17"
-        class="field"
+        class="field inventory-item"
         style="top:88.9%; left:26.9%; width:19.4%"
         placeholder="*"
       />
@@ -1140,7 +1140,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek18"
         [ngClass]="this.inventoryClasses()[17]"
         id="inventoryItemRow18"
-        class="field"
+        class="field inventory-item"
         style="top:91.0%; left:26.9%; width:19.4%"
         placeholder="*"
       />
@@ -1148,7 +1148,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek19"
         [ngClass]="this.inventoryClasses()[18]"
         id="inventoryItemRow19"
-        class="field"
+        class="field inventory-item"
         style="top:93.1%; left:26.9%; width:19.4%"
         placeholder="*"
       />
@@ -1156,7 +1156,7 @@ import { NgClass } from '@angular/common';
         [formControl]="inventoryControls.radek20"
         [ngClass]="this.inventoryClasses()[19]"
         id="inventoryItemRow20"
-        class="field"
+        class="field inventory-item"
         style="top:95.2%; left:26.9%; width:19.4%"
         placeholder="*"
       />
@@ -1247,16 +1247,20 @@ import { NgClass } from '@angular/common';
     .dead-throw-fail {
       accent-color: red;
     }
+    
+    .inventory-item {
+      font-size: 13px;
+    }
 
-    .lehke-nalozeni {
+    .soft-weight {
       background: #b4ffb4;
     }
 
-    .stredni-nalozeni {
+    .medium-weight {
       background: #f4d597;
     }
 
-    .tezke-nalozeni {
+    .heavy-weight {
       background: #ec9f9f;
     }
   `,
@@ -1560,11 +1564,11 @@ export class CharacterSheetComponent {
 
       inventoryClassesArray.forEach((x, i) => {
         if (i < softWeight) {
-          inventoryClassesArray[i] = 'lehke-nalozeni';
+          inventoryClassesArray[i] = 'soft-weight';
         } else if (i < mediumWeight) {
-          inventoryClassesArray[i] = 'stredni-nalozeni';
+          inventoryClassesArray[i] = 'medium-weight';
         } else if (i < heavyWeight) {
-          inventoryClassesArray[i] = 'tezke-nalozeni';
+          inventoryClassesArray[i] = 'heavy-weight';
         } else {
           inventoryClassesArray[i] = '';
         }
