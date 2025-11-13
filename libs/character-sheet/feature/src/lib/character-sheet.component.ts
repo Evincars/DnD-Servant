@@ -431,7 +431,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         matTooltipPosition="left"
         class="field"
         type="number"
-        style="top:913px; left:645px; width:45px; font-size: 13px"
+        style="top:913px; left:645px; width:45px; font-size: 13px;"
         placeholder="S"
       />
       <p
@@ -448,7 +448,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         matTooltipPosition="left"
         class="field"
         type="number"
-        style="top:963px; left:645px; width:45px; font-size: 13px"
+        style="top:938px; left:645px; width:45px; font-size: 13px;"
         placeholder="S"
       />
       <p
@@ -465,7 +465,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         matTooltipPosition="left"
         class="field"
         type="number"
-        style="top:938px; left:645px; width:45px; font-size: 13px"
+        style="top:963px; left:645px; width:45px; font-size: 13px;"
         placeholder="S"
       />
 
@@ -2142,9 +2142,25 @@ export class CharacterSheetComponent {
     this.spellSlotsControls.urovenSesilatele.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(level => {
       const levelNumber = parseInt(level ?? '0');
       console.log('level', level);
-      if (levelNumber === 1) {
-        console.log('jsem tu');
-        this.level1Slot1Input.nativeElement.disabled = true;
+
+      switch (levelNumber) {
+        case 1:
+          this._setSpellSlotsLevel1();
+          break;
+        case 2:
+          this._setSpellSlotsLevel2();
+          break;
+        case 3:
+          this._setSpellSlotsLevel3();
+          break;
+        case 4:
+          this._setSpellSlotsLevel4();
+          break;
+        case 5:
+          this._setSpellSlotsLevel5();
+          break;
+        default:
+          this._enableAllSpellSlotsInputs();
       }
     });
 
@@ -2210,6 +2226,69 @@ export class CharacterSheetComponent {
       }
     });
     this.inventoryClasses.set(inventoryClassesArray);
+  }
+
+  _setSpellSlotsLevel1() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level1Slot1Input.nativeElement.disabled = false;
+    this.level1Slot2Input.nativeElement.disabled = false;
+  }
+
+  _setSpellSlotsLevel2() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level1Slot1Input.nativeElement.disabled = false;
+    this.level1Slot2Input.nativeElement.disabled = false;
+    this.level1Slot3Input.nativeElement.disabled = false;
+  }
+
+  _setSpellSlotsLevel3() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level1Slot1Input.nativeElement.disabled = false;
+    this.level1Slot2Input.nativeElement.disabled = false;
+    this.level1Slot3Input.nativeElement.disabled = false;
+    this.level1Slot4Input.nativeElement.disabled = false;
+
+    this.level2Slot1Input.nativeElement.disabled = false;
+    this.level2Slot2Input.nativeElement.disabled = false;
+  }
+
+  _setSpellSlotsLevel4() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level1Slot1Input.nativeElement.disabled = false;
+    this.level1Slot2Input.nativeElement.disabled = false;
+    this.level1Slot3Input.nativeElement.disabled = false;
+    this.level1Slot4Input.nativeElement.disabled = false;
+
+    this.level2Slot1Input.nativeElement.disabled = false;
+    this.level2Slot2Input.nativeElement.disabled = false;
+    this.level2Slot3Input.nativeElement.disabled = false;
+  }
+
+  _setSpellSlotsLevel5() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level1Slot1Input.nativeElement.disabled = false;
+    this.level1Slot2Input.nativeElement.disabled = false;
+    this.level1Slot3Input.nativeElement.disabled = false;
+    this.level1Slot4Input.nativeElement.disabled = false;
+
+    this.level2Slot1Input.nativeElement.disabled = false;
+    this.level2Slot2Input.nativeElement.disabled = false;
+    this.level2Slot3Input.nativeElement.disabled = false;
+
+    this.level3Slot1Input.nativeElement.disabled = false;
+    this.level3Slot2Input.nativeElement.disabled = false;
+  }
+
+  _disableBlackPriestSpellSlotsInputs() {
+    this.level2Slot4Input.nativeElement.disabled = true;
+    this.level3Slot4Input.nativeElement.disabled = true;
+    this.level4Slot4Input.nativeElement.disabled = true;
+    this.level5Slot4Input.nativeElement.disabled = true;
   }
 
   _disableAllSpellSlotsInputs() {
