@@ -248,6 +248,24 @@ export class CharacterSheetFormModelMappers {
       'alchemistChestForm.chestUsage18': 'alchemistChestForm.chestUsage18',
       'alchemistChestForm.chestUsage19': 'alchemistChestForm.chestUsage19',
       'alchemistChestForm.chestUsage20': 'alchemistChestForm.chestUsage20',
+
+      //------------------ START OF SECOND PAGE ------------------
+      'secondPageForm.headerInfo.jmenoPostavy': 'secondPageForm.headerInfo.jmenoPostavy',
+      'secondPageForm.headerInfo.titulyAHodnosti': 'secondPageForm.headerInfo.titulyAHodnosti',
+
+      'secondPageForm.lookAndFeelForm.vek': 'secondPageForm.lookAndFeelForm.vek',
+      'secondPageForm.lookAndFeelForm.plet': 'secondPageForm.lookAndFeelForm.plet',
+      'secondPageForm.lookAndFeelForm.vyska': 'secondPageForm.lookAndFeelForm.vyska',
+      'secondPageForm.lookAndFeelForm.vlasy': 'secondPageForm.lookAndFeelForm.vlasy',
+      'secondPageForm.lookAndFeelForm.vaha': 'secondPageForm.lookAndFeelForm.vaha',
+      'secondPageForm.lookAndFeelForm.oci': 'secondPageForm.lookAndFeelForm.oci',
+      'secondPageForm.lookAndFeelForm.postava': 'secondPageForm.lookAndFeelForm.postava',
+      'secondPageForm.lookAndFeelForm.obleceniAVzezreni': 'secondPageForm.lookAndFeelForm.obleceniAVzezreni',
+      'secondPageForm.lookAndFeelForm.dojemAVystupovani': 'secondPageForm.lookAndFeelForm.dojemAVystupovani',
+
+      'secondPageForm.vztahy': 'secondPageForm.vztahy',
+      'secondPageForm.dalsiPoznamky1': 'secondPageForm.dalsiPoznamky1',
+      'secondPageForm.dalsiPoznamky2': 'secondPageForm.dalsiPoznamky2',
     },
   };
 }

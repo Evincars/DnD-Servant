@@ -12,7 +12,7 @@ import {
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import {
   CharacterSheetForm,
-  TopInfoForm,
+  HeaderInfoForm,
   AbilityBonusForm,
   SpeedAndHealingDicesForm,
   ArmorClassForm,
@@ -26,6 +26,7 @@ import {
   InventoryForm,
   SpellSlotsForm,
   AlchemistChestForm,
+  TopInfoForm,
 } from '@dn-d-servant/character-sheet-util';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
@@ -33,6 +34,7 @@ import { CharacterSheetFormModelMappers } from './character-sheet-form-model-map
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
 import { MatTooltip } from '@angular/material/tooltip';
+import { SecondPageComponent } from './second-page.component';
 
 @Component({
   selector: 'character-sheet',
@@ -1619,6 +1621,8 @@ import { MatTooltip } from '@angular/material/tooltip';
         placeholder="*"
       />
 
+      <second-page [form]="controls.secondPageForm" />
+
       <button (click)="onSaveClick()" class="field button" style="top:0.5%; left:77%; width:19.4%">
         Uložit character sheet [enter]
       </button>
@@ -1631,12 +1635,11 @@ import { MatTooltip } from '@angular/material/tooltip';
         }
       </p>
     </form>
-    <img src="character-sheet-2.png" alt="Character Sheet" height="1817" width="1293" />
   `,
   styleUrl: 'character-sheet.component.scss',
   providers: [CharacterSheetStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, NgClass, MatTooltip],
+  imports: [ReactiveFormsModule, NgClass, MatTooltip, SecondPageComponent],
 })
 export class CharacterSheetComponent {
   characterSheetStore = inject(CharacterSheetStore);
@@ -1968,7 +1971,12 @@ export class CharacterSheetComponent {
       chestUsage19: this.fb.control(''),
       chestUsage20: this.fb.control(''),
     }),
+    secondPageForm: SecondPageComponent.createForm(),
   });
+
+  get controls() {
+    return this.form.controls;
+  }
 
   get topInfoControls() {
     return this.form.controls.topInfo.controls;
