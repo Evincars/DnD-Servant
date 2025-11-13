@@ -14,6 +14,8 @@ import {
   WeaponsForm,
   LanguagesForm,
   InventoryForm,
+  SpellSlotsForm,
+  AlchemistChestForm,
 } from '@dn-d-servant/character-sheet-util';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
@@ -404,60 +406,196 @@ import { NgClass } from '@angular/common';
       />
 
       <!--      Spells slots / Alchemist chest-->
-      <input id="level-1-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:440px;" />
-      <input id="level-1-slot-2" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:440px;" />
-      <input id="level-1-slot-3" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:440px;" />
-      <input id="level-1-slot-4" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:953px; left:440px;" />
-
-      <input id="level-2-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:467px;" />
-      <input id="level-2-slot-2" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:467px;" />
-      <input id="level-2-slot-3" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:467px;" />
       <input
+        [formControl]="spellSlotsControls.level1Slot1"
+        id="level-1-slot-1"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:892px; left:440px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level1Slot2"
+        id="level-1-slot-2"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:912px; left:440px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level1Slot3"
+        id="level-1-slot-3"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:933px; left:440px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level1Slot4"
+        id="level-1-slot-4"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:953px; left:440px;"
+      />
+
+      <input
+        [formControl]="spellSlotsControls.level2Slot1"
+        id="level-2-slot-1"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:892px; left:467px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level2Slot2"
+        id="level-2-slot-2"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:912px; left:467px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level2Slot3"
+        id="level-2-slot-3"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:933px; left:467px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level2Slot4"
         id="level-2-slot-4"
         type="checkbox"
         class="field checkbox spell-slot-checkbox spell-slot-black-priest"
         style="top:953px; left:467px;"
       />
 
-      <input id="level-3-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:494px;" />
-      <input id="level-3-slot-2" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:494px;" />
-      <input id="level-3-slot-3" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:494px;" />
       <input
+        [formControl]="spellSlotsControls.level3Slot1"
+        id="level-3-slot-1"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:892px; left:494px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level3Slot2"
+        id="level-3-slot-2"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:912px; left:494px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level3Slot3"
+        id="level-3-slot-3"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:933px; left:494px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level3Slot4"
         id="level-3-slot-4"
         type="checkbox"
         class="field checkbox spell-slot-checkbox spell-slot-black-priest"
         style="top:953px; left:494px;"
       />
 
-      <input id="level-4-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:521px;" />
-      <input id="level-4-slot-2" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:521px;" />
-      <input id="level-4-slot-3" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:521px;" />
       <input
+        [formControl]="spellSlotsControls.level4Slot1"
+        id="level-4-slot-1"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:892px; left:521px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level4Slot2"
+        id="level-4-slot-2"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:912px; left:521px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level4Slot3"
+        id="level-4-slot-3"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:933px; left:521px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level4Slot4"
         id="level-4-slot-4"
         type="checkbox"
         class="field checkbox spell-slot-checkbox spell-slot-black-priest"
         style="top:953px; left:521px;"
       />
 
-      <input id="level-5-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:548px;" />
-      <input id="level-5-slot-2" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:548px;" />
-      <input id="level-5-slot-3" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:548px;" />
       <input
+        [formControl]="spellSlotsControls.level5Slot1"
+        id="level-5-slot-1"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:892px; left:548px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level5Slot2"
+        id="level-5-slot-2"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:912px; left:548px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level5Slot3"
+        id="level-5-slot-3"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:933px; left:548px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level5Slot4"
         id="level-5-slot-4"
         type="checkbox"
         class="field checkbox spell-slot-checkbox spell-slot-black-priest"
         style="top:953px; left:548px;"
       />
 
-      <input id="level-6-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:575px;" />
-      <input id="level-6-slot-2" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:575px;" />
+      <input
+        [formControl]="spellSlotsControls.level6Slot1"
+        id="level-6-slot-1"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:892px; left:575px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level6Slot2"
+        id="level-6-slot-2"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:912px; left:575px;"
+      />
 
-      <input id="level-7-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:601px;" />
-      <input id="level-7-slot-2" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:601px;" />
+      <input
+        [formControl]="spellSlotsControls.level7Slot1"
+        id="level-7-slot-1"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:892px; left:601px;"
+      />
+      <input
+        [formControl]="spellSlotsControls.level7Slot2"
+        id="level-7-slot-2"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:912px; left:601px;"
+      />
 
-      <input id="level-8-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:628px;" />
+      <input
+        [formControl]="spellSlotsControls.level8Slot1"
+        id="level-8-slot-1"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:892px; left:628px;"
+      />
 
-      <input id="level-9-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:655px;" />
+      <input
+        [formControl]="spellSlotsControls.level9Slot1"
+        id="level-9-slot-1"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:892px; left:655px;"
+      />
 
       <!--      Alchemist chest-->
       <input id="chest-usage-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:692px;" />
@@ -1579,6 +1717,69 @@ export class CharacterSheetComponent {
       radek19: this.fb.control(''),
       radek20: this.fb.control(''),
     }),
+    spellSlotsForm: this.fb.group<SpellSlotsForm>({
+      urovenSesilatele: this.fb.control(''),
+      urovenCernokneznika: this.fb.control(''),
+
+      level1Slot1: this.fb.control(''),
+      level1Slot2: this.fb.control(''),
+      level1Slot3: this.fb.control(''),
+      level1Slot4: this.fb.control(''),
+
+      level2Slot1: this.fb.control(''),
+      level2Slot2: this.fb.control(''),
+      level2Slot3: this.fb.control(''),
+      level2Slot4: this.fb.control(''),
+
+      level3Slot1: this.fb.control(''),
+      level3Slot2: this.fb.control(''),
+      level3Slot3: this.fb.control(''),
+      level3Slot4: this.fb.control(''),
+
+      level4Slot1: this.fb.control(''),
+      level4Slot2: this.fb.control(''),
+      level4Slot3: this.fb.control(''),
+      level4Slot4: this.fb.control(''),
+
+      level5Slot1: this.fb.control(''),
+      level5Slot2: this.fb.control(''),
+      level5Slot3: this.fb.control(''),
+      level5Slot4: this.fb.control(''),
+
+      level6Slot1: this.fb.control(''),
+      level6Slot2: this.fb.control(''),
+
+      level7Slot1: this.fb.control(''),
+      level7Slot2: this.fb.control(''),
+
+      level8Slot1: this.fb.control(''),
+
+      level9Slot1: this.fb.control(''),
+    }),
+    alchemistChestForm: this.fb.group<AlchemistChestForm>({
+      urovenAlchymisty: this.fb.control(''),
+
+      chestUsage1: this.fb.control(''),
+      chestUsage2: this.fb.control(''),
+      chestUsage3: this.fb.control(''),
+      chestUsage4: this.fb.control(''),
+      chestUsage5: this.fb.control(''),
+      chestUsage6: this.fb.control(''),
+      chestUsage7: this.fb.control(''),
+      chestUsage8: this.fb.control(''),
+      chestUsage9: this.fb.control(''),
+      chestUsage10: this.fb.control(''),
+      chestUsage11: this.fb.control(''),
+      chestUsage12: this.fb.control(''),
+      chestUsage13: this.fb.control(''),
+      chestUsage14: this.fb.control(''),
+      chestUsage15: this.fb.control(''),
+      chestUsage16: this.fb.control(''),
+      chestUsage17: this.fb.control(''),
+      chestUsage18: this.fb.control(''),
+      chestUsage19: this.fb.control(''),
+      chestUsage20: this.fb.control(''),
+    }),
   });
 
   get topInfoControls() {
@@ -1627,6 +1828,14 @@ export class CharacterSheetComponent {
 
   get inventoryControls() {
     return this.form.controls.inventoryForm.controls;
+  }
+
+  get spellSlotsControls() {
+    return this.form.controls.spellSlotsForm.controls;
+  }
+
+  get alchemistChestControls() {
+    return this.form.controls.alchemistChestForm.controls;
   }
 
   constructor() {

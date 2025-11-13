@@ -187,6 +187,67 @@ export class CharacterSheetFormModelMappers {
       'inventoryForm.radek18': 'inventoryForm.radek18',
       'inventoryForm.radek19': 'inventoryForm.radek19',
       'inventoryForm.radek20': 'inventoryForm.radek20',
+
+      // Spell slots
+      'spellSlotsForm.urovenSesilatele': 'spellSlotsForm.urovenSesilatele',
+      'spellSlotsForm.urovenCernokneznika': 'spellSlotsForm.urovenCernokneznika',
+      'spellSlotsForm.level1Slot1': 'spellSlotsForm.level1Slot1',
+      'spellSlotsForm.level1Slot2': 'spellSlotsForm.level1Slot2',
+      'spellSlotsForm.level1Slot3': 'spellSlotsForm.level1Slot3',
+      'spellSlotsForm.level1Slot4': 'spellSlotsForm.level1Slot4',
+
+      'spellSlotsForm.level2Slot1': 'spellSlotsForm.level2Slot1',
+      'spellSlotsForm.level2Slot2': 'spellSlotsForm.level2Slot2',
+      'spellSlotsForm.level2Slot3': 'spellSlotsForm.level2Slot3',
+      'spellSlotsForm.level2Slot4': 'spellSlotsForm.level2Slot4',
+
+      'spellSlotsForm.level3Slot1': 'spellSlotsForm.level3Slot1',
+      'spellSlotsForm.level3Slot2': 'spellSlotsForm.level3Slot2',
+      'spellSlotsForm.level3Slot3': 'spellSlotsForm.level3Slot3',
+      'spellSlotsForm.level3Slot4': 'spellSlotsForm.level3Slot4',
+
+      'spellSlotsForm.level4Slot1': 'spellSlotsForm.level4Slot1',
+      'spellSlotsForm.level4Slot2': 'spellSlotsForm.level4Slot2',
+      'spellSlotsForm.level4Slot3': 'spellSlotsForm.level4Slot3',
+      'spellSlotsForm.level4Slot4': 'spellSlotsForm.level4Slot4',
+
+      'spellSlotsForm.level5Slot1': 'spellSlotsForm.level5Slot1',
+      'spellSlotsForm.level5Slot2': 'spellSlotsForm.level5Slot2',
+      'spellSlotsForm.level5Slot3': 'spellSlotsForm.level5Slot3',
+      'spellSlotsForm.level5Slot4': 'spellSlotsForm.level5Slot4',
+
+      'spellSlotsForm.level6Slot1': 'spellSlotsForm.level6Slot1',
+      'spellSlotsForm.level6Slot2': 'spellSlotsForm.level6Slot2',
+
+      'spellSlotsForm.level7Slot1': 'spellSlotsForm.level7Slot1',
+      'spellSlotsForm.level7Slot2': 'spellSlotsForm.level7Slot2',
+
+      'spellSlotsForm.level8Slot1': 'spellSlotsForm.level8Slot1',
+
+      'spellSlotsForm.level9Slot1': 'spellSlotsForm.level9Slot1',
+
+      // Alchemist chest
+      'alchemistChestForm.urovenAlchymisty': 'alchemistChestForm.urovenAlchymisty',
+      'alchemistChestForm.chestUsage1': 'alchemistChestForm.chestUsage1',
+      'alchemistChestForm.chestUsage2': 'alchemistChestForm.chestUsage2',
+      'alchemistChestForm.chestUsage3': 'alchemistChestForm.chestUsage3',
+      'alchemistChestForm.chestUsage4': 'alchemistChestForm.chestUsage4',
+      'alchemistChestForm.chestUsage5': 'alchemistChestForm.chestUsage5',
+      'alchemistChestForm.chestUsage6': 'alchemistChestForm.chestUsage6',
+      'alchemistChestForm.chestUsage7': 'alchemistChestForm.chestUsage7',
+      'alchemistChestForm.chestUsage8': 'alchemistChestForm.chestUsage8',
+      'alchemistChestForm.chestUsage9': 'alchemistChestForm.chestUsage9',
+      'alchemistChestForm.chestUsage10': 'alchemistChestForm.chestUsage10',
+      'alchemistChestForm.chestUsage11': 'alchemistChestForm.chestUsage11',
+      'alchemistChestForm.chestUsage12': 'alchemistChestForm.chestUsage12',
+      'alchemistChestForm.chestUsage13': 'alchemistChestForm.chestUsage13',
+      'alchemistChestForm.chestUsage14': 'alchemistChestForm.chestUsage14',
+      'alchemistChestForm.chestUsage15': 'alchemistChestForm.chestUsage15',
+      'alchemistChestForm.chestUsage16': 'alchemistChestForm.chestUsage16',
+      'alchemistChestForm.chestUsage17': 'alchemistChestForm.chestUsage17',
+      'alchemistChestForm.chestUsage18': 'alchemistChestForm.chestUsage18',
+      'alchemistChestForm.chestUsage19': 'alchemistChestForm.chestUsage19',
+      'alchemistChestForm.chestUsage20': 'alchemistChestForm.chestUsage20',
     },
   };
 }
