@@ -971,20 +971,20 @@ import { NgClass } from '@angular/common';
         id="zdatnostSJednoduchymaZbranema"
         type="checkbox"
         class="field checkbox"
-        style="top:1249.09px; left:442.78px;"
+        style="top:1252px; left:442.78px;"
       />
       <input
         [formControl]="weaponsControls.zdatnostValecne"
         id="zdatnostSValecnymaZbranema"
         type="checkbox"
         class="field checkbox"
-        style="top:1249.09px; left:568.54px;"
+        style="top:1252px; left:568.54px;"
       />
       <input
         [formControl]="weaponsControls.dalsiZdatnosti"
         id="dalsiZdatnostSeZbrani"
         class="field"
-        style="top:1245.47px; left:666.79px; width:514.83px"
+        style="top:1248px; left:666.79px; width:514.83px"
         placeholder="Další zdatnosti..."
       />
 
@@ -1015,7 +1015,7 @@ import { NgClass } from '@angular/common';
         [ngClass]="inventoryClasses()[0]"
         id="inventoryItemRow1"
         class="field inventory-item"
-        style="top:1388.19px; left:68.12px; width:254.14px"
+        style="top:1390.19px; left:68.12px; width:254.14px"
         placeholder="*"
       />
       <input
@@ -1023,7 +1023,7 @@ import { NgClass } from '@angular/common';
         [ngClass]="inventoryClasses()[1]"
         id="inventoryItemRow2"
         class="field inventory-item"
-        style="top:1425.53px; left:68.12px; width:254.14px"
+        style="top:1427.53px; left:68.12px; width:254.14px"
         placeholder="*"
       />
       <input
@@ -1031,7 +1031,7 @@ import { NgClass } from '@angular/common';
         [ngClass]="inventoryClasses()[2]"
         id="inventoryItemRow3"
         class="field inventory-item"
-        style="top:1463.69px; left:68.12px; width:254.14px"
+        style="top:1465.69px; left:68.12px; width:254.14px"
         placeholder="*"
       />
       <input
@@ -1039,7 +1039,7 @@ import { NgClass } from '@angular/common';
         [ngClass]="inventoryClasses()[3]"
         id="inventoryItemRow4"
         class="field inventory-item"
-        style="top:1501.85px; left:68.12px; width:254.14px"
+        style="top:1503.85px; left:68.12px; width:254.14px"
         placeholder="*"
       />
       <input
@@ -1047,7 +1047,7 @@ import { NgClass } from '@angular/common';
         [ngClass]="inventoryClasses()[4]"
         id="inventoryItemRow5"
         class="field inventory-item"
-        style="top:1540.01px; left:68.12px; width:254.14px"
+        style="top:1542.01px; left:68.12px; width:254.14px"
         placeholder="*"
       />
       <input
@@ -1055,7 +1055,7 @@ import { NgClass } from '@angular/common';
         [ngClass]="inventoryClasses()[5]"
         id="inventoryItemRow6"
         class="field inventory-item"
-        style="top:1578.17px; left:68.12px; width:254.14px"
+        style="top:1580.17px; left:68.12px; width:254.14px"
         placeholder="*"
       />
       <input
@@ -1063,7 +1063,7 @@ import { NgClass } from '@angular/common';
         [ngClass]="inventoryClasses()[6]"
         id="inventoryItemRow7"
         class="field inventory-item"
-        style="top:1616.33px; left:68.12px; width:254.14px"
+        style="top:1618.33px; left:68.12px; width:254.14px"
         placeholder="*"
       />
       <input
@@ -1071,7 +1071,7 @@ import { NgClass } from '@angular/common';
         [ngClass]="inventoryClasses()[7]"
         id="inventoryItemRow8"
         class="field inventory-item"
-        style="top:1654.49px; left:68.12px; width:254.14px"
+        style="top:1656.49px; left:68.12px; width:254.14px"
         placeholder="*"
       />
       <input
@@ -1079,7 +1079,7 @@ import { NgClass } from '@angular/common';
         [ngClass]="inventoryClasses()[8]"
         id="inventoryItemRow9"
         class="field inventory-item"
-        style="top:1692.65px; left:68.12px; width:254.14px"
+        style="top:1694.65px; left:68.12px; width:254.14px"
         placeholder="*"
       />
       <input
@@ -1087,7 +1087,7 @@ import { NgClass } from '@angular/common';
         [ngClass]="inventoryClasses()[9]"
         id="inventoryItemRow10"
         class="field inventory-item"
-        style="top:1730.81px; left:68.12px; width:254.14px"
+        style="top:1732.81px; left:68.12px; width:254.14px"
         placeholder="*"
       />
 
@@ -1185,7 +1185,7 @@ import { NgClass } from '@angular/common';
         }
       </p>
     </form>
-    <!--    <img src="character-sheet-2.png" alt="Character Sheet" height="1817" width="1293" />-->
+    <img src="character-sheet-2.png" alt="Character Sheet" height="1817" width="1293" />
   `,
   styles: `
     :host {
