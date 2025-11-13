@@ -1,15 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  effect,
-  ElementRef,
-  inject,
-  Signal,
-  signal,
-  untracked,
-  viewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, signal, untracked } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import {
   CharacterSheetForm,
@@ -35,7 +24,7 @@ import { NgClass } from '@angular/common';
 @Component({
   selector: 'character-sheet',
   template: `
-    <img src="character-sheet.png" alt="Character Sheet" height="1817" width="1293" />
+    <img src="character-sheet-1-copy.png" alt="Character Sheet" height="1817" width="1293" />
 
     <form [formGroup]="form">
       <input [formControl]="topInfoControls.rasa" class="field" style="top:5.1%; left:4.5%; width:14%;" placeholder="Rasa" />
@@ -1173,6 +1162,7 @@ import { NgClass } from '@angular/common';
         }
       </p>
     </form>
+    <!--    <img src="character-sheet-2.png" alt="Character Sheet" height="1817" width="1293" />-->
   `,
   styles: `
     :host {

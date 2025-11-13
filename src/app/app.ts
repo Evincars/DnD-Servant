@@ -84,6 +84,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       border-radius: var(--border-radius-2);
       background: #111;
       margin-top: var(--spacing-3) !important;
+      margin-bottom: var(--spacing-3) !important;
     }
     .toolbar {
       font-family: 'Mikadan', sans-serif;
