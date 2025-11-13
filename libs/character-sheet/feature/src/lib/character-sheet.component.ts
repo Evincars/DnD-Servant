@@ -235,72 +235,72 @@ import { NgClass } from '@angular/common';
         [formControl]="savingThrowsControls.silaZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:31.5%; left:33.8%;"
+        style="top:572.36px; left:442.78px;"
       />
       <input
         [formControl]="savingThrowsControls.sila"
         class="field"
-        style="top:30.8%; left:42.3%; width:4.7%; text-align: right;"
+        style="top:559.64px; left:554.13px; width:61.57px; text-align: right;"
         placeholder="SIL"
       />
       <input
         [formControl]="savingThrowsControls.obratnostZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:33%; left:33.8%;"
+        style="top:599.61px; left:442.78px;"
       />
       <input
         [formControl]="savingThrowsControls.obratnost"
         class="field"
-        style="top:32.4%; left:42.3%; width:4.7%; text-align: right;"
+        style="top:588.71px; left:554.13px; width:61.57px; text-align: right;"
         placeholder="OBR"
       />
       <input
         [formControl]="savingThrowsControls.odolnostZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:34.6%; left:33.8%;"
+        style="top:628.68px; left:442.78px;"
       />
       <input
         [formControl]="savingThrowsControls.odolnost"
         class="field"
-        style="top:34%; left:42.3%; width:4.7%; text-align: right;"
+        style="top:617.78px; left:554.13px; width:61.57px; text-align: right;"
         placeholder="ODL"
       />
       <input
         [formControl]="savingThrowsControls.inteligenceZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:36.2%; left:33.8%;"
+        style="top:657.75px; left:442.78px;"
       />
       <input
         [formControl]="savingThrowsControls.inteligence"
         class="field"
-        style="top:35.6%; left:42.3%; width:4.7%; text-align: right;"
+        style="top:646.85px; left:554.13px; width:61.57px; text-align: right;"
         placeholder="INT"
       />
       <input
         [formControl]="savingThrowsControls.moudrostZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:37.7%; left:33.8%;"
+        style="top:685.01px; left:442.78px;"
       />
       <input
         [formControl]="savingThrowsControls.moudrost"
         class="field"
-        style="top:37.2%; left:42.3%; width:4.7%; text-align: right;"
+        style="top:675.92px; left:554.13px; width:61.57px; text-align: right;"
         placeholder="MDR"
       />
       <input
         [formControl]="savingThrowsControls.charismaZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:39.3%; left:33.8%;"
+        style="top:714.08px; left:442.78px;"
       />
       <input
         [formControl]="savingThrowsControls.charisma"
         class="field"
-        style="top:38.7%; left:42.3%; width:4.7%; text-align: right;"
+        style="top:703.18px; left:554.13px; width:61.57px; text-align: right;"
         placeholder="CHA"
       />
 
@@ -309,78 +309,78 @@ import { NgClass } from '@angular/common';
         [formControl]="passiveSkillsControls.atletikaZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:31.5%; left:48.1%;"
+        style="top:572.36px; left:630.11px;"
       />
       <input
         [formControl]="passiveSkillsControls.atletika"
         class="field"
-        style="top:30.8%; left:56.7%; width:4.7%; text-align: right;"
+        style="top:559.64px; left:743.77px; width:61.57px; text-align: right;"
         placeholder="ATL"
       />
       <input
         [formControl]="passiveSkillsControls.akrobacieZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:33%; left:48.1%;"
+        style="top:599.61px; left:630.11px;"
       />
       <input
         [formControl]="passiveSkillsControls.akrobacie"
         class="field"
-        style="top:32.4%; left:56.7%; width:4.7%; text-align: right;"
+        style="top:588.71px; left:743.77px; width:61.57px; text-align: right;"
         placeholder="AKR"
       />
       <input
         [formControl]="passiveSkillsControls.nenapadnostZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:34.6%; left:48.1%;"
+        style="top:628.68px; left:630.11px;"
       />
       <input
         [formControl]="passiveSkillsControls.nenapadnost"
         class="field"
-        style="top:34%; left:56.7%; width:4.7%; text-align: right;"
+        style="top:617.78px; left:743.77px; width:61.57px; text-align: right;"
         placeholder="NEN"
       />
       <input
         [formControl]="passiveSkillsControls.vhledZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:36.2%; left:48.1%;"
+        style="top:657.75px; left:630.11px;"
       />
       <input
         [formControl]="passiveSkillsControls.vhled"
         class="field"
-        style="top:35.6%; left:56.7%; width:4.7%; text-align: right;"
+        style="top:646.85px; left:743.77px; width:61.57px; text-align: right;"
         placeholder="VHL"
       />
       <input
         [formControl]="passiveSkillsControls.vnimaniZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:37.7%; left:48.1%;"
+        style="top:685.01px; left:630.11px;"
       />
       <input
         [formControl]="passiveSkillsControls.vnimani"
         class="field"
-        style="top:37.2%; left:56.7%; width:4.7%; text-align: right;"
+        style="top:675.92px; left:743.77px; width:61.57px; text-align: right;"
         placeholder="VNI"
       />
       <input
         [formControl]="passiveSkillsControls.jineZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:39.3%; left:48.1%;"
+        style="top:714.08px; left:630.11px;"
       />
       <input
         [formControl]="passiveSkillsControls.jineNazev"
         class="field"
-        style="top:38.7%; left:50%; width:6.3%; text-align: left;"
+        style="top:703.18px; left:655px; width:82.53px; text-align: left;"
         placeholder="-"
       />
       <input
         [formControl]="passiveSkillsControls.jine"
         class="field"
-        style="top:38.7%; left:56.7%; width:4.7%; text-align: right;"
+        style="top:703.18px; left:743.77px; width:61.57px; text-align: right;"
         placeholder="-"
       />
 
