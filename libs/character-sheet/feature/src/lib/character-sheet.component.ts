@@ -742,7 +742,7 @@ import { NgClass } from '@angular/common';
       <textarea
         [formControl]="form.controls.pomucky"
         class="field textarea"
-        style="top:62%; left:13.9%; width:18.1%; height:167px;"
+        style="top:1126.54px; left:182.09px; width:237.11px; height:167px;"
         placeholder="Pomůcky..."
       ></textarea>
 
@@ -751,42 +751,42 @@ import { NgClass } from '@angular/common';
         [formControl]="weaponsControls.zbran1"
         id="weapon1"
         class="field"
-        style="top:58.7%; left:33.9%; width:20.3%"
+        style="top:1067.38px; left:444.09px; width:266.93px"
         placeholder="Zbraň / útok"
       />
       <input
         [formControl]="weaponsControls.zbran1Bonus"
         id="weapon1_bonus"
         class="field"
-        style="top:58.7%; left:54.5%; width:6%"
+        style="top:1067.38px; left:714.95px; width:78.6px"
         placeholder="Bonus"
       />
       <input
         [formControl]="weaponsControls.zbran1Zasah"
         id="weapon1_hit"
         class="field"
-        style="top:58.7%; left:60.9%; width:6%"
+        style="top:1067.38px; left:797.79px; width:78.6px"
         placeholder="Zásah"
       />
       <input
         [formControl]="weaponsControls.zbran1Typ"
         id="weapon1_type"
         class="field"
-        style="top:58.7%; left:67.4%; width:7.3%"
+        style="top:1067.38px; left:883.94px; width:95.63px"
         placeholder="Typ"
       />
       <input
         [formControl]="weaponsControls.zbran1Dosah"
         id="weapon1_distance"
         class="field"
-        style="top:58.7%; left:75.1%; width:7.3%"
+        style="top:1067.38px; left:983.81px; width:95.63px"
         placeholder="Dosah"
       />
       <input
         [formControl]="weaponsControls.zbran1Oc"
         id="weapon1_armorClass"
         class="field"
-        style="top:58.7%; left:82.9%; width:7.3%"
+        style="top:1067.38px; left:1086.99px; width:95.63px"
         placeholder="Dosah"
       />
 
@@ -795,42 +795,42 @@ import { NgClass } from '@angular/common';
         [formControl]="weaponsControls.zbran2"
         id="weapon2"
         class="field"
-        style="top:60.6%; left:33.9%; width:20.3%"
+        style="top:1101.10px; left:444.09px; width:266.93px"
         placeholder="Zbraň / útok"
       />
       <input
         [formControl]="weaponsControls.zbran2Bonus"
         id="weapon2_bonus"
         class="field"
-        style="top:60.6%; left:54.5%; width:6%"
+        style="top:1101.10px; left:714.95px; width:78.6px"
         placeholder="Bonus"
       />
       <input
         [formControl]="weaponsControls.zbran2Zasah"
         id="weapon2_hit"
         class="field"
-        style="top:60.6%; left:60.9%; width:6%"
+        style="top:1101.10px; left:797.79px; width:78.6px"
         placeholder="Zásah"
       />
       <input
         [formControl]="weaponsControls.zbran2Typ"
         id="weapon2_type"
         class="field"
-        style="top:60.6%; left:67.4%; width:7.3%"
+        style="top:1101.10px; left:883.94px; width:95.63px"
         placeholder="Typ"
       />
       <input
         [formControl]="weaponsControls.zbran2Dosah"
         id="weapon2_distance"
         class="field"
-        style="top:60.6%; left:75.1%; width:7.3%"
+        style="top:1101.10px; left:983.81px; width:95.63px"
         placeholder="Dosah"
       />
       <input
         [formControl]="weaponsControls.zbran2Oc"
         id="weapon2_armorClass"
         class="field"
-        style="top:60.6%; left:82.9%; width:7.3%"
+        style="top:1101.10px; left:1086.99px; width:95.63px"
         placeholder="Dosah"
       />
 
@@ -839,42 +839,42 @@ import { NgClass } from '@angular/common';
         [formControl]="weaponsControls.zbran3"
         id="weapon3"
         class="field"
-        style="top:62.5%; left:33.9%; width:20.3%"
+        style="top:1135.63px; left:444.09px; width:266.93px"
         placeholder="Zbraň / útok"
       />
       <input
         [formControl]="weaponsControls.zbran3Bonus"
         id="weapon3_bonus"
         class="field"
-        style="top:62.5%; left:54.5%; width:6%"
+        style="top:1135.63px; left:714.95px; width:78.6px"
         placeholder="Bonus"
       />
       <input
         [formControl]="weaponsControls.zbran3Zasah"
         id="weapon3_hit"
         class="field"
-        style="top:62.5%; left:60.9%; width:6%"
+        style="top:1135.63px; left:797.79px; width:78.6px"
         placeholder="Zásah"
       />
       <input
         [formControl]="weaponsControls.zbran3Typ"
         id="weapon3_type"
         class="field"
-        style="top:62.5%; left:67.4%; width:7.3%"
+        style="top:1135.63px; left:883.94px; width:95.63px"
         placeholder="Typ"
       />
       <input
         [formControl]="weaponsControls.zbran3Dosah"
         id="weapon3_distance"
         class="field"
-        style="top:62.5%; left:75.1%; width:7.3%"
+        style="top:1135.63px; left:983.81px; width:95.63px"
         placeholder="Dosah"
       />
       <input
         [formControl]="weaponsControls.zbran3Oc"
         id="weapon3_armorClass"
         class="field"
-        style="top:62.5%; left:82.9%; width:7.3%"
+        style="top:1135.63px; left:1086.99px; width:95.63px"
         placeholder="Dosah"
       />
 
@@ -883,42 +883,42 @@ import { NgClass } from '@angular/common';
         [formControl]="weaponsControls.zbran4"
         id="weapon4"
         class="field"
-        style="top:64.4%; left:33.9%; width:20.3%"
+        style="top:1170.15px; left:444.09px; width:266.93px"
         placeholder="Zbraň / útok"
       />
       <input
         [formControl]="weaponsControls.zbran4Bonus"
         id="weapon4_bonus"
         class="field"
-        style="top:64.4%; left:54.5%; width:6%"
+        style="top:1170.15px; left:714.95px; width:78.6px"
         placeholder="Bonus"
       />
       <input
         [formControl]="weaponsControls.zbran4Zasah"
         id="weapon4_hit"
         class="field"
-        style="top:64.4%; left:60.9%; width:6%"
+        style="top:1170.15px; left:797.79px; width:78.6px"
         placeholder="Zásah"
       />
       <input
         [formControl]="weaponsControls.zbran4Typ"
         id="weapon4_type"
         class="field"
-        style="top:64.4%; left:67.4%; width:7.3%"
+        style="top:1170.15px; left:883.94px; width:95.63px"
         placeholder="Typ"
       />
       <input
         [formControl]="weaponsControls.zbran4Dosah"
         id="weapon4_distance"
         class="field"
-        style="top:64.4%; left:75.1%; width:7.3%"
+        style="top:1170.15px; left:983.81px; width:95.63px"
         placeholder="Dosah"
       />
       <input
         [formControl]="weaponsControls.zbran4Oc"
         id="weapon4_armorClass"
         class="field"
-        style="top:64.4%; left:82.9%; width:7.3%"
+        style="top:1170.15px; left:1086.99px; width:95.63px"
         placeholder="Dosah"
       />
 
@@ -927,42 +927,42 @@ import { NgClass } from '@angular/common';
         [formControl]="weaponsControls.zbran5"
         id="weapon5"
         class="field"
-        style="top:66.3%; left:33.9%; width:20.3%"
+        style="top:1205.67px; left:444.09px; width:266.93px"
         placeholder="Zbraň / útok"
       />
       <input
         [formControl]="weaponsControls.zbran5Bonus"
         id="weapon5_bonus"
         class="field"
-        style="top:66.3%; left:54.5%; width:6%"
+        style="top:1205.67px; left:714.95px; width:78.6px"
         placeholder="Bonus"
       />
       <input
         [formControl]="weaponsControls.zbran5Zasah"
         id="weapon5_hit"
         class="field"
-        style="top:66.3%; left:60.9%; width:6%"
+        style="top:1205.67px; left:797.79px; width:78.6px"
         placeholder="Zásah"
       />
       <input
         [formControl]="weaponsControls.zbran5Typ"
         id="weapon5_type"
         class="field"
-        style="top:66.3%; left:67.4%; width:7.3%"
+        style="top:1205.67px; left:883.94px; width:95.63px"
         placeholder="Typ"
       />
       <input
         [formControl]="weaponsControls.zbran5Dosah"
         id="weapon5_distance"
         class="field"
-        style="top:66.3%; left:75.1%; width:7.3%"
+        style="top:1205.67px; left:983.81px; width:95.63px"
         placeholder="Dosah"
       />
       <input
         [formControl]="weaponsControls.zbran5Oc"
         id="weapon5_armorClass"
         class="field"
-        style="top:66.3%; left:82.9%; width:7.3%"
+        style="top:1205.67px; left:1086.99px; width:95.63px"
         placeholder="Dosah"
       />
 
@@ -971,20 +971,20 @@ import { NgClass } from '@angular/common';
         id="zdatnostSJednoduchymaZbranema"
         type="checkbox"
         class="field checkbox"
-        style="top:68.8%; left:33.8%;"
+        style="top:1249.09px; left:442.78px;"
       />
       <input
         [formControl]="weaponsControls.zdatnostValecne"
         id="zdatnostSValecnymaZbranema"
         type="checkbox"
         class="field checkbox"
-        style="top:68.8%; left:43.4%;"
+        style="top:1249.09px; left:568.54px;"
       />
       <input
         [formControl]="weaponsControls.dalsiZdatnosti"
         id="dalsiZdatnostSeZbrani"
         class="field"
-        style="top:68.6%; left:50.9%; width:39.3%"
+        style="top:1245.47px; left:666.79px; width:514.83px"
         placeholder="Další zdatnosti..."
       />
 
@@ -992,13 +992,13 @@ import { NgClass } from '@angular/common';
         [formControl]="languagesControls.jazyky"
         id="jazyky"
         class="field"
-        style="top:74.1%; left:52.5%; width:37.6%"
+        style="top:1347.40px; left:687.75px; width:492.56px"
         placeholder="Jazyky..."
       />
       <textarea
         [formControl]="languagesControls.schopnosti"
         class="field textarea"
-        style="top:75.9%; left:48.4%; width:42%; height:381px;"
+        style="top:1379.10px; left:634.04px; width:550.20px; height:381px;"
         placeholder="Schopnosti..."
       ></textarea>
 
