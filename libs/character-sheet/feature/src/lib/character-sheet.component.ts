@@ -56,7 +56,7 @@ import { NgClass } from '@angular/common';
       <input
         [formControl]="topInfoControls.jmenoPostavy"
         class="field"
-        style="top:8%; left:42%; width:15%; text-align: center; font-weight: bold"
+        style="top:145.36px; left:550.2px; width:196.5px; text-align: center; font-weight: bold"
         placeholder="Jméno postavy"
       />
 
@@ -83,58 +83,58 @@ import { NgClass } from '@angular/common';
       <input
         [formControl]="abilityBonusControls.zdatnostniBonus"
         class="field"
-        style="top:15.1%; left:14.0%; width:3.4%; text-align: center"
+        style="top:274.37px; left:183.4px; width:44.54px; text-align: center"
         placeholder="ZB"
       />
       <input
         [formControl]="abilityBonusControls.inspirace"
         class="field"
-        style="top:15.1%; left:34.0%; width:3.4%; text-align: center"
+        style="top:274.37px; left:445.4px; width:44.54px; text-align: center"
         placeholder="*"
       />
       <input
         [formControl]="abilityBonusControls.iniciativa"
         class="field"
-        style="top:15.1%; left:47.9%; width:3.4%; text-align: center"
+        style="top:274.37px; left:627.49px; width:44.54px; text-align: center"
         placeholder="In."
       />
 
       <input
         [formControl]="speedAndHealingDicesControls.lehke"
         class="field"
-        style="top:17%; left:63.3%; width:8.4%;"
+        style="top:308.89px; left:829.23px; width:110.04px;"
         placeholder="Lehké"
       />
       <input
         [formControl]="speedAndHealingDicesControls.stredni"
         class="field"
-        style="top:17%; left:72.7%; width:8.4%;"
+        style="top:308.89px; left:952.37px; width:110.04px;"
         placeholder="Střední"
       />
       <input
         [formControl]="speedAndHealingDicesControls.tezke"
         class="field"
-        style="top:17%; left:81.9%; width:8.4%;"
+        style="top:308.89px; left:1073.89px; width:110.04px;"
         placeholder="Těžké"
       />
 
       <input
         [formControl]="speedAndHealingDicesControls.maxBoduVydrze"
         class="field"
-        style="top:15.8%; left:91.1%; width:5.2%;"
+        style="top:287.09px; left:1193.41px; width:68.12px; text-align: center;"
         placeholder="Max. BV"
       />
 
       <input
         [formControl]="speedAndHealingDicesControls.pouzitiKostek"
         class="field"
-        style="top:23.1%; left:67.2%; width:13.9%;"
+        style="top:420.74px; left:880.32px; width:182.09px;"
         placeholder="Použití kostek"
       />
       <input
         [formControl]="speedAndHealingDicesControls.maxPouzitiKostek"
         class="field"
-        style="top:25%; left:67.2%; width:13.9%;"
+        style="top:454.25px; left:880.32px; width:182.09px;"
         placeholder="Max"
       />
 
@@ -143,19 +143,19 @@ import { NgClass } from '@angular/common';
         [formControl]="speedAndHealingDicesControls.smrtUspech1"
         type="checkbox"
         class="field checkbox dead-throw-success"
-        style="top:23.5%; left:83.5%;"
+        style="top:427px; left:1093.85px;"
       />
       <input
         [formControl]="speedAndHealingDicesControls.smrtUspech2"
         type="checkbox"
         class="field checkbox dead-throw-success"
-        style="top:23.5%; left:85.9%;"
+        style="top:427px; left:1125.29px;"
       />
       <input
         [formControl]="speedAndHealingDicesControls.smrtUspech3"
         type="checkbox"
         class="field checkbox dead-throw-success"
-        style="top:23.5%; left:88.3%;"
+        style="top:427px; left:1156.73px;"
       />
 
       <!--    Skulls for Death saving -->
@@ -163,25 +163,25 @@ import { NgClass } from '@angular/common';
         [formControl]="speedAndHealingDicesControls.smrtNeuspech1"
         type="checkbox"
         class="field checkbox dead-throw-fail"
-        style="top:25.2%; left:83.5%;"
+        style="top:457.88px; left:1093.85px;"
       />
       <input
         [formControl]="speedAndHealingDicesControls.smrtNeuspech2"
         type="checkbox"
         class="field checkbox dead-throw-fail"
-        style="top:25.2%; left:85.9%;"
+        style="top:457.88px; left:1125.29px;"
       />
       <input
         [formControl]="speedAndHealingDicesControls.smrtNeuspech3"
         type="checkbox"
         class="field checkbox dead-throw-fail"
-        style="top:25.2%; left:88.2%;"
+        style="top:457.88px; left:1155.42px;"
       />
 
       <textarea
         [formControl]="form.controls['infoAboutCharacter']"
         class="field textarea"
-        style="top:30%; left:63.7%; width:26.7%; height:432px;"
+        style="top:545.1px; left:834.47px; width:349.77px; height:432px;"
         placeholder="Poznámky..."
       ></textarea>
 
