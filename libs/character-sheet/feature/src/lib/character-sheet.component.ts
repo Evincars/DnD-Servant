@@ -409,73 +409,73 @@ import { NgClass } from '@angular/common';
       <input
         [formControl]="main6SkillsControls.silaOprava"
         class="field main-skill"
-        style="top:18.3%; left:6.0%; width:3.8%; text-align: center;"
+        style="top:332.51px; left:78.60px; width:49.78px; text-align: center;"
         placeholder="SIL"
       />
       <input
         [formControl]="main6SkillsControls.sila"
         class="field"
-        style="top:20.8%; left:6.0%; width:3.8%; text-align: center"
+        style="top:378.94px; left:78.60px; width:49.78px; text-align: center"
         placeholder="SIL"
       />
       <input
         [formControl]="main6SkillsControls.obratnostOprava"
         class="field main-skill"
-        style="top:27.4%; left:6.0%; width:3.8%; text-align: center"
+        style="top:497.86px; left:78.60px; width:49.78px; text-align: center"
         placeholder="OBR"
       />
       <input
         [formControl]="main6SkillsControls.obratnost"
         class="field"
-        style="top:30.0%; left:6.0%; width:3.8%; text-align: center"
+        style="top:545.10px; left:78.60px; width:49.78px; text-align: center"
         placeholder="OBR"
       />
       <input
         [formControl]="main6SkillsControls.odolnostOprava"
         class="field main-skill"
-        style="top:37%; left:6.0%; width:3.8%; text-align: center"
+        style="top:672.29px; left:78.60px; width:49.78px; text-align: center"
         placeholder="ODL"
       />
       <input
         [formControl]="main6SkillsControls.odolnost"
         class="field"
-        style="top:39.6%; left:6.0%; width:3.8%; text-align: center"
+        style="top:720.53px; left:78.60px; width:49.78px; text-align: center"
         placeholder="ODL"
       />
       <input
         [formControl]="main6SkillsControls.inteligenceOprava"
         class="field main-skill"
-        style="top:46.6%; left:6.0%; width:3.8%; text-align: center"
+        style="top:847.72px; left:78.60px; width:49.78px; text-align: center"
         placeholder="INT"
       />
       <input
         [formControl]="main6SkillsControls.inteligence"
         class="field"
-        style="top:49.1%; left:6.0%; width:3.8%; text-align: center"
+        style="top:894.15px; left:78.60px; width:49.78px; text-align: center"
         placeholder="INT"
       />
       <input
         [formControl]="main6SkillsControls.moudrostOprava"
         class="field main-skill"
-        style="top:55.9%; left:6.0%; width:3.8%; text-align: center"
+        style="top:1015.30px; left:78.60px; width:49.78px; text-align: center"
         placeholder="MDR"
       />
       <input
         [formControl]="main6SkillsControls.moudrost"
         class="field"
-        style="top:58.4%; left:6.0%; width:3.8%; text-align: center"
+        style="top:1061.73px; left:78.60px; width:49.78px; text-align: center"
         placeholder="MDR"
       />
       <input
         [formControl]="main6SkillsControls.charismaOprava"
         class="field main-skill"
-        style="top:65.5%; left:6.0%; width:3.8%; text-align: center"
+        style="top:1189.92px; left:78.60px; width:49.78px; text-align: center"
         placeholder="CHA"
       />
       <input
         [formControl]="main6SkillsControls.charisma"
         class="field"
-        style="top:68%; left:6.0%; width:3.8%; text-align: center"
+        style="top:1236.36px; left:78.60px; width:49.78px; text-align: center"
         placeholder="CHA"
       />
 
@@ -486,13 +486,13 @@ import { NgClass } from '@angular/common';
         id="atletikaZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:22.8%; left:13.9%;"
+        style="top:414.28px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.atletika"
         id="atletika"
         class="field"
-        style="top:22.2%; left:26.6%; width:5.4%; text-align: right"
+        style="top:403.38px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
       <input
@@ -500,13 +500,13 @@ import { NgClass } from '@angular/common';
         id="akrobacieZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:26%; left:13.9%;"
+        style="top:472.42px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.akrobacie"
         id="akrobacie"
         class="field"
-        style="top:25.4%; left:26.6%; width:5.4%; text-align: right"
+        style="top:461.52px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
       <input
@@ -514,13 +514,13 @@ import { NgClass } from '@angular/common';
         id="cachryZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:27.5%; left:13.9%;"
+        style="top:499.68px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.cachry"
         id="cachry"
         class="field"
-        style="top:27%; left:26.6%; width:5.4%; text-align: right"
+        style="top:490.59px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
       <input
@@ -528,13 +528,13 @@ import { NgClass } from '@angular/common';
         id="nenapadnostZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:29.1%; left:13.9%;"
+        style="top:528.75px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.nenapadnost"
         id="nenapadnost"
         class="field"
-        style="top:28.6%; left:26.6%; width:5.4%; text-align: right"
+        style="top:519.66px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
 
@@ -543,13 +543,13 @@ import { NgClass } from '@angular/common';
         id="historieZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:32.6%; left:13.9%;"
+        style="top:592.34px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.historie"
         id="historie"
         class="field"
-        style="top:32%; left:26.6%; width:5.4%; text-align: right"
+        style="top:581.44px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
       <input
@@ -557,13 +557,13 @@ import { NgClass } from '@angular/common';
         id="mystikaZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:34.1%; left:13.9%;"
+        style="top:619.61px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.mystika"
         id="mystika"
         class="field"
-        style="top:33.6%; left:26.6%; width:5.4%; text-align: right"
+        style="top:610.51px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
       <input
@@ -571,13 +571,13 @@ import { NgClass } from '@angular/common';
         id="nabozenstviZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:35.7%; left:13.9%;"
+        style="top:648.69px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.nabozenstvi"
         id="nabozenstvi"
         class="field"
-        style="top:35.2%; left:26.6%; width:5.4%; text-align: right"
+        style="top:639.59px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
       <input
@@ -585,13 +585,13 @@ import { NgClass } from '@angular/common';
         id="patraniZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:37.3%; left:13.9%;"
+        style="top:677.74px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.patrani"
         id="patrani"
         class="field"
-        style="top:36.7%; left:26.6%; width:5.4%; text-align: right"
+        style="top:666.84px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
       <input
@@ -599,28 +599,28 @@ import { NgClass } from '@angular/common';
         id="prirodaZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:38.8%; left:13.9%;"
+        style="top:704.99px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.priroda"
         id="priroda"
         class="field"
-        style="top:38.3%; left:26.6%; width:5.4%; text-align: right"
+        style="top:695.89px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
 
       <input
-        [formControl]="abilitiesControls.atletikaZdatnost"
+        [formControl]="abilitiesControls.lekarstviZdatnost"
         id="lekarstviZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:42.3%; left:13.9%;"
+        style="top:768.59px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.lekarstvi"
         id="lekarstvi"
         class="field"
-        style="top:41.7%; left:26.6%; width:5.4%; text-align: right"
+        style="top:757.69px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
       <input
@@ -628,13 +628,13 @@ import { NgClass } from '@angular/common';
         id="ovladaniZviratZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:43.8%; left:13.9%;"
+        style="top:796.85px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.ovladaniZvirat"
         id="ovladaniZvirat"
         class="field"
-        style="top:43.3%; left:26.6%; width:5.4%; text-align: right"
+        style="top:787.76px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
       <input
@@ -642,13 +642,13 @@ import { NgClass } from '@angular/common';
         id="prezitiZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:45.4%; left:13.9%;"
+        style="top:825.32px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.preziti"
         id="preziti"
         class="field"
-        style="top:44.8%; left:26.6%; width:5.4%; text-align: right"
+        style="top:814.42px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
       <input
@@ -656,13 +656,13 @@ import { NgClass } from '@angular/common';
         id="vhledZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:46.9%; left:13.9%;"
+        style="top:853.58px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.vhled"
         id="vhled"
         class="field"
-        style="top:46.4%; left:26.6%; width:5.4%; text-align: right"
+        style="top:844.49px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
       <input
@@ -670,13 +670,13 @@ import { NgClass } from '@angular/common';
         id="vnimaniZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:48.5%; left:13.9%;"
+        style="top:880.25px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.vnimani"
         id="vnimani"
         class="field"
-        style="top:48%; left:26.6%; width:5.4%; text-align: right"
+        style="top:871.16px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
 
@@ -685,13 +685,13 @@ import { NgClass } from '@angular/common';
         id="klamaniZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:52%; left:13.9%;"
+        style="top:944.84px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.klamani"
         id="klamani"
         class="field"
-        style="top:51.4%; left:26.6%; width:5.4%; text-align: right"
+        style="top:934.75px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
       <input
@@ -699,13 +699,13 @@ import { NgClass } from '@angular/common';
         id="presvedcovaniZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:53.5%; left:13.9%;"
+        style="top:972.10px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.presvedcovani"
         id="presvedcovani"
         class="field"
-        style="top:53%; left:26.6%; width:5.4%; text-align: right"
+        style="top:963.01px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
       <input
@@ -713,13 +713,13 @@ import { NgClass } from '@angular/common';
         id="vystupovaniZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:55.1%; left:13.9%;"
+        style="top:1001.57px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.vystupovani"
         id="vystupovani"
         class="field"
-        style="top:54.6%; left:26.6%; width:5.4%; text-align: right"
+        style="top:992.48px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
       <input
@@ -727,15 +727,16 @@ import { NgClass } from '@angular/common';
         id="zastrasovaniZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:56.7%; left:13.9%;"
+        style="top:1030.60px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.zastrasovani"
         id="zastrasovani"
         class="field"
-        style="top:56.1%; left:26.6%; width:5.4%; text-align: right"
+        style="top:1019.80px; left:348.46px; width:70.74px; text-align: right"
         placeholder="*"
       />
+
       <!--    =============================================-->
 
       <textarea
