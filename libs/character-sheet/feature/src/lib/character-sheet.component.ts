@@ -992,13 +992,13 @@ import { NgClass } from '@angular/common';
         [formControl]="languagesControls.jazyky"
         id="jazyky"
         class="field"
-        style="top:1347.40px; left:687.75px; width:492.56px"
+        style="top:1349px; left:687.75px; width:492.56px"
         placeholder="Jazyky..."
       />
       <textarea
         [formControl]="languagesControls.schopnosti"
         class="field textarea"
-        style="top:1379.10px; left:634.04px; width:550.20px; height:381px;"
+        style="top:1382px; left:634.04px; width:550.20px; height:381px;"
         placeholder="Schopnosti..."
       ></textarea>
 
