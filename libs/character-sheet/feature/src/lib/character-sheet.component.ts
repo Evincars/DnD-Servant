@@ -134,7 +134,7 @@ import { MatTooltip } from '@angular/material/tooltip';
       <input
         [formControl]="speedAndHealingDicesControls.maxBoduVydrze"
         class="field"
-        style="top:287.09px; left:1193.41px; width:68.12px; text-align: center;"
+        style="top:283px; left:1193.41px; width:68.12px; text-align: center; font-size: 22px; color: red;"
         placeholder="Max. BV"
       />
 
@@ -2141,7 +2141,6 @@ export class CharacterSheetComponent {
 
     this.spellSlotsControls.urovenSesilatele.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(level => {
       const levelNumber = parseInt(level ?? '0');
-      console.log('level', level);
 
       switch (levelNumber) {
         case 1:
@@ -2158,6 +2157,51 @@ export class CharacterSheetComponent {
           break;
         case 5:
           this._setSpellSlotsLevel5();
+          break;
+        case 6:
+          this._setSpellSlotsLevel6();
+          break;
+        case 7:
+          this._setSpellSlotsLevel7();
+          break;
+        case 8:
+          this._setSpellSlotsLevel8();
+          break;
+        case 9:
+          this._setSpellSlotsLevel9();
+          break;
+        case 10:
+          this._setSpellSlotsLevel10();
+          break;
+        case 11:
+          this._setSpellSlotsLevel11();
+          break;
+        case 12:
+          this._setSpellSlotsLevel12();
+          break;
+        case 13:
+          this._setSpellSlotsLevel13();
+          break;
+        case 14:
+          this._setSpellSlotsLevel14();
+          break;
+        case 15:
+          this._setSpellSlotsLevel15();
+          break;
+        case 16:
+          this._setSpellSlotsLevel16();
+          break;
+        case 17:
+          this._setSpellSlotsLevel17();
+          break;
+        case 18:
+          this._setSpellSlotsLevel18();
+          break;
+        case 19:
+          this._setSpellSlotsLevel19();
+          break;
+        case 20:
+          this._setSpellSlotsLevel20();
           break;
         default:
           this._enableAllSpellSlotsInputs();
@@ -2282,6 +2326,236 @@ export class CharacterSheetComponent {
 
     this.level3Slot1Input.nativeElement.disabled = false;
     this.level3Slot2Input.nativeElement.disabled = false;
+  }
+
+  _setSpellSlotsLevel6() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level1Slot1Input.nativeElement.disabled = false;
+    this.level1Slot2Input.nativeElement.disabled = false;
+    this.level1Slot3Input.nativeElement.disabled = false;
+    this.level1Slot4Input.nativeElement.disabled = false;
+
+    this.level2Slot1Input.nativeElement.disabled = false;
+    this.level2Slot2Input.nativeElement.disabled = false;
+    this.level2Slot3Input.nativeElement.disabled = false;
+
+    this.level3Slot1Input.nativeElement.disabled = false;
+    this.level3Slot2Input.nativeElement.disabled = false;
+    this.level3Slot3Input.nativeElement.disabled = false;
+  }
+
+  _setSpellSlotsLevel7() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level1Slot1Input.nativeElement.disabled = false;
+    this.level1Slot2Input.nativeElement.disabled = false;
+    this.level1Slot3Input.nativeElement.disabled = false;
+    this.level1Slot4Input.nativeElement.disabled = false;
+
+    this.level2Slot1Input.nativeElement.disabled = false;
+    this.level2Slot2Input.nativeElement.disabled = false;
+    this.level2Slot3Input.nativeElement.disabled = false;
+
+    this.level3Slot1Input.nativeElement.disabled = false;
+    this.level3Slot2Input.nativeElement.disabled = false;
+    this.level3Slot3Input.nativeElement.disabled = false;
+
+    this.level4Slot1Input.nativeElement.disabled = false;
+  }
+
+  _setSpellSlotsLevel8() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level1Slot1Input.nativeElement.disabled = false;
+    this.level1Slot2Input.nativeElement.disabled = false;
+    this.level1Slot3Input.nativeElement.disabled = false;
+    this.level1Slot4Input.nativeElement.disabled = false;
+
+    this.level2Slot1Input.nativeElement.disabled = false;
+    this.level2Slot2Input.nativeElement.disabled = false;
+    this.level2Slot3Input.nativeElement.disabled = false;
+
+    this.level3Slot1Input.nativeElement.disabled = false;
+    this.level3Slot2Input.nativeElement.disabled = false;
+    this.level3Slot3Input.nativeElement.disabled = false;
+
+    this.level4Slot1Input.nativeElement.disabled = false;
+    this.level4Slot2Input.nativeElement.disabled = false;
+  }
+
+  _setSpellSlotsLevel9() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level1Slot1Input.nativeElement.disabled = false;
+    this.level1Slot2Input.nativeElement.disabled = false;
+    this.level1Slot3Input.nativeElement.disabled = false;
+    this.level1Slot4Input.nativeElement.disabled = false;
+
+    this.level2Slot1Input.nativeElement.disabled = false;
+    this.level2Slot2Input.nativeElement.disabled = false;
+    this.level2Slot3Input.nativeElement.disabled = false;
+
+    this.level3Slot1Input.nativeElement.disabled = false;
+    this.level3Slot2Input.nativeElement.disabled = false;
+    this.level3Slot3Input.nativeElement.disabled = false;
+
+    this.level4Slot1Input.nativeElement.disabled = false;
+    this.level4Slot2Input.nativeElement.disabled = false;
+    this.level4Slot3Input.nativeElement.disabled = false;
+
+    this.level5Slot1Input.nativeElement.disabled = false;
+  }
+
+  _setSpellSlotsLevel10() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level1Slot1Input.nativeElement.disabled = false;
+    this.level1Slot2Input.nativeElement.disabled = false;
+    this.level1Slot3Input.nativeElement.disabled = false;
+    this.level1Slot4Input.nativeElement.disabled = false;
+
+    this.level2Slot1Input.nativeElement.disabled = false;
+    this.level2Slot2Input.nativeElement.disabled = false;
+    this.level2Slot3Input.nativeElement.disabled = false;
+
+    this.level3Slot1Input.nativeElement.disabled = false;
+    this.level3Slot2Input.nativeElement.disabled = false;
+    this.level3Slot3Input.nativeElement.disabled = false;
+
+    this.level4Slot1Input.nativeElement.disabled = false;
+    this.level4Slot2Input.nativeElement.disabled = false;
+    this.level4Slot3Input.nativeElement.disabled = false;
+
+    this.level5Slot1Input.nativeElement.disabled = false;
+    this.level5Slot2Input.nativeElement.disabled = false;
+  }
+
+  _setSpellSlotsLevel11() {
+    this._enableAllSpellSlotsInputs();
+    this._disableBlackPriestSpellSlotsInputs();
+
+    this.level5Slot3Input.nativeElement.disabled = true;
+    this.level5Slot4Input.nativeElement.disabled = true;
+
+    this.level6Slot2Input.nativeElement.disabled = true;
+
+    this.level7Slot1Input.nativeElement.disabled = true;
+    this.level7Slot2Input.nativeElement.disabled = true;
+
+    this.level8Slot1Input.nativeElement.disabled = true;
+    this.level9Slot1Input.nativeElement.disabled = true;
+  }
+
+  _setSpellSlotsLevel12() {
+    this._enableAllSpellSlotsInputs();
+    this._disableBlackPriestSpellSlotsInputs();
+
+    this.level5Slot3Input.nativeElement.disabled = true;
+    this.level5Slot4Input.nativeElement.disabled = true;
+
+    this.level6Slot2Input.nativeElement.disabled = true;
+
+    this.level7Slot1Input.nativeElement.disabled = true;
+    this.level7Slot2Input.nativeElement.disabled = true;
+
+    this.level8Slot1Input.nativeElement.disabled = true;
+    this.level9Slot1Input.nativeElement.disabled = true;
+  }
+
+  _setSpellSlotsLevel13() {
+    this._enableAllSpellSlotsInputs();
+    this._disableBlackPriestSpellSlotsInputs();
+
+    this.level5Slot3Input.nativeElement.disabled = true;
+    this.level5Slot4Input.nativeElement.disabled = true;
+
+    this.level6Slot2Input.nativeElement.disabled = true;
+
+    this.level7Slot2Input.nativeElement.disabled = true;
+
+    this.level8Slot1Input.nativeElement.disabled = true;
+    this.level9Slot1Input.nativeElement.disabled = true;
+  }
+
+  _setSpellSlotsLevel14() {
+    this._enableAllSpellSlotsInputs();
+    this._disableBlackPriestSpellSlotsInputs();
+
+    this.level5Slot3Input.nativeElement.disabled = true;
+    this.level5Slot4Input.nativeElement.disabled = true;
+
+    this.level6Slot2Input.nativeElement.disabled = true;
+
+    this.level7Slot2Input.nativeElement.disabled = true;
+
+    this.level8Slot1Input.nativeElement.disabled = true;
+    this.level9Slot1Input.nativeElement.disabled = true;
+  }
+
+  _setSpellSlotsLevel15() {
+    this._enableAllSpellSlotsInputs();
+    this._disableBlackPriestSpellSlotsInputs();
+
+    this.level5Slot3Input.nativeElement.disabled = true;
+    this.level5Slot4Input.nativeElement.disabled = true;
+
+    this.level6Slot2Input.nativeElement.disabled = true;
+
+    this.level7Slot2Input.nativeElement.disabled = true;
+
+    this.level9Slot1Input.nativeElement.disabled = true;
+  }
+
+  _setSpellSlotsLevel16() {
+    this._enableAllSpellSlotsInputs();
+    this._disableBlackPriestSpellSlotsInputs();
+
+    this.level5Slot3Input.nativeElement.disabled = true;
+    this.level5Slot4Input.nativeElement.disabled = true;
+
+    this.level6Slot2Input.nativeElement.disabled = true;
+
+    this.level7Slot2Input.nativeElement.disabled = true;
+  }
+
+  _setSpellSlotsLevel17() {
+    this._enableAllSpellSlotsInputs();
+    this._disableBlackPriestSpellSlotsInputs();
+
+    this.level5Slot3Input.nativeElement.disabled = true;
+    this.level5Slot4Input.nativeElement.disabled = true;
+
+    this.level6Slot2Input.nativeElement.disabled = true;
+
+    this.level7Slot2Input.nativeElement.disabled = true;
+  }
+
+  _setSpellSlotsLevel18() {
+    this._enableAllSpellSlotsInputs();
+    this._disableBlackPriestSpellSlotsInputs();
+
+    this.level5Slot4Input.nativeElement.disabled = true;
+
+    this.level6Slot2Input.nativeElement.disabled = true;
+
+    this.level7Slot2Input.nativeElement.disabled = true;
+  }
+
+  _setSpellSlotsLevel19() {
+    this._enableAllSpellSlotsInputs();
+    this._disableBlackPriestSpellSlotsInputs();
+
+    this.level5Slot4Input.nativeElement.disabled = true;
+
+    this.level7Slot2Input.nativeElement.disabled = true;
+  }
+
+  _setSpellSlotsLevel20() {
+    this._enableAllSpellSlotsInputs();
+    this._disableBlackPriestSpellSlotsInputs();
+
+    this.level5Slot4Input.nativeElement.disabled = true;
   }
 
   _disableBlackPriestSpellSlotsInputs() {
