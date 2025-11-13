@@ -18,6 +18,8 @@ export type CharacterSheetForm = {
   weaponsForm: FormGroup<WeaponsForm>;
   languagesForm: FormGroup<LanguagesForm>;
   inventoryForm: FormGroup<InventoryForm>;
+  spellSlotsForm: FormGroup<SpellSlotsForm>;
+  alchemistChestForm: FormGroup<AlchemistChestForm>;
 };
 
 export type TopInfoForm = {
@@ -233,6 +235,71 @@ export type InventoryForm = {
   radek20: FormControl<string | undefined>;
 };
 
+export type SpellSlotsForm = {
+  urovenSesilatele: FormControl<string | undefined>;
+  urovenCernokneznika: FormControl<string | undefined>;
+
+  level1Slot1: FormControl<string | undefined>;
+  level1Slot2: FormControl<string | undefined>;
+  level1Slot3: FormControl<string | undefined>;
+  level1Slot4: FormControl<string | undefined>;
+
+  level2Slot1: FormControl<string | undefined>;
+  level2Slot2: FormControl<string | undefined>;
+  level2Slot3: FormControl<string | undefined>;
+  level2Slot4: FormControl<string | undefined>;
+
+  level3Slot1: FormControl<string | undefined>;
+  level3Slot2: FormControl<string | undefined>;
+  level3Slot3: FormControl<string | undefined>;
+  level3Slot4: FormControl<string | undefined>;
+
+  level4Slot1: FormControl<string | undefined>;
+  level4Slot2: FormControl<string | undefined>;
+  level4Slot3: FormControl<string | undefined>;
+  level4Slot4: FormControl<string | undefined>;
+
+  level5Slot1: FormControl<string | undefined>;
+  level5Slot2: FormControl<string | undefined>;
+  level5Slot3: FormControl<string | undefined>;
+  level5Slot4: FormControl<string | undefined>;
+
+  level6Slot1: FormControl<string | undefined>;
+  level6Slot2: FormControl<string | undefined>;
+
+  level7Slot1: FormControl<string | undefined>;
+  level7Slot2: FormControl<string | undefined>;
+
+  level8Slot1: FormControl<string | undefined>;
+
+  level9Slot1: FormControl<string | undefined>;
+};
+
+export type AlchemistChestForm = {
+  urovenAlchymisty: FormControl<string | undefined>;
+
+  chestUsage1: FormControl<string | undefined>;
+  chestUsage2: FormControl<string | undefined>;
+  chestUsage3: FormControl<string | undefined>;
+  chestUsage4: FormControl<string | undefined>;
+  chestUsage5: FormControl<string | undefined>;
+  chestUsage6: FormControl<string | undefined>;
+  chestUsage7: FormControl<string | undefined>;
+  chestUsage8: FormControl<string | undefined>;
+  chestUsage9: FormControl<string | undefined>;
+  chestUsage10: FormControl<string | undefined>;
+  chestUsage11: FormControl<string | undefined>;
+  chestUsage12: FormControl<string | undefined>;
+  chestUsage13: FormControl<string | undefined>;
+  chestUsage14: FormControl<string | undefined>;
+  chestUsage15: FormControl<string | undefined>;
+  chestUsage16: FormControl<string | undefined>;
+  chestUsage17: FormControl<string | undefined>;
+  chestUsage18: FormControl<string | undefined>;
+  chestUsage19: FormControl<string | undefined>;
+  chestUsage20: FormControl<string | undefined>;
+};
+
 // ========== API Model ==========
 export type CharacterSheetApiModel = {
   username: string;
@@ -438,5 +505,68 @@ export type CharacterSheetApiModel = {
     radek18: string;
     radek19: string;
     radek20: string;
+  };
+  spellSlotsForm: {
+    urovenSesilatele: string;
+    urovenCernokneznika: string;
+
+    level1Slot1: string;
+    level1Slot2: string;
+    level1Slot3: string;
+    level1Slot4: string;
+
+    level2Slot1: string;
+    level2Slot2: string;
+    level2Slot3: string;
+    level2Slot4: string;
+
+    level3Slot1: string;
+    level3Slot2: string;
+    level3Slot3: string;
+    level3Slot4: string;
+
+    level4Slot1: string;
+    level4Slot2: string;
+    level4Slot3: string;
+    level4Slot4: string;
+
+    level5Slot1: string;
+    level5Slot2: string;
+    level5Slot3: string;
+    level5Slot4: string;
+
+    level6Slot1: string;
+    level6Slot2: string;
+
+    level7Slot1: string;
+    level7Slot2: string;
+
+    level8Slot1: string;
+
+    level9Slot1: string;
+  };
+  alchemistChestForm: {
+    urovenAlchymisty: string;
+
+    chestUsage1: string;
+    chestUsage2: string;
+    chestUsage3: string;
+    chestUsage4: string;
+    chestUsage5: string;
+    chestUsage6: string;
+    chestUsage7: string;
+    chestUsage8: string;
+    chestUsage9: string;
+    chestUsage10: string;
+    chestUsage11: string;
+    chestUsage12: string;
+    chestUsage13: string;
+    chestUsage14: string;
+    chestUsage15: string;
+    chestUsage16: string;
+    chestUsage17: string;
+    chestUsage18: string;
+    chestUsage19: string;
+    chestUsage20: string;
   };
 };
