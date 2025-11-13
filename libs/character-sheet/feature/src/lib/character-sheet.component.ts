@@ -36,15 +36,20 @@ import { NgClass } from '@angular/common';
       <input
         [formControl]="topInfoControls.povolani"
         class="field"
-        style="top:5.1%; left:19.5%; width:14%;"
+        style="top:92.21px; left:255.45px; width:183.4px;"
         placeholder="Povolání"
       />
 
-      <input [formControl]="topInfoControls.zazemi" class="field" style="top:8.7%; left:4.5%; width:14%;" placeholder="Zázemí" />
+      <input
+        [formControl]="topInfoControls.zazemi"
+        class="field"
+        style="top: 158.08px; left: 58.95px; width: 183.4px;"
+        placeholder="Zázemí"
+      />
       <input
         [formControl]="topInfoControls.presvedceni"
         class="field"
-        style="top:8.7%; left:19.5%; width:14%;"
+        style="top:158.08px; left:255.45px; width:183.4px;"
         placeholder="Přesvědčení"
       />
 
@@ -55,15 +60,25 @@ import { NgClass } from '@angular/common';
         placeholder="Jméno postavy"
       />
 
-      <input [formControl]="topInfoControls.uroven" class="field" style="top:5.1%; left:65.5%; width:14%;" placeholder="Úroveň" />
+      <input
+        [formControl]="topInfoControls.uroven"
+        class="field"
+        style="top:92.67px; left:858.05px; width:183.4px;"
+        placeholder="Úroveň"
+      />
       <input
         [formControl]="topInfoControls.zkusenosti"
         class="field"
-        style="top:5.1%; left:80.3%; width:14%;"
+        style="top:92.67px; left:1051.93px; width:183.4px;"
         placeholder="Zkušenost"
       />
 
-      <input [formControl]="topInfoControls.hrac" class="field" style="top:8.7%; left:65.5%; width:14%;" placeholder="Hráč" />
+      <input
+        [formControl]="topInfoControls.hrac"
+        class="field"
+        style="top:158.08px; left:858.05px; width:183.4px;"
+        placeholder="Hráč"
+      />
 
       <input
         [formControl]="abilityBonusControls.zdatnostniBonus"
