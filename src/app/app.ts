@@ -45,15 +45,19 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             <span>Servant</span>
           </div>
           <div class="author-info">
-            <span>
-              @if (authService.currentUser()) { Přihlášen
+            <span class="u-flex u-align-center">
+              @if (authService.currentUser()) { Přihlášen&nbsp;
               <b class="username u-mr-3">{{ authService.currentUser()!.username }}</b>
               <a class="link token u-mr-9" href="#" (click)="this.authService.logout()">Odhlásit</a>
               } @if (authService.currentUser() === null) {
               <a class="link token" [routerLink]="routes.login">Přihlásit</a>
               |
               <a class="link token u-mr-9" [routerLink]="routes.register">Registrovat</a>
-              } Created by
+              }
+              <a target="_blank" href="https://github.com/Evincars/DnD-Servant" class="link u-flex u-align-center u-mr-2">
+                <mat-icon>code_blocks</mat-icon>
+              </a>
+              Created by
               <a class="link" target="_blank" href="https://lasak.netlify.app/">lasaks.eu</a>
             </span>
           </div>
