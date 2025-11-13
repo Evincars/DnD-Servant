@@ -86,7 +86,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       border: 2px solid #333;
       padding: var(--spacing-3);
       border-radius: var(--border-radius-2);
-      background: #111;
+      background: var(--background);
       margin-top: var(--spacing-3) !important;
       margin-bottom: var(--spacing-3) !important;
     }

@@ -7,6 +7,12 @@
 @import 'material-symbols/outlined.css';
 
 :root {
+  --background: hsl(270, 20%, 8%);
+  --background-gradient: hsl(280, 25%, 12%);
+  --border: hsl(40, 65%, 80%);
+  --text: hsl(40, 70%, 85%);
+  --button-hover: hsl(280, 25%, 12%);
+
   font-family: 'Mikadan', sans-serif;
 
   @include mat.toolbar-overrides((
