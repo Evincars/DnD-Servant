@@ -404,6 +404,60 @@ import { NgClass } from '@angular/common';
       />
 
       <!--      Spells slots / Alchemist chest-->
+      <input id="level-1-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:440px;" />
+      <input id="level-1-slot-2" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:440px;" />
+      <input id="level-1-slot-3" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:440px;" />
+      <input id="level-1-slot-4" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:953px; left:440px;" />
+
+      <input id="level-2-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:467px;" />
+      <input id="level-2-slot-2" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:467px;" />
+      <input id="level-2-slot-3" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:467px;" />
+      <input
+        id="level-2-slot-4"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox spell-slot-black-priest"
+        style="top:953px; left:467px;"
+      />
+
+      <input id="level-3-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:494px;" />
+      <input id="level-3-slot-2" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:494px;" />
+      <input id="level-3-slot-3" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:494px;" />
+      <input
+        id="level-3-slot-4"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox spell-slot-black-priest"
+        style="top:953px; left:494px;"
+      />
+
+      <input id="level-4-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:521px;" />
+      <input id="level-4-slot-2" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:521px;" />
+      <input id="level-4-slot-3" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:521px;" />
+      <input
+        id="level-4-slot-4"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox spell-slot-black-priest"
+        style="top:953px; left:521px;"
+      />
+
+      <input id="level-5-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:548px;" />
+      <input id="level-5-slot-2" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:548px;" />
+      <input id="level-5-slot-3" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:548px;" />
+      <input
+        id="level-5-slot-4"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox spell-slot-black-priest"
+        style="top:953px; left:548px;"
+      />
+
+      <input id="level-6-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:575px;" />
+      <input id="level-6-slot-2" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:575px;" />
+
+      <input id="level-7-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:601px;" />
+      <input id="level-7-slot-2" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:601px;" />
+
+      <input id="level-8-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:628px;" />
+
+      <input id="level-9-slot-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:655px;" />
 
       <!--    main 6 skills-->
       <input
@@ -1275,6 +1329,14 @@ import { NgClass } from '@angular/common';
 
     .heavy-weight {
       background: rgba(236, 159, 159, 0.47);
+    }
+
+    .spell-slot-checkbox {
+      accent-color: #494343;
+    }
+
+    .spell-slot-black-priest {
+      accent-color: #af5555;
     }
   `,
   providers: [CharacterSheetStore],
