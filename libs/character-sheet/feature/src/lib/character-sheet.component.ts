@@ -1633,113 +1633,7 @@ import { MatTooltip } from '@angular/material/tooltip';
     </form>
     <img src="character-sheet-2.png" alt="Character Sheet" height="1817" width="1293" />
   `,
-  styles: `
-    :host {
-      position: relative;
-      display: block;
-    }
-
-    .field {
-      position: absolute;
-      box-sizing: border-box;
-      pointer-events: auto;
-      background: transparent;
-      border: 1px solid rgba(0, 0, 0, 0.12);
-      border-radius: var(--border-radius-1);
-      padding: 4px 6px;
-      font-size: clamp(16px, 4vw, 16px);
-      font-weight: bold;
-      color: black;
-      outline: none;
-    }
-
-    .label {
-      position: absolute;
-      color: black;
-    }
-
-    .button {
-      background: rgba(17, 70, 209, 0.78);
-      color: white;
-      cursor: pointer;
-      text-decoration: underline;
-
-      &:hover {
-        text-decoration: none;
-      }
-    }
-
-    .field:focus {
-      box-shadow: 0 0 0 3px rgba(63, 131, 255, 0.18);
-      border-color: #3f83ff;
-    }
-
-    .checkbox {
-      width: 15px;
-      height: 15px;
-      background: transparent;
-      border: 1px solid rgba(0, 0, 0, 0.12);
-      box-sizing: border-box;
-      outline: none;
-    }
-
-    .red-checkbox {
-      accent-color: #af5555;
-    }
-
-    .checkbox:focus {
-      box-shadow: 0 0 0 3px rgba(63, 131, 255, 0.18);
-      border-color: #3f83ff;
-    }
-
-    input[type=checkbox][disabled] {
-      outline: 2px solid red;
-      background: transparent;
-      accent-color: red;
-    }
-
-    .textarea {
-      resize: none;
-    }
-
-    .main-skill {
-      font-family: 'Mikadan', sans-serif;
-      color: rgba(4, 61, 230, 0.78);
-      font-size: 22px;
-    }
-
-    .dead-throw-success {
-      accent-color: green;
-    }
-
-    .dead-throw-fail {
-      accent-color: red;
-    }
-
-    .inventory-item {
-      font-size: 13px;
-    }
-
-    .soft-weight {
-      background: rgba(180, 255, 180, 0.62);
-    }
-
-    .medium-weight {
-      background: rgba(237, 194, 108, 0.38);
-    }
-
-    .heavy-weight {
-      background: rgba(236, 159, 159, 0.47);
-    }
-
-    .spell-slot-checkbox {
-      accent-color: #494343;
-    }
-
-    .spell-slot-black-priest {
-      accent-color: #af5555;
-    }
-  `,
+  styleUrl: 'character-sheet.component.scss',
   providers: [CharacterSheetStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, NgClass, MatTooltip],
@@ -2206,6 +2100,75 @@ export class CharacterSheetComponent {
       }
     });
 
+    this.spellSlotsControls.urovenCernokneznika.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(level => {
+      const levelNumber = parseInt(level ?? '0');
+
+      switch (levelNumber) {
+        case 1:
+          this._setBlackPriestSpellSlotsLevel1();
+          break;
+        case 2:
+          this._setBlackPriestSpellSlotsLevel2();
+          break;
+        case 3:
+          this._setBlackPriestSpellSlotsLevel3();
+          break;
+        case 4:
+          this._setBlackPriestSpellSlotsLevel3();
+          break;
+        case 5:
+          this._setBlackPriestSpellSlotsLevel5();
+          break;
+        case 6:
+          this._setBlackPriestSpellSlotsLevel5();
+          break;
+        case 7:
+          this._setBlackPriestSpellSlotsLevel7();
+          break;
+        case 8:
+          this._setBlackPriestSpellSlotsLevel7();
+          break;
+        case 9:
+          this._setBlackPriestSpellSlotsLevel9();
+          break;
+        case 10:
+          this._setBlackPriestSpellSlotsLevel9();
+          break;
+        case 11:
+          this._setBlackPriestSpellSlotsLevel11();
+          break;
+        case 12:
+          this._setBlackPriestSpellSlotsLevel11();
+          break;
+        case 13:
+          this._setBlackPriestSpellSlotsLevel13();
+          break;
+        case 14:
+          this._setBlackPriestSpellSlotsLevel13();
+          break;
+        case 15:
+          this._setBlackPriestSpellSlotsLevel15();
+          break;
+        case 16:
+          this._setBlackPriestSpellSlotsLevel15();
+          break;
+        case 17:
+          this._setBlackPriestSpellSlotsLevel17();
+          break;
+        case 18:
+          this._setBlackPriestSpellSlotsLevel17();
+          break;
+        case 19:
+          this._setBlackPriestSpellSlotsLevel17();
+          break;
+        case 20:
+          this._setBlackPriestSpellSlotsLevel17();
+          break;
+        default:
+          this._enableAllSpellSlotsInputs();
+      }
+    });
+
     const checkForUsername = effect(() => {
       const username = this.authService.currentUser()?.username;
 
@@ -2554,6 +2517,100 @@ export class CharacterSheetComponent {
     this._disableBlackPriestSpellSlotsInputs();
 
     this.level5Slot4Input.nativeElement.disabled = true;
+  }
+
+  _setBlackPriestSpellSlotsLevel1() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level1Slot1Input.nativeElement.disabled = false;
+  }
+
+  _setBlackPriestSpellSlotsLevel2() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level1Slot1Input.nativeElement.disabled = false;
+    this.level1Slot2Input.nativeElement.disabled = false;
+  }
+
+  _setBlackPriestSpellSlotsLevel3() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level2Slot1Input.nativeElement.disabled = false;
+    this.level2Slot2Input.nativeElement.disabled = false;
+  }
+
+  _setBlackPriestSpellSlotsLevel5() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level3Slot1Input.nativeElement.disabled = false;
+    this.level3Slot2Input.nativeElement.disabled = false;
+  }
+
+  _setBlackPriestSpellSlotsLevel7() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level4Slot1Input.nativeElement.disabled = false;
+    this.level4Slot2Input.nativeElement.disabled = false;
+  }
+
+  _setBlackPriestSpellSlotsLevel9() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level5Slot1Input.nativeElement.disabled = false;
+    this.level5Slot2Input.nativeElement.disabled = false;
+  }
+
+  _setBlackPriestSpellSlotsLevel11() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level5Slot1Input.nativeElement.disabled = false;
+    this.level5Slot2Input.nativeElement.disabled = false;
+    this.level5Slot3Input.nativeElement.disabled = false;
+
+    this.level6Slot1Input.nativeElement.disabled = false;
+  }
+
+  _setBlackPriestSpellSlotsLevel13() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level5Slot1Input.nativeElement.disabled = false;
+    this.level5Slot2Input.nativeElement.disabled = false;
+    this.level5Slot3Input.nativeElement.disabled = false;
+
+    this.level6Slot1Input.nativeElement.disabled = false;
+
+    this.level7Slot1Input.nativeElement.disabled = false;
+  }
+
+  _setBlackPriestSpellSlotsLevel15() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level5Slot1Input.nativeElement.disabled = false;
+    this.level5Slot2Input.nativeElement.disabled = false;
+    this.level5Slot3Input.nativeElement.disabled = false;
+
+    this.level6Slot1Input.nativeElement.disabled = false;
+
+    this.level7Slot1Input.nativeElement.disabled = false;
+
+    this.level8Slot1Input.nativeElement.disabled = false;
+  }
+
+  _setBlackPriestSpellSlotsLevel17() {
+    this._disableAllSpellSlotsInputs();
+
+    this.level5Slot1Input.nativeElement.disabled = false;
+    this.level5Slot2Input.nativeElement.disabled = false;
+    this.level5Slot3Input.nativeElement.disabled = false;
+    this.level5Slot4Input.nativeElement.disabled = false;
+
+    this.level6Slot1Input.nativeElement.disabled = false;
+
+    this.level7Slot1Input.nativeElement.disabled = false;
+
+    this.level8Slot1Input.nativeElement.disabled = false;
+
+    this.level9Slot1Input.nativeElement.disabled = false;
   }
 
   _disableBlackPriestSpellSlotsInputs() {
