@@ -10,8 +10,8 @@
   font-family: 'Mikadan', sans-serif;
 
   @include mat.toolbar-overrides((
-          container-background-color: #222,
-          container-text-color: red,
+          container-background-color: rgb(32, 32, 32),
+          container-text-color: #b84949,
   ));
 }
 

@@ -201,19 +201,19 @@ import { MatTooltip } from '@angular/material/tooltip';
       <input
         [formControl]="armorClassControls.zbroj"
         class="field"
-        style="top:416.09px; left:478.15px; width:61.57px; text-align: center;"
+        style="top:416.09px; left:478.15px; width:61.57px; text-align: center; font-size: 22px;"
         placeholder="Zbroj"
       />
       <input
         [formControl]="armorClassControls.bezeZbroje"
         class="field"
-        style="top:416.09px; left:582.95px; width:61.57px; text-align: center;"
+        style="top:416.09px; left:582.95px; width:61.57px; text-align: center; font-size: 22px;"
         placeholder="Bez"
       />
       <input
         [formControl]="armorClassControls.jine"
         class="field"
-        style="top:416.09px; left:692.99px; width:61.57px; text-align: center;"
+        style="top:416.09px; left:692.99px; width:61.57px; text-align: center; font-size: 22px;"
         placeholder="Jiné"
       />
 
@@ -1677,9 +1677,7 @@ import { MatTooltip } from '@angular/material/tooltip';
     .checkbox {
       width: 15px;
       height: 15px;
-      /*accent-color: #3f83ff; !* Optional: matches focus color *!*/
       background: transparent;
-      border-radius: var(--border-radius-1);
       border: 1px solid rgba(0, 0, 0, 0.12);
       box-sizing: border-box;
       outline: none;
