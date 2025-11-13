@@ -27,7 +27,12 @@ import { NgClass } from '@angular/common';
     <img src="character-sheet-1-copy.png" alt="Character Sheet" height="1817" width="1293" />
 
     <form [formGroup]="form">
-      <input [formControl]="topInfoControls.rasa" class="field" style="top:5.1%; left:4.5%; width:14%;" placeholder="Rasa" />
+      <input
+        [formControl]="topInfoControls.rasa"
+        class="field"
+        style="top:92.21px; left:58.95px; width:183.4px"
+        placeholder="Rasa"
+      />
       <input
         [formControl]="topInfoControls.povolani"
         class="field"
