@@ -22,6 +22,7 @@ import { AuthService, FormUtil } from '@dn-d-servant/util';
 import { CharacterSheetFormModelMappers } from './character-sheet-form-model-mappers';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'character-sheet',
@@ -406,6 +407,58 @@ import { NgClass } from '@angular/common';
       />
 
       <!--      Spells slots / Alchemist chest-->
+      <p
+        class="label"
+        matTooltip="úroveň Sesilatele"
+        matTooltipPosition="left"
+        style="top:904px; left:629px; width:45px; font-size: 13px"
+      >
+        S*
+      </p>
+      <input
+        [formControl]="spellSlotsControls.urovenSesilatele"
+        matTooltip="úroveň Sesilatele"
+        matTooltipPosition="left"
+        class="field"
+        type="number"
+        style="top:913px; left:645px; width:45px; font-size: 13px"
+        placeholder="S"
+      />
+      <p
+        class="label"
+        matTooltip="úroveň Černokněžníka"
+        matTooltipPosition="left"
+        style="top:929px; left:629px; width:45px; font-size: 13px"
+      >
+        Č*
+      </p>
+      <input
+        [formControl]="spellSlotsControls.urovenCernokneznika"
+        matTooltip="úroveň Černokněžníka"
+        matTooltipPosition="left"
+        class="field"
+        type="number"
+        style="top:963px; left:645px; width:45px; font-size: 13px"
+        placeholder="S"
+      />
+      <p
+        class="label"
+        matTooltip="úroveň Alchymisty"
+        matTooltipPosition="left"
+        style="top:954px; left:629px; width:45px; font-size: 13px"
+      >
+        A*
+      </p>
+      <input
+        [formControl]="alchemistChestControls.urovenAlchymisty"
+        matTooltip="úroveň Alchymisty"
+        matTooltipPosition="left"
+        class="field"
+        type="number"
+        style="top:938px; left:645px; width:45px; font-size: 13px"
+        placeholder="S"
+      />
+
       <input
         [formControl]="spellSlotsControls.level1Slot1"
         id="level-1-slot-1"
@@ -703,7 +756,7 @@ import { NgClass } from '@angular/common';
         id="atletikaZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:414.28px; left:182.09px;"
+        style="top:416px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.atletika"
@@ -717,7 +770,7 @@ import { NgClass } from '@angular/common';
         id="akrobacieZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:472.42px; left:182.09px;"
+        style="top:474px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.akrobacie"
@@ -731,7 +784,7 @@ import { NgClass } from '@angular/common';
         id="cachryZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:499.68px; left:182.09px;"
+        style="top:502px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.cachry"
@@ -745,7 +798,7 @@ import { NgClass } from '@angular/common';
         id="nenapadnostZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:528.75px; left:182.09px;"
+        style="top:530px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.nenapadnost"
@@ -760,7 +813,7 @@ import { NgClass } from '@angular/common';
         id="historieZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:592.34px; left:182.09px;"
+        style="top:593px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.historie"
@@ -774,7 +827,7 @@ import { NgClass } from '@angular/common';
         id="mystikaZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:619.61px; left:182.09px;"
+        style="top:622px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.mystika"
@@ -788,7 +841,7 @@ import { NgClass } from '@angular/common';
         id="nabozenstviZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:648.69px; left:182.09px;"
+        style="top:651px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.nabozenstvi"
@@ -802,7 +855,7 @@ import { NgClass } from '@angular/common';
         id="patraniZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:677.74px; left:182.09px;"
+        style="top:679px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.patrani"
@@ -816,7 +869,7 @@ import { NgClass } from '@angular/common';
         id="prirodaZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:704.99px; left:182.09px;"
+        style="top:707px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.priroda"
@@ -831,7 +884,7 @@ import { NgClass } from '@angular/common';
         id="lekarstviZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:768.59px; left:182.09px;"
+        style="top:769px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.lekarstvi"
@@ -845,7 +898,7 @@ import { NgClass } from '@angular/common';
         id="ovladaniZviratZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:796.85px; left:182.09px;"
+        style="top:798px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.ovladaniZvirat"
@@ -859,7 +912,7 @@ import { NgClass } from '@angular/common';
         id="prezitiZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:825.32px; left:182.09px;"
+        style="top:827px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.preziti"
@@ -873,7 +926,7 @@ import { NgClass } from '@angular/common';
         id="vhledZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:853.58px; left:182.09px;"
+        style="top:855px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.vhled"
@@ -887,7 +940,7 @@ import { NgClass } from '@angular/common';
         id="vnimaniZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:880.25px; left:182.09px;"
+        style="top:883px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.vnimani"
@@ -902,7 +955,7 @@ import { NgClass } from '@angular/common';
         id="klamaniZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:944.84px; left:182.09px;"
+        style="top:946px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.klamani"
@@ -916,7 +969,7 @@ import { NgClass } from '@angular/common';
         id="presvedcovaniZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:972.10px; left:182.09px;"
+        style="top:975px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.presvedcovani"
@@ -930,7 +983,7 @@ import { NgClass } from '@angular/common';
         id="vystupovaniZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:1001.57px; left:182.09px;"
+        style="top:1003px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.vystupovani"
@@ -944,7 +997,7 @@ import { NgClass } from '@angular/common';
         id="zastrasovaniZdatnost"
         type="checkbox"
         class="field checkbox red-checkbox"
-        style="top:1030.60px; left:182.09px;"
+        style="top:1033px; left:182.09px;"
       />
       <input
         [formControl]="abilitiesControls.zastrasovani"
@@ -1423,6 +1476,10 @@ import { NgClass } from '@angular/common';
       color: black;
       outline: none;
     }
+    .label {
+      position: absolute;
+      color: black;
+    }
 
     .button {
       background: rgba(17, 70, 209, 0.78);
@@ -1504,7 +1561,7 @@ import { NgClass } from '@angular/common';
   `,
   providers: [CharacterSheetStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, NgClass],
+  imports: [ReactiveFormsModule, NgClass, MatTooltip],
 })
 export class CharacterSheetComponent {
   characterSheetStore = inject(CharacterSheetStore);
