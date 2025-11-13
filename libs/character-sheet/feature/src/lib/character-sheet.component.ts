@@ -1239,20 +1239,25 @@ import { NgClass } from '@angular/common';
       color: rgba(4, 61, 230, 0.78);
       font-size: 22px;
     }
+
     .dead-throw-success {
       accent-color: green;
     }
+
     .dead-throw-fail {
       accent-color: red;
     }
+
     .lehke-nalozeni {
-      background: green;
+      background: #b4ffb4;
     }
+
     .stredni-nalozeni {
-      background: orange;
+      background: #f4d597;
     }
+
     .tezke-nalozeni {
-      background: red;
+      background: #ec9f9f;
     }
   `,
   providers: [CharacterSheetStore],
@@ -1547,17 +1552,21 @@ export class CharacterSheetComponent {
     });
 
     this.main6SkillsControls.silaOprava.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(strength => {
-      const strengthFix = parseInt(strength?.replace(/[^\d]/g, '') ?? '');
-      const softWeight = 5 + strengthFix - 1; // -1 because of index
+      const strengthFix = parseInt(strength?.replace(/[^\d\-+]/g, '') ?? '');
+      const softWeight = 5 + strengthFix;
+      const mediumWeight = softWeight + 5;
+      const heavyWeight = mediumWeight + 5;
       const inventoryClassesArray = this.inventoryClasses();
 
-      inventoryClassesArray.map((x, i) => {
-        if (i <= softWeight) {
+      inventoryClassesArray.forEach((x, i) => {
+        if (i < softWeight) {
           inventoryClassesArray[i] = 'lehke-nalozeni';
-        } else if (i <= 5 + softWeight) {
+        } else if (i < mediumWeight) {
           inventoryClassesArray[i] = 'stredni-nalozeni';
-        } else if (i <= 10 + softWeight) {
+        } else if (i < heavyWeight) {
           inventoryClassesArray[i] = 'tezke-nalozeni';
+        } else {
+          inventoryClassesArray[i] = '';
         }
       });
       this.inventoryClasses.set(inventoryClassesArray);
