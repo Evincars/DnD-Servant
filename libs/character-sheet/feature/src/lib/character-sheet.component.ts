@@ -387,21 +387,23 @@ import { NgClass } from '@angular/common';
       <input
         [formControl]="spellsAndAlchemistChestControls.vlastnost"
         class="field"
-        style="top:44.2%; left:33.8%; width:11%;"
+        style="top:803.11px; left:442.78px; width:144.1px;"
         placeholder="Vlastnost"
       />
       <input
         [formControl]="spellsAndAlchemistChestControls.utBonus"
         class="field"
-        style="top:44.2%; left:46.1%; width:7.2%;"
+        style="top:803.11px; left:603.91px; width:94.32px;"
         placeholder="Út bonus"
       />
       <input
         [formControl]="spellsAndAlchemistChestControls.soZachrany"
         class="field"
-        style="top:44.2%; left:54.1%; width:7.2%;"
+        style="top:803.11px; left:708.71px; width:94.32px;"
         placeholder="SO záchr."
       />
+
+      <!--      Spells slots / Alchemist chest-->
 
       <!--    main 6 skills-->
       <input
