@@ -35,6 +35,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
 import { MatTooltip } from '@angular/material/tooltip';
 import { SecondPageComponent } from './second-page.component';
+import { ThirdPageComponent } from './third-page.component';
 
 @Component({
   selector: 'character-sheet',
@@ -1623,6 +1624,8 @@ import { SecondPageComponent } from './second-page.component';
 
       <second-page [form]="controls.secondPageForm" />
 
+      <third-page [form]="controls.thirdPageForm" />
+
       <button (click)="onSaveClick()" class="field button" style="top:0.5%; left:77%; width:19.4%">
         Uložit character sheet [enter]
       </button>
@@ -1639,7 +1642,7 @@ import { SecondPageComponent } from './second-page.component';
   styleUrl: 'character-sheet.component.scss',
   providers: [CharacterSheetStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, NgClass, MatTooltip, SecondPageComponent],
+  imports: [ReactiveFormsModule, NgClass, MatTooltip, SecondPageComponent, ThirdPageComponent],
 })
 export class CharacterSheetComponent {
   characterSheetStore = inject(CharacterSheetStore);
@@ -1972,6 +1975,7 @@ export class CharacterSheetComponent {
       chestUsage20: this.fb.control(''),
     }),
     secondPageForm: SecondPageComponent.createForm(),
+    thirdPageForm: ThirdPageComponent.createForm(),
   });
 
   get controls() {

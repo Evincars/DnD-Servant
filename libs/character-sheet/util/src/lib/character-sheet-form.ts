@@ -1,6 +1,7 @@
 import { FormControl, FormGroup } from '@angular/forms';
 import { ExtractFormData } from '@dn-d-servant/util';
 import { SecondPageApiModel, SecondPageForm } from './second-page-form';
+import { ThirdPageApiModel, ThirdPageForm } from './third-page-form';
 
 export type CharacterSheetFormData = ExtractFormData<CharacterSheetForm>;
 
@@ -22,6 +23,7 @@ export type CharacterSheetForm = {
   spellSlotsForm: FormGroup<SpellSlotsForm>;
   alchemistChestForm: FormGroup<AlchemistChestForm>;
   secondPageForm: FormGroup<SecondPageForm>;
+  thirdPageForm: FormGroup<ThirdPageForm>;
 };
 
 export type TopInfoForm = {
@@ -572,4 +574,5 @@ export type CharacterSheetApiModel = {
     chestUsage20: string;
   };
   secondPageForm: SecondPageApiModel;
+  thirdPageForm: ThirdPageApiModel;
 };
