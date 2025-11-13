@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, signal, untracked } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  effect,
+  ElementRef,
+  inject,
+  signal,
+  untracked,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import {
   CharacterSheetForm,
@@ -460,6 +470,7 @@ import { MatTooltip } from '@angular/material/tooltip';
       />
 
       <input
+        #level1Slot1Input
         [formControl]="spellSlotsControls.level1Slot1"
         id="level-1-slot-1"
         type="checkbox"
@@ -467,6 +478,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:892px; left:440px;"
       />
       <input
+        #level1Slot2Input
         [formControl]="spellSlotsControls.level1Slot2"
         id="level-1-slot-2"
         type="checkbox"
@@ -474,6 +486,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:912px; left:440px;"
       />
       <input
+        #level1Slot3Input
         [formControl]="spellSlotsControls.level1Slot3"
         id="level-1-slot-3"
         type="checkbox"
@@ -481,6 +494,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:933px; left:440px;"
       />
       <input
+        #level1Slot4Input
         [formControl]="spellSlotsControls.level1Slot4"
         id="level-1-slot-4"
         type="checkbox"
@@ -489,6 +503,7 @@ import { MatTooltip } from '@angular/material/tooltip';
       />
 
       <input
+        #level2Slot1Input
         [formControl]="spellSlotsControls.level2Slot1"
         id="level-2-slot-1"
         type="checkbox"
@@ -496,6 +511,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:892px; left:467px;"
       />
       <input
+        #level2Slot2Input
         [formControl]="spellSlotsControls.level2Slot2"
         id="level-2-slot-2"
         type="checkbox"
@@ -503,6 +519,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:912px; left:467px;"
       />
       <input
+        #level2Slot3Input
         [formControl]="spellSlotsControls.level2Slot3"
         id="level-2-slot-3"
         type="checkbox"
@@ -510,6 +527,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:933px; left:467px;"
       />
       <input
+        #level2Slot4Input
         [formControl]="spellSlotsControls.level2Slot4"
         id="level-2-slot-4"
         type="checkbox"
@@ -518,6 +536,7 @@ import { MatTooltip } from '@angular/material/tooltip';
       />
 
       <input
+        #level3Slot1Input
         [formControl]="spellSlotsControls.level3Slot1"
         id="level-3-slot-1"
         type="checkbox"
@@ -525,6 +544,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:892px; left:494px;"
       />
       <input
+        #level3Slot2Input
         [formControl]="spellSlotsControls.level3Slot2"
         id="level-3-slot-2"
         type="checkbox"
@@ -532,6 +552,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:912px; left:494px;"
       />
       <input
+        #level3Slot3Input
         [formControl]="spellSlotsControls.level3Slot3"
         id="level-3-slot-3"
         type="checkbox"
@@ -539,6 +560,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:933px; left:494px;"
       />
       <input
+        #level3Slot4Input
         [formControl]="spellSlotsControls.level3Slot4"
         id="level-3-slot-4"
         type="checkbox"
@@ -547,6 +569,7 @@ import { MatTooltip } from '@angular/material/tooltip';
       />
 
       <input
+        #level4Slot1Input
         [formControl]="spellSlotsControls.level4Slot1"
         id="level-4-slot-1"
         type="checkbox"
@@ -554,6 +577,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:892px; left:521px;"
       />
       <input
+        #level4Slot2Input
         [formControl]="spellSlotsControls.level4Slot2"
         id="level-4-slot-2"
         type="checkbox"
@@ -561,6 +585,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:912px; left:521px;"
       />
       <input
+        #level4Slot3Input
         [formControl]="spellSlotsControls.level4Slot3"
         id="level-4-slot-3"
         type="checkbox"
@@ -568,6 +593,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:933px; left:521px;"
       />
       <input
+        #level4Slot4Input
         [formControl]="spellSlotsControls.level4Slot4"
         id="level-4-slot-4"
         type="checkbox"
@@ -576,6 +602,7 @@ import { MatTooltip } from '@angular/material/tooltip';
       />
 
       <input
+        #level5Slot1Input
         [formControl]="spellSlotsControls.level5Slot1"
         id="level-5-slot-1"
         type="checkbox"
@@ -583,6 +610,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:892px; left:548px;"
       />
       <input
+        #level5Slot2Input
         [formControl]="spellSlotsControls.level5Slot2"
         id="level-5-slot-2"
         type="checkbox"
@@ -590,6 +618,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:912px; left:548px;"
       />
       <input
+        #level5Slot3Input
         [formControl]="spellSlotsControls.level5Slot3"
         id="level-5-slot-3"
         type="checkbox"
@@ -597,6 +626,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:933px; left:548px;"
       />
       <input
+        #level5Slot4Input
         [formControl]="spellSlotsControls.level5Slot4"
         id="level-5-slot-4"
         type="checkbox"
@@ -605,6 +635,7 @@ import { MatTooltip } from '@angular/material/tooltip';
       />
 
       <input
+        #level6Slot1Input
         [formControl]="spellSlotsControls.level6Slot1"
         id="level-6-slot-1"
         type="checkbox"
@@ -612,6 +643,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:892px; left:575px;"
       />
       <input
+        #level6Slot2Input
         [formControl]="spellSlotsControls.level6Slot2"
         id="level-6-slot-2"
         type="checkbox"
@@ -620,6 +652,7 @@ import { MatTooltip } from '@angular/material/tooltip';
       />
 
       <input
+        #level7Slot1Input
         [formControl]="spellSlotsControls.level7Slot1"
         id="level-7-slot-1"
         type="checkbox"
@@ -627,6 +660,7 @@ import { MatTooltip } from '@angular/material/tooltip';
         style="top:892px; left:601px;"
       />
       <input
+        #level7Slot2Input
         [formControl]="spellSlotsControls.level7Slot2"
         id="level-7-slot-2"
         type="checkbox"
@@ -635,6 +669,7 @@ import { MatTooltip } from '@angular/material/tooltip';
       />
 
       <input
+        #level8Slot1Input
         [formControl]="spellSlotsControls.level8Slot1"
         id="level-8-slot-1"
         type="checkbox"
@@ -643,6 +678,7 @@ import { MatTooltip } from '@angular/material/tooltip';
       />
 
       <input
+        #level9Slot1Input
         [formControl]="spellSlotsControls.level9Slot1"
         id="level-9-slot-1"
         type="checkbox"
@@ -651,29 +687,169 @@ import { MatTooltip } from '@angular/material/tooltip';
       />
 
       <!--      Alchemist chest-->
-      <input id="chest-usage-1" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:692px;" />
-      <input id="chest-usage-2" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:716px;" />
-      <input id="chest-usage-3" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:738px;" />
-      <input id="chest-usage-4" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:761px;" />
-      <input id="chest-usage-5" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:892px; left:784px;" />
+      <input
+        #chestUsage1Input
+        [formControl]="alchemistChestControls.chestUsage1"
+        id="chest-usage-1"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:892px; left:692px;"
+      />
+      <input
+        #chestUsage2Input
+        [formControl]="alchemistChestControls.chestUsage2"
+        id="chest-usage-2"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:892px; left:716px;"
+      />
+      <input
+        #chestUsage3Input
+        [formControl]="alchemistChestControls.chestUsage3"
+        id="chest-usage-3"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:892px; left:738px;"
+      />
+      <input
+        #chestUsage4Input
+        [formControl]="alchemistChestControls.chestUsage4"
+        id="chest-usage-4"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:892px; left:761px;"
+      />
+      <input
+        #chestUsage5Input
+        [formControl]="alchemistChestControls.chestUsage5"
+        id="chest-usage-5"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:892px; left:784px;"
+      />
 
-      <input id="chest-usage-6" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:692px;" />
-      <input id="chest-usage-7" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:716px;" />
-      <input id="chest-usage-8" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:738px;" />
-      <input id="chest-usage-9" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:761px;" />
-      <input id="chest-usage-10" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:912px; left:784px;" />
+      <input
+        #chestUsage6Input
+        [formControl]="alchemistChestControls.chestUsage6"
+        id="chest-usage-6"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:912px; left:692px;"
+      />
+      <input
+        #chestUsage7Input
+        [formControl]="alchemistChestControls.chestUsage7"
+        id="chest-usage-7"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:912px; left:716px;"
+      />
+      <input
+        #chestUsage8Input
+        [formControl]="alchemistChestControls.chestUsage8"
+        id="chest-usage-8"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:912px; left:738px;"
+      />
+      <input
+        #chestUsage9Input
+        [formControl]="alchemistChestControls.chestUsage9"
+        id="chest-usage-9"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:912px; left:761px;"
+      />
+      <input
+        #chestUsage10Input
+        [formControl]="alchemistChestControls.chestUsage10"
+        id="chest-usage-10"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:912px; left:784px;"
+      />
 
-      <input id="chest-usage-11" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:692px;" />
-      <input id="chest-usage-12" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:716px;" />
-      <input id="chest-usage-13" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:738px;" />
-      <input id="chest-usage-14" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:761px;" />
-      <input id="chest-usage-15" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:933px; left:784px;" />
+      <input
+        #chestUsage11Input
+        [formControl]="alchemistChestControls.chestUsage11"
+        id="chest-usage-11"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:933px; left:692px;"
+      />
+      <input
+        #chestUsage12Input
+        [formControl]="alchemistChestControls.chestUsage12"
+        id="chest-usage-12"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:933px; left:716px;"
+      />
+      <input
+        #chestUsage13Input
+        [formControl]="alchemistChestControls.chestUsage13"
+        id="chest-usage-13"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:933px; left:738px;"
+      />
+      <input
+        #chestUsage14Input
+        [formControl]="alchemistChestControls.chestUsage14"
+        id="chest-usage-14"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:933px; left:761px;"
+      />
+      <input
+        #chestUsage15Input
+        [formControl]="alchemistChestControls.chestUsage15"
+        id="chest-usage-15"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:933px; left:784px;"
+      />
 
-      <input id="chest-usage-16" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:953px; left:692px;" />
-      <input id="chest-usage-17" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:953px; left:716px;" />
-      <input id="chest-usage-18" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:953px; left:738px;" />
-      <input id="chest-usage-19" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:953px; left:761px;" />
-      <input id="chest-usage-20" type="checkbox" class="field checkbox spell-slot-checkbox" style="top:953px; left:784px;" />
+      <input
+        #chestUsage16Input
+        [formControl]="alchemistChestControls.chestUsage16"
+        id="chest-usage-16"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:953px; left:692px;"
+      />
+      <input
+        #chestUsage17Input
+        [formControl]="alchemistChestControls.chestUsage17"
+        id="chest-usage-17"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:953px; left:716px;"
+      />
+      <input
+        #chestUsage18Input
+        [formControl]="alchemistChestControls.chestUsage18"
+        id="chest-usage-18"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:953px; left:738px;"
+      />
+      <input
+        #chestUsage19Input
+        [formControl]="alchemistChestControls.chestUsage19"
+        id="chest-usage-19"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:953px; left:761px;"
+      />
+      <input
+        #chestUsage20Input
+        [formControl]="alchemistChestControls.chestUsage20"
+        id="chest-usage-20"
+        type="checkbox"
+        class="field checkbox spell-slot-checkbox"
+        style="top:953px; left:784px;"
+      />
 
       <!--    main 6 skills-->
       <input
@@ -1476,6 +1652,7 @@ import { MatTooltip } from '@angular/material/tooltip';
       color: black;
       outline: none;
     }
+
     .label {
       position: absolute;
       color: black;
@@ -1509,12 +1686,18 @@ import { MatTooltip } from '@angular/material/tooltip';
     }
 
     .red-checkbox {
-      accent-color: #c81313;
+      accent-color: #af5555;
     }
 
     .checkbox:focus {
       box-shadow: 0 0 0 3px rgba(63, 131, 255, 0.18);
       border-color: #3f83ff;
+    }
+
+    input[type=checkbox][disabled] {
+      outline: 2px solid red;
+      background: transparent;
+      accent-color: red;
     }
 
     .textarea {
@@ -1567,6 +1750,62 @@ export class CharacterSheetComponent {
   characterSheetStore = inject(CharacterSheetStore);
   authService = inject(AuthService);
   destroyRef = inject(DestroyRef);
+
+  @ViewChild('level1Slot1Input') level1Slot1Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level1Slot2Input') level1Slot2Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level1Slot3Input') level1Slot3Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level1Slot4Input') level1Slot4Input!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('level2Slot1Input') level2Slot1Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level2Slot2Input') level2Slot2Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level2Slot3Input') level2Slot3Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level2Slot4Input') level2Slot4Input!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('level3Slot1Input') level3Slot1Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level3Slot2Input') level3Slot2Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level3Slot3Input') level3Slot3Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level3Slot4Input') level3Slot4Input!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('level4Slot1Input') level4Slot1Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level4Slot2Input') level4Slot2Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level4Slot3Input') level4Slot3Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level4Slot4Input') level4Slot4Input!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('level5Slot1Input') level5Slot1Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level5Slot2Input') level5Slot2Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level5Slot3Input') level5Slot3Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level5Slot4Input') level5Slot4Input!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('level6Slot1Input') level6Slot1Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level6Slot2Input') level6Slot2Input!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('level7Slot1Input') level7Slot1Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('level7Slot2Input') level7Slot2Input!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('level8Slot1Input') level8Slot1Input!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('level9Slot1Input') level9Slot1Input!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('chestUsage1Input') chestUsage1Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage2Input') chestUsage2Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage3Input') chestUsage3Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage4Input') chestUsage4Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage5Input') chestUsage5Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage6Input') chestUsage6Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage7Input') chestUsage7Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage8Input') chestUsage8Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage9Input') chestUsage9Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage10Input') chestUsage10Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage11Input') chestUsage11Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage12Input') chestUsage12Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage13Input') chestUsage13Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage14Input') chestUsage14Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage15Input') chestUsage15Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage16Input') chestUsage16Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage17Input') chestUsage17Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage18Input') chestUsage18Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage19Input') chestUsage19Input!: ElementRef<HTMLInputElement>;
+  @ViewChild('chestUsage20Input') chestUsage20Input!: ElementRef<HTMLInputElement>;
 
   inventoryClasses = signal(Array(20).fill(''));
   infoMessage = signal('');
@@ -1900,6 +2139,15 @@ export class CharacterSheetComponent {
       this._setInventoryClasses(strength ?? '0');
     });
 
+    this.spellSlotsControls.urovenSesilatele.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(level => {
+      const levelNumber = parseInt(level ?? '0');
+      console.log('level', level);
+      if (levelNumber === 1) {
+        console.log('jsem tu');
+        this.level1Slot1Input.nativeElement.disabled = true;
+      }
+    });
+
     const checkForUsername = effect(() => {
       const username = this.authService.currentUser()?.username;
 
@@ -1962,5 +2210,125 @@ export class CharacterSheetComponent {
       }
     });
     this.inventoryClasses.set(inventoryClassesArray);
+  }
+
+  _disableAllSpellSlotsInputs() {
+    this.level1Slot1Input.nativeElement.disabled = true;
+    this.level1Slot2Input.nativeElement.disabled = true;
+    this.level1Slot3Input.nativeElement.disabled = true;
+    this.level1Slot4Input.nativeElement.disabled = true;
+
+    this.level2Slot1Input.nativeElement.disabled = true;
+    this.level2Slot2Input.nativeElement.disabled = true;
+    this.level2Slot3Input.nativeElement.disabled = true;
+    this.level2Slot4Input.nativeElement.disabled = true;
+
+    this.level3Slot1Input.nativeElement.disabled = true;
+    this.level3Slot2Input.nativeElement.disabled = true;
+    this.level3Slot3Input.nativeElement.disabled = true;
+    this.level3Slot4Input.nativeElement.disabled = true;
+
+    this.level4Slot1Input.nativeElement.disabled = true;
+    this.level4Slot2Input.nativeElement.disabled = true;
+    this.level4Slot3Input.nativeElement.disabled = true;
+    this.level4Slot4Input.nativeElement.disabled = true;
+
+    this.level5Slot1Input.nativeElement.disabled = true;
+    this.level5Slot2Input.nativeElement.disabled = true;
+    this.level5Slot3Input.nativeElement.disabled = true;
+    this.level5Slot4Input.nativeElement.disabled = true;
+
+    this.level6Slot1Input.nativeElement.disabled = true;
+    this.level6Slot2Input.nativeElement.disabled = true;
+
+    this.level7Slot1Input.nativeElement.disabled = true;
+    this.level7Slot2Input.nativeElement.disabled = true;
+
+    this.level8Slot1Input.nativeElement.disabled = true;
+
+    this.level9Slot1Input.nativeElement.disabled = true;
+  }
+
+  _enableAllSpellSlotsInputs() {
+    this.level1Slot1Input.nativeElement.disabled = false;
+    this.level1Slot2Input.nativeElement.disabled = false;
+    this.level1Slot3Input.nativeElement.disabled = false;
+    this.level1Slot4Input.nativeElement.disabled = false;
+
+    this.level2Slot1Input.nativeElement.disabled = false;
+    this.level2Slot2Input.nativeElement.disabled = false;
+    this.level2Slot3Input.nativeElement.disabled = false;
+    this.level2Slot4Input.nativeElement.disabled = false;
+
+    this.level3Slot1Input.nativeElement.disabled = false;
+    this.level3Slot2Input.nativeElement.disabled = false;
+    this.level3Slot3Input.nativeElement.disabled = false;
+    this.level3Slot4Input.nativeElement.disabled = false;
+
+    this.level4Slot1Input.nativeElement.disabled = false;
+    this.level4Slot2Input.nativeElement.disabled = false;
+    this.level4Slot3Input.nativeElement.disabled = false;
+    this.level4Slot4Input.nativeElement.disabled = false;
+
+    this.level5Slot1Input.nativeElement.disabled = false;
+    this.level5Slot2Input.nativeElement.disabled = false;
+    this.level5Slot3Input.nativeElement.disabled = false;
+    this.level5Slot4Input.nativeElement.disabled = false;
+
+    this.level6Slot1Input.nativeElement.disabled = false;
+    this.level6Slot2Input.nativeElement.disabled = false;
+
+    this.level7Slot1Input.nativeElement.disabled = false;
+    this.level7Slot2Input.nativeElement.disabled = false;
+
+    this.level8Slot1Input.nativeElement.disabled = false;
+
+    this.level9Slot1Input.nativeElement.disabled = false;
+  }
+
+  _disableAllChestUsagesInputs() {
+    this.chestUsage1Input.nativeElement.disabled = true;
+    this.chestUsage2Input.nativeElement.disabled = true;
+    this.chestUsage3Input.nativeElement.disabled = true;
+    this.chestUsage4Input.nativeElement.disabled = true;
+    this.chestUsage5Input.nativeElement.disabled = true;
+    this.chestUsage6Input.nativeElement.disabled = true;
+    this.chestUsage7Input.nativeElement.disabled = true;
+    this.chestUsage8Input.nativeElement.disabled = true;
+    this.chestUsage9Input.nativeElement.disabled = true;
+    this.chestUsage10Input.nativeElement.disabled = true;
+    this.chestUsage11Input.nativeElement.disabled = true;
+    this.chestUsage12Input.nativeElement.disabled = true;
+    this.chestUsage13Input.nativeElement.disabled = true;
+    this.chestUsage14Input.nativeElement.disabled = true;
+    this.chestUsage15Input.nativeElement.disabled = true;
+    this.chestUsage16Input.nativeElement.disabled = true;
+    this.chestUsage17Input.nativeElement.disabled = true;
+    this.chestUsage18Input.nativeElement.disabled = true;
+    this.chestUsage19Input.nativeElement.disabled = true;
+    this.chestUsage20Input.nativeElement.disabled = true;
+  }
+
+  _enableAllChestUsagesInputs() {
+    this.chestUsage1Input.nativeElement.disabled = false;
+    this.chestUsage2Input.nativeElement.disabled = false;
+    this.chestUsage3Input.nativeElement.disabled = false;
+    this.chestUsage4Input.nativeElement.disabled = false;
+    this.chestUsage5Input.nativeElement.disabled = false;
+    this.chestUsage6Input.nativeElement.disabled = false;
+    this.chestUsage7Input.nativeElement.disabled = false;
+    this.chestUsage8Input.nativeElement.disabled = false;
+    this.chestUsage9Input.nativeElement.disabled = false;
+    this.chestUsage10Input.nativeElement.disabled = false;
+    this.chestUsage11Input.nativeElement.disabled = false;
+    this.chestUsage12Input.nativeElement.disabled = false;
+    this.chestUsage13Input.nativeElement.disabled = false;
+    this.chestUsage14Input.nativeElement.disabled = false;
+    this.chestUsage15Input.nativeElement.disabled = false;
+    this.chestUsage16Input.nativeElement.disabled = false;
+    this.chestUsage17Input.nativeElement.disabled = false;
+    this.chestUsage18Input.nativeElement.disabled = false;
+    this.chestUsage19Input.nativeElement.disabled = false;
+    this.chestUsage20Input.nativeElement.disabled = false;
   }
 }
