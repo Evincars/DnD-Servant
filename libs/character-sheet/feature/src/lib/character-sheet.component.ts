@@ -2169,6 +2169,75 @@ export class CharacterSheetComponent {
       }
     });
 
+    this.alchemistChestControls.urovenAlchymisty.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(level => {
+      const levelNumber = parseInt(level ?? '0');
+
+      switch (levelNumber) {
+        case 1:
+          this._setAlchemistChestUsagesLevel1();
+          break;
+        case 2:
+          this._setAlchemistChestUsagesLevel2();
+          break;
+        case 3:
+          this._setAlchemistChestUsagesLevel3();
+          break;
+        case 4:
+          this._setAlchemistChestUsagesLevel4();
+          break;
+        case 5:
+          this._setAlchemistChestUsagesLevel5();
+          break;
+        case 6:
+          this._setAlchemistChestUsagesLevel6();
+          break;
+        case 7:
+          this._setAlchemistChestUsagesLevel7();
+          break;
+        case 8:
+          this._setAlchemistChestUsagesLevel8();
+          break;
+        case 9:
+          this._setAlchemistChestUsagesLevel9();
+          break;
+        case 10:
+          this._setAlchemistChestUsagesLevel10();
+          break;
+        case 11:
+          this._setAlchemistChestUsagesLevel11();
+          break;
+        case 12:
+          this._setAlchemistChestUsagesLevel12();
+          break;
+        case 13:
+          this._setAlchemistChestUsagesLevel13();
+          break;
+        case 14:
+          this._setAlchemistChestUsagesLevel14();
+          break;
+        case 15:
+          this._setAlchemistChestUsagesLevel15();
+          break;
+        case 16:
+          this._setAlchemistChestUsagesLevel16();
+          break;
+        case 17:
+          this._setAlchemistChestUsagesLevel17();
+          break;
+        case 18:
+          this._setAlchemistChestUsagesLevel18();
+          break;
+        case 19:
+          this._setAlchemistChestUsagesLevel19();
+          break;
+        case 20:
+          this._setAlchemistChestUsagesLevel20();
+          break;
+        default:
+          this._enableAllChestUsagesInputs();
+      }
+    });
+
     const checkForUsername = effect(() => {
       const username = this.authService.currentUser()?.username;
 
@@ -2611,6 +2680,205 @@ export class CharacterSheetComponent {
     this.level8Slot1Input.nativeElement.disabled = false;
 
     this.level9Slot1Input.nativeElement.disabled = false;
+  }
+
+  _setAlchemistChestUsagesLevel1() {
+    this._disableAllChestUsagesInputs();
+
+    this.chestUsage1Input.nativeElement.disabled = false;
+  }
+
+  _setAlchemistChestUsagesLevel2() {
+    this._disableAllChestUsagesInputs();
+
+    this.chestUsage1Input.nativeElement.disabled = false;
+    this.chestUsage2Input.nativeElement.disabled = false;
+  }
+
+  _setAlchemistChestUsagesLevel3() {
+    this._disableAllChestUsagesInputs();
+
+    this.chestUsage1Input.nativeElement.disabled = false;
+    this.chestUsage2Input.nativeElement.disabled = false;
+    this.chestUsage3Input.nativeElement.disabled = false;
+  }
+
+  _setAlchemistChestUsagesLevel4() {
+    this._disableAllChestUsagesInputs();
+
+    this.chestUsage1Input.nativeElement.disabled = false;
+    this.chestUsage2Input.nativeElement.disabled = false;
+    this.chestUsage3Input.nativeElement.disabled = false;
+    this.chestUsage4Input.nativeElement.disabled = false;
+  }
+
+  _setAlchemistChestUsagesLevel5() {
+    this._disableAllChestUsagesInputs();
+
+    this.chestUsage1Input.nativeElement.disabled = false;
+    this.chestUsage2Input.nativeElement.disabled = false;
+    this.chestUsage3Input.nativeElement.disabled = false;
+    this.chestUsage4Input.nativeElement.disabled = false;
+    this.chestUsage5Input.nativeElement.disabled = false;
+  }
+
+  _setAlchemistChestUsagesLevel6() {
+    this._disableAllChestUsagesInputs();
+
+    this.chestUsage1Input.nativeElement.disabled = false;
+    this.chestUsage2Input.nativeElement.disabled = false;
+    this.chestUsage3Input.nativeElement.disabled = false;
+    this.chestUsage4Input.nativeElement.disabled = false;
+    this.chestUsage5Input.nativeElement.disabled = false;
+    this.chestUsage6Input.nativeElement.disabled = false;
+  }
+
+  _setAlchemistChestUsagesLevel7() {
+    this._disableAllChestUsagesInputs();
+
+    this.chestUsage1Input.nativeElement.disabled = false;
+    this.chestUsage2Input.nativeElement.disabled = false;
+    this.chestUsage3Input.nativeElement.disabled = false;
+    this.chestUsage4Input.nativeElement.disabled = false;
+    this.chestUsage5Input.nativeElement.disabled = false;
+    this.chestUsage6Input.nativeElement.disabled = false;
+    this.chestUsage7Input.nativeElement.disabled = false;
+  }
+
+  _setAlchemistChestUsagesLevel8() {
+    this._disableAllChestUsagesInputs();
+
+    this.chestUsage1Input.nativeElement.disabled = false;
+    this.chestUsage2Input.nativeElement.disabled = false;
+    this.chestUsage3Input.nativeElement.disabled = false;
+    this.chestUsage4Input.nativeElement.disabled = false;
+    this.chestUsage5Input.nativeElement.disabled = false;
+    this.chestUsage6Input.nativeElement.disabled = false;
+    this.chestUsage7Input.nativeElement.disabled = false;
+    this.chestUsage8Input.nativeElement.disabled = false;
+  }
+
+  _setAlchemistChestUsagesLevel9() {
+    this._disableAllChestUsagesInputs();
+
+    this.chestUsage1Input.nativeElement.disabled = false;
+    this.chestUsage2Input.nativeElement.disabled = false;
+    this.chestUsage3Input.nativeElement.disabled = false;
+    this.chestUsage4Input.nativeElement.disabled = false;
+    this.chestUsage5Input.nativeElement.disabled = false;
+    this.chestUsage6Input.nativeElement.disabled = false;
+    this.chestUsage7Input.nativeElement.disabled = false;
+    this.chestUsage8Input.nativeElement.disabled = false;
+    this.chestUsage9Input.nativeElement.disabled = false;
+  }
+
+  _setAlchemistChestUsagesLevel10() {
+    this._disableAllChestUsagesInputs();
+
+    this.chestUsage1Input.nativeElement.disabled = false;
+    this.chestUsage2Input.nativeElement.disabled = false;
+    this.chestUsage3Input.nativeElement.disabled = false;
+    this.chestUsage4Input.nativeElement.disabled = false;
+    this.chestUsage5Input.nativeElement.disabled = false;
+    this.chestUsage6Input.nativeElement.disabled = false;
+    this.chestUsage7Input.nativeElement.disabled = false;
+    this.chestUsage8Input.nativeElement.disabled = false;
+    this.chestUsage9Input.nativeElement.disabled = false;
+    this.chestUsage10Input.nativeElement.disabled = false;
+  }
+
+  _setAlchemistChestUsagesLevel11() {
+    this._enableAllChestUsagesInputs();
+
+    this.chestUsage12Input.nativeElement.disabled = true;
+    this.chestUsage13Input.nativeElement.disabled = true;
+    this.chestUsage14Input.nativeElement.disabled = true;
+    this.chestUsage15Input.nativeElement.disabled = true;
+    this.chestUsage16Input.nativeElement.disabled = true;
+    this.chestUsage17Input.nativeElement.disabled = true;
+    this.chestUsage18Input.nativeElement.disabled = true;
+    this.chestUsage19Input.nativeElement.disabled = true;
+    this.chestUsage20Input.nativeElement.disabled = true;
+  }
+
+  _setAlchemistChestUsagesLevel12() {
+    this._enableAllChestUsagesInputs();
+
+    this.chestUsage13Input.nativeElement.disabled = true;
+    this.chestUsage14Input.nativeElement.disabled = true;
+    this.chestUsage15Input.nativeElement.disabled = true;
+    this.chestUsage16Input.nativeElement.disabled = true;
+    this.chestUsage17Input.nativeElement.disabled = true;
+    this.chestUsage18Input.nativeElement.disabled = true;
+    this.chestUsage19Input.nativeElement.disabled = true;
+    this.chestUsage20Input.nativeElement.disabled = true;
+  }
+
+  _setAlchemistChestUsagesLevel13() {
+    this._enableAllChestUsagesInputs();
+
+    this.chestUsage14Input.nativeElement.disabled = true;
+    this.chestUsage15Input.nativeElement.disabled = true;
+    this.chestUsage16Input.nativeElement.disabled = true;
+    this.chestUsage17Input.nativeElement.disabled = true;
+    this.chestUsage18Input.nativeElement.disabled = true;
+    this.chestUsage19Input.nativeElement.disabled = true;
+    this.chestUsage20Input.nativeElement.disabled = true;
+  }
+
+  _setAlchemistChestUsagesLevel14() {
+    this._enableAllChestUsagesInputs();
+
+    this.chestUsage15Input.nativeElement.disabled = true;
+    this.chestUsage16Input.nativeElement.disabled = true;
+    this.chestUsage17Input.nativeElement.disabled = true;
+    this.chestUsage18Input.nativeElement.disabled = true;
+    this.chestUsage19Input.nativeElement.disabled = true;
+    this.chestUsage20Input.nativeElement.disabled = true;
+  }
+
+  _setAlchemistChestUsagesLevel15() {
+    this._enableAllChestUsagesInputs();
+
+    this.chestUsage16Input.nativeElement.disabled = true;
+    this.chestUsage17Input.nativeElement.disabled = true;
+    this.chestUsage18Input.nativeElement.disabled = true;
+    this.chestUsage19Input.nativeElement.disabled = true;
+    this.chestUsage20Input.nativeElement.disabled = true;
+  }
+
+  _setAlchemistChestUsagesLevel16() {
+    this._enableAllChestUsagesInputs();
+
+    this.chestUsage17Input.nativeElement.disabled = true;
+    this.chestUsage18Input.nativeElement.disabled = true;
+    this.chestUsage19Input.nativeElement.disabled = true;
+    this.chestUsage20Input.nativeElement.disabled = true;
+  }
+
+  _setAlchemistChestUsagesLevel17() {
+    this._enableAllChestUsagesInputs();
+
+    this.chestUsage18Input.nativeElement.disabled = true;
+    this.chestUsage19Input.nativeElement.disabled = true;
+    this.chestUsage20Input.nativeElement.disabled = true;
+  }
+
+  _setAlchemistChestUsagesLevel18() {
+    this._enableAllChestUsagesInputs();
+
+    this.chestUsage19Input.nativeElement.disabled = true;
+    this.chestUsage20Input.nativeElement.disabled = true;
+  }
+
+  _setAlchemistChestUsagesLevel19() {
+    this._enableAllChestUsagesInputs();
+
+    this.chestUsage20Input.nativeElement.disabled = true;
+  }
+
+  _setAlchemistChestUsagesLevel20() {
+    this._enableAllChestUsagesInputs();
   }
 
   _disableBlackPriestSpellSlotsInputs() {
