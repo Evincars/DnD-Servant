@@ -188,19 +188,19 @@ import { NgClass } from '@angular/common';
       <input
         [formControl]="armorClassControls.zbroj"
         class="field"
-        style="top:22.9%; left:36.5%; width:4.7%; text-align: center;"
+        style="top:416.09px; left:478.15px; width:61.57px; text-align: center;"
         placeholder="Zbroj"
       />
       <input
         [formControl]="armorClassControls.bezeZbroje"
         class="field"
-        style="top:22.9%; left:44.5%; width:4.7%; text-align: center;"
+        style="top:416.09px; left:582.95px; width:61.57px; text-align: center;"
         placeholder="Bez"
       />
       <input
         [formControl]="armorClassControls.jine"
         class="field"
-        style="top:22.9%; left:52.9%; width:4.7%; text-align: center;"
+        style="top:416.09px; left:692.99px; width:61.57px; text-align: center;"
         placeholder="Jiné"
       />
 
@@ -209,25 +209,25 @@ import { NgClass } from '@angular/common';
         [formControl]="armorClassControls.zdatnostLehke"
         type="checkbox"
         class="field checkbox"
-        style="top:26.5%; left:34.3%;"
+        style="top:481.51px; left:449.33px;"
       />
       <input
         [formControl]="armorClassControls.zdatnostStredni"
         type="checkbox"
         class="field checkbox"
-        style="top:26.5%; left:41.3%;"
+        style="top:481.51px; left:541.03px;"
       />
       <input
         [formControl]="armorClassControls.zdatnostTezke"
         type="checkbox"
         class="field checkbox"
-        style="top:26.5%; left:49.2%;"
+        style="top:481.51px; left:644.52px;"
       />
       <input
         [formControl]="armorClassControls.zdatnostStity"
         type="checkbox"
         class="field checkbox"
-        style="top:26.5%; left:56.1%;"
+        style="top:481.51px; left:734.91px;"
       />
 
       <!--    Saving throws -->
