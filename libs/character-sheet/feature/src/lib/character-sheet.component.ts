@@ -1626,10 +1626,10 @@ import { ThirdPageComponent } from './third-page.component';
 
       <third-page [form]="controls.thirdPageForm" />
 
-      <button (click)="onSaveClick()" class="field button" style="top:0.5%; left:77%; width:19.4%">
+      <button (click)="onSaveClick()" class="field button" style="top:4px; left:988px; width:300px;">
         Uložit character sheet [enter]
       </button>
-      <p id="inventoryItemRow20" class="field" style="top:-0.5%; left:38.7%; width:22.4%">
+      <p id="inventoryItemRow20" class="field" style="top:-11px; left:471px; width:350px;">
         @if (characterSheetStore.characterSheetSaved()) { Uložení bylo úspěšné. } @else if
         (characterSheetStore.characterSheetError()) {
         {{ characterSheetStore.characterSheetError() }}
