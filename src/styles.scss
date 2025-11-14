@@ -15,10 +15,12 @@
 
   font-family: 'Mikadan', sans-serif;
 
-  @include mat.toolbar-overrides((
-          container-background-color: rgb(32, 32, 32),
-          container-text-color: #b84949,
-  ));
+  @include mat.toolbar-overrides(
+    (
+      container-background-color: rgb(32, 32, 32),
+      container-text-color: #b84949,
+    )
+  );
 }
 
 body {

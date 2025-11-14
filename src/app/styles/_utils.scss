@@ -237,21 +237,21 @@
 }
 
 $font-sizes: (
-        'display-large': 'display-large',
-        'display-medium': 'display-medium',
-        'display-small': 'display-small',
-        'headline-large': 'headline-large',
-        'headline-medium': 'headline-medium',
-        'headline-small': 'headline-small',
-        'title-large': 'title-large',
-        'title-medium': 'title-medium',
-        'title-small': 'title-small',
-        'body-large': 'body-large',
-        'body-medium': 'body-medium',
-        'body-small': 'body-small',
-        'label-large': 'label-large',
-        'label-medium': 'label-medium',
-        'label-small': 'label-small',
+  'display-large': 'display-large',
+  'display-medium': 'display-medium',
+  'display-small': 'display-small',
+  'headline-large': 'headline-large',
+  'headline-medium': 'headline-medium',
+  'headline-small': 'headline-small',
+  'title-large': 'title-large',
+  'title-medium': 'title-medium',
+  'title-small': 'title-small',
+  'body-large': 'body-large',
+  'body-medium': 'body-medium',
+  'body-small': 'body-small',
+  'label-large': 'label-large',
+  'label-medium': 'label-medium',
+  'label-small': 'label-small',
 );
 
 @each $name, $var-prefix in $font-sizes {

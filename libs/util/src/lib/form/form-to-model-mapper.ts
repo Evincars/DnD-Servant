@@ -15,14 +15,14 @@ export type FormToModelMapper<Form, Model> = {
       ? ModelPath extends string
         ? Get<Model, ModelPath> extends Get<Form, FormPath>
           ?
-          | ModelPath
-          | SetOptional<
-          FormFieldToModelMapper<Get<Form, FormPath>, Get<Model, ModelPath>, ModelPath>,
-          'formToModelValueConverter' | 'modelToFormValueConverter'
-        >
+              | ModelPath
+              | SetOptional<
+                  FormFieldToModelMapper<Get<Form, FormPath>, Get<Model, ModelPath>, ModelPath>,
+                  'formToModelValueConverter' | 'modelToFormValueConverter'
+                >
           :
-          | FormFieldToModelMapper<Get<Form, FormPath>, Get<Model, ModelPath>, ModelPath>
-          | FormFieldToModelMapper<Get<Form, FormPath>, Get<Model, ModelPath>, ModelPath>[]
+              | FormFieldToModelMapper<Get<Form, FormPath>, Get<Model, ModelPath>, ModelPath>
+              | FormFieldToModelMapper<Get<Form, FormPath>, Get<Model, ModelPath>, ModelPath>[]
         : never
       : never
     : never;

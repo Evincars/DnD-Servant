@@ -137,7 +137,7 @@ import { ThirdPageComponent } from './third-page.component';
       <input
         [formControl]="speedAndHealingDicesControls.maxBoduVydrze"
         class="field"
-        style="top:283px; left:1193.41px; width:68.12px; text-align: center; font-size: 22px; color: red;"
+        style="top:283px; left:1193.41px; width:68.12px; text-align: center; font-size: 18px; color: red;"
         placeholder="Max. BV"
       />
 
@@ -224,25 +224,25 @@ import { ThirdPageComponent } from './third-page.component';
       <input
         [formControl]="armorClassControls.zdatnostLehke"
         type="checkbox"
-        class="field checkbox"
+        class="field checkbox red-checkbox"
         style="top:481.51px; left:449.33px;"
       />
       <input
         [formControl]="armorClassControls.zdatnostStredni"
         type="checkbox"
-        class="field checkbox"
+        class="field checkbox red-checkbox"
         style="top:481.51px; left:541.03px;"
       />
       <input
         [formControl]="armorClassControls.zdatnostTezke"
         type="checkbox"
-        class="field checkbox"
+        class="field checkbox red-checkbox"
         style="top:481.51px; left:644.52px;"
       />
       <input
         [formControl]="armorClassControls.zdatnostStity"
         type="checkbox"
-        class="field checkbox"
+        class="field checkbox red-checkbox"
         style="top:481.51px; left:734.91px;"
       />
 
@@ -1419,14 +1419,14 @@ import { ThirdPageComponent } from './third-page.component';
         [formControl]="weaponsControls.zdatnostJednoduche"
         id="zdatnostSJednoduchymaZbranema"
         type="checkbox"
-        class="field checkbox"
+        class="field checkbox red-checkbox"
         style="top:1252px; left:442.78px;"
       />
       <input
         [formControl]="weaponsControls.zdatnostValecne"
         id="zdatnostSValecnymaZbranema"
         type="checkbox"
-        class="field checkbox"
+        class="field checkbox red-checkbox"
         style="top:1252px; left:568.54px;"
       />
       <input

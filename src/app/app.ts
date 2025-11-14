@@ -5,7 +5,6 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPrefix } from '@angular/material/form-field';
-import { MatDivider } from '@angular/material/divider';
 import { routes } from './app.routes';
 import { AuthService } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -50,14 +49,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
               <b class="username u-mr-3">{{ authService.currentUser()!.username }}</b>
               <a class="link token u-mr-9" href="#" (click)="this.authService.logout()">Odhlásit</a>
               } @if (authService.currentUser() === null) {
-              <a class="link token" [routerLink]="routes.login">Přihlásit</a>
-              |
+              <a class="link token u-mr-3" [routerLink]="routes.login">Přihlásit</a>
               <a class="link token u-mr-9" [routerLink]="routes.register">Registrovat</a>
               }
               <a target="_blank" href="https://github.com/Evincars/DnD-Servant" class="link u-flex u-align-center u-mr-2">
                 <mat-icon>code_blocks</mat-icon>
               </a>
-              Created by
+              Created by&nbsp;
               <a class="link" target="_blank" href="https://lasak.netlify.app/">lasaks.eu</a>
             </span>
           </div>
@@ -73,45 +71,54 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       font-family: 'Mikadan', sans-serif;
       font-size: 19px;
     }
+
     .container {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
     }
+
     .main-content {
       width: 1310px;
       margin: 0 auto;
       border: 2px solid #333;
       padding: var(--spacing-3);
-      border-radius: var(--border-radius-2);
-      background: var(--background);
+      border-radius: var(--border-radius-1);
+      background: #232222;
       margin-top: var(--spacing-3) !important;
       margin-bottom: var(--spacing-3) !important;
     }
+
     .toolbar {
       font-family: 'Mikadan', sans-serif;
     }
+
     .logo {
       height: 60px;
     }
+
     .author-info {
       font-size: 15px;
     }
+
     .link {
       color: inherit;
       text-decoration: underline;
+
       &:hover {
         text-decoration: none;
       }
     }
+
     .token {
       background: #333;
       font-size: 16px;
       border-radius: var(--border-radius-1);
       padding: var(--spacing-1) var(--spacing-2);
     }
+
     .username {
       font-size: 18px;
     }
