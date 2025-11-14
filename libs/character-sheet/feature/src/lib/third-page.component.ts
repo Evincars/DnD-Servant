@@ -787,6 +787,61 @@ import {
       style="top:831px; left:1160px; width:60px;"
       placeholder="*"
     />
+
+    <textarea
+      [formControl]="controls.spellsForm.controls.columnS"
+      class="field textarea"
+      style="top:862px; left:101px; width:43px; height:892px;"
+      placeholder="..."
+    ></textarea>
+    <textarea
+      [formControl]="controls.spellsForm.controls.columnNazev"
+      class="field textarea"
+      style="top:862px; left:150px; width:196px; height:892px;"
+      placeholder="..."
+    ></textarea>
+    <textarea
+      [formControl]="controls.spellsForm.controls.columnUtok"
+      class="field textarea"
+      style="top:862px; left:353px; width:79px; height:892px;"
+      placeholder="..."
+    ></textarea>
+    <textarea
+      [formControl]="controls.spellsForm.controls.columnDobaSesilani"
+      class="field textarea"
+      style="top:862px; left:439px; width:59px; height:892px;"
+      placeholder="..."
+    ></textarea>
+    <textarea
+      [formControl]="controls.spellsForm.controls.columnSlozky"
+      class="field textarea"
+      style="top:862px; left:507px; width:57px; height:892px;"
+      placeholder="..."
+    ></textarea>
+    <textarea
+      [formControl]="controls.spellsForm.controls.columnDosah"
+      class="field textarea"
+      style="top:862px; left:572px; width:77px; height:892px;"
+      placeholder="..."
+    ></textarea>
+    <textarea
+      [formControl]="controls.spellsForm.controls.columnTrvani"
+      class="field textarea"
+      style="top:862px; left:658px; width:77px; height:892px;"
+      placeholder="..."
+    ></textarea>
+    <textarea
+      [formControl]="controls.spellsForm.controls.columnPoznamka"
+      class="field textarea"
+      style="top:862px; left:744px; width:408px; height:892px;"
+      placeholder="..."
+    ></textarea>
+    <textarea
+      [formControl]="controls.spellsForm.controls.columnStr"
+      class="field textarea"
+      style="top:862px; left:1160px; width:59px; height:892px;"
+      placeholder="..."
+    ></textarea>
   `,
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
