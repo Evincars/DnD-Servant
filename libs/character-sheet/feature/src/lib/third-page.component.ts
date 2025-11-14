@@ -346,6 +346,447 @@ import {
       style="top:582px; left:1160px; width:60px;"
       placeholder="*"
     />
+
+    <!--    ROW 4-->
+    <!--    ###################################################################################-->
+    <input
+      [formControl]="controls.spellsForm.controls.r4P"
+      type="checkbox"
+      class="field checkbox red-checkbox"
+      style="top:619px; left:69px;"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r4S"
+      class="field spell-row"
+      style="top:618px; left:102px; width:41px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r4Nazev"
+      class="field spell-row "
+      style="top:618px; left:152px; width:193px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r4Utok"
+      class="field spell-row"
+      style="top:618px; left:353px; width:78px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r4DobaSesilani"
+      class="field spell-row"
+      style="top:618px; left:439px; width:58px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r4Slozky"
+      class="field spell-row"
+      style="top:618px; left:506px; width:58px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r4Dosah"
+      class="field spell-row"
+      style="top:618px; left:572px; width:77px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r4Trvani"
+      class="field spell-row"
+      style="top:618px; left:658px; width:77px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r4Poznamka"
+      class="field spell-row"
+      style="top:618px; left:744px; width:408px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r4Str"
+      class="field spell-row"
+      style="top:618px; left:1160px; width:60px;"
+      placeholder="*"
+    />
+
+    <!--    ROW 5-->
+    <!--    ###################################################################################-->
+    <input
+      [formControl]="controls.spellsForm.controls.r5P"
+      type="checkbox"
+      class="field checkbox red-checkbox"
+      style="top:654px; left:69px;"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r5S"
+      class="field spell-row"
+      style="top:653px; left:102px; width:41px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r5Nazev"
+      class="field spell-row "
+      style="top:653px; left:152px; width:193px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r5Utok"
+      class="field spell-row"
+      style="top:653px; left:353px; width:78px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r5DobaSesilani"
+      class="field spell-row"
+      style="top:653px; left:439px; width:58px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r5Slozky"
+      class="field spell-row"
+      style="top:653px; left:506px; width:58px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r5Dosah"
+      class="field spell-row"
+      style="top:653px; left:572px; width:77px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r5Trvani"
+      class="field spell-row"
+      style="top:653px; left:658px; width:77px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r5Poznamka"
+      class="field spell-row"
+      style="top:653px; left:744px; width:408px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r5Str"
+      class="field spell-row"
+      style="top:653px; left:1160px; width:60px;"
+      placeholder="*"
+    />
+
+    <!--    ROW 6-->
+    <!--    ###################################################################################-->
+    <input
+      [formControl]="controls.spellsForm.controls.r6P"
+      type="checkbox"
+      class="field checkbox red-checkbox"
+      style="top:690px; left:69px;"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r6S"
+      class="field spell-row"
+      style="top:689px; left:102px; width:41px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r6Nazev"
+      class="field spell-row "
+      style="top:689px; left:152px; width:193px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r6Utok"
+      class="field spell-row"
+      style="top:689px; left:353px; width:78px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r6DobaSesilani"
+      class="field spell-row"
+      style="top:689px; left:439px; width:58px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r6Slozky"
+      class="field spell-row"
+      style="top:689px; left:506px; width:58px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r6Dosah"
+      class="field spell-row"
+      style="top:689px; left:572px; width:77px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r6Trvani"
+      class="field spell-row"
+      style="top:689px; left:658px; width:77px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r6Poznamka"
+      class="field spell-row"
+      style="top:689px; left:744px; width:408px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r6Str"
+      class="field spell-row"
+      style="top:689px; left:1160px; width:60px;"
+      placeholder="*"
+    />
+
+    <!--    ROW 7-->
+    <!--    ###################################################################################-->
+    <input
+      [formControl]="controls.spellsForm.controls.r7P"
+      type="checkbox"
+      class="field checkbox red-checkbox"
+      style="top:726px; left:69px;"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r7S"
+      class="field spell-row"
+      style="top:725px; left:102px; width:41px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r7Nazev"
+      class="field spell-row "
+      style="top:725px; left:152px; width:193px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r7Utok"
+      class="field spell-row"
+      style="top:725px; left:353px; width:78px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r7DobaSesilani"
+      class="field spell-row"
+      style="top:725px; left:439px; width:58px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r7Slozky"
+      class="field spell-row"
+      style="top:725px; left:506px; width:58px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r7Dosah"
+      class="field spell-row"
+      style="top:725px; left:572px; width:77px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r7Trvani"
+      class="field spell-row"
+      style="top:725px; left:658px; width:77px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r7Poznamka"
+      class="field spell-row"
+      style="top:725px; left:744px; width:408px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r7Str"
+      class="field spell-row"
+      style="top:725px; left:1160px; width:60px;"
+      placeholder="*"
+    />
+
+    <!--    ROW 8-->
+    <!--    ###################################################################################-->
+    <input
+      [formControl]="controls.spellsForm.controls.r8P"
+      type="checkbox"
+      class="field checkbox red-checkbox"
+      style="top:761px; left:69px;"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r8S"
+      class="field spell-row"
+      style="top:760px; left:102px; width:41px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r8Nazev"
+      class="field spell-row "
+      style="top:760px; left:152px; width:193px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r8Utok"
+      class="field spell-row"
+      style="top:760px; left:353px; width:78px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r8DobaSesilani"
+      class="field spell-row"
+      style="top:760px; left:439px; width:58px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r8Slozky"
+      class="field spell-row"
+      style="top:760px; left:506px; width:58px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r8Dosah"
+      class="field spell-row"
+      style="top:760px; left:572px; width:77px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r8Trvani"
+      class="field spell-row"
+      style="top:760px; left:658px; width:77px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r8Poznamka"
+      class="field spell-row"
+      style="top:760px; left:744px; width:408px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r8Str"
+      class="field spell-row"
+      style="top:760px; left:1160px; width:60px;"
+      placeholder="*"
+    />
+
+    <!--    ROW 9-->
+    <!--    ###################################################################################-->
+    <input
+      [formControl]="controls.spellsForm.controls.r9P"
+      type="checkbox"
+      class="field checkbox red-checkbox"
+      style="top:797px; left:69px;"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r9S"
+      class="field spell-row"
+      style="top:796px; left:102px; width:41px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r9Nazev"
+      class="field spell-row "
+      style="top:796px; left:152px; width:193px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r9Utok"
+      class="field spell-row"
+      style="top:796px; left:353px; width:78px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r9DobaSesilani"
+      class="field spell-row"
+      style="top:796px; left:439px; width:58px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r9Slozky"
+      class="field spell-row"
+      style="top:796px; left:506px; width:58px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r9Dosah"
+      class="field spell-row"
+      style="top:796px; left:572px; width:77px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r9Trvani"
+      class="field spell-row"
+      style="top:796px; left:658px; width:77px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r9Poznamka"
+      class="field spell-row"
+      style="top:796px; left:744px; width:408px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r9Str"
+      class="field spell-row"
+      style="top:796px; left:1160px; width:60px;"
+      placeholder="*"
+    />
+
+    <!--    ROW 10-->
+    <!--    ###################################################################################-->
+    <input
+      [formControl]="controls.spellsForm.controls.r10P"
+      type="checkbox"
+      class="field checkbox red-checkbox"
+      style="top:832px; left:69px;"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r10S"
+      class="field spell-row"
+      style="top:831px; left:102px; width:41px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r10Nazev"
+      class="field spell-row "
+      style="top:831px; left:152px; width:193px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r10Utok"
+      class="field spell-row"
+      style="top:831px; left:353px; width:78px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r10DobaSesilani"
+      class="field spell-row"
+      style="top:831px; left:439px; width:58px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r10Slozky"
+      class="field spell-row"
+      style="top:831px; left:506px; width:58px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r10Dosah"
+      class="field spell-row"
+      style="top:831px; left:572px; width:77px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r10Trvani"
+      class="field spell-row"
+      style="top:831px; left:658px; width:77px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r10Poznamka"
+      class="field spell-row"
+      style="top:831px; left:744px; width:408px;"
+      placeholder="*"
+    />
+    <input
+      [formControl]="controls.spellsForm.controls.r10Str"
+      class="field spell-row"
+      style="top:831px; left:1160px; width:60px;"
+      placeholder="*"
+    />
   `,
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -499,6 +940,17 @@ export class ThirdPageComponent {
         r10Trvani: fb.control(''),
         r10Poznamka: fb.control(''),
         r10Str: fb.control(''),
+
+        columnP: fb.control(''),
+        columnS: fb.control(''),
+        columnNazev: fb.control(''),
+        columnUtok: fb.control(''),
+        columnDobaSesilani: fb.control(''),
+        columnSlozky: fb.control(''),
+        columnDosah: fb.control(''),
+        columnTrvani: fb.control(''),
+        columnPoznamka: fb.control(''),
+        columnStr: fb.control(''),
       }),
     });
   }

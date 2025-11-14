@@ -146,6 +146,17 @@ export type SpellsForm = {
   r10Trvani: FormControl<string | undefined>;
   r10Poznamka: FormControl<string | undefined>;
   r10Str: FormControl<string | undefined>;
+
+  columnP: FormControl<string | undefined>;
+  columnS: FormControl<string | undefined>;
+  columnNazev: FormControl<string | undefined>;
+  columnUtok: FormControl<string | undefined>;
+  columnDobaSesilani: FormControl<string | undefined>;
+  columnSlozky: FormControl<string | undefined>;
+  columnDosah: FormControl<string | undefined>;
+  columnTrvani: FormControl<string | undefined>;
+  columnPoznamka: FormControl<string | undefined>;
+  columnStr: FormControl<string | undefined>;
 };
 
 export type ThirdPageApiModel = {
@@ -287,5 +298,16 @@ export type ThirdPageApiModel = {
     r10Trvani: string;
     r10Poznamka: string;
     r10Str: string;
+
+    columnP: string;
+    columnS: string;
+    columnNazev: string;
+    columnUtok: string;
+    columnDobaSesilani: string;
+    columnSlozky: string;
+    columnDosah: string;
+    columnTrvani: string;
+    columnPoznamka: string;
+    columnStr: string;
   };
 };

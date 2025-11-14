@@ -408,6 +408,17 @@ export class CharacterSheetFormModelMappers {
       'thirdPageForm.spellsForm.r10Trvani': 'thirdPageForm.spellsForm.r10Trvani',
       'thirdPageForm.spellsForm.r10Poznamka': 'thirdPageForm.spellsForm.r10Poznamka',
       'thirdPageForm.spellsForm.r10Str': 'thirdPageForm.spellsForm.r10Str',
+
+      'thirdPageForm.spellsForm.columnP': 'thirdPageForm.spellsForm.columnP',
+      'thirdPageForm.spellsForm.columnS': 'thirdPageForm.spellsForm.columnS',
+      'thirdPageForm.spellsForm.columnNazev': 'thirdPageForm.spellsForm.columnNazev',
+      'thirdPageForm.spellsForm.columnUtok': 'thirdPageForm.spellsForm.columnUtok',
+      'thirdPageForm.spellsForm.columnDobaSesilani': 'thirdPageForm.spellsForm.columnDobaSesilani',
+      'thirdPageForm.spellsForm.columnSlozky': 'thirdPageForm.spellsForm.columnSlozky',
+      'thirdPageForm.spellsForm.columnDosah': 'thirdPageForm.spellsForm.columnDosah',
+      'thirdPageForm.spellsForm.columnTrvani': 'thirdPageForm.spellsForm.columnTrvani',
+      'thirdPageForm.spellsForm.columnPoznamka': 'thirdPageForm.spellsForm.columnPoznamka',
+      'thirdPageForm.spellsForm.columnStr': 'thirdPageForm.spellsForm.columnStr',
     },
   };
 }
