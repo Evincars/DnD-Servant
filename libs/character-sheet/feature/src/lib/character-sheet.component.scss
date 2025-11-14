@@ -64,7 +64,7 @@
 }
 
 input[type='checkbox'][disabled] {
-  outline: 2px solid red;
+  outline: 2px solid #a84c4c;
   background: transparent;
   accent-color: red;
 }
@@ -75,7 +75,7 @@ input[type='checkbox'][disabled] {
 
 .main-skill {
   font-family: 'Mikadan', sans-serif;
-  color: rgba(4, 61, 230, 0.78);
+  color: rgb(205, 66, 66);
   font-size: 22px;
 }
 
