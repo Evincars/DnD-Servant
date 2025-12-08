@@ -13,6 +13,9 @@
   --text: hsl(40, 70%, 85%);
   --button-hover: hsl(280, 25%, 12%);
 
+  --mat-sys-primary: rgb(168, 58, 58);
+  --mat-sys-on-primary: rgb(168, 58, 58);
+
   font-family: 'Mikadan', sans-serif;
 
   @include mat.toolbar-overrides(
@@ -21,6 +24,12 @@
       container-text-color: #b84949,
     )
   );
+
+  @include mat.tabs-overrides((
+    active-focus-indicator-color: rgb(168, 58, 58),
+    active-indicator-height: 3px,
+    label-text-font: 'Mikadan',
+  ));
 }
 
 body {
