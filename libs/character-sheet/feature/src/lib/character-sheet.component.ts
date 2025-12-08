@@ -36,6 +36,7 @@ import { NgClass } from '@angular/common';
 import { MatTooltip } from '@angular/material/tooltip';
 import { SecondPageComponent } from './second-page.component';
 import { ThirdPageComponent } from './third-page.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'character-sheet',
@@ -1626,17 +1627,15 @@ import { ThirdPageComponent } from './third-page.component';
 
       <third-page [form]="controls.thirdPageForm" />
 
-      <button (click)="onSaveClick()" class="field button" style="top:4px; left:988px; width:300px;">
-        Uložit character sheet [enter]
-      </button>
-      <p id="inventoryItemRow20" class="field" style="top:-11px; left:471px; width:350px;">
-        @if (characterSheetStore.characterSheetSaved()) { Uložení bylo úspěšné. } @else if
-        (characterSheetStore.characterSheetError()) {
-        {{ characterSheetStore.characterSheetError() }}
-        } @else if(infoMessage()) {
-        {{ infoMessage() }}
-        }
-      </p>
+      <button (click)="onSaveClick()" class="field button" style="top:4px; left:1090px; width:150px;">Uložit [enter]</button>
+      <!--      <p id="infoMessage" class="field" style="top:-11px; left:471px; width:350px;">-->
+      <!--        @if (characterSheetStore.characterSheetSaved()) { Uložení bylo úspěšné. } @else if-->
+      <!--        (characterSheetStore.characterSheetError()) {-->
+      <!--        {{ characterSheetStore.characterSheetError() }}-->
+      <!--        } @else if(infoMessage()) {-->
+      <!--        {{ infoMessage() }}-->
+      <!--        }-->
+      <!--      </p>-->
     </form>
   `,
   styleUrl: 'character-sheet.component.scss',
@@ -1648,6 +1647,7 @@ export class CharacterSheetComponent {
   characterSheetStore = inject(CharacterSheetStore);
   authService = inject(AuthService);
   destroyRef = inject(DestroyRef);
+  snackBar = inject(MatSnackBar);
 
   @ViewChild('level1Slot1Input') level1Slot1Input!: ElementRef<HTMLInputElement>;
   @ViewChild('level1Slot2Input') level1Slot2Input!: ElementRef<HTMLInputElement>;
@@ -2287,6 +2287,7 @@ export class CharacterSheetComponent {
       this.characterSheetStore.saveCharacterSheet(request);
     } else {
       this.infoMessage.set('Pro uložení postavy se musíte přihlásit.');
+      this.snackBar.open('Pro uložení postavy se musíte přihlásit.', 'Zavřít', { verticalPosition: 'top', duration: 4000 });
     }
   }
 

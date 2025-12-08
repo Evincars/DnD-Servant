@@ -6,6 +6,7 @@ import { pipe, switchMap } from 'rxjs';
 import { CharacterSheetApiService } from './character-sheet-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { tapResponse } from '@ngrx/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export const CharacterSheetStore = signalStore(
   withState({
@@ -14,7 +15,7 @@ export const CharacterSheetStore = signalStore(
     characterSheetError: '',
   }),
   withComputed(store => ({})),
-  withMethods((store, _characterSheetApiService = inject(CharacterSheetApiService)) => {
+  withMethods((store, _characterSheetApiService = inject(CharacterSheetApiService), _snackBar = inject(MatSnackBar)) => {
     const getCharacterSheetByUsername = rxMethod<string>(
       pipe(
         switchMap(username => {
@@ -65,6 +66,7 @@ export const CharacterSheetStore = signalStore(
                   characterSheetSaved: true,
                   characterSheetError: '',
                 });
+                _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
               },
               (error: HttpErrorResponse) => {
                 patchState(store, {
@@ -88,6 +90,7 @@ export const CharacterSheetStore = signalStore(
                   characterSheetSaved: true,
                   characterSheetError: '',
                 });
+                _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
               },
               (error: HttpErrorResponse) => {
                 patchState(store, {

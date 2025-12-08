@@ -23,13 +23,12 @@
 }
 
 .button {
-  background: rgba(17, 70, 209, 0.78);
+  background: rgb(168, 58, 58);
   color: white;
   cursor: pointer;
-  text-decoration: underline;
 
   &:hover {
-    text-decoration: none;
+    background: rgb(131, 45, 45);
   }
 }
 
