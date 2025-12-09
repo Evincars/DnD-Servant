@@ -12,7 +12,6 @@ import {
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import {
   CharacterSheetForm,
-  HeaderInfoForm,
   AbilityBonusForm,
   SpeedAndHealingDicesForm,
   ArmorClassForm,
@@ -37,6 +36,9 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { SecondPageComponent } from './second-page.component';
 import { ThirdPageComponent } from './third-page.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatIcon } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { openWeaponsAndArmorsDialog } from './help-dialogs/weapons-and-armors-dialog.component';
 
 @Component({
   selector: 'character-sheet',
@@ -1197,6 +1199,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       ></textarea>
 
       <!--    Weapons / attacks 1st row -->
+      <button
+        (click)="onOpenWeaponsAndArmorsDialog()"
+        matTooltip="Tabulka zbraní a zbrojí"
+        style="top:1002px; left:854px;"
+        class="field button small-info-button-icon"
+      >
+        <mat-icon class="small-info-icon">info</mat-icon>
+      </button>
       <input
         [formControl]="weaponsControls.zbran1"
         id="weapon1"
@@ -1641,13 +1651,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: 'character-sheet.component.scss',
   providers: [CharacterSheetStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, NgClass, MatTooltip, SecondPageComponent, ThirdPageComponent],
+  imports: [ReactiveFormsModule, NgClass, MatTooltip, SecondPageComponent, ThirdPageComponent, MatIcon],
 })
 export class CharacterSheetComponent {
   characterSheetStore = inject(CharacterSheetStore);
   authService = inject(AuthService);
   destroyRef = inject(DestroyRef);
   snackBar = inject(MatSnackBar);
+  dialog = inject(MatDialog);
 
   @ViewChild('level1Slot1Input') level1Slot1Input!: ElementRef<HTMLInputElement>;
   @ViewChild('level1Slot2Input') level1Slot2Input!: ElementRef<HTMLInputElement>;
@@ -2289,6 +2300,10 @@ export class CharacterSheetComponent {
       this.infoMessage.set('Pro uložení postavy se musíte přihlásit.');
       this.snackBar.open('Pro uložení postavy se musíte přihlásit.', 'Zavřít', { verticalPosition: 'top', duration: 4000 });
     }
+  }
+
+  onOpenWeaponsAndArmorsDialog() {
+    openWeaponsAndArmorsDialog(this.dialog);
   }
 
   _setInventoryClasses(strength: string) {

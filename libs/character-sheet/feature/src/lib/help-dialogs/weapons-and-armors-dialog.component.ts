@@ -6,12 +6,11 @@ import { MatButton } from '@angular/material/button';
 @Component({
   selector: 'weapons-and-armors-dialog',
   template: `
-    <div class="dialog-title" mat-dialog-title>
-      <ng-container i18n>Tabulka zbraní a zbrojí</ng-container>
-    </div>
+    <div class="dialog-title" mat-dialog-title>Tabulka zbraní a zbrojí</div>
 
-    <mat-dialog-content>
-      <img src="rules/tabulka-zbrani-a-zbroji.png" />
+    <mat-dialog-content class="dialog-content">
+      <img src="rules/tabulka-zbrani-a-zbroji.png" style="width: 1060px;" />
+      <img src="rules/tabulka-zbrani-a-zbroji-2.png" style="width: 1060px;" />
     </mat-dialog-content>
 
     <mat-dialog-actions align="end">
@@ -30,5 +29,5 @@ export class WeaponsAndArmorsDialogComponent {
 }
 
 export function openWeaponsAndArmorsDialog(dialog: MatDialog): Observable<void> {
-  return dialog.open(WeaponsAndArmorsDialogComponent).afterClosed();
+  return dialog.open(WeaponsAndArmorsDialogComponent, { minWidth: '1100px', maxWidth: '1100px' }).afterClosed();
 }

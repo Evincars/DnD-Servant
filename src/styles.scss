@@ -35,11 +35,16 @@
   .dialog-title {
     display: flex !important;
     align-items: center;
+    justify-content: center;
     gap: var(--spacing-2);
     font-size: 20px !important;
     padding: var(--spacing-1) var(--spacing-1) !important;
-    background: var(--neutral-color-200);
-    border-bottom: 1px solid var(--neutral-color-300);
+    background: #b84949;
+    font-family: Roboto, sans-serif !important;
+  }
+
+  .dialog-content {
+    padding: 10px 10px !important;
   }
 }
 
