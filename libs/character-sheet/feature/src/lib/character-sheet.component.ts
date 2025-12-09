@@ -40,6 +40,8 @@ import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { openWeaponsAndArmorsDialog } from './help-dialogs/weapons-and-armors-dialog.component';
 import { openDamagesDialog } from './help-dialogs/damages-dialog.component';
+import { openToolsDialog } from './help-dialogs/tools-dialog.component';
+import { openCarriageDialog } from './help-dialogs/carriage-dialog.component';
 
 @Component({
   selector: 'character-sheet',
@@ -1200,6 +1202,14 @@ import { openDamagesDialog } from './help-dialogs/damages-dialog.component';
 
       <!--    =============================================-->
 
+      <button
+        (click)="onOpenToolsDialog()"
+        matTooltip="Pomůcky"
+        style="top:1089px; left:230px;"
+        class="field button small-info-button-icon"
+      >
+        <mat-icon class="small-info-icon">info</mat-icon>
+      </button>
       <textarea
         [formControl]="form.controls.pomucky"
         class="field textarea"
@@ -1472,6 +1482,14 @@ import { openDamagesDialog } from './help-dialogs/damages-dialog.component';
       ></textarea>
 
       <!--    Inventory - column 1 -->
+      <button
+        (click)="onOpenCarriageDialog()"
+        matTooltip="Nosnost"
+        style="top:1310px; left:376px"
+        class="field button small-info-button-icon"
+      >
+        <mat-icon class="small-info-icon">info</mat-icon>
+      </button>
       <input
         [formControl]="inventoryControls.penize"
         id="penize"
@@ -2317,6 +2335,14 @@ export class CharacterSheetComponent {
 
   onOpenDamagesDialog() {
     openDamagesDialog(this.dialog);
+  }
+
+  onOpenToolsDialog() {
+    openToolsDialog(this.dialog);
+  }
+
+  onOpenCarriageDialog() {
+    openCarriageDialog(this.dialog);
   }
 
   _setInventoryClasses(strength: string) {
