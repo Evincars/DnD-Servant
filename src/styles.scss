@@ -31,6 +31,16 @@
     label-text-font: 'sans-serif',
     label-text-weight: bold
   ));
+
+  .dialog-title {
+    display: flex !important;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-size: 20px !important;
+    padding: var(--spacing-1) var(--spacing-1) !important;
+    background: var(--neutral-color-200);
+    border-bottom: 1px solid var(--neutral-color-300);
+  }
 }
 
 body {
