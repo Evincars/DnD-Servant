@@ -16,7 +16,7 @@
   --mat-sys-primary: rgb(168, 58, 58);
   --mat-sys-on-primary: rgb(168, 58, 58);
 
-  font-family: 'Mikadan', sans-serif;
+  font-family: sans-serif;
 
   @include mat.toolbar-overrides(
     (
@@ -35,7 +35,7 @@
   .dialog-title {
     display: flex !important;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: var(--spacing-2);
     font-size: 20px !important;
     padding: var(--spacing-1) var(--spacing-1) !important;
@@ -44,10 +44,29 @@
   }
 
   .dialog-content {
-    padding: 10px 10px !important;
+    padding: 10px !important;
   }
-}
 
-body {
-  font-family: 'Mikadan', sans-serif;
+  @include mat.theme(
+    (
+      //color: (),
+      typography: sans-serif,
+      //density: -2,
+    ),
+    (
+      corner-extra-large: var(--border-radius-2),
+      corner-extra-large-top: var(--border-radius-2) var(--border-radius-2) 0 0,
+      corner-extra-small: var(--border-radius-1),
+      corner-extra-small-top: var(--border-radius-1) var(--border-radius-1) 0 0,
+      corner-full: var(--border-radius-1),
+      corner-large: var(--border-radius-2),
+      corner-large-end: 0 var(--border-radius-2) var(--border-radius-2) 0,
+      corner-large-start: var(--border-radius-2) 0 0 var(--border-radius-2),
+      corner-large-top: var(--border-radius-2) var(--border-radius-2) 0 0,
+      corner-medium: var(--border-radius-1),
+      corner-none: 0,
+      corner-small: var(--border-radius-1),
+    )
+  );
+
 }

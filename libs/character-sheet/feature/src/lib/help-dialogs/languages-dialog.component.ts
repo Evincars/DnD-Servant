@@ -5,31 +5,30 @@ import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  selector: 'weapons-and-armors-dialog',
+  selector: 'languages-dialog',
   template: `
     <div class="dialog-title" mat-dialog-title>
-      Tabulka zbraní a zbrojí
+      Jazyky
       <button (click)="onClose()" matIconButton color="primary">
         <mat-icon>close</mat-icon>
       </button>
     </div>
 
     <mat-dialog-content class="dialog-content">
-      <img src="rules/tabulka-zbrani-a-zbroji.png" style="width: 1060px;" />
-      <img src="rules/tabulka-zbrani-a-zbroji-2.png" style="width: 1060px;" />
+      <img src="rules/jazyky.png" style="width: 1060px;" />
     </mat-dialog-content>
   `,
   imports: [MatDialogContent, MatDialogTitle, MatIcon, MatIconButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WeaponsAndArmorsDialogComponent {
-  dialogRef = inject(MatDialogRef<WeaponsAndArmorsDialogComponent>);
+export class LanguagesDialogComponent {
+  dialogRef = inject(MatDialogRef<LanguagesDialogComponent>);
 
   onClose() {
     this.dialogRef.close();
   }
 }
 
-export function openWeaponsAndArmorsDialog(dialog: MatDialog): Observable<void> {
-  return dialog.open(WeaponsAndArmorsDialogComponent, { minWidth: '1100px', maxWidth: '1100px' }).afterClosed();
+export function openLanguagesDialog(dialog: MatDialog): Observable<void> {
+  return dialog.open(LanguagesDialogComponent, { minWidth: '1100px', maxWidth: '1100px' }).afterClosed();
 }

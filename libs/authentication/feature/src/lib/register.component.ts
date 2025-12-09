@@ -12,6 +12,24 @@ import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
   template: `
     <h1 class="align-center">Registrace</h1>
 
+    <div style="width: 600px; margin: 0 auto;">
+      Email se neověřuje. Může být klidně falešný. Přihlašování slouží pouze k tomu, abych mohl pod jednotlivými uživateli ukládat
+      data na server. Nevýhoda neexistujícího mailu je, že při zapomenutí hesla nejde obnovit.
+      <br />
+      <br />
+      Např. můžete klidně použít:
+      <ul>
+        <li>
+          <span class="u-text-muted">email:</span>
+          mujtest@falesny.cz
+        </li>
+        <li>
+          <span class="u-text-muted">heslo:</span>
+          mojeFalesneHeslo123
+        </li>
+      </ul>
+    </div>
+
     @if (errorMessage()) {
     <div class="align-center">{{ errorMessage() }}</div>
     }

@@ -42,6 +42,12 @@ import { openWeaponsAndArmorsDialog } from './help-dialogs/weapons-and-armors-di
 import { openDamagesDialog } from './help-dialogs/damages-dialog.component';
 import { openToolsDialog } from './help-dialogs/tools-dialog.component';
 import { openCarriageDialog } from './help-dialogs/carriage-dialog.component';
+import { openBackgroundDialog } from './help-dialogs/background-dialog.component';
+import { openConvictionDialog } from './help-dialogs/conviction-dialog.component';
+import { openLevelsDialog } from './help-dialogs/levels-dialog.component';
+import { openExpertiseDialog } from './help-dialogs/expertise-dialog.component';
+import { openLanguagesDialog } from './help-dialogs/languages-dialog.component';
+import { openSpellsDialog } from './help-dialogs/spells-dialog.component';
 
 @Component({
   selector: 'character-sheet',
@@ -62,16 +68,34 @@ import { openCarriageDialog } from './help-dialogs/carriage-dialog.component';
         placeholder="Povolání"
       />
 
+      <button
+        (click)="onOpenBackgroundDialog()"
+        type="button"
+        matTooltip="Zázemí postavy"
+        style="top: 161px; left: 35px;"
+        class="field button small-info-button-icon"
+      >
+        <mat-icon class="small-info-icon">info</mat-icon>
+      </button>
       <input
         [formControl]="topInfoControls.zazemi"
         class="field"
-        style="top: 158.08px; left: 58.95px; width: 183.4px;"
+        style="top: 158px; left: 58px; width: 183px;"
         placeholder="Zázemí"
       />
+      <button
+        (click)="onOpenConvictionDialog()"
+        type="button"
+        matTooltip="Přesvědčení postavy"
+        style="top:161px; left:442px;"
+        class="field button small-info-button-icon"
+      >
+        <mat-icon class="small-info-icon">info</mat-icon>
+      </button>
       <input
         [formControl]="topInfoControls.presvedceni"
         class="field"
-        style="top:158.08px; left:255.45px; width:183.4px;"
+        style="top:158px; left:255px; width:183px;"
         placeholder="Přesvědčení"
       />
 
@@ -82,10 +106,19 @@ import { openCarriageDialog } from './help-dialogs/carriage-dialog.component';
         placeholder="Jméno postavy"
       />
 
+      <button
+        (click)="onOpenLevelsDialog()"
+        type="button"
+        matTooltip="Úroveň postavy"
+        style="top:95px; left:835px;"
+        class="field button small-info-button-icon"
+      >
+        <mat-icon class="small-info-icon">info</mat-icon>
+      </button>
       <input
         [formControl]="topInfoControls.uroven"
         class="field"
-        style="top:92.67px; left:858.05px; width:183.4px;"
+        style="top:92px; left:858px; width:183px;"
         placeholder="Úroveň"
       />
       <input
@@ -149,6 +182,7 @@ import { openCarriageDialog } from './help-dialogs/carriage-dialog.component';
 
       <button
         (click)="onOpenDamagesDialog()"
+        type="button"
         matTooltip="Bojové a přetrvávající zranění"
         style="top:424px; left:842px;"
         class="field button small-info-button-icon"
@@ -414,10 +448,19 @@ import { openCarriageDialog } from './help-dialogs/carriage-dialog.component';
         placeholder="-"
       />
 
+      <button
+        (click)="onOpenSpellsDialog()"
+        type="button"
+        matTooltip="Seznam kouzel"
+        style="top:764px; left:452px;"
+        class="field button small-info-button-icon"
+      >
+        <mat-icon class="small-info-icon">info</mat-icon>
+      </button>
       <input
         [formControl]="spellsAndAlchemistChestControls.vlastnost"
         class="field"
-        style="top:803.11px; left:442.78px; width:144.1px;"
+        style="top:803px; left:442px; width:144px;"
         placeholder="Vlastnost"
       />
       <input
@@ -1204,6 +1247,7 @@ import { openCarriageDialog } from './help-dialogs/carriage-dialog.component';
 
       <button
         (click)="onOpenToolsDialog()"
+        type="button"
         matTooltip="Pomůcky"
         style="top:1089px; left:346px;"
         class="field button small-info-button-icon"
@@ -1220,6 +1264,7 @@ import { openCarriageDialog } from './help-dialogs/carriage-dialog.component';
       <!--    Weapons / attacks 1st row -->
       <button
         (click)="onOpenWeaponsAndArmorsDialog()"
+        type="button"
         matTooltip="Tabulka zbraní a zbrojí"
         style="top:1002px; left:854px;"
         class="field button small-info-button-icon"
@@ -1467,11 +1512,29 @@ import { openCarriageDialog } from './help-dialogs/carriage-dialog.component';
         placeholder="Další zdatnosti..."
       />
 
+      <button
+        (click)="onOpenExpertiseDialog()"
+        type="button"
+        matTooltip="Odbornosti"
+        style="top:1311px; left:823px;"
+        class="field button small-info-button-icon"
+      >
+        <mat-icon class="small-info-icon">info</mat-icon>
+      </button>
+      <button
+        (click)="onOpenLanguagesDialog()"
+        type="button"
+        matTooltip="Jazyky"
+        style="top:1311px; left:967px;"
+        class="field button small-info-button-icon"
+      >
+        <mat-icon class="small-info-icon">info</mat-icon>
+      </button>
       <input
         [formControl]="languagesControls.jazyky"
         id="jazyky"
         class="field"
-        style="top:1349px; left:687.75px; width:492.56px"
+        style="top:1349px; left:687px; width:492px"
         placeholder="Jazyky..."
       />
       <textarea
@@ -1484,6 +1547,7 @@ import { openCarriageDialog } from './help-dialogs/carriage-dialog.component';
       <!--    Inventory - column 1 -->
       <button
         (click)="onOpenCarriageDialog()"
+        type="button"
         matTooltip="Nosnost"
         style="top:1310px; left:376px"
         class="field button small-info-button-icon"
@@ -1664,7 +1728,9 @@ import { openCarriageDialog } from './help-dialogs/carriage-dialog.component';
 
       <third-page [form]="controls.thirdPageForm" />
 
-      <button (click)="onSaveClick()" class="field button" style="top:4px; left:1090px; width:150px;">Uložit [enter]</button>
+      <button (click)="onSaveClick()" type="submit" class="field button" style="top:4px; left:1090px; width:150px;">
+        Uložit [enter]
+      </button>
       <!--      <p id="infoMessage" class="field" style="top:-11px; left:471px; width:350px;">-->
       <!--        @if (characterSheetStore.characterSheetSaved()) { Uložení bylo úspěšné. } @else if-->
       <!--        (characterSheetStore.characterSheetError()) {-->
@@ -2343,6 +2409,30 @@ export class CharacterSheetComponent {
 
   onOpenCarriageDialog() {
     openCarriageDialog(this.dialog);
+  }
+
+  onOpenBackgroundDialog() {
+    openBackgroundDialog(this.dialog);
+  }
+
+  onOpenConvictionDialog() {
+    openConvictionDialog(this.dialog);
+  }
+
+  onOpenLevelsDialog() {
+    openLevelsDialog(this.dialog);
+  }
+
+  onOpenExpertiseDialog() {
+    openExpertiseDialog(this.dialog);
+  }
+
+  onOpenLanguagesDialog() {
+    openLanguagesDialog(this.dialog);
+  }
+
+  onOpenSpellsDialog() {
+    openSpellsDialog(this.dialog);
   }
 
   _setInventoryClasses(strength: string) {

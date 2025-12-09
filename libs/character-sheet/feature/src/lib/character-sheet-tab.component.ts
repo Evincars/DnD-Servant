@@ -10,7 +10,7 @@ import { HorseSheetComponent } from './horse-sheet.component';
     <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
       <mat-tab label="Karta postavy"><character-sheet class="u-mt-2" /></mat-tab>
       <mat-tab label="Karta družiny"><group-sheet class="u-mt-2" /></mat-tab>
-      <mat-tab label="Parťák"><horse-sheet /></mat-tab>
+      <mat-tab label="Další parťáci"><horse-sheet class="u-mt-2" /></mat-tab>
     </mat-tab-group>
   `,
   styles: `
