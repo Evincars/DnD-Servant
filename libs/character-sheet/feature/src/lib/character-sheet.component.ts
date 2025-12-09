@@ -39,6 +39,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { openWeaponsAndArmorsDialog } from './help-dialogs/weapons-and-armors-dialog.component';
+import { openDamagesDialog } from './help-dialogs/damages-dialog.component';
 
 @Component({
   selector: 'character-sheet',
@@ -144,6 +145,14 @@ import { openWeaponsAndArmorsDialog } from './help-dialogs/weapons-and-armors-di
         placeholder="Max. BV"
       />
 
+      <button
+        (click)="onOpenDamagesDialog()"
+        matTooltip="Bojové a přetrvávající zranění"
+        style="top:424px; left:842px;"
+        class="field button small-info-button-icon"
+      >
+        <mat-icon class="small-info-icon">info</mat-icon>
+      </button>
       <input
         [formControl]="speedAndHealingDicesControls.pouzitiKostek"
         class="field"
@@ -2304,6 +2313,10 @@ export class CharacterSheetComponent {
 
   onOpenWeaponsAndArmorsDialog() {
     openWeaponsAndArmorsDialog(this.dialog);
+  }
+
+  onOpenDamagesDialog() {
+    openDamagesDialog(this.dialog);
   }
 
   _setInventoryClasses(strength: string) {
