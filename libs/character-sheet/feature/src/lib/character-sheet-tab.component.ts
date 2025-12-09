@@ -13,7 +13,13 @@ import { HorseSheetComponent } from './horse-sheet.component';
       <mat-tab label="Parťák"><horse-sheet /></mat-tab>
     </mat-tab-group>
   `,
-  styles: ``,
+  styles: `
+    ::ng-deep .mat-mdc-tab-labels {
+      user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatTabGroup, MatTab, CharacterSheetComponent, GroupSheetComponent, HorseSheetComponent],
 })

@@ -1205,7 +1205,7 @@ import { openCarriageDialog } from './help-dialogs/carriage-dialog.component';
       <button
         (click)="onOpenToolsDialog()"
         matTooltip="Pomůcky"
-        style="top:1089px; left:230px;"
+        style="top:1089px; left:346px;"
         class="field button small-info-button-icon"
       >
         <mat-icon class="small-info-icon">info</mat-icon>
