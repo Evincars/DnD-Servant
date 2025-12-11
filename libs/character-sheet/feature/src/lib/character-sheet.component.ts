@@ -22,10 +22,9 @@ import {
   AbilitiesForm,
   WeaponsForm,
   LanguagesForm,
-  InventoryForm,
   SpellSlotsForm,
   AlchemistChestForm,
-  TopInfoForm,
+  TopInfoForm, SpinnerOverlayComponent, InventoryForm,
 } from '@dn-d-servant/character-sheet-util';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
@@ -57,9 +56,10 @@ import {openSpecialSituationsDialog} from "./help-dialogs/special-situations-dia
 @Component({
   selector: 'character-sheet',
   template: `
-    <img src="character-sheet-1-copy.png" alt="Character Sheet" height="1817" width="1293"/>
+    <spinner-overlay [diameter]="50" [showSpinner]="characterSheetStore.loading()">
+      <img src="character-sheet-1-copy.png" alt="Character Sheet" height="1817" width="1293"/>
 
-    <form [formGroup]="form">
+      <form [formGroup]="form">
       <input
           [formControl]="topInfoControls.rasa"
           class="field"
@@ -1797,11 +1797,11 @@ import {openSpecialSituationsDialog} from "./help-dialogs/special-situations-dia
       <!--        }-->
       <!--      </p>-->
     </form>
+    </spinner-overlay>
   `,
   styleUrl: 'character-sheet.component.scss',
-  providers: [CharacterSheetStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, NgClass, MatTooltip, SecondPageComponent, ThirdPageComponent, MatIcon],
+  imports: [ReactiveFormsModule, NgClass, MatTooltip, SecondPageComponent, ThirdPageComponent, MatIcon, SpinnerOverlayComponent],
 })
 export class CharacterSheetComponent {
   characterSheetStore = inject(CharacterSheetStore);

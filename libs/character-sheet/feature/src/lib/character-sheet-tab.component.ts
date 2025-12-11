@@ -4,6 +4,7 @@ import { CharacterSheetComponent } from './character-sheet.component';
 import { GroupSheetComponent } from './group-sheet.component';
 import { HorseSheetComponent } from './horse-sheet.component';
 import {NotesSheetComponent} from "./notes-sheet.component";
+import {CharacterSheetStore} from "@dn-d-servant/character-sheet-data-access";
 
 @Component({
   selector: 'character-sheet-tab',
@@ -22,6 +23,7 @@ import {NotesSheetComponent} from "./notes-sheet.component";
       -ms-user-select: none;
     }
   `,
+  providers: [CharacterSheetStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatTabGroup, MatTab, CharacterSheetComponent, GroupSheetComponent, HorseSheetComponent, NotesSheetComponent],
 })
