@@ -18,6 +18,11 @@
 
   font-family: sans-serif;
 
+  textarea {
+    font-family: sans-serif;
+    font-size: 18px;
+  }
+
   @include mat.toolbar-overrides(
     (
       container-background-color: rgb(32, 32, 32),
