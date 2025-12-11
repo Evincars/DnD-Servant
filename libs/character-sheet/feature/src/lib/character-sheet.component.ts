@@ -49,6 +49,8 @@ import { openExpertiseDialog } from './help-dialogs/expertise-dialog.component';
 import { openLanguagesDialog } from './help-dialogs/languages-dialog.component';
 import { openSpellsDialog } from './help-dialogs/spells-dialog.component';
 import { openAlchemistDialog } from './help-dialogs/alchemist-dialog.component';
+import { openArmorClassDialog } from './help-dialogs/armor-class-dialog.component';
+import { openWeaponsDialog } from './help-dialogs/weapons-dialog.component';
 
 @Component({
   selector: 'character-sheet',
@@ -150,6 +152,7 @@ import { openAlchemistDialog } from './help-dialogs/alchemist-dialog.component';
       />
       <input
         [formControl]="abilityBonusControls.iniciativa"
+        matTooltip="stejné jako oprava Obratnosti"
         class="field"
         style="top:274.37px; left:627.49px; width:44.54px; text-align: center"
         placeholder="In."
@@ -250,14 +253,24 @@ import { openAlchemistDialog } from './help-dialogs/alchemist-dialog.component';
         placeholder="Poznámky..."
       ></textarea>
 
+      <button
+        (click)="onOpenArmorClassDialog()"
+        type="button"
+        matTooltip="Zbroje a obranné číslo"
+        style="top:345px; left:700px;"
+        class="field button small-info-button-icon"
+      >
+        <mat-icon class="small-info-icon">info</mat-icon>
+      </button>
       <input
         [formControl]="armorClassControls.zbroj"
         class="field"
-        style="top:416.09px; left:478.15px; width:61.57px; text-align: center; font-size: 22px;"
+        style="top:416px; left:478px; width:61px; text-align: center; font-size: 22px;"
         placeholder="Zbroj"
       />
       <input
         [formControl]="armorClassControls.bezeZbroje"
+        matTooltip="10 + oprava Obratnosti"
         class="field"
         style="top:416.09px; left:582.95px; width:61.57px; text-align: center; font-size: 22px;"
         placeholder="Bez"
@@ -475,12 +488,14 @@ import { openAlchemistDialog } from './help-dialogs/alchemist-dialog.component';
       />
       <input
         [formControl]="spellsAndAlchemistChestControls.utBonus"
+        matTooltip="zdat. bonus + oprava sesílací vlast."
         class="field"
         style="top:803.11px; left:603.91px; width:94.32px;"
         placeholder="Út bonus"
       />
       <input
         [formControl]="spellsAndAlchemistChestControls.soZachrany"
+        matTooltip="8 + zdat. bonus + oprava sesílací vlast."
         class="field"
         style="top:803.11px; left:708.71px; width:94.32px;"
         placeholder="SO záchr."
@@ -1273,10 +1288,19 @@ import { openAlchemistDialog } from './help-dialogs/alchemist-dialog.component';
 
       <!--    Weapons / attacks 1st row -->
       <button
+        (click)="onOpenWeaponsDialog()"
+        type="button"
+        matTooltip="Zbraně"
+        style="top:1003px; left:750px;"
+        class="field button small-info-button-icon"
+      >
+        <mat-icon class="small-info-icon">info</mat-icon>
+      </button>
+      <button
         (click)="onOpenWeaponsAndArmorsDialog()"
         type="button"
         matTooltip="Tabulka zbraní a zbrojí"
-        style="top:1002px; left:854px;"
+        style="top:1003px; left:854px;"
         class="field button small-info-button-icon"
       >
         <mat-icon class="small-info-icon">info</mat-icon>
@@ -2447,6 +2471,14 @@ export class CharacterSheetComponent {
 
   onOpenAlchemistDialog() {
     openAlchemistDialog(this.dialog);
+  }
+
+  onOpenArmorClassDialog() {
+    openArmorClassDialog(this.dialog);
+  }
+
+  onOpenWeaponsDialog() {
+    openWeaponsDialog(this.dialog);
   }
 
   _setInventoryClasses(strength: string) {
