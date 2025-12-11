@@ -48,6 +48,7 @@ import { openLevelsDialog } from './help-dialogs/levels-dialog.component';
 import { openExpertiseDialog } from './help-dialogs/expertise-dialog.component';
 import { openLanguagesDialog } from './help-dialogs/languages-dialog.component';
 import { openSpellsDialog } from './help-dialogs/spells-dialog.component';
+import { openAlchemistDialog } from './help-dialogs/alchemist-dialog.component';
 
 @Component({
   selector: 'character-sheet',
@@ -453,6 +454,15 @@ import { openSpellsDialog } from './help-dialogs/spells-dialog.component';
         type="button"
         matTooltip="Seznam kouzel"
         style="top:764px; left:452px;"
+        class="field button small-info-button-icon"
+      >
+        <mat-icon class="small-info-icon">info</mat-icon>
+      </button>
+      <button
+        (click)="onOpenAlchemistDialog()"
+        type="button"
+        matTooltip="Aclhymistická truhla"
+        style="top:764px; left:772px;"
         class="field button small-info-button-icon"
       >
         <mat-icon class="small-info-icon">info</mat-icon>
@@ -2433,6 +2443,10 @@ export class CharacterSheetComponent {
 
   onOpenSpellsDialog() {
     openSpellsDialog(this.dialog);
+  }
+
+  onOpenAlchemistDialog() {
+    openAlchemistDialog(this.dialog);
   }
 
   _setInventoryClasses(strength: string) {
