@@ -10,6 +10,9 @@ import {MatIcon} from "@angular/material/icon";
 import {MatTooltip} from "@angular/material/tooltip";
 import {openAnimalsDialog} from "./help-dialogs/animals-dialog.component";
 import {NgClass} from "@angular/common";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {AnimalKey, animalsSelect} from './animals-select';
+import {openGroupBackgroundDialog} from "./help-dialogs/group-background-dialog.component";
 
 @Component({
   selector: 'group-sheet',
@@ -26,6 +29,15 @@ import {NgClass} from "@angular/common";
           placeholder="*"
         />
 
+        <button
+          (click)="onOpenGroupBackgroundDialog()"
+          type="button"
+          matTooltip="Skupinové zázemí"
+          style="top:121px; left:1130px;"
+          class="field button small-info-button-icon"
+        >
+          <mat-icon class="small-info-icon">info</mat-icon>
+        </button>
         <input
           [formControl]="controls.typSkupinovehoZazemi"
           class="field"
@@ -80,21 +92,16 @@ import {NgClass} from "@angular/common";
         <select
           [formControl]="controls.zvire"
           class="field"
-          style="top:947px; left:124px; width:230px;"
+          style="top:947px; left:124px; width:254px;"
         >
-          <option value="kunJezdecky">Kůň (jezdecký)</option>
-          <option value="kunTazny">Kůň (tažný)</option>
-          <option value="kunValecny">Kůň (válečný)</option>
-          <option value="mastif">Mastif</option>
-          <option value="osel">Osel, mula či mezek</option>
-          <option value="ponik">Poník</option>
-          <option value="slon">Slon</option>
-          <option value="velbloud">Velbloud</option>
+          @for (animal of animalsSelect; track $index) {
+            <option [value]="animal.key">{{ animal.value }}</option>
+          }
         </select>
         <input
           [formControl]="controls.zvireJmeno"
           class="field"
-          style="top:948px; left:358px; width:257px;"
+          style="top:948px; left:381px; width:235px;"
           placeholder="Jméno zvířete"
         />
         <input
@@ -317,6 +324,114 @@ import {NgClass} from "@angular/common";
           style="top:1689px; left:479px; width:347px;"
           placeholder="*"
         />
+        
+<!--        Column 3 of inventory-->
+        <input
+          [formControl]="controls.vybava.controls.radek31"
+          [ngClass]="inventoryClasses()[30]"
+          class="field inventory-item"
+          style="top:1010px; left:871px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek32"
+          [ngClass]="inventoryClasses()[31]"
+          class="field inventory-item"
+          style="top:1058px; left:871px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek33"
+          [ngClass]="inventoryClasses()[32]"
+          class="field inventory-item"
+          style="top:1107px; left:871px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek34"
+          [ngClass]="inventoryClasses()[33]"
+          class="field inventory-item"
+          style="top:1156px; left:871px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek35"
+          [ngClass]="inventoryClasses()[34]"
+          class="field inventory-item"
+          style="top:1205px; left:871px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek36"
+          [ngClass]="inventoryClasses()[35]"
+          class="field inventory-item"
+          style="top:1254px; left:871px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek37"
+          [ngClass]="inventoryClasses()[36]"
+          class="field inventory-item"
+          style="top:1302px; left:871px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek38"
+          [ngClass]="inventoryClasses()[37]"
+          class="field inventory-item"
+          style="top:1350px; left:871px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek39"
+          [ngClass]="inventoryClasses()[38]"
+          class="field inventory-item"
+          style="top:1399px; left:871px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek40"
+          [ngClass]="inventoryClasses()[39]"
+          class="field inventory-item"
+          style="top:1447px; left:871px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek41"
+          [ngClass]="inventoryClasses()[40]"
+          class="field inventory-item"
+          style="top:1495px; left:871px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek42"
+          [ngClass]="inventoryClasses()[41]"
+          class="field inventory-item"
+          style="top:1543px; left:871px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek43"
+          [ngClass]="inventoryClasses()[42]"
+          class="field inventory-item"
+          style="top:1592px; left:871px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek44"
+          [ngClass]="inventoryClasses()[43]"
+          class="field inventory-item"
+          style="top:1641px; left:871px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek45"
+          [ngClass]="inventoryClasses()[44]"
+          class="field inventory-item"
+          style="top:1689px; left:871px; width:347px;"
+          placeholder="*"
+        />
+        
         <button (click)="onSaveClick()" type="submit" class="field button" style="top:4px; left:1090px; width:150px;">
             Uložit [enter]
         </button>
@@ -341,6 +456,7 @@ export class GroupSheetComponent {
   dialog = inject(MatDialog);
 
   private readonly documentName = '_group';
+  animalsSelect = animalsSelect;
 
   inventoryClasses = signal(Array(45).fill(''));
 
@@ -435,6 +551,52 @@ export class GroupSheetComponent {
         }
       });
     });
+
+    this.controls.zvire.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(value => {
+      switch (value) {
+        case AnimalKey.kunJezdecky:
+          this._setInventoryClasses(16, 26, 36)
+          break;
+        case AnimalKey.kunTazny:
+          this._setInventoryClasses(18, 28, 38)
+          break;
+        case AnimalKey.kunValecny:
+          this._setInventoryClasses(18, 28, 38)
+          break;
+        case AnimalKey.mastif:
+          this._setInventoryClasses(6, 11, 16)
+          break;
+        case AnimalKey.osel:
+          this._setInventoryClasses(7, 12, 17)
+          break;
+        case AnimalKey.ponik:
+          this._setInventoryClasses(7, 12, 17)
+          break;
+        case AnimalKey.slon:
+          this._setInventoryClasses(44, 64, 84)
+          break;
+        case AnimalKey.velbloud:
+          this._setInventoryClasses(16, 26, 36)
+          break;
+      }
+    })
+  }
+
+  _setInventoryClasses(lightWeight: number, mediumWeight: number, heavyWeight: number) {
+    const inventoryClassesArray = [...this.inventoryClasses()];
+
+    inventoryClassesArray.forEach((x, i) => {
+      if (i < lightWeight) {
+        inventoryClassesArray[i] = 'soft-weight';
+      } else if (i < mediumWeight) {
+        inventoryClassesArray[i] = 'medium-weight';
+      } else if (i < heavyWeight) {
+        inventoryClassesArray[i] = 'heavy-weight';
+      } else {
+        inventoryClassesArray[i] = '';
+      }
+    });
+    this.inventoryClasses.set(inventoryClassesArray);
   }
 
   onSaveClick() {
@@ -454,5 +616,9 @@ export class GroupSheetComponent {
 
   onOpenAnimalsDialog() {
     openAnimalsDialog(this.dialog);
+  }
+
+  onOpenGroupBackgroundDialog() {
+    openGroupBackgroundDialog(this.dialog);
   }
 }
