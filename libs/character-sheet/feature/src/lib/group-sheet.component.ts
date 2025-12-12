@@ -109,7 +109,7 @@ import {NgClass} from "@angular/common";
           [formControl]="controls.vybava.controls.radek1"
           [ngClass]="inventoryClasses()[0]"
           class="field inventory-item"
-          style="top:1009px; left:86px; width:347px;"
+          style="top:1010px; left:86px; width:347px;"
           placeholder="*"
         />
         <input
@@ -211,6 +211,112 @@ import {NgClass} from "@angular/common";
           placeholder="*"
         />
         
+<!--        Column 2 of inventory-->
+        <input
+          [formControl]="controls.vybava.controls.radek16"
+          [ngClass]="inventoryClasses()[15]"
+          class="field inventory-item"
+          style="top:1010px; left:479px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek17"
+          [ngClass]="inventoryClasses()[16]"
+          class="field inventory-item"
+          style="top:1058px; left:479px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek18"
+          [ngClass]="inventoryClasses()[17]"
+          class="field inventory-item"
+          style="top:1107px; left:479px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek19"
+          [ngClass]="inventoryClasses()[18]"
+          class="field inventory-item"
+          style="top:1156px; left:479px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek20"
+          [ngClass]="inventoryClasses()[19]"
+          class="field inventory-item"
+          style="top:1205px; left:479px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek21"
+          [ngClass]="inventoryClasses()[20]"
+          class="field inventory-item"
+          style="top:1254px; left:479px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek22"
+          [ngClass]="inventoryClasses()[21]"
+          class="field inventory-item"
+          style="top:1302px; left:479px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek23"
+          [ngClass]="inventoryClasses()[22]"
+          class="field inventory-item"
+          style="top:1350px; left:479px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek24"
+          [ngClass]="inventoryClasses()[23]"
+          class="field inventory-item"
+          style="top:1399px; left:479px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek25"
+          [ngClass]="inventoryClasses()[24]"
+          class="field inventory-item"
+          style="top:1447px; left:479px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek26"
+          [ngClass]="inventoryClasses()[25]"
+          class="field inventory-item"
+          style="top:1495px; left:479px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek27"
+          [ngClass]="inventoryClasses()[26]"
+          class="field inventory-item"
+          style="top:1543px; left:479px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek28"
+          [ngClass]="inventoryClasses()[27]"
+          class="field inventory-item"
+          style="top:1592px; left:479px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek29"
+          [ngClass]="inventoryClasses()[28]"
+          class="field inventory-item"
+          style="top:1641px; left:479px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek30"
+          [ngClass]="inventoryClasses()[29]"
+          class="field inventory-item"
+          style="top:1689px; left:479px; width:347px;"
+          placeholder="*"
+        />
         <button (click)="onSaveClick()" type="submit" class="field button" style="top:4px; left:1090px; width:150px;">
             Uložit [enter]
         </button>
@@ -318,8 +424,6 @@ export class GroupSheetComponent {
 
     const fetchedGroupSheet = effect(() => {
       const groupSheet = this.characterSheetStore.groupSheet();
-
-      console.log('Fetched group sheet:', groupSheet);
 
       untracked(() => {
         if (groupSheet) {

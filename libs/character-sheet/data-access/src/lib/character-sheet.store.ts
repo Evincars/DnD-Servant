@@ -29,6 +29,7 @@ export const CharacterSheetStore = signalStore(
                 patchState(store, { characterSheet: res, characterSheetError: '', characterSheetSaved: false, loading: false });
               },
               (error: HttpErrorResponse) => {
+                _snackBar.open('Načtení character sheetu se nezdařilo: ' + error.message, 'Zavřít', { verticalPosition: 'top', duration: 3000 });
                 patchState(store, {
                   characterSheetSaved: false,
                   characterSheetError: 'GET: Načtení character sheetu se nezdařilo: ' + error.message,
@@ -51,9 +52,10 @@ export const CharacterSheetStore = signalStore(
                 patchState(store, { groupSheet: res, characterSheetError: '', groupSheetSaved: false, loading: false });
               },
               (error: HttpErrorResponse) => {
+                _snackBar.open('Načtení group sheetu se nezdařilo: ' + error.message, 'Zavřít', { verticalPosition: 'top', duration: 3000 });
                 patchState(store, {
                   groupSheetSaved: false,
-                  characterSheetError: 'GET: Načtení character sheetu se nezdařilo: ' + error.message,
+                  characterSheetError: 'GET: Načtení group sheetu se nezdařilo: ' + error.message,
                   loading: false,
                 });
               },
