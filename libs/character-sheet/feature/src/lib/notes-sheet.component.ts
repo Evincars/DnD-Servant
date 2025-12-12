@@ -13,13 +13,13 @@ import {NotesFormModelMappers} from "./notes-form-model-mappers";
       <textarea
         [formControl]="controls.notesColumn1"
           class="field textarea"
-          style="top:43px; left:0; width:650px; height:990px; background: #eee"
+          style="top:43px; left:0; width:650px; height:990px; background: rgb(248, 246, 237)"
           placeholder="Poznámky..."
       ></textarea>
       <textarea
         [formControl]="controls.notesColumn2"
         class="field textarea"
-        style="top:43px; left:660px; width:650px; height:990px; background: #eee"
+        style="top:43px; left:660px; width:650px; height:990px; background: rgb(248, 246, 237)"
         placeholder="Poznámky..."
       ></textarea>
 

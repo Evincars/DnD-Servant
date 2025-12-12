@@ -12,6 +12,7 @@
   --border: hsl(40, 65%, 80%);
   --text: hsl(40, 70%, 85%);
   --button-hover: hsl(280, 25%, 12%);
+  --primary-color: #b84949;
 
   --mat-sys-primary: rgb(168, 58, 58);
   --mat-sys-on-primary: rgb(168, 58, 58);
@@ -44,7 +45,7 @@
     gap: var(--spacing-2);
     font-size: 20px !important;
     padding: var(--spacing-1) var(--spacing-1) !important;
-    background: #b84949;
+    background: var(--primary-color);
     font-family: Roboto, sans-serif !important;
   }
 
