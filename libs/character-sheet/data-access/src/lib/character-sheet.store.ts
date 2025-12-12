@@ -1,7 +1,12 @@
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
 import { inject } from '@angular/core';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import {CharacterSheetApiModel, GroupSheetApiModel } from '@dn-d-servant/character-sheet-util';
+import {
+  CharacterSheetApiModel,
+  GroupSheetApiModel,
+  NotesPageApiModel,
+  OtherHorsesPageApiModel
+} from '@dn-d-servant/character-sheet-util';
 import {pipe, switchMap, tap} from 'rxjs';
 import { CharacterSheetApiService } from './character-sheet-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -12,6 +17,8 @@ export const CharacterSheetStore = signalStore(
   withState({
     characterSheet: undefined as CharacterSheetApiModel | undefined,
     groupSheet: undefined as GroupSheetApiModel | undefined,
+    notesPage: undefined as NotesPageApiModel | undefined,
+    otherHorsesPage: undefined as OtherHorsesPageApiModel | undefined,
     characterSheetSaved: false,
     groupSheetSaved: false,
     characterSheetError: '',
@@ -65,6 +72,52 @@ export const CharacterSheetStore = signalStore(
       ),
     );
 
+    const getNotesPageByUsername = rxMethod<string>(
+      pipe(
+        tap(() => patchState(store, { loading: true })),
+        switchMap(username => {
+          return _characterSheetApiService.getNotesPageByUsername(username).pipe(
+            tapResponse(
+              res => {
+                patchState(store, { notesPage: res, characterSheetError: '', loading: false });
+              },
+              (error: HttpErrorResponse) => {
+                _snackBar.open('Načtení poznámek se nezdařilo: ' + error.message, 'Zavřít', { verticalPosition: 'top', duration: 3000 });
+                patchState(store, {
+                  characterSheetError: 'GET: Načtení poznámek se nezdařilo: ' + error.message,
+                  loading: false,
+                });
+              },
+            ),
+          );
+        }),
+      ),
+    );
+
+    const getOtherHorsesPageByUsername = rxMethod<string>(
+      pipe(
+        tap(() => patchState(store, { loading: true })),
+        switchMap(username => {
+          return _characterSheetApiService.getOtherHorsesByUsername(username).pipe(
+            tapResponse(
+              res => {
+                patchState(store, { otherHorsesPage: res, characterSheetError: '', loading: false });
+              },
+              (error: HttpErrorResponse) => {
+                _snackBar.open('Načtení parťáků se nezdařilo: ' + error.message, 'Zavřít', { verticalPosition: 'top', duration: 3000 });
+                patchState(store, {
+                  characterSheetError: 'GET: Načtení parťáků se nezdařilo: ' + error.message,
+                  loading: false,
+                });
+              },
+            ),
+          );
+        }),
+      ),
+    );
+
+    // ------------------------------------------
+
     const saveCharacterSheet = rxMethod<CharacterSheetApiModel>(
       pipe(
         tap(() => patchState(store, { loading: true })),
@@ -99,6 +152,48 @@ export const CharacterSheetStore = signalStore(
                 patchState(store, {
                   groupSheetSaved: false,
                   characterSheetError: 'SAVE: Ukládání group sheetu se nezdařilo: ' + error.message,
+                });
+              },
+            ),
+          );
+        }),
+      ),
+    );
+
+    const saveNotesPage = rxMethod<NotesPageApiModel>(
+      pipe(
+        tap(() => patchState(store, { loading: true })),
+        switchMap(req => {
+          return _characterSheetApiService.getNotesPageByUsername(req.username).pipe(
+            tapResponse(
+              res => {
+                (res ? _updateNotesPage : _addNotesPage)(req);
+              },
+              (error: HttpErrorResponse) => {
+                patchState(store, {
+                  groupSheetSaved: false,
+                  characterSheetError: 'SAVE: Ukládání poznámek se nezdařilo: ' + error.message,
+                });
+              },
+            ),
+          );
+        }),
+      ),
+    );
+
+    const saveOtherHorsesPage = rxMethod<OtherHorsesPageApiModel>(
+      pipe(
+        tap(() => patchState(store, { loading: true })),
+        switchMap(req => {
+          return _characterSheetApiService.getOtherHorsesByUsername(req.username).pipe(
+            tapResponse(
+              res => {
+                (res ? _updateOtherHorsesPage : _addOtherHorsesPage)(req);
+              },
+              (error: HttpErrorResponse) => {
+                patchState(store, {
+                  groupSheetSaved: false,
+                  characterSheetError: 'SAVE: Ukládání poznámek se nezdařilo: ' + error.message,
                 });
               },
             ),
@@ -215,7 +310,117 @@ export const CharacterSheetStore = signalStore(
       ),
     );
 
-    return { getCharacterSheetByUsername, getGroupSheetByUsername, saveCharacterSheet, saveGroupSheet };
+    const _addNotesPage = rxMethod<NotesPageApiModel>(
+      pipe(
+        tap(() => patchState(store, { loading: true })),
+        switchMap(req => {
+          return _characterSheetApiService.addNotesPage(req).pipe(
+            tapResponse(
+              (_: any) => {
+                patchState(store, {
+                  characterSheetError: '',
+                  loading: false
+                });
+                _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
+              },
+              (error: HttpErrorResponse) => {
+                patchState(store, {
+                  characterSheetError: 'ADD: Ukládání poznámek se nezdařilo: ' + error.message,
+                  loading: false
+                });
+              },
+            ),
+          );
+        }),
+      ),
+    );
+
+    const _updateNotesPage = rxMethod<NotesPageApiModel>(
+      pipe(
+        tap(() => patchState(store, { loading: true })),
+        switchMap(req => {
+          return _characterSheetApiService.updateNotesPage(req).pipe(
+            tapResponse(
+              (_: any) => {
+                patchState(store, {
+                  characterSheetError: '',
+                  loading: false
+                });
+                _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
+              },
+              (error: HttpErrorResponse) => {
+                patchState(store, {
+                  characterSheetError: 'UPDATE: Ukládání poznámek se nezdařilo: ' + error.message,
+                  loading: false
+                });
+              },
+            ),
+          );
+        }),
+      ),
+    );
+
+    const _addOtherHorsesPage = rxMethod<OtherHorsesPageApiModel>(
+      pipe(
+        tap(() => patchState(store, { loading: true })),
+        switchMap(req => {
+          return _characterSheetApiService.addOtherHorsesPage(req).pipe(
+            tapResponse(
+              (_: any) => {
+                patchState(store, {
+                  characterSheetError: '',
+                  loading: false
+                });
+                _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
+              },
+              (error: HttpErrorResponse) => {
+                patchState(store, {
+                  characterSheetError: 'ADD: Ukládání parťáků se nezdařilo: ' + error.message,
+                  loading: false
+                });
+              },
+            ),
+          );
+        }),
+      ),
+    );
+
+    const _updateOtherHorsesPage = rxMethod<OtherHorsesPageApiModel>(
+      pipe(
+        tap(() => patchState(store, { loading: true })),
+        switchMap(req => {
+          return _characterSheetApiService.updateOtherHorsesPage(req).pipe(
+            tapResponse(
+              (_: any) => {
+                patchState(store, {
+                  characterSheetError: '',
+                  loading: false
+                });
+                _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
+              },
+              (error: HttpErrorResponse) => {
+                patchState(store, {
+                  characterSheetError: 'UPDATE: Ukládání parťáků se nezdařilo: ' + error.message,
+                  loading: false
+                });
+              },
+            ),
+          );
+        }),
+      ),
+    );
+
+    return {
+      getCharacterSheetByUsername,
+      getGroupSheetByUsername,
+      getNotesPageByUsername,
+      getOtherHorsesPageByUsername,
+      // -----------------------
+      saveCharacterSheet,
+      saveGroupSheet,
+      saveNotesPage,
+      saveOtherHorsesPage
+    };
   }),
   withHooks({}),
 );
