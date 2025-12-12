@@ -1,35 +1,230 @@
-import {ChangeDetectionStrategy, Component, DestroyRef, effect, inject, untracked} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, effect, inject, signal, untracked} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
-import {GroupInventoryForm, GroupSheetForm} from "@dn-d-servant/character-sheet-util";
+import {GroupInventoryForm, GroupSheetForm, SpinnerOverlayComponent} from "@dn-d-servant/character-sheet-util";
 import {AuthService, FormUtil} from "@dn-d-servant/util";
 import {CharacterSheetStore} from "@dn-d-servant/character-sheet-data-access";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {GroupSheetFormModelMappers} from "./group-sheet-form-model-mappers";
+import {MatIcon} from "@angular/material/icon";
+import {MatTooltip} from "@angular/material/tooltip";
+import {openAnimalsDialog} from "./help-dialogs/animals-dialog.component";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'group-sheet',
   template: `
-    <img src="group-sheet-1.png" alt="Group Sheet" height="1817" width="1293" />
-    <img src="group-sheet-2.png" alt="Group Sheet" height="1817" width="1293" />
+    <spinner-overlay [diameter]="50" [showSpinner]="characterSheetStore.loading()">
+      <img src="group-sheet-1.png" alt="Group Sheet" height="1817" width="1293" />
+      <img src="group-sheet-2.png" alt="Group Sheet" height="1817" width="1293" />
+    
+      <form [formGroup]="form">
+        <input
+          [formControl]="controls.jmenoSkupinovehoZazemi"
+          class="field"
+          style="top:82px; left:76px; width:355px; text-align: center"
+          placeholder="*"
+        />
 
-    <form [formGroup]="form">
-      <input
-        [formControl]="controls.jmenoSkupinovehoZazemi"
-        class="field"
-        style="top:82px; left:76px; width:351px"
-        placeholder="*"
-      />
-      
-      <button (click)="onSaveClick()" type="submit" class="field button" style="top:4px; left:1090px; width:150px;">
-          Uložit [enter]
-      </button>
-    </form>
+        <input
+          [formControl]="controls.typSkupinovehoZazemi"
+          class="field"
+          style="top:82px; left:862px; width:354px; text-align: center"
+          placeholder="*"
+        />
+
+        <input
+          [formControl]="controls.jmenoSkupiny"
+          class="field"
+          style="top:300px; left:76px; width:353px; text-align: center"
+          placeholder="Jméno skupiny"
+        />
+
+        <input
+          [formControl]="controls.zdatnostPriSkupinovemOvereni"
+          class="field"
+          style="top:417px; left:76px; width:353px; text-align: center"
+          placeholder="Zdatnost při skupinovém ověření"
+        />
+
+        <textarea
+          [formControl]="controls.zdatnostSPomuckamiAJazyky"
+          class="field textarea"
+          style="top:516px; left:76px; width:350px; height:90px;"
+          placeholder="Zdatnost s pomůckami a jazyky..."
+        ></textarea>
+
+        <textarea
+          [formControl]="controls.schopnostSkupinovehoZazemi"
+          class="field textarea"
+          style="top:658px; left:76px; width:350px; height:200px;"
+          placeholder="Schopnost skupinového zázemí..."
+        ></textarea>
+
+        <textarea
+          [formControl]="controls.skupinoveZazemi"
+          class="field textarea"
+          style="top:279px; left:464px; width:756px; height:579px;"
+          placeholder="Schopnost skupinového zázemí..."
+        ></textarea>
+
+        <button
+          (click)="onOpenAnimalsDialog()"
+          type="button"
+          matTooltip="Zvířata a jejich nosnost"
+          style="top:888px; left:690px;"
+          class="field button small-info-button-icon"
+        >
+          <mat-icon class="small-info-icon">info</mat-icon>
+        </button>
+        <select
+          [formControl]="controls.zvire"
+          class="field"
+          style="top:947px; left:124px; width:230px;"
+        >
+          <option value="kunJezdecky">Kůň (jezdecký)</option>
+          <option value="kunTazny">Kůň (tažný)</option>
+          <option value="kunValecny">Kůň (válečný)</option>
+          <option value="mastif">Mastif</option>
+          <option value="osel">Osel, mula či mezek</option>
+          <option value="ponik">Poník</option>
+          <option value="slon">Slon</option>
+          <option value="velbloud">Velbloud</option>
+        </select>
+        <input
+          [formControl]="controls.zvireJmeno"
+          class="field"
+          style="top:948px; left:358px; width:257px;"
+          placeholder="Jméno zvířete"
+        />
+        <input
+          [formControl]="controls.penize"
+          class="field"
+          style="top:948px; left:727px; width:491px;"
+          placeholder="Peníze"
+        />
+        
+<!--        Column 1 of inventory-->
+        <input
+          [formControl]="controls.vybava.controls.radek1"
+          [ngClass]="inventoryClasses()[0]"
+          class="field inventory-item"
+          style="top:1009px; left:86px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek2"
+          [ngClass]="inventoryClasses()[1]"
+          class="field inventory-item"
+          style="top:1058px; left:86px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek3"
+          [ngClass]="inventoryClasses()[2]"
+          class="field inventory-item"
+          style="top:1107px; left:86px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek4"
+          [ngClass]="inventoryClasses()[3]"
+          class="field inventory-item"
+          style="top:1156px; left:86px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek5"
+          [ngClass]="inventoryClasses()[4]"
+          class="field inventory-item"
+          style="top:1205px; left:86px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek6"
+          [ngClass]="inventoryClasses()[5]"
+          class="field inventory-item"
+          style="top:1254px; left:86px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek7"
+          [ngClass]="inventoryClasses()[6]"
+          class="field inventory-item"
+          style="top:1302px; left:86px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek8"
+          [ngClass]="inventoryClasses()[7]"
+          class="field inventory-item"
+          style="top:1350px; left:86px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek9"
+          [ngClass]="inventoryClasses()[8]"
+          class="field inventory-item"
+          style="top:1399px; left:86px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek10"
+          [ngClass]="inventoryClasses()[9]"
+          class="field inventory-item"
+          style="top:1447px; left:86px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek11"
+          [ngClass]="inventoryClasses()[10]"
+          class="field inventory-item"
+          style="top:1495px; left:86px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek12"
+          [ngClass]="inventoryClasses()[11]"
+          class="field inventory-item"
+          style="top:1543px; left:86px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek13"
+          [ngClass]="inventoryClasses()[12]"
+          class="field inventory-item"
+          style="top:1592px; left:86px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek14"
+          [ngClass]="inventoryClasses()[13]"
+          class="field inventory-item"
+          style="top:1641px; left:86px; width:347px;"
+          placeholder="*"
+        />
+        <input
+          [formControl]="controls.vybava.controls.radek15"
+          [ngClass]="inventoryClasses()[14]"
+          class="field inventory-item"
+          style="top:1689px; left:86px; width:347px;"
+          placeholder="*"
+        />
+        
+        <button (click)="onSaveClick()" type="submit" class="field button" style="top:4px; left:1090px; width:150px;">
+            Uložit [enter]
+        </button>
+      </form>
+    </spinner-overlay>
   `,
   styleUrl: 'character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SpinnerOverlayComponent,
+    MatIcon,
+    MatTooltip,
+    NgClass
   ],
 })
 export class GroupSheetComponent {
@@ -38,6 +233,10 @@ export class GroupSheetComponent {
   destroyRef = inject(DestroyRef);
   snackBar = inject(MatSnackBar);
   dialog = inject(MatDialog);
+
+  private readonly documentName = '_group';
+
+  inventoryClasses = signal(Array(45).fill(''));
 
   fb = new FormBuilder().nonNullable;
   form = this.fb.group<GroupSheetForm>({
@@ -49,6 +248,7 @@ export class GroupSheetComponent {
     schopnostSkupinovehoZazemi: this.fb.control(''),
     skupinoveZazemi: this.fb.control(''),
     zvire: this.fb.control(''),
+    zvireJmeno: this.fb.control(''),
     penize: this.fb.control(''),
     vybava: this.fb.group<GroupInventoryForm>({
       radek1: this.fb.control(''),
@@ -111,7 +311,7 @@ export class GroupSheetComponent {
 
       untracked(() => {
         if (username) {
-          this.characterSheetStore.getGroupSheetByUsername(username);
+          this.characterSheetStore.getGroupSheetByUsername(`${username}${this.documentName}`);
         }
       });
     });
@@ -140,11 +340,15 @@ export class GroupSheetComponent {
         this.form.getRawValue(),
         GroupSheetFormModelMappers.groupSheetFormToApiMapper,
       );
-      request.username = `${username}_group`;
+      request.username = `${username}${this.documentName}`;
 
       this.characterSheetStore.saveGroupSheet(request);
     } else {
       this.snackBar.open('Pro uložení karty družiny se musíte přihlásit.', 'Zavřít', { verticalPosition: 'top', duration: 4000 });
     }
+  }
+
+  onOpenAnimalsDialog() {
+    openAnimalsDialog(this.dialog);
   }
 }

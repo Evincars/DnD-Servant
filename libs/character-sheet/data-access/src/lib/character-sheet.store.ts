@@ -13,6 +13,7 @@ export const CharacterSheetStore = signalStore(
     characterSheet: undefined as CharacterSheetApiModel | undefined,
     groupSheet: undefined as GroupSheetApiModel | undefined,
     characterSheetSaved: false,
+    groupSheetSaved: false,
     characterSheetError: '',
     loading: false,
   }),
@@ -47,11 +48,11 @@ export const CharacterSheetStore = signalStore(
           return _characterSheetApiService.getGroupSheetByUsername(username).pipe(
             tapResponse(
               res => {
-                patchState(store, { groupSheet: res, characterSheetError: '', characterSheetSaved: false, loading: false });
+                patchState(store, { groupSheet: res, characterSheetError: '', groupSheetSaved: false, loading: false });
               },
               (error: HttpErrorResponse) => {
                 patchState(store, {
-                  characterSheetSaved: false,
+                  groupSheetSaved: false,
                   characterSheetError: 'GET: Načtení character sheetu se nezdařilo: ' + error.message,
                   loading: false,
                 });
@@ -94,7 +95,7 @@ export const CharacterSheetStore = signalStore(
               },
               (error: HttpErrorResponse) => {
                 patchState(store, {
-                  characterSheetSaved: false,
+                  groupSheetSaved: false,
                   characterSheetError: 'SAVE: Ukládání group sheetu se nezdařilo: ' + error.message,
                 });
               },
@@ -166,7 +167,7 @@ export const CharacterSheetStore = signalStore(
             tapResponse(
               (_: any) => {
                 patchState(store, {
-                  characterSheetSaved: true,
+                  groupSheetSaved: true,
                   characterSheetError: '',
                   loading: false
                 });
@@ -174,7 +175,7 @@ export const CharacterSheetStore = signalStore(
               },
               (error: HttpErrorResponse) => {
                 patchState(store, {
-                  characterSheetSaved: false,
+                  groupSheetSaved: false,
                   characterSheetError: 'ADD: Ukládání group sheetu se nezdařilo: ' + error.message,
                   loading: false
                 });
@@ -193,7 +194,7 @@ export const CharacterSheetStore = signalStore(
             tapResponse(
               (_: any) => {
                 patchState(store, {
-                  characterSheetSaved: true,
+                  groupSheetSaved: true,
                   characterSheetError: '',
                   loading: false
                 });
@@ -201,7 +202,7 @@ export const CharacterSheetStore = signalStore(
               },
               (error: HttpErrorResponse) => {
                 patchState(store, {
-                  characterSheetSaved: false,
+                  groupSheetSaved: false,
                   characterSheetError: 'UPDATE: Ukládání group sheetu se nezdařilo: ' + error.message,
                   loading: false
                 });

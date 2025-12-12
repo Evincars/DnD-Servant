@@ -21,11 +21,11 @@ import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
       <ul>
         <li>
           <span class="u-text-muted">email:</span>
-          mujtest@falesny.cz
+          mujtest&commat;falesny.cz
         </li>
         <li>
           <span class="u-text-muted">heslo:</span>
-          mojeFalesneHeslo123
+          test123
         </li>
       </ul>
     </div>

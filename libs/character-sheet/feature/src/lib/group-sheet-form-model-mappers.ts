@@ -12,6 +12,7 @@ export class GroupSheetFormModelMappers {
       schopnostSkupinovehoZazemi: 'schopnostSkupinovehoZazemi',
       skupinoveZazemi: 'skupinoveZazemi',
       zvire: 'zvire',
+      zvireJmeno: 'zvireJmeno',
       penize: 'penize',
 
       'vybava.radek1': 'vybava.radek1',
