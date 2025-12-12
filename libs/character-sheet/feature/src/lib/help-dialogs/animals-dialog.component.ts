@@ -15,7 +15,8 @@ import { MatIcon } from '@angular/material/icon';
     </div>
 
     <mat-dialog-content class="dialog-content">
-      <img src="rules/kun-nosnost.png" style="width: 1060px;" />
+      <img src="rules/jezdecka-zvirata-a-dopravni-prostredky-1.png" style="width: 600px;" />
+      <img src="rules/jezdecka-zvirata-a-dopravni-prostredky-2.png" style="width: 1060px;" />
     </mat-dialog-content>
   `,
   imports: [MatDialogContent, MatDialogTitle, MatIcon, MatIconButton],
