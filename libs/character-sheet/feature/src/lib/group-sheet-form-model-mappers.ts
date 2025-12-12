@@ -60,6 +60,11 @@ export class GroupSheetFormModelMappers {
       'vybava.radek43': 'vybava.radek43',
       'vybava.radek44': 'vybava.radek44',
       'vybava.radek45': 'vybava.radek45',
+
+      jmenoSkupiny2: 'jmenoSkupiny2',
+      reputace: 'reputace',
+      spolecnici: 'spolecnici',
+      vztahyKPostavamAOrganizacim: 'vztahyKPostavamAOrganizacim'
     },
   };
 }

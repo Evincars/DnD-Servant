@@ -432,6 +432,34 @@ import {openGroupBackgroundDialog} from "./help-dialogs/group-background-dialog.
           placeholder="*"
         />
         
+<!--        Second page-->
+        <input
+          [formControl]="controls.jmenoSkupiny2"
+          class="field"
+          style="top:2000px; left:76px; width:357px; text-align: center"
+          placeholder="Jméno skupiny"
+        />
+        <input
+          [formControl]="controls.reputace"
+          class="field"
+          style="top:2000px; left:467px; width:751px; text-align: center"
+          placeholder="Reputace"
+        />
+
+        <textarea
+          [formControl]="controls.spolecnici"
+          class="field textarea"
+          style="top:2210px; left:73px; width:361px; height:1329px;"
+          placeholder="Společníci (nehráčské postavy)..."
+        ></textarea>
+
+        <textarea
+          [formControl]="controls.vztahyKPostavamAOrganizacim"
+          class="field textarea"
+          style="top:2235px; left:465px; width:755px; height:1304px;"
+          placeholder="Vztahy k postavám a organizacím..."
+        ></textarea>
+        
         <button (click)="onSaveClick()" type="submit" class="field button" style="top:4px; left:1090px; width:150px;">
             Uložit [enter]
         </button>
@@ -520,7 +548,11 @@ export class GroupSheetComponent {
       radek43: this.fb.control(''),
       radek44: this.fb.control(''),
       radek45: this.fb.control(''),
-    })
+    }),
+    jmenoSkupiny2: this.fb.control(''),
+    reputace: this.fb.control(''),
+    spolecnici: this.fb.control(''),
+    vztahyKPostavamAOrganizacim: this.fb.control(''),
   });
 
   get controls() {

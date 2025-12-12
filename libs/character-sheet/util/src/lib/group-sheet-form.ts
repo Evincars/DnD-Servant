@@ -15,6 +15,10 @@ export type GroupSheetForm = {
   zvireJmeno: FormControl<string | undefined>;
   penize: FormControl<string | undefined>;
   vybava: FormGroup<GroupInventoryForm>;
+  jmenoSkupiny2: FormControl<string | undefined>;
+  reputace: FormControl<string | undefined>;
+  spolecnici: FormControl<string | undefined>;
+  vztahyKPostavamAOrganizacim: FormControl<string | undefined>;
 }
 
 export type GroupInventoryForm = {
@@ -130,4 +134,9 @@ export type GroupSheetApiModel = {
     radek44: string;
     radek45: string;
   }
+
+  jmenoSkupiny2: string;
+  reputace: string;
+  spolecnici: string;
+  vztahyKPostavamAOrganizacim: string;
 }
