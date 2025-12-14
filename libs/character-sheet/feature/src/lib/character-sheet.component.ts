@@ -149,6 +149,7 @@ import {openSpecialSituationsDialog} from "./help-dialogs/special-situations-dia
       />
       <input
           [formControl]="abilityBonusControls.inspirace"
+          matTooltip="Utrať jednu inspiraci abys měl VÝHODU na ověření schopnosti, záchranný hod nebo útočný hod"
           class="field"
           style="top:274.37px; left:445.4px; width:44.54px; text-align: center"
           placeholder="*"
@@ -184,7 +185,7 @@ import {openSpecialSituationsDialog} from "./help-dialogs/special-situations-dia
           [formControl]="speedAndHealingDicesControls.maxBoduVydrze"
           class="field"
           style="top:283px; left:1193.41px; width:68.12px; text-align: center; font-size: 18px; color: red;"
-          placeholder="Max. BV"
+          placeholder="20 / 20"
       />
 
       <button
@@ -487,6 +488,7 @@ import {openSpecialSituationsDialog} from "./help-dialogs/special-situations-dia
       </button>
       <input
           [formControl]="spellsAndAlchemistChestControls.vlastnost"
+          matTooltip="Tvoje sesílací vlastnost (podle povolání)"
           class="field"
           style="top:803px; left:442px; width:144px;"
           placeholder="Vlastnost"
