@@ -6,6 +6,15 @@
 @import '@angular/material/prebuilt-themes/cyan-orange.css';
 @import 'material-symbols/outlined.css';
 
+body {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
 :root {
   --background: hsl(270, 20%, 8%);
   --background-gradient: hsl(280, 25%, 12%);
@@ -25,20 +34,6 @@
     font-size: 18px;
   }
 
-  @include mat.toolbar-overrides(
-    (
-      container-background-color: rgb(32, 32, 32),
-      container-text-color: #b84949,
-    )
-  );
-
-  @include mat.tabs-overrides((
-    active-focus-indicator-color: rgb(168, 58, 58),
-    active-indicator-height: 5px,
-    label-text-font: 'sans-serif',
-    label-text-weight: bold
-  ));
-
   .dialog-title {
     display: flex !important;
     align-items: center;
@@ -53,6 +48,26 @@
   .dialog-content {
     padding: 10px !important;
   }
+
+  @include mat.fab-overrides((
+    container-color: var(--primary-color),
+    container-elevation-shadow: -4px -4px 5px 0px rgba(0, 0, 0, 0.5),
+    foreground-color: #eee,
+  ));
+
+  @include mat.toolbar-overrides(
+    (
+      container-background-color: rgb(32, 32, 32),
+      container-text-color: #b84949,
+    )
+  );
+
+  @include mat.tabs-overrides((
+    active-focus-indicator-color: rgb(168, 58, 58),
+    active-indicator-height: 5px,
+    label-text-font: 'sans-serif',
+    label-text-weight: bold
+  ));
 
   @include mat.theme(
     (
@@ -81,13 +96,12 @@
 /* scrollbar */
 ::-webkit-scrollbar {
   height: 14px;
-  width: 18px;
+  width: 14px;
 }
 
 ::-webkit-scrollbar-thumb:horizontal {
   background: #555;
   background-clip: padding-box;
-  border: 4px solid transparent;
 
   &:hover {
     background-color: #444;
@@ -101,11 +115,9 @@
 ::-webkit-scrollbar-thumb:vertical {
   background: #555;
   background-clip: padding-box;
-  border: 4px solid transparent;
 
   &:hover {
     background-color: #444;
-    border-width: 2px;
   }
 
   &:active {
@@ -116,5 +128,4 @@
 ::-webkit-scrollbar-track {
   background-clip: padding-box;
   background-color: #333;
-  border: 3px solid transparent;
 }

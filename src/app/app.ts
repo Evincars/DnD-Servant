@@ -1,13 +1,14 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import {Component, DestroyRef, inject, OnDestroy, OnInit, signal} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
-import { MatButton, MatIconButton } from '@angular/material/button';
+import {MatButton, MatFabButton, MatIconButton} from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPrefix } from '@angular/material/form-field';
 import { routes } from './app.routes';
 import { AuthService } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-root',
@@ -60,9 +61,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             </span>
           </div>
         </mat-toolbar>
-        <div class="main-content u-flex-col u-overflow-auto">
+        <div class="main-content u-flex-col">
           <router-outlet />
         </div>
+        @if (showBackToTop()) {
+          <button (click)="scrollToTop()" mat-fab class="back-to-top" matTooltip="Scroll zpátky nahoru" color="secondary" aria-label="Back to top">
+            <mat-icon>arrow_upward</mat-icon>
+          </button>
+        }
       </mat-sidenav-content>
     </mat-sidenav-container>
   `,
@@ -73,11 +79,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     }
 
     .container {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
       background: url('/wallpaper-1.webp') no-repeat center center fixed;
     }
 
@@ -124,6 +125,17 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     .username {
       font-size: 18px;
     }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
   `,
   imports: [
     RouterModule,
@@ -135,13 +147,16 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     MatPrefix,
     MatToolbar,
     MatIconButton,
+    MatFabButton,
+    MatTooltip,
   ],
 })
-export class App implements OnInit {
+export class App implements OnInit, OnDestroy {
   authService = inject(AuthService);
   destroyRef = inject(DestroyRef);
 
   routes = routes;
+  showBackToTop = signal(false);
 
   ngOnInit(): void {
     this.authService.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
@@ -154,5 +169,18 @@ export class App implements OnInit {
         this.authService.currentUser.set(null);
       }
     });
+    window.addEventListener('scroll', this.onScroll, true);
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('scroll', this.onScroll, true);
+  }
+
+  onScroll = (): void => {
+    this.showBackToTop.set(window.scrollY > 200);
+  };
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
