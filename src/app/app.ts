@@ -78,6 +78,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       bottom: 0;
       left: 0;
       right: 0;
+      background: url('/wallpaper-1.webp') no-repeat center center fixed;
     }
 
     .main-content {
@@ -87,6 +88,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       padding: var(--spacing-3);
       border-radius: var(--border-radius-1);
       background: #232222;
+      opacity: 0.9;
       margin-top: var(--spacing-3) !important;
       margin-bottom: var(--spacing-3) !important;
     }
