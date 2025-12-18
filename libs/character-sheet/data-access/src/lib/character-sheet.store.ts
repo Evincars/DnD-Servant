@@ -5,9 +5,9 @@ import {
   CharacterSheetApiModel,
   GroupSheetApiModel,
   NotesPageApiModel,
-  OtherHorsesPageApiModel
+  OtherHorsesPageApiModel,
 } from '@dn-d-servant/character-sheet-util';
-import {pipe, switchMap, tap} from 'rxjs';
+import { pipe, switchMap, tap } from 'rxjs';
 import { CharacterSheetApiService } from './character-sheet-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { tapResponse } from '@ngrx/operators';
@@ -23,9 +23,14 @@ export const CharacterSheetStore = signalStore(
     groupSheetSaved: false,
     characterSheetError: '',
     loading: false,
+    characterImage: null as string | null,
   }),
   withComputed(store => ({})),
   withMethods((store, _characterSheetApiService = inject(CharacterSheetApiService), _snackBar = inject(MatSnackBar)) => {
+    const saveCharacterImage = function (formDate: string) {
+      patchState(store, { characterImage: formDate });
+    };
+
     const getCharacterSheetByUsername = rxMethod<string>(
       pipe(
         tap(() => patchState(store, { loading: true })),
@@ -36,7 +41,10 @@ export const CharacterSheetStore = signalStore(
                 patchState(store, { characterSheet: res, characterSheetError: '', characterSheetSaved: false, loading: false });
               },
               (error: HttpErrorResponse) => {
-                _snackBar.open('Načtení character sheetu se nezdařilo: ' + error.message, 'Zavřít', { verticalPosition: 'top', duration: 3000 });
+                _snackBar.open('Načtení character sheetu se nezdařilo: ' + error.message, 'Zavřít', {
+                  verticalPosition: 'top',
+                  duration: 3000,
+                });
                 patchState(store, {
                   characterSheetSaved: false,
                   characterSheetError: 'GET: Načtení character sheetu se nezdařilo: ' + error.message,
@@ -59,7 +67,10 @@ export const CharacterSheetStore = signalStore(
                 patchState(store, { groupSheet: res, characterSheetError: '', groupSheetSaved: false, loading: false });
               },
               (error: HttpErrorResponse) => {
-                _snackBar.open('Načtení group sheetu se nezdařilo: ' + error.message, 'Zavřít', { verticalPosition: 'top', duration: 3000 });
+                _snackBar.open('Načtení group sheetu se nezdařilo: ' + error.message, 'Zavřít', {
+                  verticalPosition: 'top',
+                  duration: 3000,
+                });
                 patchState(store, {
                   groupSheetSaved: false,
                   characterSheetError: 'GET: Načtení group sheetu se nezdařilo: ' + error.message,
@@ -82,7 +93,10 @@ export const CharacterSheetStore = signalStore(
                 patchState(store, { notesPage: res, characterSheetError: '', loading: false });
               },
               (error: HttpErrorResponse) => {
-                _snackBar.open('Načtení poznámek se nezdařilo: ' + error.message, 'Zavřít', { verticalPosition: 'top', duration: 3000 });
+                _snackBar.open('Načtení poznámek se nezdařilo: ' + error.message, 'Zavřít', {
+                  verticalPosition: 'top',
+                  duration: 3000,
+                });
                 patchState(store, {
                   characterSheetError: 'GET: Načtení poznámek se nezdařilo: ' + error.message,
                   loading: false,
@@ -104,7 +118,10 @@ export const CharacterSheetStore = signalStore(
                 patchState(store, { otherHorsesPage: res, characterSheetError: '', loading: false });
               },
               (error: HttpErrorResponse) => {
-                _snackBar.open('Načtení parťáků se nezdařilo: ' + error.message, 'Zavřít', { verticalPosition: 'top', duration: 3000 });
+                _snackBar.open('Načtení parťáků se nezdařilo: ' + error.message, 'Zavřít', {
+                  verticalPosition: 'top',
+                  duration: 3000,
+                });
                 patchState(store, {
                   characterSheetError: 'GET: Načtení parťáků se nezdařilo: ' + error.message,
                   loading: false,
@@ -212,7 +229,7 @@ export const CharacterSheetStore = signalStore(
                 patchState(store, {
                   characterSheetSaved: true,
                   characterSheetError: '',
-                  loading: false
+                  loading: false,
                 });
                 _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
               },
@@ -220,7 +237,7 @@ export const CharacterSheetStore = signalStore(
                 patchState(store, {
                   characterSheetSaved: false,
                   characterSheetError: 'ADD: Ukládání character sheetu se nezdařilo: ' + error.message,
-                  loading: false
+                  loading: false,
                 });
               },
             ),
@@ -239,7 +256,7 @@ export const CharacterSheetStore = signalStore(
                 patchState(store, {
                   characterSheetSaved: true,
                   characterSheetError: '',
-                  loading: false
+                  loading: false,
                 });
                 _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
               },
@@ -247,7 +264,7 @@ export const CharacterSheetStore = signalStore(
                 patchState(store, {
                   characterSheetSaved: false,
                   characterSheetError: 'UPDATE: Ukládání character sheetu se nezdařilo: ' + error.message,
-                  loading: false
+                  loading: false,
                 });
               },
             ),
@@ -266,7 +283,7 @@ export const CharacterSheetStore = signalStore(
                 patchState(store, {
                   groupSheetSaved: true,
                   characterSheetError: '',
-                  loading: false
+                  loading: false,
                 });
                 _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
               },
@@ -274,7 +291,7 @@ export const CharacterSheetStore = signalStore(
                 patchState(store, {
                   groupSheetSaved: false,
                   characterSheetError: 'ADD: Ukládání group sheetu se nezdařilo: ' + error.message,
-                  loading: false
+                  loading: false,
                 });
               },
             ),
@@ -293,7 +310,7 @@ export const CharacterSheetStore = signalStore(
                 patchState(store, {
                   groupSheetSaved: true,
                   characterSheetError: '',
-                  loading: false
+                  loading: false,
                 });
                 _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
               },
@@ -301,7 +318,7 @@ export const CharacterSheetStore = signalStore(
                 patchState(store, {
                   groupSheetSaved: false,
                   characterSheetError: 'UPDATE: Ukládání group sheetu se nezdařilo: ' + error.message,
-                  loading: false
+                  loading: false,
                 });
               },
             ),
@@ -319,14 +336,14 @@ export const CharacterSheetStore = signalStore(
               (_: any) => {
                 patchState(store, {
                   characterSheetError: '',
-                  loading: false
+                  loading: false,
                 });
                 _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
               },
               (error: HttpErrorResponse) => {
                 patchState(store, {
                   characterSheetError: 'ADD: Ukládání poznámek se nezdařilo: ' + error.message,
-                  loading: false
+                  loading: false,
                 });
               },
             ),
@@ -344,14 +361,14 @@ export const CharacterSheetStore = signalStore(
               (_: any) => {
                 patchState(store, {
                   characterSheetError: '',
-                  loading: false
+                  loading: false,
                 });
                 _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
               },
               (error: HttpErrorResponse) => {
                 patchState(store, {
                   characterSheetError: 'UPDATE: Ukládání poznámek se nezdařilo: ' + error.message,
-                  loading: false
+                  loading: false,
                 });
               },
             ),
@@ -369,14 +386,14 @@ export const CharacterSheetStore = signalStore(
               (_: any) => {
                 patchState(store, {
                   characterSheetError: '',
-                  loading: false
+                  loading: false,
                 });
                 _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
               },
               (error: HttpErrorResponse) => {
                 patchState(store, {
                   characterSheetError: 'ADD: Ukládání parťáků se nezdařilo: ' + error.message,
-                  loading: false
+                  loading: false,
                 });
               },
             ),
@@ -394,14 +411,14 @@ export const CharacterSheetStore = signalStore(
               (_: any) => {
                 patchState(store, {
                   characterSheetError: '',
-                  loading: false
+                  loading: false,
                 });
                 _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
               },
               (error: HttpErrorResponse) => {
                 patchState(store, {
                   characterSheetError: 'UPDATE: Ukládání parťáků se nezdařilo: ' + error.message,
-                  loading: false
+                  loading: false,
                 });
               },
             ),
@@ -411,6 +428,7 @@ export const CharacterSheetStore = signalStore(
     );
 
     return {
+      saveCharacterImage,
       getCharacterSheetByUsername,
       getGroupSheetByUsername,
       getNotesPageByUsername,
@@ -419,7 +437,7 @@ export const CharacterSheetStore = signalStore(
       saveCharacterSheet,
       saveGroupSheet,
       saveNotesPage,
-      saveOtherHorsesPage
+      saveOtherHorsesPage,
     };
   }),
   withHooks({}),

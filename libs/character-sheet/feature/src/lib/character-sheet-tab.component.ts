@@ -5,6 +5,7 @@ import { GroupSheetComponent } from './group-sheet.component';
 import { HorseSheetComponent } from './horse-sheet.component';
 import {NotesSheetComponent} from "./notes-sheet.component";
 import {CharacterSheetStore} from "@dn-d-servant/character-sheet-data-access";
+import {InitiativeTrackerComponent} from "./initiative-tracker.component";
 
 @Component({
   selector: 'character-sheet-tab',
@@ -14,6 +15,7 @@ import {CharacterSheetStore} from "@dn-d-servant/character-sheet-data-access";
       <mat-tab label="Karta družiny"><group-sheet class="u-mt-2" /></mat-tab>
       <mat-tab label="Další parťáci"><horse-sheet class="u-mt-2" /></mat-tab>
       <mat-tab label="Poznámky"><notes-sheet class="u-mt-2" /></mat-tab>
+      <mat-tab label="Iniciativa"><initiative-tracker class="u-mt-2" /></mat-tab>
     </mat-tab-group>
   `,
   styles: `
@@ -25,6 +27,6 @@ import {CharacterSheetStore} from "@dn-d-servant/character-sheet-data-access";
   `,
   providers: [CharacterSheetStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatTabGroup, MatTab, CharacterSheetComponent, GroupSheetComponent, HorseSheetComponent, NotesSheetComponent],
+  imports: [MatTabGroup, MatTab, CharacterSheetComponent, GroupSheetComponent, HorseSheetComponent, NotesSheetComponent, InitiativeTrackerComponent],
 })
 export class CharacterSheetTabComponent {}

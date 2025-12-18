@@ -6,6 +6,7 @@ export type SecondPageForm = {
   vztahy: FormControl<string | undefined>;
   dalsiPoznamky1: FormControl<string | undefined>;
   dalsiPoznamky2: FormControl<string | undefined>;
+  obrazekPostavy: FormControl<FormData | null>;
 };
 
 export type HeaderInfoForm = {
@@ -44,4 +45,5 @@ export type SecondPageApiModel = {
   vztahy: string;
   dalsiPoznamky1: string;
   dalsiPoznamky2: string;
+  obrazekPostavy: string | null;
 };

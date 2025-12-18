@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HeaderInfoForm, LookAndFeelForm, SecondPageForm } from '@dn-d-servant/character-sheet-util';
+import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 
 @Component({
   selector: 'second-page',
@@ -74,6 +75,14 @@ import { HeaderInfoForm, LookAndFeelForm, SecondPageForm } from '@dn-d-servant/c
       style="top:725px; left:74px; width:359px; height:82px;"
       placeholder="Dojem/vystupování..."
     ></textarea>
+    <input
+      type="file"
+      name="file"
+      id="file"
+      class="field"
+      (change)="onFileSelected($event)"
+      style="top:835px; left:74px; width:359px; height:82px;"
+    />
 
     <textarea
       [formControl]="controls.vztahy"
@@ -100,6 +109,8 @@ import { HeaderInfoForm, LookAndFeelForm, SecondPageForm } from '@dn-d-servant/c
   imports: [ReactiveFormsModule],
 })
 export class SecondPageComponent {
+  characterSheetStore = inject(CharacterSheetStore);
+
   form = input.required<FormGroup<SecondPageForm>>();
 
   get controls(): SecondPageForm {
@@ -127,6 +138,19 @@ export class SecondPageComponent {
       vztahy: fb.control(''),
       dalsiPoznamky1: fb.control(''),
       dalsiPoznamky2: fb.control(''),
+      obrazekPostavy: fb.control(null),
     });
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64 = (reader.result as string).split(',')[1];
+        this.characterSheetStore.saveCharacterImage(base64);
+      };
+      reader.readAsDataURL(file);
+    }
   }
 }
