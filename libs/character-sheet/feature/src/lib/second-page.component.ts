@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, input, signal, untracked } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HeaderInfoForm, LookAndFeelForm, SecondPageForm } from '@dn-d-servant/character-sheet-util';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
@@ -75,14 +75,11 @@ import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
       style="top:725px; left:74px; width:359px; height:82px;"
       placeholder="Dojem/vystupování..."
     ></textarea>
-    <input
-      type="file"
-      name="file"
-      id="file"
-      class="field"
-      (change)="onFileSelected($event)"
-      style="top:835px; left:74px; width:359px; height:82px;"
-    />
+    <label class="field image-label" style="top:835px; left:74px; width:359px;">
+      Klikni pro nahrání obrázku postavy
+      <input type="file" name="file" (change)="onFileSelected($event)" style="display:none;" />
+    </label>
+    <img [src]="base64Image()" style="position: absolute; top:873px; left:74px; width:359px;" alt="Obrázek postavy" />
 
     <textarea
       [formControl]="controls.vztahy"
@@ -113,8 +110,22 @@ export class SecondPageComponent {
 
   form = input.required<FormGroup<SecondPageForm>>();
 
+  base64Image = signal<string | null>(null);
+
   get controls(): SecondPageForm {
     return this.form().controls;
+  }
+
+  constructor() {
+    const checkIfImageIsLoaded = effect(() => {
+      const imageBase64 = this.characterSheetStore.characterSheet()?.secondPageForm.obrazekPostavy;
+
+      untracked(() => {
+        if (imageBase64) {
+          this.base64Image.set('data: image/png;base64,' + imageBase64);
+        }
+      });
+    });
   }
 
   static createForm(): FormGroup<SecondPageForm> {
@@ -144,6 +155,7 @@ export class SecondPageComponent {
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
+    console.log('files', event.target.files);
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {

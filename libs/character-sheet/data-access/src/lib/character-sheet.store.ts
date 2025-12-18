@@ -31,6 +31,10 @@ export const CharacterSheetStore = signalStore(
       patchState(store, { characterImage: formDate });
     };
 
+    const patchLoading = function (value: boolean) {
+      patchState(store, { loading: value });
+    };
+
     const getCharacterSheetByUsername = rxMethod<string>(
       pipe(
         tap(() => patchState(store, { loading: true })),
@@ -428,6 +432,7 @@ export const CharacterSheetStore = signalStore(
     );
 
     return {
+      patchLoading,
       saveCharacterImage,
       getCharacterSheetByUsername,
       getGroupSheetByUsername,

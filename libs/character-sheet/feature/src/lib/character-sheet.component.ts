@@ -54,6 +54,7 @@ import { openArmorClassDialog } from './help-dialogs/armor-class-dialog.componen
 import { openWeaponsDialog } from './help-dialogs/weapons-dialog.component';
 import { openManeuversDialog } from './help-dialogs/maneuvers-dialog.component';
 import { openSpecialSituationsDialog } from './help-dialogs/special-situations-dialog.component';
+import { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'character-sheet',
@@ -61,7 +62,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
     <spinner-overlay [diameter]="50" [showSpinner]="characterSheetStore.loading()">
       <img src="character-sheet-1-copy.png" alt="Character Sheet" height="1817" width="1293" />
 
-      <form [formGroup]="form">
+      <form [formGroup]="form" #formElementId>
         <input
           [formControl]="topInfoControls.rasa"
           class="field"
@@ -1792,6 +1793,10 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <button (click)="onSaveClick()" type="submit" class="field button" style="top:4px; left:1090px; width:150px;">
           Uložit [enter]
         </button>
+
+        <button (click)="onExportToPdfClick()" type="submit" class="field button" style="top:4px; left:900px; width:150px;">
+          PDF
+        </button>
         <!--      <p id="infoMessage" class="field" style="top:-11px; left:471px; width:350px;">-->
         <!--        @if (characterSheetStore.characterSheetSaved()) { Uložení bylo úspěšné. } @else if-->
         <!--        (characterSheetStore.characterSheetError()) {-->
@@ -1869,6 +1874,8 @@ export class CharacterSheetComponent {
   @ViewChild('chestUsage18Input') chestUsage18Input!: ElementRef<HTMLInputElement>;
   @ViewChild('chestUsage19Input') chestUsage19Input!: ElementRef<HTMLInputElement>;
   @ViewChild('chestUsage20Input') chestUsage20Input!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('formElementId', { static: true }) formElement: ElementRef | undefined;
 
   inventoryClasses = signal(Array(20).fill(''));
   infoMessage = signal('');
@@ -2454,6 +2461,25 @@ export class CharacterSheetComponent {
     } else {
       this.infoMessage.set('Pro uložení postavy se musíte přihlásit.');
       this.snackBar.open('Pro uložení postavy se musíte přihlásit.', 'Zavřít', { verticalPosition: 'top', duration: 4000 });
+    }
+  }
+
+  onExportToPdfClick() {
+    if (this.formElement) {
+      const element = this.formElement.nativeElement;
+      const doc: jsPDF = new jsPDF('p', 'px', 'a1');
+      this.characterSheetStore.patchLoading(true);
+      doc.html(element, {
+        // x: 0,
+        // y: 0,
+        // autoPaging: true,
+        // width: 500,
+        // windowWidth: 500,
+        callback: doc => {
+          this.characterSheetStore.patchLoading(false);
+          doc.save('karta-postavy.pdf');
+        },
+      });
     }
   }
 

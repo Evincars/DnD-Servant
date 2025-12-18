@@ -120,3 +120,12 @@ input[type='checkbox'][disabled] {
   height: 20px;
   padding: 2px 0 0 0;
 }
+.image-label {
+  display:inline-block;
+  position:absolute;
+  cursor:pointer;
+  font-size: 15px;
+  &:hover {
+    text-decoration: underline;
+  }
+}
