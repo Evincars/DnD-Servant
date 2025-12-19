@@ -79,7 +79,11 @@ import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
       Klikni pro nahrání obrázku postavy
       <input type="file" name="file" (change)="onFileSelected($event)" style="display:none;" />
     </label>
-    <img [src]="base64Image()" style="position: absolute; top:873px; left:74px; width:359px;" alt="Obrázek postavy" />
+    <img
+      [src]="base64Image()"
+      style="position: absolute; top:873px; left:74px; width:359px; max-height: 365px;"
+      alt="Obrázek postavy"
+    />
 
     <textarea
       [formControl]="controls.vztahy"
@@ -122,7 +126,8 @@ export class SecondPageComponent {
 
       untracked(() => {
         if (imageBase64) {
-          this.base64Image.set('data: image/png;base64,' + imageBase64);
+          console.log('image: ', imageBase64);
+          this.base64Image.set('data: image;base64,' + imageBase64);
         }
       });
     });
