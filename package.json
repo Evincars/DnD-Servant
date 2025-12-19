@@ -28,6 +28,7 @@
     "jspdf": "^3.0.4",
     "material-symbols": "^0.39.1",
     "object-path": "^0.11.8",
+    "pdfmake": "^0.2.20",
     "rxjs": "~7.8.0",
     "type-fest": "^5.2.0",
     "zone.js": "~0.15.0"

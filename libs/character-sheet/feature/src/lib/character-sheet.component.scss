@@ -4,6 +4,7 @@
 }
 
 .field {
+  font-family: Arial, serif;
   position: absolute;
   box-sizing: border-box;
   pointer-events: auto;
@@ -15,6 +16,13 @@
   font-weight: bold;
   color: black;
   outline: none;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.field:focus {
+  box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.25);
+  border-color: red;
 }
 
 .label {
@@ -32,13 +40,10 @@
   }
 }
 
-.field:focus {
-  box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.25);
-  border-color: red;
-}
 .spell-row {
   font-size: 13px;
 }
+
 .checkbox {
   width: 15px;
   height: 15px;
@@ -71,6 +76,8 @@ input[type='checkbox'][disabled] {
 .textarea {
   resize: none;
   letter-spacing: -0.02em;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .main-skill {
@@ -110,16 +117,19 @@ input[type='checkbox'][disabled] {
 .spell-slot-black-priest {
   accent-color: #af5555;
 }
+
 .small-info-icon {
   font-size: 15px;
   width: 15px;
   height: 15px;
 }
+
 .small-info-button-icon {
   width: 20px;
   height: 20px;
   padding: 2px 0 0 0;
 }
+
 .image-label {
   display:inline-block;
   position:absolute;

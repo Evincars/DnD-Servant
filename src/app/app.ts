@@ -1,14 +1,15 @@
-import {Component, DestroyRef, inject, OnDestroy, OnInit, signal} from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
-import {MatButton, MatFabButton, MatIconButton} from '@angular/material/button';
+import { MatButton, MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPrefix } from '@angular/material/form-field';
 import { routes } from './app.routes';
 import { AuthService } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {MatTooltip} from "@angular/material/tooltip";
+import { MatTooltip } from '@angular/material/tooltip';
+import { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'app-root',
@@ -43,6 +44,15 @@ import {MatTooltip} from "@angular/material/tooltip";
             </button>
             <img src="JaD-logo.png" alt="Dungeons & Dragons Logo" class="logo u-mr-3" />
             <span>Servant</span>
+            <button
+              matIconButton
+              (click)="onExportToPdfClick()"
+              class="u-ml-3"
+              style="color: var(--primary-color);"
+              matTooltip="Exportovat kartu postavy do PDF (testovací verze)"
+            >
+              <mat-icon>picture_as_pdf</mat-icon>
+            </button>
           </div>
           <div class="author-info">
             <span class="u-flex u-align-center">
@@ -61,13 +71,20 @@ import {MatTooltip} from "@angular/material/tooltip";
             </span>
           </div>
         </mat-toolbar>
-        <div class="main-content u-flex-col">
+        <div class="main-content u-flex-col" #content>
           <router-outlet />
         </div>
         @if (showBackToTop()) {
-          <button (click)="scrollToTop()" mat-fab class="back-to-top" matTooltip="Scroll zpátky nahoru" color="secondary" aria-label="Back to top">
-            <mat-icon>arrow_upward</mat-icon>
-          </button>
+        <button
+          (click)="scrollToTop()"
+          mat-fab
+          class="back-to-top"
+          matTooltip="Scroll zpátky nahoru"
+          color="secondary"
+          aria-label="Back to top"
+        >
+          <mat-icon>arrow_upward</mat-icon>
+        </button>
         }
       </mat-sidenav-content>
     </mat-sidenav-container>
@@ -158,6 +175,8 @@ export class App implements OnInit, OnDestroy {
   routes = routes;
   showBackToTop = signal(false);
 
+  @ViewChild('content') formElement: ElementRef | undefined;
+
   ngOnInit(): void {
     this.authService.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
       if (user) {
@@ -182,5 +201,27 @@ export class App implements OnInit, OnDestroy {
 
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  onExportToPdfClick() {
+    if (this.formElement) {
+      const element = this.formElement.nativeElement;
+      const doc: jsPDF = new jsPDF('p', 'px', 'c1');
+
+      doc.html(element, {
+        x: 20,
+        y: 50,
+        // autoPaging: true,
+        // width: 20,
+        // windowWidth: 500,
+        callback: doc => {
+          doc.setFont('Helvetica');
+          doc.setFontSize(10);
+          doc.setTextColor(10);
+          // this.characterSheetStore.patchLoading(false);
+          doc.save('karta-postavy.pdf');
+        },
+      });
+    }
   }
 }
