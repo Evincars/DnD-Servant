@@ -81,7 +81,7 @@ import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
     </label>
     <img
       [src]="base64Image()"
-      style="position: absolute; top:873px; left:74px; width:359px; max-height: 365px;"
+      style="position: absolute; top:873px; left:74px; width:359px; max-height: 365px; box-shadow: 0 10px 25px rgba(0,0,0,0.0);"
       alt="Obrázek postavy"
     />
 
