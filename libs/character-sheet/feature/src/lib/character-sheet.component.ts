@@ -2448,7 +2448,8 @@ export class CharacterSheetComponent {
         CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
       );
       request.username = username;
-      request.secondPageForm.obrazekPostavy = this.characterSheetStore.characterImage();
+      // todo: Cannot set properties of undefined (setting 'obrazekPostavy')
+      // request.secondPageForm.obrazekPostavy = this.characterSheetStore.characterImage() ?? '';
 
       this.characterSheetStore.saveCharacterSheet(request);
     } else {
