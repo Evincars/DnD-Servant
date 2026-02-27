@@ -1,27 +1,25 @@
-import {ChangeDetectionStrategy, Component, DestroyRef, effect, inject, untracked} from '@angular/core';
-import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
-import {NotesPageForm} from "@dn-d-servant/character-sheet-util";
-import {CharacterSheetStore} from "@dn-d-servant/character-sheet-data-access";
-import {AuthService, FormUtil} from "@dn-d-servant/util";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {NotesFormModelMappers} from "./notes-form-model-mappers";
+import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, untracked } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { NotesPageForm, RichTextareaComponent } from '@dn-d-servant/character-sheet-util';
+import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
+import { AuthService, FormUtil } from '@dn-d-servant/util';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NotesFormModelMappers } from './notes-form-model-mappers';
 
 @Component({
   selector: 'notes-sheet',
   template: `
     <form [formGroup]="form">
-      <textarea
+      <rich-textarea
         [formControl]="controls.notesColumn1"
-          class="field textarea"
-          style="top:43px; left:0; width:650px; height:990px; background: rgb(248, 246, 237)"
-          placeholder="Poznámky..."
-      ></textarea>
-      <textarea
+        class="field textarea"
+        style="top:43px; left:0; width:650px; height:990px; background: rgb(248, 246, 237)"
+      ></rich-textarea>
+      <rich-textarea
         [formControl]="controls.notesColumn2"
         class="field textarea"
         style="top:43px; left:660px; width:650px; height:990px; background: rgb(248, 246, 237)"
-        placeholder="Poznámky..."
-      ></textarea>
+      ></rich-textarea>
 
       <button (click)="onSaveClick()" type="submit" class="field button" style="top:4px; left:1200px; width:110px;">
         Uložit
@@ -35,9 +33,7 @@ import {NotesFormModelMappers} from "./notes-form-model-mappers";
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    ReactiveFormsModule
-  ],
+  imports: [ReactiveFormsModule, RichTextareaComponent],
 })
 export class NotesSheetComponent {
   characterSheetStore = inject(CharacterSheetStore);
@@ -73,10 +69,7 @@ export class NotesSheetComponent {
 
       untracked(() => {
         if (notesPage) {
-          const formValue = FormUtil.convertModelToForm(
-            notesPage,
-            NotesFormModelMappers.notesFormToApiMapper,
-          );
+          const formValue = FormUtil.convertModelToForm(notesPage, NotesFormModelMappers.notesFormToApiMapper);
           this.form.patchValue(formValue);
         }
       });
@@ -86,10 +79,7 @@ export class NotesSheetComponent {
   onSaveClick() {
     const username = this.authService.currentUser()?.username;
     if (username) {
-      const request = FormUtil.convertFormToModel(
-        this.form.getRawValue(),
-        NotesFormModelMappers.notesFormToApiMapper,
-      );
+      const request = FormUtil.convertFormToModel(this.form.getRawValue(), NotesFormModelMappers.notesFormToApiMapper);
       request.username = `${username}${this.documentName}`;
 
       this.characterSheetStore.saveNotesPage(request);

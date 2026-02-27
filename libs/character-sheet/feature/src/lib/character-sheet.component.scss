@@ -78,6 +78,8 @@ input[type='checkbox'][disabled] {
   letter-spacing: -0.02em;
   white-space: normal;
   word-break: break-word;
+  padding: 0;       /* inner rt-preview/rt-editor handle their own padding */
+  overflow: visible;
 }
 
 .main-skill {

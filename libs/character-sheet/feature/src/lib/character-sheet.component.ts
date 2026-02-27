@@ -28,6 +28,7 @@ import {
   TopInfoForm,
   SpinnerOverlayComponent,
   InventoryForm,
+  RichTextareaComponent,
 } from '@dn-d-servant/character-sheet-util';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
@@ -256,12 +257,11 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:457.88px; left:1155.42px;"
         />
 
-        <textarea
+        <rich-textarea
           [formControl]="form.controls['infoAboutCharacter']"
           class="field textarea"
           style="top:545.1px; left:834.47px; width:349.77px; height:432px;"
-          placeholder="Poznámky..."
-        ></textarea>
+        ></rich-textarea>
 
         <button
           (click)="onOpenArmorClassDialog()"
@@ -1292,12 +1292,11 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         >
           <mat-icon class="small-info-icon">info</mat-icon>
         </button>
-        <textarea
+        <rich-textarea
           [formControl]="form.controls.pomucky"
           class="field textarea"
           style="top:1126.54px; left:182.09px; width:237.11px; height:167px;"
-          placeholder="Pomůcky..."
-        ></textarea>
+        ></rich-textarea>
 
         <!--    Weapons / attacks 1st row -->
         <button
@@ -1602,12 +1601,11 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:1349px; left:687px; width:492px"
           placeholder="Jazyky..."
         />
-        <textarea
+        <rich-textarea
           [formControl]="languagesControls.schopnosti"
           class="field textarea"
           style="top:1382px; left:634.04px; width:550.20px; height:381px;"
-          placeholder="Schopnosti..."
-        ></textarea>
+        ></rich-textarea>
 
         <!--    Inventory - column 1 -->
         <button
@@ -1809,7 +1807,16 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
   `,
   styleUrl: 'character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, NgClass, MatTooltip, SecondPageComponent, ThirdPageComponent, MatIcon, SpinnerOverlayComponent],
+  imports: [
+    ReactiveFormsModule,
+    NgClass,
+    MatTooltip,
+    SecondPageComponent,
+    ThirdPageComponent,
+    MatIcon,
+    SpinnerOverlayComponent,
+    RichTextareaComponent,
+  ],
 })
 export class CharacterSheetComponent {
   characterSheetStore = inject(CharacterSheetStore);

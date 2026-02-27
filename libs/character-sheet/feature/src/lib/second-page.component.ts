@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, effect, inject, input, output, signal, untracked } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { HeaderInfoForm, LookAndFeelForm, SecondPageForm } from '@dn-d-servant/character-sheet-util';
+import { HeaderInfoForm, LookAndFeelForm, RichTextareaComponent, SecondPageForm } from '@dn-d-servant/character-sheet-util';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -65,18 +65,16 @@ import { MatTooltip } from '@angular/material/tooltip';
       style="top:530px; left:74px; width:359px"
       placeholder="Postava"
     />
-    <textarea
+    <rich-textarea
       [formControl]="controls.lookAndFeelForm.controls.obleceniAVzezreni"
       class="field textarea"
       style="top:603px; left:74px; width:359px; height:82px;"
-      placeholder="Oblečení/vzezření..."
-    ></textarea>
-    <textarea
+    ></rich-textarea>
+    <rich-textarea
       [formControl]="controls.lookAndFeelForm.controls.dojemAVystupovani"
       class="field textarea"
       style="top:725px; left:74px; width:359px; height:82px;"
-      placeholder="Dojem/vystupování..."
-    ></textarea>
+    ></rich-textarea>
     <label
       matTooltip="nejlépe GIF, max 500 KB, ideálně ještě menší"
       class="field image-label"
@@ -91,29 +89,26 @@ import { MatTooltip } from '@angular/material/tooltip';
       alt="Obrázek postavy"
     />
 
-    <textarea
+    <rich-textarea
       [formControl]="controls.vztahy"
       class="field textarea"
       style="top:315px; left:464px; width:754px; height:912px;"
-      placeholder="Vztahy..."
-    ></textarea>
+    ></rich-textarea>
 
-    <textarea
+    <rich-textarea
       [formControl]="controls.dalsiPoznamky1"
       class="field textarea"
       style="top:1318px; left:74px; width:560px; height:447px;"
-      placeholder="Další poznámky..."
-    ></textarea>
-    <textarea
+    ></rich-textarea>
+    <rich-textarea
       [formControl]="controls.dalsiPoznamky2"
       class="field textarea"
       style="top:1318px; left:643px; width:574px; height:447px;"
-      placeholder="..."
-    ></textarea>
+    ></rich-textarea>
   `,
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, MatTooltip],
+  imports: [ReactiveFormsModule, MatTooltip, RichTextareaComponent],
 })
 export class SecondPageComponent {
   characterSheetStore = inject(CharacterSheetStore);
