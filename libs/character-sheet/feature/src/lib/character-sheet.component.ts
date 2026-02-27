@@ -2682,7 +2682,12 @@ export class CharacterSheetComponent {
       );
       request.username = username;
       if (request.secondPageForm) {
-        request.secondPageForm.obrazekPostavy = this.characterSheetStore.characterImage() ?? null;
+        // characterImage() is only set in-memory after an upload in this session.
+        // Fall back to the value already persisted in the loaded sheet so we never
+        // overwrite a valid image with null on a regular save.
+        const imageThisSession = this.characterSheetStore.characterImage();
+        const imageFromDb = this.characterSheetStore.characterSheet()?.secondPageForm?.obrazekPostavy ?? null;
+        request.secondPageForm.obrazekPostavy = imageThisSession ?? imageFromDb;
       }
 
       this.characterSheetStore.saveCharacterSheet(request);
