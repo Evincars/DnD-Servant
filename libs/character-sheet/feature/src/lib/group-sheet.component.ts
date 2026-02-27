@@ -1,6 +1,11 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, signal, untracked } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { GroupInventoryForm, GroupSheetForm, SpinnerOverlayComponent } from '@dn-d-servant/character-sheet-util';
+import {
+  GroupInventoryForm,
+  GroupSheetForm,
+  RichTextareaComponent,
+  SpinnerOverlayComponent,
+} from '@dn-d-servant/character-sheet-util';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -59,26 +64,23 @@ import { openGroupBackgroundDialog } from './help-dialogs/group-background-dialo
           placeholder="Zdatnost při skupinovém ověření"
         />
 
-        <textarea
+        <rich-textarea
           [formControl]="controls.zdatnostSPomuckamiAJazyky"
           class="field textarea"
           style="top:516px; left:76px; width:350px; height:90px;"
-          placeholder="Zdatnost s pomůckami a jazyky..."
-        ></textarea>
+        ></rich-textarea>
 
-        <textarea
+        <rich-textarea
           [formControl]="controls.schopnostSkupinovehoZazemi"
           class="field textarea"
           style="top:658px; left:76px; width:350px; height:200px;"
-          placeholder="Schopnost skupinového zázemí..."
-        ></textarea>
+        ></rich-textarea>
 
-        <textarea
+        <rich-textarea
           [formControl]="controls.skupinoveZazemi"
           class="field textarea"
           style="top:279px; left:464px; width:756px; height:579px;"
-          placeholder="Schopnost skupinového zázemí..."
-        ></textarea>
+        ></rich-textarea>
 
         <button
           (click)="onOpenAnimalsDialog()"
@@ -437,19 +439,17 @@ import { openGroupBackgroundDialog } from './help-dialogs/group-background-dialo
           placeholder="Reputace"
         />
 
-        <textarea
+        <rich-textarea
           [formControl]="controls.spolecnici"
           class="field textarea"
           style="top:2210px; left:73px; width:361px; height:1329px;"
-          placeholder="Společníci (nehráčské postavy)..."
-        ></textarea>
+        ></rich-textarea>
 
-        <textarea
+        <rich-textarea
           [formControl]="controls.vztahyKPostavamAOrganizacim"
           class="field textarea"
           style="top:2235px; left:465px; width:755px; height:1304px;"
-          placeholder="Vztahy k postavám a organizacím..."
-        ></textarea>
+        ></rich-textarea>
 
         <button (click)="onSaveClick()" type="submit" class="field button" style="top:4px; left:1090px; width:150px;">
           Uložit [enter]
@@ -459,7 +459,7 @@ import { openGroupBackgroundDialog } from './help-dialogs/group-background-dialo
   `,
   styleUrl: 'character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, SpinnerOverlayComponent, MatIcon, MatTooltip, NgClass],
+  imports: [ReactiveFormsModule, SpinnerOverlayComponent, MatIcon, MatTooltip, NgClass, RichTextareaComponent],
 })
 export class GroupSheetComponent {
   characterSheetStore = inject(CharacterSheetStore);
