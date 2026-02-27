@@ -1,21 +1,34 @@
-import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, HostListener, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, signal, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 /**
  * Plain-text markup syntax (stored as-is in DB):
  *
- *  **text**       → bold
- *  _text_         → italic
- *  - text  (or • text) at line start → bullet point
- *  ## text        at line start → large font (h1-style)
- *  # text         at line start → medium font (h2-style)
- *  (default)      → normal/small font
+ *  **text**           → bold
+ *  _text_             → italic
+ *  [red]text[/red]    → colored text  (red | green | blue | orange | gray)
+ *  - text  (or • text) at line start → bullet point (unordered)
+ *  1. text            at line start → numbered list item (ordered)
+ *  ## text            at line start → large font (h1-style)
+ *  # text             at line start → medium font (h2-style)
+ *  (default)          → normal/small font
  */
+
+const COLORS = ['red', 'green', 'blue', 'orange', 'gray'];
+const COLOR_LABELS: Record<string, string> = {
+  red: '#e53935',
+  green: '#43a047',
+  blue: '#1e88e5',
+  orange: '#fb8c00',
+  gray: '#757575',
+};
+
 function parseMarkup(raw: string): string {
   const lines = raw.split('\n');
   const htmlLines: string[] = [];
 
-  let inList = false;
+  let inUl = false;
+  let inOl = false;
 
   for (let i = 0; i < lines.length; i++) {
     let line = lines[i];
@@ -27,25 +40,51 @@ function parseMarkup(raw: string): string {
     line = line.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
     // Inline: italic _text_
     line = line.replace(/(?<![a-zA-Z0-9])_(.+?)_(?![a-zA-Z0-9])/g, '<em>$1</em>');
+    // Inline: colors [color]text[/color]
+    for (const color of COLORS) {
+      const re = new RegExp(`\\[${color}\\](.+?)\\[\\/${color}\\]`, 'g');
+      line = line.replace(re, `<span class="rt-color-${color}">$1</span>`);
+    }
 
-    // Block: bullet  (- text  or  • text)
-    const bulletMatch = line.match(/^(- |• )(.*)/);
+    // Block: unordered bullet  (- text  or  • text)
+    const ulMatch = line.match(/^(- |• )(.*)/);
+    // Block: ordered bullet  (1. text  /  2. text  / …)
+    const olMatch = !ulMatch && line.match(/^\d+\. (.*)/);
     // Block: heading ##
     const h1Match = line.match(/^## (.*)/);
     // Block: heading #
-    const h2Match = line.match(/^# (.*)/);
+    const h2Match = !h1Match && line.match(/^# (.*)/);
 
-    if (bulletMatch) {
-      if (!inList) {
+    if (ulMatch) {
+      if (inOl) {
+        htmlLines.push('</ol>');
+        inOl = false;
+      }
+      if (!inUl) {
         htmlLines.push('<ul>');
-        inList = true;
+        inUl = true;
       }
-      htmlLines.push(`<li>${bulletMatch[2]}</li>`);
-    } else {
-      if (inList) {
+      htmlLines.push(`<li>${ulMatch[2]}</li>`);
+    } else if (olMatch) {
+      if (inUl) {
         htmlLines.push('</ul>');
-        inList = false;
+        inUl = false;
       }
+      if (!inOl) {
+        htmlLines.push('<ol>');
+        inOl = true;
+      }
+      htmlLines.push(`<li>${olMatch[1]}</li>`);
+    } else {
+      if (inUl) {
+        htmlLines.push('</ul>');
+        inUl = false;
+      }
+      if (inOl) {
+        htmlLines.push('</ol>');
+        inOl = false;
+      }
+
       if (h1Match) {
         htmlLines.push(`<span class="rt-h1">${h1Match[1]}</span><br>`);
       } else if (h2Match) {
@@ -58,7 +97,8 @@ function parseMarkup(raw: string): string {
     }
   }
 
-  if (inList) htmlLines.push('</ul>');
+  if (inUl) htmlLines.push('</ul>');
+  if (inOl) htmlLines.push('</ol>');
 
   return htmlLines.join('');
 }
@@ -72,12 +112,26 @@ function parseMarkup(raw: string): string {
       <button type="button" title="Tučné (**text**)" (click)="wrap('**', '**')"><strong>B</strong></button>
       <button type="button" title="Kurzíva (_text_)" (click)="wrap('_', '_')"><em>I</em></button>
       <button type="button" title="Odrážka (- )" (click)="insertBullet()">•</button>
+      <button type="button" title="Číslovaný seznam (1. )" (click)="insertNumberedBullet()">1.</button>
       <button type="button" title="Velký nadpis (## )" (click)="insertHeading('## ')">
         <span style="font-size:13px;font-weight:bold">H1</span>
       </button>
       <button type="button" title="Střední nadpis (# )" (click)="insertHeading('# ')">
         <span style="font-size:11px;font-weight:bold">H2</span>
       </button>
+      <span class="rt-separator"></span>
+      <!-- Color buttons -->
+      @for (c of colorList; track c) {
+      <button
+        type="button"
+        [title]="'Barva: ' + c"
+        (click)="wrapColor(c)"
+        [style.color]="colorHex(c)"
+        [style.font-weight]="'bold'"
+      >
+        A
+      </button>
+      }
     </div>
     }
 
@@ -105,6 +159,7 @@ function parseMarkup(raw: string): string {
       z-index: 100;
       display: flex;
       gap: 2px;
+      align-items: center;
       background: #fff;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -129,6 +184,13 @@ function parseMarkup(raw: string): string {
       }
     }
 
+    .rt-separator {
+      width: 1px;
+      height: 18px;
+      background: #ccc;
+      margin: 0 2px;
+    }
+
     .rt-preview {
       width: 100%;
       height: 100%;
@@ -140,32 +202,26 @@ function parseMarkup(raw: string): string {
       font-size: 13px;
       word-break: break-word;
       white-space: pre-wrap;
-
-      // font size helpers
-      :host ::ng-deep .rt-h1 {
-        font-size: 17px;
-        font-weight: bold;
-      }
-
-      :host ::ng-deep .rt-h2 {
-        font-size: 15px;
-        font-weight: bold;
-      }
-
-      :host ::ng-deep .rt-normal {
-        font-size: 13px;
-      }
-
-      :host ::ng-deep ul {
-        margin: 2px 0 2px 18px;
-        padding: 0;
-      }
-
-      :host ::ng-deep li {
-        font-size: 13px;
-        margin: 1px 0;
-      }
     }
+
+    /* Injected HTML styles — must be ::ng-deep at host level */
+    ::ng-deep .rt-preview .rt-h1 { font-size: 17px; font-weight: bold; }
+    ::ng-deep .rt-preview .rt-h2 { font-size: 15px; font-weight: bold; }
+    ::ng-deep .rt-preview .rt-normal { font-size: 13px; }
+
+    ::ng-deep .rt-preview ul,
+    ::ng-deep .rt-preview ol {
+      margin: 2px 0 2px 18px;
+      padding: 0;
+    }
+    ::ng-deep .rt-preview li { font-size: 13px; margin: 1px 0; }
+
+    /* Color classes */
+    ::ng-deep .rt-preview .rt-color-red    { color: #e53935; }
+    ::ng-deep .rt-preview .rt-color-green  { color: #43a047; }
+    ::ng-deep .rt-preview .rt-color-blue   { color: #1e88e5; }
+    ::ng-deep .rt-preview .rt-color-orange { color: #fb8c00; }
+    ::ng-deep .rt-preview .rt-color-gray   { color: #757575; }
 
     .rt-editor {
       width: 100%;
@@ -196,6 +252,12 @@ export class RichTextareaComponent implements ControlValueAccessor {
   value = signal('');
   html = signal('');
 
+  readonly colorList = COLORS;
+
+  colorHex(color: string): string {
+    return COLOR_LABELS[color] ?? '#000';
+  }
+
   private onChange: (v: string) => void = () => {};
   private onTouched: () => void = () => {};
 
@@ -214,7 +276,6 @@ export class RichTextareaComponent implements ControlValueAccessor {
 
   startEditing() {
     this.editing.set(true);
-    // Focus the textarea on next tick after it renders
     setTimeout(() => this.ta?.nativeElement.focus(), 0);
   }
 
@@ -230,7 +291,7 @@ export class RichTextareaComponent implements ControlValueAccessor {
     this.onChange(val);
   }
 
-  /** Wrap current selection with prefix/suffix, or insert at cursor */
+  /** Wrap current selection with prefix/suffix, or insert placeholder */
   wrap(prefix: string, suffix: string) {
     const el = this.ta?.nativeElement;
     if (!el) return;
@@ -245,9 +306,25 @@ export class RichTextareaComponent implements ControlValueAccessor {
     el.focus();
   }
 
+  /** Wrap selection with color tags, e.g. [red]text[/red] */
+  wrapColor(color: string) {
+    this.wrap(`[${color}]`, `[/${color}]`);
+  }
+
   /** Insert a bullet prefix at the start of the current line */
   insertBullet() {
     this._insertLinePrefix('- ');
+  }
+
+  /** Insert a numbered bullet prefix at the start of the current line */
+  insertNumberedBullet() {
+    const el = this.ta?.nativeElement;
+    if (!el) return;
+    // Detect current number by counting previous numbered lines
+    const pos = el.selectionStart;
+    const textBefore = el.value.substring(0, pos);
+    const prevNumbered = (textBefore.match(/^\d+\. /gm) ?? []).length;
+    this._insertLinePrefix(`${prevNumbered + 1}. `);
   }
 
   insertHeading(prefix: string) {
