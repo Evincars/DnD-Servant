@@ -129,8 +129,7 @@ export class SecondPageComponent {
 
       untracked(() => {
         if (imageBase64) {
-          console.log('image: ', imageBase64);
-          this.base64Image.set('data:image;base64,' + imageBase64);
+          this.base64Image.set('data:image/png;base64,' + imageBase64);
         }
       });
     });
@@ -165,12 +164,18 @@ export class SecondPageComponent {
     const file: File = event.target.files[0];
     if (!file) return;
 
-    const maxSizeBytes = 2 * 1024 * 1024; // 2 MB
+    const maxSizeBytes = 500 * 1024; // 500 KB
     if (file.size > maxSizeBytes) {
-      this.snackBar.open(`Obrázek je příliš velký (${(file.size / 1024 / 1024).toFixed(2)} MB). Maximum je 2 MB.`, 'Zavřít', {
-        verticalPosition: 'top',
-        duration: 5000,
-      });
+      this.snackBar.open(
+        `Obrázek je příliš velký (${(file.size / 1024).toFixed(
+          0,
+        )} KB). Maximum je 500 KB. Otevři obrázek v Malování, zmenši jeho velikost a ulož jako GIF.`,
+        'Zavřít',
+        {
+          verticalPosition: 'top',
+          duration: 6500,
+        },
+      );
       // reset the input
       event.target.value = '';
       return;
@@ -178,10 +183,11 @@ export class SecondPageComponent {
 
     const reader = new FileReader();
     reader.onload = () => {
-      const base64 = (reader.result as string).split(',')[1];
-      // Show preview immediately
-      this.base64Image.set('data:image;base64,' + base64);
-      // Update local store state
+      const dataUrl = reader.result as string;
+      const base64 = dataUrl.split(',')[1];
+      // Show preview immediately using the full data URL (includes correct MIME type)
+      this.base64Image.set(dataUrl);
+      // Update local store state (raw base64 only)
       this.characterSheetStore.saveCharacterImage(base64);
       // Trigger save to server
       this.imageSaved.emit(base64);
