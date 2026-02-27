@@ -1785,7 +1785,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           placeholder="*"
         />
 
-        <second-page [form]="controls.secondPageForm" />
+        <second-page [form]="controls.secondPageForm" (imageSaved)="onImageSaved($event)" />
 
         <third-page [form]="controls.thirdPageForm" />
 
@@ -2448,14 +2448,32 @@ export class CharacterSheetComponent {
         CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
       );
       request.username = username;
-      // todo: Cannot set properties of undefined (setting 'obrazekPostavy')
-      // request.secondPageForm.obrazekPostavy = this.characterSheetStore.characterImage() ?? '';
+      if (request.secondPageForm) {
+        request.secondPageForm.obrazekPostavy = this.characterSheetStore.characterImage() ?? null;
+      }
 
       this.characterSheetStore.saveCharacterSheet(request);
     } else {
       this.infoMessage.set('Pro uložení postavy se musíte přihlásit.');
       this.snackBar.open('Pro uložení postavy se musíte přihlásit.', 'Zavřít', { verticalPosition: 'top', duration: 4000 });
     }
+  }
+
+  onImageSaved(base64: string) {
+    const username = this.authService.currentUser()?.username;
+    if (!username) {
+      this.snackBar.open('Pro uložení obrázku se musíte přihlásit.', 'Zavřít', { verticalPosition: 'top', duration: 4000 });
+      return;
+    }
+    const request = FormUtil.convertFormToModel(
+      this.form.getRawValue(),
+      CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
+    );
+    request.username = username;
+    if (request.secondPageForm) {
+      request.secondPageForm.obrazekPostavy = base64;
+    }
+    this.characterSheetStore.saveCharacterSheet(request);
   }
 
   onOpenWeaponsAndArmorsDialog() {

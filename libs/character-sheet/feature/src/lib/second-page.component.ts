@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, effect, inject, input, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, input, output, signal, untracked } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HeaderInfoForm, LookAndFeelForm, SecondPageForm } from '@dn-d-servant/character-sheet-util';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'second-page',
@@ -111,10 +112,12 @@ import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 })
 export class SecondPageComponent {
   characterSheetStore = inject(CharacterSheetStore);
+  private snackBar = inject(MatSnackBar);
 
   form = input.required<FormGroup<SecondPageForm>>();
 
   base64Image = signal<string | null>(null);
+  imageSaved = output<string>();
 
   get controls(): SecondPageForm {
     return this.form().controls;
@@ -127,7 +130,7 @@ export class SecondPageComponent {
       untracked(() => {
         if (imageBase64) {
           console.log('image: ', imageBase64);
-          this.base64Image.set('data: image;base64,' + imageBase64);
+          this.base64Image.set('data:image;base64,' + imageBase64);
         }
       });
     });
@@ -159,15 +162,30 @@ export class SecondPageComponent {
   }
 
   onFileSelected(event: any) {
-    const file = event.target.files[0];
-    console.log('files', event.target.files);
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const base64 = (reader.result as string).split(',')[1];
-        this.characterSheetStore.saveCharacterImage(base64);
-      };
-      reader.readAsDataURL(file);
+    const file: File = event.target.files[0];
+    if (!file) return;
+
+    const maxSizeBytes = 2 * 1024 * 1024; // 2 MB
+    if (file.size > maxSizeBytes) {
+      this.snackBar.open(`Obrázek je příliš velký (${(file.size / 1024 / 1024).toFixed(2)} MB). Maximum je 2 MB.`, 'Zavřít', {
+        verticalPosition: 'top',
+        duration: 5000,
+      });
+      // reset the input
+      event.target.value = '';
+      return;
     }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = (reader.result as string).split(',')[1];
+      // Show preview immediately
+      this.base64Image.set('data:image;base64,' + base64);
+      // Update local store state
+      this.characterSheetStore.saveCharacterImage(base64);
+      // Trigger save to server
+      this.imageSaved.emit(base64);
+    };
+    reader.readAsDataURL(file);
   }
 }
