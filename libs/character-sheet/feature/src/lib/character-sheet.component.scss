@@ -110,6 +110,27 @@ input[type='checkbox'][disabled] {
   background: rgba(236, 159, 159, 0.47);
 }
 
+.speed-highlight-light {
+  background: rgba(100, 210, 100, 0.45);
+  border-color: rgb(60, 170, 60);
+  box-shadow: 0 0 0 2px rgba(60, 170, 60, 0.4);
+  font-weight: bold;
+}
+
+.speed-highlight-medium {
+  background: rgba(237, 194, 108, 0.6);
+  border-color: rgb(200, 150, 30);
+  box-shadow: 0 0 0 2px rgba(200, 150, 30, 0.4);
+  font-weight: bold;
+}
+
+.speed-highlight-heavy {
+  background: rgba(236, 100, 100, 0.45);
+  border-color: rgb(190, 50, 50);
+  box-shadow: 0 0 0 2px rgba(190, 50, 50, 0.4);
+  font-weight: bold;
+}
+
 .spell-slot-checkbox {
   accent-color: #494343;
 }

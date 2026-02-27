@@ -167,18 +167,21 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
 
         <input
           [formControl]="speedAndHealingDicesControls.lehke"
+          [ngClass]="{ 'speed-highlight-light': speedHighlight() === 'light' }"
           class="field"
           style="top:308.89px; left:829.23px; width:110.04px;"
           placeholder="Lehké"
         />
         <input
           [formControl]="speedAndHealingDicesControls.stredni"
+          [ngClass]="{ 'speed-highlight-medium': speedHighlight() === 'medium' }"
           class="field"
           style="top:308.89px; left:952.37px; width:110.04px;"
           placeholder="Střední"
         />
         <input
           [formControl]="speedAndHealingDicesControls.tezke"
+          [ngClass]="{ 'speed-highlight-heavy': speedHighlight() === 'heavy' }"
           class="field"
           style="top:308.89px; left:1073.89px; width:110.04px;"
           placeholder="Těžké"
@@ -1873,6 +1876,7 @@ export class CharacterSheetComponent {
 
   inventoryClasses = signal(Array(20).fill(''));
   infoMessage = signal('');
+  speedHighlight = signal<'light' | 'medium' | 'heavy' | ''>('');
   _viewInitialized = signal(false);
   fb = new FormBuilder().nonNullable;
   form = this.fb.group<CharacterSheetForm>({
@@ -2210,6 +2214,10 @@ export class CharacterSheetComponent {
       this._setInventoryClasses(strength ?? '0');
     });
 
+    this.form.controls.inventoryForm.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this._updateSpeedHighlight();
+    });
+
     this.spellSlotsControls.urovenSesilatele.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(level => {
       const levelNumber = parseInt(level ?? '0');
 
@@ -2440,6 +2448,7 @@ export class CharacterSheetComponent {
           // Apply disable logic only if the view is already initialized
           if (this._viewInitialized()) {
             this._applyLevelDisabling();
+            this._updateSpeedHighlight();
           }
         }
       });
@@ -2450,6 +2459,7 @@ export class CharacterSheetComponent {
       // If data was already loaded before the view was ready, apply disable logic now
       if (this.characterSheetStore.characterSheet()) {
         this._applyLevelDisabling();
+        this._updateSpeedHighlight();
       }
     });
   }
@@ -2774,6 +2784,28 @@ export class CharacterSheetComponent {
       }
     });
     this.inventoryClasses.set(inventoryClassesArray);
+    this._updateSpeedHighlight();
+  }
+
+  _updateSpeedHighlight() {
+    const classes = this.inventoryClasses();
+    const inventoryValues = Object.values(this.form.controls.inventoryForm.getRawValue()) as string[];
+
+    const isRowFilled = (index: number) => !!inventoryValues[index]?.trim();
+
+    const hasHeavy = classes.some((cls, i) => cls === 'heavy-weight' && isRowFilled(i));
+    const hasMedium = classes.some((cls, i) => cls === 'medium-weight' && isRowFilled(i));
+    const hasLight = classes.some((cls, i) => cls === 'soft-weight' && isRowFilled(i));
+
+    if (hasHeavy) {
+      this.speedHighlight.set('heavy');
+    } else if (hasMedium) {
+      this.speedHighlight.set('medium');
+    } else if (hasLight) {
+      this.speedHighlight.set('light');
+    } else {
+      this.speedHighlight.set('');
+    }
   }
 
   _setSpellSlotsLevel1() {
