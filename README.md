@@ -1,102 +1,129 @@
-# DnDServant
+<div align="center">
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+# ⚔️ JaD Servant ⚔️
+### Digitální pomocník pro *Jeskyně a Draci*
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+[![Angular](https://img.shields.io/badge/Angular-20-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev)
+[![Firebase](https://img.shields.io/badge/Firebase-Realtime_DB-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com)
+[![Nx](https://img.shields.io/badge/Nx-Monorepo-143055?style=for-the-badge&logo=nx&logoColor=white)](https://nx.dev)
+[![NgRx](https://img.shields.io/badge/NgRx-Signals-BA2BD2?style=for-the-badge&logo=ngrx&logoColor=white)](https://ngrx.io)
+[![Material](https://img.shields.io/badge/Angular_Material-UI-007FFF?style=for-the-badge&logo=material-design&logoColor=white)](https://material.angular.io)
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+---
 
-## Run tasks
+*Přestaňte tahat papírové deníky k hernímu stolu.*
+*Vaše postava žije tady — online, vždy po ruce.*
 
-To run the dev server for your app, use:
+---
+
+</div>
+
+## 🐉 Co je JaD Servant?
+
+**JaD Servant** je online aplikace pro správu herních karet pro české RPG **Jeskyně a Draci**. Umožňuje hráčům vyplňovat, ukládat a sdílet své postavy přímo v prohlížeči — bez nutnosti tisknout, skenovat nebo opisovat papírové deníky.
+
+Veškerá data jsou uložena v **Firebase Realtime Database** a přístupná odkudkoliv po přihlášení.
+
+---
+
+## ✨ Funkce
+
+| Funkce | Popis |
+|---|---|
+| 📜 **Karta postavy** | Digitální replika 4stránkového formuláře JaD — strana 1 (základy), strana 2 (vzhled & příběh), strana 3 (kouzla) |
+| 🗡️ **Karta družiny** | Sdílená karta skupiny s inventářem, reputací a zázemím |
+| 🐴 **Karta koně** | Správa jezdeckých zvířat a dopravních prostředků |
+| 📝 **Zápisník** | Volné poznámky a zápisky pro každou postavu |
+| 🎲 **Tracker iniciativy** | Přehledný nástroj pro vedení pořadí v souboji |
+| 🧙 **DM obrazovka** | Pomocná obrazovka pro Pána jeskyně |
+| 🔒 **Autentizace** | Přihlášení uživatelů — každý má svá vlastní data |
+| 📸 **Obrázek postavy** | Nahrání vlastního portrétu postavy (max 500 KB) |
+
+---
+
+## 🏰 Architektura
+
+Projekt je postaven jako **Nx monorepo** s Angular 20 a využívá moderní koncepty:
+
+```
+DnD-Servant/
+├── src/                          # Hlavní aplikace
+├── libs/
+│   ├── authentication/feature/   # Přihlašovací stránka
+│   ├── character-sheet/
+│   │   ├── feature/              # Komponenty karet (postava, družina, kůň, ...)
+│   │   ├── data-access/          # NgRx Signals store + Firebase API
+│   │   └── util/                 # Typy formulářů a API modelů
+│   ├── dm-screen/feature/        # DM obrazovka
+│   └── util/                     # Sdílené utility (AuthService, FormUtil, ...)
+└── e2e/                          # End-to-end testy (Playwright)
+```
+
+### Technologický stack
+
+- **[Angular 20](https://angular.dev)** — framework s Signal-based reaktivitou
+- **[NgRx Signals](https://ngrx.io/guide/signals)** — správa stavu aplikace
+- **[Angular Material](https://material.angular.io)** — UI komponenty (Cyan & Orange téma)
+- **[Firebase Realtime Database](https://firebase.google.com)** — cloudové úložiště dat
+- **[Nx](https://nx.dev)** — monorepo tooling & build systém
+- **[RxJS](https://rxjs.dev)** — reaktivní programování
+
+---
+
+## 🚀 Spuštění
+
+### Předpoklady
+
+- Node.js 18+
+- npm
+
+### Instalace
+
+```sh
+npm install
+```
+
+### Spuštění vývojového serveru
 
 ```sh
 npx nx serve DnD-Servant
 ```
 
-To create a production bundle:
+Aplikace poběží na `http://localhost:4200`.
+
+### Produkční build
 
 ```sh
 npx nx build DnD-Servant
 ```
+---
 
-To see all available targets to run for a project, run:
+## 🎲 O hře Jeskyně a Draci
 
-```sh
-npx nx show project DnD-Servant
-```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+**Jeskyně a Draci** (JaD) je česká verze RPG ve stylu *Dungeons & Dragons*, vydávaná nakladatelstvím [Mytago](https://www.mytago.cz). Hra využívá systém d20 a je plně přizpůsobena českému prostředí a hráčům.
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- 🌐 Oficiální stránky: [jeskyneadraci.cz](https://jeskyneadraci.cz)
+- 📖 Pravidla a materiály ke stažení na oficiálním webu
 
-## Add new projects
+---
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+## 🤝 Přispívání
 
-Use the plugin's generator to create new projects.
+Příspěvky jsou vítány! Pokud najdete chybu nebo máte nápad na vylepšení:
 
-To generate a new application, use:
+1. Forkněte repozitář
+2. Vytvořte větev (`git checkout -b feature/moje-funkce`)
+3. Commitněte změny (`git commit -m 'Přidána nová funkce'`)
+4. Pushněte větev (`git push origin feature/moje-funkce`)
+5. Otevřete Pull Request
 
-```sh
-npx nx g @nx/angular:app demo
-```
+---
 
-To generate a new library, use:
+<div align="center">
 
-```sh
-npx nx g @nx/angular:lib mylib
-```
+*Ať vás kostky provází* 🎲
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+**Built with ❤️ for the Czech D&D community**
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
-```
-
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
-
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+</div>
