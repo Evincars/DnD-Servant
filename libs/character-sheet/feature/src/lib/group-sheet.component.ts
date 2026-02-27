@@ -1,26 +1,26 @@
-import {ChangeDetectionStrategy, Component, DestroyRef, effect, inject, signal, untracked} from '@angular/core';
-import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
-import {GroupInventoryForm, GroupSheetForm, SpinnerOverlayComponent} from "@dn-d-servant/character-sheet-util";
-import {AuthService, FormUtil} from "@dn-d-servant/util";
-import {CharacterSheetStore} from "@dn-d-servant/character-sheet-data-access";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {MatDialog} from "@angular/material/dialog";
-import {GroupSheetFormModelMappers} from "./group-sheet-form-model-mappers";
-import {MatIcon} from "@angular/material/icon";
-import {MatTooltip} from "@angular/material/tooltip";
-import {openAnimalsDialog} from "./help-dialogs/animals-dialog.component";
-import {NgClass} from "@angular/common";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {AnimalKey, animalsSelect} from './animals-select';
-import {openGroupBackgroundDialog} from "./help-dialogs/group-background-dialog.component";
+import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, signal, untracked } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { GroupInventoryForm, GroupSheetForm, SpinnerOverlayComponent } from '@dn-d-servant/character-sheet-util';
+import { AuthService, FormUtil } from '@dn-d-servant/util';
+import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { GroupSheetFormModelMappers } from './group-sheet-form-model-mappers';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { openAnimalsDialog } from './help-dialogs/animals-dialog.component';
+import { NgClass } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AnimalKey, animalsSelect } from './animals-select';
+import { openGroupBackgroundDialog } from './help-dialogs/group-background-dialog.component';
 
 @Component({
   selector: 'group-sheet',
   template: `
-    <spinner-overlay [diameter]="50" [showSpinner]="characterSheetStore.loading()">
+    <spinner-overlay [diameter]="70" [showSpinner]="characterSheetStore.loading()">
       <img src="group-sheet-1.png" alt="Group Sheet" height="1817" width="1293" />
       <img src="group-sheet-2.png" alt="Group Sheet" height="1817" width="1293" />
-    
+
       <form [formGroup]="form">
         <input
           [formControl]="controls.jmenoSkupinovehoZazemi"
@@ -89,13 +89,9 @@ import {openGroupBackgroundDialog} from "./help-dialogs/group-background-dialog.
         >
           <mat-icon class="small-info-icon">info</mat-icon>
         </button>
-        <select
-          [formControl]="controls.zvire"
-          class="field"
-          style="top:947px; left:124px; width:254px;"
-        >
+        <select [formControl]="controls.zvire" class="field" style="top:947px; left:124px; width:254px;">
           @for (animal of animalsSelect; track $index) {
-            <option [value]="animal.key">{{ animal.value }}</option>
+          <option [value]="animal.key">{{ animal.value }}</option>
           }
         </select>
         <input
@@ -104,14 +100,9 @@ import {openGroupBackgroundDialog} from "./help-dialogs/group-background-dialog.
           style="top:948px; left:381px; width:235px;"
           placeholder="Jméno zvířete"
         />
-        <input
-          [formControl]="controls.penize"
-          class="field"
-          style="top:948px; left:727px; width:491px;"
-          placeholder="Peníze"
-        />
-        
-<!--        Column 1 of inventory-->
+        <input [formControl]="controls.penize" class="field" style="top:948px; left:727px; width:491px;" placeholder="Peníze" />
+
+        <!--        Column 1 of inventory-->
         <input
           [formControl]="controls.vybava.controls.radek1"
           [ngClass]="inventoryClasses()[0]"
@@ -217,8 +208,8 @@ import {openGroupBackgroundDialog} from "./help-dialogs/group-background-dialog.
           style="top:1689px; left:86px; width:347px;"
           placeholder="*"
         />
-        
-<!--        Column 2 of inventory-->
+
+        <!--        Column 2 of inventory-->
         <input
           [formControl]="controls.vybava.controls.radek16"
           [ngClass]="inventoryClasses()[15]"
@@ -324,8 +315,8 @@ import {openGroupBackgroundDialog} from "./help-dialogs/group-background-dialog.
           style="top:1689px; left:479px; width:347px;"
           placeholder="*"
         />
-        
-<!--        Column 3 of inventory-->
+
+        <!--        Column 3 of inventory-->
         <input
           [formControl]="controls.vybava.controls.radek31"
           [ngClass]="inventoryClasses()[30]"
@@ -431,8 +422,8 @@ import {openGroupBackgroundDialog} from "./help-dialogs/group-background-dialog.
           style="top:1689px; left:871px; width:347px;"
           placeholder="*"
         />
-        
-<!--        Second page-->
+
+        <!--        Second page-->
         <input
           [formControl]="controls.jmenoSkupiny2"
           class="field"
@@ -459,22 +450,16 @@ import {openGroupBackgroundDialog} from "./help-dialogs/group-background-dialog.
           style="top:2235px; left:465px; width:755px; height:1304px;"
           placeholder="Vztahy k postavám a organizacím..."
         ></textarea>
-        
+
         <button (click)="onSaveClick()" type="submit" class="field button" style="top:4px; left:1090px; width:150px;">
-            Uložit [enter]
+          Uložit [enter]
         </button>
       </form>
     </spinner-overlay>
   `,
   styleUrl: 'character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    ReactiveFormsModule,
-    SpinnerOverlayComponent,
-    MatIcon,
-    MatTooltip,
-    NgClass
-  ],
+  imports: [ReactiveFormsModule, SpinnerOverlayComponent, MatIcon, MatTooltip, NgClass],
 })
 export class GroupSheetComponent {
   characterSheetStore = inject(CharacterSheetStore);
@@ -575,10 +560,7 @@ export class GroupSheetComponent {
 
       untracked(() => {
         if (groupSheet) {
-          const formValue = FormUtil.convertModelToForm(
-            groupSheet,
-            GroupSheetFormModelMappers.groupSheetFormToApiMapper,
-          );
+          const formValue = FormUtil.convertModelToForm(groupSheet, GroupSheetFormModelMappers.groupSheetFormToApiMapper);
           this.form.patchValue(formValue);
         }
       });
@@ -587,31 +569,31 @@ export class GroupSheetComponent {
     this.controls.zvire.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(value => {
       switch (value) {
         case AnimalKey.kunJezdecky:
-          this._setInventoryClasses(16, 26, 36)
+          this._setInventoryClasses(16, 26, 36);
           break;
         case AnimalKey.kunTazny:
-          this._setInventoryClasses(18, 28, 38)
+          this._setInventoryClasses(18, 28, 38);
           break;
         case AnimalKey.kunValecny:
-          this._setInventoryClasses(18, 28, 38)
+          this._setInventoryClasses(18, 28, 38);
           break;
         case AnimalKey.mastif:
-          this._setInventoryClasses(6, 11, 16)
+          this._setInventoryClasses(6, 11, 16);
           break;
         case AnimalKey.osel:
-          this._setInventoryClasses(7, 12, 17)
+          this._setInventoryClasses(7, 12, 17);
           break;
         case AnimalKey.ponik:
-          this._setInventoryClasses(7, 12, 17)
+          this._setInventoryClasses(7, 12, 17);
           break;
         case AnimalKey.slon:
-          this._setInventoryClasses(44, 64, 84)
+          this._setInventoryClasses(44, 64, 84);
           break;
         case AnimalKey.velbloud:
-          this._setInventoryClasses(16, 26, 36)
+          this._setInventoryClasses(16, 26, 36);
           break;
       }
-    })
+    });
   }
 
   _setInventoryClasses(lightWeight: number, mediumWeight: number, heavyWeight: number) {
@@ -634,10 +616,7 @@ export class GroupSheetComponent {
   onSaveClick() {
     const username = this.authService.currentUser()?.username;
     if (username) {
-      const request = FormUtil.convertFormToModel(
-        this.form.getRawValue(),
-        GroupSheetFormModelMappers.groupSheetFormToApiMapper,
-      );
+      const request = FormUtil.convertFormToModel(this.form.getRawValue(), GroupSheetFormModelMappers.groupSheetFormToApiMapper);
       request.username = `${username}${this.documentName}`;
 
       this.characterSheetStore.saveGroupSheet(request);

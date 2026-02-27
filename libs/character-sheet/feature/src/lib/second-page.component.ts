@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HeaderInfoForm, LookAndFeelForm, SecondPageForm } from '@dn-d-servant/character-sheet-util';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'second-page',
@@ -76,7 +77,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       style="top:725px; left:74px; width:359px; height:82px;"
       placeholder="Dojem/vystupování..."
     ></textarea>
-    <label class="field image-label" style="top:835px; left:74px; width:359px;">
+    <label
+      matTooltip="nejlépe GIF, max 500 KB, ideálně ještě menší"
+      class="field image-label"
+      style="top:835px; left:74px; width:359px;"
+    >
       Klikni pro nahrání obrázku postavy
       <input type="file" name="file" (change)="onFileSelected($event)" style="display:none;" />
     </label>
@@ -108,7 +113,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   `,
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatTooltip],
 })
 export class SecondPageComponent {
   characterSheetStore = inject(CharacterSheetStore);

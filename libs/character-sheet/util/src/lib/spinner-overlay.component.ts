@@ -9,10 +9,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
       <ng-content />
     </div>
     @if (showSpinner()) {
-      <div class="overlay" [class.round]="round()" [class.no-background]="filled()"></div>
-    }
-    @if (showSpinner()) {
-      <mat-spinner [diameter]="diameter()" />
+    <div class="overlay" [class.round]="round()" [class.no-background]="filled()"></div>
+    } @if (showSpinner()) {
+    <mat-spinner [diameter]="diameter()" />
     }
   `,
   styles: `
@@ -46,9 +45,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
     mat-spinner {
       left: 50%;
-      position: absolute;
+      position: fixed;
       top: 50%;
       transform: translate(-50%, -50%);
+      z-index: 9999;
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
