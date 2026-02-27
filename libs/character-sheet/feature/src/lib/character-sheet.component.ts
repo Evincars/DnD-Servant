@@ -1,4 +1,5 @@
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
@@ -1872,6 +1873,7 @@ export class CharacterSheetComponent {
 
   inventoryClasses = signal(Array(20).fill(''));
   infoMessage = signal('');
+  _viewInitialized = signal(false);
   fb = new FormBuilder().nonNullable;
   form = this.fb.group<CharacterSheetForm>({
     topInfo: this.fb.group<TopInfoForm>({
@@ -2435,9 +2437,223 @@ export class CharacterSheetComponent {
             CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
           );
           this.form.patchValue(formValue);
+          // Apply disable logic only if the view is already initialized
+          if (this._viewInitialized()) {
+            this._applyLevelDisabling();
+          }
         }
       });
     });
+
+    afterNextRender(() => {
+      this._viewInitialized.set(true);
+      // If data was already loaded before the view was ready, apply disable logic now
+      if (this.characterSheetStore.characterSheet()) {
+        this._applyLevelDisabling();
+      }
+    });
+  }
+
+  _applyLevelDisabling() {
+    const sesilateleLevel = parseInt(this.spellSlotsControls.urovenSesilatele.value ?? '0');
+    switch (sesilateleLevel) {
+      case 1:
+        this._setSpellSlotsLevel1();
+        break;
+      case 2:
+        this._setSpellSlotsLevel2();
+        break;
+      case 3:
+        this._setSpellSlotsLevel3();
+        break;
+      case 4:
+        this._setSpellSlotsLevel4();
+        break;
+      case 5:
+        this._setSpellSlotsLevel5();
+        break;
+      case 6:
+        this._setSpellSlotsLevel6();
+        break;
+      case 7:
+        this._setSpellSlotsLevel7();
+        break;
+      case 8:
+        this._setSpellSlotsLevel8();
+        break;
+      case 9:
+        this._setSpellSlotsLevel9();
+        break;
+      case 10:
+        this._setSpellSlotsLevel10();
+        break;
+      case 11:
+        this._setSpellSlotsLevel11();
+        break;
+      case 12:
+        this._setSpellSlotsLevel12();
+        break;
+      case 13:
+        this._setSpellSlotsLevel13();
+        break;
+      case 14:
+        this._setSpellSlotsLevel14();
+        break;
+      case 15:
+        this._setSpellSlotsLevel15();
+        break;
+      case 16:
+        this._setSpellSlotsLevel16();
+        break;
+      case 17:
+        this._setSpellSlotsLevel17();
+        break;
+      case 18:
+        this._setSpellSlotsLevel18();
+        break;
+      case 19:
+        this._setSpellSlotsLevel19();
+        break;
+      case 20:
+        this._setSpellSlotsLevel20();
+        break;
+      default:
+        this._enableAllSpellSlotsInputs();
+        break;
+    }
+
+    const cernokneznikLevel = parseInt(this.spellSlotsControls.urovenCernokneznika.value ?? '0');
+    switch (cernokneznikLevel) {
+      case 1:
+        this._setBlackPriestSpellSlotsLevel1();
+        break;
+      case 2:
+        this._setBlackPriestSpellSlotsLevel2();
+        break;
+      case 3:
+        this._setBlackPriestSpellSlotsLevel3();
+        break;
+      case 4:
+        this._setBlackPriestSpellSlotsLevel3();
+        break;
+      case 5:
+        this._setBlackPriestSpellSlotsLevel5();
+        break;
+      case 6:
+        this._setBlackPriestSpellSlotsLevel5();
+        break;
+      case 7:
+        this._setBlackPriestSpellSlotsLevel7();
+        break;
+      case 8:
+        this._setBlackPriestSpellSlotsLevel7();
+        break;
+      case 9:
+        this._setBlackPriestSpellSlotsLevel9();
+        break;
+      case 10:
+        this._setBlackPriestSpellSlotsLevel9();
+        break;
+      case 11:
+        this._setBlackPriestSpellSlotsLevel11();
+        break;
+      case 12:
+        this._setBlackPriestSpellSlotsLevel11();
+        break;
+      case 13:
+        this._setBlackPriestSpellSlotsLevel13();
+        break;
+      case 14:
+        this._setBlackPriestSpellSlotsLevel13();
+        break;
+      case 15:
+        this._setBlackPriestSpellSlotsLevel15();
+        break;
+      case 16:
+        this._setBlackPriestSpellSlotsLevel15();
+        break;
+      case 17:
+        this._setBlackPriestSpellSlotsLevel17();
+        break;
+      case 18:
+        this._setBlackPriestSpellSlotsLevel17();
+        break;
+      case 19:
+        this._setBlackPriestSpellSlotsLevel17();
+        break;
+      case 20:
+        this._setBlackPriestSpellSlotsLevel17();
+        break;
+      default:
+        break;
+    }
+
+    const alchymistLevel = parseInt(this.alchemistChestControls.urovenAlchymisty.value ?? '0');
+    switch (alchymistLevel) {
+      case 1:
+        this._setAlchemistChestUsagesLevel1();
+        break;
+      case 2:
+        this._setAlchemistChestUsagesLevel2();
+        break;
+      case 3:
+        this._setAlchemistChestUsagesLevel3();
+        break;
+      case 4:
+        this._setAlchemistChestUsagesLevel4();
+        break;
+      case 5:
+        this._setAlchemistChestUsagesLevel5();
+        break;
+      case 6:
+        this._setAlchemistChestUsagesLevel6();
+        break;
+      case 7:
+        this._setAlchemistChestUsagesLevel7();
+        break;
+      case 8:
+        this._setAlchemistChestUsagesLevel8();
+        break;
+      case 9:
+        this._setAlchemistChestUsagesLevel9();
+        break;
+      case 10:
+        this._setAlchemistChestUsagesLevel10();
+        break;
+      case 11:
+        this._setAlchemistChestUsagesLevel11();
+        break;
+      case 12:
+        this._setAlchemistChestUsagesLevel12();
+        break;
+      case 13:
+        this._setAlchemistChestUsagesLevel13();
+        break;
+      case 14:
+        this._setAlchemistChestUsagesLevel14();
+        break;
+      case 15:
+        this._setAlchemistChestUsagesLevel15();
+        break;
+      case 16:
+        this._setAlchemistChestUsagesLevel16();
+        break;
+      case 17:
+        this._setAlchemistChestUsagesLevel17();
+        break;
+      case 18:
+        this._setAlchemistChestUsagesLevel18();
+        break;
+      case 19:
+        this._setAlchemistChestUsagesLevel19();
+        break;
+      case 20:
+        this._setAlchemistChestUsagesLevel20();
+        break;
+      default:
+        this._enableAllChestUsagesInputs();
+        break;
+    }
   }
 
   onSaveClick() {
