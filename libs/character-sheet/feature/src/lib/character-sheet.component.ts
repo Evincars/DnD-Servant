@@ -61,7 +61,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
   selector: 'character-sheet',
   template: `
     <spinner-overlay [diameter]="70" [showSpinner]="characterSheetStore.loading()">
-      <img src="character-sheet-1-copy.png" alt="Character Sheet" height="1817" width="1293" />
+      <img src="character-sheet-1-copy.webp" alt="Character Sheet" height="1817" width="1293" />
 
       <form [formGroup]="form">
         <input

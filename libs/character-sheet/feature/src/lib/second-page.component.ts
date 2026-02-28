@@ -8,7 +8,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 @Component({
   selector: 'second-page',
   template: `
-    <img src="character-sheet-2-copy.png" alt="Character Sheet" height="1817" width="1293" />
+    <img src="character-sheet-2-copy.webp" alt="Character Sheet" height="1817" width="1293" />
 
     <input
       [formControl]="controls.headerInfo.controls.jmenoPostavy"

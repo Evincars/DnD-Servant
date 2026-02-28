@@ -23,8 +23,8 @@ import { openGroupBackgroundDialog } from './help-dialogs/group-background-dialo
   selector: 'group-sheet',
   template: `
     <spinner-overlay [diameter]="70" [showSpinner]="characterSheetStore.loading()">
-      <img src="group-sheet-1.png" alt="Group Sheet" height="1817" width="1293" />
-      <img src="group-sheet-2.png" alt="Group Sheet" height="1817" width="1293" />
+      <img src="group-sheet-1.webp" alt="Group Sheet" height="1817" width="1293" />
+      <img src="group-sheet-2.webp" alt="Group Sheet" height="1817" width="1293" />
 
       <form [formGroup]="form">
         <input

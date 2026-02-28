@@ -8,7 +8,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
 @Component({
   selector: 'third-page',
   template: `
-    <img src="character-sheet-3.png" alt="Character Sheet" height="1817" width="1293" />
+    <img src="character-sheet-3.webp" alt="Character Sheet" height="1817" width="1293" />
 
     <input
       [formControl]="controls.topInfoForSpellSheet.controls.jmenoPostavy"
