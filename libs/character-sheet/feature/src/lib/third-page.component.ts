@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, Signal } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
+import { startWith, switchMap } from 'rxjs';
 import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } from '@dn-d-servant/character-sheet-util';
 
 @Component({
@@ -206,7 +208,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:511px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r1Poznamka.value || ''"
+      [matTooltip]="poz(1)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r1Str"
@@ -270,7 +272,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:546px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r2Poznamka.value || ''"
+      [matTooltip]="poz(2)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r2Str"
@@ -334,7 +336,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:582px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r3Poznamka.value || ''"
+      [matTooltip]="poz(3)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r3Str"
@@ -398,7 +400,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:618px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r4Poznamka.value || ''"
+      [matTooltip]="poz(4)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r4Str"
@@ -462,7 +464,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:653px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r5Poznamka.value || ''"
+      [matTooltip]="poz(5)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r5Str"
@@ -526,7 +528,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:689px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r6Poznamka.value || ''"
+      [matTooltip]="poz(6)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r6Str"
@@ -590,7 +592,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:725px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r7Poznamka.value || ''"
+      [matTooltip]="poz(7)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r7Str"
@@ -654,7 +656,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:760px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r8Poznamka.value || ''"
+      [matTooltip]="poz(8)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r8Str"
@@ -718,7 +720,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:796px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r9Poznamka.value || ''"
+      [matTooltip]="poz(9)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r9Str"
@@ -782,7 +784,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:831px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r10Poznamka.value || ''"
+      [matTooltip]="poz(10)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r10Str"
@@ -845,7 +847,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:867px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r11Poznamka.value || ''"
+      [matTooltip]="poz(11)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r11Str"
@@ -908,7 +910,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:903px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r12Poznamka.value || ''"
+      [matTooltip]="poz(12)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r12Str"
@@ -971,7 +973,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:939px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r13Poznamka.value || ''"
+      [matTooltip]="poz(13)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r13Str"
@@ -1034,7 +1036,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:975px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r14Poznamka.value || ''"
+      [matTooltip]="poz(14)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r14Str"
@@ -1097,7 +1099,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1011px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r15Poznamka.value || ''"
+      [matTooltip]="poz(15)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r15Str"
@@ -1160,7 +1162,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1047px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r16Poznamka.value || ''"
+      [matTooltip]="poz(16)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r16Str"
@@ -1223,7 +1225,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1083px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r17Poznamka.value || ''"
+      [matTooltip]="poz(17)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r17Str"
@@ -1286,7 +1288,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1119px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r18Poznamka.value || ''"
+      [matTooltip]="poz(18)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r18Str"
@@ -1349,7 +1351,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1155px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r19Poznamka.value || ''"
+      [matTooltip]="poz(19)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r19Str"
@@ -1412,7 +1414,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1191px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r20Poznamka.value || ''"
+      [matTooltip]="poz(20)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Str"
@@ -1475,7 +1477,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1227px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r21Poznamka.value || ''"
+      [matTooltip]="poz(21)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Str"
@@ -1538,7 +1540,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1263px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r22Poznamka.value || ''"
+      [matTooltip]="poz(22)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Str"
@@ -1601,7 +1603,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1299px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r23Poznamka.value || ''"
+      [matTooltip]="poz(23)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Str"
@@ -1664,7 +1666,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1335px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r24Poznamka.value || ''"
+      [matTooltip]="poz(24)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Str"
@@ -1727,7 +1729,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1371px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r25Poznamka.value || ''"
+      [matTooltip]="poz(25)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Str"
@@ -1790,7 +1792,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1407px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r26Poznamka.value || ''"
+      [matTooltip]="poz(26)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Str"
@@ -1853,7 +1855,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1443px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r27Poznamka.value || ''"
+      [matTooltip]="poz(27)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Str"
@@ -1916,7 +1918,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1479px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r28Poznamka.value || ''"
+      [matTooltip]="poz(28)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Str"
@@ -1979,7 +1981,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1515px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r29Poznamka.value || ''"
+      [matTooltip]="poz(29)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Str"
@@ -2042,7 +2044,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1551px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r30Poznamka.value || ''"
+      [matTooltip]="poz(30)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Str"
@@ -2105,7 +2107,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1587px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r31Poznamka.value || ''"
+      [matTooltip]="poz(31)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Str"
@@ -2168,7 +2170,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1623px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r32Poznamka.value || ''"
+      [matTooltip]="poz(32)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Str"
@@ -2231,7 +2233,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1659px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r33Poznamka.value || ''"
+      [matTooltip]="poz(33)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Str"
@@ -2294,7 +2296,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1695px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r34Poznamka.value || ''"
+      [matTooltip]="poz(34)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Str"
@@ -2357,7 +2359,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       class="field spell-row"
       style="top:1731px; left:744px; width:408px;"
       placeholder="*"
-      [matTooltip]="controls.spellsForm.controls.r35Poznamka.value || ''"
+      [matTooltip]="poz(35)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Str"
@@ -2372,6 +2374,24 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
 })
 export class ThirdPageComponent {
   form = input.required<FormGroup<ThirdPageForm>>();
+
+  /**
+   * Single signal tracking the entire spellsForm value reactively.
+   * toSignal is called here at field-initializer time (injection context),
+   * toObservable converts the form signal input to an observable,
+   * switchMap subscribes to valueChanges with startWith so the initial value is captured.
+   */
+  private readonly _spellValues = toSignal(
+    toObservable(this.form).pipe(
+      switchMap(f => f.controls.spellsForm.valueChanges.pipe(startWith(f.controls.spellsForm.getRawValue()))),
+    ),
+    { initialValue: {} as Record<string, string> },
+  );
+
+  /** Returns a computed signal for the poznamka tooltip of row N */
+  poz(n: number): Signal<string> {
+    return computed(() => (this._spellValues() as Record<string, string>)[`r${n}Poznamka`] ?? '');
+  }
 
   get controls(): ThirdPageForm {
     return this.form().controls;
