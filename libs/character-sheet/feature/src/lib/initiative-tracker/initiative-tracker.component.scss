@@ -1,12 +1,14 @@
 :host {
   display: block;
   height: 100%;
+  overflow: hidden; // prevent host itself from scrolling
 }
 
 // ── Outer wrapper ─────────────────────────────────────────────────────────────
 .it-wrapper {
   height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 32px 24px;
   background:
     linear-gradient(rgba(10, 10, 20, 0.78), rgba(10, 10, 20, 0.78)),
@@ -21,17 +23,19 @@
   align-items: flex-start;
   gap: 20px;
   flex-wrap: wrap;
+  min-width: 0; // prevent flex children from blowing out the container
 }
 
 // ── Initiative card ───────────────────────────────────────────────────────────
 .it-card {
-  flex: 0 0 auto;
-  width: 720px;
-  max-width: 100%;
+  flex: 1 1 480px;  // grows/shrinks, min ~480px before wrapping
+  max-width: 720px;
+  min-width: 0;
   background: rgba(25, 22, 38, 0.92);
   border: 1px solid rgba(200, 160, 60, 0.35);
   border-radius: 10px;
   padding: 28px 28px 24px;
+  box-sizing: border-box;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 220, 100, 0.08);
 }
 

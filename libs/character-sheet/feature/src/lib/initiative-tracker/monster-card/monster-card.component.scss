@@ -5,18 +5,22 @@
 }
 
 .m-card {
-  flex: 1 1 360px;
-  min-width: 320px;
-  max-width: 480px;
+  flex: 1 1 340px;
+  min-width: 0;
+  max-width: 460px;
   position: relative;
   background: rgba(18, 14, 30, 0.97);
   border: 1px solid rgba(160, 100, 30, 0.55);
   border-radius: 10px;
   padding: 22px 20px 20px;
+  box-sizing: border-box;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 200, 80, 0.06);
   color: #d4c9b8;
   font-size: 13px;
   line-height: 1.6;
+  overflow-x: hidden;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .m-close {
@@ -162,6 +166,8 @@
 .m-image {
   display: block;
   max-width: 100%;
+  width: 100%;
+  height: auto;
   border-radius: 6px;
   margin-top: 8px;
   border: 1px solid rgba(200, 160, 60, 0.25);

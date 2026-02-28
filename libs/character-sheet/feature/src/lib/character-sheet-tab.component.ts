@@ -14,14 +14,41 @@ import { InitiativeTrackerComponent } from './initiative-tracker/initiative-trac
       <mat-tab label="Karta družiny"><group-sheet class="u-mt-2" /></mat-tab>
       <!--      <mat-tab label="Další parťáci"><horse-sheet class="u-mt-2" /></mat-tab>-->
       <mat-tab label="Poznámky"><notes-sheet class="u-mt-2" /></mat-tab>
-      <mat-tab label="Iniciativa"><initiative-tracker class="u-mt-2" /></mat-tab>
+      <mat-tab label="Iniciativa"><initiative-tracker /></mat-tab>
     </mat-tab-group>
   `,
   styles: `
+    :host {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
     ::ng-deep .mat-mdc-tab-labels {
       user-select: none;
       -webkit-user-select: none;
       -ms-user-select: none;
+    }
+
+    ::ng-deep mat-tab-group {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    ::ng-deep .mat-mdc-tab-body-wrapper {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    ::ng-deep .mat-mdc-tab-body-content {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    ::ng-deep initiative-tracker {
+      display: block;
+      height: 100%;
     }
   `,
   providers: [CharacterSheetStore],
