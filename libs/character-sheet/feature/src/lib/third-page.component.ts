@@ -1,14 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import {
-  HeaderInfoForm,
-  LookAndFeelForm,
-  ProfessionForm,
-  SecondPageForm,
-  SpellsForm,
-  ThirdPageForm,
-  TopInfoForSpellSheetForm,
-} from '@dn-d-servant/character-sheet-util';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } from '@dn-d-servant/character-sheet-util';
 
 @Component({
   selector: 'third-page',
@@ -213,6 +206,7 @@ import {
       class="field spell-row"
       style="top:511px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r1Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r1Str"
@@ -276,6 +270,7 @@ import {
       class="field spell-row"
       style="top:546px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r2Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r2Str"
@@ -339,6 +334,7 @@ import {
       class="field spell-row"
       style="top:582px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r3Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r3Str"
@@ -402,6 +398,7 @@ import {
       class="field spell-row"
       style="top:618px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r4Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r4Str"
@@ -465,6 +462,7 @@ import {
       class="field spell-row"
       style="top:653px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r5Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r5Str"
@@ -528,6 +526,7 @@ import {
       class="field spell-row"
       style="top:689px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r6Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r6Str"
@@ -591,6 +590,7 @@ import {
       class="field spell-row"
       style="top:725px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r7Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r7Str"
@@ -654,6 +654,7 @@ import {
       class="field spell-row"
       style="top:760px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r8Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r8Str"
@@ -717,6 +718,7 @@ import {
       class="field spell-row"
       style="top:796px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r9Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r9Str"
@@ -780,6 +782,7 @@ import {
       class="field spell-row"
       style="top:831px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r10Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r10Str"
@@ -842,6 +845,7 @@ import {
       class="field spell-row"
       style="top:867px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r11Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r11Str"
@@ -904,6 +908,7 @@ import {
       class="field spell-row"
       style="top:903px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r12Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r12Str"
@@ -966,6 +971,7 @@ import {
       class="field spell-row"
       style="top:939px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r13Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r13Str"
@@ -1028,6 +1034,7 @@ import {
       class="field spell-row"
       style="top:975px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r14Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r14Str"
@@ -1090,6 +1097,7 @@ import {
       class="field spell-row"
       style="top:1011px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r15Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r15Str"
@@ -1152,6 +1160,7 @@ import {
       class="field spell-row"
       style="top:1047px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r16Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r16Str"
@@ -1214,6 +1223,7 @@ import {
       class="field spell-row"
       style="top:1083px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r17Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r17Str"
@@ -1276,6 +1286,7 @@ import {
       class="field spell-row"
       style="top:1119px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r18Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r18Str"
@@ -1338,6 +1349,7 @@ import {
       class="field spell-row"
       style="top:1155px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r19Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r19Str"
@@ -1400,6 +1412,7 @@ import {
       class="field spell-row"
       style="top:1191px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r20Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Str"
@@ -1462,6 +1475,7 @@ import {
       class="field spell-row"
       style="top:1227px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r21Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Str"
@@ -1524,6 +1538,7 @@ import {
       class="field spell-row"
       style="top:1263px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r22Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Str"
@@ -1586,6 +1601,7 @@ import {
       class="field spell-row"
       style="top:1299px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r23Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Str"
@@ -1648,6 +1664,7 @@ import {
       class="field spell-row"
       style="top:1335px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r24Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Str"
@@ -1710,6 +1727,7 @@ import {
       class="field spell-row"
       style="top:1371px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r25Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Str"
@@ -1772,6 +1790,7 @@ import {
       class="field spell-row"
       style="top:1407px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r26Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Str"
@@ -1834,6 +1853,7 @@ import {
       class="field spell-row"
       style="top:1443px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r27Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Str"
@@ -1896,6 +1916,7 @@ import {
       class="field spell-row"
       style="top:1479px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r28Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Str"
@@ -1958,6 +1979,7 @@ import {
       class="field spell-row"
       style="top:1515px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r29Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Str"
@@ -2020,6 +2042,7 @@ import {
       class="field spell-row"
       style="top:1551px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r30Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Str"
@@ -2082,6 +2105,7 @@ import {
       class="field spell-row"
       style="top:1587px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r31Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Str"
@@ -2144,6 +2168,7 @@ import {
       class="field spell-row"
       style="top:1623px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r32Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Str"
@@ -2206,6 +2231,7 @@ import {
       class="field spell-row"
       style="top:1659px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r33Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Str"
@@ -2268,6 +2294,7 @@ import {
       class="field spell-row"
       style="top:1695px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r34Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Str"
@@ -2330,6 +2357,7 @@ import {
       class="field spell-row"
       style="top:1731px; left:744px; width:408px;"
       placeholder="*"
+      [matTooltip]="controls.spellsForm.controls.r35Poznamka.value || ''"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Str"
@@ -2340,7 +2368,7 @@ import {
   `,
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatTooltip],
 })
 export class ThirdPageComponent {
   form = input.required<FormGroup<ThirdPageForm>>();
