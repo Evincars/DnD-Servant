@@ -1338,42 +1338,42 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="weaponsControls.zbran1"
           id="weapon1"
-          class="field"
+          class="field field-sm"
           style="top:1067px; left:444px; width:266px"
           placeholder="Zbraň / útok"
         />
         <input
           [formControl]="weaponsControls.zbran1Bonus"
           id="weapon1_bonus"
-          class="field"
+          class="field field-sm"
           style="top:1067.38px; left:714.95px; width:78.6px"
           placeholder="Bonus"
         />
         <input
           [formControl]="weaponsControls.zbran1Zasah"
           id="weapon1_hit"
-          class="field"
+          class="field field-sm"
           style="top:1067.38px; left:797.79px; width:78.6px"
           placeholder="Zásah"
         />
         <input
           [formControl]="weaponsControls.zbran1Typ"
           id="weapon1_type"
-          class="field"
+          class="field field-sm"
           style="top:1067.38px; left:883.94px; width:95.63px"
           placeholder="Typ"
         />
         <input
           [formControl]="weaponsControls.zbran1Dosah"
           id="weapon1_distance"
-          class="field"
+          class="field field-sm"
           style="top:1067.38px; left:983.81px; width:95.63px"
           placeholder="Dosah"
         />
         <input
           [formControl]="weaponsControls.zbran1Oc"
           id="weapon1_armorClass"
-          class="field"
+          class="field field-sm"
           style="top:1067.38px; left:1086.99px; width:95.63px"
           placeholder="Dosah"
         />
@@ -1382,42 +1382,42 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="weaponsControls.zbran2"
           id="weapon2"
-          class="field"
+          class="field field-sm"
           style="top:1101.10px; left:444.09px; width:266.93px"
           placeholder="Zbraň / útok"
         />
         <input
           [formControl]="weaponsControls.zbran2Bonus"
           id="weapon2_bonus"
-          class="field"
+          class="field field-sm"
           style="top:1101.10px; left:714.95px; width:78.6px"
           placeholder="Bonus"
         />
         <input
           [formControl]="weaponsControls.zbran2Zasah"
           id="weapon2_hit"
-          class="field"
+          class="field field-sm"
           style="top:1101.10px; left:797.79px; width:78.6px"
           placeholder="Zásah"
         />
         <input
           [formControl]="weaponsControls.zbran2Typ"
           id="weapon2_type"
-          class="field"
+          class="field field-sm"
           style="top:1101.10px; left:883.94px; width:95.63px"
           placeholder="Typ"
         />
         <input
           [formControl]="weaponsControls.zbran2Dosah"
           id="weapon2_distance"
-          class="field"
+          class="field field-sm"
           style="top:1101.10px; left:983.81px; width:95.63px"
           placeholder="Dosah"
         />
         <input
           [formControl]="weaponsControls.zbran2Oc"
           id="weapon2_armorClass"
-          class="field"
+          class="field field-sm"
           style="top:1101.10px; left:1086.99px; width:95.63px"
           placeholder="Dosah"
         />
@@ -1426,42 +1426,42 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="weaponsControls.zbran3"
           id="weapon3"
-          class="field"
+          class="field field-sm"
           style="top:1135.63px; left:444.09px; width:266.93px"
           placeholder="Zbraň / útok"
         />
         <input
           [formControl]="weaponsControls.zbran3Bonus"
           id="weapon3_bonus"
-          class="field"
+          class="field field-sm"
           style="top:1135.63px; left:714.95px; width:78.6px"
           placeholder="Bonus"
         />
         <input
           [formControl]="weaponsControls.zbran3Zasah"
           id="weapon3_hit"
-          class="field"
+          class="field field-sm"
           style="top:1135.63px; left:797.79px; width:78.6px"
           placeholder="Zásah"
         />
         <input
           [formControl]="weaponsControls.zbran3Typ"
           id="weapon3_type"
-          class="field"
+          class="field field-sm"
           style="top:1135.63px; left:883.94px; width:95.63px"
           placeholder="Typ"
         />
         <input
           [formControl]="weaponsControls.zbran3Dosah"
           id="weapon3_distance"
-          class="field"
+          class="field field-sm"
           style="top:1135.63px; left:983.81px; width:95.63px"
           placeholder="Dosah"
         />
         <input
           [formControl]="weaponsControls.zbran3Oc"
           id="weapon3_armorClass"
-          class="field"
+          class="field field-sm"
           style="top:1135.63px; left:1086.99px; width:95.63px"
           placeholder="Dosah"
         />
@@ -1470,42 +1470,42 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="weaponsControls.zbran4"
           id="weapon4"
-          class="field"
+          class="field field-sm"
           style="top:1170.15px; left:444.09px; width:266.93px"
           placeholder="Zbraň / útok"
         />
         <input
           [formControl]="weaponsControls.zbran4Bonus"
           id="weapon4_bonus"
-          class="field"
+          class="field field-sm"
           style="top:1170.15px; left:714.95px; width:78.6px"
           placeholder="Bonus"
         />
         <input
           [formControl]="weaponsControls.zbran4Zasah"
           id="weapon4_hit"
-          class="field"
+          class="field field-sm"
           style="top:1170.15px; left:797.79px; width:78.6px"
           placeholder="Zásah"
         />
         <input
           [formControl]="weaponsControls.zbran4Typ"
           id="weapon4_type"
-          class="field"
+          class="field field-sm"
           style="top:1170.15px; left:883.94px; width:95.63px"
           placeholder="Typ"
         />
         <input
           [formControl]="weaponsControls.zbran4Dosah"
           id="weapon4_distance"
-          class="field"
+          class="field field-sm"
           style="top:1170.15px; left:983.81px; width:95.63px"
           placeholder="Dosah"
         />
         <input
           [formControl]="weaponsControls.zbran4Oc"
           id="weapon4_armorClass"
-          class="field"
+          class="field field-sm"
           style="top:1170.15px; left:1086.99px; width:95.63px"
           placeholder="Dosah"
         />
@@ -1514,42 +1514,42 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="weaponsControls.zbran5"
           id="weapon5"
-          class="field"
+          class="field field-sm"
           style="top:1205.67px; left:444.09px; width:266.93px"
           placeholder="Zbraň / útok"
         />
         <input
           [formControl]="weaponsControls.zbran5Bonus"
           id="weapon5_bonus"
-          class="field"
+          class="field field-sm"
           style="top:1205.67px; left:714.95px; width:78.6px"
           placeholder="Bonus"
         />
         <input
           [formControl]="weaponsControls.zbran5Zasah"
           id="weapon5_hit"
-          class="field"
+          class="field field-sm"
           style="top:1205.67px; left:797.79px; width:78.6px"
           placeholder="Zásah"
         />
         <input
           [formControl]="weaponsControls.zbran5Typ"
           id="weapon5_type"
-          class="field"
+          class="field field-sm"
           style="top:1205.67px; left:883.94px; width:95.63px"
           placeholder="Typ"
         />
         <input
           [formControl]="weaponsControls.zbran5Dosah"
           id="weapon5_distance"
-          class="field"
+          class="field field-sm"
           style="top:1205.67px; left:983.81px; width:95.63px"
           placeholder="Dosah"
         />
         <input
           [formControl]="weaponsControls.zbran5Oc"
           id="weapon5_armorClass"
-          class="field"
+          class="field field-sm"
           style="top:1205.67px; left:1086.99px; width:95.63px"
           placeholder="Dosah"
         />
