@@ -102,6 +102,9 @@ import html2canvas from 'html2canvas';
 
     .container {
       background: url('/wallpaper-1.webp') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      min-width: 100vw;
     }
 
     .main-content {
