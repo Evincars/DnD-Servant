@@ -61,6 +61,7 @@ import html2canvas from 'html2canvas';
 
       <mat-sidenav-content>
         <mat-toolbar class="toolbar u-flex u-justify-between u-align-center">
+          <span class="toolbar-gem toolbar-gem--left">◆</span>
           <div class="u-flex u-align-center">
             <button matIconButton (click)="sidenav.toggle()" class="menu-btn u-mr-3" aria-label="Toggle menu">
               <mat-icon>menu</mat-icon>
@@ -70,9 +71,8 @@ import html2canvas from 'html2canvas';
             <button
               matIconButton
               (click)="onScreenshotBackupClick()"
-              class="u-ml-3"
               [disabled]="screenshotLoading()"
-              style="color: var(--primary-color);"
+              class="toolbar-action-btn u-ml-3"
               matTooltip="Stáhnout zálohu jako obrázky (PNG)"
             >
               @if (screenshotLoading()) {
@@ -84,7 +84,9 @@ import html2canvas from 'html2canvas';
           </div>
           <div class="author-info">
             <span class="u-flex u-align-center">
-              @if (authService.currentUser()) { Přihlášen&nbsp;
+              @if (authService.currentUser()) {
+              <span class="toolbar-label">Přihlášen</span>
+              &nbsp;
               <b class="username u-mr-3">{{ authService.currentUser()!.username }}</b>
               <a class="link token u-mr-9" href="#" (click)="this.authService.logout()">Odhlásit</a>
               } @if (authService.currentUser() === null) {
@@ -94,10 +96,12 @@ import html2canvas from 'html2canvas';
               <a target="_blank" href="https://github.com/Evincars/DnD-Servant" class="link u-flex u-align-center u-mr-2">
                 <mat-icon>code_blocks</mat-icon>
               </a>
-              Created by&nbsp;
+              <span class="toolbar-label">Created by</span>
+              &nbsp;
               <a class="link" target="_blank" href="https://lasak.netlify.app/">lasaks.eu</a>
             </span>
           </div>
+          <span class="toolbar-gem toolbar-gem--right">◆</span>
         </mat-toolbar>
         <div class="main-content u-flex-col" #content>
           <router-outlet />
@@ -311,6 +315,64 @@ import html2canvas from 'html2canvas';
 
     .toolbar {
       font-family: 'Mikadan', sans-serif;
+      background:
+        linear-gradient(90deg, rgba(8,5,16,.98) 0%, rgba(16,11,26,.98) 40%, rgba(16,11,26,.98) 60%, rgba(8,5,16,.98) 100%),
+        url('https://www.transparenttextures.com/patterns/dark-leather.png') !important;
+      background-color: #0a0712 !important;
+      border-bottom: 1px solid rgba(200,160,60,.35) !important;
+      box-shadow: 0 3px 28px rgba(0,0,0,.85), inset 0 -1px 0 rgba(200,160,60,.18) !important;
+      color: #e0d4c0 !important;
+      position: relative;
+
+      // bottom gold shimmer line
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 3%; right: 3%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(200,160,60,.6), transparent);
+        pointer-events: none;
+      }
+
+      // left gem
+      &::before {
+        content: '◆';
+        position: absolute;
+        bottom: -6px; left: calc(50% - 6px);
+        font-size: 9px;
+        color: rgba(200,160,60,.55);
+        pointer-events: none;
+        line-height: 1;
+      }
+
+      span {
+        font-family: 'Mikadan', sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: #e8c96a;
+        letter-spacing: .08em;
+        text-shadow: 0 0 14px rgba(200,160,60,.45);
+      }
+    }
+
+    .toolbar-gem {
+      color: rgba(200,160,60,.55);
+      font-size: 10px;
+      flex-shrink: 0;
+      user-select: none;
+      text-shadow: 0 0 8px rgba(200,160,60,.4);
+    }
+
+    .toolbar-label {
+      color: #6b6070;
+      font-size: 13px;
+    }
+
+    .toolbar-action-btn {
+      color: #8a7060 !important;
+      transition: color .15s !important;
+
+      &:hover { color: #c8a03c !important; }
     }
 
     @keyframes menu-pulse {
@@ -344,24 +406,42 @@ import html2canvas from 'html2canvas';
     }
 
     .author-info {
-      font-size: 15px;
+      font-size: 13px;
+      color: #8a8090;
     }
 
     .link {
-      color: inherit;
-      text-decoration: underline;
+      color: #a09090;
+      text-decoration: none;
+      transition: color .15s;
 
-      &:hover { text-decoration: none; }
+      &:hover {
+        color: #e8d5a0;
+        text-decoration: underline;
+      }
     }
 
     .token {
-      background: #333;
-      font-size: 16px;
+      background: rgba(200,160,60,.1);
+      border: 1px solid rgba(200,160,60,.25);
+      color: #c8bfb0;
+      font-size: 13px;
       border-radius: var(--border-radius-1);
       padding: var(--spacing-1) var(--spacing-2);
+      transition: background .15s, border-color .15s;
+
+      &:hover {
+        background: rgba(200,160,60,.2);
+        border-color: rgba(200,160,60,.5);
+        color: #e8d5a0;
+      }
     }
 
-    .username { font-size: 18px; }
+    .username {
+      font-size: 15px;
+      color: #e8c96a;
+      text-shadow: 0 0 10px rgba(200,160,60,.3);
+    }
 
     .back-to-top {
       position: fixed;
