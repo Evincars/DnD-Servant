@@ -2779,17 +2779,17 @@ export class CharacterSheetComponent {
     if (isNaN(strengthFix)) {
       strengthFix = 0;
     }
-    const softWeight = 5 + strengthFix;
-    const mediumWeight = softWeight + 5;
-    const heavyWeight = mediumWeight + 5;
+    this._softWeightThreshold = 5 + strengthFix;
+    this._mediumWeightThreshold = this._softWeightThreshold + 5;
+    this._heavyWeightThreshold = this._mediumWeightThreshold + 5;
     const inventoryClassesArray = [...this.inventoryClasses()];
 
     inventoryClassesArray.forEach((x, i) => {
-      if (i < softWeight) {
+      if (i < this._softWeightThreshold) {
         inventoryClassesArray[i] = 'soft-weight';
-      } else if (i < mediumWeight) {
+      } else if (i < this._mediumWeightThreshold) {
         inventoryClassesArray[i] = 'medium-weight';
-      } else if (i < heavyWeight) {
+      } else if (i < this._heavyWeightThreshold) {
         inventoryClassesArray[i] = 'heavy-weight';
       } else {
         inventoryClassesArray[i] = '';
@@ -2799,24 +2799,25 @@ export class CharacterSheetComponent {
     this._updateSpeedHighlight();
   }
 
+  private _softWeightThreshold = 5;
+  private _mediumWeightThreshold = 10;
+  private _heavyWeightThreshold = 15;
+
   _updateSpeedHighlight() {
-    const classes = this.inventoryClasses();
     const inventoryValues = Object.values(this.form.controls.inventoryForm.getRawValue()) as string[];
 
-    const isRowFilled = (index: number) => !!inventoryValues[index]?.trim();
+    // Count total filled rows regardless of colour zone.
+    // Compare against thresholds: soft=5+strengthFix, medium=soft+5, heavy=medium+5
+    const filledCount = inventoryValues.filter(v => !!v?.trim()).length;
 
-    const hasHeavy = classes.some((cls, i) => cls === 'heavy-weight' && isRowFilled(i));
-    const hasMedium = classes.some((cls, i) => cls === 'medium-weight' && isRowFilled(i));
-    const hasLight = classes.some((cls, i) => cls === 'soft-weight' && isRowFilled(i));
-
-    if (hasHeavy) {
-      this.speedHighlight.set('heavy');
-    } else if (hasMedium) {
-      this.speedHighlight.set('medium');
-    } else if (hasLight) {
-      this.speedHighlight.set('light');
-    } else {
+    if (filledCount === 0) {
       this.speedHighlight.set('');
+    } else if (filledCount <= this._softWeightThreshold + 1) {
+      this.speedHighlight.set('light');
+    } else if (filledCount <= this._mediumWeightThreshold + 1) {
+      this.speedHighlight.set('medium');
+    } else {
+      this.speedHighlight.set('heavy');
     }
   }
 
