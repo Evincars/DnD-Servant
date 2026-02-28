@@ -1365,61 +1365,61 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       [formControl]="controls.spellsForm.controls.r20P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1192px; left:69px;"
+      style="top:1190px; left:69px;"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20S"
       class="field spell-row"
-      style="top:1191px; left:102px; width:41px;"
+      style="top:1189px; left:102px; width:41px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Nazev"
       class="field spell-row "
-      style="top:1191px; left:152px; width:193px;"
+      style="top:1189px; left:152px; width:193px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Utok"
       class="field spell-row"
-      style="top:1191px; left:353px; width:78px;"
+      style="top:1189px; left:353px; width:78px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20DobaSesilani"
       class="field spell-row"
-      style="top:1191px; left:439px; width:58px;"
+      style="top:1189px; left:439px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Slozky"
       class="field spell-row"
-      style="top:1191px; left:506px; width:58px;"
+      style="top:1189px; left:506px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Dosah"
       class="field spell-row"
-      style="top:1191px; left:572px; width:77px;"
+      style="top:1189px; left:572px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Trvani"
       class="field spell-row"
-      style="top:1191px; left:658px; width:77px;"
+      style="top:1189px; left:658px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Poznamka"
       class="field spell-row"
-      style="top:1191px; left:744px; width:408px;"
+      style="top:1189px; left:744px; width:408px;"
       placeholder="*"
       [matTooltip]="poz(20)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Str"
       class="field spell-row"
-      style="top:1191px; left:1160px; width:60px;"
+      style="top:1189px; left:1160px; width:60px;"
       placeholder="*"
     />
 
@@ -1428,61 +1428,61 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       [formControl]="controls.spellsForm.controls.r21P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1228px; left:69px;"
+      style="top:1226px; left:69px;"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21S"
       class="field spell-row"
-      style="top:1227px; left:102px; width:41px;"
+      style="top:1225px; left:102px; width:41px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Nazev"
       class="field spell-row "
-      style="top:1227px; left:152px; width:193px;"
+      style="top:1225px; left:152px; width:193px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Utok"
       class="field spell-row"
-      style="top:1227px; left:353px; width:78px;"
+      style="top:1225px; left:353px; width:78px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21DobaSesilani"
       class="field spell-row"
-      style="top:1227px; left:439px; width:58px;"
+      style="top:1225px; left:439px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Slozky"
       class="field spell-row"
-      style="top:1227px; left:506px; width:58px;"
+      style="top:1225px; left:506px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Dosah"
       class="field spell-row"
-      style="top:1227px; left:572px; width:77px;"
+      style="top:1225px; left:572px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Trvani"
       class="field spell-row"
-      style="top:1227px; left:658px; width:77px;"
+      style="top:1225px; left:658px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Poznamka"
       class="field spell-row"
-      style="top:1227px; left:744px; width:408px;"
+      style="top:1225px; left:744px; width:408px;"
       placeholder="*"
       [matTooltip]="poz(21)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Str"
       class="field spell-row"
-      style="top:1227px; left:1160px; width:60px;"
+      style="top:1225px; left:1160px; width:60px;"
       placeholder="*"
     />
 
@@ -1491,61 +1491,61 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       [formControl]="controls.spellsForm.controls.r22P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1264px; left:69px;"
+      style="top:1262px; left:69px;"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22S"
       class="field spell-row"
-      style="top:1263px; left:102px; width:41px;"
+      style="top:1261px; left:102px; width:41px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Nazev"
       class="field spell-row "
-      style="top:1263px; left:152px; width:193px;"
+      style="top:1261px; left:152px; width:193px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Utok"
       class="field spell-row"
-      style="top:1263px; left:353px; width:78px;"
+      style="top:1261px; left:353px; width:78px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22DobaSesilani"
       class="field spell-row"
-      style="top:1263px; left:439px; width:58px;"
+      style="top:1261px; left:439px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Slozky"
       class="field spell-row"
-      style="top:1263px; left:506px; width:58px;"
+      style="top:1261px; left:506px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Dosah"
       class="field spell-row"
-      style="top:1263px; left:572px; width:77px;"
+      style="top:1261px; left:572px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Trvani"
       class="field spell-row"
-      style="top:1263px; left:658px; width:77px;"
+      style="top:1261px; left:658px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Poznamka"
       class="field spell-row"
-      style="top:1263px; left:744px; width:408px;"
+      style="top:1261px; left:744px; width:408px;"
       placeholder="*"
       [matTooltip]="poz(22)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Str"
       class="field spell-row"
-      style="top:1263px; left:1160px; width:60px;"
+      style="top:1261px; left:1160px; width:60px;"
       placeholder="*"
     />
 
@@ -1554,61 +1554,61 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       [formControl]="controls.spellsForm.controls.r23P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1300px; left:69px;"
+      style="top:1298px; left:69px;"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23S"
       class="field spell-row"
-      style="top:1299px; left:102px; width:41px;"
+      style="top:1297px; left:102px; width:41px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Nazev"
       class="field spell-row "
-      style="top:1299px; left:152px; width:193px;"
+      style="top:1297px; left:152px; width:193px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Utok"
       class="field spell-row"
-      style="top:1299px; left:353px; width:78px;"
+      style="top:1297px; left:353px; width:78px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23DobaSesilani"
       class="field spell-row"
-      style="top:1299px; left:439px; width:58px;"
+      style="top:1297px; left:439px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Slozky"
       class="field spell-row"
-      style="top:1299px; left:506px; width:58px;"
+      style="top:1297px; left:506px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Dosah"
       class="field spell-row"
-      style="top:1299px; left:572px; width:77px;"
+      style="top:1297px; left:572px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Trvani"
       class="field spell-row"
-      style="top:1299px; left:658px; width:77px;"
+      style="top:1297px; left:658px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Poznamka"
       class="field spell-row"
-      style="top:1299px; left:744px; width:408px;"
+      style="top:1297px; left:744px; width:408px;"
       placeholder="*"
       [matTooltip]="poz(23)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Str"
       class="field spell-row"
-      style="top:1299px; left:1160px; width:60px;"
+      style="top:1297px; left:1160px; width:60px;"
       placeholder="*"
     />
 
@@ -1617,61 +1617,61 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       [formControl]="controls.spellsForm.controls.r24P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1336px; left:69px;"
+      style="top:1331px; left:69px;"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24S"
       class="field spell-row"
-      style="top:1335px; left:102px; width:41px;"
+      style="top:1330px; left:102px; width:41px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Nazev"
       class="field spell-row "
-      style="top:1335px; left:152px; width:193px;"
+      style="top:1330px; left:152px; width:193px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Utok"
       class="field spell-row"
-      style="top:1335px; left:353px; width:78px;"
+      style="top:1330px; left:353px; width:78px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24DobaSesilani"
       class="field spell-row"
-      style="top:1335px; left:439px; width:58px;"
+      style="top:1330px; left:439px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Slozky"
       class="field spell-row"
-      style="top:1335px; left:506px; width:58px;"
+      style="top:1330px; left:506px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Dosah"
       class="field spell-row"
-      style="top:1335px; left:572px; width:77px;"
+      style="top:1330px; left:572px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Trvani"
       class="field spell-row"
-      style="top:1335px; left:658px; width:77px;"
+      style="top:1330px; left:658px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Poznamka"
       class="field spell-row"
-      style="top:1335px; left:744px; width:408px;"
+      style="top:1330px; left:744px; width:408px;"
       placeholder="*"
       [matTooltip]="poz(24)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Str"
       class="field spell-row"
-      style="top:1335px; left:1160px; width:60px;"
+      style="top:1330px; left:1160px; width:60px;"
       placeholder="*"
     />
 
@@ -1680,61 +1680,61 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       [formControl]="controls.spellsForm.controls.r25P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1372px; left:69px;"
+      style="top:1367px; left:69px;"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25S"
       class="field spell-row"
-      style="top:1371px; left:102px; width:41px;"
+      style="top:1366px; left:102px; width:41px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Nazev"
       class="field spell-row "
-      style="top:1371px; left:152px; width:193px;"
+      style="top:1366px; left:152px; width:193px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Utok"
       class="field spell-row"
-      style="top:1371px; left:353px; width:78px;"
+      style="top:1366px; left:353px; width:78px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25DobaSesilani"
       class="field spell-row"
-      style="top:1371px; left:439px; width:58px;"
+      style="top:1366px; left:439px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Slozky"
       class="field spell-row"
-      style="top:1371px; left:506px; width:58px;"
+      style="top:1366px; left:506px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Dosah"
       class="field spell-row"
-      style="top:1371px; left:572px; width:77px;"
+      style="top:1366px; left:572px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Trvani"
       class="field spell-row"
-      style="top:1371px; left:658px; width:77px;"
+      style="top:1366px; left:658px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Poznamka"
       class="field spell-row"
-      style="top:1371px; left:744px; width:408px;"
+      style="top:1366px; left:744px; width:408px;"
       placeholder="*"
       [matTooltip]="poz(25)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Str"
       class="field spell-row"
-      style="top:1371px; left:1160px; width:60px;"
+      style="top:1366px; left:1160px; width:60px;"
       placeholder="*"
     />
 
@@ -1743,61 +1743,61 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       [formControl]="controls.spellsForm.controls.r26P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1408px; left:69px;"
+      style="top:1403px; left:69px;"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26S"
       class="field spell-row"
-      style="top:1407px; left:102px; width:41px;"
+      style="top:1402px; left:102px; width:41px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Nazev"
       class="field spell-row "
-      style="top:1407px; left:152px; width:193px;"
+      style="top:1402px; left:152px; width:193px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Utok"
       class="field spell-row"
-      style="top:1407px; left:353px; width:78px;"
+      style="top:1402px; left:353px; width:78px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26DobaSesilani"
       class="field spell-row"
-      style="top:1407px; left:439px; width:58px;"
+      style="top:1402px; left:439px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Slozky"
       class="field spell-row"
-      style="top:1407px; left:506px; width:58px;"
+      style="top:1402px; left:506px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Dosah"
       class="field spell-row"
-      style="top:1407px; left:572px; width:77px;"
+      style="top:1402px; left:572px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Trvani"
       class="field spell-row"
-      style="top:1407px; left:658px; width:77px;"
+      style="top:1402px; left:658px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Poznamka"
       class="field spell-row"
-      style="top:1407px; left:744px; width:408px;"
+      style="top:1402px; left:744px; width:408px;"
       placeholder="*"
       [matTooltip]="poz(26)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Str"
       class="field spell-row"
-      style="top:1407px; left:1160px; width:60px;"
+      style="top:1402px; left:1160px; width:60px;"
       placeholder="*"
     />
 
@@ -1806,61 +1806,61 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       [formControl]="controls.spellsForm.controls.r27P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1444px; left:69px;"
+      style="top:1439px; left:69px;"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27S"
       class="field spell-row"
-      style="top:1443px; left:102px; width:41px;"
+      style="top:1438px; left:102px; width:41px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Nazev"
       class="field spell-row "
-      style="top:1443px; left:152px; width:193px;"
+      style="top:1438px; left:152px; width:193px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Utok"
       class="field spell-row"
-      style="top:1443px; left:353px; width:78px;"
+      style="top:1438px; left:353px; width:78px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27DobaSesilani"
       class="field spell-row"
-      style="top:1443px; left:439px; width:58px;"
+      style="top:1438px; left:439px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Slozky"
       class="field spell-row"
-      style="top:1443px; left:506px; width:58px;"
+      style="top:1438px; left:506px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Dosah"
       class="field spell-row"
-      style="top:1443px; left:572px; width:77px;"
+      style="top:1438px; left:572px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Trvani"
       class="field spell-row"
-      style="top:1443px; left:658px; width:77px;"
+      style="top:1438px; left:658px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Poznamka"
       class="field spell-row"
-      style="top:1443px; left:744px; width:408px;"
+      style="top:1438px; left:744px; width:408px;"
       placeholder="*"
       [matTooltip]="poz(27)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Str"
       class="field spell-row"
-      style="top:1443px; left:1160px; width:60px;"
+      style="top:1438px; left:1160px; width:60px;"
       placeholder="*"
     />
 
@@ -1869,61 +1869,61 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       [formControl]="controls.spellsForm.controls.r28P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1480px; left:69px;"
+      style="top:1475px; left:69px;"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28S"
       class="field spell-row"
-      style="top:1479px; left:102px; width:41px;"
+      style="top:1474px; left:102px; width:41px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Nazev"
       class="field spell-row "
-      style="top:1479px; left:152px; width:193px;"
+      style="top:1474px; left:152px; width:193px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Utok"
       class="field spell-row"
-      style="top:1479px; left:353px; width:78px;"
+      style="top:1474px; left:353px; width:78px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28DobaSesilani"
       class="field spell-row"
-      style="top:1479px; left:439px; width:58px;"
+      style="top:1474px; left:439px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Slozky"
       class="field spell-row"
-      style="top:1479px; left:506px; width:58px;"
+      style="top:1474px; left:506px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Dosah"
       class="field spell-row"
-      style="top:1479px; left:572px; width:77px;"
+      style="top:1474px; left:572px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Trvani"
       class="field spell-row"
-      style="top:1479px; left:658px; width:77px;"
+      style="top:1474px; left:658px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Poznamka"
       class="field spell-row"
-      style="top:1479px; left:744px; width:408px;"
+      style="top:1474px; left:744px; width:408px;"
       placeholder="*"
       [matTooltip]="poz(28)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Str"
       class="field spell-row"
-      style="top:1479px; left:1160px; width:60px;"
+      style="top:1474px; left:1160px; width:60px;"
       placeholder="*"
     />
 
@@ -1932,61 +1932,61 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       [formControl]="controls.spellsForm.controls.r29P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1510px; left:69px;"
+      style="top:1508px; left:69px;"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29S"
       class="field spell-row"
-      style="top:1509px; left:102px; width:41px;"
+      style="top:1507px; left:102px; width:41px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Nazev"
       class="field spell-row "
-      style="top:1509px; left:152px; width:193px;"
+      style="top:1507px; left:152px; width:193px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Utok"
       class="field spell-row"
-      style="top:1509px; left:353px; width:78px;"
+      style="top:1507px; left:353px; width:78px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29DobaSesilani"
       class="field spell-row"
-      style="top:1509px; left:439px; width:58px;"
+      style="top:1507px; left:439px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Slozky"
       class="field spell-row"
-      style="top:1509px; left:506px; width:58px;"
+      style="top:1507px; left:506px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Dosah"
       class="field spell-row"
-      style="top:1509px; left:572px; width:77px;"
+      style="top:1507px; left:572px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Trvani"
       class="field spell-row"
-      style="top:1509px; left:658px; width:77px;"
+      style="top:1507px; left:658px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Poznamka"
       class="field spell-row"
-      style="top:1509px; left:744px; width:408px;"
+      style="top:1507px; left:744px; width:408px;"
       placeholder="*"
       [matTooltip]="poz(29)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Str"
       class="field spell-row"
-      style="top:1509px; left:1160px; width:60px;"
+      style="top:1507px; left:1160px; width:60px;"
       placeholder="*"
     />
 
@@ -1995,61 +1995,61 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       [formControl]="controls.spellsForm.controls.r30P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1546px; left:69px;"
+      style="top:1544px; left:69px;"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30S"
       class="field spell-row"
-      style="top:1545px; left:102px; width:41px;"
+      style="top:1543px; left:102px; width:41px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Nazev"
       class="field spell-row "
-      style="top:1545px; left:152px; width:193px;"
+      style="top:1543px; left:152px; width:193px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Utok"
       class="field spell-row"
-      style="top:1545px; left:353px; width:78px;"
+      style="top:1543px; left:353px; width:78px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30DobaSesilani"
       class="field spell-row"
-      style="top:1545px; left:439px; width:58px;"
+      style="top:1543px; left:439px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Slozky"
       class="field spell-row"
-      style="top:1545px; left:506px; width:58px;"
+      style="top:1543px; left:506px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Dosah"
       class="field spell-row"
-      style="top:1545px; left:572px; width:77px;"
+      style="top:1543px; left:572px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Trvani"
       class="field spell-row"
-      style="top:1545px; left:658px; width:77px;"
+      style="top:1543px; left:658px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Poznamka"
       class="field spell-row"
-      style="top:1545px; left:744px; width:408px;"
+      style="top:1543px; left:744px; width:408px;"
       placeholder="*"
       [matTooltip]="poz(30)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Str"
       class="field spell-row"
-      style="top:1545px; left:1160px; width:60px;"
+      style="top:1543px; left:1160px; width:60px;"
       placeholder="*"
     />
 
@@ -2058,61 +2058,61 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       [formControl]="controls.spellsForm.controls.r31P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1582px; left:69px;"
+      style="top:1580px; left:69px;"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31S"
       class="field spell-row"
-      style="top:1581px; left:102px; width:41px;"
+      style="top:1579px; left:102px; width:41px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Nazev"
       class="field spell-row "
-      style="top:1581px; left:152px; width:193px;"
+      style="top:1579px; left:152px; width:193px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Utok"
       class="field spell-row"
-      style="top:1581px; left:353px; width:78px;"
+      style="top:1579px; left:353px; width:78px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31DobaSesilani"
       class="field spell-row"
-      style="top:1581px; left:439px; width:58px;"
+      style="top:1579px; left:439px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Slozky"
       class="field spell-row"
-      style="top:1581px; left:506px; width:58px;"
+      style="top:1579px; left:506px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Dosah"
       class="field spell-row"
-      style="top:1581px; left:572px; width:77px;"
+      style="top:1579px; left:572px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Trvani"
       class="field spell-row"
-      style="top:1581px; left:658px; width:77px;"
+      style="top:1579px; left:658px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Poznamka"
       class="field spell-row"
-      style="top:1581px; left:744px; width:408px;"
+      style="top:1579px; left:744px; width:408px;"
       placeholder="*"
       [matTooltip]="poz(31)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Str"
       class="field spell-row"
-      style="top:1581px; left:1160px; width:60px;"
+      style="top:1579px; left:1160px; width:60px;"
       placeholder="*"
     />
 
@@ -2121,61 +2121,61 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       [formControl]="controls.spellsForm.controls.r32P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1618px; left:69px;"
+      style="top:1616px; left:69px;"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32S"
       class="field spell-row"
-      style="top:1617px; left:102px; width:41px;"
+      style="top:1615px; left:102px; width:41px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Nazev"
       class="field spell-row "
-      style="top:1617px; left:152px; width:193px;"
+      style="top:1615px; left:152px; width:193px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Utok"
       class="field spell-row"
-      style="top:1617px; left:353px; width:78px;"
+      style="top:1615px; left:353px; width:78px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32DobaSesilani"
       class="field spell-row"
-      style="top:1617px; left:439px; width:58px;"
+      style="top:1615px; left:439px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Slozky"
       class="field spell-row"
-      style="top:1617px; left:506px; width:58px;"
+      style="top:1615px; left:506px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Dosah"
       class="field spell-row"
-      style="top:1617px; left:572px; width:77px;"
+      style="top:1615px; left:572px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Trvani"
       class="field spell-row"
-      style="top:1617px; left:658px; width:77px;"
+      style="top:1615px; left:658px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Poznamka"
       class="field spell-row"
-      style="top:1617px; left:744px; width:408px;"
+      style="top:1615px; left:744px; width:408px;"
       placeholder="*"
       [matTooltip]="poz(32)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Str"
       class="field spell-row"
-      style="top:1617px; left:1160px; width:60px;"
+      style="top:1615px; left:1160px; width:60px;"
       placeholder="*"
     />
 
@@ -2184,61 +2184,61 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       [formControl]="controls.spellsForm.controls.r33P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1654px; left:69px;"
+      style="top:1652px; left:69px;"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33S"
       class="field spell-row"
-      style="top:1653px; left:102px; width:41px;"
+      style="top:1651px; left:102px; width:41px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Nazev"
       class="field spell-row "
-      style="top:1653px; left:152px; width:193px;"
+      style="top:1651px; left:152px; width:193px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Utok"
       class="field spell-row"
-      style="top:1653px; left:353px; width:78px;"
+      style="top:1651px; left:353px; width:78px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33DobaSesilani"
       class="field spell-row"
-      style="top:1653px; left:439px; width:58px;"
+      style="top:1651px; left:439px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Slozky"
       class="field spell-row"
-      style="top:1653px; left:506px; width:58px;"
+      style="top:1651px; left:506px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Dosah"
       class="field spell-row"
-      style="top:1653px; left:572px; width:77px;"
+      style="top:1651px; left:572px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Trvani"
       class="field spell-row"
-      style="top:1653px; left:658px; width:77px;"
+      style="top:1651px; left:658px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Poznamka"
       class="field spell-row"
-      style="top:1653px; left:744px; width:408px;"
+      style="top:1651px; left:744px; width:408px;"
       placeholder="*"
       [matTooltip]="poz(33)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Str"
       class="field spell-row"
-      style="top:1653px; left:1160px; width:60px;"
+      style="top:1651px; left:1160px; width:60px;"
       placeholder="*"
     />
 
@@ -2247,61 +2247,61 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       [formControl]="controls.spellsForm.controls.r34P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1690px; left:69px;"
+      style="top:1688px; left:69px;"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34S"
       class="field spell-row"
-      style="top:1689px; left:102px; width:41px;"
+      style="top:1687px; left:102px; width:41px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Nazev"
       class="field spell-row "
-      style="top:1689px; left:152px; width:193px;"
+      style="top:1687px; left:152px; width:193px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Utok"
       class="field spell-row"
-      style="top:1689px; left:353px; width:78px;"
+      style="top:1687px; left:353px; width:78px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34DobaSesilani"
       class="field spell-row"
-      style="top:1689px; left:439px; width:58px;"
+      style="top:1687px; left:439px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Slozky"
       class="field spell-row"
-      style="top:1689px; left:506px; width:58px;"
+      style="top:1687px; left:506px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Dosah"
       class="field spell-row"
-      style="top:1689px; left:572px; width:77px;"
+      style="top:1687px; left:572px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Trvani"
       class="field spell-row"
-      style="top:1689px; left:658px; width:77px;"
+      style="top:1687px; left:658px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Poznamka"
       class="field spell-row"
-      style="top:1689px; left:744px; width:408px;"
+      style="top:1687px; left:744px; width:408px;"
       placeholder="*"
       [matTooltip]="poz(34)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Str"
       class="field spell-row"
-      style="top:1689px; left:1160px; width:60px;"
+      style="top:1687px; left:1160px; width:60px;"
       placeholder="*"
     />
 
@@ -2310,61 +2310,61 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       [formControl]="controls.spellsForm.controls.r35P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1732px; left:69px;"
+      style="top:1729px; left:69px;"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35S"
       class="field spell-row"
-      style="top:1731px; left:102px; width:41px;"
+      style="top:1728px; left:102px; width:41px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Nazev"
       class="field spell-row "
-      style="top:1731px; left:152px; width:193px;"
+      style="top:1728px; left:152px; width:193px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Utok"
       class="field spell-row"
-      style="top:1731px; left:353px; width:78px;"
+      style="top:1728px; left:353px; width:78px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35DobaSesilani"
       class="field spell-row"
-      style="top:1731px; left:439px; width:58px;"
+      style="top:1728px; left:439px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Slozky"
       class="field spell-row"
-      style="top:1731px; left:506px; width:58px;"
+      style="top:1728px; left:506px; width:58px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Dosah"
       class="field spell-row"
-      style="top:1731px; left:572px; width:77px;"
+      style="top:1728px; left:572px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Trvani"
       class="field spell-row"
-      style="top:1731px; left:658px; width:77px;"
+      style="top:1728px; left:658px; width:77px;"
       placeholder="*"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Poznamka"
       class="field spell-row"
-      style="top:1731px; left:744px; width:408px;"
+      style="top:1728px; left:744px; width:408px;"
       placeholder="*"
       [matTooltip]="poz(35)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Str"
       class="field spell-row"
-      style="top:1731px; left:1160px; width:60px;"
+      style="top:1728px; left:1160px; width:60px;"
       placeholder="*"
     />
   `,
