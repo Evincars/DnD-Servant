@@ -34,15 +34,31 @@ body {
     font-size: 18px;
   }
 
+  // ── Dialog title ─────────────────────────────────────────────
   .dialog-title {
     display: flex !important;
     align-items: center;
     justify-content: space-between;
     gap: var(--spacing-2);
-    font-size: 20px !important;
-    padding: var(--spacing-1) var(--spacing-1) !important;
-    background: var(--primary-color);
-    font-family: Roboto, sans-serif !important;
+    font-size: 18px !important;
+    font-family: 'Mikadan', sans-serif !important;
+    letter-spacing: .06em;
+    padding: 14px 18px !important;
+    color: #e8c96a !important;
+    background:
+      linear-gradient(90deg, rgba(8,5,16,.98) 0%, rgba(22,15,38,.98) 50%, rgba(8,5,16,.98) 100%) !important;
+    border-bottom: 1px solid rgba(200,160,60,.35) !important;
+    text-shadow: 0 0 12px rgba(200,160,60,.4);
+    position: relative;
+
+    // bottom gold rule line
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,160,60,.6), transparent);
+    }
   }
 
   .dialog-content {
@@ -57,8 +73,8 @@ body {
 
   @include mat.toolbar-overrides(
     (
-      container-background-color: rgb(32, 32, 32),
-      container-text-color: #b84949,
+      container-background-color: transparent,
+      container-text-color: #e0d4c0,
     )
   );
 
@@ -91,6 +107,84 @@ body {
     )
   );
 
+}
+
+// ════════════════════════════════════════════════════════════════
+// TOOLBAR — D&D dark fantasy style
+// ════════════════════════════════════════════════════════════════
+mat-toolbar.toolbar {
+  background:
+    linear-gradient(90deg, rgba(6,4,12,.98) 0%, rgba(16,11,26,.98) 50%, rgba(6,4,12,.98) 100%) !important;
+  border-bottom: 1px solid rgba(200,160,60,.3) !important;
+  box-shadow: 0 2px 20px rgba(0,0,0,.7), 0 1px 0 rgba(200,160,60,.15) !important;
+  color: #e0d4c0 !important;
+  position: relative;
+
+  // bottom gold shimmer line
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 5%; right: 5%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200,160,60,.5), transparent);
+    pointer-events: none;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════
+// MAT-DIALOG — D&D dark fantasy style (global, all dialogs)
+// ════════════════════════════════════════════════════════════════
+
+// Backdrop
+.cdk-overlay-backdrop.cdk-overlay-dark-backdrop {
+  background: rgba(4, 2, 10, 0.82) !important;
+  backdrop-filter: blur(2px);
+}
+
+// Dialog surface
+.mat-mdc-dialog-surface {
+  background:
+    linear-gradient(180deg, rgba(10,7,20,.99) 0%, rgba(16,11,28,.99) 100%) !important;
+  border: 1px solid rgba(200,160,60,.3) !important;
+  border-radius: 10px !important;
+  box-shadow:
+    0 0 0 1px rgba(200,160,60,.1),
+    0 8px 60px rgba(0,0,0,.9),
+    inset 0 1px 0 rgba(255,220,100,.07) !important;
+  overflow: hidden !important;
+
+  // Corner gem decorators
+  &::before,
+  &::after {
+    content: '◆';
+    position: absolute;
+    color: rgba(200,160,60,.5);
+    font-size: 9px;
+    line-height: 1;
+    pointer-events: none;
+    z-index: 10;
+  }
+  &::before { top: 6px; left: 8px; }
+  &::after  { top: 6px; right: 8px; }
+}
+
+// mat-dialog-content scroll area
+mat-dialog-content.dialog-content,
+.mat-mdc-dialog-content {
+  color: #d4c9b8 !important;
+  scrollbar-color: #555 transparent;
+}
+
+// Close button inside dialog-title
+.dialog-title button[matIconButton],
+.dialog-title button[mat-icon-button] {
+  color: #8a7a6a !important;
+  transition: color .15s, transform .12s !important;
+
+  &:hover {
+    color: #e05555 !important;
+    transform: scale(1.15) !important;
+  }
 }
 
 /* scrollbar */
