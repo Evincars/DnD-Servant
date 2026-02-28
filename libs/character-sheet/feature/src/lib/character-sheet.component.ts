@@ -329,7 +329,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
         <input
           [formControl]="savingThrowsControls.sila"
-          class="field"
+          class="field no-pb"
           style="top:559.64px; left:554.13px; width:61.57px; text-align: right;"
           placeholder="SIL"
         />
@@ -341,7 +341,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
         <input
           [formControl]="savingThrowsControls.obratnost"
-          class="field"
+          class="field no-pb"
           style="top:588.71px; left:554.13px; width:61.57px; text-align: right;"
           placeholder="OBR"
         />
@@ -353,7 +353,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
         <input
           [formControl]="savingThrowsControls.odolnost"
-          class="field"
+          class="field no-pb"
           style="top:617.78px; left:554.13px; width:61.57px; text-align: right;"
           placeholder="ODL"
         />
@@ -365,7 +365,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
         <input
           [formControl]="savingThrowsControls.inteligence"
-          class="field"
+          class="field no-pb"
           style="top:646.85px; left:554.13px; width:61.57px; text-align: right;"
           placeholder="INT"
         />
@@ -377,7 +377,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
         <input
           [formControl]="savingThrowsControls.moudrost"
-          class="field"
+          class="field no-pb"
           style="top:675.92px; left:554.13px; width:61.57px; text-align: right;"
           placeholder="MDR"
         />
@@ -389,7 +389,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
         <input
           [formControl]="savingThrowsControls.charisma"
-          class="field"
+          class="field no-pb"
           style="top:703.18px; left:554.13px; width:61.57px; text-align: right;"
           placeholder="CHA"
         />
@@ -403,7 +403,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
         <input
           [formControl]="passiveSkillsControls.atletika"
-          class="field"
+          class="field no-pb"
           style="top:559.64px; left:743.77px; width:61.57px; text-align: right;"
           placeholder="ATL"
         />
@@ -415,7 +415,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
         <input
           [formControl]="passiveSkillsControls.akrobacie"
-          class="field"
+          class="field no-pb"
           style="top:588.71px; left:743.77px; width:61.57px; text-align: right;"
           placeholder="AKR"
         />
@@ -427,7 +427,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
         <input
           [formControl]="passiveSkillsControls.nenapadnost"
-          class="field"
+          class="field no-pb"
           style="top:617.78px; left:743.77px; width:61.57px; text-align: right;"
           placeholder="NEN"
         />
@@ -439,7 +439,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
         <input
           [formControl]="passiveSkillsControls.vhled"
-          class="field"
+          class="field no-pb"
           style="top:646.85px; left:743.77px; width:61.57px; text-align: right;"
           placeholder="VHL"
         />
@@ -451,7 +451,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
         <input
           [formControl]="passiveSkillsControls.vnimani"
-          class="field"
+          class="field no-pb"
           style="top:675.92px; left:743.77px; width:61.57px; text-align: right;"
           placeholder="VNI"
         />
@@ -463,13 +463,13 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
         <input
           [formControl]="passiveSkillsControls.jineNazev"
-          class="field"
+          class="field no-pb"
           style="top:703.18px; left:655px; width:82.53px; text-align: left;"
           placeholder="-"
         />
         <input
           [formControl]="passiveSkillsControls.jine"
-          class="field"
+          class="field no-pb"
           style="top:703.18px; left:743.77px; width:61.57px; text-align: right;"
           placeholder="-"
         />
@@ -1035,7 +1035,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.atletika"
           id="atletika"
-          class="field"
+          class="field no-pb"
           style="top:403.38px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1049,7 +1049,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.akrobacie"
           id="akrobacie"
-          class="field"
+          class="field no-pb"
           style="top:461.52px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1063,7 +1063,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.cachry"
           id="cachry"
-          class="field"
+          class="field no-pb"
           style="top:490.59px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1077,7 +1077,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.nenapadnost"
           id="nenapadnost"
-          class="field"
+          class="field no-pb"
           style="top:519.66px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1092,7 +1092,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.historie"
           id="historie"
-          class="field"
+          class="field no-pb"
           style="top:581.44px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1106,7 +1106,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.mystika"
           id="mystika"
-          class="field"
+          class="field no-pb"
           style="top:610.51px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1120,7 +1120,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.nabozenstvi"
           id="nabozenstvi"
-          class="field"
+          class="field no-pb"
           style="top:639.59px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1134,7 +1134,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.patrani"
           id="patrani"
-          class="field"
+          class="field no-pb"
           style="top:666.84px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1148,7 +1148,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.priroda"
           id="priroda"
-          class="field"
+          class="field no-pb"
           style="top:695.89px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1163,7 +1163,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.lekarstvi"
           id="lekarstvi"
-          class="field"
+          class="field no-pb"
           style="top:757.69px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1177,7 +1177,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.ovladaniZvirat"
           id="ovladaniZvirat"
-          class="field"
+          class="field no-pb"
           style="top:787.76px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1191,7 +1191,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.preziti"
           id="preziti"
-          class="field"
+          class="field no-pb"
           style="top:814.42px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1205,7 +1205,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.vhled"
           id="vhled"
-          class="field"
+          class="field no-pb"
           style="top:844.49px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1219,7 +1219,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.vnimani"
           id="vnimani"
-          class="field"
+          class="field no-pb"
           style="top:871.16px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1234,7 +1234,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.klamani"
           id="klamani"
-          class="field"
+          class="field no-pb"
           style="top:934.75px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1248,7 +1248,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.presvedcovani"
           id="presvedcovani"
-          class="field"
+          class="field no-pb"
           style="top:963.01px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1262,7 +1262,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.vystupovani"
           id="vystupovani"
-          class="field"
+          class="field no-pb"
           style="top:992.48px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
@@ -1276,7 +1276,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilitiesControls.zastrasovani"
           id="zastrasovani"
-          class="field"
+          class="field no-pb"
           style="top:1019.80px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
