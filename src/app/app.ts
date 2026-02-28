@@ -1,10 +1,9 @@
 import { Component, DestroyRef, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
-import { MatButton, MatFabButton, MatIconButton } from '@angular/material/button';
+import { MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { MatPrefix } from '@angular/material/form-field';
 import { routes } from './app.routes';
 import { AuthService } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -63,8 +62,8 @@ import html2canvas from 'html2canvas';
       <mat-sidenav-content>
         <mat-toolbar class="toolbar u-flex u-justify-between u-align-center">
           <div class="u-flex u-align-center">
-            <button matIconButton (click)="sidenav.toggle()">
-              <mat-icon matPrefix>menu</mat-icon>
+            <button matIconButton (click)="sidenav.toggle()" class="menu-btn u-mr-3" aria-label="Toggle menu">
+              <mat-icon>menu</mat-icon>
             </button>
             <img src="JaD-logo.png" alt="Dungeons & Dragons Logo" class="logo u-mr-3" />
             <span>Servant</span>
@@ -178,7 +177,11 @@ import html2canvas from 'html2canvas';
     }
 
     .sidenav__logo {
-      height: 80px;
+      width: 100%;
+      max-width: 180px;
+      height: auto;
+      max-height: 100px;
+      object-fit: contain;
       filter: drop-shadow(0 2px 12px rgba(200,160,60,.4));
       transition: filter .2s;
     }
@@ -310,8 +313,34 @@ import html2canvas from 'html2canvas';
       font-family: 'Mikadan', sans-serif;
     }
 
+    @keyframes menu-pulse {
+      0%, 100% { box-shadow: 0 0 6px rgba(200,160,60,.4), 0 0 0 1px rgba(200,160,60,.25); }
+      50%       { box-shadow: 0 0 14px rgba(200,160,60,.7), 0 0 0 1px rgba(200,160,60,.5); }
+    }
+
+    .menu-btn {
+      color: #c8a03c !important;
+      border-radius: 6px !important;
+      border: 1px solid rgba(200,160,60,.3) !important;
+      background: rgba(200,160,60,.08) !important;
+      animation: menu-pulse 2.8s ease-in-out infinite;
+      transition: background .18s, border-color .18s, transform .12s !important;
+
+      &:hover {
+        background: rgba(200,160,60,.18) !important;
+        border-color: rgba(200,160,60,.7) !important;
+        transform: scale(1.08);
+        animation: none;
+        box-shadow: 0 0 18px rgba(200,160,60,.5);
+      }
+
+      mat-icon { font-size: 22px; }
+    }
+
     .logo {
-      height: 60px;
+      height: 40px;
+      width: auto;
+      object-fit: contain;
     }
 
     .author-info {
@@ -351,7 +380,6 @@ import html2canvas from 'html2canvas';
     MatSidenav,
     MatSidenavContent,
     MatIconModule,
-    MatPrefix,
     MatToolbar,
     MatIconButton,
     MatFabButton,
