@@ -9,7 +9,7 @@ import { routes } from './app.routes';
 import { AuthService } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTooltip } from '@angular/material/tooltip';
-import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-root',
@@ -46,12 +46,17 @@ import { jsPDF } from 'jspdf';
             <span>Servant</span>
             <button
               matIconButton
-              (click)="onExportToPdfClick()"
+              (click)="onScreenshotBackupClick()"
               class="u-ml-3"
+              [disabled]="screenshotLoading()"
               style="color: var(--primary-color);"
-              matTooltip="Exportovat kartu postavy do PDF (testovací verze)"
+              matTooltip="Stáhnout zálohu jako obrázky (PNG)"
             >
-              <mat-icon>picture_as_pdf</mat-icon>
+              @if (screenshotLoading()) {
+              <mat-icon>hourglass_empty</mat-icon>
+              } @else {
+              <mat-icon>photo_camera</mat-icon>
+              }
             </button>
           </div>
           <div class="author-info">
@@ -174,6 +179,7 @@ export class App implements OnInit, OnDestroy {
 
   routes = routes;
   showBackToTop = signal(false);
+  screenshotLoading = signal(false);
 
   @ViewChild('content') formElement: ElementRef | undefined;
 
@@ -203,25 +209,53 @@ export class App implements OnInit, OnDestroy {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  onExportToPdfClick() {
-    if (this.formElement) {
-      const element = this.formElement.nativeElement;
-      const doc: jsPDF = new jsPDF('p', 'px', 'c1');
+  async onScreenshotBackupClick() {
+    if (!this.formElement || this.screenshotLoading()) return;
+    this.screenshotLoading.set(true);
 
-      doc.html(element, {
-        x: 20,
-        y: 50,
-        // autoPaging: true,
-        // width: 20,
-        // windowWidth: 500,
-        callback: doc => {
-          doc.setFont('Helvetica');
-          doc.setFontSize(10);
-          doc.setTextColor(10);
-          // this.characterSheetStore.patchLoading(false);
-          doc.save('karta-postavy.pdf');
-        },
+    try {
+      const element = this.formElement.nativeElement as HTMLElement;
+      const fullHeight = element.scrollHeight;
+      const fullWidth = element.scrollWidth;
+
+      // Capture the full element at its natural size
+      const canvas = await html2canvas(element, {
+        scale: 1,
+        useCORS: true,
+        allowTaint: true,
+        scrollX: 0,
+        scrollY: 0,
+        width: fullWidth,
+        height: fullHeight,
+        windowWidth: fullWidth,
+        windowHeight: fullHeight,
+        logging: false,
       });
+
+      // Split into A4-height slices (~1122px at 96dpi) so each image fits on a page
+      const sliceHeight = 1122;
+      const totalSlices = Math.ceil(fullHeight / sliceHeight);
+      const timestamp = new Date().toISOString().slice(0, 10);
+
+      for (let i = 0; i < totalSlices; i++) {
+        const sliceCanvas = document.createElement('canvas');
+        const currentSliceHeight = Math.min(sliceHeight, fullHeight - i * sliceHeight);
+        sliceCanvas.width = fullWidth;
+        sliceCanvas.height = currentSliceHeight;
+
+        const ctx = sliceCanvas.getContext('2d')!;
+        ctx.drawImage(canvas, 0, i * sliceHeight, fullWidth, currentSliceHeight, 0, 0, fullWidth, currentSliceHeight);
+
+        const link = document.createElement('a');
+        link.download = `karta-postavy-${timestamp}-${i + 1}z${totalSlices}.png`;
+        link.href = sliceCanvas.toDataURL('image/png');
+        link.click();
+
+        // Small delay between downloads so browser doesn't block them
+        await new Promise(r => setTimeout(r, 300));
+      }
+    } finally {
+      this.screenshotLoading.set(false);
     }
   }
 }
