@@ -15,24 +15,48 @@ import html2canvas from 'html2canvas';
   selector: 'app-root',
   template: `
     <mat-sidenav-container class="container">
-      <mat-sidenav #sidenav mode="over">
-        <mat-toolbar class="toolbar u-flex u-justify-center">
-          <img src="JaD-logo.png" alt="Dungeons & Dragons Logo" class="logo" />
-        </mat-toolbar>
+      <mat-sidenav #sidenav mode="over" class="sidenav">
+        <!-- decorative top border strip -->
+        <div class="sidenav__top-strip">
+          <span class="sidenav__gem sidenav__gem--left">◆</span>
+          <span class="sidenav__strip-line"></span>
+          <span class="sidenav__gem sidenav__gem--right">◆</span>
+        </div>
 
-        <div class="u-flex-col u-pl-1 u-pr-1">
-          <a [routerLink]="routes.characterSheet">
-            <button matButton="tonal" class="u-mb-3 u-mt-3 u-w-100 font" (click)="sidenav.toggle()">
-              <mat-icon matPrefix>person_edit</mat-icon>
-              Karta postavy
-            </button>
+        <!-- logo -->
+        <div class="sidenav__logo-wrap">
+          <img src="JaD-logo.png" alt="Jeskyně a Draci" class="sidenav__logo" />
+          <div class="sidenav__title">Servant</div>
+          <div class="sidenav__subtitle">Průvodce hrdiny</div>
+        </div>
+
+        <div class="sidenav__divider">
+          <span>⚔</span>
+        </div>
+
+        <!-- navigation -->
+        <nav class="sidenav__nav">
+          <a [routerLink]="routes.characterSheet" class="sidenav__link" (click)="sidenav.toggle()">
+            <span class="sidenav__link-icon"><mat-icon>person_edit</mat-icon></span>
+            <span class="sidenav__link-label">Karta postavy</span>
+            <span class="sidenav__link-arrow">›</span>
           </a>
-          <a [routerLink]="routes.dmScreen">
-            <button matButton="tonal" class="u-mb-3 u-mt-3 u-w-100 font" (click)="sidenav.toggle()">
-              <mat-icon matPrefix>full_coverage</mat-icon>
-              PH zástěna
-            </button>
+          <a [routerLink]="routes.dmScreen" class="sidenav__link" (click)="sidenav.toggle()">
+            <span class="sidenav__link-icon"><mat-icon>full_coverage</mat-icon></span>
+            <span class="sidenav__link-label">PH zástěna</span>
+            <span class="sidenav__link-arrow">›</span>
           </a>
+        </nav>
+
+        <div class="sidenav__divider">
+          <span>🐉</span>
+        </div>
+
+        <!-- decorative bottom -->
+        <div class="sidenav__bottom-strip">
+          <span class="sidenav__gem">◆</span>
+          <span class="sidenav__strip-line"></span>
+          <span class="sidenav__gem">◆</span>
         </div>
       </mat-sidenav>
 
@@ -107,6 +131,169 @@ import html2canvas from 'html2canvas';
       min-width: 100vw;
     }
 
+    /* ═══════════════════════════════════════════════════
+       SIDENAV — Dark D&D Parchment Style
+    ═══════════════════════════════════════════════════ */
+
+    .sidenav {
+      width: 280px !important;
+      background:
+        linear-gradient(180deg, rgba(8,5,16,.97) 0%, rgba(18,12,28,.97) 60%, rgba(8,5,16,.97) 100%),
+        url('https://www.transparenttextures.com/patterns/dark-leather.png') !important;
+      background-color: #0d0910 !important;
+      border-right: none !important;
+      box-shadow: 4px 0 32px rgba(0,0,0,.8), inset -1px 0 0 rgba(200,160,60,.25) !important;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* top & bottom decorative strips */
+    .sidenav__top-strip,
+    .sidenav__bottom-strip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px 6px;
+    }
+    .sidenav__bottom-strip { padding: 6px 14px 12px; margin-top: auto; }
+
+    .sidenav__gem { color: #c8a03c; font-size: 10px; flex-shrink: 0; }
+    .sidenav__strip-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(200,160,60,.6), rgba(200,160,60,.15));
+    }
+    .sidenav__top-strip .sidenav__strip-line {
+      background: linear-gradient(90deg, rgba(200,160,60,.15), rgba(200,160,60,.6));
+    }
+
+    /* logo area */
+    .sidenav__logo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 20px 12px;
+      gap: 4px;
+    }
+
+    .sidenav__logo {
+      height: 80px;
+      filter: drop-shadow(0 2px 12px rgba(200,160,60,.4));
+      transition: filter .2s;
+    }
+    .sidenav__logo:hover { filter: drop-shadow(0 2px 20px rgba(200,160,60,.7)); }
+
+    .sidenav__title {
+      font-family: 'Mikadan', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #e8c96a;
+      letter-spacing: .08em;
+      text-shadow: 0 0 16px rgba(200,160,60,.5);
+      margin-top: 4px;
+    }
+
+    .sidenav__subtitle {
+      font-size: 11px;
+      color: #6b6070;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    /* ornamental divider */
+    .sidenav__divider {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 20px;
+      color: #c8a03c;
+      font-size: 14px;
+
+      &::before, &::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(200,160,60,.4), transparent);
+      }
+    }
+
+    /* nav links */
+    .sidenav__nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px 14px;
+    }
+
+    .sidenav__link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #c8bfb0;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(200,160,60,.12);
+      transition: background .18s, border-color .18s, color .18s, transform .12s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+
+      /* subtle shimmer line on left */
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 3px;
+        background: linear-gradient(180deg, transparent, rgba(200,160,60,.5), transparent);
+        opacity: 0;
+        transition: opacity .18s;
+      }
+
+      &:hover {
+        background: rgba(200,160,60,.1);
+        border-color: rgba(200,160,60,.4);
+        color: #e8d5a0;
+        transform: translateX(3px);
+
+        &::before { opacity: 1; }
+
+        .sidenav__link-arrow { opacity: 1; transform: translateX(3px); }
+        .sidenav__link-icon mat-icon { color: #c8a03c; }
+      }
+    }
+
+    .sidenav__link-icon {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+
+      mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        color: #6b6080;
+        transition: color .18s;
+      }
+    }
+
+    .sidenav__link-label {
+      flex: 1;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: .03em;
+    }
+
+    .sidenav__link-arrow {
+      font-size: 18px;
+      color: #c8a03c;
+      opacity: 0;
+      transition: opacity .18s, transform .18s;
+    }
+
+    /* ─── rest of existing styles ─────────────────────── */
     .main-content {
       width: 1310px;
       margin: 0 auto;
@@ -135,9 +322,7 @@ import html2canvas from 'html2canvas';
       color: inherit;
       text-decoration: underline;
 
-      &:hover {
-        text-decoration: none;
-      }
+      &:hover { text-decoration: none; }
     }
 
     .token {
@@ -147,9 +332,7 @@ import html2canvas from 'html2canvas';
       padding: var(--spacing-1) var(--spacing-2);
     }
 
-    .username {
-      font-size: 18px;
-    }
+    .username { font-size: 18px; }
 
     .back-to-top {
       position: fixed;
@@ -166,7 +349,6 @@ import html2canvas from 'html2canvas';
     RouterModule,
     MatSidenavContainer,
     MatSidenav,
-    MatButton,
     MatSidenavContent,
     MatIconModule,
     MatPrefix,
