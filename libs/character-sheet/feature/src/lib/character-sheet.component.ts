@@ -2689,9 +2689,10 @@ export class CharacterSheetComponent {
       CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
     );
     request.username = username;
-    if (request.secondPageForm) {
-      request.secondPageForm.obrazekPostavy = base64;
+    if (!request.secondPageForm) {
+      request.secondPageForm = {} as any;
     }
+    request.secondPageForm.obrazekPostavy = base64;
     this.characterSheetStore.saveCharacterSheet(request);
   }
 

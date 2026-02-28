@@ -125,7 +125,7 @@ export class SecondPageComponent {
 
   constructor() {
     const checkIfImageIsLoaded = effect(() => {
-      const imageBase64 = this.characterSheetStore.characterSheet()?.secondPageForm.obrazekPostavy;
+      const imageBase64 = this.characterSheetStore.characterSheet()?.secondPageForm?.obrazekPostavy;
 
       untracked(() => {
         if (imageBase64) {
