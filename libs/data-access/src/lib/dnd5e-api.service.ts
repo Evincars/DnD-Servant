@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Dnd5eEndpoint, Dnd5eListResponse } from './dnd5e-api.models';
+import { Dnd5eEndpoint, Dnd5eListResponse, Monster } from './dnd5e-api.models';
 
 const BASE_URL = 'https://www.dnd5eapi.co/api/2014';
 
@@ -24,5 +24,13 @@ export class Dnd5eApiService {
    */
   getOne<T = unknown>(endpoint: Dnd5eEndpoint, index: string): Observable<T> {
     return this.http.get<T>(`${BASE_URL}/${endpoint}/${index}`);
+  }
+
+  /**
+   * Typed shorthand – returns a fully-typed Monster.
+   * e.g. getMonster('aboleth') → GET /api/2014/monsters/aboleth
+   */
+  getMonster(index: string): Observable<Monster> {
+    return this.http.get<Monster>(`${BASE_URL}/monsters/${index}`);
   }
 }
