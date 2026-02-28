@@ -4,7 +4,7 @@ import { CharacterSheetComponent } from './character-sheet.component';
 import { GroupSheetComponent } from './group-sheet.component';
 import { NotesSheetComponent } from './notes-sheet.component';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
-import { InitiativeTrackerComponent } from './initiative-tracker.component';
+import { InitiativeTrackerComponent } from './initiative-tracker/initiative-tracker.component';
 
 @Component({
   selector: 'character-sheet-tab',

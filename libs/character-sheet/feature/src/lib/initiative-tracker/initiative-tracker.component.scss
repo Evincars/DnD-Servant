@@ -1,0 +1,378 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+// ── Outer wrapper ─────────────────────────────────────────────────────────────
+.it-wrapper {
+  height: 100%;
+  overflow-y: auto;
+  padding: 32px 24px;
+  background:
+    linear-gradient(rgba(10, 10, 20, 0.78), rgba(10, 10, 20, 0.78)),
+    url('https://www.transparenttextures.com/patterns/dark-leather.png');
+  background-color: #12111a;
+  box-sizing: border-box;
+}
+
+// Side-by-side layout when monster card is open
+.it-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+// ── Initiative card ───────────────────────────────────────────────────────────
+.it-card {
+  flex: 0 0 auto;
+  width: 720px;
+  max-width: 100%;
+  background: rgba(25, 22, 38, 0.92);
+  border: 1px solid rgba(200, 160, 60, 0.35);
+  border-radius: 10px;
+  padding: 28px 28px 24px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 220, 100, 0.08);
+}
+
+.it-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.it-header__icon {
+  color: #c8a03c;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.it-header__title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #e8d5a0;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 8px rgba(200, 160, 60, 0.4);
+}
+
+.it-notice {
+  margin: 0 0 20px;
+  font-size: 11px;
+  color: #6b6580;
+}
+
+// Column headers
+.it-col-headers {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 0 6px;
+  border-bottom: 1px solid rgba(200, 160, 60, 0.25);
+  margin-bottom: 6px;
+}
+
+.it-col-header {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #c8a03c;
+  user-select: none;
+
+  &--indicator { width: 14px; flex-shrink: 0; }
+  &--sm        { width: 70px; text-align: center; flex-shrink: 0; }
+  &--name      { flex: 1; padding-left: 4px; }
+  &--icon      { width: 32px; flex-shrink: 0; }
+}
+
+// Rows
+.it-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.it-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+  transition: background 0.15s;
+
+  &--odd      { background: rgba(255, 255, 255, 0.055); }
+  &--active   { background: rgba(200, 160, 60, 0.15) !important; border-color: rgba(200, 160, 60, 0.5); box-shadow: 0 0 10px rgba(200, 160, 60, 0.15); }
+  &--selected { outline: 1px solid rgba(120, 170, 232, 0.5); }
+  &:hover     { background: rgba(200, 160, 60, 0.07); }
+}
+
+.it-turn-indicator {
+  width: 14px;
+  flex-shrink: 0;
+  color: #c8a03c;
+  font-size: 12px;
+  text-align: center;
+}
+
+// Inputs
+.it-input {
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 5px;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #e8e0d0;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+
+  &::placeholder { color: #4a4560; }
+
+  &:focus {
+    border-color: #c8a03c;
+    box-shadow: 0 0 0 2px rgba(200, 160, 60, 0.2);
+  }
+
+  &--sm   { width: 70px; text-align: center; flex-shrink: 0; }
+  &--name { flex: 1; }
+
+  &[type='number'] {
+    -moz-appearance: textfield;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button { -webkit-appearance: none; }
+  }
+}
+
+// Lookup button
+@keyframes it-spin { to { transform: rotate(360deg); } }
+
+.it-lookup-btn {
+  width: 32px !important;
+  height: 32px !important;
+  flex-shrink: 0;
+  color: #7a6fa0 !important;
+  transition: color 0.15s, transform 0.15s !important;
+
+  &:hover       { color: #c8a03c !important; }
+  &--active     { color: #78aae8 !important; }
+  &--loading    { color: #c8a03c !important; animation: it-spin 1s linear infinite; }
+}
+
+// Remove button
+.it-remove-btn {
+  width: 32px !important;
+  height: 32px !important;
+  flex-shrink: 0;
+  color: #6b6580 !important;
+  transition: color 0.15s !important;
+
+  &:hover { color: #e05555 !important; }
+}
+
+// Action buttons
+.it-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.it-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 18px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  transition: filter 0.15s, transform 0.1s;
+
+  &:active { transform: scale(0.97); }
+  &:hover  { filter: brightness(1.3); }
+
+  &--add  { background: #2a2540; border-color: rgba(200, 160, 60, 0.3); color: #c8a03c; }
+  &--next { background: #2a1a10; border-color: rgba(220, 120,  40, 0.4); color: #e08840; }
+  &--sort { background: #152040; border-color: rgba( 60, 120, 200, 0.4); color: #78aae8; }
+  &--save { background: #0f2a18; border-color: rgba( 60, 180,  90, 0.4); color: #6ecf8a; }
+}
+
+.it-saved-msg {
+  margin: 14px 0 0;
+  font-size: 13px;
+  color: #6ecf8a;
+  letter-spacing: 0.02em;
+}
+
+// ══ Monster card ══════════════════════════════════════════════════════════════
+.m-card {
+  flex: 1 1 360px;
+  min-width: 320px;
+  max-width: 480px;
+  position: relative;
+  background: rgba(18, 14, 30, 0.97);
+  border: 1px solid rgba(160, 100, 30, 0.55);
+  border-radius: 10px;
+  padding: 22px 20px 20px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 200, 80, 0.06);
+  color: #d4c9b8;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.m-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b6580;
+  font-size: 15px;
+  padding: 2px 6px;
+  transition: color 0.15s;
+
+  &:hover { color: #e05555; }
+}
+
+.m-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #c8a03c;
+
+  &__icon { animation: it-spin 1s linear infinite; }
+}
+
+.m-error { color: #e07070; font-style: italic; }
+
+.m-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #e8c96a;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 8px rgba(200, 150, 40, 0.4);
+  padding-right: 28px;
+  margin-bottom: 2px;
+}
+
+.m-meta {
+  font-style: italic;
+  color: #9a8fa0;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.m-rule {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(160, 100, 30, 0.7) 0%, rgba(160, 100, 30, 0.1) 100%);
+  margin: 10px 0;
+}
+
+// Stat pills
+.m-stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.m-stat-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(200, 160, 60, 0.1);
+  border: 1px solid rgba(200, 160, 60, 0.25);
+  border-radius: 6px;
+  padding: 5px 10px;
+  min-width: 52px;
+
+  &__label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #c8a03c; }
+  &__val   { font-size: 15px; font-weight: 600; color: #e8e0d0; }
+}
+
+// Speed line
+.m-line {
+  margin: 4px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  b { color: #c8a03c; margin-right: 4px; }
+
+  span::after       { content: ','; margin-right: 3px; }
+  span:last-child::after { content: ''; }
+}
+
+// Ability score grid
+.m-abilities {
+  display: flex;
+  gap: 6px;
+  margin: 6px 0;
+}
+
+.m-ab {
+  flex: 1;
+  text-align: center;
+  background: rgba(200, 160, 60, 0.07);
+  border: 1px solid rgba(200, 160, 60, 0.2);
+  border-radius: 6px;
+  padding: 5px 2px;
+
+  &__lbl { font-size: 10px; font-weight: 700; color: #c8a03c; letter-spacing: 0.05em; }
+  &__val { font-size: 15px; font-weight: 600; color: #e8e0d0; }
+  &__mod { font-size: 11px; color: #9a8fa0; }
+}
+
+// Properties
+.m-prop {
+  margin: 3px 0;
+
+  b { color: #c8a03c; margin-right: 4px; }
+}
+
+// Section heading
+.m-section {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #c8a03c;
+  margin: 6px 0 4px;
+}
+
+// Ability blocks
+.m-ability {
+  margin: 5px 0;
+
+  &__name { font-style: italic; color: #e8d5a0; }
+}
+
+.m-tag {
+  display: inline-block;
+  margin-left: 5px;
+  padding: 1px 7px;
+  background: rgba(200, 160, 60, 0.12);
+  border: 1px solid rgba(200, 160, 60, 0.3);
+  border-radius: 10px;
+  font-size: 11px;
+  color: #c8a03c;
+  vertical-align: middle;
+}
+
+.m-image {
+  display: block;
+  max-width: 100%;
+  border-radius: 6px;
+  margin-top: 8px;
+  border: 1px solid rgba(200, 160, 60, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
