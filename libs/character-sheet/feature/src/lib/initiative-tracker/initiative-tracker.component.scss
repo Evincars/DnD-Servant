@@ -211,37 +211,6 @@
   letter-spacing: 0.02em;
 }
 
-// ══ Monster card ══════════════════════════════════════════════════════════════
-.m-card {
-  flex: 1 1 360px;
-  min-width: 320px;
-  max-width: 480px;
-  position: relative;
-  background: rgba(18, 14, 30, 0.97);
-  border: 1px solid rgba(160, 100, 30, 0.55);
-  border-radius: 10px;
-  padding: 22px 20px 20px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 200, 80, 0.06);
-  color: #d4c9b8;
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-.m-close {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #6b6580;
-  font-size: 15px;
-  padding: 2px 6px;
-  transition: color 0.15s;
-
-  &:hover { color: #e05555; }
-}
-
 .m-loading {
   display: flex;
   align-items: center;

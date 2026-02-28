@@ -4,6 +4,7 @@ import { LocalStorageService } from '@dn-d-servant/util';
 import { Dnd5eApiService, Monster } from '@dn-d-servant/data-access';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MonsterCardComponent } from './monster-card/monster-card.component';
 
 interface InitiativeRow {
   initiative: number | null;
@@ -19,7 +20,7 @@ const STORAGE_KEY = 'initiative-tracker';
   templateUrl: './initiative-tracker.component.html',
   styleUrl: './initiative-tracker.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, MatIconButton, MatIcon],
+  imports: [FormsModule, MatIconButton, MatIcon, MonsterCardComponent],
 })
 export class InitiativeTrackerComponent {
   private readonly localStorageService = inject(LocalStorageService);
@@ -105,34 +106,5 @@ export class InitiativeTrackerComponent {
     this.loadingIndex.set(null);
     this.monsterData.set(null);
     this.monsterError.set(null);
-  }
-
-  mod(score: number): string {
-    const m = Math.floor((score - 10) / 2);
-    return m >= 0 ? `+${m}` : `${m}`;
-  }
-
-  hasSpeed(m: Monster): boolean {
-    const s = m.speed;
-    return !!(s.walk || s.swim || s.fly || s.burrow || s.climb);
-  }
-
-  profList(m: Monster): string {
-    return (m.proficiencies ?? []).map(p => `${p.proficiency.name} +${p.value}`).join(', ');
-  }
-
-  conditionNames(m: Monster): string {
-    return (m.condition_immunities ?? []).map(c => c.name).join(', ');
-  }
-
-  sensesText(m: Monster): string {
-    const s = m.senses;
-    const parts: string[] = [];
-    if (s.darkvision) parts.push(`Vidění ve tmě ${s.darkvision}`);
-    if (s.blindsight) parts.push(`Slepecký smysl ${s.blindsight}`);
-    if (s.tremorsense) parts.push(`Třasový smysl ${s.tremorsense}`);
-    if (s.truesight) parts.push(`Pravdivý zrak ${s.truesight}`);
-    parts.push(`Pasivní vnímání ${s.passive_perception}`);
-    return parts.join(', ');
   }
 }

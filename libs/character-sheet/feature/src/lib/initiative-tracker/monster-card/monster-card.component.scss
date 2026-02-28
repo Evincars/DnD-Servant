@@ -1,0 +1,170 @@
+@keyframes m-spin { to { transform: rotate(360deg); } }
+
+:host {
+  display: contents;
+}
+
+.m-card {
+  flex: 1 1 360px;
+  min-width: 320px;
+  max-width: 480px;
+  position: relative;
+  background: rgba(18, 14, 30, 0.97);
+  border: 1px solid rgba(160, 100, 30, 0.55);
+  border-radius: 10px;
+  padding: 22px 20px 20px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 200, 80, 0.06);
+  color: #d4c9b8;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.m-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b6580;
+  font-size: 15px;
+  padding: 2px 6px;
+  transition: color 0.15s;
+
+  &:hover { color: #e05555; }
+}
+
+.m-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #c8a03c;
+
+  &__icon { animation: m-spin 1s linear infinite; }
+}
+
+.m-error { color: #e07070; font-style: italic; }
+
+.m-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #e8c96a;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 8px rgba(200, 150, 40, 0.4);
+  padding-right: 28px;
+  margin-bottom: 2px;
+}
+
+.m-meta {
+  font-style: italic;
+  color: #9a8fa0;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.m-rule {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(160, 100, 30, 0.7) 0%, rgba(160, 100, 30, 0.1) 100%);
+  margin: 10px 0;
+}
+
+// Stat pills
+.m-stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.m-stat-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(200, 160, 60, 0.1);
+  border: 1px solid rgba(200, 160, 60, 0.25);
+  border-radius: 6px;
+  padding: 5px 10px;
+  min-width: 52px;
+
+  &__label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #c8a03c; }
+  &__val   { font-size: 15px; font-weight: 600; color: #e8e0d0; }
+}
+
+// Speed line
+.m-line {
+  margin: 4px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  b { color: #c8a03c; margin-right: 4px; }
+
+  span::after            { content: ','; margin-right: 3px; }
+  span:last-child::after { content: ''; }
+}
+
+// Ability score grid
+.m-abilities {
+  display: flex;
+  gap: 6px;
+  margin: 6px 0;
+}
+
+.m-ab {
+  flex: 1;
+  text-align: center;
+  background: rgba(200, 160, 60, 0.07);
+  border: 1px solid rgba(200, 160, 60, 0.2);
+  border-radius: 6px;
+  padding: 5px 2px;
+
+  &__lbl { font-size: 10px; font-weight: 700; color: #c8a03c; letter-spacing: 0.05em; }
+  &__val { font-size: 15px; font-weight: 600; color: #e8e0d0; }
+  &__mod { font-size: 11px; color: #9a8fa0; }
+}
+
+// Properties
+.m-prop {
+  margin: 3px 0;
+
+  b { color: #c8a03c; margin-right: 4px; }
+}
+
+// Section heading
+.m-section {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #c8a03c;
+  margin: 6px 0 4px;
+}
+
+// Ability blocks
+.m-ability {
+  margin: 5px 0;
+
+  &__name { font-style: italic; color: #e8d5a0; }
+}
+
+.m-tag {
+  display: inline-block;
+  margin-left: 5px;
+  padding: 1px 7px;
+  background: rgba(200, 160, 60, 0.12);
+  border: 1px solid rgba(200, 160, 60, 0.3);
+  border-radius: 10px;
+  font-size: 11px;
+  color: #c8a03c;
+  vertical-align: middle;
+}
+
+.m-image {
+  display: block;
+  max-width: 100%;
+  border-radius: 6px;
+  margin-top: 8px;
+  border: 1px solid rgba(200, 160, 60, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
