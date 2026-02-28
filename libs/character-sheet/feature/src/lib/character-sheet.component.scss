@@ -73,6 +73,28 @@
   accent-color: #af5555;
 }
 
+.ability-zdatnost-checkbox {
+  width: 15px;
+  height: 15px;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 2px;
+  padding: 0 !important;
+
+  &.ability-zdatnost--checked {
+    background: #af5555;
+    border-color: #af5555;
+  }
+
+  &.ability-zdatnost--expertise {
+    background: #af5555;
+    border-color: #af5555;
+    box-shadow: 0 0 0 2px #af5555, 0 0 0 4px white, 0 0 0 6px #af5555;
+  }
+}
+
 .checkbox:focus {
   box-shadow: 0 0 0 3px rgba(63, 131, 255, 0.18);
   border-color: #3f83ff;

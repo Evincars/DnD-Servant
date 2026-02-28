@@ -10,7 +10,7 @@ import {
   untracked,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import {
   CharacterSheetForm,
   AbilityBonusForm,
@@ -1025,13 +1025,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
 
         <!--    =============================================-->
         <!--    detailed skills-->
-        <input
-          [formControl]="abilitiesControls.atletikaZdatnost"
-          id="atletikaZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:416px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.atletikaZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.atletikaZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:418px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.atletika"
           id="atletika"
@@ -1039,13 +1038,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:403.38px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
-        <input
-          [formControl]="abilitiesControls.akrobacieZdatnost"
-          id="akrobacieZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:474px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.akrobacieZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.akrobacieZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:476px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.akrobacie"
           id="akrobacie"
@@ -1053,13 +1051,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:461.52px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
-        <input
-          [formControl]="abilitiesControls.cachryZdatnost"
-          id="cachryZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:502px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.cachryZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.cachryZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:504px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.cachry"
           id="cachry"
@@ -1067,13 +1064,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:490.59px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
-        <input
-          [formControl]="abilitiesControls.nenapadnostZdatnost"
-          id="nenapadnostZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:530px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.nenapadnostZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.nenapadnostZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:532px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.nenapadnost"
           id="nenapadnost"
@@ -1082,13 +1078,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           placeholder="*"
         />
 
-        <input
-          [formControl]="abilitiesControls.historieZdatnost"
-          id="historieZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:593px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.historieZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.historieZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:595px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.historie"
           id="historie"
@@ -1096,13 +1091,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:581.44px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
-        <input
-          [formControl]="abilitiesControls.mystikaZdatnost"
-          id="mystikaZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:622px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.mystikaZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.mystikaZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:624px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.mystika"
           id="mystika"
@@ -1110,13 +1104,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:610.51px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
-        <input
-          [formControl]="abilitiesControls.nabozenstviZdatnost"
-          id="nabozenstviZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:651px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.nabozenstviZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.nabozenstviZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:653px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.nabozenstvi"
           id="nabozenstvi"
@@ -1124,13 +1117,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:639.59px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
-        <input
-          [formControl]="abilitiesControls.patraniZdatnost"
-          id="patraniZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:679px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.patraniZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.patraniZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:681px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.patrani"
           id="patrani"
@@ -1138,13 +1130,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:666.84px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
-        <input
-          [formControl]="abilitiesControls.prirodaZdatnost"
-          id="prirodaZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:707px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.prirodaZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.prirodaZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:709px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.priroda"
           id="priroda"
@@ -1153,13 +1144,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           placeholder="*"
         />
 
-        <input
-          [formControl]="abilitiesControls.lekarstviZdatnost"
-          id="lekarstviZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:769px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.lekarstviZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.lekarstviZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:771px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.lekarstvi"
           id="lekarstvi"
@@ -1167,13 +1157,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:757.69px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
-        <input
-          [formControl]="abilitiesControls.ovladaniZviratZdatnost"
-          id="ovladaniZviratZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:798px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.ovladaniZviratZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.ovladaniZviratZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:800px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.ovladaniZvirat"
           id="ovladaniZvirat"
@@ -1181,13 +1170,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:787.76px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
-        <input
-          [formControl]="abilitiesControls.prezitiZdatnost"
-          id="prezitiZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:827px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.prezitiZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.prezitiZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:829px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.preziti"
           id="preziti"
@@ -1195,13 +1183,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:814.42px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
-        <input
-          [formControl]="abilitiesControls.vhledZdatnost"
-          id="vhledZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:855px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.vhledZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.vhledZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:857px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.vhled"
           id="vhled"
@@ -1209,13 +1196,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:844.49px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
-        <input
-          [formControl]="abilitiesControls.vnimaniZdatnost"
-          id="vnimaniZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:883px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.vnimaniZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.vnimaniZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:885px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.vnimani"
           id="vnimani"
@@ -1224,13 +1210,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           placeholder="*"
         />
 
-        <input
-          [formControl]="abilitiesControls.klamaniZdatnost"
-          id="klamaniZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:946px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.klamaniZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.klamaniZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:948px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.klamani"
           id="klamani"
@@ -1238,13 +1223,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:934.75px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
-        <input
-          [formControl]="abilitiesControls.presvedcovaniZdatnost"
-          id="presvedcovaniZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:975px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.presvedcovaniZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.presvedcovaniZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:977px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.presvedcovani"
           id="presvedcovani"
@@ -1252,13 +1236,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:963.01px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
-        <input
-          [formControl]="abilitiesControls.vystupovaniZdatnost"
-          id="vystupovaniZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:1003px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.vystupovaniZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.vystupovaniZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:1005px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.vystupovani"
           id="vystupovani"
@@ -1266,13 +1249,12 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:992.48px; left:348.46px; width:70.74px; text-align: right"
           placeholder="*"
         />
-        <input
-          [formControl]="abilitiesControls.zastrasovaniZdatnost"
-          id="zastrasovaniZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:1033px; left:182.09px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(abilitiesControls.zastrasovaniZdatnost)"
+          (click)="cycleAbilityZdatnost(abilitiesControls.zastrasovaniZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:1035px; left:186.09px;"
+        ></div>
         <input
           [formControl]="abilitiesControls.zastrasovani"
           id="zastrasovani"
@@ -2602,7 +2584,7 @@ export class CharacterSheetComponent {
         this._setBlackPriestSpellSlotsLevel17();
         break;
       default:
-        break;
+        this._enableAllSpellSlotsInputs();
     }
 
     const alchymistLevel = parseInt(this.alchemistChestControls.urovenAlchymisty.value ?? '0');
@@ -2669,7 +2651,6 @@ export class CharacterSheetComponent {
         break;
       default:
         this._enableAllChestUsagesInputs();
-        break;
     }
   }
 
@@ -2772,6 +2753,25 @@ export class CharacterSheetComponent {
 
   onOpenSpecialSituationsDialog() {
     openSpecialSituationsDialog(this.dialog);
+  }
+
+  cycleAbilityZdatnost(ctrl: AbstractControl): void {
+    const current = ctrl.value;
+    if (!current || current === '' || current === false || current === 'false') {
+      ctrl.setValue('true');
+    } else if (current === 'true' || current === true) {
+      ctrl.setValue('expertise');
+    } else {
+      ctrl.setValue('');
+    }
+  }
+
+  abilityCheckboxClass(ctrl: AbstractControl): Record<string, boolean> {
+    const v = ctrl.value;
+    return {
+      'ability-zdatnost--checked': v === 'true' || v === true,
+      'ability-zdatnost--expertise': v === 'expertise',
+    };
   }
 
   _setInventoryClasses(strength: string) {
