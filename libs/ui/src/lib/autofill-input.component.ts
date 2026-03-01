@@ -69,11 +69,9 @@ export class AutofillInputComponent implements ControlValueAccessor {
   writeValue(v: string): void {
     this.value.set(v ?? '');
   }
-
   registerOnChange(fn: (v: string) => void): void {
     this.onChange = fn;
   }
-
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }

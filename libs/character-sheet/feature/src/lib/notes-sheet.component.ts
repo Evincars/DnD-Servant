@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, untracked } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { NotesPageForm, RichTextareaComponent } from '@dn-d-servant/character-sheet-util';
+import { NotesPageForm } from '@dn-d-servant/character-sheet-util';
+import { RichTextareaComponent } from '@dn-d-servant/ui';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
 import { MatSnackBar } from '@angular/material/snack-bar';

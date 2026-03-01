@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutofillInputComponent, LocalStorageService, MONSTER_NAMES } from '@dn-d-servant/util';
+import { LocalStorageService, MONSTER_NAMES } from '@dn-d-servant/util';
+import { AutofillInputComponent } from '@dn-d-servant/ui';
 import { Dnd5eApiService, Monster } from '@dn-d-servant/data-access';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';

@@ -26,10 +26,9 @@ import {
   SpellSlotsForm,
   AlchemistChestForm,
   TopInfoForm,
-  SpinnerOverlayComponent,
   InventoryForm,
-  RichTextareaComponent,
 } from '@dn-d-servant/character-sheet-util';
+import { RichTextareaComponent, SpinnerOverlayComponent } from '@dn-d-servant/ui';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
 import { CharacterSheetFormModelMappers } from './api-mappers/character-sheet-form-model-mappers';
