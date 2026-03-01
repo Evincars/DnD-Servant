@@ -4,7 +4,7 @@ import { LocalStorageService } from '@dn-d-servant/util';
 import { Dnd5eApiService, Monster } from '@dn-d-servant/data-access';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { MonsterCardComponent } from './monster-card/monster-card.component';
+import { MonsterCardComponent } from '../monster-card/monster-card.component';
 
 interface InitiativeRow {
   initiative: number | null;

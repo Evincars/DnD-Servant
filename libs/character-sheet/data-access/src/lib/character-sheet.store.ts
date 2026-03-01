@@ -4,6 +4,7 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import {
   CharacterSheetApiModel,
   GroupSheetApiModel,
+  ItemVaultApiModel,
   NotesPageApiModel,
   OtherHorsesPageApiModel,
 } from '@dn-d-servant/character-sheet-util';
@@ -19,6 +20,7 @@ export const CharacterSheetStore = signalStore(
     groupSheet: undefined as GroupSheetApiModel | undefined,
     notesPage: undefined as NotesPageApiModel | undefined,
     otherHorsesPage: undefined as OtherHorsesPageApiModel | undefined,
+    itemVault: undefined as ItemVaultApiModel | undefined,
     characterSheetSaved: false,
     groupSheetSaved: false,
     characterSheetError: '',
@@ -244,6 +246,51 @@ export const CharacterSheetStore = signalStore(
       ),
     );
 
+    const getItemVault = rxMethod<string>(
+      pipe(
+        tap(() => patchState(store, { loading: true })),
+        switchMap(username => {
+          return _characterSheetApiService.getItemVaultByUsername(username).pipe(
+            tapResponse(
+              res => {
+                patchState(store, { itemVault: res, loading: false });
+              },
+              (error: HttpErrorResponse) => {
+                _snackBar.open('Načtení předmětů se nezdařilo: ' + error.message, 'Zavřít', {
+                  verticalPosition: 'top',
+                  duration: 3000,
+                });
+                patchState(store, { loading: false });
+              },
+            ),
+          );
+        }),
+      ),
+    );
+
+    const saveItemVault = rxMethod<ItemVaultApiModel>(
+      pipe(
+        tap(() => patchState(store, { loading: true })),
+        switchMap(req => {
+          return _characterSheetApiService.saveItemVault(req).pipe(
+            tapResponse(
+              () => {
+                patchState(store, { itemVault: req, loading: false });
+                _snackBar.open('Předměty uloženy.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
+              },
+              (error: HttpErrorResponse) => {
+                _snackBar.open('Ukládání předmětů se nezdařilo: ' + error.message, 'Zavřít', {
+                  verticalPosition: 'top',
+                  duration: 3000,
+                });
+                patchState(store, { loading: false });
+              },
+            ),
+          );
+        }),
+      ),
+    );
+
     return {
       patchLoading,
       saveCharacterImage,
@@ -251,11 +298,13 @@ export const CharacterSheetStore = signalStore(
       getGroupSheetByUsername,
       getNotesPageByUsername,
       getOtherHorsesPageByUsername,
+      getItemVault,
       // -----------------------
       saveCharacterSheet,
       saveGroupSheet,
       saveNotesPage,
       saveOtherHorsesPage,
+      saveItemVault,
     };
   }),
   withHooks({}),

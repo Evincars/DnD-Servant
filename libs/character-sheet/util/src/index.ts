@@ -7,3 +7,4 @@ export * from './lib/other-horses-form';
 
 export * from './lib/spinner-overlay.component';
 export * from './lib/rich-textarea.component';
+export * from './lib/item-vault-form';

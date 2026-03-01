@@ -5,6 +5,7 @@ import { GroupSheetComponent } from './group-sheet.component';
 import { NotesSheetComponent } from './notes-sheet.component';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { InitiativeTrackerComponent } from './initiative-tracker/initiative-tracker.component';
+import { ItemVaultComponent } from './item-vault/item-vault.component';
 
 @Component({
   selector: 'character-sheet-tab',
@@ -14,6 +15,7 @@ import { InitiativeTrackerComponent } from './initiative-tracker/initiative-trac
       <mat-tab label="Karta družiny"><group-sheet class="u-mt-2" /></mat-tab>
       <mat-tab label="Poznámky"><notes-sheet class="u-mt-2" /></mat-tab>
       <mat-tab label="Iniciativa"><initiative-tracker /></mat-tab>
+      <mat-tab label="Trezor předmětů"><item-vault /></mat-tab>
     </mat-tab-group>
   `,
   styles: `
@@ -189,6 +191,14 @@ import { InitiativeTrackerComponent } from './initiative-tracker/initiative-trac
   `,
   providers: [CharacterSheetStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatTabGroup, MatTab, CharacterSheetComponent, GroupSheetComponent, NotesSheetComponent, InitiativeTrackerComponent],
+  imports: [
+    MatTabGroup,
+    MatTab,
+    CharacterSheetComponent,
+    GroupSheetComponent,
+    NotesSheetComponent,
+    InitiativeTrackerComponent,
+    ItemVaultComponent,
+  ],
 })
 export class CharacterSheetTabComponent {}

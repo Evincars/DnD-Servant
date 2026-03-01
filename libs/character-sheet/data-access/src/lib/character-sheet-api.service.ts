@@ -4,8 +4,9 @@ import { from, map, Observable } from 'rxjs';
 import {
   CharacterSheetApiModel,
   GroupSheetApiModel,
+  ItemVaultApiModel,
   NotesPageApiModel,
-  OtherHorsesPageApiModel
+  OtherHorsesPageApiModel,
 } from '@dn-d-servant/character-sheet-util';
 import { environment } from '@dn-d-servant/util';
 
@@ -24,16 +25,12 @@ export class CharacterSheetApiService {
 
   getGroupSheetByUsername(username: string): Observable<GroupSheetApiModel | undefined> {
     const docRef = doc(this.firestore, `${environment.characterSheetCollectionName}/${username}`);
-    return from(getDoc(docRef)).pipe(
-      map(snapshot => (snapshot.exists() ? (snapshot.data() as GroupSheetApiModel) : undefined)),
-    );
+    return from(getDoc(docRef)).pipe(map(snapshot => (snapshot.exists() ? (snapshot.data() as GroupSheetApiModel) : undefined)));
   }
 
   getNotesPageByUsername(username: string): Observable<NotesPageApiModel | undefined> {
     const docRef = doc(this.firestore, `${environment.characterSheetCollectionName}/${username}`);
-    return from(getDoc(docRef)).pipe(
-      map(snapshot => (snapshot.exists() ? (snapshot.data() as NotesPageApiModel) : undefined)),
-    );
+    return from(getDoc(docRef)).pipe(map(snapshot => (snapshot.exists() ? (snapshot.data() as NotesPageApiModel) : undefined)));
   }
 
   getOtherHorsesByUsername(username: string): Observable<OtherHorsesPageApiModel | undefined> {
@@ -83,5 +80,17 @@ export class CharacterSheetApiService {
   updateOtherHorsesPage(notesPage: OtherHorsesPageApiModel): Observable<void> {
     const docRef = doc(this.firestore, `${environment.characterSheetCollectionName}/${notesPage.username}`);
     return from(setDoc(docRef, notesPage));
+  }
+
+  // ------------------------------------------
+
+  getItemVaultByUsername(username: string): Observable<ItemVaultApiModel | undefined> {
+    const docRef = doc(this.firestore, `item-vault/${username}`);
+    return from(getDoc(docRef)).pipe(map(snapshot => (snapshot.exists() ? (snapshot.data() as ItemVaultApiModel) : undefined)));
+  }
+
+  saveItemVault(vault: ItemVaultApiModel): Observable<void> {
+    const docRef = doc(this.firestore, `item-vault/${vault.username}`);
+    return from(setDoc(docRef, vault));
   }
 }
