@@ -153,15 +153,37 @@
   }
 }
 
+// Datalist — hide element from layout; browser renders the autocomplete popup natively
+datalist { display: none; }
+
 // Lookup button
 @keyframes it-spin { to { transform: rotate(360deg); } }
 
 .it-lookup-btn {
   width: 32px !important;
   height: 32px !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   flex-shrink: 0;
   color: #7a6fa0 !important;
   transition: color 0.15s, transform 0.15s !important;
+
+  mat-icon, .mat-icon {
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    line-height: 18px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .mat-mdc-button-touch-target,
+  .mat-mdc-button-persistent-ripple,
+  .mdc-icon-button__ripple { display: none !important; }
 
   &:hover       { color: #c8a03c !important; }
   &--active     { color: #78aae8 !important; }
@@ -172,9 +194,28 @@
 .it-remove-btn {
   width: 32px !important;
   height: 32px !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   flex-shrink: 0;
   color: #6b6580 !important;
   transition: color 0.15s !important;
+
+  mat-icon, .mat-icon {
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    line-height: 18px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .mat-mdc-button-touch-target,
+  .mat-mdc-button-persistent-ripple,
+  .mdc-icon-button__ripple { display: none !important; }
 
   &:hover { color: #e05555 !important; }
 }

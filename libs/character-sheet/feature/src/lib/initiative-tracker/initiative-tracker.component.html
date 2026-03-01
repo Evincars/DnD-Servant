@@ -20,6 +20,13 @@
       </div>
 
       <div class="it-rows">
+        <!-- datalist for monster name autocomplete -->
+        <datalist id="monster-names-list">
+          @for (name of monsterNames; track name) {
+            <option [value]="name"></option>
+          }
+        </datalist>
+
         @for (row of rows(); track $index) {
           <div
             class="it-row"
@@ -29,7 +36,13 @@
           >
             <span class="it-turn-indicator">{{ $index === activeIndex() ? '▶' : '' }}</span>
             <input [(ngModel)]="row.initiative" type="number" class="it-input it-input--sm" placeholder="—" />
-            <input [(ngModel)]="row.name" type="text" class="it-input it-input--name" placeholder="Název / jméno" />
+            <input
+              [(ngModel)]="row.name"
+              type="text"
+              class="it-input it-input--name"
+              placeholder="Název / jméno"
+              list="monster-names-list"
+            />
             <input [(ngModel)]="row.ac" type="number" class="it-input it-input--sm" placeholder="—" />
             <input [(ngModel)]="row.hp" type="number" class="it-input it-input--sm" placeholder="—" />
             <button

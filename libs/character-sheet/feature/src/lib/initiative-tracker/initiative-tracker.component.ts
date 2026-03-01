@@ -5,6 +5,7 @@ import { Dnd5eApiService, Monster } from '@dn-d-servant/data-access';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MonsterCardComponent } from '../monster-card/monster-card.component';
+import { MONSTER_NAMES } from './monster-names';
 
 interface InitiativeRow {
   initiative: number | null;
@@ -25,6 +26,8 @@ const STORAGE_KEY = 'initiative-tracker';
 export class InitiativeTrackerComponent {
   private readonly localStorageService = inject(LocalStorageService);
   private readonly dnd5eApi = inject(Dnd5eApiService);
+
+  readonly monsterNames = MONSTER_NAMES;
 
   rows = signal<InitiativeRow[]>(this._load());
   activeIndex = signal(0);
