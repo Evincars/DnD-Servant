@@ -311,7 +311,8 @@ import html2canvas from 'html2canvas';
     .main-content {
       flex: 1;
       min-height: 0;
-      width: 1310px;
+      width: 1350px;
+      max-width: calc(100vw - 32px);
       margin: 0 auto;
       padding: calc(var(--spacing-3) + 8px);
       background: rgba(14,11,8,.97);

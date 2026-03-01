@@ -262,39 +262,70 @@ mat-dialog-content.dialog-content,
   }
 }
 
-/* scrollbar */
+// ════════════════════════════════════════════════════════════════
+// OVERFLOW — kill horizontal browser scroll
+// ════════════════════════════════════════════════════════════════
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw;
+}
+
+mat-sidenav-container,
+mat-sidenav-content {
+  overflow-x: hidden !important;
+}
+
+// ════════════════════════════════════════════════════════════════
+// SCROLLBAR — D&D dark fantasy style
+// ════════════════════════════════════════════════════════════════
 ::-webkit-scrollbar {
-  height: 14px;
-  width: 14px;
-}
-
-::-webkit-scrollbar-thumb:horizontal {
-  background: #555;
-  background-clip: padding-box;
-
-  &:hover {
-    background-color: #444;
-  }
-
-  &:active {
-    background-color: #222;
-  }
-}
-
-::-webkit-scrollbar-thumb:vertical {
-  background: #555;
-  background-clip: padding-box;
-
-  &:hover {
-    background-color: #444;
-  }
-
-  &:active {
-    background-color: #222;
-  }
+  height: 8px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
+  background: rgba(10,8,6,.95);
+  border-left: 1px solid rgba(200,160,60,.08);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6a4a10, #c8a03c 45%, #6a4a10);
+  border-radius: 4px;
+  border: 1px solid rgba(200,160,60,.2);
   background-clip: padding-box;
-  background-color: #333;
+
+  &:hover {
+    background: linear-gradient(180deg, #8a6418, #e8c050 45%, #8a6418);
+    border-color: rgba(200,160,60,.5);
+  }
+
+  &:active {
+    background: linear-gradient(180deg, #c8a03c, #f0d060 45%, #c8a03c);
+  }
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  background: linear-gradient(90deg, #6a4a10, #c8a03c 45%, #6a4a10);
+  border-radius: 4px;
+  border: 1px solid rgba(200,160,60,.2);
+  background-clip: padding-box;
+
+  &:hover {
+    background: linear-gradient(90deg, #8a6418, #e8c050 45%, #8a6418);
+    border-color: rgba(200,160,60,.5);
+  }
+
+  &:active {
+    background: linear-gradient(90deg, #c8a03c, #f0d060 45%, #c8a03c);
+  }
+}
+
+::-webkit-scrollbar-corner {
+  background: rgba(10,8,6,.95);
+}
+
+// Firefox
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c8a03c rgba(10,8,6,.95);
 }
