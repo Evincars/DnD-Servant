@@ -85,8 +85,6 @@ import html2canvas from 'html2canvas';
           <div class="author-info">
             <span class="u-flex u-align-center">
               @if (authService.currentUser()) {
-              <span class="toolbar-label">Přihlášen</span>
-              &nbsp;
               <b class="username u-mr-3">{{ authService.currentUser()!.username }}</b>
               <a class="link token u-mr-9" href="#" (click)="this.authService.logout()">Odhlásit</a>
               } @if (authService.currentUser() === null) {
