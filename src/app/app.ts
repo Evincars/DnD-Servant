@@ -98,7 +98,7 @@ import html2canvas from 'html2canvas';
               >
                 <mat-icon class="toolbar-icon">code_blocks</mat-icon>
               </a>
-              <a class="link" target="_blank" href="https://lasak.netlify.app/">lasaks.eu</a>
+              <a class="link author-link" target="_blank" href="https://lasak.netlify.app/">lasaks.eu</a>
             </div>
           </div>
         </mat-toolbar>
