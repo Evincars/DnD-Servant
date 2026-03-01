@@ -195,6 +195,73 @@ mat-dialog-content.dialog-content,
   }
 }
 
+// ════════════════════════════════════════════════════════════════
+// TOOLTIP — D&D dark fantasy style
+// ════════════════════════════════════════════════════════════════
+.mat-mdc-tooltip .mdc-tooltip__surface {
+  background:
+    linear-gradient(135deg, rgba(12,10,8,.98) 0%, rgba(20,16,12,.98) 100%),
+    url('https://www.transparenttextures.com/patterns/dark-leather.png') !important;
+  background-color: #0e0b08 !important;
+  border: 1px solid rgba(200,160,60,.4) !important;
+  border-radius: 5px !important;
+  color: #e0d0b0 !important;
+  font-size: 11px !important;
+  font-family: sans-serif !important;
+  letter-spacing: .03em !important;
+  padding: 5px 10px !important;
+  box-shadow:
+    0 0 0 1px rgba(200,160,60,.08),
+    0 4px 16px rgba(0,0,0,.8) !important;
+}
+
+// ════════════════════════════════════════════════════════════════
+// SNACKBAR — D&D dark fantasy style
+// ════════════════════════════════════════════════════════════════
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: transparent !important;
+  --mdc-snackbar-supporting-text-color: #e0d0b0 !important;
+
+  .mdc-snackbar__surface {
+    background:
+      linear-gradient(135deg, rgba(12,10,8,.99) 0%, rgba(22,17,12,.99) 100%),
+      url('https://www.transparenttextures.com/patterns/dark-leather.png') !important;
+    background-color: #0e0b08 !important;
+    border: 1px solid rgba(200,160,60,.4) !important;
+    border-radius: 8px !important;
+    box-shadow:
+      0 0 0 1px rgba(200,160,60,.1),
+      0 6px 30px rgba(0,0,0,.85),
+      inset 0 1px 0 rgba(255,220,100,.05) !important;
+    padding: 0 8px !important;
+
+    // gold top shimmer line
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,160,60,.5), transparent);
+      pointer-events: none;
+    }
+  }
+
+  .mat-mdc-snack-bar-label {
+    color: #e0d0b0 !important;
+    font-size: 13px !important;
+    letter-spacing: .03em !important;
+  }
+
+  // action button
+  .mat-mdc-button.mat-mdc-snack-bar-action {
+    color: #c8a03c !important;
+    font-family: 'Mikadan', sans-serif !important;
+    letter-spacing: .06em !important;
+
+    &:hover { color: #e8c96a !important; }
+  }
+}
+
 /* scrollbar */
 ::-webkit-scrollbar {
   height: 14px;

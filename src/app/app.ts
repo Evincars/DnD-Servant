@@ -107,6 +107,10 @@ import html2canvas from 'html2canvas';
           <span class="toolbar-gem toolbar-gem--right">◆</span>
         </mat-toolbar>
         <div class="main-content u-flex-col" #content>
+          <span class="main-corner main-corner--tl">◆</span>
+          <span class="main-corner main-corner--tr">◆</span>
+          <span class="main-corner main-corner--bl">◆</span>
+          <span class="main-corner main-corner--br">◆</span>
           <router-outlet />
         </div>
         @if (showBackToTop()) {
@@ -309,18 +313,70 @@ import html2canvas from 'html2canvas';
       min-height: 0;
       width: 1310px;
       margin: 0 auto;
-      border: 2px solid #333;
       padding: var(--spacing-3);
-      border-radius: var(--border-radius-1);
-      background: #232222;
-      opacity: 0.9;
+      border-radius: 2px;
+      background: rgba(18,14,10,.96);
       margin-top: var(--spacing-3) !important;
       margin-bottom: var(--spacing-3) !important;
       display: flex;
       flex-direction: column;
+      box-sizing: border-box;
+      position: relative;
 
-      // router outlet siblings (login, register, character-sheet) fill height
+      // outer glow border
+      border: 1px solid rgba(200,160,60,.35);
+      box-shadow:
+        0 0 0 3px rgba(10,8,6,.9),
+        0 0 0 4px rgba(200,160,60,.18),
+        0 0 0 7px rgba(10,8,6,.85),
+        0 0 40px rgba(0,0,0,.8),
+        inset 0 1px 0 rgba(255,220,100,.05);
+
+      // inner inset line
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 6px;
+        border: 1px solid rgba(200,160,60,.12);
+        border-radius: 2px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      // corner gem — top-left
+      &::after {
+        content: '◆';
+        position: absolute;
+        top: -7px; left: 50%;
+        transform: translateX(-50%);
+        font-size: 11px;
+        color: #c8a03c;
+        text-shadow: 0 0 8px rgba(200,160,60,.6);
+        background: rgba(10,8,6,1);
+        padding: 0 6px;
+        pointer-events: none;
+        z-index: 1;
+      }
+
       > * { flex: 1; min-height: 0; }
+    }
+
+    // corner gem spans injected via template
+    .main-corner {
+      position: absolute;
+      font-size: 10px;
+      color: #c8a03c;
+      text-shadow: 0 0 6px rgba(200,160,60,.5);
+      background: rgba(10,8,6,1);
+      padding: 0 3px;
+      line-height: 1;
+      z-index: 2;
+      pointer-events: none;
+
+      &--tl { top: -6px;  left:  12px; }
+      &--tr { top: -6px;  right: 12px; }
+      &--bl { bottom: -6px; left:  12px; }
+      &--br { bottom: -6px; right: 12px; }
     }
 
     .toolbar {
