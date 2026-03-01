@@ -60,36 +60,37 @@ import html2canvas from 'html2canvas';
       </mat-sidenav>
 
       <mat-sidenav-content>
-        <mat-toolbar class="toolbar u-flex u-justify-between u-align-center">
-          <span class="toolbar-gem toolbar-gem--left">◆</span>
-          <div class="u-flex u-align-center">
-            <button matIconButton (click)="sidenav.toggle()" class="menu-btn u-mr-3" aria-label="Toggle menu">
-              <mat-icon>menu</mat-icon>
-            </button>
-            <img src="JaD-logo.png" alt="Dungeons & Dragons Logo" class="logo u-mr-3" />
-            <span>Servant</span>
-            <button
-              matIconButton
-              (click)="onScreenshotBackupClick()"
-              [disabled]="screenshotLoading()"
-              class="toolbar-action-btn u-ml-3"
-              matTooltip="Stáhnout zálohu jako obrázky (PNG)"
-            >
-              @if (screenshotLoading()) {
-              <mat-icon>hourglass_empty</mat-icon>
-              } @else {
-              <mat-icon>photo_camera</mat-icon>
-              }
-            </button>
-          </div>
-          <div class="author-info">
-            <span class="u-flex u-align-center">
+        <mat-toolbar class="toolbar">
+          <div class="toolbar__inner">
+            <div class="toolbar__left u-flex u-align-center">
+              <button matIconButton (click)="sidenav.toggle()" class="menu-btn u-mr-3" aria-label="Toggle menu">
+                <mat-icon>menu</mat-icon>
+              </button>
+              <img src="JaD-logo.png" alt="Dungeons & Dragons Logo" class="logo u-mr-3" />
+              <span>Servant</span>
+              <button
+                matIconButton
+                (click)="onScreenshotBackupClick()"
+                [disabled]="screenshotLoading()"
+                class="toolbar-action-btn u-ml-3"
+                matTooltip="Stáhnout zálohu jako obrázky (PNG)"
+              >
+                @if (screenshotLoading()) {
+                <mat-icon>hourglass_empty</mat-icon>
+                } @else {
+                <mat-icon>photo_camera</mat-icon>
+                }
+              </button>
+            </div>
+            <div class="toolbar__right author-info u-flex u-align-center">
               @if (authService.currentUser()) {
-              <b class="username u-mr-3">{{ authService.currentUser()!.username }}</b>
-              <a class="link token u-mr-9" href="#" (click)="this.authService.logout()">Odhlásit</a>
+              <b class="username u-mr-2">{{ authService.currentUser()!.username }}</b>
+              <button matIconButton class="logout-btn u-mr-1" matTooltip="Odhlásit" (click)="this.authService.logout()">
+                <mat-icon>logout</mat-icon>
+              </button>
               } @if (authService.currentUser() === null) {
-              <a class="link token u-mr-3" [routerLink]="routes.login">Přihlásit</a>
-              <a class="link token u-mr-9" [routerLink]="routes.register">Registrovat</a>
+              <a class="link token u-mr-2" [routerLink]="routes.login">Přihlásit</a>
+              <a class="link token u-mr-2" [routerLink]="routes.register">Registrovat</a>
               }
               <a
                 target="_blank"
@@ -97,12 +98,11 @@ import html2canvas from 'html2canvas';
                 matTooltip="DnD Servant GitHub repository"
                 class="link u-flex u-align-center u-mr-2"
               >
-                <mat-icon>code_blocks</mat-icon>
+                <mat-icon class="toolbar-icon">code_blocks</mat-icon>
               </a>
               <a class="link" target="_blank" href="https://lasak.netlify.app/">lasaks.eu</a>
-            </span>
+            </div>
           </div>
-          <span class="toolbar-gem toolbar-gem--right">◆</span>
         </mat-toolbar>
         <div class="main-content u-flex-col" #content>
           <span class="main-corner main-corner--tl">◆</span>
@@ -407,18 +407,23 @@ import html2canvas from 'html2canvas';
       box-shadow: 0 3px 28px rgba(0,0,0,.85), inset 0 -1px 0 rgba(200,160,60,.18) !important;
       color: #e0d4c0 !important;
       position: relative;
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      padding: 0 !important;
+      gap: 0 !important;
 
       // bottom gold shimmer line
       &::after {
         content: '';
         position: absolute;
-        bottom: 0; left: 3%; right: 3%;
+        bottom: 0; left: 0; right: 0;
         height: 1px;
         background: linear-gradient(90deg, transparent, rgba(200,160,60,.6), transparent);
         pointer-events: none;
       }
 
-      // left gem
+      // centre gem below toolbar
       &::before {
         content: '◆';
         position: absolute;
@@ -431,7 +436,7 @@ import html2canvas from 'html2canvas';
 
       span {
         font-family: 'Mikadan', sans-serif;
-        font-size: 20px;
+        font-size: 17px;
         font-weight: 700;
         color: #e8c96a;
         letter-spacing: .08em;
@@ -439,24 +444,58 @@ import html2canvas from 'html2canvas';
       }
     }
 
-    .toolbar-gem {
-      color: rgba(200,160,60,.55);
+    .toolbar__inner {
+      width: 1310px;
+      max-width: calc(100vw - 32px);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 100%;
+      padding: 0;
+    }
+
+    .toolbar__left {
+      flex: 0 0 auto;
+    }
+
+    .toolbar__right {
+      margin-left: auto;
+      flex: 0 0 auto;
       font-size: 10px;
-      flex-shrink: 0;
-      user-select: none;
-      text-shadow: 0 0 8px rgba(200,160,60,.4);
+      color: #8a8090;
+      gap: 4px;
     }
 
     .toolbar-label {
       color: #6b6070;
-      font-size: 13px;
+      font-size: 10px;
+      letter-spacing: .04em;
     }
 
     .toolbar-action-btn {
       color: #8a7060 !important;
       transition: color .15s !important;
-
       &:hover { color: #c8a03c !important; }
+    }
+
+    .toolbar-icon {
+      font-size: 16px !important;
+      width: 16px !important;
+      height: 16px !important;
+      color: #8a7060;
+      transition: color .15s;
+      &:hover { color: #c8a03c; }
+    }
+
+    .logout-btn {
+      width: 26px !important;
+      height: 26px !important;
+      line-height: 26px !important;
+      color: #7a6a6a !important;
+      transition: color .15s, transform .12s !important;
+      mat-icon { font-size: 15px !important; width: 15px !important; height: 15px !important; }
+      &:hover { color: #e05555 !important; transform: scale(1.15) !important; }
     }
 
     @keyframes menu-pulse {
@@ -490,39 +529,34 @@ import html2canvas from 'html2canvas';
     }
 
     .author-info {
-      font-size: 13px;
+      font-size: 18px;
       color: #8a8090;
+      
+      input {
+        font-size: 25px;
+      }
     }
 
     .link {
       color: #a09090;
       text-decoration: none;
       transition: color .15s;
-
-      &:hover {
-        color: #e8d5a0;
-        text-decoration: underline;
-      }
+      &:hover { color: #e8d5a0; text-decoration: underline; }
     }
 
     .token {
       background: rgba(200,160,60,.1);
       border: 1px solid rgba(200,160,60,.25);
       color: #c8bfb0;
-      font-size: 13px;
+      font-size: 10px;
       border-radius: var(--border-radius-1);
-      padding: var(--spacing-1) var(--spacing-2);
+      padding: 2px 8px;
       transition: background .15s, border-color .15s;
-
-      &:hover {
-        background: rgba(200,160,60,.2);
-        border-color: rgba(200,160,60,.5);
-        color: #e8d5a0;
-      }
+      &:hover { background: rgba(200,160,60,.2); border-color: rgba(200,160,60,.5); color: #e8d5a0; }
     }
 
     .username {
-      font-size: 15px;
+      font-size: 11px;
       color: #e8c96a;
       text-shadow: 0 0 10px rgba(200,160,60,.3);
     }
