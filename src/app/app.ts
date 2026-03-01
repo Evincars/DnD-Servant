@@ -93,11 +93,14 @@ import html2canvas from 'html2canvas';
               <a class="link token u-mr-3" [routerLink]="routes.login">Přihlásit</a>
               <a class="link token u-mr-9" [routerLink]="routes.register">Registrovat</a>
               }
-              <a target="_blank" href="https://github.com/Evincars/DnD-Servant" class="link u-flex u-align-center u-mr-2">
+              <a
+                target="_blank"
+                href="https://github.com/Evincars/DnD-Servant"
+                matTooltip="DnD Servant GitHub repository"
+                class="link u-flex u-align-center u-mr-2"
+              >
                 <mat-icon>code_blocks</mat-icon>
               </a>
-              <span class="toolbar-label">Created by</span>
-              &nbsp;
               <a class="link" target="_blank" href="https://lasak.netlify.app/">lasaks.eu</a>
             </span>
           </div>
@@ -302,6 +305,8 @@ import html2canvas from 'html2canvas';
 
     /* ─── rest of existing styles ─────────────────────── */
     .main-content {
+      flex: 1;
+      min-height: 0;
       width: 1310px;
       margin: 0 auto;
       border: 2px solid #333;
@@ -311,6 +316,11 @@ import html2canvas from 'html2canvas';
       opacity: 0.9;
       margin-top: var(--spacing-3) !important;
       margin-bottom: var(--spacing-3) !important;
+      display: flex;
+      flex-direction: column;
+
+      // router outlet siblings (login, register, character-sheet) fill height
+      > * { flex: 1; min-height: 0; }
     }
 
     .toolbar {

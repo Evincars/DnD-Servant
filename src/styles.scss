@@ -110,6 +110,14 @@ body {
 }
 
 // ════════════════════════════════════════════════════════════════
+// SIDENAV CONTENT — flex column so children fill height
+// ════════════════════════════════════════════════════════════════
+mat-sidenav-content {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+// ════════════════════════════════════════════════════════════════
 // TOOLBAR — D&D dark fantasy style
 // ════════════════════════════════════════════════════════════════
 mat-toolbar.toolbar {

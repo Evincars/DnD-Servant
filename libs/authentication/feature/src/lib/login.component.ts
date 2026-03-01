@@ -65,11 +65,13 @@ import { MatIcon } from '@angular/material/icon';
   `,
   styles: `
     .auth-page {
-      min-height: 100vh;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 32px 16px;
+      padding: 12px 16px;
+      box-sizing: border-box;
+      overflow: hidden;
     }
 
     .auth-card {
