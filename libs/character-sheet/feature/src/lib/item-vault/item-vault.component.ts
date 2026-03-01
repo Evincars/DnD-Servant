@@ -615,7 +615,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     }
   `,
   template: `
-    <spinner-overlay [showSpinner]="store.loading()" [filled]="true">
+    <spinner-overlay [showSpinner]="store.loading()" [diameter]="50">
       <div class="vault-header">
         <div class="vault-title">
           <mat-icon>auto_awesome</mat-icon>
