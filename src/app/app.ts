@@ -313,7 +313,7 @@ import html2canvas from 'html2canvas';
       min-height: 0;
       width: 1310px;
       margin: 0 auto;
-      padding: var(--spacing-3);
+      padding: calc(var(--spacing-3) + 8px);
       background: rgba(14,11,8,.97);
       margin-top: var(--spacing-3) !important;
       margin-bottom: var(--spacing-3) !important;
@@ -322,75 +322,80 @@ import html2canvas from 'html2canvas';
       box-sizing: border-box;
       position: relative;
 
-      // base thin border
-      border: 1px solid rgba(200,160,60,.22);
-      border-radius: 0;
+      // outer thin gold line
+      border: 1px solid rgba(200,160,60,.3);
+      // inner double line via outline
+      outline: 1px solid rgba(200,160,60,.12);
+      outline-offset: -6px;
 
-      // full inner inset double-line
-      &::before {
-        content: '';
-        position: absolute;
-        inset: 4px;
-        border: 1px solid rgba(200,160,60,.1);
-        pointer-events: none;
-        z-index: 0;
-      }
+      box-shadow:
+        0 0 60px rgba(0,0,0,.7),
+        inset 0 0 80px rgba(0,0,0,.3);
 
-      // top-center title gem break
+      // SVG corner ornament — top-left (fleur-de-lis style cross)
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23c8a03c' stroke-width='1.2' opacity='0.85'%3E%3Cline x1='8' y1='8' x2='32' y2='8'/%3E%3Cline x1='8' y1='8' x2='8' y2='32'/%3E%3Cline x1='8' y1='8' x2='18' y2='18'/%3E%3Ccircle cx='8' cy='8' r='2.5' fill='%23c8a03c'/%3E%3Ccircle cx='32' cy='8' r='1.2' fill='%23c8a03c' opacity='0.5'/%3E%3Ccircle cx='8' cy='32' r='1.2' fill='%23c8a03c' opacity='0.5'/%3E%3C/g%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23c8a03c' stroke-width='1.2' opacity='0.85'%3E%3Cline x1='40' y1='8' x2='16' y2='8'/%3E%3Cline x1='40' y1='8' x2='40' y2='32'/%3E%3Cline x1='40' y1='8' x2='30' y2='18'/%3E%3Ccircle cx='40' cy='8' r='2.5' fill='%23c8a03c'/%3E%3Ccircle cx='16' cy='8' r='1.2' fill='%23c8a03c' opacity='0.5'/%3E%3Ccircle cx='40' cy='32' r='1.2' fill='%23c8a03c' opacity='0.5'/%3E%3C/g%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23c8a03c' stroke-width='1.2' opacity='0.85'%3E%3Cline x1='8' y1='40' x2='32' y2='40'/%3E%3Cline x1='8' y1='40' x2='8' y2='16'/%3E%3Cline x1='8' y1='40' x2='18' y2='30'/%3E%3Ccircle cx='8' cy='40' r='2.5' fill='%23c8a03c'/%3E%3Ccircle cx='32' cy='40' r='1.2' fill='%23c8a03c' opacity='0.5'/%3E%3Ccircle cx='8' cy='16' r='1.2' fill='%23c8a03c' opacity='0.5'/%3E%3C/g%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23c8a03c' stroke-width='1.2' opacity='0.85'%3E%3Cline x1='40' y1='40' x2='16' y2='40'/%3E%3Cline x1='40' y1='40' x2='40' y2='16'/%3E%3Cline x1='40' y1='40' x2='30' y2='30'/%3E%3Ccircle cx='40' cy='40' r='2.5' fill='%23c8a03c'/%3E%3Ccircle cx='16' cy='40' r='1.2' fill='%23c8a03c' opacity='0.5'/%3E%3Ccircle cx='40' cy='16' r='1.2' fill='%23c8a03c' opacity='0.5'/%3E%3C/g%3E%3C/svg%3E");
+      background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+      background-position: top left, top right, bottom left, bottom right;
+      background-size: 48px 48px, 48px 48px, 48px 48px, 48px 48px;
+
+      // top-center title banner
       &::after {
         content: '✦  Jeskyně a Draci  ✦';
         position: absolute;
         top: -9px; left: 50%;
         transform: translateX(-50%);
-        font-size: 9px;
+        font-size: 10px;
         font-family: 'Mikadan', sans-serif;
-        letter-spacing: .18em;
-        color: rgba(200,160,60,.7);
-        text-shadow: 0 0 10px rgba(200,160,60,.4);
+        letter-spacing: .2em;
+        color: #c8a03c;
+        text-shadow: 0 0 12px rgba(200,160,60,.55);
         background: rgba(14,11,8,1);
-        padding: 0 10px;
+        padding: 0 12px;
         pointer-events: none;
         white-space: nowrap;
+        z-index: 1;
+      }
+
+      // bottom-center small gem
+      &::before {
+        content: '◆';
+        position: absolute;
+        bottom: -7px; left: 50%;
+        transform: translateX(-50%);
+        font-size: 9px;
+        color: rgba(200,160,60,.5);
+        text-shadow: 0 0 8px rgba(200,160,60,.4);
+        background: rgba(14,11,8,1);
+        padding: 0 8px;
+        pointer-events: none;
         z-index: 1;
       }
 
       > * { flex: 1; min-height: 0; }
     }
 
-    // Corner L-bracket decorators (top-left, top-right, bottom-left, bottom-right)
+    // mid-edge diamond accents on left & right sides
     .main-corner {
       position: absolute;
-      width: 18px;
-      height: 18px;
-      pointer-events: none;
+      font-size: 10px;
+      color: rgba(200,160,60,.6);
+      text-shadow: 0 0 8px rgba(200,160,60,.4);
+      background: rgba(14,11,8,1);
+      padding: 2px 2px;
+      line-height: 1;
       z-index: 2;
+      pointer-events: none;
 
-      &::before, &::after {
-        content: '';
-        position: absolute;
-        background: #c8a03c;
-        box-shadow: 0 0 6px rgba(200,160,60,.5);
-      }
-      // horizontal bar
-      &::before { height: 2px; width: 100%; top: 0; left: 0; }
-      // vertical bar
-      &::after  { width: 2px; height: 100%; top: 0; left: 0; }
-
-      &--tl { top:  -1px; left:  -1px; }
-      &--tr {
-        top:  -1px; right: -1px;
-        &::before { left: auto; right: 0; }
-        &::after  { left: auto; right: 0; }
-      }
-      &--bl {
-        bottom: -1px; left: -1px;
-        &::before { top: auto; bottom: 0; }
-      }
-      &--br {
-        bottom: -1px; right: -1px;
-        &::before { top: auto; bottom: 0; left: auto; right: 0; }
-        &::after  { top: auto; bottom: 0; left: auto; right: 0; }
-      }
+      // left & right mid-edge
+      &--tl { top: 50%;  left:  -6px; transform: translateY(-50%); }
+      &--tr { top: 50%;  right: -6px; transform: translateY(-50%); }
+      // quarter points top
+      &--bl { top: -6px; left:  25%;  transform: translateX(-50%); }
+      &--br { top: -6px; right: 25%;  transform: translateX(50%);  }
     }
 
     .toolbar {
