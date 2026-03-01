@@ -69,25 +69,23 @@ import html2canvas from 'html2canvas';
               <img src="JaD-logo.png" alt="Dungeons & Dragons Logo" class="logo u-mr-3" />
               <span>Servant</span>
               <button
-                matIconButton
                 (click)="onScreenshotBackupClick()"
                 [disabled]="screenshotLoading()"
-                class="toolbar-action-btn u-ml-3"
+                class="github-link backup-btn u-ml-3"
                 matTooltip="Stáhnout zálohu jako obrázky (PNG)"
               >
                 @if (screenshotLoading()) {
-                <mat-icon>hourglass_empty</mat-icon>
+                <mat-icon class="toolbar-icon">hourglass_empty</mat-icon>
                 } @else {
-                <mat-icon>photo_camera</mat-icon>
+                <mat-icon class="toolbar-icon">photo_camera</mat-icon>
                 }
+                <span class="backup-btn__label">Záloha</span>
               </button>
             </div>
             <div class="toolbar__right author-info u-flex u-align-center">
               @if (authService.currentUser()) {
               <b class="username u-mr-2">{{ authService.currentUser()!.username }}</b>
-              <button matIconButton class="logout-btn u-mr-1" matTooltip="Odhlásit" (click)="this.authService.logout()">
-                <mat-icon>logout</mat-icon>
-              </button>
+              <a class="link token u-mr-2" href="#" (click)="$event.preventDefault(); this.authService.logout()">Odhlásit</a>
               } @if (authService.currentUser() === null) {
               <a class="link token u-mr-2" [routerLink]="routes.login">Přihlásit</a>
               <a class="link token u-mr-2" [routerLink]="routes.register">Registrovat</a>
@@ -96,7 +94,7 @@ import html2canvas from 'html2canvas';
                 target="_blank"
                 href="https://github.com/Evincars/DnD-Servant"
                 matTooltip="DnD Servant GitHub repository"
-                class="link u-flex u-align-center u-mr-2"
+                class="github-link u-flex u-align-center u-mr-2"
               >
                 <mat-icon class="toolbar-icon">code_blocks</mat-icon>
               </a>
@@ -479,13 +477,59 @@ import html2canvas from 'html2canvas';
       &:hover { color: #c8a03c !important; }
     }
 
+    .github-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      border: 1px solid rgba(200,160,60,.25);
+      background: rgba(200,160,60,.07);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background .18s, border-color .18s, box-shadow .18s;
+
+      &:hover {
+        background: rgba(200,160,60,.18);
+        border-color: rgba(200,160,60,.6);
+        box-shadow: 0 0 12px rgba(200,160,60,.3);
+      }
+    }
+
+    .backup-btn {
+      width: auto;
+      padding: 0 8px;
+      gap: 5px;
+
+      &:disabled {
+        opacity: .45;
+        cursor: not-allowed;
+      }
+
+      &__label {
+        font-family: 'Mikadan', sans-serif;
+        font-size: 10px;
+        letter-spacing: .06em;
+        color: #a08060;
+        transition: color .15s;
+      }
+
+      &:hover:not(:disabled) .backup-btn__label {
+        color: #e8c96a;
+      }
+    }
+
     .toolbar-icon {
-      font-size: 16px !important;
-      width: 16px !important;
-      height: 16px !important;
-      color: #8a7060;
-      transition: color .15s;
-      &:hover { color: #c8a03c; }
+      font-size: 22px !important;
+      width: 22px !important;
+      height: 22px !important;
+      color: #a08060;
+      transition: color .15s, filter .15s;
+      &:hover {
+        color: #e8c96a;
+        filter: drop-shadow(0 0 6px rgba(200,160,60,.6));
+      }
     }
 
     .logout-btn {
@@ -529,12 +573,8 @@ import html2canvas from 'html2canvas';
     }
 
     .author-info {
-      font-size: 18px;
+      font-size: 10px;
       color: #8a8090;
-      
-      input {
-        font-size: 25px;
-      }
     }
 
     .link {
