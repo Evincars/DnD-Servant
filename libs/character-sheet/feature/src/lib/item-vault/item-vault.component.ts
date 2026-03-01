@@ -15,13 +15,13 @@ import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService } from '@dn-d-servant/util';
-import { ItemVaultApiModel, ItemVaultEntry } from '@dn-d-servant/character-sheet-util';
+import { ItemVaultApiModel, ItemVaultEntry, SpinnerOverlayComponent } from '@dn-d-servant/character-sheet-util';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'item-vault',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, MatIcon, MatIconButton, MatTooltip],
+  imports: [FormsModule, MatIcon, MatIconButton, MatTooltip, SpinnerOverlayComponent],
   styles: `
     :host {
       display: block;
@@ -297,12 +297,21 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       transition: color .18s !important;
       width: 28px !important;
       height: 28px !important;
-      line-height: 28px !important;
-      display: flex !important;
+      padding: 0 !important;
+      line-height: 1 !important;
+      display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
 
-      mat-icon { font-size: 16px !important; width: 16px !important; height: 16px !important; line-height: 16px !important; }
+      .mat-icon, mat-icon {
+        font-size: 16px !important;
+        width: 16px !important;
+        height: 16px !important;
+        line-height: 16px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
       &:hover { color: #e05555 !important; }
     }
 
@@ -324,14 +333,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
       &::placeholder { color: rgba(200,160,60,.2); font-style: italic; }
       &:focus { border-color: rgba(200,160,60,.35); }
-    }
-
-    /* ── Image size warning ──────────────────────────────── */
-    .size-warning {
-      font-size: 10px;
-      color: rgba(220,100,80,.7);
-      margin-top: 4px;
-      letter-spacing: .04em;
     }
 
     /* ── View full image button ──────────────────────────── */
@@ -362,6 +363,140 @@ import { MatSnackBar } from '@angular/material/snack-bar';
         justify-content: center !important;
       }
       &:hover { background: rgba(0,0,0,.8) !important; color: #e8c96a !important; }
+    }
+
+    /* ── Confirm delete dialog ───────────────────────────── */
+    .confirm-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(0,0,0,.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeInBackdrop .14s ease;
+    }
+
+    .confirm-dialog {
+      position: relative;
+      background:
+        linear-gradient(160deg,
+          rgba(50,34,12,.99) 0%,
+          rgba(30,20,7,1)  100%);
+      border: 1px solid rgba(200,160,60,.35);
+      border-top: 2px solid rgba(200,160,60,.7);
+      box-shadow:
+        0 12px 50px rgba(0,0,0,.9),
+        inset 0 1px 0 rgba(255,220,80,.07);
+      border-radius: 3px;
+      padding: 28px 32px 24px;
+      min-width: 320px;
+      max-width: 420px;
+      animation: scaleInImg .14s ease;
+      cursor: default;
+
+      /* corner ornaments */
+      &::before {
+        content: '◆';
+        position: absolute;
+        top: 7px; left: 9px;
+        font-size: 7px;
+        color: rgba(200,160,60,.4);
+        pointer-events: none;
+      }
+      &::after {
+        content: '◆';
+        position: absolute;
+        bottom: 7px; right: 9px;
+        font-size: 7px;
+        color: rgba(200,160,60,.4);
+        pointer-events: none;
+      }
+    }
+
+    .confirm-icon {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 14px;
+
+      mat-icon {
+        font-size: 38px;
+        width: 38px;
+        height: 38px;
+        color: rgba(200,80,60,.7);
+        filter: drop-shadow(0 0 10px rgba(200,60,40,.35));
+      }
+    }
+
+    .confirm-title {
+      font-family: 'Mikadan', sans-serif;
+      font-size: 15px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #e8c96a;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .confirm-message {
+      font-size: 12px;
+      color: #a09070;
+      text-align: center;
+      line-height: 1.6;
+      margin-bottom: 24px;
+
+      strong {
+        color: #d4a84b;
+        font-style: italic;
+      }
+    }
+
+    .confirm-rule {
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent, rgba(200,160,60,.3) 50%, transparent);
+      margin-bottom: 20px;
+    }
+
+    .confirm-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .confirm-btn {
+      font-family: 'Mikadan', sans-serif;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      padding: 7px 22px;
+      cursor: pointer;
+      transition: background .18s, border-color .18s, color .18s;
+    }
+
+    .confirm-btn-cancel {
+      background: rgba(200,160,60,.06);
+      border: 1px solid rgba(200,160,60,.25);
+      color: rgba(200,160,60,.65);
+
+      &:hover {
+        background: rgba(200,160,60,.14);
+        border-color: rgba(200,160,60,.5);
+        color: #e8c96a;
+      }
+    }
+
+    .confirm-btn-delete {
+      background: rgba(160,40,30,.25);
+      border: 1px solid rgba(200,60,50,.4);
+      color: rgba(220,100,80,.85);
+
+      &:hover {
+        background: rgba(180,40,30,.45);
+        border-color: rgba(220,80,60,.7);
+        color: #ff9980;
+      }
     }
 
     /* ── Full-scale image dialog backdrop ───────────────── */
@@ -462,7 +597,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
     /* ── Force MDC icon-button internals to center ───────── */
     ::ng-deep .item-image-view-btn,
-    ::ng-deep .img-preview-close {
+    ::ng-deep .img-preview-close,
+    ::ng-deep .item-delete-btn {
       .mat-mdc-button-persistent-ripple,
       .mat-mdc-button-touch-target,
       .mdc-icon-button__ripple {
@@ -479,93 +615,115 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     }
   `,
   template: `
-    <div class="vault-header">
-      <div class="vault-title">
-        <mat-icon>auto_awesome</mat-icon>
-        Trezor předmětů
-      </div>
-      <div class="vault-actions">
-        <button class="btn-dnd" (click)="addItem()" matTooltip="Přidat předmět">
-          <mat-icon>add</mat-icon>
-          Přidat předmět
-        </button>
-        <button class="btn-dnd btn-dnd-save" (click)="save()" matTooltip="Uložit do databáze">
-          <mat-icon>save</mat-icon>
-          Uložit
-        </button>
-      </div>
-    </div>
-
-    <div class="items-grid">
-      @if (items().length === 0) {
-      <div class="empty-state">
-        <mat-icon>inventory_2</mat-icon>
-        Trezor je prázdný. Přidej svůj první předmět.
-      </div>
-      } @for (item of items(); track item.id; let i = $index) {
-      <div class="item-card">
-        <div class="item-card-rule"></div>
-
-        <!-- Image drop zone -->
-        <div
-          class="item-image-wrap"
-          [class.drag-over]="dragOverIndex() === i"
-          (click)="triggerFileInput(i)"
-          (dragover)="onDragOver($event, i)"
-          (dragleave)="onDragLeave()"
-          (drop)="onDrop($event, i)"
-          [matTooltip]="item.imageBase64 ? 'Klikni nebo přetáhni obrázek' : 'Klikni nebo přetáhni obrázek'"
-        >
-          @if (item.imageBase64) {
-          <img [src]="'data:image/png;base64,' + item.imageBase64" [alt]="item.name" />
-          } @else {
-          <div class="image-placeholder">
-            <mat-icon>upload_file</mat-icon>
-            Klikni nebo přetáhni
-          </div>
-          }
-          <div class="image-overlay">
-            <mat-icon>upload</mat-icon>
-          </div>
-
-          <!-- View full image button — only when image exists -->
-          @if (item.imageBase64) {
-          <button
-            mat-icon-button
-            class="item-image-view-btn"
-            (click)="openPreview($event, item)"
-            matTooltip="Zobrazit v plné velikosti"
-          >
-            <mat-icon>open_in_full</mat-icon>
+    <spinner-overlay [showSpinner]="store.loading()" [filled]="true">
+      <div class="vault-header">
+        <div class="vault-title">
+          <mat-icon>auto_awesome</mat-icon>
+          Trezor předmětů
+        </div>
+        <div class="vault-actions">
+          <button class="btn-dnd" (click)="addItem()" matTooltip="Přidat předmět">
+            <mat-icon>add</mat-icon>
+            Přidat předmět
           </button>
-          }
-        </div>
-
-        <!-- hidden file input -->
-        <input type="file" accept="image/*" class="image-file-input" (change)="onImageSelected($event, i)" #fileInputRef />
-
-        <div class="item-body">
-          <div class="item-name-row">
-            <input
-              class="item-name-input"
-              [(ngModel)]="items()[i].name"
-              placeholder="Název předmětu"
-              [attr.aria-label]="'Název předmětu ' + (i + 1)"
-            />
-            <button mat-icon-button class="item-delete-btn" (click)="removeItem(i)" matTooltip="Smazat předmět">
-              <mat-icon>delete_outline</mat-icon>
-            </button>
-          </div>
-          <textarea
-            class="item-desc-textarea"
-            [(ngModel)]="items()[i].description"
-            placeholder="Popis, vlastnosti, bonusy, příběh předmětu..."
-            rows="3"
-          ></textarea>
+          <button class="btn-dnd btn-dnd-save" (click)="save()" matTooltip="Uložit do databáze">
+            <mat-icon>save</mat-icon>
+            Uložit
+          </button>
         </div>
       </div>
-      }
+
+      <div class="items-grid">
+        @if (items().length === 0) {
+        <div class="empty-state">
+          <mat-icon>inventory_2</mat-icon>
+          Trezor je prázdný. Přidej svůj první předmět.
+        </div>
+        } @for (item of items(); track item.id; let i = $index) {
+        <div class="item-card">
+          <div class="item-card-rule"></div>
+
+          <!-- Image drop zone -->
+          <div
+            class="item-image-wrap"
+            [class.drag-over]="dragOverIndex() === i"
+            (click)="triggerFileInput(i)"
+            (dragover)="onDragOver($event, i)"
+            (dragleave)="onDragLeave()"
+            (drop)="onDrop($event, i)"
+            matTooltip="Klikni nebo přetáhni obrázek"
+          >
+            @if (item.imageBase64) {
+            <img [src]="'data:image/png;base64,' + item.imageBase64" [alt]="item.name" />
+            } @else {
+            <div class="image-placeholder">
+              <mat-icon>upload_file</mat-icon>
+              Klikni nebo přetáhni
+            </div>
+            }
+            <div class="image-overlay">
+              <mat-icon>upload</mat-icon>
+            </div>
+
+            @if (item.imageBase64) {
+            <button
+              mat-icon-button
+              class="item-image-view-btn"
+              (click)="openPreview($event, item)"
+              matTooltip="Zobrazit v plné velikosti"
+            >
+              <mat-icon>open_in_full</mat-icon>
+            </button>
+            }
+          </div>
+
+          <input type="file" accept="image/*" class="image-file-input" (change)="onImageSelected($event, i)" #fileInputRef />
+
+          <div class="item-body">
+            <div class="item-name-row">
+              <input
+                class="item-name-input"
+                [(ngModel)]="items()[i].name"
+                placeholder="Název předmětu"
+                [attr.aria-label]="'Název předmětu ' + (i + 1)"
+              />
+              <button mat-icon-button class="item-delete-btn" (click)="askDelete(i)" matTooltip="Smazat předmět">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+            <textarea
+              class="item-desc-textarea"
+              [(ngModel)]="items()[i].description"
+              placeholder="Popis, vlastnosti, bonusy, příběh předmětu..."
+              rows="3"
+            ></textarea>
+          </div>
+        </div>
+        }
+      </div>
+    </spinner-overlay>
+
+    <!-- ── Confirm delete dialog ─────────────────────────── -->
+    @if (confirmDeleteIndex() !== null) {
+    <div class="confirm-backdrop" (click)="cancelDelete()">
+      <div class="confirm-dialog" (click)="$event.stopPropagation()">
+        <div class="confirm-icon"><mat-icon>delete_forever</mat-icon></div>
+        <div class="confirm-title">Smazat předmět?</div>
+        <div class="confirm-message">
+          Opravdu chceš smazat předmět @if (items()[confirmDeleteIndex()!]?.name) {
+          <strong>„{{ items()[confirmDeleteIndex()!].name }}"</strong>
+          } @else {
+          <strong>bez názvu</strong>
+          }? Tato akce je nevratná.
+        </div>
+        <div class="confirm-rule"></div>
+        <div class="confirm-actions">
+          <button class="confirm-btn confirm-btn-cancel" (click)="cancelDelete()">Zrušit</button>
+          <button class="confirm-btn confirm-btn-delete" (click)="confirmDelete()">Smazat</button>
+        </div>
+      </div>
     </div>
+    }
 
     <!-- ── Full-scale image preview overlay ──────────────── -->
     @if (previewItem()) {
@@ -587,19 +745,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   `,
 })
 export class ItemVaultComponent {
-  private readonly store = inject(CharacterSheetStore);
+  readonly store = inject(CharacterSheetStore);
   private readonly authService = inject(AuthService);
   private readonly snackBar = inject(MatSnackBar);
 
   items = signal<ItemVaultEntry[]>([]);
   dragOverIndex = signal<number | null>(null);
   previewItem = signal<ItemVaultEntry | null>(null);
+  confirmDeleteIndex = signal<number | null>(null);
 
-  /** Collect all hidden file inputs rendered by @for */
   private readonly fileInputRefs = viewChildren<ElementRef<HTMLInputElement>>('fileInputRef');
 
   constructor() {
-    // Load from store when vault data arrives
     effect(() => {
       const vault = this.store.itemVault();
       untracked(() => {
@@ -609,7 +766,6 @@ export class ItemVaultComponent {
       });
     });
 
-    // Trigger load when user is known
     effect(() => {
       const username = this.authService.currentUser()?.username;
       untracked(() => {
@@ -626,25 +782,36 @@ export class ItemVaultComponent {
   }
 
   addItem(): void {
-    const newItem: ItemVaultEntry = {
-      id: crypto.randomUUID(),
-      name: '',
-      description: '',
-      imageBase64: null,
-    };
-    this.items.update(list => [...list, newItem]);
+    this.items.update(list => [
+      ...list,
+      {
+        id: crypto.randomUUID(),
+        name: '',
+        description: '',
+        imageBase64: null,
+      },
+    ]);
   }
 
-  removeItem(index: number): void {
-    this.items.update(list => list.filter((_, i) => i !== index));
+  askDelete(index: number): void {
+    this.confirmDeleteIndex.set(index);
+  }
+
+  cancelDelete(): void {
+    this.confirmDeleteIndex.set(null);
+  }
+
+  confirmDelete(): void {
+    const idx = this.confirmDeleteIndex();
+    if (idx === null) return;
+    this.items.update(list => list.filter((_, i) => i !== idx));
+    this.confirmDeleteIndex.set(null);
   }
 
   onDragOver(event: DragEvent, index: number): void {
     event.preventDefault();
     event.stopPropagation();
-    if (event.dataTransfer) {
-      event.dataTransfer.dropEffect = 'copy';
-    }
+    if (event.dataTransfer) event.dataTransfer.dropEffect = 'copy';
     this.dragOverIndex.set(index);
   }
 
@@ -656,11 +823,8 @@ export class ItemVaultComponent {
     event.preventDefault();
     event.stopPropagation();
     this.dragOverIndex.set(null);
-
     const file = event.dataTransfer?.files?.[0];
-    if (file) {
-      this.processFile(file, index);
-    }
+    if (file) this.processFile(file, index);
   }
 
   onImageSelected(event: Event, index: number): void {
@@ -676,8 +840,7 @@ export class ItemVaultComponent {
       this.snackBar.open('Soubor není obrázek.', 'Zavřít', { verticalPosition: 'top', duration: 3000 });
       return;
     }
-
-    const maxBytes = 200 * 1024; // 200 KB
+    const maxBytes = 200 * 1024;
     if (file.size > maxBytes) {
       this.snackBar.open(`Obrázek je příliš velký (${(file.size / 1024).toFixed(0)} KB). Maximum je 200 KB.`, 'Zavřít', {
         verticalPosition: 'top',
@@ -685,11 +848,9 @@ export class ItemVaultComponent {
       });
       return;
     }
-
     const reader = new FileReader();
     reader.onload = () => {
-      const dataUrl = reader.result as string;
-      const base64 = dataUrl.split(',')[1];
+      const base64 = (reader.result as string).split(',')[1];
       this.items.update(list => {
         const copy = list.map(i => ({ ...i }));
         copy[index] = { ...copy[index], imageBase64: base64 };
@@ -700,7 +861,7 @@ export class ItemVaultComponent {
   }
 
   openPreview(event: MouseEvent, item: ItemVaultEntry): void {
-    event.stopPropagation(); // prevent triggering file input click
+    event.stopPropagation();
     this.previewItem.set(item);
   }
 
@@ -710,17 +871,16 @@ export class ItemVaultComponent {
 
   @HostListener('document:keydown.escape')
   onEscape(): void {
-    if (this.previewItem()) this.closePreview();
+    if (this.previewItem()) {
+      this.closePreview();
+      return;
+    }
+    if (this.confirmDeleteIndex() !== null) this.cancelDelete();
   }
 
   save(): void {
     const username = this.authService.currentUser()?.username;
     if (!username) return;
-
-    const vault: ItemVaultApiModel = {
-      username,
-      items: this.items(),
-    };
-    this.store.saveItemVault(vault);
+    this.store.saveItemVault({ username, items: this.items() });
   }
 }
