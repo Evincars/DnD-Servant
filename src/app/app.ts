@@ -314,8 +314,7 @@ import html2canvas from 'html2canvas';
       width: 1310px;
       margin: 0 auto;
       padding: var(--spacing-3);
-      border-radius: 2px;
-      background: rgba(18,14,10,.96);
+      background: rgba(14,11,8,.97);
       margin-top: var(--spacing-3) !important;
       margin-bottom: var(--spacing-3) !important;
       display: flex;
@@ -323,60 +322,75 @@ import html2canvas from 'html2canvas';
       box-sizing: border-box;
       position: relative;
 
-      // outer glow border
-      border: 1px solid rgba(200,160,60,.35);
-      box-shadow:
-        0 0 0 3px rgba(10,8,6,.9),
-        0 0 0 4px rgba(200,160,60,.18),
-        0 0 0 7px rgba(10,8,6,.85),
-        0 0 40px rgba(0,0,0,.8),
-        inset 0 1px 0 rgba(255,220,100,.05);
+      // base thin border
+      border: 1px solid rgba(200,160,60,.22);
+      border-radius: 0;
 
-      // inner inset line
+      // full inner inset double-line
       &::before {
         content: '';
         position: absolute;
-        inset: 6px;
-        border: 1px solid rgba(200,160,60,.12);
-        border-radius: 2px;
+        inset: 4px;
+        border: 1px solid rgba(200,160,60,.1);
         pointer-events: none;
         z-index: 0;
       }
 
-      // corner gem — top-left
+      // top-center title gem break
       &::after {
-        content: '◆';
+        content: '✦  Jeskyně a Draci  ✦';
         position: absolute;
-        top: -7px; left: 50%;
+        top: -9px; left: 50%;
         transform: translateX(-50%);
-        font-size: 11px;
-        color: #c8a03c;
-        text-shadow: 0 0 8px rgba(200,160,60,.6);
-        background: rgba(10,8,6,1);
-        padding: 0 6px;
+        font-size: 9px;
+        font-family: 'Mikadan', sans-serif;
+        letter-spacing: .18em;
+        color: rgba(200,160,60,.7);
+        text-shadow: 0 0 10px rgba(200,160,60,.4);
+        background: rgba(14,11,8,1);
+        padding: 0 10px;
         pointer-events: none;
+        white-space: nowrap;
         z-index: 1;
       }
 
       > * { flex: 1; min-height: 0; }
     }
 
-    // corner gem spans injected via template
+    // Corner L-bracket decorators (top-left, top-right, bottom-left, bottom-right)
     .main-corner {
       position: absolute;
-      font-size: 10px;
-      color: #c8a03c;
-      text-shadow: 0 0 6px rgba(200,160,60,.5);
-      background: rgba(10,8,6,1);
-      padding: 0 3px;
-      line-height: 1;
-      z-index: 2;
+      width: 18px;
+      height: 18px;
       pointer-events: none;
+      z-index: 2;
 
-      &--tl { top: -6px;  left:  12px; }
-      &--tr { top: -6px;  right: 12px; }
-      &--bl { bottom: -6px; left:  12px; }
-      &--br { bottom: -6px; right: 12px; }
+      &::before, &::after {
+        content: '';
+        position: absolute;
+        background: #c8a03c;
+        box-shadow: 0 0 6px rgba(200,160,60,.5);
+      }
+      // horizontal bar
+      &::before { height: 2px; width: 100%; top: 0; left: 0; }
+      // vertical bar
+      &::after  { width: 2px; height: 100%; top: 0; left: 0; }
+
+      &--tl { top:  -1px; left:  -1px; }
+      &--tr {
+        top:  -1px; right: -1px;
+        &::before { left: auto; right: 0; }
+        &::after  { left: auto; right: 0; }
+      }
+      &--bl {
+        bottom: -1px; left: -1px;
+        &::before { top: auto; bottom: 0; }
+      }
+      &--br {
+        bottom: -1px; right: -1px;
+        &::before { top: auto; bottom: 0; left: auto; right: 0; }
+        &::after  { top: auto; bottom: 0; left: auto; right: 0; }
+      }
     }
 
     .toolbar {
