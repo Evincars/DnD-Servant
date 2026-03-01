@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, effect, inject, signal, untracked } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  ElementRef,
+  HostListener,
+  inject,
+  signal,
+  untracked,
+  viewChildren,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
@@ -188,6 +198,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       justify-content: center;
       overflow: hidden;
       cursor: pointer;
+      transition: background .18s, box-shadow .18s;
 
       img {
         width: 100%;
@@ -205,6 +216,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
         font-size: 10px;
         letter-spacing: .12em;
         text-transform: uppercase;
+        pointer-events: none;
 
         mat-icon {
           font-size: 36px;
@@ -222,11 +234,31 @@ import { MatSnackBar } from '@angular/material/snack-bar';
         justify-content: center;
         opacity: 0;
         transition: opacity .18s;
+        pointer-events: none;
 
         mat-icon { color: #e8c96a; font-size: 28px; width: 28px; height: 28px; }
       }
 
       &:hover .image-overlay { opacity: 1; }
+
+      /* drag-over state */
+      &.drag-over {
+        background:
+          repeating-linear-gradient(
+            45deg,
+            rgba(200,160,60,.06) 0px,
+            rgba(200,160,60,.06) 1px,
+            transparent 1px,
+            transparent 8px
+          ),
+          rgba(30,22,8,.85);
+        box-shadow: inset 0 0 0 2px rgba(200,160,60,.6);
+
+        .image-overlay {
+          opacity: 1;
+          background: rgba(200,160,60,.12);
+        }
+      }
     }
 
     .image-file-input { display: none; }
@@ -266,8 +298,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       width: 28px !important;
       height: 28px !important;
       line-height: 28px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
 
-      mat-icon { font-size: 16px !important; width: 16px !important; height: 16px !important; }
+      mat-icon { font-size: 16px !important; width: 16px !important; height: 16px !important; line-height: 16px !important; }
       &:hover { color: #e05555 !important; }
     }
 
@@ -298,6 +333,150 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       margin-top: 4px;
       letter-spacing: .04em;
     }
+
+    /* ── View full image button ──────────────────────────── */
+    .item-image-view-btn {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      z-index: 2;
+      width: 26px !important;
+      height: 26px !important;
+      padding: 0 !important;
+      line-height: 1 !important;
+      background: rgba(0,0,0,.55) !important;
+      color: rgba(200,160,60,.8) !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      border-radius: 3px !important;
+      transition: background .18s, color .18s !important;
+
+      .mat-icon, mat-icon {
+        font-size: 15px !important;
+        width: 15px !important;
+        height: 15px !important;
+        line-height: 15px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      &:hover { background: rgba(0,0,0,.8) !important; color: #e8c96a !important; }
+    }
+
+    /* ── Full-scale image dialog backdrop ───────────────── */
+    .img-preview-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,.88);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+      animation: fadeInBackdrop .18s ease;
+    }
+
+    @keyframes fadeInBackdrop {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .img-preview-container {
+      position: relative;
+      max-width: 90vw;
+      max-height: 88vh;
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: scaleInImg .18s ease;
+    }
+
+    @keyframes scaleInImg {
+      from { transform: scale(.92); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    .img-preview-title {
+      font-family: 'Mikadan', sans-serif;
+      font-size: 13px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #e8c96a;
+      text-shadow: 0 0 12px rgba(200,160,60,.4);
+      margin-bottom: 12px;
+    }
+
+    .img-preview-frame {
+      border: 1px solid rgba(200,160,60,.35);
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,.8),
+        0 8px 40px rgba(0,0,0,.9),
+        0 0 60px rgba(200,160,60,.08);
+      background: rgba(14,10,4,.95);
+      padding: 6px;
+
+      img {
+        display: block;
+        max-width: 88vw;
+        max-height: 78vh;
+        object-fit: contain;
+      }
+    }
+
+    .img-preview-close {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 30px !important;
+      height: 30px !important;
+      padding: 0 !important;
+      line-height: 1 !important;
+      background: rgba(40,28,10,.98) !important;
+      border: 1px solid rgba(200,160,60,.4) !important;
+      color: #c8a03c !important;
+      border-radius: 3px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+
+      .mat-icon, mat-icon {
+        font-size: 16px !important;
+        width: 16px !important;
+        height: 16px !important;
+        line-height: 16px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      &:hover { background: rgba(200,160,60,.15) !important; color: #e8c96a !important; }
+    }
+
+    .img-preview-hint {
+      margin-top: 10px;
+      font-size: 10px;
+      color: rgba(200,160,60,.3);
+      letter-spacing: .1em;
+    }
+
+    /* ── Force MDC icon-button internals to center ───────── */
+    ::ng-deep .item-image-view-btn,
+    ::ng-deep .img-preview-close {
+      .mat-mdc-button-persistent-ripple,
+      .mat-mdc-button-touch-target,
+      .mdc-icon-button__ripple {
+        display: none !important;
+      }
+
+      .mat-icon {
+        margin: 0 !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+    }
   `,
   template: `
     <div class="vault-header">
@@ -327,30 +506,43 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       <div class="item-card">
         <div class="item-card-rule"></div>
 
-        <!-- Image -->
+        <!-- Image drop zone -->
         <div
           class="item-image-wrap"
-          (click)="fileInputs[i]?.click()"
-          [matTooltip]="item.imageBase64 ? 'Klikni pro změnu obrázku' : 'Klikni pro nahrání obrázku'"
+          [class.drag-over]="dragOverIndex() === i"
+          (click)="triggerFileInput(i)"
+          (dragover)="onDragOver($event, i)"
+          (dragleave)="onDragLeave()"
+          (drop)="onDrop($event, i)"
+          [matTooltip]="item.imageBase64 ? 'Klikni nebo přetáhni obrázek' : 'Klikni nebo přetáhni obrázek'"
         >
           @if (item.imageBase64) {
           <img [src]="'data:image/png;base64,' + item.imageBase64" [alt]="item.name" />
           } @else {
           <div class="image-placeholder">
-            <mat-icon>image</mat-icon>
-            Nahrát obrázek
+            <mat-icon>upload_file</mat-icon>
+            Klikni nebo přetáhni
           </div>
           }
-          <div class="image-overlay"><mat-icon>upload</mat-icon></div>
+          <div class="image-overlay">
+            <mat-icon>upload</mat-icon>
+          </div>
+
+          <!-- View full image button — only when image exists -->
+          @if (item.imageBase64) {
+          <button
+            mat-icon-button
+            class="item-image-view-btn"
+            (click)="openPreview($event, item)"
+            matTooltip="Zobrazit v plné velikosti"
+          >
+            <mat-icon>open_in_full</mat-icon>
+          </button>
+          }
         </div>
-        <input
-          type="file"
-          accept="image/*"
-          class="image-file-input"
-          [attr.data-index]="i"
-          (change)="onImageSelected($event, i)"
-          #fileInputRef
-        />
+
+        <!-- hidden file input -->
+        <input type="file" accept="image/*" class="image-file-input" (change)="onImageSelected($event, i)" #fileInputRef />
 
         <div class="item-body">
           <div class="item-name-row">
@@ -364,7 +556,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
               <mat-icon>delete_outline</mat-icon>
             </button>
           </div>
-
           <textarea
             class="item-desc-textarea"
             [(ngModel)]="items()[i].description"
@@ -375,6 +566,24 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       </div>
       }
     </div>
+
+    <!-- ── Full-scale image preview overlay ──────────────── -->
+    @if (previewItem()) {
+    <div class="img-preview-backdrop" (click)="closePreview()">
+      <div class="img-preview-container" (click)="$event.stopPropagation()">
+        <button mat-icon-button class="img-preview-close" (click)="closePreview()" matTooltip="Zavřít">
+          <mat-icon>close</mat-icon>
+        </button>
+        @if (previewItem()!.name) {
+        <div class="img-preview-title">{{ previewItem()!.name }}</div>
+        }
+        <div class="img-preview-frame">
+          <img [src]="'data:image/png;base64,' + previewItem()!.imageBase64" [alt]="previewItem()!.name" />
+        </div>
+        <div class="img-preview-hint">Klikni mimo obrázek nebo stiskni Esc pro zavření</div>
+      </div>
+    </div>
+    }
   `,
 })
 export class ItemVaultComponent {
@@ -383,9 +592,11 @@ export class ItemVaultComponent {
   private readonly snackBar = inject(MatSnackBar);
 
   items = signal<ItemVaultEntry[]>([]);
+  dragOverIndex = signal<number | null>(null);
+  previewItem = signal<ItemVaultEntry | null>(null);
 
-  /** Native file inputs — one per item card, tracked by index */
-  fileInputs: HTMLInputElement[] = [];
+  /** Collect all hidden file inputs rendered by @for */
+  private readonly fileInputRefs = viewChildren<ElementRef<HTMLInputElement>>('fileInputRef');
 
   constructor() {
     // Load from store when vault data arrives
@@ -409,6 +620,11 @@ export class ItemVaultComponent {
     });
   }
 
+  triggerFileInput(index: number): void {
+    const inputs = this.fileInputRefs();
+    inputs[index]?.nativeElement.click();
+  }
+
   addItem(): void {
     const newItem: ItemVaultEntry = {
       id: crypto.randomUUID(),
@@ -423,10 +639,43 @@ export class ItemVaultComponent {
     this.items.update(list => list.filter((_, i) => i !== index));
   }
 
+  onDragOver(event: DragEvent, index: number): void {
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.dataTransfer) {
+      event.dataTransfer.dropEffect = 'copy';
+    }
+    this.dragOverIndex.set(index);
+  }
+
+  onDragLeave(): void {
+    this.dragOverIndex.set(null);
+  }
+
+  onDrop(event: DragEvent, index: number): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.dragOverIndex.set(null);
+
+    const file = event.dataTransfer?.files?.[0];
+    if (file) {
+      this.processFile(file, index);
+    }
+  }
+
   onImageSelected(event: Event, index: number): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
     if (!file) return;
+    this.processFile(file, index);
+    input.value = '';
+  }
+
+  private processFile(file: File, index: number): void {
+    if (!file.type.startsWith('image/')) {
+      this.snackBar.open('Soubor není obrázek.', 'Zavřít', { verticalPosition: 'top', duration: 3000 });
+      return;
+    }
 
     const maxBytes = 200 * 1024; // 200 KB
     if (file.size > maxBytes) {
@@ -434,7 +683,6 @@ export class ItemVaultComponent {
         verticalPosition: 'top',
         duration: 5000,
       });
-      input.value = '';
       return;
     }
 
@@ -449,6 +697,20 @@ export class ItemVaultComponent {
       });
     };
     reader.readAsDataURL(file);
+  }
+
+  openPreview(event: MouseEvent, item: ItemVaultEntry): void {
+    event.stopPropagation(); // prevent triggering file input click
+    this.previewItem.set(item);
+  }
+
+  closePreview(): void {
+    this.previewItem.set(null);
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.previewItem()) this.closePreview();
   }
 
   save(): void {
