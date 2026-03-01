@@ -66,6 +66,25 @@
   margin: 0 0 20px;
   font-size: 11px;
   color: #6b6580;
+
+  &--monsters {
+    margin-top: -14px;
+    color: #5a5470;
+
+    strong { color: #8a7fa0; font-weight: 600; }
+
+    a {
+      color: #c8a03c;
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(200, 160, 60, 0.4);
+      transition: color 0.15s, border-color 0.15s;
+
+      &:hover {
+        color: #e8c96a;
+        border-bottom-color: rgba(200, 160, 60, 0.8);
+      }
+    }
+  }
 }
 
 // Column headers
