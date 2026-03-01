@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { CharacterSheetComponent } from './character-sheet.component';
 import { GroupSheetComponent } from './group-sheet.component';
@@ -6,11 +6,19 @@ import { NotesSheetComponent } from './notes-sheet.component';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { InitiativeTrackerComponent } from './initiative-tracker/initiative-tracker.component';
 import { ItemVaultComponent } from './item-vault/item-vault.component';
+import { LocalStorageService } from '@dn-d-servant/util';
+
+const TAB_INDEX_KEY = 'active-tab-index';
 
 @Component({
   selector: 'character-sheet-tab',
   template: `
-    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab-group
+      mat-stretch-tabs="false"
+      mat-align-tabs="start"
+      [selectedIndex]="selectedTab()"
+      (selectedIndexChange)="onTabChange($event)"
+    >
       <mat-tab label="Karta postavy"><character-sheet class="u-mt-2" /></mat-tab>
       <mat-tab label="Karta družiny"><group-sheet class="u-mt-2" /></mat-tab>
       <mat-tab label="Poznámky"><notes-sheet class="u-mt-2" /></mat-tab>
@@ -201,4 +209,13 @@ import { ItemVaultComponent } from './item-vault/item-vault.component';
     ItemVaultComponent,
   ],
 })
-export class CharacterSheetTabComponent {}
+export class CharacterSheetTabComponent {
+  private readonly ls = inject(LocalStorageService);
+
+  selectedTab = signal<number>(this.ls.getDataSync<number>(TAB_INDEX_KEY) ?? 0);
+
+  onTabChange(index: number): void {
+    this.selectedTab.set(index);
+    this.ls.setDataSync(TAB_INDEX_KEY, index);
+  }
+}
