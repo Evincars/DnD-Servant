@@ -4,7 +4,7 @@ import { NotesPageForm, RichTextareaComponent } from '@dn-d-servant/character-sh
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NotesFormModelMappers } from './notes-form-model-mappers';
+import { NotesFormModelMappers } from './api-mappers/notes-form-model-mappers';
 
 @Component({
   selector: 'notes-sheet',

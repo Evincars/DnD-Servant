@@ -1,5 +1,5 @@
 import { FormMapper } from '@dn-d-servant/util';
-import { CharacterSheetApiModel, CharacterSheetFormData } from '../../../util/src/lib/character-sheet-form';
+import { CharacterSheetApiModel, CharacterSheetFormData } from '@dn-d-servant/character-sheet-util';
 
 export class CharacterSheetFormModelMappers {
   static characterSheetFormToApiMapper: FormMapper<CharacterSheetFormData, CharacterSheetApiModel> = {

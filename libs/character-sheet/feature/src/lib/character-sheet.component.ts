@@ -32,7 +32,7 @@ import {
 } from '@dn-d-servant/character-sheet-util';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
-import { CharacterSheetFormModelMappers } from './character-sheet-form-model-mappers';
+import { CharacterSheetFormModelMappers } from './api-mappers/character-sheet-form-model-mappers';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
 import { MatTooltip } from '@angular/material/tooltip';
