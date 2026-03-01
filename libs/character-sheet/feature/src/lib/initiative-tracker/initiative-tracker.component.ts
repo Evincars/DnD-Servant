@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LocalStorageService } from '@dn-d-servant/util';
+import { AutofillInputComponent, LocalStorageService, MONSTER_NAMES } from '@dn-d-servant/util';
 import { Dnd5eApiService, Monster } from '@dn-d-servant/data-access';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MonsterCardComponent } from '../monster-card/monster-card.component';
-import { MONSTER_NAMES } from './monster-names';
 
 interface InitiativeRow {
   initiative: number | null;
@@ -21,7 +20,7 @@ const STORAGE_KEY = 'initiative-tracker';
   templateUrl: './initiative-tracker.component.html',
   styleUrl: './initiative-tracker.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, MatIconButton, MatIcon, MonsterCardComponent],
+  imports: [FormsModule, MatIconButton, MatIcon, MonsterCardComponent, AutofillInputComponent],
 })
 export class InitiativeTrackerComponent {
   private readonly localStorageService = inject(LocalStorageService);

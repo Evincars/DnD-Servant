@@ -1,0 +1,47 @@
+// ── autofill-input component global styles ────────────────────────────────────
+// The autofill-input component uses :host { display: contents } so its inner
+// <input> renders directly in the parent's layout. Because Angular's Emulated
+// encapsulation scopes component styles to the component's own view, classes
+// passed via [inputClass] must be defined here (globally) so they can reach
+// the inner <input> element.
+
+autofill-input {
+  display: contents;
+
+  datalist {
+    display: none;
+  }
+}
+
+// ── Initiative tracker input skin ─────────────────────────────────────────────
+// Applied when inputClass="it-input it-input--name" is passed to autofill-input
+autofill-input .it-input {
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 5px;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #e8e0d0;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+
+  &::placeholder {
+    color: #4a4560;
+  }
+
+  &:focus {
+    border-color: #c8a03c;
+    box-shadow: 0 0 0 2px rgba(200, 160, 60, 0.2);
+  }
+
+  &.it-input--sm {
+    width: 70px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  &.it-input--name {
+    flex: 1;
+  }
+}
+
