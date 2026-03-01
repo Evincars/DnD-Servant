@@ -14,7 +14,8 @@
       "@dn-d-servant/dm-screen-feature": ["libs/dm-screen/feature/src/index.ts"],
       "@dn-d-servant/authentication-feature": ["libs/authentication/feature/src/index.ts"],
       "@dn-d-servant/character-sheet-data-access": ["libs/character-sheet/data-access/src/index.ts"],
-      "@dn-d-servant/character-sheet-util": ["libs/character-sheet/util/src/index.ts"]
+      "@dn-d-servant/character-sheet-util": ["libs/character-sheet/util/src/index.ts"],
+      "@dn-d-servant/ui": ["libs/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
