@@ -58,6 +58,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       mat-icon { font-size: 26px; width: 26px; height: 26px; color: #c8a03c; }
     }
 
+    .vault-subtitle {
+      font-size: 11px;
+      color: rgba(200,160,60,.4);
+      letter-spacing: .06em;
+      margin-top: 5px;
+      font-family: sans-serif;
+      font-style: italic;
+      text-transform: none;
+    }
+
     .vault-actions {
       display: flex;
       gap: 10px;
@@ -618,9 +628,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   template: `
     <spinner-overlay [showSpinner]="store.loading()" [diameter]="50">
       <div class="vault-header">
-        <div class="vault-title">
-          <mat-icon>auto_awesome</mat-icon>
-          Trezor předmětů
+        <div>
+          <div class="vault-title">
+            <mat-icon>auto_awesome</mat-icon>
+            Moje předměty
+          </div>
+          <div class="vault-subtitle">
+            Zde si můžeš uložit obrázky a popisky tvojich magických/vzácných nebo i běžných předmětů až je máš pořád po ruce
+          </div>
         </div>
         <div class="vault-actions">
           <button class="btn-dnd" (click)="addItem()" matTooltip="Přidat předmět">
