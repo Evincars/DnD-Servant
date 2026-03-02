@@ -1,0 +1,62 @@
+<div class="scc-card">
+  <button class="scc-close" (click)="close.emit()" title="Zavřít">✕</button>
+
+  @if (loading()) {
+    <div class="scc-loading">
+      <mat-icon class="scc-loading__icon">hourglass_empty</mat-icon>
+      <span>Načítám subpovolání…</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="scc-error">⚠ {{ error() }}</div>
+  }
+
+  @if (subclass(); as s) {
+
+    <div class="scc-name">{{ s.name }}</div>
+    <div class="scc-meta">{{ s.subclass_flavor }} · {{ s.class.name }}</div>
+
+    <div class="scc-rule"></div>
+
+    <!-- Description -->
+    <div class="scc-section">Popis</div>
+    @for (para of s.desc; track $index) {
+      <p class="scc-desc">{{ para }}</p>
+    }
+
+    <!-- Spellcasting (e.g. Eldritch Knight, Arcane Trickster) -->
+    @if (s.spellcasting) {
+      <div class="scc-rule"></div>
+      <div class="scc-section">Sesílání kouzel</div>
+      <div class="scc-prop">
+        <b>Sesílací vlastnost:</b> {{ s.spellcasting.spellcasting_ability.name }}
+        · od {{ s.spellcasting.level }}. úrovně
+      </div>
+      @for (info of s.spellcasting.info; track info.name) {
+        <div class="scc-prop"><b>{{ info.name }}:</b></div>
+        @for (para of info.desc; track $index) {
+          <p class="scc-desc">{{ para }}</p>
+        }
+      }
+    }
+
+    <!-- Expanded spell list (domains, oaths, patrons) -->
+    @if (s.spells?.length) {
+      <div class="scc-rule"></div>
+      <div class="scc-section">Rozšířený seznam kouzel</div>
+      <div class="scc-tag-row">
+        @for (entry of s.spells; track entry.spell.index) {
+          <span class="scc-tag">
+            {{ entry.spell.name }}
+            @if (spellPrereqLevel(s, entry.spell.name); as lvl) {
+              <span class="scc-tag__lvl">ú.{{ lvl }}</span>
+            }
+          </span>
+        }
+      </div>
+    }
+
+  }
+</div>
+

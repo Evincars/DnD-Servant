@@ -123,6 +123,12 @@
       color: rgba(170,130,255,.9);
       .db-switcher__icon { color: rgba(170,130,255,.8); }
     }
+    &:nth-child(5) { // subclasses — teal
+      background: rgba(20,140,140,.12);
+      border-color: rgba(20,140,140,.5);
+      color: rgba(60,210,210,.9);
+      .db-switcher__icon { color: rgba(60,210,210,.8); }
+    }
   }
 }
 
@@ -301,6 +307,7 @@
     spell-card,
     race-card,
     class-card,
+    subclass-card,
     feat-card {
       display: block;
     }

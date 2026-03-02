@@ -3,14 +3,15 @@ import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { MatIcon } from '@angular/material/icon';
 import { Dnd5eApiService } from '@dn-d-servant/data-access';
-import { Monster, Spell, Race, Feat, DndClass, Dnd5eEndpoint, LocalStorageService } from '@dn-d-servant/util';
+import { Monster, Spell, Race, Feat, DndClass, Subclass, Dnd5eEndpoint, LocalStorageService } from '@dn-d-servant/util';
 import { MonsterCardComponent } from '../monster-card/monster-card.component';
 import { SpellCardComponent } from '../spell-card/spell-card.component';
 import { RaceCardComponent } from '../race-card/race-card.component';
 import { ClassCardComponent } from '../class-card/class-card.component';
+import { SubclassCardComponent } from '../subclass-card/subclass-card.component';
 // import { FeatCardComponent } from '../feat-card/feat-card.component';
 
-export type DatabaseCategory = 'monsters' | 'spells' | 'races' | 'classes'; // | 'feats';
+export type DatabaseCategory = 'monsters' | 'spells' | 'races' | 'classes' | 'subclasses'; // | 'feats';
 
 interface CategoryDef {
   key: DatabaseCategory;
@@ -49,6 +50,13 @@ const CATEGORIES: CategoryDef[] = [
     placeholder: 'např. fighter, wizard, rogue…',
     hint: 'Zadej anglický název povolání z D&D 2014',
   },
+  {
+    key: 'subclasses',
+    label: 'Subpovolání',
+    icon: 'workspace_premium',
+    placeholder: 'např. lore, champion, berserker…',
+    hint: 'Zadej anglický název subpovolání z D&D 2014',
+  },
   // {
   //   key: 'feats',
   //   label: 'Schopnosti',
@@ -66,6 +74,7 @@ interface StoredResults {
   races: Race[];
   feats: Feat[];
   classes: DndClass[];
+  subclasses: Subclass[];
 }
 
 @Component({
@@ -79,7 +88,8 @@ interface StoredResults {
     MonsterCardComponent,
     SpellCardComponent,
     RaceCardComponent,
-    ClassCardComponent /* FeatCardComponent */,
+    ClassCardComponent,
+    SubclassCardComponent /* FeatCardComponent */,
   ],
 })
 export class DndDatabaseSearchComponent {
@@ -101,6 +111,7 @@ export class DndDatabaseSearchComponent {
   races = signal<Race[]>(this._saved?.races ?? []);
   feats = signal<Feat[]>(this._saved?.feats ?? []);
   classes = signal<DndClass[]>(this._saved?.classes ?? []);
+  subclasses = signal<Subclass[]>(this._saved?.subclasses ?? []);
 
   // ── Persist to localStorage on every change ────────────────────────────────
   private readonly _persistEffect = effect(() => {
@@ -110,6 +121,7 @@ export class DndDatabaseSearchComponent {
       races: this.races(),
       feats: this.feats(),
       classes: this.classes(),
+      subclasses: this.subclasses(),
     };
     this.storage.setDataSync(STORAGE_KEY, payload);
   });
@@ -122,7 +134,8 @@ export class DndDatabaseSearchComponent {
       this.spells().length > 0 ||
       this.races().length > 0 ||
       this.feats().length > 0 ||
-      this.classes().length > 0,
+      this.classes().length > 0 ||
+      this.subclasses().length > 0,
   );
 
   // ── Clear query when switching category ────────────────────────────────────
@@ -149,7 +162,7 @@ export class DndDatabaseSearchComponent {
         .getOne<Monster>('monsters', index)
         .pipe(finalize(() => this.loading.set(false)))
         .subscribe({
-          next: m => this.monsters.update(arr => [...arr, m]),
+          next: m => this.monsters.update(a => [...a, m]),
           error: () => this.error.set(`Příšera „${raw}" nebyla nalezena.`),
         });
     } else if (cat === 'spells') {
@@ -157,7 +170,7 @@ export class DndDatabaseSearchComponent {
         .getOne<Spell>('spells', index)
         .pipe(finalize(() => this.loading.set(false)))
         .subscribe({
-          next: s => this.spells.update(arr => [...arr, s]),
+          next: s => this.spells.update(a => [...a, s]),
           error: () => this.error.set(`Kouzlo „${raw}" nebylo nalezeno.`),
         });
     } else if (cat === 'races') {
@@ -165,7 +178,7 @@ export class DndDatabaseSearchComponent {
         .getOne<Race>('races' as Dnd5eEndpoint, index)
         .pipe(finalize(() => this.loading.set(false)))
         .subscribe({
-          next: r => this.races.update(arr => [...arr, r]),
+          next: r => this.races.update(a => [...a, r]),
           error: () => this.error.set(`Rasa „${raw}" nebyla nalezena.`),
         });
     } else if (cat === 'classes') {
@@ -173,34 +186,45 @@ export class DndDatabaseSearchComponent {
         .getOne<DndClass>('classes', index)
         .pipe(finalize(() => this.loading.set(false)))
         .subscribe({
-          next: cl => this.classes.update(arr => [...arr, cl]),
-          error: () => this.error.set(`Povolání „${raw}" nebylo nalezeno.`),
+          next: cl => this.classes.update(a => [...a, cl]),
+          error: () => this.error.set(`Povolání „${raw}" nebylo nalezena.`),
+        });
+    } else if (cat === 'subclasses') {
+      this.api
+        .getOne<Subclass>('subclasses', index)
+        .pipe(finalize(() => this.loading.set(false)))
+        .subscribe({
+          next: sc => this.subclasses.update(a => [...a, sc]),
+          error: () => this.error.set(`Subpovolání „${raw}" nebylo nalezena.`),
         });
     } else {
       this.api
         .getOne<Feat>('feats' as Dnd5eEndpoint, index)
         .pipe(finalize(() => this.loading.set(false)))
         .subscribe({
-          next: f => this.feats.update(arr => [...arr, f]),
+          next: f => this.feats.update(a => [...a, f]),
           error: () => this.error.set(`Schopnost „${raw}" nebyla nalezena.`),
         });
     }
   }
 
-  removeMonster(index: number): void {
-    this.monsters.update(arr => arr.filter((_, i) => i !== index));
+  removeMonster(i: number): void {
+    this.monsters.update(a => a.filter((_, idx) => idx !== i));
   }
-  removeSpell(index: number): void {
-    this.spells.update(arr => arr.filter((_, i) => i !== index));
+  removeSpell(i: number): void {
+    this.spells.update(a => a.filter((_, idx) => idx !== i));
   }
-  removeRace(index: number): void {
-    this.races.update(arr => arr.filter((_, i) => i !== index));
+  removeRace(i: number): void {
+    this.races.update(a => a.filter((_, idx) => idx !== i));
   }
-  removeFeat(index: number): void {
-    this.feats.update(arr => arr.filter((_, i) => i !== index));
+  removeFeat(i: number): void {
+    this.feats.update(a => a.filter((_, idx) => idx !== i));
   }
-  removeClass(index: number): void {
-    this.classes.update(arr => arr.filter((_, i) => i !== index));
+  removeClass(i: number): void {
+    this.classes.update(a => a.filter((_, idx) => idx !== i));
+  }
+  removeSubclass(i: number): void {
+    this.subclasses.update(a => a.filter((_, idx) => idx !== i));
   }
 
   clearAll(): void {
@@ -209,6 +233,7 @@ export class DndDatabaseSearchComponent {
     this.races.set([]);
     this.feats.set([]);
     this.classes.set([]);
+    this.subclasses.set([]);
     this.error.set(null);
   }
 

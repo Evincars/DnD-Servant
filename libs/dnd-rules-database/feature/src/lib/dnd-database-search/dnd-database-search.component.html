@@ -7,7 +7,7 @@
     </div>
     <div>
       <div class="db-header__title">Databáze D&amp;D 2014</div>
-      <div class="db-header__subtitle">Vyhledej příšery, kouzla, rasy a povolání ze systému D&amp;D 5e (2014)</div>
+      <div class="db-header__subtitle">Vyhledej příšery, kouzla, rasy, povolání a subpovolání ze systému D&amp;D 5e (2014)</div>
     </div>
   </div>
 
@@ -116,6 +116,12 @@
       @for (cl of classes(); track cl.index) {
         <div class="db-results__item">
           <class-card [dndClass]="cl" [loading]="false" [error]="null" (close)="removeClass($index)" />
+        </div>
+      }
+
+      @for (sc of subclasses(); track sc.index) {
+        <div class="db-results__item">
+          <subclass-card [subclass]="sc" [loading]="false" [error]="null" (close)="removeSubclass($index)" />
         </div>
       }
 
