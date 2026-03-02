@@ -1,0 +1,221 @@
+@keyframes sc-spin { to { transform: rotate(360deg); } }
+
+:host { display: contents; }
+
+// ── Card shell ────────────────────────────────────────────────────────────────
+.sc-card {
+  position: relative;
+  background: #0e0e12;
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 3px solid rgba(60,100,200,.65);
+  border-radius: 2px;
+  padding: 20px 20px 18px;
+  box-sizing: border-box;
+  box-shadow:
+    0 2px 0 rgba(60,100,200,.3),
+    0 12px 40px rgba(0,0,0,.85),
+    inset 1px 0 0 rgba(255,255,255,.02);
+  color: #b8b4ac;
+  font-size: 12px;
+  line-height: 1.65;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+// ── Close ─────────────────────────────────────────────────────────────────────
+.sc-close {
+  position: absolute;
+  top: 8px; right: 10px;
+  width: 24px; height: 24px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 1px;
+  cursor: pointer;
+  color: rgba(255,255,255,.22);
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s, color .15s, border-color .15s;
+
+  &:hover {
+    background: rgba(160,30,30,.25);
+    border-color: rgba(200,50,40,.5);
+    color: #f08070;
+  }
+}
+
+// ── Loading / error ───────────────────────────────────────────────────────────
+.sc-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(60,100,200,.7);
+  font-family: 'Mikadan', sans-serif;
+  font-size: 11px;
+  letter-spacing: .08em;
+
+  &__icon { animation: sc-spin 1s linear infinite; }
+}
+
+.sc-error {
+  color: rgba(220,90,75,.8);
+  font-style: italic;
+  font-size: 12px;
+}
+
+// ── Name ──────────────────────────────────────────────────────────────────────
+.sc-name {
+  font-family: 'Mikadan', sans-serif;
+  font-size: 17px;
+  font-weight: normal;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #c8d4f0;
+  padding-right: 30px;
+  margin-bottom: 8px;
+}
+
+// ── Badges row ────────────────────────────────────────────────────────────────
+.sc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 4px;
+}
+
+.sc-badge {
+  font-family: 'Mikadan', sans-serif;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 1px;
+
+  &--school {
+    background: rgba(60,100,200,.12);
+    border: 1px solid rgba(60,100,200,.35);
+    color: rgba(120,160,240,.85);
+  }
+  &--level {
+    background: rgba(80,60,140,.12);
+    border: 1px solid rgba(80,60,140,.35);
+    color: rgba(160,130,220,.8);
+  }
+  &--tag {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.1);
+    color: rgba(255,255,255,.45);
+  }
+}
+
+// ── Divider ───────────────────────────────────────────────────────────────────
+.sc-rule {
+  height: 1px;
+  background: rgba(255,255,255,.06);
+  margin: 9px 0;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    width: 32px; height: 1px;
+    background: rgba(60,100,200,.55);
+  }
+}
+
+// ── Cast-info pills ───────────────────────────────────────────────────────────
+.sc-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 7px 0;
+}
+
+.sc-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.07);
+  border-top: 1px solid rgba(60,100,200,.35);
+  border-radius: 1px;
+  padding: 5px 10px;
+  min-width: 60px;
+
+  &__label {
+    font-family: 'Mikadan', sans-serif;
+    font-size: 8px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(60,100,200,.65);
+    white-space: nowrap;
+  }
+  &__val {
+    font-size: 11px;
+    font-weight: 500;
+    color: #d0ccc4;
+    text-align: center;
+    margin-top: 2px;
+  }
+}
+
+// ── Properties ────────────────────────────────────────────────────────────────
+.sc-prop {
+  margin: 3px 0;
+  font-size: 12px;
+
+  b { color: rgba(100,140,240,.7); margin-right: 4px; }
+
+  &--material {
+    color: rgba(255,255,255,.4);
+    font-style: italic;
+    font-size: 11px;
+  }
+}
+
+// ── Section heading ───────────────────────────────────────────────────────────
+.sc-section {
+  font-family: 'Mikadan', sans-serif;
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(60,100,200,.7);
+  margin: 8px 0 5px;
+  padding: 4px 0 4px 8px;
+  border-left: 2px solid rgba(60,100,200,.45);
+  background: rgba(60,100,200,.04);
+}
+
+// ── Description paragraphs ────────────────────────────────────────────────────
+.sc-desc {
+  margin: 4px 0;
+  font-size: 12px;
+  color: #b0acaa;
+  line-height: 1.7;
+}
+
+// ── Tag rows (classes / subclasses) ──────────────────────────────────────────
+.sc-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin: 4px 0;
+  font-size: 12px;
+
+  b { color: rgba(100,140,240,.7); margin-right: 2px; }
+}
+
+.sc-tag {
+  display: inline-block;
+  padding: 1px 6px;
+  background: rgba(60,100,200,.08);
+  border: 1px solid rgba(60,100,200,.25);
+  border-radius: 1px;
+  font-size: 10px;
+  color: rgba(100,140,240,.75);
+}
+
