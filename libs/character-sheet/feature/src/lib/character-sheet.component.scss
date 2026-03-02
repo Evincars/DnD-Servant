@@ -213,8 +213,8 @@ input[type='checkbox'][disabled] {
 
   // ── filled (slot restored / full) ───────────────────────────────────────
   &[data-state='filled'] {
-    background: rgba(73, 67, 67, 0.75);
-    border-color: rgba(73, 67, 67, 0.9);
+    background: rgba(175, 55, 55, 0.82);
+    border-color: rgba(160, 40, 40, 0.95);
 
     &::after {
       content: '';
@@ -223,7 +223,7 @@ input[type='checkbox'][disabled] {
       left: 50%;
       width: 40%;
       height: 40%;
-      background: rgba(255, 255, 255, 0.55);
+      background: rgba(255, 220, 220, 0.55);
       border-radius: 1px;
       transform: translate(-50%, -50%);
     }
@@ -246,24 +246,17 @@ input[type='checkbox'][disabled] {
   // ── disabled ─────────────────────────────────────────────────────────────
   &[disabled], &.disabled {
     cursor: not-allowed;
-    border: 1.5px solid rgba(160, 30, 30, 0.9) !important;
-    background: rgba(130, 20, 20, 0.72) !important;
-    opacity: 1;
+    border-color: rgba(80, 80, 80, 0.6) !important;
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(60, 60, 60, 0.55),
+      rgba(60, 60, 60, 0.55) 2px,
+      rgba(30, 30, 30, 0.25) 2px,
+      rgba(30, 30, 30, 0.25) 5px
+    ) !important;
+    opacity: 0.85;
 
-    // Bold white X across the whole cell
-    &::before, &::after {
-      display: block;
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 80%;
-      height: 2px;
-      background: rgba(255, 200, 200, 0.85);
-      border-radius: 1px;
-    }
-    &::before { transform: translate(-50%, -50%) rotate(45deg); }
-    &::after  { transform: translate(-50%, -50%) rotate(-45deg); }
+    &::before, &::after { display: none; }
   }
 }
 
