@@ -1,0 +1,40 @@
+@use '../../../../../../src/app/styles/dnd-card' with (
+  $accent:        rgba(20,140,140,.65),
+  $accent-dim:    rgba(20,140,140,.35),
+  $accent-mid:    rgba(20,140,140,.5),
+  $accent-glow:   rgba(20,140,140,.3),
+  $accent-faint:  rgba(20,140,140,.04),
+  $accent-label:  rgba(20,180,180,.7),
+  $accent-prop:   rgba(60,210,210,.7),
+  $accent-tag-bg: rgba(20,140,140,.08),
+  $accent-tag-bd: rgba(20,140,140,.28),
+  $accent-tag-tx: rgba(60,210,210,.85)
+);
+
+:host { display: contents; }
+
+.scc-card    { @extend %dnd-card-shell;    }
+.scc-close   { @extend %dnd-card-close;   }
+.scc-loading { @extend %dnd-card-loading;  }
+.scc-error   { @extend %dnd-card-error;   }
+.scc-name    { @extend %dnd-card-name;    color: #a0e8e8; }
+.scc-meta    { @extend %dnd-card-meta;    }
+.scc-rule    { @extend %dnd-card-rule;    }
+.scc-section { @extend %dnd-card-section;  }
+.scc-desc    { @extend %dnd-card-desc;    }
+.scc-prop    { @extend %dnd-card-prop;    }
+.scc-tag-row { @extend %dnd-card-tag-row;  }
+
+.scc-tag {
+  @extend %dnd-card-tag;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  &__lvl {
+    font-size: 9px;
+    opacity: .65;
+    letter-spacing: .04em;
+  }
+}
+

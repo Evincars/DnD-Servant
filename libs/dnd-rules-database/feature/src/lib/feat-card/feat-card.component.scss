@@ -1,0 +1,28 @@
+@use '../../../../../../src/app/styles/dnd-card' with (
+  $accent:        rgba(180,100,20,.65),
+  $accent-dim:    rgba(180,100,20,.35),
+  $accent-mid:    rgba(180,100,20,.5),
+  $accent-glow:   rgba(180,100,20,.3),
+  $accent-faint:  rgba(180,100,20,.04),
+  $accent-label:  rgba(180,100,20,.75),
+  $accent-prop:   rgba(220,150,50,.7),
+  $accent-tag-bg: rgba(180,100,20,.08),
+  $accent-tag-bd: rgba(180,100,20,.28),
+  $accent-tag-tx: rgba(220,150,50,.8)
+);
+
+:host { display: contents; }
+
+.fc-card    { @extend %dnd-card-shell;   }
+.fc-close   { @extend %dnd-card-close;  }
+.fc-loading { @extend %dnd-card-loading; }
+.fc-error   { @extend %dnd-card-error;  }
+.fc-name    { @extend %dnd-card-name;   color: #e8d0a0; }
+.fc-meta    { @extend %dnd-card-meta;   }
+.fc-rule    { @extend %dnd-card-rule;   }
+.fc-section { @extend %dnd-card-section; }
+.fc-desc    { @extend %dnd-card-desc;   }
+.fc-prop    { @extend %dnd-card-prop;   }
+.fc-tag-row { @extend %dnd-card-tag-row; }
+.fc-tag     { @extend %dnd-card-tag;    }
+

@@ -11,6 +11,12 @@
   min-width: 100vw;
 }
 
+// Make mat-sidenav-content scroll naturally via the browser — no inner scrollbar
+::ng-deep .mat-sidenav-content {
+  overflow: visible !important;
+  display: block !important;
+}
+
 // ═══════════════════════════════════════════════════════════════════
 // SIDENAV
 // ═══════════════════════════════════════════════════════════════════
@@ -188,6 +194,7 @@
   flex-direction: column;
   box-sizing: border-box;
   position: relative;
+  overflow: visible;
   border: 1px solid rgba(200,160,60,.3);
   outline: 1px solid rgba(200,160,60,.12);
   outline-offset: -6px;
@@ -265,7 +272,9 @@
   border-bottom: 1px solid rgba(200,160,60,.35) !important;
   box-shadow: 0 3px 28px rgba(0,0,0,.85), inset 0 -1px 0 rgba(200,160,60,.18) !important;
   color: #e0d4c0 !important;
-  position: relative;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
   display: flex !important;
   flex-direction: row !important;
   align-items: center !important;

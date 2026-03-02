@@ -1,0 +1,38 @@
+<div class="fc-card">
+  <button class="fc-close" (click)="close.emit()" title="Zavřít">✕</button>
+
+  @if (loading()) {
+    <div class="fc-loading">
+      <mat-icon class="fc-loading__icon">hourglass_empty</mat-icon>
+      <span>Načítám schopnost…</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="fc-error">⚠ {{ error() }}</div>
+  }
+
+  @if (feat(); as f) {
+
+    <div class="fc-name">{{ f.name }}</div>
+    <div class="fc-meta">Schopnost (Feat)</div>
+
+    <div class="fc-rule"></div>
+
+    <!-- Prerequisites -->
+    @if (hasPrerequisites(f)) {
+      <div class="fc-prop">
+        <b>Předpoklady:</b> {{ prerequisiteText(f) }}
+      </div>
+      <div class="fc-rule"></div>
+    }
+
+    <!-- Description -->
+    <div class="fc-section">Popis</div>
+    @for (para of f.desc; track $index) {
+      <p class="fc-desc">{{ para }}</p>
+    }
+
+  }
+</div>
+

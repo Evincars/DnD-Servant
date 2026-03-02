@@ -174,6 +174,92 @@ input[type='checkbox'][disabled] {
   accent-color: #af5555;
 }
 
+// ── Tri-state spell-slot custom checkbox ─────────────────────────────────────
+.spell-slot-cb {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  box-sizing: border-box;
+  border: 1.5px solid rgba(0, 0, 0, 0.45);
+  border-radius: 2px;
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.1s, border-color 0.1s;
+
+  // ── empty (default) ──────────────────────────────────────────────────────
+  &[data-state=''] , &:not([data-state]) {
+    background: transparent;
+  }
+
+  // ── cross (slot used / spent) ────────────────────────────────────────────
+  &[data-state='cross'] {
+    background: transparent;
+    border-color: rgba(100, 60, 60, 0.7);
+
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 70%;
+      height: 1.5px;
+      background: #8b3a3a;
+      border-radius: 1px;
+    }
+    &::before { transform: translate(-50%, -50%) rotate(45deg); }
+    &::after  { transform: translate(-50%, -50%) rotate(-45deg); }
+  }
+
+  // ── filled (slot restored / full) ───────────────────────────────────────
+  &[data-state='filled'] {
+    background: rgba(175, 55, 55, 0.82);
+    border-color: rgba(160, 40, 40, 0.95);
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 40%;
+      height: 40%;
+      background: rgba(255, 220, 220, 0.55);
+      border-radius: 1px;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  // ── black-priest variant ─────────────────────────────────────────────────
+  &.spell-slot-cb--black-priest {
+    border-color: rgba(140, 60, 60, 0.55);
+
+    &[data-state='cross'] {
+      border-color: rgba(160, 50, 50, 0.8);
+      &::before, &::after { background: #af5555; }
+    }
+    &[data-state='filled'] {
+      background: rgba(140, 60, 60, 0.7);
+      border-color: rgba(140, 60, 60, 0.9);
+    }
+  }
+
+  // ── disabled ─────────────────────────────────────────────────────────────
+  &[disabled], &.disabled {
+    cursor: not-allowed;
+    border-color: rgba(80, 80, 80, 0.6) !important;
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(60, 60, 60, 0.55),
+      rgba(60, 60, 60, 0.55) 2px,
+      rgba(30, 30, 30, 0.25) 2px,
+      rgba(30, 30, 30, 0.25) 5px
+    ) !important;
+    opacity: 0.85;
+
+    &::before, &::after { display: none; }
+  }
+}
+
 .small-info-icon {
   font-size: 15px;
   width: 15px;

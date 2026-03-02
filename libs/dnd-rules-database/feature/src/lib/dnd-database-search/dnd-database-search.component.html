@@ -7,7 +7,7 @@
     </div>
     <div>
       <div class="db-header__title">Databáze D&amp;D 2014</div>
-      <div class="db-header__subtitle">Vyhledej příšery, kouzla a rasy ze systému D&amp;D 5e (2014)</div>
+      <div class="db-header__subtitle">Vyhledej příšery, kouzla, rasy, podrasy, povolání a subpovolání ze systému D&amp;D 5e (2014)</div>
     </div>
   </div>
 
@@ -41,7 +41,7 @@
         spellcheck="false"
       />
       @if (query()) {
-        <button class="db-search-wrap__clear" (click)="query.set(''); clearResult()" type="button" tabindex="-1">
+        <button class="db-search-wrap__clear" (click)="query.set('')" type="button" tabindex="-1">
           <mat-icon>close</mat-icon>
         </button>
       }
@@ -50,62 +50,89 @@
       <mat-icon>travel_explore</mat-icon>
       <span>Hledat</span>
     </button>
+    @if (hasResult()) {
+      <button class="db-clear-btn" (click)="clearAll()" type="button" title="Zavřít vše">
+        <mat-icon>delete_sweep</mat-icon>
+      </button>
+    }
   </div>
 
   <div class="db-hint">{{ activeDef().hint }}</div>
 
-  <!-- ── Results area ──────────────────────────────────────────────────────── -->
-  <div class="db-results">
+  <!-- ── State messages ────────────────────────────────────────────────────── -->
+  @if (loading()) {
+    <div class="db-state">
+      <mat-icon class="db-state__spin">hourglass_empty</mat-icon>
+      <span>Hledám…</span>
+    </div>
+  }
 
-    @if (loading()) {
-      <div class="db-state">
-        <mat-icon class="db-state__spin">hourglass_empty</mat-icon>
-        <span>Hledám…</span>
-      </div>
-    }
+  @if (!loading() && error()) {
+    <div class="db-state db-state--error">
+      <mat-icon>error_outline</mat-icon>
+      <span>{{ error() }}</span>
+    </div>
+  }
 
-    @if (!loading() && error()) {
-      <div class="db-state db-state--error">
-        <mat-icon>error_outline</mat-icon>
-        <span>{{ error() }}</span>
-      </div>
-    }
+  @if (!loading() && !hasResult() && !error()) {
+    <div class="db-state db-state--empty">
+      <mat-icon>travel_explore</mat-icon>
+      <span>Zadej název a stiskni Hledat</span>
+    </div>
+  }
 
-    @if (!loading() && !hasResult() && !error()) {
-      <div class="db-state db-state--empty">
-        <mat-icon>travel_explore</mat-icon>
-        <span>Zadej název a stiskni Hledat</span>
-      </div>
-    }
+  <!-- ── Results grid ───────────────────────────────────────────────────────── -->
+  @if (hasResult()) {
+    <div class="db-results">
 
-    @if (monster()) {
-      <monster-card
-        [monster]="monster()"
-        [loading]="false"
-        [error]="null"
-        (close)="clearResult()"
-      />
-    }
+      @for (m of monsters(); track m.index) {
+        <div class="db-results__item">
+          <monster-card
+            [monster]="m"
+            [loading]="false"
+            [error]="null"
+            (close)="removeMonster($index)"
+          />
+        </div>
+      }
 
-    @if (spell()) {
-      <spell-card
-        [spell]="spell()"
-        [loading]="false"
-        [error]="null"
-        (close)="clearResult()"
-      />
-    }
+      @for (s of spells(); track s.index) {
+        <div class="db-results__item">
+          <spell-card
+            [spell]="s"
+            [loading]="false"
+            [error]="null"
+            (close)="removeSpell($index)"
+          />
+        </div>
+      }
 
-    @if (race()) {
-      <race-card
-        [race]="race()"
-        [loading]="false"
-        [error]="null"
-        (close)="clearResult()"
-      />
-    }
+      @for (r of races(); track r.index) {
+        <div class="db-results__item">
+          <race-card [race]="r" [loading]="false" [error]="null" (close)="removeRace($index)" />
+        </div>
+      }
 
-  </div>
+      @for (sr of subraces(); track sr.index) {
+        <div class="db-results__item">
+          <subrace-card [subrace]="sr" [loading]="false" [error]="null" (close)="removeSubrace($index)" />
+        </div>
+      }
+
+      @for (cl of classes(); track cl.index) {
+        <div class="db-results__item">
+          <class-card [dndClass]="cl" [loading]="false" [error]="null" (close)="removeClass($index)" />
+        </div>
+      }
+
+      @for (sc of subclasses(); track sc.index) {
+        <div class="db-results__item">
+          <subclass-card [subclass]="sc" [loading]="false" [error]="null" (close)="removeSubclass($index)" />
+        </div>
+      }
+
+    </div>
+  }
 
 </div>
 

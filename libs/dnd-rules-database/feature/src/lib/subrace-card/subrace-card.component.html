@@ -1,0 +1,64 @@
+<div class="src-card">
+  <button class="src-close" (click)="close.emit()" title="Zavřít">✕</button>
+
+  @if (loading()) {
+    <div class="src-loading">
+      <mat-icon class="src-loading__icon">hourglass_empty</mat-icon>
+      <span>Načítám podrasu…</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="src-error">⚠ {{ error() }}</div>
+  }
+
+  @if (subrace(); as s) {
+
+    <div class="src-name">{{ s.name }}</div>
+    <div class="src-meta">Podrasa · {{ s.race.name }}</div>
+
+    <div class="src-rule"></div>
+
+    <!-- Description -->
+    @if (s.desc) {
+      <p class="src-desc">{{ s.desc }}</p>
+      <div class="src-rule"></div>
+    }
+
+    <!-- Ability bonuses -->
+    @if (abilityBonusText(s); as abt) {
+      <div class="src-prop"><b>Bonus vlastností:</b> {{ abt }}</div>
+    }
+
+    <!-- Proficiencies -->
+    @if (proficienciesText(s); as pt) {
+      <div class="src-prop"><b>Zdatnosti:</b> {{ pt }}</div>
+    }
+
+    <!-- Languages -->
+    @if (languagesText(s); as lt) {
+      <div class="src-prop"><b>Jazyky:</b> {{ lt }}</div>
+    }
+    @if (languageOptionsText(s); as lot) {
+      <div class="src-prop"><b>Volba jazyka:</b> {{ lot }}</div>
+    }
+
+    <!-- Racial traits -->
+    @if (s.racial_traits?.length) {
+      <div class="src-rule"></div>
+      <div class="src-section">Rasové rysy</div>
+      <div class="src-tag-row">
+        @for (t of s.racial_traits; track t.index) {
+          <span class="src-tag">{{ t.name }}</span>
+        }
+      </div>
+    }
+
+    <!-- Optional trait choices -->
+    @if (traitOptionsText(s); as tot) {
+      <div class="src-prop src-prop--choice"><b>Volitelný rys:</b> {{ tot }}</div>
+    }
+
+  }
+</div>
+

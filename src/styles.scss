@@ -16,6 +16,17 @@ body {
   height: 100%;
 }
 
+// Let mat-sidenav-content flow naturally — browser window is the only scrollbar
+.mat-drawer-content.mat-sidenav-content {
+  overflow: visible !important;
+  display: block !important;
+}
+
+// mat-sidenav-container must also not clip
+.mat-drawer-container {
+  overflow: visible !important;
+}
+
 :root {
   --background: hsl(270, 20%, 8%);
   --background-gradient: hsl(280, 25%, 12%);

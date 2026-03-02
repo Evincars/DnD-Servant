@@ -566,387 +566,384 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           placeholder="A*"
         />
 
-        <input
+        <div
           #level1Slot1Input
-          [formControl]="spellSlotsControls.level1Slot1"
-          id="level-1-slot-1"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:892px; left:440px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level1Slot1.disabled"
+          [attr.data-state]="spellSlotsControls.level1Slot1.value"
+          (click)="cycleSlot(spellSlotsControls.level1Slot1)"
+          style="top:895px; left:444px;"
+        ></div>
+        <div
           #level1Slot2Input
-          [formControl]="spellSlotsControls.level1Slot2"
-          id="level-1-slot-2"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:912px; left:440px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level1Slot2.disabled"
+          [attr.data-state]="spellSlotsControls.level1Slot2.value"
+          (click)="cycleSlot(spellSlotsControls.level1Slot2)"
+          style="top:915px; left:444px;"
+        ></div>
+        <div
           #level1Slot3Input
-          [formControl]="spellSlotsControls.level1Slot3"
-          id="level-1-slot-3"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:933px; left:440px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level1Slot3.disabled"
+          [attr.data-state]="spellSlotsControls.level1Slot3.value"
+          (click)="cycleSlot(spellSlotsControls.level1Slot3)"
+          style="top:936px; left:444px;"
+        ></div>
+        <div
           #level1Slot4Input
-          [formControl]="spellSlotsControls.level1Slot4"
-          id="level-1-slot-4"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:953px; left:440px;"
-        />
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level1Slot4.disabled"
+          [attr.data-state]="spellSlotsControls.level1Slot4.value"
+          (click)="cycleSlot(spellSlotsControls.level1Slot4)"
+          style="top:956px; left:444px;"
+        ></div>
 
-        <input
+        <div
           #level2Slot1Input
-          [formControl]="spellSlotsControls.level2Slot1"
-          id="level-2-slot-1"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:892px; left:467px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level2Slot1.disabled"
+          [attr.data-state]="spellSlotsControls.level2Slot1.value"
+          (click)="cycleSlot(spellSlotsControls.level2Slot1)"
+          style="top:895px; left:471px;"
+        ></div>
+        <div
           #level2Slot2Input
-          [formControl]="spellSlotsControls.level2Slot2"
-          id="level-2-slot-2"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:912px; left:467px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level2Slot2.disabled"
+          [attr.data-state]="spellSlotsControls.level2Slot2.value"
+          (click)="cycleSlot(spellSlotsControls.level2Slot2)"
+          style="top:915px; left:471px;"
+        ></div>
+        <div
           #level2Slot3Input
-          [formControl]="spellSlotsControls.level2Slot3"
-          id="level-2-slot-3"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:933px; left:467px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level2Slot3.disabled"
+          [attr.data-state]="spellSlotsControls.level2Slot3.value"
+          (click)="cycleSlot(spellSlotsControls.level2Slot3)"
+          style="top:936px; left:471px;"
+        ></div>
+        <div
           #level2Slot4Input
-          [formControl]="spellSlotsControls.level2Slot4"
-          id="level-2-slot-4"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox spell-slot-black-priest"
-          style="top:953px; left:467px;"
-        />
+          class="spell-slot-cb spell-slot-cb--black-priest"
+          [class.disabled]="spellSlotsControls.level2Slot4.disabled"
+          [attr.data-state]="spellSlotsControls.level2Slot4.value"
+          (click)="cycleSlot(spellSlotsControls.level2Slot4)"
+          style="top:956px; left:471px;"
+        ></div>
 
-        <input
+        <div
           #level3Slot1Input
-          [formControl]="spellSlotsControls.level3Slot1"
-          id="level-3-slot-1"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:892px; left:494px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level3Slot1.disabled"
+          [attr.data-state]="spellSlotsControls.level3Slot1.value"
+          (click)="cycleSlot(spellSlotsControls.level3Slot1)"
+          style="top:895px; left:498px;"
+        ></div>
+        <div
           #level3Slot2Input
-          [formControl]="spellSlotsControls.level3Slot2"
-          id="level-3-slot-2"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:912px; left:494px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level3Slot2.disabled"
+          [attr.data-state]="spellSlotsControls.level3Slot2.value"
+          (click)="cycleSlot(spellSlotsControls.level3Slot2)"
+          style="top:915px; left:498px;"
+        ></div>
+        <div
           #level3Slot3Input
-          [formControl]="spellSlotsControls.level3Slot3"
-          id="level-3-slot-3"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:933px; left:494px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level3Slot3.disabled"
+          [attr.data-state]="spellSlotsControls.level3Slot3.value"
+          (click)="cycleSlot(spellSlotsControls.level3Slot3)"
+          style="top:936px; left:498px;"
+        ></div>
+        <div
           #level3Slot4Input
-          [formControl]="spellSlotsControls.level3Slot4"
-          id="level-3-slot-4"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox spell-slot-black-priest"
-          style="top:953px; left:494px;"
-        />
+          class="spell-slot-cb spell-slot-cb--black-priest"
+          [class.disabled]="spellSlotsControls.level3Slot4.disabled"
+          [attr.data-state]="spellSlotsControls.level3Slot4.value"
+          (click)="cycleSlot(spellSlotsControls.level3Slot4)"
+          style="top:956px; left:498px;"
+        ></div>
 
-        <input
+        <div
           #level4Slot1Input
-          [formControl]="spellSlotsControls.level4Slot1"
-          id="level-4-slot-1"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:892px; left:521px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level4Slot1.disabled"
+          [attr.data-state]="spellSlotsControls.level4Slot1.value"
+          (click)="cycleSlot(spellSlotsControls.level4Slot1)"
+          style="top:895px; left:525px;"
+        ></div>
+        <div
           #level4Slot2Input
-          [formControl]="spellSlotsControls.level4Slot2"
-          id="level-4-slot-2"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:912px; left:521px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level4Slot2.disabled"
+          [attr.data-state]="spellSlotsControls.level4Slot2.value"
+          (click)="cycleSlot(spellSlotsControls.level4Slot2)"
+          style="top:915px; left:525px;"
+        ></div>
+        <div
           #level4Slot3Input
-          [formControl]="spellSlotsControls.level4Slot3"
-          id="level-4-slot-3"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:933px; left:521px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level4Slot3.disabled"
+          [attr.data-state]="spellSlotsControls.level4Slot3.value"
+          (click)="cycleSlot(spellSlotsControls.level4Slot3)"
+          style="top:936px; left:525px;"
+        ></div>
+        <div
           #level4Slot4Input
-          [formControl]="spellSlotsControls.level4Slot4"
-          id="level-4-slot-4"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox spell-slot-black-priest"
-          style="top:953px; left:521px;"
-        />
+          class="spell-slot-cb spell-slot-cb--black-priest"
+          [class.disabled]="spellSlotsControls.level4Slot4.disabled"
+          [attr.data-state]="spellSlotsControls.level4Slot4.value"
+          (click)="cycleSlot(spellSlotsControls.level4Slot4)"
+          style="top:956px; left:525px;"
+        ></div>
 
-        <input
+        <div
           #level5Slot1Input
-          [formControl]="spellSlotsControls.level5Slot1"
-          id="level-5-slot-1"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:892px; left:548px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level5Slot1.disabled"
+          [attr.data-state]="spellSlotsControls.level5Slot1.value"
+          (click)="cycleSlot(spellSlotsControls.level5Slot1)"
+          style="top:895px; left:552px;"
+        ></div>
+        <div
           #level5Slot2Input
-          [formControl]="spellSlotsControls.level5Slot2"
-          id="level-5-slot-2"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:912px; left:548px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level5Slot2.disabled"
+          [attr.data-state]="spellSlotsControls.level5Slot2.value"
+          (click)="cycleSlot(spellSlotsControls.level5Slot2)"
+          style="top:915px; left:552px;"
+        ></div>
+        <div
           #level5Slot3Input
-          [formControl]="spellSlotsControls.level5Slot3"
-          id="level-5-slot-3"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:933px; left:548px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level5Slot3.disabled"
+          [attr.data-state]="spellSlotsControls.level5Slot3.value"
+          (click)="cycleSlot(spellSlotsControls.level5Slot3)"
+          style="top:936px; left:552px;"
+        ></div>
+        <div
           #level5Slot4Input
-          [formControl]="spellSlotsControls.level5Slot4"
-          id="level-5-slot-4"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox spell-slot-black-priest"
-          style="top:953px; left:548px;"
-        />
+          class="spell-slot-cb spell-slot-cb--black-priest"
+          [class.disabled]="spellSlotsControls.level5Slot4.disabled"
+          [attr.data-state]="spellSlotsControls.level5Slot4.value"
+          (click)="cycleSlot(spellSlotsControls.level5Slot4)"
+          style="top:956px; left:552px;"
+        ></div>
 
-        <input
+        <div
           #level6Slot1Input
-          [formControl]="spellSlotsControls.level6Slot1"
-          id="level-6-slot-1"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:892px; left:575px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level6Slot1.disabled"
+          [attr.data-state]="spellSlotsControls.level6Slot1.value"
+          (click)="cycleSlot(spellSlotsControls.level6Slot1)"
+          style="top:895px; left:579px;"
+        ></div>
+        <div
           #level6Slot2Input
-          [formControl]="spellSlotsControls.level6Slot2"
-          id="level-6-slot-2"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:912px; left:575px;"
-        />
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level6Slot2.disabled"
+          [attr.data-state]="spellSlotsControls.level6Slot2.value"
+          (click)="cycleSlot(spellSlotsControls.level6Slot2)"
+          style="top:915px; left:579px;"
+        ></div>
 
-        <input
+        <div
           #level7Slot1Input
-          [formControl]="spellSlotsControls.level7Slot1"
-          id="level-7-slot-1"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:892px; left:601px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level7Slot1.disabled"
+          [attr.data-state]="spellSlotsControls.level7Slot1.value"
+          (click)="cycleSlot(spellSlotsControls.level7Slot1)"
+          style="top:895px; left:605px;"
+        ></div>
+        <div
           #level7Slot2Input
-          [formControl]="spellSlotsControls.level7Slot2"
-          id="level-7-slot-2"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:912px; left:601px;"
-        />
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level7Slot2.disabled"
+          [attr.data-state]="spellSlotsControls.level7Slot2.value"
+          (click)="cycleSlot(spellSlotsControls.level7Slot2)"
+          style="top:915px; left:605px;"
+        ></div>
 
-        <input
+        <div
           #level8Slot1Input
-          [formControl]="spellSlotsControls.level8Slot1"
-          id="level-8-slot-1"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:892px; left:628px;"
-        />
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level8Slot1.disabled"
+          [attr.data-state]="spellSlotsControls.level8Slot1.value"
+          (click)="cycleSlot(spellSlotsControls.level8Slot1)"
+          style="top:895px; left:632px;"
+        ></div>
 
-        <input
+        <div
           #level9Slot1Input
-          [formControl]="spellSlotsControls.level9Slot1"
-          id="level-9-slot-1"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:892px; left:655px;"
-        />
+          class="spell-slot-cb"
+          [class.disabled]="spellSlotsControls.level9Slot1.disabled"
+          [attr.data-state]="spellSlotsControls.level9Slot1.value"
+          (click)="cycleSlot(spellSlotsControls.level9Slot1)"
+          style="top:895px; left:659px;"
+        ></div>
 
         <!--      Alchemist chest-->
-        <input
+        <div
           #chestUsage1Input
-          [formControl]="alchemistChestControls.chestUsage1"
-          id="chest-usage-1"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:892px; left:692px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage1.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage1.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage1)"
+          style="top:895px; left:696px;"
+        ></div>
+        <div
           #chestUsage2Input
-          [formControl]="alchemistChestControls.chestUsage2"
-          id="chest-usage-2"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:892px; left:716px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage2.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage2.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage2)"
+          style="top:895px; left:720px;"
+        ></div>
+        <div
           #chestUsage3Input
-          [formControl]="alchemistChestControls.chestUsage3"
-          id="chest-usage-3"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:892px; left:738px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage3.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage3.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage3)"
+          style="top:895px; left:742px;"
+        ></div>
+        <div
           #chestUsage4Input
-          [formControl]="alchemistChestControls.chestUsage4"
-          id="chest-usage-4"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:892px; left:761px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage4.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage4.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage4)"
+          style="top:895px; left:765px;"
+        ></div>
+        <div
           #chestUsage5Input
-          [formControl]="alchemistChestControls.chestUsage5"
-          id="chest-usage-5"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:892px; left:784px;"
-        />
-
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage5.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage5.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage5)"
+          style="top:895px; left:788px;"
+        ></div>
+        <div
           #chestUsage6Input
-          [formControl]="alchemistChestControls.chestUsage6"
-          id="chest-usage-6"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:912px; left:692px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage6.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage6.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage6)"
+          style="top:915px; left:696px;"
+        ></div>
+        <div
           #chestUsage7Input
-          [formControl]="alchemistChestControls.chestUsage7"
-          id="chest-usage-7"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:912px; left:716px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage7.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage7.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage7)"
+          style="top:915px; left:720px;"
+        ></div>
+        <div
           #chestUsage8Input
-          [formControl]="alchemistChestControls.chestUsage8"
-          id="chest-usage-8"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:912px; left:738px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage8.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage8.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage8)"
+          style="top:915px; left:742px;"
+        ></div>
+        <div
           #chestUsage9Input
-          [formControl]="alchemistChestControls.chestUsage9"
-          id="chest-usage-9"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:912px; left:761px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage9.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage9.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage9)"
+          style="top:915px; left:765px;"
+        ></div>
+        <div
           #chestUsage10Input
-          [formControl]="alchemistChestControls.chestUsage10"
-          id="chest-usage-10"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:912px; left:784px;"
-        />
-
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage10.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage10.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage10)"
+          style="top:915px; left:788px;"
+        ></div>
+        <div
           #chestUsage11Input
-          [formControl]="alchemistChestControls.chestUsage11"
-          id="chest-usage-11"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:933px; left:692px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage11.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage11.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage11)"
+          style="top:936px; left:696px;"
+        ></div>
+        <div
           #chestUsage12Input
-          [formControl]="alchemistChestControls.chestUsage12"
-          id="chest-usage-12"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:933px; left:716px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage12.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage12.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage12)"
+          style="top:936px; left:720px;"
+        ></div>
+        <div
           #chestUsage13Input
-          [formControl]="alchemistChestControls.chestUsage13"
-          id="chest-usage-13"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:933px; left:738px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage13.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage13.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage13)"
+          style="top:936px; left:742px;"
+        ></div>
+        <div
           #chestUsage14Input
-          [formControl]="alchemistChestControls.chestUsage14"
-          id="chest-usage-14"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:933px; left:761px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage14.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage14.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage14)"
+          style="top:936px; left:765px;"
+        ></div>
+        <div
           #chestUsage15Input
-          [formControl]="alchemistChestControls.chestUsage15"
-          id="chest-usage-15"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:933px; left:784px;"
-        />
-
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage15.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage15.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage15)"
+          style="top:936px; left:788px;"
+        ></div>
+        <div
           #chestUsage16Input
-          [formControl]="alchemistChestControls.chestUsage16"
-          id="chest-usage-16"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:953px; left:692px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage16.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage16.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage16)"
+          style="top:956px; left:696px;"
+        ></div>
+        <div
           #chestUsage17Input
-          [formControl]="alchemistChestControls.chestUsage17"
-          id="chest-usage-17"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:953px; left:716px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage17.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage17.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage17)"
+          style="top:956px; left:720px;"
+        ></div>
+        <div
           #chestUsage18Input
-          [formControl]="alchemistChestControls.chestUsage18"
-          id="chest-usage-18"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:953px; left:738px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage18.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage18.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage18)"
+          style="top:956px; left:742px;"
+        ></div>
+        <div
           #chestUsage19Input
-          [formControl]="alchemistChestControls.chestUsage19"
-          id="chest-usage-19"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:953px; left:761px;"
-        />
-        <input
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage19.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage19.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage19)"
+          style="top:956px; left:765px;"
+        ></div>
+        <div
           #chestUsage20Input
-          [formControl]="alchemistChestControls.chestUsage20"
-          id="chest-usage-20"
-          type="checkbox"
-          class="field checkbox spell-slot-checkbox"
-          style="top:953px; left:784px;"
-        />
+          class="spell-slot-cb"
+          [class.disabled]="alchemistChestControls.chestUsage20.disabled"
+          [attr.data-state]="alchemistChestControls.chestUsage20.value"
+          (click)="cycleSlot(alchemistChestControls.chestUsage20)"
+          style="top:956px; left:788px;"
+        ></div>
 
         <!--    main 6 skills-->
         <input
@@ -2340,7 +2337,10 @@ export class CharacterSheetComponent {
           this._setBlackPriestSpellSlotsLevel17();
           break;
         default:
-          this._enableAllSpellSlotsInputs();
+          // Only reset if sesilatele is also empty — otherwise leave its state intact
+          if (!parseInt(this.spellSlotsControls.urovenSesilatele.value ?? '0')) {
+            this._enableAllSpellSlotsInputs();
+          }
       }
     });
 
@@ -2583,7 +2583,11 @@ export class CharacterSheetComponent {
         this._setBlackPriestSpellSlotsLevel17();
         break;
       default:
-        this._enableAllSpellSlotsInputs();
+        // Only reset spell slots when sesilatele is also empty — otherwise
+        // sesilatele already applied the correct disable/enable state.
+        if (sesilateleLevel === 0) {
+          this._enableAllSpellSlotsInputs();
+        }
     }
 
     const alchymistLevel = parseInt(this.alchemistChestControls.urovenAlchymisty.value ?? '0');
@@ -2823,707 +2827,584 @@ export class CharacterSheetComponent {
 
   _setSpellSlotsLevel1() {
     this._disableAllSpellSlotsInputs();
-
-    this.level1Slot1Input.nativeElement.disabled = false;
-    this.level1Slot2Input.nativeElement.disabled = false;
+    this._en('level1Slot1');
+    this._en('level1Slot2');
   }
-
   _setSpellSlotsLevel2() {
     this._disableAllSpellSlotsInputs();
-
-    this.level1Slot1Input.nativeElement.disabled = false;
-    this.level1Slot2Input.nativeElement.disabled = false;
-    this.level1Slot3Input.nativeElement.disabled = false;
+    this._en('level1Slot1');
+    this._en('level1Slot2');
+    this._en('level1Slot3');
   }
-
   _setSpellSlotsLevel3() {
     this._disableAllSpellSlotsInputs();
-
-    this.level1Slot1Input.nativeElement.disabled = false;
-    this.level1Slot2Input.nativeElement.disabled = false;
-    this.level1Slot3Input.nativeElement.disabled = false;
-    this.level1Slot4Input.nativeElement.disabled = false;
-
-    this.level2Slot1Input.nativeElement.disabled = false;
-    this.level2Slot2Input.nativeElement.disabled = false;
+    this._en('level1Slot1');
+    this._en('level1Slot2');
+    this._en('level1Slot3');
+    this._en('level1Slot4');
+    this._en('level2Slot1');
+    this._en('level2Slot2');
   }
-
   _setSpellSlotsLevel4() {
     this._disableAllSpellSlotsInputs();
-
-    this.level1Slot1Input.nativeElement.disabled = false;
-    this.level1Slot2Input.nativeElement.disabled = false;
-    this.level1Slot3Input.nativeElement.disabled = false;
-    this.level1Slot4Input.nativeElement.disabled = false;
-
-    this.level2Slot1Input.nativeElement.disabled = false;
-    this.level2Slot2Input.nativeElement.disabled = false;
-    this.level2Slot3Input.nativeElement.disabled = false;
+    this._en('level1Slot1');
+    this._en('level1Slot2');
+    this._en('level1Slot3');
+    this._en('level1Slot4');
+    this._en('level2Slot1');
+    this._en('level2Slot2');
+    this._en('level2Slot3');
   }
-
   _setSpellSlotsLevel5() {
     this._disableAllSpellSlotsInputs();
-
-    this.level1Slot1Input.nativeElement.disabled = false;
-    this.level1Slot2Input.nativeElement.disabled = false;
-    this.level1Slot3Input.nativeElement.disabled = false;
-    this.level1Slot4Input.nativeElement.disabled = false;
-
-    this.level2Slot1Input.nativeElement.disabled = false;
-    this.level2Slot2Input.nativeElement.disabled = false;
-    this.level2Slot3Input.nativeElement.disabled = false;
-
-    this.level3Slot1Input.nativeElement.disabled = false;
-    this.level3Slot2Input.nativeElement.disabled = false;
+    this._en('level1Slot1');
+    this._en('level1Slot2');
+    this._en('level1Slot3');
+    this._en('level1Slot4');
+    this._en('level2Slot1');
+    this._en('level2Slot2');
+    this._en('level2Slot3');
+    this._en('level3Slot1');
+    this._en('level3Slot2');
   }
-
   _setSpellSlotsLevel6() {
     this._disableAllSpellSlotsInputs();
-
-    this.level1Slot1Input.nativeElement.disabled = false;
-    this.level1Slot2Input.nativeElement.disabled = false;
-    this.level1Slot3Input.nativeElement.disabled = false;
-    this.level1Slot4Input.nativeElement.disabled = false;
-
-    this.level2Slot1Input.nativeElement.disabled = false;
-    this.level2Slot2Input.nativeElement.disabled = false;
-    this.level2Slot3Input.nativeElement.disabled = false;
-
-    this.level3Slot1Input.nativeElement.disabled = false;
-    this.level3Slot2Input.nativeElement.disabled = false;
-    this.level3Slot3Input.nativeElement.disabled = false;
+    this._en('level1Slot1');
+    this._en('level1Slot2');
+    this._en('level1Slot3');
+    this._en('level1Slot4');
+    this._en('level2Slot1');
+    this._en('level2Slot2');
+    this._en('level2Slot3');
+    this._en('level3Slot1');
+    this._en('level3Slot2');
+    this._en('level3Slot3');
   }
-
   _setSpellSlotsLevel7() {
     this._disableAllSpellSlotsInputs();
-
-    this.level1Slot1Input.nativeElement.disabled = false;
-    this.level1Slot2Input.nativeElement.disabled = false;
-    this.level1Slot3Input.nativeElement.disabled = false;
-    this.level1Slot4Input.nativeElement.disabled = false;
-
-    this.level2Slot1Input.nativeElement.disabled = false;
-    this.level2Slot2Input.nativeElement.disabled = false;
-    this.level2Slot3Input.nativeElement.disabled = false;
-
-    this.level3Slot1Input.nativeElement.disabled = false;
-    this.level3Slot2Input.nativeElement.disabled = false;
-    this.level3Slot3Input.nativeElement.disabled = false;
-
-    this.level4Slot1Input.nativeElement.disabled = false;
+    this._en('level1Slot1');
+    this._en('level1Slot2');
+    this._en('level1Slot3');
+    this._en('level1Slot4');
+    this._en('level2Slot1');
+    this._en('level2Slot2');
+    this._en('level2Slot3');
+    this._en('level3Slot1');
+    this._en('level3Slot2');
+    this._en('level3Slot3');
+    this._en('level4Slot1');
   }
-
   _setSpellSlotsLevel8() {
     this._disableAllSpellSlotsInputs();
-
-    this.level1Slot1Input.nativeElement.disabled = false;
-    this.level1Slot2Input.nativeElement.disabled = false;
-    this.level1Slot3Input.nativeElement.disabled = false;
-    this.level1Slot4Input.nativeElement.disabled = false;
-
-    this.level2Slot1Input.nativeElement.disabled = false;
-    this.level2Slot2Input.nativeElement.disabled = false;
-    this.level2Slot3Input.nativeElement.disabled = false;
-
-    this.level3Slot1Input.nativeElement.disabled = false;
-    this.level3Slot2Input.nativeElement.disabled = false;
-    this.level3Slot3Input.nativeElement.disabled = false;
-
-    this.level4Slot1Input.nativeElement.disabled = false;
-    this.level4Slot2Input.nativeElement.disabled = false;
+    this._en('level1Slot1');
+    this._en('level1Slot2');
+    this._en('level1Slot3');
+    this._en('level1Slot4');
+    this._en('level2Slot1');
+    this._en('level2Slot2');
+    this._en('level2Slot3');
+    this._en('level3Slot1');
+    this._en('level3Slot2');
+    this._en('level3Slot3');
+    this._en('level4Slot1');
+    this._en('level4Slot2');
   }
-
   _setSpellSlotsLevel9() {
     this._disableAllSpellSlotsInputs();
-
-    this.level1Slot1Input.nativeElement.disabled = false;
-    this.level1Slot2Input.nativeElement.disabled = false;
-    this.level1Slot3Input.nativeElement.disabled = false;
-    this.level1Slot4Input.nativeElement.disabled = false;
-
-    this.level2Slot1Input.nativeElement.disabled = false;
-    this.level2Slot2Input.nativeElement.disabled = false;
-    this.level2Slot3Input.nativeElement.disabled = false;
-
-    this.level3Slot1Input.nativeElement.disabled = false;
-    this.level3Slot2Input.nativeElement.disabled = false;
-    this.level3Slot3Input.nativeElement.disabled = false;
-
-    this.level4Slot1Input.nativeElement.disabled = false;
-    this.level4Slot2Input.nativeElement.disabled = false;
-    this.level4Slot3Input.nativeElement.disabled = false;
-
-    this.level5Slot1Input.nativeElement.disabled = false;
+    this._en('level1Slot1');
+    this._en('level1Slot2');
+    this._en('level1Slot3');
+    this._en('level1Slot4');
+    this._en('level2Slot1');
+    this._en('level2Slot2');
+    this._en('level2Slot3');
+    this._en('level3Slot1');
+    this._en('level3Slot2');
+    this._en('level3Slot3');
+    this._en('level4Slot1');
+    this._en('level4Slot2');
+    this._en('level4Slot3');
+    this._en('level5Slot1');
   }
-
   _setSpellSlotsLevel10() {
     this._disableAllSpellSlotsInputs();
-
-    this.level1Slot1Input.nativeElement.disabled = false;
-    this.level1Slot2Input.nativeElement.disabled = false;
-    this.level1Slot3Input.nativeElement.disabled = false;
-    this.level1Slot4Input.nativeElement.disabled = false;
-
-    this.level2Slot1Input.nativeElement.disabled = false;
-    this.level2Slot2Input.nativeElement.disabled = false;
-    this.level2Slot3Input.nativeElement.disabled = false;
-
-    this.level3Slot1Input.nativeElement.disabled = false;
-    this.level3Slot2Input.nativeElement.disabled = false;
-    this.level3Slot3Input.nativeElement.disabled = false;
-
-    this.level4Slot1Input.nativeElement.disabled = false;
-    this.level4Slot2Input.nativeElement.disabled = false;
-    this.level4Slot3Input.nativeElement.disabled = false;
-
-    this.level5Slot1Input.nativeElement.disabled = false;
-    this.level5Slot2Input.nativeElement.disabled = false;
+    this._en('level1Slot1');
+    this._en('level1Slot2');
+    this._en('level1Slot3');
+    this._en('level1Slot4');
+    this._en('level2Slot1');
+    this._en('level2Slot2');
+    this._en('level2Slot3');
+    this._en('level3Slot1');
+    this._en('level3Slot2');
+    this._en('level3Slot3');
+    this._en('level4Slot1');
+    this._en('level4Slot2');
+    this._en('level4Slot3');
+    this._en('level5Slot1');
+    this._en('level5Slot2');
   }
-
   _setSpellSlotsLevel11() {
     this._enableAllSpellSlotsInputs();
     this._disableBlackPriestSpellSlotsInputs();
-
-    this.level5Slot3Input.nativeElement.disabled = true;
-    this.level5Slot4Input.nativeElement.disabled = true;
-
-    this.level6Slot2Input.nativeElement.disabled = true;
-
-    this.level7Slot1Input.nativeElement.disabled = true;
-    this.level7Slot2Input.nativeElement.disabled = true;
-
-    this.level8Slot1Input.nativeElement.disabled = true;
-    this.level9Slot1Input.nativeElement.disabled = true;
+    this._di('level5Slot3');
+    this._di('level5Slot4');
+    this._di('level6Slot2');
+    this._di('level7Slot1');
+    this._di('level7Slot2');
+    this._di('level8Slot1');
+    this._di('level9Slot1');
   }
-
   _setSpellSlotsLevel12() {
     this._enableAllSpellSlotsInputs();
     this._disableBlackPriestSpellSlotsInputs();
-
-    this.level5Slot3Input.nativeElement.disabled = true;
-    this.level5Slot4Input.nativeElement.disabled = true;
-
-    this.level6Slot2Input.nativeElement.disabled = true;
-
-    this.level7Slot1Input.nativeElement.disabled = true;
-    this.level7Slot2Input.nativeElement.disabled = true;
-
-    this.level8Slot1Input.nativeElement.disabled = true;
-    this.level9Slot1Input.nativeElement.disabled = true;
+    this._di('level5Slot3');
+    this._di('level5Slot4');
+    this._di('level6Slot2');
+    this._di('level7Slot1');
+    this._di('level7Slot2');
+    this._di('level8Slot1');
+    this._di('level9Slot1');
   }
-
   _setSpellSlotsLevel13() {
     this._enableAllSpellSlotsInputs();
     this._disableBlackPriestSpellSlotsInputs();
-
-    this.level5Slot3Input.nativeElement.disabled = true;
-    this.level5Slot4Input.nativeElement.disabled = true;
-
-    this.level6Slot2Input.nativeElement.disabled = true;
-
-    this.level7Slot2Input.nativeElement.disabled = true;
-
-    this.level8Slot1Input.nativeElement.disabled = true;
-    this.level9Slot1Input.nativeElement.disabled = true;
+    this._di('level5Slot3');
+    this._di('level5Slot4');
+    this._di('level6Slot2');
+    this._di('level7Slot2');
+    this._di('level8Slot1');
+    this._di('level9Slot1');
   }
-
   _setSpellSlotsLevel14() {
     this._enableAllSpellSlotsInputs();
     this._disableBlackPriestSpellSlotsInputs();
-
-    this.level5Slot3Input.nativeElement.disabled = true;
-    this.level5Slot4Input.nativeElement.disabled = true;
-
-    this.level6Slot2Input.nativeElement.disabled = true;
-
-    this.level7Slot2Input.nativeElement.disabled = true;
-
-    this.level8Slot1Input.nativeElement.disabled = true;
-    this.level9Slot1Input.nativeElement.disabled = true;
+    this._di('level5Slot3');
+    this._di('level5Slot4');
+    this._di('level6Slot2');
+    this._di('level7Slot2');
+    this._di('level8Slot1');
+    this._di('level9Slot1');
   }
-
   _setSpellSlotsLevel15() {
     this._enableAllSpellSlotsInputs();
     this._disableBlackPriestSpellSlotsInputs();
-
-    this.level5Slot3Input.nativeElement.disabled = true;
-    this.level5Slot4Input.nativeElement.disabled = true;
-
-    this.level6Slot2Input.nativeElement.disabled = true;
-
-    this.level7Slot2Input.nativeElement.disabled = true;
-
-    this.level9Slot1Input.nativeElement.disabled = true;
+    this._di('level5Slot3');
+    this._di('level5Slot4');
+    this._di('level6Slot2');
+    this._di('level7Slot2');
+    this._di('level9Slot1');
   }
-
   _setSpellSlotsLevel16() {
     this._enableAllSpellSlotsInputs();
     this._disableBlackPriestSpellSlotsInputs();
-
-    this.level5Slot3Input.nativeElement.disabled = true;
-    this.level5Slot4Input.nativeElement.disabled = true;
-
-    this.level6Slot2Input.nativeElement.disabled = true;
-
-    this.level7Slot2Input.nativeElement.disabled = true;
+    this._di('level5Slot3');
+    this._di('level5Slot4');
+    this._di('level6Slot2');
+    this._di('level7Slot2');
   }
-
   _setSpellSlotsLevel17() {
     this._enableAllSpellSlotsInputs();
     this._disableBlackPriestSpellSlotsInputs();
-
-    this.level5Slot3Input.nativeElement.disabled = true;
-    this.level5Slot4Input.nativeElement.disabled = true;
-
-    this.level6Slot2Input.nativeElement.disabled = true;
-
-    this.level7Slot2Input.nativeElement.disabled = true;
+    this._di('level5Slot3');
+    this._di('level5Slot4');
+    this._di('level6Slot2');
+    this._di('level7Slot2');
   }
-
   _setSpellSlotsLevel18() {
     this._enableAllSpellSlotsInputs();
     this._disableBlackPriestSpellSlotsInputs();
-
-    this.level5Slot4Input.nativeElement.disabled = true;
-
-    this.level6Slot2Input.nativeElement.disabled = true;
-
-    this.level7Slot2Input.nativeElement.disabled = true;
+    this._di('level5Slot4');
+    this._di('level6Slot2');
+    this._di('level7Slot2');
   }
-
   _setSpellSlotsLevel19() {
     this._enableAllSpellSlotsInputs();
     this._disableBlackPriestSpellSlotsInputs();
-
-    this.level5Slot4Input.nativeElement.disabled = true;
-
-    this.level7Slot2Input.nativeElement.disabled = true;
+    this._di('level5Slot4');
+    this._di('level7Slot2');
   }
-
   _setSpellSlotsLevel20() {
     this._enableAllSpellSlotsInputs();
     this._disableBlackPriestSpellSlotsInputs();
-
-    this.level5Slot4Input.nativeElement.disabled = true;
+    this._di('level5Slot4');
   }
 
   _setBlackPriestSpellSlotsLevel1() {
     this._disableAllSpellSlotsInputs();
-
-    this.level1Slot1Input.nativeElement.disabled = false;
+    this._en('level1Slot1');
   }
-
   _setBlackPriestSpellSlotsLevel2() {
     this._disableAllSpellSlotsInputs();
-
-    this.level1Slot1Input.nativeElement.disabled = false;
-    this.level1Slot2Input.nativeElement.disabled = false;
+    this._en('level1Slot1');
+    this._en('level1Slot2');
   }
-
   _setBlackPriestSpellSlotsLevel3() {
     this._disableAllSpellSlotsInputs();
-
-    this.level2Slot1Input.nativeElement.disabled = false;
-    this.level2Slot2Input.nativeElement.disabled = false;
+    this._en('level2Slot1');
+    this._en('level2Slot2');
   }
-
   _setBlackPriestSpellSlotsLevel5() {
     this._disableAllSpellSlotsInputs();
-
-    this.level3Slot1Input.nativeElement.disabled = false;
-    this.level3Slot2Input.nativeElement.disabled = false;
+    this._en('level3Slot1');
+    this._en('level3Slot2');
   }
-
   _setBlackPriestSpellSlotsLevel7() {
     this._disableAllSpellSlotsInputs();
-
-    this.level4Slot1Input.nativeElement.disabled = false;
-    this.level4Slot2Input.nativeElement.disabled = false;
+    this._en('level4Slot1');
+    this._en('level4Slot2');
   }
-
   _setBlackPriestSpellSlotsLevel9() {
     this._disableAllSpellSlotsInputs();
-
-    this.level5Slot1Input.nativeElement.disabled = false;
-    this.level5Slot2Input.nativeElement.disabled = false;
+    this._en('level5Slot1');
+    this._en('level5Slot2');
   }
-
   _setBlackPriestSpellSlotsLevel11() {
     this._disableAllSpellSlotsInputs();
-
-    this.level5Slot1Input.nativeElement.disabled = false;
-    this.level5Slot2Input.nativeElement.disabled = false;
-    this.level5Slot3Input.nativeElement.disabled = false;
-
-    this.level6Slot1Input.nativeElement.disabled = false;
+    this._en('level5Slot1');
+    this._en('level5Slot2');
+    this._en('level5Slot3');
+    this._en('level6Slot1');
   }
-
   _setBlackPriestSpellSlotsLevel13() {
     this._disableAllSpellSlotsInputs();
-
-    this.level5Slot1Input.nativeElement.disabled = false;
-    this.level5Slot2Input.nativeElement.disabled = false;
-    this.level5Slot3Input.nativeElement.disabled = false;
-
-    this.level6Slot1Input.nativeElement.disabled = false;
-
-    this.level7Slot1Input.nativeElement.disabled = false;
+    this._en('level5Slot1');
+    this._en('level5Slot2');
+    this._en('level5Slot3');
+    this._en('level6Slot1');
+    this._en('level7Slot1');
   }
-
   _setBlackPriestSpellSlotsLevel15() {
     this._disableAllSpellSlotsInputs();
-
-    this.level5Slot1Input.nativeElement.disabled = false;
-    this.level5Slot2Input.nativeElement.disabled = false;
-    this.level5Slot3Input.nativeElement.disabled = false;
-
-    this.level6Slot1Input.nativeElement.disabled = false;
-
-    this.level7Slot1Input.nativeElement.disabled = false;
-
-    this.level8Slot1Input.nativeElement.disabled = false;
+    this._en('level5Slot1');
+    this._en('level5Slot2');
+    this._en('level5Slot3');
+    this._en('level6Slot1');
+    this._en('level7Slot1');
+    this._en('level8Slot1');
   }
-
   _setBlackPriestSpellSlotsLevel17() {
     this._disableAllSpellSlotsInputs();
-
-    this.level5Slot1Input.nativeElement.disabled = false;
-    this.level5Slot2Input.nativeElement.disabled = false;
-    this.level5Slot3Input.nativeElement.disabled = false;
-    this.level5Slot4Input.nativeElement.disabled = false;
-
-    this.level6Slot1Input.nativeElement.disabled = false;
-
-    this.level7Slot1Input.nativeElement.disabled = false;
-
-    this.level8Slot1Input.nativeElement.disabled = false;
-
-    this.level9Slot1Input.nativeElement.disabled = false;
+    this._en('level5Slot1');
+    this._en('level5Slot2');
+    this._en('level5Slot3');
+    this._en('level5Slot4');
+    this._en('level6Slot1');
+    this._en('level7Slot1');
+    this._en('level8Slot1');
+    this._en('level9Slot1');
   }
 
   _setAlchemistChestUsagesLevel1() {
     this._disableAllChestUsagesInputs();
-
-    this.chestUsage1Input.nativeElement.disabled = false;
+    this._ace('chestUsage1');
   }
-
   _setAlchemistChestUsagesLevel2() {
     this._disableAllChestUsagesInputs();
-
-    this.chestUsage1Input.nativeElement.disabled = false;
-    this.chestUsage2Input.nativeElement.disabled = false;
+    this._ace('chestUsage1');
+    this._ace('chestUsage2');
   }
-
   _setAlchemistChestUsagesLevel3() {
     this._disableAllChestUsagesInputs();
-
-    this.chestUsage1Input.nativeElement.disabled = false;
-    this.chestUsage2Input.nativeElement.disabled = false;
-    this.chestUsage3Input.nativeElement.disabled = false;
+    this._ace('chestUsage1');
+    this._ace('chestUsage2');
+    this._ace('chestUsage3');
   }
-
   _setAlchemistChestUsagesLevel4() {
     this._disableAllChestUsagesInputs();
-
-    this.chestUsage1Input.nativeElement.disabled = false;
-    this.chestUsage2Input.nativeElement.disabled = false;
-    this.chestUsage3Input.nativeElement.disabled = false;
-    this.chestUsage4Input.nativeElement.disabled = false;
+    this._ace('chestUsage1');
+    this._ace('chestUsage2');
+    this._ace('chestUsage3');
+    this._ace('chestUsage4');
   }
-
   _setAlchemistChestUsagesLevel5() {
     this._disableAllChestUsagesInputs();
-
-    this.chestUsage1Input.nativeElement.disabled = false;
-    this.chestUsage2Input.nativeElement.disabled = false;
-    this.chestUsage3Input.nativeElement.disabled = false;
-    this.chestUsage4Input.nativeElement.disabled = false;
-    this.chestUsage5Input.nativeElement.disabled = false;
+    this._ace('chestUsage1');
+    this._ace('chestUsage2');
+    this._ace('chestUsage3');
+    this._ace('chestUsage4');
+    this._ace('chestUsage5');
   }
-
   _setAlchemistChestUsagesLevel6() {
     this._disableAllChestUsagesInputs();
-
-    this.chestUsage1Input.nativeElement.disabled = false;
-    this.chestUsage2Input.nativeElement.disabled = false;
-    this.chestUsage3Input.nativeElement.disabled = false;
-    this.chestUsage4Input.nativeElement.disabled = false;
-    this.chestUsage5Input.nativeElement.disabled = false;
-    this.chestUsage6Input.nativeElement.disabled = false;
+    this._ace('chestUsage1');
+    this._ace('chestUsage2');
+    this._ace('chestUsage3');
+    this._ace('chestUsage4');
+    this._ace('chestUsage5');
+    this._ace('chestUsage6');
   }
-
   _setAlchemistChestUsagesLevel7() {
     this._disableAllChestUsagesInputs();
-
-    this.chestUsage1Input.nativeElement.disabled = false;
-    this.chestUsage2Input.nativeElement.disabled = false;
-    this.chestUsage3Input.nativeElement.disabled = false;
-    this.chestUsage4Input.nativeElement.disabled = false;
-    this.chestUsage5Input.nativeElement.disabled = false;
-    this.chestUsage6Input.nativeElement.disabled = false;
-    this.chestUsage7Input.nativeElement.disabled = false;
+    this._ace('chestUsage1');
+    this._ace('chestUsage2');
+    this._ace('chestUsage3');
+    this._ace('chestUsage4');
+    this._ace('chestUsage5');
+    this._ace('chestUsage6');
+    this._ace('chestUsage7');
   }
-
   _setAlchemistChestUsagesLevel8() {
     this._disableAllChestUsagesInputs();
-
-    this.chestUsage1Input.nativeElement.disabled = false;
-    this.chestUsage2Input.nativeElement.disabled = false;
-    this.chestUsage3Input.nativeElement.disabled = false;
-    this.chestUsage4Input.nativeElement.disabled = false;
-    this.chestUsage5Input.nativeElement.disabled = false;
-    this.chestUsage6Input.nativeElement.disabled = false;
-    this.chestUsage7Input.nativeElement.disabled = false;
-    this.chestUsage8Input.nativeElement.disabled = false;
+    this._ace('chestUsage1');
+    this._ace('chestUsage2');
+    this._ace('chestUsage3');
+    this._ace('chestUsage4');
+    this._ace('chestUsage5');
+    this._ace('chestUsage6');
+    this._ace('chestUsage7');
+    this._ace('chestUsage8');
   }
-
   _setAlchemistChestUsagesLevel9() {
     this._disableAllChestUsagesInputs();
-
-    this.chestUsage1Input.nativeElement.disabled = false;
-    this.chestUsage2Input.nativeElement.disabled = false;
-    this.chestUsage3Input.nativeElement.disabled = false;
-    this.chestUsage4Input.nativeElement.disabled = false;
-    this.chestUsage5Input.nativeElement.disabled = false;
-    this.chestUsage6Input.nativeElement.disabled = false;
-    this.chestUsage7Input.nativeElement.disabled = false;
-    this.chestUsage8Input.nativeElement.disabled = false;
-    this.chestUsage9Input.nativeElement.disabled = false;
+    this._ace('chestUsage1');
+    this._ace('chestUsage2');
+    this._ace('chestUsage3');
+    this._ace('chestUsage4');
+    this._ace('chestUsage5');
+    this._ace('chestUsage6');
+    this._ace('chestUsage7');
+    this._ace('chestUsage8');
+    this._ace('chestUsage9');
   }
-
   _setAlchemistChestUsagesLevel10() {
     this._disableAllChestUsagesInputs();
-
-    this.chestUsage1Input.nativeElement.disabled = false;
-    this.chestUsage2Input.nativeElement.disabled = false;
-    this.chestUsage3Input.nativeElement.disabled = false;
-    this.chestUsage4Input.nativeElement.disabled = false;
-    this.chestUsage5Input.nativeElement.disabled = false;
-    this.chestUsage6Input.nativeElement.disabled = false;
-    this.chestUsage7Input.nativeElement.disabled = false;
-    this.chestUsage8Input.nativeElement.disabled = false;
-    this.chestUsage9Input.nativeElement.disabled = false;
-    this.chestUsage10Input.nativeElement.disabled = false;
+    this._ace('chestUsage1');
+    this._ace('chestUsage2');
+    this._ace('chestUsage3');
+    this._ace('chestUsage4');
+    this._ace('chestUsage5');
+    this._ace('chestUsage6');
+    this._ace('chestUsage7');
+    this._ace('chestUsage8');
+    this._ace('chestUsage9');
+    this._ace('chestUsage10');
   }
-
   _setAlchemistChestUsagesLevel11() {
     this._enableAllChestUsagesInputs();
-
-    this.chestUsage12Input.nativeElement.disabled = true;
-    this.chestUsage13Input.nativeElement.disabled = true;
-    this.chestUsage14Input.nativeElement.disabled = true;
-    this.chestUsage15Input.nativeElement.disabled = true;
-    this.chestUsage16Input.nativeElement.disabled = true;
-    this.chestUsage17Input.nativeElement.disabled = true;
-    this.chestUsage18Input.nativeElement.disabled = true;
-    this.chestUsage19Input.nativeElement.disabled = true;
-    this.chestUsage20Input.nativeElement.disabled = true;
+    this._acd('chestUsage12');
+    this._acd('chestUsage13');
+    this._acd('chestUsage14');
+    this._acd('chestUsage15');
+    this._acd('chestUsage16');
+    this._acd('chestUsage17');
+    this._acd('chestUsage18');
+    this._acd('chestUsage19');
+    this._acd('chestUsage20');
   }
-
   _setAlchemistChestUsagesLevel12() {
     this._enableAllChestUsagesInputs();
-
-    this.chestUsage13Input.nativeElement.disabled = true;
-    this.chestUsage14Input.nativeElement.disabled = true;
-    this.chestUsage15Input.nativeElement.disabled = true;
-    this.chestUsage16Input.nativeElement.disabled = true;
-    this.chestUsage17Input.nativeElement.disabled = true;
-    this.chestUsage18Input.nativeElement.disabled = true;
-    this.chestUsage19Input.nativeElement.disabled = true;
-    this.chestUsage20Input.nativeElement.disabled = true;
+    this._acd('chestUsage13');
+    this._acd('chestUsage14');
+    this._acd('chestUsage15');
+    this._acd('chestUsage16');
+    this._acd('chestUsage17');
+    this._acd('chestUsage18');
+    this._acd('chestUsage19');
+    this._acd('chestUsage20');
   }
-
   _setAlchemistChestUsagesLevel13() {
     this._enableAllChestUsagesInputs();
-
-    this.chestUsage14Input.nativeElement.disabled = true;
-    this.chestUsage15Input.nativeElement.disabled = true;
-    this.chestUsage16Input.nativeElement.disabled = true;
-    this.chestUsage17Input.nativeElement.disabled = true;
-    this.chestUsage18Input.nativeElement.disabled = true;
-    this.chestUsage19Input.nativeElement.disabled = true;
-    this.chestUsage20Input.nativeElement.disabled = true;
+    this._acd('chestUsage14');
+    this._acd('chestUsage15');
+    this._acd('chestUsage16');
+    this._acd('chestUsage17');
+    this._acd('chestUsage18');
+    this._acd('chestUsage19');
+    this._acd('chestUsage20');
   }
-
   _setAlchemistChestUsagesLevel14() {
     this._enableAllChestUsagesInputs();
-
-    this.chestUsage15Input.nativeElement.disabled = true;
-    this.chestUsage16Input.nativeElement.disabled = true;
-    this.chestUsage17Input.nativeElement.disabled = true;
-    this.chestUsage18Input.nativeElement.disabled = true;
-    this.chestUsage19Input.nativeElement.disabled = true;
-    this.chestUsage20Input.nativeElement.disabled = true;
+    this._acd('chestUsage15');
+    this._acd('chestUsage16');
+    this._acd('chestUsage17');
+    this._acd('chestUsage18');
+    this._acd('chestUsage19');
+    this._acd('chestUsage20');
   }
-
   _setAlchemistChestUsagesLevel15() {
     this._enableAllChestUsagesInputs();
-
-    this.chestUsage16Input.nativeElement.disabled = true;
-    this.chestUsage17Input.nativeElement.disabled = true;
-    this.chestUsage18Input.nativeElement.disabled = true;
-    this.chestUsage19Input.nativeElement.disabled = true;
-    this.chestUsage20Input.nativeElement.disabled = true;
+    this._acd('chestUsage16');
+    this._acd('chestUsage17');
+    this._acd('chestUsage18');
+    this._acd('chestUsage19');
+    this._acd('chestUsage20');
   }
-
   _setAlchemistChestUsagesLevel16() {
     this._enableAllChestUsagesInputs();
-
-    this.chestUsage17Input.nativeElement.disabled = true;
-    this.chestUsage18Input.nativeElement.disabled = true;
-    this.chestUsage19Input.nativeElement.disabled = true;
-    this.chestUsage20Input.nativeElement.disabled = true;
+    this._acd('chestUsage17');
+    this._acd('chestUsage18');
+    this._acd('chestUsage19');
+    this._acd('chestUsage20');
   }
-
   _setAlchemistChestUsagesLevel17() {
     this._enableAllChestUsagesInputs();
-
-    this.chestUsage18Input.nativeElement.disabled = true;
-    this.chestUsage19Input.nativeElement.disabled = true;
-    this.chestUsage20Input.nativeElement.disabled = true;
+    this._acd('chestUsage18');
+    this._acd('chestUsage19');
+    this._acd('chestUsage20');
   }
-
   _setAlchemistChestUsagesLevel18() {
     this._enableAllChestUsagesInputs();
-
-    this.chestUsage19Input.nativeElement.disabled = true;
-    this.chestUsage20Input.nativeElement.disabled = true;
+    this._acd('chestUsage19');
+    this._acd('chestUsage20');
   }
-
   _setAlchemistChestUsagesLevel19() {
     this._enableAllChestUsagesInputs();
-
-    this.chestUsage20Input.nativeElement.disabled = true;
+    this._acd('chestUsage20');
   }
-
   _setAlchemistChestUsagesLevel20() {
     this._enableAllChestUsagesInputs();
   }
 
+  // ── Tri-state cycle: '' → 'cross' → 'filled' → '' ──────────────────────────
+  cycleSlot(control: AbstractControl): void {
+    if (control.disabled) return;
+    const next: Record<string, string> = { '': 'cross', cross: 'filled', filled: '' };
+    control.setValue(next[control.value ?? ''] ?? 'cross');
+  }
+
   _disableBlackPriestSpellSlotsInputs() {
-    this.level2Slot4Input.nativeElement.disabled = true;
-    this.level3Slot4Input.nativeElement.disabled = true;
-    this.level4Slot4Input.nativeElement.disabled = true;
-    this.level5Slot4Input.nativeElement.disabled = true;
+    this.spellSlotsControls.level2Slot4.disable({ emitEvent: false });
+    this.spellSlotsControls.level3Slot4.disable({ emitEvent: false });
+    this.spellSlotsControls.level4Slot4.disable({ emitEvent: false });
+    this.spellSlotsControls.level5Slot4.disable({ emitEvent: false });
   }
 
   _disableAllSpellSlotsInputs() {
-    this.level1Slot1Input.nativeElement.disabled = true;
-    this.level1Slot2Input.nativeElement.disabled = true;
-    this.level1Slot3Input.nativeElement.disabled = true;
-    this.level1Slot4Input.nativeElement.disabled = true;
-
-    this.level2Slot1Input.nativeElement.disabled = true;
-    this.level2Slot2Input.nativeElement.disabled = true;
-    this.level2Slot3Input.nativeElement.disabled = true;
-    this.level2Slot4Input.nativeElement.disabled = true;
-
-    this.level3Slot1Input.nativeElement.disabled = true;
-    this.level3Slot2Input.nativeElement.disabled = true;
-    this.level3Slot3Input.nativeElement.disabled = true;
-    this.level3Slot4Input.nativeElement.disabled = true;
-
-    this.level4Slot1Input.nativeElement.disabled = true;
-    this.level4Slot2Input.nativeElement.disabled = true;
-    this.level4Slot3Input.nativeElement.disabled = true;
-    this.level4Slot4Input.nativeElement.disabled = true;
-
-    this.level5Slot1Input.nativeElement.disabled = true;
-    this.level5Slot2Input.nativeElement.disabled = true;
-    this.level5Slot3Input.nativeElement.disabled = true;
-    this.level5Slot4Input.nativeElement.disabled = true;
-
-    this.level6Slot1Input.nativeElement.disabled = true;
-    this.level6Slot2Input.nativeElement.disabled = true;
-
-    this.level7Slot1Input.nativeElement.disabled = true;
-    this.level7Slot2Input.nativeElement.disabled = true;
-
-    this.level8Slot1Input.nativeElement.disabled = true;
-
-    this.level9Slot1Input.nativeElement.disabled = true;
+    const c = this.spellSlotsControls;
+    [
+      c.level1Slot1,
+      c.level1Slot2,
+      c.level1Slot3,
+      c.level1Slot4,
+      c.level2Slot1,
+      c.level2Slot2,
+      c.level2Slot3,
+      c.level2Slot4,
+      c.level3Slot1,
+      c.level3Slot2,
+      c.level3Slot3,
+      c.level3Slot4,
+      c.level4Slot1,
+      c.level4Slot2,
+      c.level4Slot3,
+      c.level4Slot4,
+      c.level5Slot1,
+      c.level5Slot2,
+      c.level5Slot3,
+      c.level5Slot4,
+      c.level6Slot1,
+      c.level6Slot2,
+      c.level7Slot1,
+      c.level7Slot2,
+      c.level8Slot1,
+      c.level9Slot1,
+    ].forEach(ctrl => ctrl.disable({ emitEvent: false }));
   }
 
   _enableAllSpellSlotsInputs() {
-    this.level1Slot1Input.nativeElement.disabled = false;
-    this.level1Slot2Input.nativeElement.disabled = false;
-    this.level1Slot3Input.nativeElement.disabled = false;
-    this.level1Slot4Input.nativeElement.disabled = false;
-
-    this.level2Slot1Input.nativeElement.disabled = false;
-    this.level2Slot2Input.nativeElement.disabled = false;
-    this.level2Slot3Input.nativeElement.disabled = false;
-    this.level2Slot4Input.nativeElement.disabled = false;
-
-    this.level3Slot1Input.nativeElement.disabled = false;
-    this.level3Slot2Input.nativeElement.disabled = false;
-    this.level3Slot3Input.nativeElement.disabled = false;
-    this.level3Slot4Input.nativeElement.disabled = false;
-
-    this.level4Slot1Input.nativeElement.disabled = false;
-    this.level4Slot2Input.nativeElement.disabled = false;
-    this.level4Slot3Input.nativeElement.disabled = false;
-    this.level4Slot4Input.nativeElement.disabled = false;
-
-    this.level5Slot1Input.nativeElement.disabled = false;
-    this.level5Slot2Input.nativeElement.disabled = false;
-    this.level5Slot3Input.nativeElement.disabled = false;
-    this.level5Slot4Input.nativeElement.disabled = false;
-
-    this.level6Slot1Input.nativeElement.disabled = false;
-    this.level6Slot2Input.nativeElement.disabled = false;
-
-    this.level7Slot1Input.nativeElement.disabled = false;
-    this.level7Slot2Input.nativeElement.disabled = false;
-
-    this.level8Slot1Input.nativeElement.disabled = false;
-
-    this.level9Slot1Input.nativeElement.disabled = false;
+    const c = this.spellSlotsControls;
+    [
+      c.level1Slot1,
+      c.level1Slot2,
+      c.level1Slot3,
+      c.level1Slot4,
+      c.level2Slot1,
+      c.level2Slot2,
+      c.level2Slot3,
+      c.level2Slot4,
+      c.level3Slot1,
+      c.level3Slot2,
+      c.level3Slot3,
+      c.level3Slot4,
+      c.level4Slot1,
+      c.level4Slot2,
+      c.level4Slot3,
+      c.level4Slot4,
+      c.level5Slot1,
+      c.level5Slot2,
+      c.level5Slot3,
+      c.level5Slot4,
+      c.level6Slot1,
+      c.level6Slot2,
+      c.level7Slot1,
+      c.level7Slot2,
+      c.level8Slot1,
+      c.level9Slot1,
+    ].forEach(ctrl => ctrl.enable({ emitEvent: false }));
   }
 
   _disableAllChestUsagesInputs() {
-    this.chestUsage1Input.nativeElement.disabled = true;
-    this.chestUsage2Input.nativeElement.disabled = true;
-    this.chestUsage3Input.nativeElement.disabled = true;
-    this.chestUsage4Input.nativeElement.disabled = true;
-    this.chestUsage5Input.nativeElement.disabled = true;
-    this.chestUsage6Input.nativeElement.disabled = true;
-    this.chestUsage7Input.nativeElement.disabled = true;
-    this.chestUsage8Input.nativeElement.disabled = true;
-    this.chestUsage9Input.nativeElement.disabled = true;
-    this.chestUsage10Input.nativeElement.disabled = true;
-    this.chestUsage11Input.nativeElement.disabled = true;
-    this.chestUsage12Input.nativeElement.disabled = true;
-    this.chestUsage13Input.nativeElement.disabled = true;
-    this.chestUsage14Input.nativeElement.disabled = true;
-    this.chestUsage15Input.nativeElement.disabled = true;
-    this.chestUsage16Input.nativeElement.disabled = true;
-    this.chestUsage17Input.nativeElement.disabled = true;
-    this.chestUsage18Input.nativeElement.disabled = true;
-    this.chestUsage19Input.nativeElement.disabled = true;
-    this.chestUsage20Input.nativeElement.disabled = true;
+    const c = this.alchemistChestControls;
+    [
+      c.chestUsage1,
+      c.chestUsage2,
+      c.chestUsage3,
+      c.chestUsage4,
+      c.chestUsage5,
+      c.chestUsage6,
+      c.chestUsage7,
+      c.chestUsage8,
+      c.chestUsage9,
+      c.chestUsage10,
+      c.chestUsage11,
+      c.chestUsage12,
+      c.chestUsage13,
+      c.chestUsage14,
+      c.chestUsage15,
+      c.chestUsage16,
+      c.chestUsage17,
+      c.chestUsage18,
+      c.chestUsage19,
+      c.chestUsage20,
+    ].forEach(ctrl => ctrl.disable({ emitEvent: false }));
   }
 
   _enableAllChestUsagesInputs() {
-    this.chestUsage1Input.nativeElement.disabled = false;
-    this.chestUsage2Input.nativeElement.disabled = false;
-    this.chestUsage3Input.nativeElement.disabled = false;
-    this.chestUsage4Input.nativeElement.disabled = false;
-    this.chestUsage5Input.nativeElement.disabled = false;
-    this.chestUsage6Input.nativeElement.disabled = false;
-    this.chestUsage7Input.nativeElement.disabled = false;
-    this.chestUsage8Input.nativeElement.disabled = false;
-    this.chestUsage9Input.nativeElement.disabled = false;
-    this.chestUsage10Input.nativeElement.disabled = false;
-    this.chestUsage11Input.nativeElement.disabled = false;
-    this.chestUsage12Input.nativeElement.disabled = false;
-    this.chestUsage13Input.nativeElement.disabled = false;
-    this.chestUsage14Input.nativeElement.disabled = false;
-    this.chestUsage15Input.nativeElement.disabled = false;
-    this.chestUsage16Input.nativeElement.disabled = false;
-    this.chestUsage17Input.nativeElement.disabled = false;
-    this.chestUsage18Input.nativeElement.disabled = false;
-    this.chestUsage19Input.nativeElement.disabled = false;
-    this.chestUsage20Input.nativeElement.disabled = false;
+    const c = this.alchemistChestControls;
+    [
+      c.chestUsage1,
+      c.chestUsage2,
+      c.chestUsage3,
+      c.chestUsage4,
+      c.chestUsage5,
+      c.chestUsage6,
+      c.chestUsage7,
+      c.chestUsage8,
+      c.chestUsage9,
+      c.chestUsage10,
+      c.chestUsage11,
+      c.chestUsage12,
+      c.chestUsage13,
+      c.chestUsage14,
+      c.chestUsage15,
+      c.chestUsage16,
+      c.chestUsage17,
+      c.chestUsage18,
+      c.chestUsage19,
+      c.chestUsage20,
+    ].forEach(ctrl => ctrl.enable({ emitEvent: false }));
+  }
+
+  // ── Spell-slot level helpers ─────────────────────────────────────────────
+  private _ss(name: keyof SpellSlotsForm) {
+    return this.spellSlotsControls[name];
+  }
+  private _en(name: keyof SpellSlotsForm) {
+    this._ss(name).enable({ emitEvent: false });
+  }
+  private _di(name: keyof SpellSlotsForm) {
+    this._ss(name).disable({ emitEvent: false });
+  }
+
+  // ── Alchemist-chest level helpers ────────────────────────────────────────
+  private _ach(name: keyof AlchemistChestForm) {
+    return this.alchemistChestControls[name];
+  }
+  private _ace(name: keyof AlchemistChestForm) {
+    this._ach(name).enable({ emitEvent: false });
+  }
+  private _acd(name: keyof AlchemistChestForm) {
+    this._ach(name).disable({ emitEvent: false });
   }
 }
