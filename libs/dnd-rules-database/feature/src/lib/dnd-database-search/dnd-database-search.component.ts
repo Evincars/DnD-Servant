@@ -58,17 +58,18 @@ export class DndDatabaseSearchComponent {
   query = signal('');
   loading = signal(false);
   error = signal<string | null>(null);
-  monster = signal<Monster | null>(null);
-  spell = signal<Spell | null>(null);
-  race = signal<Race | null>(null);
+
+  monsters = signal<Monster[]>([]);
+  spells = signal<Spell[]>([]);
+  races = signal<Race[]>([]);
 
   readonly activeDef = computed(() => CATEGORIES.find(c => c.key === this.category())!);
 
-  readonly hasResult = computed(() => this.monster() !== null || this.spell() !== null || this.race() !== null);
+  readonly hasResult = computed(() => this.monsters().length > 0 || this.spells().length > 0 || this.races().length > 0);
 
   selectCategory(cat: DatabaseCategory): void {
     this.category.set(cat);
-    this.clearResult();
+    this.error.set(null);
   }
 
   search(): void {
@@ -78,7 +79,6 @@ export class DndDatabaseSearchComponent {
       .toLowerCase()
       .replace(/\s+/g, '-')
       .replace(/[^a-z0-9-]/g, '');
-    this.clearResult();
     this.loading.set(true);
     this.error.set(null);
 
@@ -89,7 +89,7 @@ export class DndDatabaseSearchComponent {
         .getOne<Monster>('monsters', index)
         .pipe(finalize(() => this.loading.set(false)))
         .subscribe({
-          next: m => this.monster.set(m),
+          next: m => this.monsters.update(arr => [...arr, m]),
           error: () => this.error.set(`Příšera „${raw}" nebyla nalezena.`),
         });
     } else if (cat === 'spells') {
@@ -97,7 +97,7 @@ export class DndDatabaseSearchComponent {
         .getOne<Spell>('spells', index)
         .pipe(finalize(() => this.loading.set(false)))
         .subscribe({
-          next: s => this.spell.set(s),
+          next: s => this.spells.update(arr => [...arr, s]),
           error: () => this.error.set(`Kouzlo „${raw}" nebylo nalezeno.`),
         });
     } else {
@@ -105,16 +105,28 @@ export class DndDatabaseSearchComponent {
         .getOne<Race>('races' as Dnd5eEndpoint, index)
         .pipe(finalize(() => this.loading.set(false)))
         .subscribe({
-          next: r => this.race.set(r),
+          next: r => this.races.update(arr => [...arr, r]),
           error: () => this.error.set(`Rasa „${raw}" nebyla nalezena.`),
         });
     }
   }
 
-  clearResult(): void {
-    this.monster.set(null);
-    this.spell.set(null);
-    this.race.set(null);
+  removeMonster(index: number): void {
+    this.monsters.update(arr => arr.filter((_, i) => i !== index));
+  }
+
+  removeSpell(index: number): void {
+    this.spells.update(arr => arr.filter((_, i) => i !== index));
+  }
+
+  removeRace(index: number): void {
+    this.races.update(arr => arr.filter((_, i) => i !== index));
+  }
+
+  clearAll(): void {
+    this.monsters.set([]);
+    this.spells.set([]);
+    this.races.set([]);
     this.error.set(null);
   }
 

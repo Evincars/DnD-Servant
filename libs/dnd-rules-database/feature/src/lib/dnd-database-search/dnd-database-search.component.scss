@@ -252,14 +252,51 @@
   }
 }
 
-// ── Results container ─────────────────────────────────────────────────────────
+// ── Clear-all button ──────────────────────────────────────────────────────────
+.db-clear-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: rgba(160,30,30,.08);
+  border: 1px solid rgba(160,30,30,.3);
+  border-radius: 2px;
+  color: rgba(200,80,70,.6);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background .15s, color .15s, border-color .15s;
+
+  mat-icon { font-size: 18px; width: 18px; height: 18px; }
+
+  &:hover {
+    background: rgba(160,30,30,.18);
+    border-color: rgba(200,80,70,.5);
+    color: #e08070;
+  }
+}
+
+// ── Results grid ──────────────────────────────────────────────────────────────
 .db-results {
-  // cards use display:contents on :host so they slot directly here
-  monster-card,
-  spell-card,
-  race-card {
-    display: block;
-    max-width: 560px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: flex-start;
+
+  &__item {
+    // each card gets a fixed width column; wraps naturally when not enough space
+    flex: 1 1 320px;
+    max-width: 480px;
+    min-width: 280px;
+
+    // cards use display:contents on :host, so apply sizing to the inner card element
+    monster-card,
+    spell-card,
+    race-card {
+      display: block;
+      height: 100%;
+    }
   }
 }
 
