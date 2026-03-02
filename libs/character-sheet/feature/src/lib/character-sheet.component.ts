@@ -35,8 +35,8 @@ import { CharacterSheetFormModelMappers } from './api-mappers/character-sheet-fo
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
 import { MatTooltip } from '@angular/material/tooltip';
-import { SecondPageComponent } from './second-page.component';
-import { ThirdPageComponent } from './third-page.component';
+import { CharacterSheetSecondPageComponent } from './character-sheet-second-page.component';
+import { CharacterSheetThirdPageComponent } from './character-sheet-third-page.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
@@ -1792,8 +1792,8 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
     ReactiveFormsModule,
     NgClass,
     MatTooltip,
-    SecondPageComponent,
-    ThirdPageComponent,
+    CharacterSheetSecondPageComponent,
+    CharacterSheetThirdPageComponent,
     MatIcon,
     SpinnerOverlayComponent,
     RichTextareaComponent,
@@ -2133,8 +2133,8 @@ export class CharacterSheetComponent {
       chestUsage19: this.fb.control(''),
       chestUsage20: this.fb.control(''),
     }),
-    secondPageForm: SecondPageComponent.createForm(),
-    thirdPageForm: ThirdPageComponent.createForm(),
+    secondPageForm: CharacterSheetSecondPageComponent.createForm(),
+    thirdPageForm: CharacterSheetThirdPageComponent.createForm(),
   });
 
   get controls() {

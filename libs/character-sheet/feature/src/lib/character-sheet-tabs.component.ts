@@ -5,13 +5,13 @@ import { GroupSheetComponent } from './group-sheet.component';
 import { NotesSheetComponent } from './notes-sheet.component';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { InitiativeTrackerComponent } from './initiative-tracker/initiative-tracker.component';
-import { ItemVaultComponent } from './item-vault/item-vault.component';
+import { PlayerItemsCardsComponent } from './players-items-cards/player-items-cards.component';
 import { LocalStorageService } from '@dn-d-servant/util';
 
 const TAB_INDEX_KEY = 'active-tab-index';
 
 @Component({
-  selector: 'character-sheet-tab',
+  selector: 'character-sheet-tabs',
   template: `
     <mat-tab-group
       mat-stretch-tabs="false"
@@ -21,7 +21,7 @@ const TAB_INDEX_KEY = 'active-tab-index';
     >
       <mat-tab label="Karta postavy"><character-sheet class="u-mt-2" /></mat-tab>
       <mat-tab label="Karta družiny"><group-sheet class="u-mt-2" /></mat-tab>
-      <mat-tab label="Moje předměty"><item-vault /></mat-tab>
+      <mat-tab label="Moje předměty"><player-items-cards /></mat-tab>
       <mat-tab label="Poznámky"><notes-sheet class="u-mt-2" /></mat-tab>
       <mat-tab label="Iniciativa"><initiative-tracker /></mat-tab>
     </mat-tab-group>
@@ -206,10 +206,10 @@ const TAB_INDEX_KEY = 'active-tab-index';
     GroupSheetComponent,
     NotesSheetComponent,
     InitiativeTrackerComponent,
-    ItemVaultComponent,
+    PlayerItemsCardsComponent,
   ],
 })
-export class CharacterSheetTabComponent {
+export class CharacterSheetTabsComponent {
   private readonly ls = inject(LocalStorageService);
 
   selectedTab = signal<number>(this.ls.getDataSync<number>(TAB_INDEX_KEY) ?? 0);

@@ -111,7 +111,7 @@ import { MatTooltip } from '@angular/material/tooltip';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, MatTooltip, RichTextareaComponent],
 })
-export class SecondPageComponent {
+export class CharacterSheetSecondPageComponent {
   characterSheetStore = inject(CharacterSheetStore);
   private snackBar = inject(MatSnackBar);
 

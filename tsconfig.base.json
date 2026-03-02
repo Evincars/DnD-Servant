@@ -15,7 +15,8 @@
       "@dn-d-servant/authentication-feature": ["libs/authentication/feature/src/index.ts"],
       "@dn-d-servant/character-sheet-data-access": ["libs/character-sheet/data-access/src/index.ts"],
       "@dn-d-servant/character-sheet-util": ["libs/character-sheet/util/src/index.ts"],
-      "@dn-d-servant/ui": ["libs/ui/src/index.ts"]
+      "@dn-d-servant/ui": ["libs/ui/src/index.ts"],
+      "@dn-d-servant/dnd-rules-database-feature": ["libs/dnd-rules-database/feature/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

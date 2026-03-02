@@ -6,7 +6,6 @@ import {
   GroupSheetApiModel,
   ItemVaultApiModel,
   NotesPageApiModel,
-  OtherHorsesPageApiModel,
 } from '@dn-d-servant/character-sheet-util';
 import { environment } from '@dn-d-servant/util';
 
@@ -31,13 +30,6 @@ export class CharacterSheetApiService {
   getNotesPageByUsername(username: string): Observable<NotesPageApiModel | undefined> {
     const docRef = doc(this.firestore, `${environment.characterSheetCollectionName}/${username}`);
     return from(getDoc(docRef)).pipe(map(snapshot => (snapshot.exists() ? (snapshot.data() as NotesPageApiModel) : undefined)));
-  }
-
-  getOtherHorsesByUsername(username: string): Observable<OtherHorsesPageApiModel | undefined> {
-    const docRef = doc(this.firestore, `${environment.characterSheetCollectionName}/${username}`);
-    return from(getDoc(docRef)).pipe(
-      map(snapshot => (snapshot.exists() ? (snapshot.data() as OtherHorsesPageApiModel) : undefined)),
-    );
   }
 
   // ------------------------------------------
@@ -68,16 +60,6 @@ export class CharacterSheetApiService {
   }
 
   updateNotesPage(notesPage: NotesPageApiModel): Observable<void> {
-    const docRef = doc(this.firestore, `${environment.characterSheetCollectionName}/${notesPage.username}`);
-    return from(setDoc(docRef, notesPage));
-  }
-
-  addOtherHorsesPage(notesPage: OtherHorsesPageApiModel): Observable<void> {
-    const docRef = doc(this.characterSheetsCollection, notesPage.username);
-    return from(setDoc(docRef, notesPage));
-  }
-
-  updateOtherHorsesPage(notesPage: OtherHorsesPageApiModel): Observable<void> {
     const docRef = doc(this.firestore, `${environment.characterSheetCollectionName}/${notesPage.username}`);
     return from(setDoc(docRef, notesPage));
   }

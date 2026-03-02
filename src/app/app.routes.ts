@@ -23,7 +23,7 @@ export const appRoutes: Array<Route> = [
   },
   {
     path: routes.characterSheet,
-    loadComponent: () => import('@dn-d-servant/character-sheet-feature').then(c => c.CharacterSheetTabComponent),
+    loadComponent: () => import('@dn-d-servant/character-sheet-feature').then(c => c.CharacterSheetTabsComponent),
   },
   {
     path: routes.dmScreen,

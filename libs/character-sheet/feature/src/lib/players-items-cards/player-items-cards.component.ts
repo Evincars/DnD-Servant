@@ -20,7 +20,7 @@ import { SpinnerOverlayComponent } from '@dn-d-servant/ui';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'item-vault',
+  selector: 'player-items-cards',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, MatIcon, MatIconButton, MatTooltip, SpinnerOverlayComponent],
   styles: `
@@ -760,7 +760,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     }
   `,
 })
-export class ItemVaultComponent {
+export class PlayerItemsCardsComponent {
   readonly store = inject(CharacterSheetStore);
   private readonly authService = inject(AuthService);
   private readonly snackBar = inject(MatSnackBar);

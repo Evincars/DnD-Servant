@@ -6,7 +6,6 @@ import {
   GroupSheetApiModel,
   ItemVaultApiModel,
   NotesPageApiModel,
-  OtherHorsesPageApiModel,
 } from '@dn-d-servant/character-sheet-util';
 import { pipe, switchMap, tap } from 'rxjs';
 import { CharacterSheetApiService } from './character-sheet-api.service';
@@ -19,7 +18,6 @@ export const CharacterSheetStore = signalStore(
     characterSheet: undefined as CharacterSheetApiModel | undefined,
     groupSheet: undefined as GroupSheetApiModel | undefined,
     notesPage: undefined as NotesPageApiModel | undefined,
-    otherHorsesPage: undefined as OtherHorsesPageApiModel | undefined,
     itemVault: undefined as ItemVaultApiModel | undefined,
     characterSheetSaved: false,
     groupSheetSaved: false,
@@ -114,31 +112,6 @@ export const CharacterSheetStore = signalStore(
       ),
     );
 
-    const getOtherHorsesPageByUsername = rxMethod<string>(
-      pipe(
-        tap(() => patchState(store, { loading: true })),
-        switchMap(username => {
-          return _characterSheetApiService.getOtherHorsesByUsername(username).pipe(
-            tapResponse(
-              res => {
-                patchState(store, { otherHorsesPage: res, characterSheetError: '', loading: false });
-              },
-              (error: HttpErrorResponse) => {
-                _snackBar.open('Načtení parťáků se nezdařilo: ' + error.message, 'Zavřít', {
-                  verticalPosition: 'top',
-                  duration: 3000,
-                });
-                patchState(store, {
-                  characterSheetError: 'GET: Načtení parťáků se nezdařilo: ' + error.message,
-                  loading: false,
-                });
-              },
-            ),
-          );
-        }),
-      ),
-    );
-
     // ------------------------------------------
 
     const saveCharacterSheet = rxMethod<CharacterSheetApiModel>(
@@ -221,31 +194,6 @@ export const CharacterSheetStore = signalStore(
       ),
     );
 
-    const saveOtherHorsesPage = rxMethod<OtherHorsesPageApiModel>(
-      pipe(
-        tap(() => patchState(store, { loading: true })),
-        switchMap(req => {
-          return _characterSheetApiService.getOtherHorsesByUsername(req.username).pipe(
-            switchMap(res =>
-              res ? _characterSheetApiService.updateOtherHorsesPage(req) : _characterSheetApiService.addOtherHorsesPage(req),
-            ),
-            tapResponse(
-              (_: any) => {
-                patchState(store, { characterSheetError: '', loading: false });
-                _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
-              },
-              (error: HttpErrorResponse) => {
-                patchState(store, {
-                  characterSheetError: 'SAVE: Ukládání parťáků se nezdařilo: ' + error.message,
-                  loading: false,
-                });
-              },
-            ),
-          );
-        }),
-      ),
-    );
-
     const getItemVault = rxMethod<string>(
       pipe(
         tap(() => patchState(store, { loading: true })),
@@ -297,13 +245,11 @@ export const CharacterSheetStore = signalStore(
       getCharacterSheetByUsername,
       getGroupSheetByUsername,
       getNotesPageByUsername,
-      getOtherHorsesPageByUsername,
       getItemVault,
       // -----------------------
       saveCharacterSheet,
       saveGroupSheet,
       saveNotesPage,
-      saveOtherHorsesPage,
       saveItemVault,
     };
   }),

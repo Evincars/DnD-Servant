@@ -2372,7 +2372,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, MatTooltip],
 })
-export class ThirdPageComponent {
+export class CharacterSheetThirdPageComponent {
   form = input.required<FormGroup<ThirdPageForm>>();
 
   /**
