@@ -50,6 +50,11 @@ import html2canvas from 'html2canvas';
             <span class="sidenav__link-label">Databáze D&amp;D</span>
             <span class="sidenav__link-arrow">›</span>
           </a>
+          <a [routerLink]="routes.helpAndTips" class="sidenav__link" (click)="sidenav.toggle()">
+            <span class="sidenav__link-icon"><mat-icon>help_outline</mat-icon></span>
+            <span class="sidenav__link-label">Nápověda &amp; Tipy</span>
+            <span class="sidenav__link-arrow">›</span>
+          </a>
         </nav>
 
         <div class="sidenav__divider">
