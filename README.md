@@ -13,6 +13,7 @@
 
 *Přestaňte tahat papírové deníky k hernímu stolu.*
 *Vaše postava žije tady — online, vždy po ruce.*
+*Link na appku (Google Firebase) [https://dnd-servant-3409a.web.app/](https://dnd-servant-3409a.web.app/)*
 
 ---
 
