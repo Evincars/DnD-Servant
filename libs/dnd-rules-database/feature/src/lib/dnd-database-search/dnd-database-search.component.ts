@@ -3,15 +3,16 @@ import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { MatIcon } from '@angular/material/icon';
 import { Dnd5eApiService } from '@dn-d-servant/data-access';
-import { Monster, Spell, Race, Feat, DndClass, Subclass, Dnd5eEndpoint, LocalStorageService } from '@dn-d-servant/util';
+import { Monster, Spell, Race, Feat, DndClass, Subclass, Subrace, Dnd5eEndpoint, LocalStorageService } from '@dn-d-servant/util';
 import { MonsterCardComponent } from '../monster-card/monster-card.component';
 import { SpellCardComponent } from '../spell-card/spell-card.component';
 import { RaceCardComponent } from '../race-card/race-card.component';
 import { ClassCardComponent } from '../class-card/class-card.component';
 import { SubclassCardComponent } from '../subclass-card/subclass-card.component';
+import { SubraceCardComponent } from '../subrace-card/subrace-card.component';
 // import { FeatCardComponent } from '../feat-card/feat-card.component';
 
-export type DatabaseCategory = 'monsters' | 'spells' | 'races' | 'classes' | 'subclasses'; // | 'feats';
+export type DatabaseCategory = 'monsters' | 'spells' | 'races' | 'subraces' | 'classes' | 'subclasses'; // | 'feats';
 
 interface CategoryDef {
   key: DatabaseCategory;
@@ -44,6 +45,13 @@ const CATEGORIES: CategoryDef[] = [
     hint: 'Zadej anglický název rasy z D&D 2014',
   },
   {
+    key: 'subraces',
+    label: 'Podrasy',
+    icon: 'group_add',
+    placeholder: 'např. high-elf, hill-dwarf, lightfoot-halfling…',
+    hint: 'Zadej anglický název podrasy z D&D 2014',
+  },
+  {
     key: 'classes',
     label: 'Povolání',
     icon: 'shield',
@@ -72,6 +80,7 @@ interface StoredResults {
   monsters: Monster[];
   spells: Spell[];
   races: Race[];
+  subraces: Subrace[];
   feats: Feat[];
   classes: DndClass[];
   subclasses: Subclass[];
@@ -88,6 +97,7 @@ interface StoredResults {
     MonsterCardComponent,
     SpellCardComponent,
     RaceCardComponent,
+    SubraceCardComponent,
     ClassCardComponent,
     SubclassCardComponent /* FeatCardComponent */,
   ],
@@ -109,6 +119,7 @@ export class DndDatabaseSearchComponent {
   monsters = signal<Monster[]>(this._saved?.monsters ?? []);
   spells = signal<Spell[]>(this._saved?.spells ?? []);
   races = signal<Race[]>(this._saved?.races ?? []);
+  subraces = signal<Subrace[]>(this._saved?.subraces ?? []);
   feats = signal<Feat[]>(this._saved?.feats ?? []);
   classes = signal<DndClass[]>(this._saved?.classes ?? []);
   subclasses = signal<Subclass[]>(this._saved?.subclasses ?? []);
@@ -119,6 +130,7 @@ export class DndDatabaseSearchComponent {
       monsters: this.monsters(),
       spells: this.spells(),
       races: this.races(),
+      subraces: this.subraces(),
       feats: this.feats(),
       classes: this.classes(),
       subclasses: this.subclasses(),
@@ -133,6 +145,7 @@ export class DndDatabaseSearchComponent {
       this.monsters().length > 0 ||
       this.spells().length > 0 ||
       this.races().length > 0 ||
+      this.subraces().length > 0 ||
       this.feats().length > 0 ||
       this.classes().length > 0 ||
       this.subclasses().length > 0,
@@ -181,6 +194,14 @@ export class DndDatabaseSearchComponent {
           next: r => this.races.update(a => [...a, r]),
           error: () => this.error.set(`Rasa „${raw}" nebyla nalezena.`),
         });
+    } else if (cat === 'subraces') {
+      this.api
+        .getOne<Subrace>('subraces', index)
+        .pipe(finalize(() => this.loading.set(false)))
+        .subscribe({
+          next: sr => this.subraces.update(a => [...a, sr]),
+          error: () => this.error.set(`Podrasa „${raw}" nebyla nalezena.`),
+        });
     } else if (cat === 'classes') {
       this.api
         .getOne<DndClass>('classes', index)
@@ -217,6 +238,9 @@ export class DndDatabaseSearchComponent {
   removeRace(i: number): void {
     this.races.update(a => a.filter((_, idx) => idx !== i));
   }
+  removeSubrace(i: number): void {
+    this.subraces.update(a => a.filter((_, idx) => idx !== i));
+  }
   removeFeat(i: number): void {
     this.feats.update(a => a.filter((_, idx) => idx !== i));
   }
@@ -231,6 +255,7 @@ export class DndDatabaseSearchComponent {
     this.monsters.set([]);
     this.spells.set([]);
     this.races.set([]);
+    this.subraces.set([]);
     this.feats.set([]);
     this.classes.set([]);
     this.subclasses.set([]);

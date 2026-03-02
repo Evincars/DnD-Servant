@@ -117,13 +117,19 @@
       color: rgba(80,200,110,.9);
       .db-switcher__icon { color: rgba(80,200,110,.8); }
     }
-    &:nth-child(4) { // classes — purple
+    &:nth-child(4) { // subraces — lime
+      background: rgba(100,190,40,.12);
+      border-color: rgba(100,190,40,.5);
+      color: rgba(160,240,80,.9);
+      .db-switcher__icon { color: rgba(160,240,80,.8); }
+    }
+    &:nth-child(5) { // classes — purple
       background: rgba(100,50,180,.12);
       border-color: rgba(100,50,180,.5);
       color: rgba(170,130,255,.9);
       .db-switcher__icon { color: rgba(170,130,255,.8); }
     }
-    &:nth-child(5) { // subclasses — teal
+    &:nth-child(6) { // subclasses — teal
       background: rgba(20,140,140,.12);
       border-color: rgba(20,140,140,.5);
       color: rgba(60,210,210,.9);
@@ -306,6 +312,7 @@
     monster-card,
     spell-card,
     race-card,
+    subrace-card,
     class-card,
     subclass-card,
     feat-card {

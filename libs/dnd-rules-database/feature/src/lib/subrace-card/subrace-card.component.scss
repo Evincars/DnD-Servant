@@ -1,0 +1,32 @@
+@use '../../../../../../src/app/styles/dnd-card' with (
+  $accent:        rgba(100,190,40,.6),
+  $accent-dim:    rgba(100,190,40,.32),
+  $accent-mid:    rgba(100,190,40,.46),
+  $accent-glow:   rgba(100,190,40,.28),
+  $accent-faint:  rgba(100,190,40,.04),
+  $accent-label:  rgba(130,220,60,.7),
+  $accent-prop:   rgba(160,240,80,.7),
+  $accent-tag-bg: rgba(100,190,40,.08),
+  $accent-tag-bd: rgba(100,190,40,.28),
+  $accent-tag-tx: rgba(160,240,80,.85)
+);
+
+:host { display: contents; }
+
+.src-card    { @extend %dnd-card-shell;    }
+.src-close   { @extend %dnd-card-close;   }
+.src-loading { @extend %dnd-card-loading;  }
+.src-error   { @extend %dnd-card-error;   }
+.src-name    { @extend %dnd-card-name;    color: #c0f080; }
+.src-meta    { @extend %dnd-card-meta;    }
+.src-rule    { @extend %dnd-card-rule;    }
+.src-section { @extend %dnd-card-section;  }
+.src-desc    { @extend %dnd-card-desc;    }
+.src-tag-row { @extend %dnd-card-tag-row;  }
+.src-tag     { @extend %dnd-card-tag;     }
+
+.src-prop {
+  @extend %dnd-card-prop;
+  &--choice { font-style: italic; color: rgba(255,255,255,.45); }
+}
+

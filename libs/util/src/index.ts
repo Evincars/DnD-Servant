@@ -16,3 +16,4 @@ export * from './lib/dnd5e-api-models/dnd5e-races-api.models';
 export * from './lib/dnd5e-api-models/dnd5e-feats-api.models';
 export * from './lib/dnd5e-api-models/dnd5e-classes-api.models';
 export * from './lib/dnd5e-api-models/dnd5e-subclasses-api.models';
+export * from './lib/dnd5e-api-models/dnd5e-subraces-api.models';
