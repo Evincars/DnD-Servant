@@ -12,3 +12,4 @@ export * from './lib/form-util';
 export * from './lib/monster-names';
 export * from './lib/dnd5e-monster-api.models';
 export * from './lib/dnd5e-spells-api.models';
+export * from './lib/dnd5e-races-api.models';

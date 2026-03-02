@@ -1,0 +1,33 @@
+@use '../../../../../../src/app/styles/dnd-card' with (
+  $accent:       rgba(40,140,70,.65),
+  $accent-dim:   rgba(40,140,70,.35),
+  $accent-mid:   rgba(40,140,70,.5),
+  $accent-glow:  rgba(40,140,70,.3),
+  $accent-faint: rgba(40,140,70,.04),
+  $accent-label: rgba(40,140,70,.75),
+  $accent-prop:  rgba(80,190,110,.7),
+  $accent-tag-bg:rgba(40,140,70,.08),
+  $accent-tag-bd:rgba(40,140,70,.28),
+  $accent-tag-tx:rgba(80,190,110,.8)
+);
+
+:host { display: contents; }
+
+.rc-card    { @extend %dnd-card-shell;  }
+.rc-close   { @extend %dnd-card-close; }
+.rc-loading { @extend %dnd-card-loading; }
+.rc-error   { @extend %dnd-card-error;  }
+.rc-name    { @extend %dnd-card-name;  color: #b8dfc0; }
+.rc-meta    { @extend %dnd-card-meta;  }
+.rc-rule    { @extend %dnd-card-rule;  }
+.rc-section { @extend %dnd-card-section; }
+.rc-desc    { @extend %dnd-card-desc;  }
+.rc-prop    { @extend %dnd-card-prop;  }
+.rc-tag-row { @extend %dnd-card-tag-row; }
+.rc-tag     { @extend %dnd-card-tag;   }
+
+.rc-pill-row { @extend %dnd-card-pill-row; }
+.rc-pill     { @extend %dnd-card-pill;
+  &--wide { min-width: 140px; }
+}
+

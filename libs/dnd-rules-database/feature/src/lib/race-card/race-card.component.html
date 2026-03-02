@@ -1,0 +1,103 @@
+<div class="rc-card">
+  <button class="rc-close" (click)="close.emit()" title="Zavřít">✕</button>
+
+  @if (loading()) {
+    <div class="rc-loading">
+      <mat-icon class="rc-loading__icon">hourglass_empty</mat-icon>
+      <span>Načítám rasu…</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="rc-error">⚠ {{ error() }}</div>
+  }
+
+  @if (race(); as r) {
+
+    <div class="rc-name">{{ r.name }}</div>
+    <div class="rc-meta">{{ r.size }} · {{ r.speed }} ft pohyb</div>
+
+    <div class="rc-rule"></div>
+
+    <!-- Core stat pills -->
+    <div class="rc-pill-row">
+      <div class="rc-pill">
+        <span class="rc-pill__label">Pohyb</span>
+        <span class="rc-pill__val">{{ r.speed }} ft</span>
+      </div>
+      <div class="rc-pill">
+        <span class="rc-pill__label">Velikost</span>
+        <span class="rc-pill__val">{{ r.size }}</span>
+      </div>
+      @if (r.ability_bonuses.length) {
+        <div class="rc-pill rc-pill--wide">
+          <span class="rc-pill__label">Bonus vlastností</span>
+          <span class="rc-pill__val">{{ abilityBonusText(r) }}</span>
+        </div>
+      }
+    </div>
+
+    <!-- Choosable ability bonuses -->
+    @if (abilityBonusOptionsText(r); as abt) {
+      <div class="rc-prop"><b>Volitelný bonus:</b> {{ abt }}</div>
+    }
+
+    <div class="rc-rule"></div>
+
+    <!-- Flavour -->
+    <div class="rc-section">Věk &amp; přesvědčení</div>
+    <p class="rc-desc">{{ r.age }}</p>
+    <p class="rc-desc">{{ r.alignment }}</p>
+
+    @if (r.size_description) {
+      <div class="rc-section">Velikost</div>
+      <p class="rc-desc">{{ r.size_description }}</p>
+    }
+
+    <div class="rc-rule"></div>
+
+    <!-- Languages -->
+    <div class="rc-section">Jazyky</div>
+    <div class="rc-prop"><b>Mluví:</b> {{ languageText(r) }}</div>
+    @if (languageOptionsText(r); as lot) {
+      <div class="rc-prop"><b>Volba jazyka:</b> {{ lot }}</div>
+    }
+    @if (r.language_desc) {
+      <p class="rc-desc">{{ r.language_desc }}</p>
+    }
+
+    <!-- Proficiencies -->
+    @if (proficiencyText(r); as pt) {
+      <div class="rc-rule"></div>
+      <div class="rc-section">Zdatnosti</div>
+      <div class="rc-prop"><b>Automatické:</b> {{ pt }}</div>
+    }
+    @if (proficiencyOptionsText(r); as pot) {
+      <div class="rc-prop"><b>Volitelné zdatnosti:</b> {{ pot }}</div>
+    }
+
+    <!-- Traits -->
+    @if (r.traits?.length) {
+      <div class="rc-rule"></div>
+      <div class="rc-section">Rasové rysy</div>
+      <div class="rc-tag-row">
+        @for (t of r.traits; track t.index) {
+          <span class="rc-tag">{{ t.name }}</span>
+        }
+      </div>
+    }
+
+    <!-- Subraces -->
+    @if (r.subraces?.length) {
+      <div class="rc-rule"></div>
+      <div class="rc-section">Podrasy</div>
+      <div class="rc-tag-row">
+        @for (s of r.subraces; track s.index) {
+          <span class="rc-tag">{{ s.name }}</span>
+        }
+      </div>
+    }
+
+  }
+</div>
+

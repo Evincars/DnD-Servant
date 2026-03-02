@@ -1,147 +1,29 @@
-@keyframes m-spin { to { transform: rotate(360deg); } }
+@use '../../../../../../src/app/styles/dnd-card' with (
+  $accent:       rgba(160,30,30,.7),
+  $accent-dim:   rgba(160,30,30,.4),
+  $accent-mid:   rgba(160,30,30,.55),
+  $accent-glow:  rgba(160,30,30,.35),
+  $accent-faint: rgba(160,30,30,.04),
+  $accent-label: rgba(160,30,30,.7),
+  $accent-prop:  rgba(200,80,70,.7),
+  $accent-tag-bg:rgba(160,30,30,.1),
+  $accent-tag-bd:rgba(160,30,30,.3),
+  $accent-tag-tx:rgba(200,80,70,.8)
+);
 
 :host { display: contents; }
 
-// ── Card shell ────────────────────────────────────────────────────────────────
-.m-card {
-  flex: 1 1 340px;
-  min-width: 0;
-  max-width: 480px;
-  position: relative;
-  background: #0e0e12;
-  border: 1px solid rgba(255,255,255,.06);
-  border-left: 3px solid rgba(160,30,30,.7);
-  border-radius: 2px;
-  padding: 20px 20px 18px;
-  box-sizing: border-box;
-  box-shadow:
-    0 2px 0 rgba(160,30,30,.35),
-    0 12px 40px rgba(0,0,0,.85),
-    inset 1px 0 0 rgba(255,255,255,.02);
-  color: #b8b4ac;
-  font-size: 12px;
-  line-height: 1.65;
-  overflow-x: hidden;
-  word-break: break-word;
-  overflow-wrap: break-word;
-}
+.m-card    { @extend %dnd-card-shell;   flex: 1 1 340px; min-width: 0; max-width: 480px; }
+.m-close   { @extend %dnd-card-close;  }
+.m-loading { @extend %dnd-card-loading; }
+.m-error   { @extend %dnd-card-error;  }
+.m-name    { @extend %dnd-card-name;   }
+.m-meta    { @extend %dnd-card-meta;   }
+.m-rule    { @extend %dnd-card-rule;   }
 
-// ── Close button ──────────────────────────────────────────────────────────────
-.m-close {
-  position: absolute;
-  top: 8px; right: 10px;
-  width: 24px; height: 24px;
-  padding: 0;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 1px;
-  cursor: pointer;
-  color: rgba(255,255,255,.22);
-  font-size: 12px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: background .15s, color .15s, border-color .15s;
+.m-stat-row  { @extend %dnd-card-pill-row; }
+.m-stat-pill { @extend %dnd-card-pill;     }
 
-  &:hover {
-    background: rgba(160,30,30,.25);
-    border-color: rgba(200,50,40,.5);
-    color: #f08070;
-  }
-}
-
-// ── Loading / error ───────────────────────────────────────────────────────────
-.m-loading {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: rgba(160,30,30,.7);
-  font-family: 'Mikadan', sans-serif;
-  font-size: 11px;
-  letter-spacing: .08em;
-
-  &__icon { animation: m-spin 1s linear infinite; }
-}
-
-.m-error {
-  color: rgba(220,90,75,.8);
-  font-style: italic;
-  font-size: 12px;
-}
-
-// ── Monster name ──────────────────────────────────────────────────────────────
-.m-name {
-  font-family: 'Mikadan', sans-serif;
-  font-size: 17px;
-  font-weight: normal;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: #d8d4cc;
-  padding-right: 30px;
-  margin-bottom: 2px;
-  position: relative;
-}
-
-.m-meta {
-  font-style: italic;
-  color: rgba(255,255,255,.25);
-  font-size: 11px;
-  margin-bottom: 8px;
-  letter-spacing: .03em;
-}
-
-// ── Divider rule ──────────────────────────────────────────────────────────────
-.m-rule {
-  height: 1px;
-  background: rgba(255,255,255,.06);
-  margin: 9px 0;
-  position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0;
-    width: 32px; height: 1px;
-    background: rgba(160,30,30,.6);
-  }
-}
-
-// ── Stat pills ────────────────────────────────────────────────────────────────
-.m-stat-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin: 7px 0;
-}
-
-.m-stat-pill {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: rgba(255,255,255,.03);
-  border: 1px solid rgba(255,255,255,.07);
-  border-top: 1px solid rgba(160,30,30,.4);
-  border-radius: 1px;
-  padding: 5px 10px;
-  min-width: 46px;
-
-  &__label {
-    font-family: 'Mikadan', sans-serif;
-    font-size: 8px;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: rgba(160,30,30,.7);
-  }
-  &__val {
-    font-size: 14px;
-    font-weight: 600;
-    color: #d0ccc4;
-
-    small { font-size: 10px; color: rgba(255,255,255,.25); }
-  }
-}
-
-// ── Speed line ────────────────────────────────────────────────────────────────
 .m-line {
   margin: 3px 0;
   display: flex;
@@ -154,7 +36,6 @@
   span:last-child::after { content: ''; }
 }
 
-// ── Ability score grid ────────────────────────────────────────────────────────
 .m-abilities {
   display: flex;
   gap: 4px;
@@ -181,57 +62,8 @@
   &__mod { font-size: 10px; color: rgba(255,255,255,.28); }
 }
 
-// ── Properties ────────────────────────────────────────────────────────────────
-.m-prop {
-  margin: 3px 0;
-  font-size: 12px;
-
-  b { color: rgba(200,80,70,.7); margin-right: 4px; }
-}
-
-// ── Section heading ───────────────────────────────────────────────────────────
-.m-section {
-  font-family: 'Mikadan', sans-serif;
-  font-size: 10px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: rgba(160,30,30,.75);
-  margin: 8px 0 5px;
-  padding: 4px 0 4px 8px;
-  border-left: 2px solid rgba(160,30,30,.5);
-  background: rgba(160,30,30,.04);
-}
-
-// ── Ability blocks ────────────────────────────────────────────────────────────
-.m-ability {
-  margin: 4px 0;
-  font-size: 12px;
-
-  &__name { font-style: italic; color: rgba(220,190,160,.7); }
-}
-
-// ── Tags ──────────────────────────────────────────────────────────────────────
-.m-tag {
-  display: inline-block;
-  margin-left: 5px;
-  padding: 1px 6px;
-  background: rgba(160,30,30,.1);
-  border: 1px solid rgba(160,30,30,.3);
-  border-radius: 1px;
-  font-size: 10px;
-  color: rgba(200,80,70,.8);
-  vertical-align: middle;
-}
-
-// ── Image ─────────────────────────────────────────────────────────────────────
-.m-image {
-  display: block;
-  max-width: 100%;
-  width: 100%;
-  height: auto;
-  border-radius: 1px;
-  margin-top: 8px;
-  border: 1px solid rgba(255,255,255,.07);
-  box-shadow: 0 4px 20px rgba(0,0,0,.6);
-  filter: brightness(.9) contrast(1.05);
-}
+.m-prop    { @extend %dnd-card-prop;    }
+.m-section { @extend %dnd-card-section; }
+.m-ability { @extend %dnd-card-ability; }
+.m-tag     { @extend %dnd-card-tag;  margin-left: 5px; vertical-align: middle; }
+.m-image   { @extend %dnd-card-image;  }
