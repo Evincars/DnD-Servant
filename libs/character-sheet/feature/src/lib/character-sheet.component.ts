@@ -572,7 +572,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level1Slot1.disabled"
           [attr.data-state]="spellSlotsControls.level1Slot1.value"
           (click)="cycleSlot(spellSlotsControls.level1Slot1)"
-          style="top:894px; left:444px;"
+          style="top:895px; left:444px;"
         ></div>
         <div
           #level1Slot2Input
@@ -580,7 +580,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level1Slot2.disabled"
           [attr.data-state]="spellSlotsControls.level1Slot2.value"
           (click)="cycleSlot(spellSlotsControls.level1Slot2)"
-          style="top:914px; left:444px;"
+          style="top:915px; left:444px;"
         ></div>
         <div
           #level1Slot3Input
@@ -588,7 +588,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level1Slot3.disabled"
           [attr.data-state]="spellSlotsControls.level1Slot3.value"
           (click)="cycleSlot(spellSlotsControls.level1Slot3)"
-          style="top:935px; left:444px;"
+          style="top:936px; left:444px;"
         ></div>
         <div
           #level1Slot4Input
@@ -596,7 +596,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level1Slot4.disabled"
           [attr.data-state]="spellSlotsControls.level1Slot4.value"
           (click)="cycleSlot(spellSlotsControls.level1Slot4)"
-          style="top:955px; left:444px;"
+          style="top:956px; left:444px;"
         ></div>
 
         <div
@@ -605,7 +605,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level2Slot1.disabled"
           [attr.data-state]="spellSlotsControls.level2Slot1.value"
           (click)="cycleSlot(spellSlotsControls.level2Slot1)"
-          style="top:894px; left:471px;"
+          style="top:895px; left:471px;"
         ></div>
         <div
           #level2Slot2Input
@@ -613,7 +613,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level2Slot2.disabled"
           [attr.data-state]="spellSlotsControls.level2Slot2.value"
           (click)="cycleSlot(spellSlotsControls.level2Slot2)"
-          style="top:914px; left:471px;"
+          style="top:915px; left:471px;"
         ></div>
         <div
           #level2Slot3Input
@@ -621,7 +621,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level2Slot3.disabled"
           [attr.data-state]="spellSlotsControls.level2Slot3.value"
           (click)="cycleSlot(spellSlotsControls.level2Slot3)"
-          style="top:935px; left:471px;"
+          style="top:936px; left:471px;"
         ></div>
         <div
           #level2Slot4Input
@@ -629,7 +629,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level2Slot4.disabled"
           [attr.data-state]="spellSlotsControls.level2Slot4.value"
           (click)="cycleSlot(spellSlotsControls.level2Slot4)"
-          style="top:955px; left:471px;"
+          style="top:956px; left:471px;"
         ></div>
 
         <div
@@ -638,7 +638,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level3Slot1.disabled"
           [attr.data-state]="spellSlotsControls.level3Slot1.value"
           (click)="cycleSlot(spellSlotsControls.level3Slot1)"
-          style="top:894px; left:498px;"
+          style="top:895px; left:498px;"
         ></div>
         <div
           #level3Slot2Input
@@ -646,7 +646,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level3Slot2.disabled"
           [attr.data-state]="spellSlotsControls.level3Slot2.value"
           (click)="cycleSlot(spellSlotsControls.level3Slot2)"
-          style="top:914px; left:498px;"
+          style="top:915px; left:498px;"
         ></div>
         <div
           #level3Slot3Input
@@ -654,7 +654,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level3Slot3.disabled"
           [attr.data-state]="spellSlotsControls.level3Slot3.value"
           (click)="cycleSlot(spellSlotsControls.level3Slot3)"
-          style="top:935px; left:498px;"
+          style="top:936px; left:498px;"
         ></div>
         <div
           #level3Slot4Input
@@ -662,7 +662,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level3Slot4.disabled"
           [attr.data-state]="spellSlotsControls.level3Slot4.value"
           (click)="cycleSlot(spellSlotsControls.level3Slot4)"
-          style="top:955px; left:498px;"
+          style="top:956px; left:498px;"
         ></div>
 
         <div
@@ -671,7 +671,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level4Slot1.disabled"
           [attr.data-state]="spellSlotsControls.level4Slot1.value"
           (click)="cycleSlot(spellSlotsControls.level4Slot1)"
-          style="top:894px; left:525px;"
+          style="top:895px; left:525px;"
         ></div>
         <div
           #level4Slot2Input
@@ -679,7 +679,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level4Slot2.disabled"
           [attr.data-state]="spellSlotsControls.level4Slot2.value"
           (click)="cycleSlot(spellSlotsControls.level4Slot2)"
-          style="top:914px; left:525px;"
+          style="top:915px; left:525px;"
         ></div>
         <div
           #level4Slot3Input
@@ -687,7 +687,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level4Slot3.disabled"
           [attr.data-state]="spellSlotsControls.level4Slot3.value"
           (click)="cycleSlot(spellSlotsControls.level4Slot3)"
-          style="top:935px; left:525px;"
+          style="top:936px; left:525px;"
         ></div>
         <div
           #level4Slot4Input
@@ -695,7 +695,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level4Slot4.disabled"
           [attr.data-state]="spellSlotsControls.level4Slot4.value"
           (click)="cycleSlot(spellSlotsControls.level4Slot4)"
-          style="top:955px; left:525px;"
+          style="top:956px; left:525px;"
         ></div>
 
         <div
@@ -704,7 +704,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level5Slot1.disabled"
           [attr.data-state]="spellSlotsControls.level5Slot1.value"
           (click)="cycleSlot(spellSlotsControls.level5Slot1)"
-          style="top:894px; left:552px;"
+          style="top:895px; left:552px;"
         ></div>
         <div
           #level5Slot2Input
@@ -712,7 +712,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level5Slot2.disabled"
           [attr.data-state]="spellSlotsControls.level5Slot2.value"
           (click)="cycleSlot(spellSlotsControls.level5Slot2)"
-          style="top:914px; left:552px;"
+          style="top:915px; left:552px;"
         ></div>
         <div
           #level5Slot3Input
@@ -720,7 +720,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level5Slot3.disabled"
           [attr.data-state]="spellSlotsControls.level5Slot3.value"
           (click)="cycleSlot(spellSlotsControls.level5Slot3)"
-          style="top:935px; left:552px;"
+          style="top:936px; left:552px;"
         ></div>
         <div
           #level5Slot4Input
@@ -728,7 +728,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level5Slot4.disabled"
           [attr.data-state]="spellSlotsControls.level5Slot4.value"
           (click)="cycleSlot(spellSlotsControls.level5Slot4)"
-          style="top:955px; left:552px;"
+          style="top:956px; left:552px;"
         ></div>
 
         <div
@@ -737,7 +737,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level6Slot1.disabled"
           [attr.data-state]="spellSlotsControls.level6Slot1.value"
           (click)="cycleSlot(spellSlotsControls.level6Slot1)"
-          style="top:894px; left:579px;"
+          style="top:895px; left:579px;"
         ></div>
         <div
           #level6Slot2Input
@@ -745,7 +745,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level6Slot2.disabled"
           [attr.data-state]="spellSlotsControls.level6Slot2.value"
           (click)="cycleSlot(spellSlotsControls.level6Slot2)"
-          style="top:914px; left:579px;"
+          style="top:915px; left:579px;"
         ></div>
 
         <div
@@ -754,7 +754,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level7Slot1.disabled"
           [attr.data-state]="spellSlotsControls.level7Slot1.value"
           (click)="cycleSlot(spellSlotsControls.level7Slot1)"
-          style="top:894px; left:605px;"
+          style="top:895px; left:605px;"
         ></div>
         <div
           #level7Slot2Input
@@ -762,7 +762,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level7Slot2.disabled"
           [attr.data-state]="spellSlotsControls.level7Slot2.value"
           (click)="cycleSlot(spellSlotsControls.level7Slot2)"
-          style="top:914px; left:605px;"
+          style="top:915px; left:605px;"
         ></div>
 
         <div
@@ -771,7 +771,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level8Slot1.disabled"
           [attr.data-state]="spellSlotsControls.level8Slot1.value"
           (click)="cycleSlot(spellSlotsControls.level8Slot1)"
-          style="top:894px; left:632px;"
+          style="top:895px; left:632px;"
         ></div>
 
         <div
@@ -780,7 +780,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="spellSlotsControls.level9Slot1.disabled"
           [attr.data-state]="spellSlotsControls.level9Slot1.value"
           (click)="cycleSlot(spellSlotsControls.level9Slot1)"
-          style="top:894px; left:659px;"
+          style="top:895px; left:659px;"
         ></div>
 
         <!--      Alchemist chest-->
