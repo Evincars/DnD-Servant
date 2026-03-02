@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { MatIcon } from '@angular/material/icon';
 import { Dnd5eApiService } from '@dn-d-servant/data-access';
-import { Monster, Spell, Race, Dnd5eEndpoint } from '@dn-d-servant/util';
+import { Monster, Spell, Race, Dnd5eEndpoint, LocalStorageService } from '@dn-d-servant/util';
 import { MonsterCardComponent } from '../monster-card/monster-card.component';
 import { SpellCardComponent } from '../spell-card/spell-card.component';
 import { RaceCardComponent } from '../race-card/race-card.component';
@@ -42,6 +42,14 @@ const CATEGORIES: CategoryDef[] = [
   },
 ];
 
+const STORAGE_KEY = 'dnd-database-results';
+
+interface StoredResults {
+  monsters: Monster[];
+  spells: Spell[];
+  races: Race[];
+}
+
 @Component({
   selector: 'dnd-database-search',
   templateUrl: './dnd-database-search.component.html',
@@ -51,6 +59,7 @@ const CATEGORIES: CategoryDef[] = [
 })
 export class DndDatabaseSearchComponent {
   private readonly api = inject(Dnd5eApiService);
+  private readonly storage = inject(LocalStorageService);
 
   readonly categories = CATEGORIES;
 
@@ -59,16 +68,31 @@ export class DndDatabaseSearchComponent {
   loading = signal(false);
   error = signal<string | null>(null);
 
-  monsters = signal<Monster[]>([]);
-  spells = signal<Spell[]>([]);
-  races = signal<Race[]>([]);
+  // ── Rehydrate from localStorage on init ────────────────────────────────────
+  private readonly _saved = this.storage.getDataSync<StoredResults>(STORAGE_KEY);
+
+  monsters = signal<Monster[]>(this._saved?.monsters ?? []);
+  spells = signal<Spell[]>(this._saved?.spells ?? []);
+  races = signal<Race[]>(this._saved?.races ?? []);
+
+  // ── Persist to localStorage on every change ────────────────────────────────
+  private readonly _persistEffect = effect(() => {
+    const payload: StoredResults = {
+      monsters: this.monsters(),
+      spells: this.spells(),
+      races: this.races(),
+    };
+    this.storage.setDataSync(STORAGE_KEY, payload);
+  });
 
   readonly activeDef = computed(() => CATEGORIES.find(c => c.key === this.category())!);
 
   readonly hasResult = computed(() => this.monsters().length > 0 || this.spells().length > 0 || this.races().length > 0);
 
+  // ── Clear query when switching category ────────────────────────────────────
   selectCategory(cat: DatabaseCategory): void {
     this.category.set(cat);
+    this.query.set('');
     this.error.set(null);
   }
 
