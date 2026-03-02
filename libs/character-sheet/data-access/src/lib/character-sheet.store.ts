@@ -14,9 +14,15 @@ import { tapResponse } from '@ngrx/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LocalStorageService } from '@dn-d-servant/util';
 
+/** Keys for last-successfully-saved DB snapshots */
 export const DB_BACKUP_KEY_CHARACTER = 'db-backup-character-sheet';
 export const DB_BACKUP_KEY_GROUP = 'db-backup-group-sheet';
 export const DB_BACKUP_KEY_NOTES = 'db-backup-notes-page';
+
+/** Keys for 30-second auto-draft (form state that may not yet be saved to DB) */
+export const DB_DRAFT_KEY_CHARACTER = 'db-draft-character-sheet';
+export const DB_DRAFT_KEY_GROUP = 'db-draft-group-sheet';
+export const DB_DRAFT_KEY_NOTES = 'db-draft-notes-page';
 
 export const CharacterSheetStore = signalStore(
   withState({
@@ -253,6 +259,45 @@ export const CharacterSheetStore = signalStore(
         ),
       );
 
+      /**
+       * Called every 30 s from each sheet component to persist the current
+       * in-memory model to localStorage without triggering a DB write.
+       */
+      const saveDraftToLocalStorage = function (
+        data:
+          | { type: 'character'; model: CharacterSheetApiModel }
+          | { type: 'group'; model: GroupSheetApiModel }
+          | { type: 'notes'; model: NotesPageApiModel },
+      ): void {
+        if (data.type === 'character') _localStorage.setDataSync(DB_DRAFT_KEY_CHARACTER, data.model);
+        if (data.type === 'group') _localStorage.setDataSync(DB_DRAFT_KEY_GROUP, data.model);
+        if (data.type === 'notes') _localStorage.setDataSync(DB_DRAFT_KEY_NOTES, data.model);
+      };
+
+      /**
+       * Called once after the user logs in.
+       * If draft keys exist in localStorage they are pushed to DB immediately,
+       * then the draft keys are removed.
+       */
+      const restoreDraftsToDb = function (): void {
+        const character = _localStorage.getDataSync<CharacterSheetApiModel>(DB_DRAFT_KEY_CHARACTER);
+        const group = _localStorage.getDataSync<GroupSheetApiModel>(DB_DRAFT_KEY_GROUP);
+        const notes = _localStorage.getDataSync<NotesPageApiModel>(DB_DRAFT_KEY_NOTES);
+
+        if (character) {
+          saveCharacterSheet(character);
+          _localStorage.setDataSync(DB_DRAFT_KEY_CHARACTER, null);
+        }
+        if (group) {
+          saveGroupSheet(group);
+          _localStorage.setDataSync(DB_DRAFT_KEY_GROUP, null);
+        }
+        if (notes) {
+          saveNotesPage(notes);
+          _localStorage.setDataSync(DB_DRAFT_KEY_NOTES, null);
+        }
+      };
+
       return {
         patchLoading,
         saveCharacterImage,
@@ -260,6 +305,8 @@ export const CharacterSheetStore = signalStore(
         getGroupSheetByUsername,
         getNotesPageByUsername,
         getItemVault,
+        saveDraftToLocalStorage,
+        restoreDraftsToDb,
         // -----------------------
         saveCharacterSheet,
         saveGroupSheet,

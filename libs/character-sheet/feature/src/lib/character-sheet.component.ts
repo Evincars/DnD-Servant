@@ -38,6 +38,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { CharacterSheetSecondPageComponent } from './character-sheet-second-page.component';
 import { CharacterSheetThirdPageComponent } from './character-sheet-third-page.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { interval } from 'rxjs';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { openWeaponsAndArmorsDialog } from './help-dialogs/weapons-and-armors-dialog.component';
@@ -2450,6 +2451,25 @@ export class CharacterSheetComponent {
         this._updateSpeedHighlight();
       }
     });
+
+    // ── Auto-draft every 30 s → localStorage only (no DB) ─────────────────
+    interval(30_000)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        const username = this.authService.currentUser()?.username;
+        if (!username) return;
+        const model = FormUtil.convertFormToModel(
+          this.form.getRawValue(),
+          CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
+        );
+        model.username = username;
+        const imageThisSession = this.characterSheetStore.characterImage();
+        const imageFromDb = this.characterSheetStore.characterSheet()?.secondPageForm?.obrazekPostavy ?? null;
+        if (model.secondPageForm) {
+          model.secondPageForm.obrazekPostavy = imageThisSession ?? imageFromDb;
+        }
+        this.characterSheetStore.saveDraftToLocalStorage({ type: 'character', model });
+      });
   }
 
   _applyLevelDisabling() {

@@ -9,7 +9,12 @@ import { AuthService, LocalStorageService } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTooltip } from '@angular/material/tooltip';
 import html2canvas from 'html2canvas';
-import { DB_BACKUP_KEY_CHARACTER, DB_BACKUP_KEY_GROUP, DB_BACKUP_KEY_NOTES } from '@dn-d-servant/character-sheet-data-access';
+import {
+  CharacterSheetStore,
+  DB_BACKUP_KEY_CHARACTER,
+  DB_BACKUP_KEY_GROUP,
+  DB_BACKUP_KEY_NOTES,
+} from '@dn-d-servant/character-sheet-data-access';
 
 @Component({
   selector: 'app-root',
@@ -160,6 +165,7 @@ export class App implements OnInit, OnDestroy {
   authService = inject(AuthService);
   destroyRef = inject(DestroyRef);
   private readonly localStorage = inject(LocalStorageService);
+  private readonly characterSheetStore = inject(CharacterSheetStore);
 
   routes = routes;
   showBackToTop = signal(false);
@@ -174,6 +180,8 @@ export class App implements OnInit, OnDestroy {
           email: user.email!,
           username: user.displayName!,
         });
+        // Restore any unsaved drafts from localStorage back to DB after reload/refresh
+        this.characterSheetStore.restoreDraftsToDb();
       } else {
         this.authService.currentUser.set(null);
       }
