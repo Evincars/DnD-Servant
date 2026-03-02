@@ -1,0 +1,94 @@
+<div class="cc-card">
+  <button class="cc-close" (click)="close.emit()" title="Zavřít">✕</button>
+
+  @if (loading()) {
+    <div class="cc-loading">
+      <mat-icon class="cc-loading__icon">hourglass_empty</mat-icon>
+      <span>Načítám povolání…</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="cc-error">⚠ {{ error() }}</div>
+  }
+
+  @if (dndClass(); as c) {
+
+    <div class="cc-name">{{ c.name }}</div>
+    <div class="cc-meta">Povolání (Class)</div>
+
+    <div class="cc-rule"></div>
+
+    <!-- Core pills -->
+    <div class="cc-pill-row">
+      <div class="cc-pill">
+        <span class="cc-pill__label">Životy</span>
+        <span class="cc-pill__val">{{ hitDieLabel(c) }}</span>
+      </div>
+      <div class="cc-pill">
+        <span class="cc-pill__label">Záchranné hody</span>
+        <span class="cc-pill__val">{{ savingThrowsText(c) }}</span>
+      </div>
+    </div>
+
+    <div class="cc-rule"></div>
+
+    <!-- Proficiencies -->
+    @if (proficienciesText(c)) {
+      <div class="cc-section">Zdatnosti</div>
+      <div class="cc-prop"><b>Automatické:</b> {{ proficienciesText(c) }}</div>
+    }
+
+    @if (proficiencyChoiceText(c); as pct) {
+      <div class="cc-prop"><b>Výběr dovedností:</b> {{ pct }}</div>
+    }
+
+    <!-- Starting equipment -->
+    @if (startingEquipmentText(c); as set) {
+      <div class="cc-rule"></div>
+      <div class="cc-section">Počáteční vybavení</div>
+      <div class="cc-prop">{{ set }}</div>
+    }
+
+    <!-- Subclasses -->
+    @if (c.subclasses?.length) {
+      <div class="cc-rule"></div>
+      <div class="cc-section">Subpovolání</div>
+      <div class="cc-tag-row">
+        @for (s of c.subclasses; track s.index) {
+          <span class="cc-tag">{{ s.name }}</span>
+        }
+      </div>
+    }
+
+    <!-- Spellcasting -->
+    @if (c.spellcasting) {
+      <div class="cc-rule"></div>
+      <div class="cc-section">Sesílání kouzel</div>
+      <div class="cc-prop">
+        <b>Sesílací vlastnost:</b> {{ c.spellcasting.spellcasting_ability.name }}
+      </div>
+      @for (info of c.spellcasting.info; track info.name) {
+        <div class="cc-prop"><b>{{ info.name }}:</b></div>
+        @for (para of info.desc; track $index) {
+          <p class="cc-desc">{{ para }}</p>
+        }
+      }
+    }
+
+    <!-- Multiclassing -->
+    <div class="cc-rule"></div>
+    <div class="cc-section">Multiclass</div>
+    @if (multiclassReqText(c); as mrt) {
+      <div class="cc-prop"><b>Předpoklady:</b> {{ mrt }}</div>
+    } @else {
+      <div class="cc-prop cc-prop--muted">Žádné předpoklady</div>
+    }
+    @if (multiclassProfText(c); as mpt) {
+      <div class="cc-prop"><b>Získané zdatnosti:</b> {{ mpt }}</div>
+    }
+
+  }
+</div>
+
+

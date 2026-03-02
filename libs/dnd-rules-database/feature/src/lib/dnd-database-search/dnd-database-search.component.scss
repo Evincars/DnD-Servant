@@ -117,6 +117,12 @@
       color: rgba(80,200,110,.9);
       .db-switcher__icon { color: rgba(80,200,110,.8); }
     }
+    &:nth-child(4) { // classes — purple
+      background: rgba(100,50,180,.12);
+      border-color: rgba(100,50,180,.5);
+      color: rgba(170,130,255,.9);
+      .db-switcher__icon { color: rgba(170,130,255,.8); }
+    }
   }
 }
 
@@ -293,7 +299,9 @@
 
     monster-card,
     spell-card,
-    race-card {
+    race-card,
+    class-card,
+    feat-card {
       display: block;
     }
   }
