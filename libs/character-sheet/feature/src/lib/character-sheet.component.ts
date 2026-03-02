@@ -790,7 +790,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage1.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage1.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage1)"
-          style="top:892px; left:692px;"
+          style="top:895px; left:696px;"
         ></div>
         <div
           #chestUsage2Input
@@ -798,7 +798,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage2.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage2.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage2)"
-          style="top:892px; left:716px;"
+          style="top:895px; left:720px;"
         ></div>
         <div
           #chestUsage3Input
@@ -806,7 +806,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage3.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage3.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage3)"
-          style="top:892px; left:738px;"
+          style="top:895px; left:742px;"
         ></div>
         <div
           #chestUsage4Input
@@ -814,7 +814,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage4.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage4.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage4)"
-          style="top:892px; left:761px;"
+          style="top:895px; left:765px;"
         ></div>
         <div
           #chestUsage5Input
@@ -822,7 +822,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage5.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage5.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage5)"
-          style="top:892px; left:784px;"
+          style="top:895px; left:788px;"
         ></div>
         <div
           #chestUsage6Input
@@ -830,7 +830,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage6.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage6.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage6)"
-          style="top:912px; left:692px;"
+          style="top:915px; left:696px;"
         ></div>
         <div
           #chestUsage7Input
@@ -838,7 +838,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage7.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage7.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage7)"
-          style="top:912px; left:716px;"
+          style="top:915px; left:720px;"
         ></div>
         <div
           #chestUsage8Input
@@ -846,7 +846,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage8.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage8.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage8)"
-          style="top:912px; left:738px;"
+          style="top:915px; left:742px;"
         ></div>
         <div
           #chestUsage9Input
@@ -854,7 +854,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage9.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage9.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage9)"
-          style="top:912px; left:761px;"
+          style="top:915px; left:765px;"
         ></div>
         <div
           #chestUsage10Input
@@ -862,7 +862,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage10.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage10.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage10)"
-          style="top:912px; left:784px;"
+          style="top:915px; left:788px;"
         ></div>
         <div
           #chestUsage11Input
@@ -870,7 +870,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage11.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage11.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage11)"
-          style="top:933px; left:692px;"
+          style="top:936px; left:696px;"
         ></div>
         <div
           #chestUsage12Input
@@ -878,7 +878,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage12.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage12.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage12)"
-          style="top:933px; left:716px;"
+          style="top:936px; left:720px;"
         ></div>
         <div
           #chestUsage13Input
@@ -886,7 +886,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage13.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage13.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage13)"
-          style="top:933px; left:738px;"
+          style="top:936px; left:742px;"
         ></div>
         <div
           #chestUsage14Input
@@ -894,7 +894,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage14.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage14.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage14)"
-          style="top:933px; left:761px;"
+          style="top:936px; left:765px;"
         ></div>
         <div
           #chestUsage15Input
@@ -902,7 +902,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage15.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage15.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage15)"
-          style="top:933px; left:784px;"
+          style="top:936px; left:788px;"
         ></div>
         <div
           #chestUsage16Input
@@ -910,7 +910,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage16.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage16.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage16)"
-          style="top:953px; left:692px;"
+          style="top:956px; left:696px;"
         ></div>
         <div
           #chestUsage17Input
@@ -918,7 +918,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage17.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage17.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage17)"
-          style="top:953px; left:716px;"
+          style="top:956px; left:720px;"
         ></div>
         <div
           #chestUsage18Input
@@ -926,7 +926,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage18.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage18.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage18)"
-          style="top:953px; left:738px;"
+          style="top:956px; left:742px;"
         ></div>
         <div
           #chestUsage19Input
@@ -934,7 +934,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage19.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage19.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage19)"
-          style="top:953px; left:761px;"
+          style="top:956px; left:765px;"
         ></div>
         <div
           #chestUsage20Input
@@ -942,7 +942,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [class.disabled]="alchemistChestControls.chestUsage20.disabled"
           [attr.data-state]="alchemistChestControls.chestUsage20.value"
           (click)="cycleSlot(alchemistChestControls.chestUsage20)"
-          style="top:953px; left:784px;"
+          style="top:956px; left:788px;"
         ></div>
 
         <!--    main 6 skills-->
