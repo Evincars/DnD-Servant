@@ -1,5 +1,6 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { Subclass } from '@dn-d-servant/util';
+import { DndTranslatePipe, Subclass } from '@dn-d-servant/util';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -7,17 +8,13 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './subclass-card.component.html',
   styleUrl: './subclass-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIcon],
+  imports: [MatIcon, DndTranslatePipe, AsyncPipe],
 })
 export class SubclassCardComponent {
   subclass = input<Subclass | null>(null);
   loading = input(false);
   error = input<string | null>(null);
   close = output<void>();
-
-  spellNames(s: Subclass): string[] {
-    return (s.spells ?? []).map(e => e.spell.name);
-  }
 
   spellPrereqLevel(s: Subclass, spellName: string): number | null {
     const entry = (s.spells ?? []).find(e => e.spell.name === spellName);

@@ -19,7 +19,6 @@
 
     <div class="cc-rule"></div>
 
-    <!-- Core pills -->
     <div class="cc-pill-row">
       <div class="cc-pill">
         <span class="cc-pill__label">Životy</span>
@@ -27,30 +26,27 @@
       </div>
       <div class="cc-pill">
         <span class="cc-pill__label">Záchranné hody</span>
-        <span class="cc-pill__val">{{ savingThrowsText(c) }}</span>
+        <span class="cc-pill__val">{{ savingThrowsText(c) | dndTranslate | async }}</span>
       </div>
     </div>
 
     <div class="cc-rule"></div>
 
-    <!-- Proficiencies -->
     @if (proficienciesText(c)) {
       <div class="cc-section">Zdatnosti</div>
-      <div class="cc-prop"><b>Automatické:</b> {{ proficienciesText(c) }}</div>
+      <div class="cc-prop"><b>Automatické:</b> {{ proficienciesText(c) | dndTranslate | async }}</div>
     }
 
     @if (proficiencyChoiceText(c); as pct) {
-      <div class="cc-prop"><b>Výběr dovedností:</b> {{ pct }}</div>
+      <div class="cc-prop"><b>Výběr dovedností:</b> {{ pct | dndTranslate | async }}</div>
     }
 
-    <!-- Starting equipment -->
     @if (startingEquipmentText(c); as set) {
       <div class="cc-rule"></div>
       <div class="cc-section">Počáteční vybavení</div>
-      <div class="cc-prop">{{ set }}</div>
+      <div class="cc-prop">{{ set | dndTranslate | async }}</div>
     }
 
-    <!-- Subclasses -->
     @if (c.subclasses?.length) {
       <div class="cc-rule"></div>
       <div class="cc-section">Subpovolání</div>
@@ -61,31 +57,29 @@
       </div>
     }
 
-    <!-- Spellcasting -->
     @if (c.spellcasting) {
       <div class="cc-rule"></div>
       <div class="cc-section">Sesílání kouzel</div>
       <div class="cc-prop">
-        <b>Sesílací vlastnost:</b> {{ c.spellcasting.spellcasting_ability.name }}
+        <b>Sesílací vlastnost:</b> {{ c.spellcasting.spellcasting_ability.name | dndTranslate | async }}
       </div>
       @for (info of c.spellcasting.info; track info.name) {
         <div class="cc-prop"><b>{{ info.name }}:</b></div>
         @for (para of info.desc; track $index) {
-          <p class="cc-desc">{{ para }}</p>
+          <p class="cc-desc">{{ para | dndTranslate | async }}</p>
         }
       }
     }
 
-    <!-- Multiclassing -->
     <div class="cc-rule"></div>
     <div class="cc-section">Multiclass</div>
     @if (multiclassReqText(c); as mrt) {
-      <div class="cc-prop"><b>Předpoklady:</b> {{ mrt }}</div>
+      <div class="cc-prop"><b>Předpoklady:</b> {{ mrt | dndTranslate | async }}</div>
     } @else {
       <div class="cc-prop cc-prop--muted">Žádné předpoklady</div>
     }
     @if (multiclassProfText(c); as mpt) {
-      <div class="cc-prop"><b>Získané zdatnosti:</b> {{ mpt }}</div>
+      <div class="cc-prop"><b>Získané zdatnosti:</b> {{ mpt | dndTranslate | async }}</div>
     }
 
   }
