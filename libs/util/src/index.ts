@@ -10,3 +10,4 @@ export * from './lib/auth.service';
 export * from './lib/object-util';
 export * from './lib/form-util';
 export * from './lib/monster-names';
+export * from './lib/dnd5e-api.models';
