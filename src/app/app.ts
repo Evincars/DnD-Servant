@@ -45,6 +45,11 @@ import html2canvas from 'html2canvas';
             <span class="sidenav__link-label">PH zástěna</span>
             <span class="sidenav__link-arrow">›</span>
           </a>
+          <a [routerLink]="routes.dndDatabase" class="sidenav__link" (click)="sidenav.toggle()">
+            <span class="sidenav__link-icon"><mat-icon>menu_book</mat-icon></span>
+            <span class="sidenav__link-label">Databáze D&amp;D</span>
+            <span class="sidenav__link-arrow">›</span>
+          </a>
         </nav>
 
         <div class="sidenav__divider">

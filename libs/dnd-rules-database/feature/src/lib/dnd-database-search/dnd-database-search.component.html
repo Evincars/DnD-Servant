@@ -1,0 +1,111 @@
+<div class="db-page">
+
+  <!-- ── Page header ──────────────────────────────────────────────────────── -->
+  <div class="db-header">
+    <div class="db-header__icon-wrap">
+      <mat-icon class="db-header__icon">menu_book</mat-icon>
+    </div>
+    <div>
+      <div class="db-header__title">Databáze D&amp;D 2014</div>
+      <div class="db-header__subtitle">Vyhledej příšery, kouzla a rasy ze systému D&amp;D 5e (2014)</div>
+    </div>
+  </div>
+
+  <!-- ── Category switcher ─────────────────────────────────────────────────── -->
+  <div class="db-switcher">
+    @for (cat of categories; track cat.key) {
+      <button
+        class="db-switcher__btn"
+        [class.db-switcher__btn--active]="category() === cat.key"
+        (click)="selectCategory(cat.key)"
+        type="button"
+      >
+        <mat-icon class="db-switcher__icon">{{ cat.icon }}</mat-icon>
+        <span>{{ cat.label }}</span>
+      </button>
+    }
+  </div>
+
+  <!-- ── Search bar ────────────────────────────────────────────────────────── -->
+  <div class="db-search-row">
+    <div class="db-search-wrap">
+      <mat-icon class="db-search-wrap__icon">search</mat-icon>
+      <input
+        class="db-search-wrap__input"
+        type="text"
+        [placeholder]="activeDef().placeholder"
+        [ngModel]="query()"
+        (ngModelChange)="query.set($event)"
+        (keydown)="onEnter($event)"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      @if (query()) {
+        <button class="db-search-wrap__clear" (click)="query.set(''); clearResult()" type="button" tabindex="-1">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </div>
+    <button class="db-search-btn" (click)="search()" type="button" [disabled]="!query().trim() || loading()">
+      <mat-icon>travel_explore</mat-icon>
+      <span>Hledat</span>
+    </button>
+  </div>
+
+  <div class="db-hint">{{ activeDef().hint }}</div>
+
+  <!-- ── Results area ──────────────────────────────────────────────────────── -->
+  <div class="db-results">
+
+    @if (loading()) {
+      <div class="db-state">
+        <mat-icon class="db-state__spin">hourglass_empty</mat-icon>
+        <span>Hledám…</span>
+      </div>
+    }
+
+    @if (!loading() && error()) {
+      <div class="db-state db-state--error">
+        <mat-icon>error_outline</mat-icon>
+        <span>{{ error() }}</span>
+      </div>
+    }
+
+    @if (!loading() && !hasResult() && !error()) {
+      <div class="db-state db-state--empty">
+        <mat-icon>travel_explore</mat-icon>
+        <span>Zadej název a stiskni Hledat</span>
+      </div>
+    }
+
+    @if (monster()) {
+      <monster-card
+        [monster]="monster()"
+        [loading]="false"
+        [error]="null"
+        (close)="clearResult()"
+      />
+    }
+
+    @if (spell()) {
+      <spell-card
+        [spell]="spell()"
+        [loading]="false"
+        [error]="null"
+        (close)="clearResult()"
+      />
+    }
+
+    @if (race()) {
+      <race-card
+        [race]="race()"
+        [loading]="false"
+        [error]="null"
+        (close)="clearResult()"
+      />
+    }
+
+  </div>
+
+</div>
+

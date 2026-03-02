@@ -1,4 +1,4 @@
-export type Dnd5eEndpoint = 'monsters' | 'spells' | 'features' | 'classes';
+export type Dnd5eEndpoint = 'monsters' | 'spells' | 'features' | 'classes' | 'races';
 
 /** Minimal list-item shape returned by every list endpoint */
 export interface Dnd5eListItem {

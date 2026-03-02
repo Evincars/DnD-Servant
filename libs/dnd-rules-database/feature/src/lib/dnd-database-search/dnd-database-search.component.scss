@@ -1,0 +1,265 @@
+@use '../../../../../../src/app/styles/dnd-card' as card;
+
+// ── Page wrapper ──────────────────────────────────────────────────────────────
+:host {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+}
+
+.db-page {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 28px 32px;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+// ── Header ────────────────────────────────────────────────────────────────────
+.db-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0;
+    width: 80px; height: 1px;
+    background: rgba(120,80,200,.7);
+  }
+}
+
+.db-header__icon-wrap {
+  width: 42px; height: 42px;
+  border-radius: 2px;
+  background: rgba(120,80,200,.1);
+  border: 1px solid rgba(120,80,200,.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.db-header__icon {
+  font-size: 22px; width: 22px; height: 22px;
+  color: rgba(160,120,240,.8);
+}
+
+.db-header__title {
+  font-family: 'Mikadan', sans-serif;
+  font-size: 22px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #d0ccc4;
+}
+
+.db-header__subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,.25);
+  margin-top: 2px;
+  letter-spacing: .03em;
+  font-style: italic;
+}
+
+// ── Category switcher ─────────────────────────────────────────────────────────
+.db-switcher {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.db-switcher__btn {
+  font-family: 'Mikadan', sans-serif;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 2px;
+  color: rgba(255,255,255,.35);
+  cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+
+  &:hover:not(.db-switcher__btn--active) {
+    background: rgba(255,255,255,.06);
+    border-color: rgba(255,255,255,.14);
+    color: rgba(255,255,255,.6);
+  }
+
+  // per-category accent when active
+  &--active {
+    &:nth-child(1) { // monsters — red
+      background: rgba(160,30,30,.12);
+      border-color: rgba(160,30,30,.5);
+      color: rgba(220,100,90,.9);
+      .db-switcher__icon { color: rgba(220,100,90,.8); }
+    }
+    &:nth-child(2) { // spells — blue
+      background: rgba(60,100,200,.12);
+      border-color: rgba(60,100,200,.5);
+      color: rgba(120,160,240,.9);
+      .db-switcher__icon { color: rgba(120,160,240,.8); }
+    }
+    &:nth-child(3) { // races — green
+      background: rgba(40,140,70,.12);
+      border-color: rgba(40,140,70,.5);
+      color: rgba(80,200,110,.9);
+      .db-switcher__icon { color: rgba(80,200,110,.8); }
+    }
+  }
+}
+
+.db-switcher__icon {
+  font-size: 16px; width: 16px; height: 16px;
+  color: rgba(255,255,255,.25);
+  transition: color .15s;
+}
+
+// ── Search row ────────────────────────────────────────────────────────────────
+.db-search-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+  margin-bottom: 8px;
+}
+
+.db-search-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 2px;
+  padding: 0 10px;
+  transition: border-color .15s;
+
+  &:focus-within {
+    border-color: rgba(120,80,200,.5);
+    background: rgba(120,80,200,.04);
+  }
+
+  &__icon {
+    font-size: 18px; width: 18px; height: 18px;
+    color: rgba(255,255,255,.2);
+    flex-shrink: 0;
+  }
+
+  &__input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #c8c4bc;
+    padding: 10px 0;
+    font-family: sans-serif;
+
+    &::placeholder { color: rgba(255,255,255,.15); }
+  }
+
+  &__clear {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: rgba(255,255,255,.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color .15s;
+    flex-shrink: 0;
+
+    mat-icon { font-size: 16px; width: 16px; height: 16px; }
+    &:hover { color: rgba(255,255,255,.5); }
+  }
+}
+
+.db-search-btn {
+  font-family: 'Mikadan', sans-serif;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 18px;
+  background: rgba(120,80,200,.12);
+  border: 1px solid rgba(120,80,200,.4);
+  border-radius: 2px;
+  color: rgba(160,120,240,.85);
+  cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+  white-space: nowrap;
+
+  mat-icon { font-size: 16px; width: 16px; height: 16px; }
+
+  &:hover:not(:disabled) {
+    background: rgba(120,80,200,.22);
+    border-color: rgba(160,120,240,.6);
+    color: rgba(190,160,255,.95);
+  }
+
+  &:disabled {
+    opacity: .35;
+    cursor: not-allowed;
+  }
+}
+
+.db-hint {
+  font-size: 10px;
+  color: rgba(255,255,255,.18);
+  letter-spacing: .04em;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+// ── State messages ────────────────────────────────────────────────────────────
+@keyframes db-spin { to { transform: rotate(360deg); } }
+
+.db-state {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Mikadan', sans-serif;
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.25);
+  padding: 32px 0;
+
+  mat-icon { font-size: 22px; width: 22px; height: 22px; }
+
+  &__spin { animation: db-spin 1s linear infinite; }
+
+  &--error {
+    color: rgba(220,90,75,.7);
+    mat-icon { color: rgba(220,90,75,.7); }
+  }
+
+  &--empty {
+    color: rgba(255,255,255,.18);
+  }
+}
+
+// ── Results container ─────────────────────────────────────────────────────────
+.db-results {
+  // cards use display:contents on :host so they slot directly here
+  monster-card,
+  spell-card,
+  race-card {
+    display: block;
+    max-width: 560px;
+  }
+}
+
