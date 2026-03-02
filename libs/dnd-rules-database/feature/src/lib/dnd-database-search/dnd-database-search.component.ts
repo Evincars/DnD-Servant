@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { finalize } from 'rxjs';
+import { catchError, forkJoin, of } from 'rxjs';
 import { MatIcon } from '@angular/material/icon';
 import { Dnd5eApiService } from '@dn-d-servant/data-access';
 import { Monster, Spell, Race, Feat, DndClass, Subclass, Subrace, Dnd5eEndpoint, LocalStorageService } from '@dn-d-servant/util';
@@ -12,7 +12,7 @@ import { SubclassCardComponent } from '../subclass-card/subclass-card.component'
 import { SubraceCardComponent } from '../subrace-card/subrace-card.component';
 // import { FeatCardComponent } from '../feat-card/feat-card.component';
 
-export type DatabaseCategory = 'monsters' | 'spells' | 'races' | 'subraces' | 'classes' | 'subclasses'; // | 'feats';
+export type DatabaseCategory = 'all' | 'monsters' | 'spells' | 'races' | 'subraces' | 'classes' | 'subclasses'; // | 'feats';
 
 interface CategoryDef {
   key: DatabaseCategory;
@@ -23,6 +23,13 @@ interface CategoryDef {
 }
 
 const CATEGORIES: CategoryDef[] = [
+  {
+    key: 'all',
+    label: 'Vše',
+    icon: 'travel_explore',
+    placeholder: 'Hledej cokoliv — příšeru, kouzlo, rasu, povolání…',
+    hint: 'Zadej anglický název — prohledáme všechny kategorie najednou',
+  },
   {
     key: 'monsters',
     label: 'Příšery',
@@ -108,12 +115,12 @@ export class DndDatabaseSearchComponent {
 
   readonly categories = CATEGORIES;
 
-  category = signal<DatabaseCategory>('monsters');
+  // 'all' is selected by default
+  category = signal<DatabaseCategory>('all');
   query = signal('');
   loading = signal(false);
   error = signal<string | null>(null);
 
-  // ── Rehydrate from localStorage on init ────────────────────────────────────
   private readonly _saved = this.storage.getDataSync<StoredResults>(STORAGE_KEY);
 
   monsters = signal<Monster[]>(this._saved?.monsters ?? []);
@@ -124,7 +131,6 @@ export class DndDatabaseSearchComponent {
   classes = signal<DndClass[]>(this._saved?.classes ?? []);
   subclasses = signal<Subclass[]>(this._saved?.subclasses ?? []);
 
-  // ── Persist to localStorage on every change ────────────────────────────────
   private readonly _persistEffect = effect(() => {
     const payload: StoredResults = {
       monsters: this.monsters(),
@@ -151,7 +157,6 @@ export class DndDatabaseSearchComponent {
       this.subclasses().length > 0,
   );
 
-  // ── Clear query when switching category ────────────────────────────────────
   selectCategory(cat: DatabaseCategory): void {
     this.category.set(cat);
     this.query.set('');
@@ -165,68 +170,106 @@ export class DndDatabaseSearchComponent {
       .toLowerCase()
       .replace(/\s+/g, '-')
       .replace(/[^a-z0-9-]/g, '');
-    this.loading.set(true);
     this.error.set(null);
 
     const cat = this.category();
 
-    if (cat === 'monsters') {
-      this.api
-        .getOne<Monster>('monsters', index)
-        .pipe(finalize(() => this.loading.set(false)))
-        .subscribe({
-          next: m => this.monsters.update(a => [...a, m]),
-          error: () => this.error.set(`Příšera „${raw}" nebyla nalezena.`),
-        });
+    if (cat === 'all') {
+      this._searchAll(raw, index);
+    } else if (cat === 'monsters') {
+      this._searchOne<Monster>('monsters', index, r => this.monsters.update(a => [...a, r]), `Příšera „${raw}" nebyla nalezena.`);
     } else if (cat === 'spells') {
-      this.api
-        .getOne<Spell>('spells', index)
-        .pipe(finalize(() => this.loading.set(false)))
-        .subscribe({
-          next: s => this.spells.update(a => [...a, s]),
-          error: () => this.error.set(`Kouzlo „${raw}" nebylo nalezeno.`),
-        });
+      this._searchOne<Spell>('spells', index, r => this.spells.update(a => [...a, r]), `Kouzlo „${raw}" nebylo nalezno.`);
     } else if (cat === 'races') {
-      this.api
-        .getOne<Race>('races' as Dnd5eEndpoint, index)
-        .pipe(finalize(() => this.loading.set(false)))
-        .subscribe({
-          next: r => this.races.update(a => [...a, r]),
-          error: () => this.error.set(`Rasa „${raw}" nebyla nalezena.`),
-        });
+      this._searchOne<Race>(
+        'races' as Dnd5eEndpoint,
+        index,
+        r => this.races.update(a => [...a, r]),
+        `Rasa „${raw}" nebyla nalezena.`,
+      );
     } else if (cat === 'subraces') {
-      this.api
-        .getOne<Subrace>('subraces', index)
-        .pipe(finalize(() => this.loading.set(false)))
-        .subscribe({
-          next: sr => this.subraces.update(a => [...a, sr]),
-          error: () => this.error.set(`Podrasa „${raw}" nebyla nalezena.`),
-        });
+      this._searchOne<Subrace>('subraces', index, r => this.subraces.update(a => [...a, r]), `Podrasa „${raw}" nebyla nalezena.`);
     } else if (cat === 'classes') {
-      this.api
-        .getOne<DndClass>('classes', index)
-        .pipe(finalize(() => this.loading.set(false)))
-        .subscribe({
-          next: cl => this.classes.update(a => [...a, cl]),
-          error: () => this.error.set(`Povolání „${raw}" nebylo nalezena.`),
-        });
+      this._searchOne<DndClass>('classes', index, r => this.classes.update(a => [...a, r]), `Povolání „${raw}" nebylo nalezena.`);
     } else if (cat === 'subclasses') {
-      this.api
-        .getOne<Subclass>('subclasses', index)
-        .pipe(finalize(() => this.loading.set(false)))
-        .subscribe({
-          next: sc => this.subclasses.update(a => [...a, sc]),
-          error: () => this.error.set(`Subpovolání „${raw}" nebylo nalezena.`),
-        });
+      this._searchOne<Subclass>(
+        'subclasses',
+        index,
+        r => this.subclasses.update(a => [...a, r]),
+        `Subpovolání „${raw}" nebylo nalezena.`,
+      );
     } else {
-      this.api
-        .getOne<Feat>('feats' as Dnd5eEndpoint, index)
-        .pipe(finalize(() => this.loading.set(false)))
-        .subscribe({
-          next: f => this.feats.update(a => [...a, f]),
-          error: () => this.error.set(`Schopnost „${raw}" nebyla nalezena.`),
-        });
+      // feats (commented out)
+      this._searchOne<Feat>(
+        'feats' as Dnd5eEndpoint,
+        index,
+        r => this.feats.update(a => [...a, r]),
+        `Schopnost „${raw}" nebyla nalezena.`,
+      );
     }
+  }
+
+  // ── Single-endpoint search ────────────────────────────────────────────────
+  private _searchOne<T>(endpoint: Dnd5eEndpoint, index: string, onSuccess: (r: T) => void, errMsg: string): void {
+    this.loading.set(true);
+    this.api.getOne<T>(endpoint, index).subscribe({
+      next: r => {
+        onSuccess(r);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.error.set(errMsg);
+        this.loading.set(false);
+      },
+    });
+  }
+
+  // ── All-endpoints parallel search ────────────────────────────────────────
+  private _searchAll(raw: string, index: string): void {
+    this.loading.set(true);
+
+    // null = 404 / any error — we simply ignore those
+    const safe = <T>(endpoint: Dnd5eEndpoint) => this.api.getOne<T>(endpoint, index).pipe(catchError(() => of(null)));
+
+    forkJoin({
+      monster: safe<Monster>('monsters'),
+      spell: safe<Spell>('spells'),
+      race: safe<Race>('races' as Dnd5eEndpoint),
+      subrace: safe<Subrace>('subraces'),
+      dndClass: safe<DndClass>('classes'),
+      subclass: safe<Subclass>('subclasses'),
+      // feat:   safe<Feat>('feats' as Dnd5eEndpoint),
+    }).subscribe({
+      next: results => {
+        let found = false;
+        if (results.monster) {
+          this.monsters.update(a => [...a, results.monster!]);
+          found = true;
+        }
+        if (results.spell) {
+          this.spells.update(a => [...a, results.spell!]);
+          found = true;
+        }
+        if (results.race) {
+          this.races.update(a => [...a, results.race!]);
+          found = true;
+        }
+        if (results.subrace) {
+          this.subraces.update(a => [...a, results.subrace!]);
+          found = true;
+        }
+        if (results.dndClass) {
+          this.classes.update(a => [...a, results.dndClass!]);
+          found = true;
+        }
+        if (results.subclass) {
+          this.subclasses.update(a => [...a, results.subclass!]);
+          found = true;
+        }
+        if (!found) this.error.set(`„${raw}" nebylo nalezeno v žádné kategorii.`);
+        this.loading.set(false);
+      },
+    });
   }
 
   removeMonster(i: number): void {

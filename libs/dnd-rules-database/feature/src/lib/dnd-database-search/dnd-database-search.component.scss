@@ -99,37 +99,43 @@
 
   // per-category accent when active
   &--active {
-    &:nth-child(1) { // monsters — red
+    &:nth-child(1) { // all — gold
+      background: rgba(200,170,80,.12);
+      border-color: rgba(200,170,80,.5);
+      color: rgba(240,210,100,.9);
+      .db-switcher__icon { color: rgba(240,210,100,.8); }
+    }
+    &:nth-child(2) { // monsters — red
       background: rgba(160,30,30,.12);
       border-color: rgba(160,30,30,.5);
       color: rgba(220,100,90,.9);
       .db-switcher__icon { color: rgba(220,100,90,.8); }
     }
-    &:nth-child(2) { // spells — blue
+    &:nth-child(3) { // spells — blue
       background: rgba(60,100,200,.12);
       border-color: rgba(60,100,200,.5);
       color: rgba(120,160,240,.9);
       .db-switcher__icon { color: rgba(120,160,240,.8); }
     }
-    &:nth-child(3) { // races — green
+    &:nth-child(4) { // races — green
       background: rgba(40,140,70,.12);
       border-color: rgba(40,140,70,.5);
       color: rgba(80,200,110,.9);
       .db-switcher__icon { color: rgba(80,200,110,.8); }
     }
-    &:nth-child(4) { // subraces — lime
+    &:nth-child(5) { // subraces — lime
       background: rgba(100,190,40,.12);
       border-color: rgba(100,190,40,.5);
       color: rgba(160,240,80,.9);
       .db-switcher__icon { color: rgba(160,240,80,.8); }
     }
-    &:nth-child(5) { // classes — purple
+    &:nth-child(6) { // classes — purple
       background: rgba(100,50,180,.12);
       border-color: rgba(100,50,180,.5);
       color: rgba(170,130,255,.9);
       .db-switcher__icon { color: rgba(170,130,255,.8); }
     }
-    &:nth-child(6) { // subclasses — teal
+    &:nth-child(7) { // subclasses — teal
       background: rgba(20,140,140,.12);
       border-color: rgba(20,140,140,.5);
       color: rgba(60,210,210,.9);
