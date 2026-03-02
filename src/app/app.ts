@@ -5,10 +5,11 @@ import { MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { routes } from './app.routes';
-import { AuthService } from '@dn-d-servant/util';
+import { AuthService, LocalStorageService } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTooltip } from '@angular/material/tooltip';
 import html2canvas from 'html2canvas';
+import { DB_BACKUP_KEY_CHARACTER, DB_BACKUP_KEY_GROUP, DB_BACKUP_KEY_NOTES } from '@dn-d-servant/character-sheet-data-access';
 
 @Component({
   selector: 'app-root',
@@ -91,6 +92,14 @@ import html2canvas from 'html2canvas';
                 }
                 <span class="backup-btn__label">Záloha</span>
               </button>
+              <button
+                (click)="onJsonBackupClick()"
+                class="github-link backup-btn u-ml-2"
+                matTooltip="Stáhnout zálohu databáze jako JSON soubor"
+              >
+                <mat-icon class="toolbar-icon">download</mat-icon>
+                <span class="backup-btn__label">JSON</span>
+              </button>
             </div>
             <div class="toolbar__right author-info u-flex u-align-center">
               @if (authService.currentUser()) {
@@ -150,6 +159,7 @@ import html2canvas from 'html2canvas';
 export class App implements OnInit, OnDestroy {
   authService = inject(AuthService);
   destroyRef = inject(DestroyRef);
+  private readonly localStorage = inject(LocalStorageService);
 
   routes = routes;
   showBackToTop = signal(false);
@@ -181,6 +191,29 @@ export class App implements OnInit, OnDestroy {
 
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  onJsonBackupClick(): void {
+    const characterSheet = this.localStorage.getDataSync(DB_BACKUP_KEY_CHARACTER);
+    const groupSheet = this.localStorage.getDataSync(DB_BACKUP_KEY_GROUP);
+    const notesPage = this.localStorage.getDataSync(DB_BACKUP_KEY_NOTES);
+
+    const backup = {
+      exportedAt: new Date().toISOString(),
+      characterSheet: characterSheet ?? null,
+      groupSheet: groupSheet ?? null,
+      notesPage: notesPage ?? null,
+    };
+
+    const json = JSON.stringify(backup, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const timestamp = new Date().toISOString().slice(0, 10);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `dnd-servant-backup-${timestamp}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
   }
 
   async onScreenshotBackupClick() {
