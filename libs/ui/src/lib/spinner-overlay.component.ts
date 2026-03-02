@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
@@ -15,34 +14,20 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     }
   `,
   styles: `
-    :host {
-      position: relative;
-    }
-
+    :host { position: relative; }
     .content {
       height: 100%;
       position: relative;
       z-index: 0;
-
-      &.filled {
-        opacity: 0;
-      }
+      &.filled { opacity: 0; }
     }
-
     .overlay {
       background-color: hsl(from #bbb h s l / 0.4);
       inset: 0;
       position: absolute;
-
-      &.no-background {
-        background-color: unset;
-      }
-
-      &.round {
-        border-radius: 50%;
-      }
+      &.no-background { background-color: unset; }
+      &.round { border-radius: 50%; }
     }
-
     mat-spinner {
       left: 50%;
       position: fixed;

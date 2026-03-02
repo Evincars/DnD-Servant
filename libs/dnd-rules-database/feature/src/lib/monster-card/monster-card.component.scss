@@ -1,0 +1,69 @@
+@use '../../../../../../src/app/styles/dnd-card' with (
+  $accent:       rgba(160,30,30,.7),
+  $accent-dim:   rgba(160,30,30,.4),
+  $accent-mid:   rgba(160,30,30,.55),
+  $accent-glow:  rgba(160,30,30,.35),
+  $accent-faint: rgba(160,30,30,.04),
+  $accent-label: rgba(160,30,30,.7),
+  $accent-prop:  rgba(200,80,70,.7),
+  $accent-tag-bg:rgba(160,30,30,.1),
+  $accent-tag-bd:rgba(160,30,30,.3),
+  $accent-tag-tx:rgba(200,80,70,.8)
+);
+
+:host { display: contents; }
+
+.m-card    { @extend %dnd-card-shell;   flex: 1 1 340px; min-width: 0; max-width: 480px; }
+.m-close   { @extend %dnd-card-close;  }
+.m-loading { @extend %dnd-card-loading; }
+.m-error   { @extend %dnd-card-error;  }
+.m-name    { @extend %dnd-card-name;   }
+.m-meta    { @extend %dnd-card-meta;   }
+.m-rule    { @extend %dnd-card-rule;   }
+
+.m-stat-row  { @extend %dnd-card-pill-row; }
+.m-stat-pill { @extend %dnd-card-pill;     }
+
+.m-line {
+  margin: 3px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  font-size: 12px;
+
+  b { color: rgba(200,80,70,.7); margin-right: 4px; }
+  span::after            { content: ','; margin-right: 3px; }
+  span:last-child::after { content: ''; }
+}
+
+.m-abilities {
+  display: flex;
+  gap: 4px;
+  margin: 6px 0;
+}
+
+.m-ab {
+  flex: 1;
+  text-align: center;
+  background: rgba(255,255,255,.025);
+  border: 1px solid rgba(255,255,255,.06);
+  border-top: 1px solid rgba(160,30,30,.3);
+  border-radius: 1px;
+  padding: 5px 2px;
+
+  &__lbl {
+    font-family: 'Mikadan', sans-serif;
+    font-size: 8px;
+    letter-spacing: .1em;
+    color: rgba(160,30,30,.65);
+    text-transform: uppercase;
+  }
+  &__val { font-size: 13px; font-weight: 600; color: #d0ccc4; }
+  &__mod { font-size: 10px; color: rgba(255,255,255,.28); }
+}
+
+.m-prop    { @extend %dnd-card-prop;    }
+.m-section { @extend %dnd-card-section; }
+.m-ability { @extend %dnd-card-ability; }
+.m-tag     { @extend %dnd-card-tag;  margin-left: 5px; vertical-align: middle; }
+.m-image   { @extend %dnd-card-image;  }

@@ -33,26 +33,17 @@ function parseMarkup(raw: string): string {
   for (let i = 0; i < lines.length; i++) {
     let line = lines[i];
 
-    // Escape HTML special chars first
     line = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-    // Inline: bold **text**
     line = line.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    // Inline: italic _text_
     line = line.replace(/(?<![a-zA-Z0-9])_(.+?)_(?![a-zA-Z0-9])/g, '<em>$1</em>');
-    // Inline: colors [color]text[/color]
     for (const color of COLORS) {
       const re = new RegExp(`\\[${color}\\](.+?)\\[\\/${color}\\]`, 'g');
       line = line.replace(re, `<span class="rt-color-${color}">$1</span>`);
     }
 
-    // Block: unordered bullet  (- text  or  • text)
     const ulMatch = line.match(/^(- |• )(.*)/);
-    // Block: ordered bullet  (1. text  /  2. text  / …)
     const olMatch = !ulMatch && line.match(/^\d+\. (.*)/);
-    // Block: heading ##
     const h1Match = line.match(/^## (.*)/);
-    // Block: heading #
     const h2Match = !h1Match && line.match(/^# (.*)/);
 
     if (ulMatch) {
@@ -84,7 +75,6 @@ function parseMarkup(raw: string): string {
         htmlLines.push('</ol>');
         inOl = false;
       }
-
       if (h1Match) {
         htmlLines.push(`<span class="rt-h1">${h1Match[1]}</span><br>`);
       } else if (h2Match) {
@@ -106,7 +96,6 @@ function parseMarkup(raw: string): string {
 @Component({
   selector: 'rich-textarea',
   template: `
-    <!-- Toolbar — shown only when editing -->
     @if (editing()) {
     <div class="rt-toolbar" (mousedown)="$event.preventDefault()">
       <button type="button" title="Tučné (**text**)" (click)="wrap('**', '**')"><strong>B</strong></button>
@@ -120,7 +109,6 @@ function parseMarkup(raw: string): string {
         <span style="font-size:11px;font-weight:bold">H2</span>
       </button>
       <span class="rt-separator"></span>
-      <!-- Color buttons -->
       @for (c of colorList; track c) {
       <button
         type="button"
@@ -133,15 +121,9 @@ function parseMarkup(raw: string): string {
       </button>
       }
     </div>
-    }
-
-    <!-- Preview div (shown when not editing) -->
-    @if (!editing()) {
+    } @if (!editing()) {
     <div class="rt-preview" (click)="startEditing()" [innerHTML]="html()"></div>
-    }
-
-    <!-- Raw textarea (shown when editing) -->
-    @if (editing()) {
+    } @if (editing()) {
     <textarea #ta class="rt-editor" [value]="value()" (input)="onInput($event)" (blur)="stopEditing()"></textarea>
     }
   `,
@@ -151,7 +133,6 @@ function parseMarkup(raw: string): string {
       position: absolute;
       box-sizing: border-box;
     }
-
     .rt-toolbar {
       position: absolute;
       top: -32px;
@@ -165,7 +146,6 @@ function parseMarkup(raw: string): string {
       border-radius: 4px;
       padding: 2px 4px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-
       button {
         background: transparent;
         border: 1px solid transparent;
@@ -176,21 +156,10 @@ function parseMarkup(raw: string): string {
         font-size: 13px;
         padding: 0 4px;
         line-height: 1;
-
-        &:hover {
-          background: #f0f0f0;
-          border-color: #bbb;
-        }
+        &:hover { background: #f0f0f0; border-color: #bbb; }
       }
     }
-
-    .rt-separator {
-      width: 1px;
-      height: 18px;
-      background: #ccc;
-      margin: 0 2px;
-    }
-
+    .rt-separator { width: 1px; height: 18px; background: #ccc; margin: 0 2px; }
     .rt-preview {
       width: 100%;
       height: 100%;
@@ -203,26 +172,16 @@ function parseMarkup(raw: string): string {
       word-break: break-word;
       white-space: pre-wrap;
     }
-
-    /* Injected HTML styles — must be ::ng-deep at host level */
     ::ng-deep .rt-preview .rt-h1 { font-size: 17px; font-weight: bold; }
     ::ng-deep .rt-preview .rt-h2 { font-size: 15px; font-weight: bold; }
     ::ng-deep .rt-preview .rt-normal { font-size: 13px; }
-
-    ::ng-deep .rt-preview ul,
-    ::ng-deep .rt-preview ol {
-      margin: 2px 0 2px 18px;
-      padding: 0;
-    }
+    ::ng-deep .rt-preview ul, ::ng-deep .rt-preview ol { margin: 2px 0 2px 18px; padding: 0; }
     ::ng-deep .rt-preview li { font-size: 13px; margin: 1px 0; }
-
-    /* Color classes */
     ::ng-deep .rt-preview .rt-color-red    { color: #e53935; }
     ::ng-deep .rt-preview .rt-color-green  { color: #43a047; }
     ::ng-deep .rt-preview .rt-color-blue   { color: #1e88e5; }
     ::ng-deep .rt-preview .rt-color-orange { color: #fb8c00; }
     ::ng-deep .rt-preview .rt-color-gray   { color: #757575; }
-
     .rt-editor {
       width: 100%;
       height: 100%;
@@ -237,13 +196,7 @@ function parseMarkup(raw: string): string {
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => RichTextareaComponent),
-      multi: true,
-    },
-  ],
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => RichTextareaComponent), multi: true }],
 })
 export class RichTextareaComponent implements ControlValueAccessor {
   @ViewChild('ta') ta?: ElementRef<HTMLTextAreaElement>;
@@ -278,7 +231,6 @@ export class RichTextareaComponent implements ControlValueAccessor {
     this.editing.set(true);
     setTimeout(() => this.ta?.nativeElement.focus(), 0);
   }
-
   stopEditing() {
     this.editing.set(false);
     this.onTouched();
@@ -291,7 +243,6 @@ export class RichTextareaComponent implements ControlValueAccessor {
     this.onChange(val);
   }
 
-  /** Wrap current selection with prefix/suffix, or insert placeholder */
   wrap(prefix: string, suffix: string) {
     const el = this.ta?.nativeElement;
     if (!el) return;
@@ -306,21 +257,16 @@ export class RichTextareaComponent implements ControlValueAccessor {
     el.focus();
   }
 
-  /** Wrap selection with color tags, e.g. [red]text[/red] */
   wrapColor(color: string) {
     this.wrap(`[${color}]`, `[/${color}]`);
   }
-
-  /** Insert a bullet prefix at the start of the current line */
   insertBullet() {
     this._insertLinePrefix('- ');
   }
 
-  /** Insert a numbered bullet prefix at the start of the current line */
   insertNumberedBullet() {
     const el = this.ta?.nativeElement;
     if (!el) return;
-    // Detect current number by counting previous numbered lines
     const pos = el.selectionStart;
     const textBefore = el.value.substring(0, pos);
     const prevNumbered = (textBefore.match(/^\d+\. /gm) ?? []).length;

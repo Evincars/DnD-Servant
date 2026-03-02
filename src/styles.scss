@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @use './app/styles/utils';
 @use './app/styles/spacing-variables';
+@use './app/styles/autofill-input';
 @use '@angular/material' as mat;
 
 @import '@angular/material/prebuilt-themes/cyan-orange.css';

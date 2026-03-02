@@ -8,6 +8,12 @@
         <h2 class="it-header__title">Sledování iniciativy</h2>
       </div>
       <p class="it-notice">Data se ukládají pouze v tomto prohlížeči — na jiném zařízení budou řádky prázdné.</p>
+      <p class="it-notice it-notice--monsters">
+        Automatické doplňování jmen vychází ze seznamu příšer <strong>D&amp;D 2014 Monster Manual</strong>. Nejsou zahrnuty příšery
+        z přídavných/doplňujících knih.
+        Celý seznam najdeš na
+        <a href="https://www.aidedd.org/dnd-filters/monsters.php" target="_blank" rel="noopener">aidedd.org</a>.
+      </p>
 
       <div class="it-col-headers">
         <span class="it-col-header it-col-header--indicator"></span>
@@ -29,7 +35,12 @@
           >
             <span class="it-turn-indicator">{{ $index === activeIndex() ? '▶' : '' }}</span>
             <input [(ngModel)]="row.initiative" type="number" class="it-input it-input--sm" placeholder="—" />
-            <input [(ngModel)]="row.name" type="text" class="it-input it-input--name" placeholder="Název / jméno" />
+            <autofill-input
+              [(ngModel)]="row.name"
+              [suggestions]="monsterNames"
+              placeholder="Název / jméno"
+              inputClass="it-input it-input--name"
+            />
             <input [(ngModel)]="row.ac" type="number" class="it-input it-input--sm" placeholder="—" />
             <input [(ngModel)]="row.hp" type="number" class="it-input it-input--sm" placeholder="—" />
             <button

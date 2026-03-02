@@ -1,0 +1,65 @@
+@use '../../../../../../src/app/styles/dnd-card' with (
+  $accent:       rgba(60,100,200,.65),
+  $accent-dim:   rgba(60,100,200,.35),
+  $accent-mid:   rgba(60,100,200,.5),
+  $accent-glow:  rgba(60,100,200,.3),
+  $accent-faint: rgba(60,100,200,.04),
+  $accent-label: rgba(60,100,200,.7),
+  $accent-prop:  rgba(100,140,240,.7),
+  $accent-tag-bg:rgba(60,100,200,.08),
+  $accent-tag-bd:rgba(60,100,200,.25),
+  $accent-tag-tx:rgba(100,140,240,.75)
+);
+
+:host { display: contents; }
+
+.sc-card    { @extend %dnd-card-shell;  }
+.sc-close   { @extend %dnd-card-close; }
+.sc-loading { @extend %dnd-card-loading; }
+.sc-error   { @extend %dnd-card-error;  }
+.sc-name    { @extend %dnd-card-name;  color: #c8d4f0; }
+.sc-rule    { @extend %dnd-card-rule;  }
+.sc-section { @extend %dnd-card-section; }
+.sc-desc    { @extend %dnd-card-desc;  }
+.sc-prop    { @extend %dnd-card-prop;
+  &--material { color: rgba(255,255,255,.4); font-style: italic; font-size: 11px; }
+}
+.sc-tag-row { @extend %dnd-card-tag-row; }
+.sc-tag     { @extend %dnd-card-tag;    }
+
+// ── Badges ────────────────────────────────────────────────────────────────────
+.sc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 4px;
+}
+
+.sc-badge {
+  font-family: 'Mikadan', sans-serif;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 1px;
+
+  &--school {
+    background: rgba(60,100,200,.12);
+    border: 1px solid rgba(60,100,200,.35);
+    color: rgba(120,160,240,.85);
+  }
+  &--level {
+    background: rgba(80,60,140,.12);
+    border: 1px solid rgba(80,60,140,.35);
+    color: rgba(160,130,220,.8);
+  }
+  &--tag {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.1);
+    color: rgba(255,255,255,.45);
+  }
+}
+
+// ── Cast-info pills ───────────────────────────────────────────────────────────
+.sc-pills { @extend %dnd-card-pill-row; }
+.sc-pill  { @extend %dnd-card-pill;    }

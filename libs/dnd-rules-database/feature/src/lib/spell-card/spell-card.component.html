@@ -1,0 +1,127 @@
+<div class="sc-card">
+  <button class="sc-close" (click)="close.emit()" title="Zavřít">✕</button>
+
+  @if (loading()) {
+    <div class="sc-loading">
+      <mat-icon class="sc-loading__icon">hourglass_empty</mat-icon>
+      <span>Načítám kouzlo…</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="sc-error">⚠ {{ error() }}</div>
+  }
+
+  @if (spell(); as s) {
+    <!-- Name + school badge -->
+    <div class="sc-name">{{ s.name }}</div>
+    <div class="sc-meta">
+      <span class="sc-badge sc-badge--school">{{ s.school.name }}</span>
+      <span class="sc-badge sc-badge--level">{{ levelLabel(s.level) }}</span>
+      @if (s.ritual)        { <span class="sc-badge sc-badge--tag">Rituál</span> }
+      @if (s.concentration) { <span class="sc-badge sc-badge--tag">Soustředění</span> }
+    </div>
+
+    <div class="sc-rule"></div>
+
+    <!-- Cast info pills -->
+    <div class="sc-pills">
+      <div class="sc-pill">
+        <span class="sc-pill__label">Vyvolání</span>
+        <span class="sc-pill__val">{{ s.casting_time }}</span>
+      </div>
+      <div class="sc-pill">
+        <span class="sc-pill__label">Dosah</span>
+        <span class="sc-pill__val">{{ s.range }}</span>
+      </div>
+      <div class="sc-pill">
+        <span class="sc-pill__label">Trvání</span>
+        <span class="sc-pill__val">{{ s.duration }}</span>
+      </div>
+      <div class="sc-pill">
+        <span class="sc-pill__label">Složky</span>
+        <span class="sc-pill__val">{{ componentsText(s) }}</span>
+      </div>
+    </div>
+
+    <!-- Material component -->
+    @if (s.material) {
+      <div class="sc-prop sc-prop--material">
+        <b>Materiál:</b> {{ s.material }}
+      </div>
+    }
+
+    <!-- Area of effect -->
+    @if (s.area_of_effect) {
+      <div class="sc-prop">
+        <b>Oblast účinku:</b> {{ s.area_of_effect.type }} {{ s.area_of_effect.size }} ft
+      </div>
+    }
+
+    <!-- DC -->
+    @if (s.dc) {
+      <div class="sc-prop">
+        <b>Záchrana:</b> {{ s.dc.dc_type.name }}
+        @if (s.dc.dc_success !== 'none') { — při úspěchu {{ s.dc.dc_success }} }
+      </div>
+    }
+
+    <!-- Damage -->
+    @if (s.damage?.damage_type) {
+      <div class="sc-prop">
+        <b>Poškození:</b> {{ s.damage!.damage_type!.name }}
+      </div>
+    }
+    @if (damageScaling(s); as ds) {
+      <div class="sc-prop">
+        <b>Stupňování poškození:</b> {{ ds }}
+      </div>
+    }
+
+    <!-- Healing -->
+    @if (healScaling(s); as hs) {
+      <div class="sc-prop">
+        <b>Léčení:</b> {{ hs }}
+      </div>
+    }
+
+    <div class="sc-rule"></div>
+
+    <!-- Description -->
+    <div class="sc-section">Popis</div>
+    @for (para of s.desc; track $index) {
+      <p class="sc-desc">{{ para }}</p>
+    }
+
+    <!-- Higher level / upcasting -->
+    @if (hasHigherLevel(s)) {
+      <div class="sc-rule"></div>
+      <div class="sc-section">Na vyšší úrovni</div>
+      @for (para of s.higher_level!; track $index) {
+        <p class="sc-desc">{{ para }}</p>
+      }
+    }
+
+    <!-- Classes -->
+    @if (s.classes?.length) {
+      <div class="sc-rule"></div>
+      <div class="sc-tag-row">
+        <b>Povolání:</b>
+        @for (c of s.classes; track c.index) {
+          <span class="sc-tag">{{ c.name }}</span>
+        }
+      </div>
+    }
+
+    <!-- Subclasses -->
+    @if (s.subclasses?.length) {
+      <div class="sc-tag-row">
+        <b>Subpovolání:</b>
+        @for (c of s.subclasses; track c.index) {
+          <span class="sc-tag">{{ c.name }}</span>
+        }
+      </div>
+    }
+  }
+</div>
+

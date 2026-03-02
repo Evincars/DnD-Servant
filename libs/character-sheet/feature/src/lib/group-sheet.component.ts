@@ -1,16 +1,12 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, signal, untracked } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import {
-  GroupInventoryForm,
-  GroupSheetForm,
-  RichTextareaComponent,
-  SpinnerOverlayComponent,
-} from '@dn-d-servant/character-sheet-util';
+import { GroupInventoryForm, GroupSheetForm } from '@dn-d-servant/character-sheet-util';
+import { RichTextareaComponent, SpinnerOverlayComponent } from '@dn-d-servant/ui';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { GroupSheetFormModelMappers } from './group-sheet-form-model-mappers';
+import { GroupSheetFormModelMappers } from './api-mappers/group-sheet-form-model-mappers';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { openAnimalsDialog } from './help-dialogs/animals-dialog.component';

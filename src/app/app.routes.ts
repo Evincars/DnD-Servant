@@ -3,6 +3,7 @@ import { Route } from '@angular/router';
 export const routes = {
   characterSheet: 'character-sheet',
   dmScreen: 'dm-screen',
+  dndDatabase: 'dnd-database',
   login: 'login',
   register: 'register',
 };
@@ -23,10 +24,14 @@ export const appRoutes: Array<Route> = [
   },
   {
     path: routes.characterSheet,
-    loadComponent: () => import('@dn-d-servant/character-sheet-feature').then(c => c.CharacterSheetTabComponent),
+    loadComponent: () => import('@dn-d-servant/character-sheet-feature').then(c => c.CharacterSheetTabsComponent),
   },
   {
     path: routes.dmScreen,
     loadComponent: () => import('@dn-d-servant/dm-screen-feature').then(c => c.DmScreenComponent),
+  },
+  {
+    path: routes.dndDatabase,
+    loadComponent: () => import('@dn-d-servant/dnd-rules-database-feature').then(c => c.DndDatabaseSearchComponent),
   },
 ];

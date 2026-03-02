@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { Monster } from '@dn-d-servant/data-access';
+import { Monster } from '@dn-d-servant/util';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
