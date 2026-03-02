@@ -27,7 +27,8 @@ $accent-tag-tx:rgba(200,80,70,.8)   !default;
   border: 1px solid rgba(255,255,255,.06);
   border-left: 3px solid $accent;
   border-radius: 2px;
-  padding: 20px 20px 18px;
+  // extra top padding reserves space so content never slides under the close button
+  padding: 16px 44px 18px 20px;
   box-sizing: border-box;
   box-shadow:
     0 2px 0 $accent-glow,
@@ -36,7 +37,8 @@ $accent-tag-tx:rgba(200,80,70,.8)   !default;
   color: #b8b4ac;
   font-size: 12px;
   line-height: 1.65;
-  overflow-x: hidden;
+  // overflow hidden creates stacking context — drop it so z-index works freely
+  overflow: visible;
   word-break: break-word;
   overflow-wrap: break-word;
 }
@@ -45,22 +47,24 @@ $accent-tag-tx:rgba(200,80,70,.8)   !default;
 %dnd-card-close {
   position: absolute;
   top: 8px; right: 10px;
-  width: 24px; height: 24px;
+  width: 28px; height: 28px;
   padding: 0;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.1);
   border-radius: 1px;
   cursor: pointer;
-  color: rgba(255,255,255,.22);
-  font-size: 12px;
+  color: rgba(255,255,255,.35);
+  font-size: 13px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  // always sits above every piece of card content
+  z-index: 10;
   transition: background .15s, color .15s, border-color .15s;
 
   &:hover {
-    background: rgba(160,30,30,.25);
-    border-color: rgba(200,50,40,.5);
+    background: rgba(160,30,30,.35);
+    border-color: rgba(200,50,40,.6);
     color: #f08070;
   }
 }
@@ -93,7 +97,6 @@ $accent-tag-tx:rgba(200,80,70,.8)   !default;
   letter-spacing: .14em;
   text-transform: uppercase;
   color: #d8d4cc;
-  padding-right: 30px;
   margin-bottom: 2px;
   position: relative;
 }

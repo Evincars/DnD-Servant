@@ -285,17 +285,16 @@
   align-items: flex-start;
 
   &__item {
-    // each card gets a fixed width column; wraps naturally when not enough space
     flex: 1 1 320px;
     max-width: 480px;
     min-width: 280px;
+    // each item only takes its own content height — never stretches to match siblings
+    align-self: flex-start;
 
-    // cards use display:contents on :host, so apply sizing to the inner card element
     monster-card,
     spell-card,
     race-card {
       display: block;
-      height: 100%;
     }
   }
 }
