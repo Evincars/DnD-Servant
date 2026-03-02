@@ -13,7 +13,6 @@
 
 *Přestaňte tahat papírové deníky k hernímu stolu.*
 *Vaše postava žije tady — online, vždy po ruce.*
-*Link na appku (Google Firebase) [https://dnd-servant-3409a.web.app/](https://dnd-servant-3409a.web.app/)*
 
 ---
 
@@ -24,6 +23,8 @@
 **JaD Servant** je online aplikace pro správu herních karet pro české RPG **Jeskyně a Draci**. Umožňuje hráčům vyplňovat, ukládat a sdílet své postavy přímo v prohlížeči — bez nutnosti tisknout, skenovat nebo opisovat papírové deníky.
 
 Veškerá data jsou uložena v **Firebase Realtime Database** a přístupná odkudkoliv po přihlášení.
+
+*Dostupné na [https://dnd-servant-3409a.web.app/](https://dnd-servant-3409a.web.app/)*
 
 ---
 
