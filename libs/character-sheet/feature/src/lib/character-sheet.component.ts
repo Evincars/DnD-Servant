@@ -2340,7 +2340,10 @@ export class CharacterSheetComponent {
           this._setBlackPriestSpellSlotsLevel17();
           break;
         default:
-          this._enableAllSpellSlotsInputs();
+          // Only reset if sesilatele is also empty — otherwise leave its state intact
+          if (!parseInt(this.spellSlotsControls.urovenSesilatele.value ?? '0')) {
+            this._enableAllSpellSlotsInputs();
+          }
       }
     });
 
@@ -2583,7 +2586,11 @@ export class CharacterSheetComponent {
         this._setBlackPriestSpellSlotsLevel17();
         break;
       default:
-        this._enableAllSpellSlotsInputs();
+        // Only reset spell slots when sesilatele is also empty — otherwise
+        // sesilatele already applied the correct disable/enable state.
+        if (sesilateleLevel === 0) {
+          this._enableAllSpellSlotsInputs();
+        }
     }
 
     const alchymistLevel = parseInt(this.alchemistChestControls.urovenAlchymisty.value ?? '0');
