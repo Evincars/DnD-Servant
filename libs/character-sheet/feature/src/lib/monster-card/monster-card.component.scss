@@ -8,61 +8,45 @@
   min-width: 0;
   max-width: 480px;
   position: relative;
-  background: linear-gradient(160deg, rgba(42,32,14,.97) 0%, rgba(28,20,8,.99) 100%);
-  border: 1px solid rgba(200,160,60,.22);
-  border-top: 2px solid rgba(200,160,60,.55);
-  border-radius: 3px;
-  padding: 22px 22px 20px;
+  background: #0e0e12;
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 3px solid rgba(160,30,30,.7);
+  border-radius: 2px;
+  padding: 20px 20px 18px;
   box-sizing: border-box;
-  box-shadow: 0 8px 40px rgba(0,0,0,.75), inset 0 1px 0 rgba(255,220,100,.05);
-  color: #c8b896;
+  box-shadow:
+    0 2px 0 rgba(160,30,30,.35),
+    0 12px 40px rgba(0,0,0,.85),
+    inset 1px 0 0 rgba(255,255,255,.02);
+  color: #b8b4ac;
   font-size: 12px;
   line-height: 1.65;
   overflow-x: hidden;
   word-break: break-word;
   overflow-wrap: break-word;
-
-  &::before {
-    content: '◆';
-    position: absolute;
-    top: 7px; left: 9px;
-    font-size: 7px;
-    color: rgba(200,160,60,.3);
-    pointer-events: none;
-  }
-  &::after {
-    content: '◆';
-    position: absolute;
-    bottom: 7px; right: 9px;
-    font-size: 7px;
-    color: rgba(200,160,60,.3);
-    pointer-events: none;
-  }
 }
 
 // ── Close button ──────────────────────────────────────────────────────────────
 .m-close {
   position: absolute;
-  top: 8px;
-  right: 10px;
-  width: 26px;
-  height: 26px;
+  top: 8px; right: 10px;
+  width: 24px; height: 24px;
   padding: 0;
-  background: rgba(0,0,0,.3);
-  border: 1px solid rgba(200,160,60,.2);
-  border-radius: 2px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 1px;
   cursor: pointer;
-  color: rgba(200,160,60,.5);
-  font-size: 13px;
+  color: rgba(255,255,255,.22);
+  font-size: 12px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: background .15s, color .15s, border-color .15s;
 
   &:hover {
-    background: rgba(180,40,30,.35);
-    border-color: rgba(200,60,50,.5);
-    color: #ff9980;
+    background: rgba(160,30,30,.25);
+    border-color: rgba(200,50,40,.5);
+    color: #f08070;
   }
 }
 
@@ -71,16 +55,16 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: rgba(200,160,60,.7);
+  color: rgba(160,30,30,.7);
   font-family: 'Mikadan', sans-serif;
-  font-size: 12px;
-  letter-spacing: .06em;
+  font-size: 11px;
+  letter-spacing: .08em;
 
   &__icon { animation: m-spin 1s linear infinite; }
 }
 
 .m-error {
-  color: rgba(220,100,80,.8);
+  color: rgba(220,90,75,.8);
   font-style: italic;
   font-size: 12px;
 }
@@ -88,67 +72,72 @@
 // ── Monster name ──────────────────────────────────────────────────────────────
 .m-name {
   font-family: 'Mikadan', sans-serif;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: normal;
-  letter-spacing: .1em;
+  letter-spacing: .14em;
   text-transform: uppercase;
-  color: #e8c96a;
-  text-shadow: 0 0 14px rgba(200,160,60,.35);
+  color: #d8d4cc;
   padding-right: 30px;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
+  position: relative;
 }
 
 .m-meta {
   font-style: italic;
-  color: rgba(200,160,60,.4);
+  color: rgba(255,255,255,.25);
   font-size: 11px;
   margin-bottom: 8px;
-  letter-spacing: .04em;
+  letter-spacing: .03em;
 }
 
 // ── Divider rule ──────────────────────────────────────────────────────────────
 .m-rule {
   height: 1px;
-  background: linear-gradient(90deg,
-    transparent,
-    rgba(200,160,60,.4) 30%,
-    rgba(240,200,80,.6) 50%,
-    rgba(200,160,60,.4) 70%,
-    transparent);
-  margin: 10px 0;
+  background: rgba(255,255,255,.06);
+  margin: 9px 0;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    width: 32px; height: 1px;
+    background: rgba(160,30,30,.6);
+  }
 }
 
 // ── Stat pills ────────────────────────────────────────────────────────────────
 .m-stat-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin: 8px 0;
+  gap: 5px;
+  margin: 7px 0;
 }
 
 .m-stat-pill {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(200,160,60,.07);
-  border: 1px solid rgba(200,160,60,.2);
-  border-radius: 2px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.07);
+  border-top: 1px solid rgba(160,30,30,.4);
+  border-radius: 1px;
   padding: 5px 10px;
-  min-width: 48px;
+  min-width: 46px;
 
   &__label {
     font-family: 'Mikadan', sans-serif;
     font-size: 8px;
-    letter-spacing: .1em;
+    letter-spacing: .12em;
     text-transform: uppercase;
-    color: rgba(200,160,60,.6);
+    color: rgba(160,30,30,.7);
   }
   &__val {
     font-size: 14px;
     font-weight: 600;
-    color: #e8d5a0;
+    color: #d0ccc4;
 
-    small { font-size: 10px; color: rgba(200,160,60,.5); }
+    small { font-size: 10px; color: rgba(255,255,255,.25); }
   }
 }
 
@@ -160,7 +149,7 @@
   gap: 3px;
   font-size: 12px;
 
-  b { color: rgba(200,160,60,.7); margin-right: 4px; }
+  b { color: rgba(200,80,70,.7); margin-right: 4px; }
   span::after            { content: ','; margin-right: 3px; }
   span:last-child::after { content: ''; }
 }
@@ -168,27 +157,28 @@
 // ── Ability score grid ────────────────────────────────────────────────────────
 .m-abilities {
   display: flex;
-  gap: 5px;
+  gap: 4px;
   margin: 6px 0;
 }
 
 .m-ab {
   flex: 1;
   text-align: center;
-  background: rgba(200,160,60,.05);
-  border: 1px solid rgba(200,160,60,.15);
-  border-radius: 2px;
+  background: rgba(255,255,255,.025);
+  border: 1px solid rgba(255,255,255,.06);
+  border-top: 1px solid rgba(160,30,30,.3);
+  border-radius: 1px;
   padding: 5px 2px;
 
   &__lbl {
     font-family: 'Mikadan', sans-serif;
-    font-size: 9px;
-    letter-spacing: .08em;
-    color: rgba(200,160,60,.55);
+    font-size: 8px;
+    letter-spacing: .1em;
+    color: rgba(160,30,30,.65);
     text-transform: uppercase;
   }
-  &__val { font-size: 14px; font-weight: 600; color: #e8d5a0; }
-  &__mod { font-size: 10px; color: rgba(200,160,60,.45); }
+  &__val { font-size: 13px; font-weight: 600; color: #d0ccc4; }
+  &__mod { font-size: 10px; color: rgba(255,255,255,.28); }
 }
 
 // ── Properties ────────────────────────────────────────────────────────────────
@@ -196,19 +186,20 @@
   margin: 3px 0;
   font-size: 12px;
 
-  b { color: rgba(200,160,60,.7); margin-right: 4px; }
+  b { color: rgba(200,80,70,.7); margin-right: 4px; }
 }
 
 // ── Section heading ───────────────────────────────────────────────────────────
 .m-section {
   font-family: 'Mikadan', sans-serif;
-  font-size: 11px;
-  letter-spacing: .12em;
+  font-size: 10px;
+  letter-spacing: .14em;
   text-transform: uppercase;
-  color: rgba(200,160,60,.7);
-  margin: 8px 0 4px;
-  padding-bottom: 3px;
-  border-bottom: 1px solid rgba(200,160,60,.12);
+  color: rgba(160,30,30,.75);
+  margin: 8px 0 5px;
+  padding: 4px 0 4px 8px;
+  border-left: 2px solid rgba(160,30,30,.5);
+  background: rgba(160,30,30,.04);
 }
 
 // ── Ability blocks ────────────────────────────────────────────────────────────
@@ -216,19 +207,19 @@
   margin: 4px 0;
   font-size: 12px;
 
-  &__name { font-style: italic; color: #d4a84b; }
+  &__name { font-style: italic; color: rgba(220,190,160,.7); }
 }
 
 // ── Tags ──────────────────────────────────────────────────────────────────────
 .m-tag {
   display: inline-block;
   margin-left: 5px;
-  padding: 1px 7px;
-  background: rgba(200,160,60,.08);
-  border: 1px solid rgba(200,160,60,.25);
-  border-radius: 2px;
+  padding: 1px 6px;
+  background: rgba(160,30,30,.1);
+  border: 1px solid rgba(160,30,30,.3);
+  border-radius: 1px;
   font-size: 10px;
-  color: rgba(200,160,60,.7);
+  color: rgba(200,80,70,.8);
   vertical-align: middle;
 }
 
@@ -238,8 +229,9 @@
   max-width: 100%;
   width: 100%;
   height: auto;
-  border-radius: 2px;
+  border-radius: 1px;
   margin-top: 8px;
-  border: 1px solid rgba(200,160,60,.2);
-  box-shadow: 0 4px 16px rgba(0,0,0,.5);
+  border: 1px solid rgba(255,255,255,.07);
+  box-shadow: 0 4px 20px rgba(0,0,0,.6);
+  filter: brightness(.9) contrast(1.05);
 }
