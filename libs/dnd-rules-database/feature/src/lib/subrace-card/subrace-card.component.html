@@ -4,7 +4,7 @@
   @if (loading()) {
     <div class="src-loading">
       <mat-icon class="src-loading__icon">hourglass_empty</mat-icon>
-      <span>Načítám podrasu…</span>
+      <span>Načítám rod…</span>
     </div>
   }
 
@@ -15,7 +15,7 @@
   @if (subrace(); as s) {
 
     <div class="src-name">{{ s.name }}</div>
-    <div class="src-meta">Podrasa · {{ s.race.name }}</div>
+    <div class="src-meta">Rod · {{ s.race.name }}</div>
 
     <div class="src-rule"></div>
 

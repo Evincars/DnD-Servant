@@ -17,7 +17,7 @@ export class SpellCardComponent {
 
   /** "0" → "Cantrip", otherwise "Level N" */
   levelLabel(level: number): string {
-    return level === 0 ? 'Cantrip' : `${level}. úroveň`;
+    return level === 0 ? 'Cantrip' : `${level}. stupeň`;
   }
 
   /** ["V","S","M"] → "V, S, M" */

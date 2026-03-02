@@ -53,10 +53,10 @@ const CATEGORIES: CategoryDef[] = [
   },
   {
     key: 'subraces',
-    label: 'Podrasy',
+    label: 'Rody',
     icon: 'group_add',
     placeholder: 'např. high-elf, hill-dwarf, lightfoot-halfling…',
-    hint: 'Zadej anglický název podrasy z D&D 2014',
+    hint: 'Zadej anglický název rodu z D&D 2014',
   },
   {
     key: 'classes',
