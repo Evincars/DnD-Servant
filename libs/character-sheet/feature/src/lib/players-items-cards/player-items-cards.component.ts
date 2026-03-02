@@ -15,7 +15,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService } from '@dn-d-servant/util';
-import { ItemVaultApiModel, ItemVaultEntry } from '@dn-d-servant/character-sheet-util';
+import { ItemVaultEntry } from '@dn-d-servant/character-sheet-util';
 import { SpinnerOverlayComponent } from '@dn-d-servant/ui';
 import { MatSnackBar } from '@angular/material/snack-bar';
 

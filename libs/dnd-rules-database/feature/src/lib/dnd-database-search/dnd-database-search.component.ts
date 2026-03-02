@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
 import { Dnd5eApiService } from '@dn-d-servant/data-access';
 import { Monster, Spell, Race, Dnd5eEndpoint } from '@dn-d-servant/util';
 import { MonsterCardComponent } from '../monster-card/monster-card.component';
@@ -48,7 +47,7 @@ const CATEGORIES: CategoryDef[] = [
   templateUrl: './dnd-database-search.component.html',
   styleUrl: './dnd-database-search.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, MatIcon, MatIconButton, MonsterCardComponent, SpellCardComponent, RaceCardComponent],
+  imports: [FormsModule, MatIcon, MonsterCardComponent, SpellCardComponent, RaceCardComponent],
 })
 export class DndDatabaseSearchComponent {
   private readonly api = inject(Dnd5eApiService);
