@@ -321,72 +321,72 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
 
         <!--    Saving throws -->
-        <input
-          [formControl]="savingThrowsControls.silaZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:572.36px; left:442.78px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(savingThrowsControls.silaZdatnost)"
+          (click)="cycleAbilityZdatnost(savingThrowsControls.silaZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:575.36px; left:445.78px;"
+        ></div>
         <input
           [formControl]="savingThrowsControls.sila"
           class="field no-pb"
           style="top:559.64px; left:554.13px; width:61.57px; text-align: right;"
           placeholder="SIL"
         />
-        <input
-          [formControl]="savingThrowsControls.obratnostZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:599.61px; left:442.78px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(savingThrowsControls.obratnostZdatnost)"
+          (click)="cycleAbilityZdatnost(savingThrowsControls.obratnostZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:602.61px; left:445.78px;"
+        ></div>
         <input
           [formControl]="savingThrowsControls.obratnost"
           class="field no-pb"
           style="top:588.71px; left:554.13px; width:61.57px; text-align: right;"
           placeholder="OBR"
         />
-        <input
-          [formControl]="savingThrowsControls.odolnostZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:628.68px; left:442.78px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(savingThrowsControls.odolnostZdatnost)"
+          (click)="cycleAbilityZdatnost(savingThrowsControls.odolnostZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:631.68px; left:445.78px;"
+        ></div>
         <input
           [formControl]="savingThrowsControls.odolnost"
           class="field no-pb"
           style="top:617.78px; left:554.13px; width:61.57px; text-align: right;"
           placeholder="ODL"
         />
-        <input
-          [formControl]="savingThrowsControls.inteligenceZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:657.75px; left:442.78px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(savingThrowsControls.inteligenceZdatnost)"
+          (click)="cycleAbilityZdatnost(savingThrowsControls.inteligenceZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:660.75px; left:445.78px;"
+        ></div>
         <input
           [formControl]="savingThrowsControls.inteligence"
           class="field no-pb"
           style="top:646.85px; left:554.13px; width:61.57px; text-align: right;"
           placeholder="INT"
         />
-        <input
-          [formControl]="savingThrowsControls.moudrostZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:685.01px; left:442.78px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(savingThrowsControls.moudrostZdatnost)"
+          (click)="cycleAbilityZdatnost(savingThrowsControls.moudrostZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:688.01px; left:445.78px;"
+        ></div>
         <input
           [formControl]="savingThrowsControls.moudrost"
           class="field no-pb"
           style="top:675.92px; left:554.13px; width:61.57px; text-align: right;"
           placeholder="MDR"
         />
-        <input
-          [formControl]="savingThrowsControls.charismaZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:714.08px; left:442.78px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(savingThrowsControls.charismaZdatnost)"
+          (click)="cycleAbilityZdatnost(savingThrowsControls.charismaZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:717.08px; left:445.78px;"
+        ></div>
         <input
           [formControl]="savingThrowsControls.charisma"
           class="field no-pb"
@@ -395,72 +395,72 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
 
         <!--    passive skills -->
-        <input
-          [formControl]="passiveSkillsControls.atletikaZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:572.36px; left:630.11px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(passiveSkillsControls.atletikaZdatnost)"
+          (click)="cycleAbilityZdatnost(passiveSkillsControls.atletikaZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:575.36px; left:633.11px;"
+        ></div>
         <input
           [formControl]="passiveSkillsControls.atletika"
           class="field no-pb"
           style="top:559.64px; left:743.77px; width:61.57px; text-align: right;"
           placeholder="ATL"
         />
-        <input
-          [formControl]="passiveSkillsControls.akrobacieZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:599.61px; left:630.11px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(passiveSkillsControls.akrobacieZdatnost)"
+          (click)="cycleAbilityZdatnost(passiveSkillsControls.akrobacieZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:602.61px; left:633.11px;"
+        ></div>
         <input
           [formControl]="passiveSkillsControls.akrobacie"
           class="field no-pb"
           style="top:588.71px; left:743.77px; width:61.57px; text-align: right;"
           placeholder="AKR"
         />
-        <input
-          [formControl]="passiveSkillsControls.nenapadnostZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:628.68px; left:630.11px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(passiveSkillsControls.nenapadnostZdatnost)"
+          (click)="cycleAbilityZdatnost(passiveSkillsControls.nenapadnostZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:631.68px; left:633.11px;"
+        ></div>
         <input
           [formControl]="passiveSkillsControls.nenapadnost"
           class="field no-pb"
           style="top:617.78px; left:743.77px; width:61.57px; text-align: right;"
           placeholder="NEN"
         />
-        <input
-          [formControl]="passiveSkillsControls.vhledZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:657.75px; left:630.11px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(passiveSkillsControls.vhledZdatnost)"
+          (click)="cycleAbilityZdatnost(passiveSkillsControls.vhledZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:660.75px; left:633.11px;"
+        ></div>
         <input
           [formControl]="passiveSkillsControls.vhled"
           class="field no-pb"
           style="top:646.85px; left:743.77px; width:61.57px; text-align: right;"
           placeholder="VHL"
         />
-        <input
-          [formControl]="passiveSkillsControls.vnimaniZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:685.01px; left:630.11px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(passiveSkillsControls.vnimaniZdatnost)"
+          (click)="cycleAbilityZdatnost(passiveSkillsControls.vnimaniZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:688.01px; left:633.11px;"
+        ></div>
         <input
           [formControl]="passiveSkillsControls.vnimani"
           class="field no-pb"
           style="top:675.92px; left:743.77px; width:61.57px; text-align: right;"
           placeholder="VNI"
         />
-        <input
-          [formControl]="passiveSkillsControls.jineZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:714.08px; left:630.11px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(passiveSkillsControls.jineZdatnost)"
+          (click)="cycleAbilityZdatnost(passiveSkillsControls.jineZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:717.08px; left:633.11px;"
+        ></div>
         <input
           [formControl]="passiveSkillsControls.jineNazev"
           class="field no-pb"
@@ -2246,6 +2246,7 @@ export class CharacterSheetComponent {
       this.form.controls.passiveSkillsForm.controls.nenapadnostZdatnost.valueChanges,
       this.form.controls.passiveSkillsForm.controls.vhledZdatnost.valueChanges,
       this.form.controls.passiveSkillsForm.controls.vnimaniZdatnost.valueChanges,
+      this.form.controls.passiveSkillsForm.controls.jineZdatnost.valueChanges,
     );
 
     abilityScores$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
