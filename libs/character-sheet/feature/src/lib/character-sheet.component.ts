@@ -295,30 +295,30 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
 
         <!--    Proficiency with armors -->
-        <input
-          [formControl]="armorClassControls.zdatnostLehke"
-          type="checkbox"
-          class="field checkbox red-checkbox"
+        <div
+          [ngClass]="abilityCheckboxClass(armorClassControls.zdatnostLehke)"
+          (click)="cycleAbilityZdatnost(armorClassControls.zdatnostLehke)"
+          class="field ability-zdatnost-checkbox"
           style="top:481.51px; left:449.33px;"
-        />
-        <input
-          [formControl]="armorClassControls.zdatnostStredni"
-          type="checkbox"
-          class="field checkbox red-checkbox"
+        ></div>
+        <div
+          [ngClass]="abilityCheckboxClass(armorClassControls.zdatnostStredni)"
+          (click)="cycleAbilityZdatnost(armorClassControls.zdatnostStredni)"
+          class="field ability-zdatnost-checkbox"
           style="top:481.51px; left:541.03px;"
-        />
-        <input
-          [formControl]="armorClassControls.zdatnostTezke"
-          type="checkbox"
-          class="field checkbox red-checkbox"
+        ></div>
+        <div
+          [ngClass]="abilityCheckboxClass(armorClassControls.zdatnostTezke)"
+          (click)="cycleAbilityZdatnost(armorClassControls.zdatnostTezke)"
+          class="field ability-zdatnost-checkbox"
           style="top:481.51px; left:644.52px;"
-        />
-        <input
-          [formControl]="armorClassControls.zdatnostStity"
-          type="checkbox"
-          class="field checkbox red-checkbox"
+        ></div>
+        <div
+          [ngClass]="abilityCheckboxClass(armorClassControls.zdatnostStity)"
+          (click)="cycleAbilityZdatnost(armorClassControls.zdatnostStity)"
+          class="field ability-zdatnost-checkbox"
           style="top:481.51px; left:734.91px;"
-        />
+        ></div>
 
         <!--    Saving throws -->
         <div
@@ -399,7 +399,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [ngClass]="abilityCheckboxClass(passiveSkillsControls.atletikaZdatnost)"
           (click)="cycleAbilityZdatnost(passiveSkillsControls.atletikaZdatnost)"
           class="field ability-zdatnost-checkbox"
-          style="top:575.36px; left:633.11px;"
+          style="top:575.36px; left:634.11px;"
         ></div>
         <input
           [formControl]="passiveSkillsControls.atletika"
@@ -411,7 +411,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [ngClass]="abilityCheckboxClass(passiveSkillsControls.akrobacieZdatnost)"
           (click)="cycleAbilityZdatnost(passiveSkillsControls.akrobacieZdatnost)"
           class="field ability-zdatnost-checkbox"
-          style="top:602.61px; left:633.11px;"
+          style="top:602.61px; left:634.11px;"
         ></div>
         <input
           [formControl]="passiveSkillsControls.akrobacie"
@@ -423,7 +423,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [ngClass]="abilityCheckboxClass(passiveSkillsControls.nenapadnostZdatnost)"
           (click)="cycleAbilityZdatnost(passiveSkillsControls.nenapadnostZdatnost)"
           class="field ability-zdatnost-checkbox"
-          style="top:631.68px; left:633.11px;"
+          style="top:631.68px; left:634.11px;"
         ></div>
         <input
           [formControl]="passiveSkillsControls.nenapadnost"
@@ -435,7 +435,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [ngClass]="abilityCheckboxClass(passiveSkillsControls.vhledZdatnost)"
           (click)="cycleAbilityZdatnost(passiveSkillsControls.vhledZdatnost)"
           class="field ability-zdatnost-checkbox"
-          style="top:660.75px; left:633.11px;"
+          style="top:660.75px; left:634.11px;"
         ></div>
         <input
           [formControl]="passiveSkillsControls.vhled"
@@ -447,7 +447,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [ngClass]="abilityCheckboxClass(passiveSkillsControls.vnimaniZdatnost)"
           (click)="cycleAbilityZdatnost(passiveSkillsControls.vnimaniZdatnost)"
           class="field ability-zdatnost-checkbox"
-          style="top:688.01px; left:633.11px;"
+          style="top:688.01px; left:634.11px;"
         ></div>
         <input
           [formControl]="passiveSkillsControls.vnimani"
@@ -459,7 +459,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [ngClass]="abilityCheckboxClass(passiveSkillsControls.jineZdatnost)"
           (click)="cycleAbilityZdatnost(passiveSkillsControls.jineZdatnost)"
           class="field ability-zdatnost-checkbox"
-          style="top:717.08px; left:633.11px;"
+          style="top:717.08px; left:634.11px;"
         ></div>
         <input
           [formControl]="passiveSkillsControls.jineNazev"
@@ -1533,20 +1533,20 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           placeholder="Dosah"
         />
 
-        <input
-          [formControl]="weaponsControls.zdatnostJednoduche"
+        <div
+          [ngClass]="abilityCheckboxClass(weaponsControls.zdatnostJednoduche)"
+          (click)="cycleAbilityZdatnost(weaponsControls.zdatnostJednoduche)"
           id="zdatnostSJednoduchymaZbranema"
-          type="checkbox"
-          class="field checkbox red-checkbox"
+          class="field ability-zdatnost-checkbox"
           style="top:1252px; left:442.78px;"
-        />
-        <input
-          [formControl]="weaponsControls.zdatnostValecne"
+        ></div>
+        <div
+          [ngClass]="abilityCheckboxClass(weaponsControls.zdatnostValecne)"
+          (click)="cycleAbilityZdatnost(weaponsControls.zdatnostValecne)"
           id="zdatnostSValecnymaZbranema"
-          type="checkbox"
-          class="field checkbox red-checkbox"
+          class="field ability-zdatnost-checkbox"
           style="top:1252px; left:568.54px;"
-        />
+        ></div>
         <input
           [formControl]="weaponsControls.dalsiZdatnosti"
           id="dalsiZdatnostSeZbrani"
