@@ -2213,6 +2213,7 @@ export class CharacterSheetComponent {
       this.main6SkillsControls.moudrost.valueChanges,
       this.main6SkillsControls.charisma.valueChanges,
       this.form.controls.abilityBonus.controls.zdatnostniBonus.valueChanges,
+      this.form.controls.topInfo.controls.uroven.valueChanges,
       // Zdatnost checkboxes for saving throws
       this.form.controls.savingThrowsForm.controls.silaZdatnost.valueChanges,
       this.form.controls.savingThrowsForm.controls.obratnostZdatnost.valueChanges,
@@ -2248,6 +2249,8 @@ export class CharacterSheetComponent {
     );
 
     abilityScores$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this._applyDefaultsOnZdatnostChange();
+      this._syncZdatnostniBonusFromUroven();
       this._recalcDerivedStats();
     });
 
@@ -2481,7 +2484,8 @@ export class CharacterSheetComponent {
             CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
           );
           this.form.patchValue(formValue);
-          // Recalculate all derived stats from the loaded ability scores
+          // Sync zdatnostniBonus from uroven, then recalculate all derived stats
+          this._syncZdatnostniBonusFromUroven();
           this._recalcDerivedStats();
           // Apply disable logic only if the view is already initialized
           if (this._viewInitialized()) {
@@ -2848,33 +2852,89 @@ export class CharacterSheetComponent {
   }
 
   /**
+   * D&D 5e proficiency bonus by character level.
+   * 1–4 → +2 | 5–8 → +3 | 9–12 → +4 | 13–16 → +5 | 17–20 → +6
+   */
+  private _zdatnostBonusByLevel(level: number): number {
+    if (level <= 4) return 2;
+    if (level <= 8) return 3;
+    if (level <= 12) return 4;
+    if (level <= 16) return 5;
+    return 6;
+  }
+
+  /**
+   * If any zdatnost checkbox is checked AND zdatnostniBonus is still empty,
+   * fill in the default +2 bonus AND set uroven to 1.
+   */
+  private _applyDefaultsOnZdatnostChange(): void {
+    const zbCtrl = this.form.controls.abilityBonus.controls.zdatnostniBonus;
+    const urovenCtrl = this.form.controls.topInfo.controls.uroven;
+    if (zbCtrl.value) return; // already set — don't overwrite
+
+    const anyChecked = [
+      ...Object.entries(this.form.controls.savingThrowsForm.controls),
+      ...Object.entries(this.abilitiesControls),
+      ...Object.entries(this.form.controls.passiveSkillsForm.controls),
+    ].some(
+      ([k, c]) => k.toLowerCase().endsWith('zdatnost') && (c.value === 'true' || c.value === '1' || c.value === 'expertise'),
+    );
+
+    if (anyChecked && !zbCtrl.value) {
+      zbCtrl.setValue('+2', { emitEvent: false });
+      if (!urovenCtrl.value) {
+        urovenCtrl.setValue('1', { emitEvent: false });
+      }
+    }
+  }
+
+  /**
+   * When uroven changes and zdatnostniBonus is either empty or matches the
+   * auto-computed value for the previous level, update zdatnostniBonus
+   * according to the D&D proficiency table.
+   */
+  private _syncZdatnostniBonusFromUroven(): void {
+    const urovenCtrl = this.form.controls.topInfo.controls.uroven;
+    const zbCtrl = this.form.controls.abilityBonus.controls.zdatnostniBonus;
+    const level = parseInt(urovenCtrl.value ?? '0');
+    if (!level || isNaN(level)) return;
+    const expected = `+${this._zdatnostBonusByLevel(level)}`;
+    // Auto-update only if the field is empty or already matches any auto value (+2..+6)
+    const current = zbCtrl.value ?? '';
+    const isAutoValue = /^\+[2-6]$/.test(current) || current === '';
+    if (isAutoValue) {
+      zbCtrl.setValue(expected, { emitEvent: false });
+    }
+  }
+
+  /**
    * Auto-fills:
    * 1. Oprava (fix) for each of the 6 ability scores
-   * 2. Each dovednost value  = abilityMod [+ zdatnostniBonus if checked]
+   * 2. Each dovednost value  = abilityMod [+ zdatnostniBonus if checked, +2× if expertise]
    * 3. Each záchranný hod   = abilityMod [+ zdatnostniBonus if checked]
    * 4. Each pasivní dovednost = 10 + corresponding dovednost value
-   *
-   * Only fields that are currently EMPTY or auto-computed are overwritten —
-   * the oprava and computed score fields are always auto-filled.
    */
   _recalcDerivedStats(): void {
     const s6 = this.main6SkillsControls;
-    const zb = parseInt(this.form.controls.abilityBonus.controls.zdatnostniBonus.value ?? '0') || 0;
+    const zb = parseInt(this.form.controls.abilityBonus.controls.zdatnostniBonus.value?.replace('+', '') ?? '0') || 0;
     const st = this.form.controls.savingThrowsForm.controls;
     const ab = this.abilitiesControls;
     const ps = this.form.controls.passiveSkillsForm.controls;
 
-    // ── Helper: parse score, compute mod as number ────────────────────────
+    // ── Helpers ───────────────────────────────────────────────────────────
     const mod = (raw: string | null | undefined): number => {
       const n = parseInt(raw ?? '0');
       return isNaN(n) ? 0 : Math.floor((n - 10) / 2);
     };
-    const zdatnost = (ctrl: { value: string | null | undefined }): boolean => {
-      return ctrl.value === 'true' || ctrl.value === '1';
+    /** Returns bonus multiplier: 0 = no zdatnost, 1 = zdatnost, 2 = expertise */
+    const zbMult = (ctrl: { value: string | null | undefined }): number => {
+      const v = ctrl.value;
+      if (v === 'expertise') return 2;
+      if (v === 'true' || v === '1') return 1;
+      return 0;
     };
     const fmtMod = (n: number): string => (n >= 0 ? `+${n}` : `${n}`);
-    const skillVal = (base: number, zdCtrl: { value: string | null | undefined }): string =>
-      fmtMod(base + (zdatnost(zdCtrl) ? zb : 0));
+    const skillVal = (base: number, zdCtrl: { value: string | null | undefined }): string => fmtMod(base + zbMult(zdCtrl) * zb);
 
     // ── 1. Ability fixes (oprava) ─────────────────────────────────────────
     const silaMod = mod(s6.sila.value);
@@ -2903,25 +2963,20 @@ export class CharacterSheetComponent {
     st.charisma.setValue(skillVal(chaMod, st.charismaZdatnost), { emitEvent: false });
 
     // ── 3. Dovednosti ─────────────────────────────────────────────────────
-    // Síla
     ab.atletika.setValue(skillVal(silaMod, ab.atletikaZdatnost), { emitEvent: false });
-    // Obratnost
     ab.akrobacie.setValue(skillVal(obrMod, ab.akrobacieZdatnost), { emitEvent: false });
     ab.cachry.setValue(skillVal(obrMod, ab.cachryZdatnost), { emitEvent: false });
     ab.nenapadnost.setValue(skillVal(obrMod, ab.nenapadnostZdatnost), { emitEvent: false });
-    // Inteligence
     ab.historie.setValue(skillVal(intMod, ab.historieZdatnost), { emitEvent: false });
     ab.mystika.setValue(skillVal(intMod, ab.mystikaZdatnost), { emitEvent: false });
     ab.nabozenstvi.setValue(skillVal(intMod, ab.nabozenstviZdatnost), { emitEvent: false });
     ab.patrani.setValue(skillVal(intMod, ab.patraniZdatnost), { emitEvent: false });
     ab.priroda.setValue(skillVal(intMod, ab.prirodaZdatnost), { emitEvent: false });
-    // Moudrost
     ab.lekarstvi.setValue(skillVal(mdrMod, ab.lekarstviZdatnost), { emitEvent: false });
     ab.ovladaniZvirat.setValue(skillVal(mdrMod, ab.ovladaniZviratZdatnost), { emitEvent: false });
     ab.preziti.setValue(skillVal(mdrMod, ab.prezitiZdatnost), { emitEvent: false });
     ab.vhled.setValue(skillVal(mdrMod, ab.vhledZdatnost), { emitEvent: false });
     ab.vnimani.setValue(skillVal(mdrMod, ab.vnimaniZdatnost), { emitEvent: false });
-    // Charisma
     ab.klamani.setValue(skillVal(chaMod, ab.klamaniZdatnost), { emitEvent: false });
     ab.presvedcovani.setValue(skillVal(chaMod, ab.presvedcovaniZdatnost), { emitEvent: false });
     ab.vystupovani.setValue(skillVal(chaMod, ab.vystupovaniZdatnost), { emitEvent: false });
@@ -2929,7 +2984,7 @@ export class CharacterSheetComponent {
 
     // ── 4. Pasivní dovednosti = 10 + dovednost value ─────────────────────
     const passiveVal = (base: number, zdCtrl: { value: string | null | undefined }): string =>
-      String(10 + base + (zdatnost(zdCtrl) ? zb : 0));
+      String(10 + base + zbMult(zdCtrl) * zb);
 
     ps.atletika.setValue(passiveVal(silaMod, ps.atletikaZdatnost), { emitEvent: false });
     ps.akrobacie.setValue(passiveVal(obrMod, ps.akrobacieZdatnost), { emitEvent: false });
