@@ -38,7 +38,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { CharacterSheetSecondPageComponent } from './character-sheet-second-page.component';
 import { CharacterSheetThirdPageComponent } from './character-sheet-third-page.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { interval } from 'rxjs';
+import { interval, merge } from 'rxjs';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { openWeaponsAndArmorsDialog } from './help-dialogs/weapons-and-armors-dialog.component';
@@ -2204,6 +2204,53 @@ export class CharacterSheetComponent {
       this._updateSpeedHighlight();
     });
 
+    // ── Auto-recalc ability fixes, dovednosti, záchranné hody, pasivní dovednosti ──
+    const abilityScores$ = merge(
+      this.main6SkillsControls.sila.valueChanges,
+      this.main6SkillsControls.obratnost.valueChanges,
+      this.main6SkillsControls.odolnost.valueChanges,
+      this.main6SkillsControls.inteligence.valueChanges,
+      this.main6SkillsControls.moudrost.valueChanges,
+      this.main6SkillsControls.charisma.valueChanges,
+      this.form.controls.abilityBonus.controls.zdatnostniBonus.valueChanges,
+      // Zdatnost checkboxes for saving throws
+      this.form.controls.savingThrowsForm.controls.silaZdatnost.valueChanges,
+      this.form.controls.savingThrowsForm.controls.obratnostZdatnost.valueChanges,
+      this.form.controls.savingThrowsForm.controls.odolnostZdatnost.valueChanges,
+      this.form.controls.savingThrowsForm.controls.inteligenceZdatnost.valueChanges,
+      this.form.controls.savingThrowsForm.controls.moudrostZdatnost.valueChanges,
+      this.form.controls.savingThrowsForm.controls.charismaZdatnost.valueChanges,
+      // Zdatnost checkboxes for dovednosti
+      this.abilitiesControls.atletikaZdatnost.valueChanges,
+      this.abilitiesControls.akrobacieZdatnost.valueChanges,
+      this.abilitiesControls.cachryZdatnost.valueChanges,
+      this.abilitiesControls.nenapadnostZdatnost.valueChanges,
+      this.abilitiesControls.historieZdatnost.valueChanges,
+      this.abilitiesControls.mystikaZdatnost.valueChanges,
+      this.abilitiesControls.nabozenstviZdatnost.valueChanges,
+      this.abilitiesControls.patraniZdatnost.valueChanges,
+      this.abilitiesControls.prirodaZdatnost.valueChanges,
+      this.abilitiesControls.lekarstviZdatnost.valueChanges,
+      this.abilitiesControls.ovladaniZviratZdatnost.valueChanges,
+      this.abilitiesControls.prezitiZdatnost.valueChanges,
+      this.abilitiesControls.vhledZdatnost.valueChanges,
+      this.abilitiesControls.vnimaniZdatnost.valueChanges,
+      this.abilitiesControls.klamaniZdatnost.valueChanges,
+      this.abilitiesControls.presvedcovaniZdatnost.valueChanges,
+      this.abilitiesControls.vystupovaniZdatnost.valueChanges,
+      this.abilitiesControls.zastrasovaniZdatnost.valueChanges,
+      // Zdatnost checkboxes for passive skills
+      this.form.controls.passiveSkillsForm.controls.atletikaZdatnost.valueChanges,
+      this.form.controls.passiveSkillsForm.controls.akrobacieZdatnost.valueChanges,
+      this.form.controls.passiveSkillsForm.controls.nenapadnostZdatnost.valueChanges,
+      this.form.controls.passiveSkillsForm.controls.vhledZdatnost.valueChanges,
+      this.form.controls.passiveSkillsForm.controls.vnimaniZdatnost.valueChanges,
+    );
+
+    abilityScores$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this._recalcDerivedStats();
+    });
+
     this.spellSlotsControls.urovenSesilatele.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(level => {
       const levelNumber = parseInt(level ?? '0');
 
@@ -2434,6 +2481,8 @@ export class CharacterSheetComponent {
             CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
           );
           this.form.patchValue(formValue);
+          // Recalculate all derived stats from the loaded ability scores
+          this._recalcDerivedStats();
           // Apply disable logic only if the view is already initialized
           if (this._viewInitialized()) {
             this._applyLevelDisabling();
@@ -2796,6 +2845,97 @@ export class CharacterSheetComponent {
       'ability-zdatnost--checked': v === 'true' || v === true,
       'ability-zdatnost--expertise': v === 'expertise',
     };
+  }
+
+  /**
+   * Auto-fills:
+   * 1. Oprava (fix) for each of the 6 ability scores
+   * 2. Each dovednost value  = abilityMod [+ zdatnostniBonus if checked]
+   * 3. Each záchranný hod   = abilityMod [+ zdatnostniBonus if checked]
+   * 4. Each pasivní dovednost = 10 + corresponding dovednost value
+   *
+   * Only fields that are currently EMPTY or auto-computed are overwritten —
+   * the oprava and computed score fields are always auto-filled.
+   */
+  _recalcDerivedStats(): void {
+    const s6 = this.main6SkillsControls;
+    const zb = parseInt(this.form.controls.abilityBonus.controls.zdatnostniBonus.value ?? '0') || 0;
+    const st = this.form.controls.savingThrowsForm.controls;
+    const ab = this.abilitiesControls;
+    const ps = this.form.controls.passiveSkillsForm.controls;
+
+    // ── Helper: parse score, compute mod as number ────────────────────────
+    const mod = (raw: string | null | undefined): number => {
+      const n = parseInt(raw ?? '0');
+      return isNaN(n) ? 0 : Math.floor((n - 10) / 2);
+    };
+    const zdatnost = (ctrl: { value: string | null | undefined }): boolean => {
+      return ctrl.value === 'true' || ctrl.value === '1';
+    };
+    const fmtMod = (n: number): string => (n >= 0 ? `+${n}` : `${n}`);
+    const skillVal = (base: number, zdCtrl: { value: string | null | undefined }): string =>
+      fmtMod(base + (zdatnost(zdCtrl) ? zb : 0));
+
+    // ── 1. Ability fixes (oprava) ─────────────────────────────────────────
+    const silaMod = mod(s6.sila.value);
+    const obrMod = mod(s6.obratnost.value);
+    const odlMod = mod(s6.odolnost.value);
+    const intMod = mod(s6.inteligence.value);
+    const mdrMod = mod(s6.moudrost.value);
+    const chaMod = mod(s6.charisma.value);
+
+    s6.silaOprava.setValue(fmtMod(silaMod), { emitEvent: false });
+    s6.obratnostOprava.setValue(fmtMod(obrMod), { emitEvent: false });
+    s6.odolnostOprava.setValue(fmtMod(odlMod), { emitEvent: false });
+    s6.inteligenceOprava.setValue(fmtMod(intMod), { emitEvent: false });
+    s6.moudrostOprava.setValue(fmtMod(mdrMod), { emitEvent: false });
+    s6.charismaOprava.setValue(fmtMod(chaMod), { emitEvent: false });
+
+    // Also keep inventory classes in sync with the new silaOprava
+    this._setInventoryClasses(fmtMod(silaMod));
+
+    // ── 2. Záchranné hody ─────────────────────────────────────────────────
+    st.sila.setValue(skillVal(silaMod, st.silaZdatnost), { emitEvent: false });
+    st.obratnost.setValue(skillVal(obrMod, st.obratnostZdatnost), { emitEvent: false });
+    st.odolnost.setValue(skillVal(odlMod, st.odolnostZdatnost), { emitEvent: false });
+    st.inteligence.setValue(skillVal(intMod, st.inteligenceZdatnost), { emitEvent: false });
+    st.moudrost.setValue(skillVal(mdrMod, st.moudrostZdatnost), { emitEvent: false });
+    st.charisma.setValue(skillVal(chaMod, st.charismaZdatnost), { emitEvent: false });
+
+    // ── 3. Dovednosti ─────────────────────────────────────────────────────
+    // Síla
+    ab.atletika.setValue(skillVal(silaMod, ab.atletikaZdatnost), { emitEvent: false });
+    // Obratnost
+    ab.akrobacie.setValue(skillVal(obrMod, ab.akrobacieZdatnost), { emitEvent: false });
+    ab.cachry.setValue(skillVal(obrMod, ab.cachryZdatnost), { emitEvent: false });
+    ab.nenapadnost.setValue(skillVal(obrMod, ab.nenapadnostZdatnost), { emitEvent: false });
+    // Inteligence
+    ab.historie.setValue(skillVal(intMod, ab.historieZdatnost), { emitEvent: false });
+    ab.mystika.setValue(skillVal(intMod, ab.mystikaZdatnost), { emitEvent: false });
+    ab.nabozenstvi.setValue(skillVal(intMod, ab.nabozenstviZdatnost), { emitEvent: false });
+    ab.patrani.setValue(skillVal(intMod, ab.patraniZdatnost), { emitEvent: false });
+    ab.priroda.setValue(skillVal(intMod, ab.prirodaZdatnost), { emitEvent: false });
+    // Moudrost
+    ab.lekarstvi.setValue(skillVal(mdrMod, ab.lekarstviZdatnost), { emitEvent: false });
+    ab.ovladaniZvirat.setValue(skillVal(mdrMod, ab.ovladaniZviratZdatnost), { emitEvent: false });
+    ab.preziti.setValue(skillVal(mdrMod, ab.prezitiZdatnost), { emitEvent: false });
+    ab.vhled.setValue(skillVal(mdrMod, ab.vhledZdatnost), { emitEvent: false });
+    ab.vnimani.setValue(skillVal(mdrMod, ab.vnimaniZdatnost), { emitEvent: false });
+    // Charisma
+    ab.klamani.setValue(skillVal(chaMod, ab.klamaniZdatnost), { emitEvent: false });
+    ab.presvedcovani.setValue(skillVal(chaMod, ab.presvedcovaniZdatnost), { emitEvent: false });
+    ab.vystupovani.setValue(skillVal(chaMod, ab.vystupovaniZdatnost), { emitEvent: false });
+    ab.zastrasovani.setValue(skillVal(chaMod, ab.zastrasovaniZdatnost), { emitEvent: false });
+
+    // ── 4. Pasivní dovednosti = 10 + dovednost value ─────────────────────
+    const passiveVal = (base: number, zdCtrl: { value: string | null | undefined }): string =>
+      String(10 + base + (zdatnost(zdCtrl) ? zb : 0));
+
+    ps.atletika.setValue(passiveVal(silaMod, ps.atletikaZdatnost), { emitEvent: false });
+    ps.akrobacie.setValue(passiveVal(obrMod, ps.akrobacieZdatnost), { emitEvent: false });
+    ps.nenapadnost.setValue(passiveVal(obrMod, ps.nenapadnostZdatnost), { emitEvent: false });
+    ps.vhled.setValue(passiveVal(mdrMod, ps.vhledZdatnost), { emitEvent: false });
+    ps.vnimani.setValue(passiveVal(mdrMod, ps.vnimaniZdatnost), { emitEvent: false });
   }
 
   _setInventoryClasses(strength: string) {
