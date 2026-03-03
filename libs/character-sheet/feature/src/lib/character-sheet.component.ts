@@ -299,25 +299,25 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           [ngClass]="abilityCheckboxClass(armorClassControls.zdatnostLehke)"
           (click)="cycleAbilityZdatnost(armorClassControls.zdatnostLehke)"
           class="field ability-zdatnost-checkbox"
-          style="top:481.51px; left:449.33px;"
+          style="top:484.51px; left:453.33px;"
         ></div>
         <div
           [ngClass]="abilityCheckboxClass(armorClassControls.zdatnostStredni)"
           (click)="cycleAbilityZdatnost(armorClassControls.zdatnostStredni)"
           class="field ability-zdatnost-checkbox"
-          style="top:481.51px; left:541.03px;"
+          style="top:484.51px; left:545.03px;"
         ></div>
         <div
           [ngClass]="abilityCheckboxClass(armorClassControls.zdatnostTezke)"
           (click)="cycleAbilityZdatnost(armorClassControls.zdatnostTezke)"
           class="field ability-zdatnost-checkbox"
-          style="top:481.51px; left:644.52px;"
+          style="top:484.51px; left:647.52px;"
         ></div>
         <div
           [ngClass]="abilityCheckboxClass(armorClassControls.zdatnostStity)"
           (click)="cycleAbilityZdatnost(armorClassControls.zdatnostStity)"
           class="field ability-zdatnost-checkbox"
-          style="top:481.51px; left:734.91px;"
+          style="top:484.51px; left:737.91px;"
         ></div>
 
         <!--    Saving throws -->
@@ -1538,14 +1538,14 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           (click)="cycleAbilityZdatnost(weaponsControls.zdatnostJednoduche)"
           id="zdatnostSJednoduchymaZbranema"
           class="field ability-zdatnost-checkbox"
-          style="top:1252px; left:442.78px;"
+          style="top:1255px; left:446.78px;"
         ></div>
         <div
           [ngClass]="abilityCheckboxClass(weaponsControls.zdatnostValecne)"
           (click)="cycleAbilityZdatnost(weaponsControls.zdatnostValecne)"
           id="zdatnostSValecnymaZbranema"
           class="field ability-zdatnost-checkbox"
-          style="top:1252px; left:568.54px;"
+          style="top:1255px; left:572.54px;"
         ></div>
         <input
           [formControl]="weaponsControls.dalsiZdatnosti"
