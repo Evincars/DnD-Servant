@@ -53,6 +53,7 @@
   padding-top: 11px;
   padding-bottom: -2px;
   border: 0;
+  user-select: none;
 }
 
 .checkbox {
@@ -82,6 +83,7 @@
   cursor: pointer;
   padding: 0 !important;
   position: absolute;
+  user-select: none;
 
   // Circle for expertise — drawn centered on the star
   &::after {
@@ -162,6 +164,7 @@ input[type='checkbox'][disabled] {
   font-family: 'Mikadan', sans-serif;
   color: rgb(205, 66, 66);
   font-size: 22px;
+  user-select: none;
 }
 
 .dead-throw-success {
