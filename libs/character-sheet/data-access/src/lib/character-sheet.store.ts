@@ -25,6 +25,7 @@ export const DB_DRAFT_KEY_GROUP = 'db-draft-group-sheet';
 export const DB_DRAFT_KEY_NOTES = 'db-draft-notes-page';
 
 export const CharacterSheetStore = signalStore(
+  { providedIn: 'root' },
   withState({
     characterSheet: undefined as CharacterSheetApiModel | undefined,
     groupSheet: undefined as GroupSheetApiModel | undefined,
