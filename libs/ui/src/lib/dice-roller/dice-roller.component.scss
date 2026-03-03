@@ -1,297 +1,414 @@
-// ── Variables ─────────────────────────────────────────────────────────────────
-$gold:       #c8a03c;
-$gold-light: #f0d080;
-$gold-dim:   #7a5f1e;
-$dark:       rgba(10, 6, 2, 0.97);
-$dark-mid:   rgba(22, 13, 4, 0.96);
-$red:        #af2222;
-$border:     1px solid rgba(200, 160, 60, 0.3);
-$radius:     6px;
-$w:          240px;
+// ── Tokens ────────────────────────────────────────────────────────────────────
+$gold:        #c89a3c;
+$gold-light:  #f0d070;
+$gold-dim:    #7a5c1a;
+$dark-900:    #0c0701;
+$dark-800:    #160d03;
+$dark-700:    #201205;
+$dark-600:    #2c1a07;
+$red:         #c0392b;
+$red-bright:  #ff3300;
+$green:       #27ae60;
+$border:      rgba(200,154,60,.28);
+$radius-lg:   10px;
+$radius-md:   7px;
+$radius-sm:   5px;
+$tray-h:      auto;
+$z:           1200;
 
-// ── Trigger tab ───────────────────────────────────────────────────────────────
-.dice-trigger {
+// Accent per die
+$accent-k4:   #d4a030;
+$accent-k6:   #3ab86a;
+$accent-k8:   #4878e0;
+$accent-k10:  #d8c030;
+$accent-k12:  #d04848;
+$accent-k20:  #a840ff;
+
+// ── Tab trigger ───────────────────────────────────────────────────────────────
+.dr-tab {
   position: fixed;
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 1210;
+  z-index: $z + 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 4px;
-  width: 38px;
-  padding: 14px 5px;
+  padding: 14px 6px;
+  width: 40px;
+  background: $dark-800;
+  border: 1px solid $border;
+  border-left: none;
+  border-radius: 0 $radius-md $radius-md 0;
   cursor: pointer;
   user-select: none;
-  background: linear-gradient(180deg, #1e1204, #0c0702);
-  border: $border;
-  border-left: none;
-  border-radius: 0 $radius $radius 0;
-  box-shadow: 3px 0 16px rgba(0,0,0,.7);
-  transition: background 0.2s;
+  box-shadow: 3px 0 18px rgba(0,0,0,.7);
+  transition: background .2s, box-shadow .2s;
 
   &::before, &::after {
     content: '';
     position: absolute;
-    left: 0; right: 0;
-    height: 2px;
+    left: 0; right: 0; height: 2px;
     background: linear-gradient(90deg, transparent, $gold, transparent);
   }
   &::before { top: 0; }
   &::after  { bottom: 0; }
 
   &:hover, &--open {
-    background: linear-gradient(180deg, #3c1e05, #140802);
-    box-shadow: 4px 0 20px rgba(200,160,60,.2);
+    background: $dark-600;
+    box-shadow: 3px 0 22px rgba(200,154,60,.18);
   }
 
-  &__icon  { font-size: 20px; line-height: 1; }
+  &__icon  { font-size: 20px; }
   &__label {
-    font-size: 8px;
-    font-weight: bold;
-    color: $gold;
-    letter-spacing: .1em;
-    text-transform: uppercase;
+    font-size: 8px; font-weight: 700; color: $gold;
+    text-transform: uppercase; letter-spacing: .1em;
     writing-mode: vertical-rl;
   }
 }
 
-// ── Panel ─────────────────────────────────────────────────────────────────────
-.dice-panel {
+// ── Tray ──────────────────────────────────────────────────────────────────────
+.dr-tray {
   position: fixed;
-  left: -$w - 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1210;
-  width: $w;
-  max-height: 88vh;
-  overflow-y: auto;
-  overflow-x: hidden;
+  bottom: -100%;          // slides up from below
+  left: 0; right: 0;
+  z-index: $z;
+  background: linear-gradient(180deg, $dark-800 0%, $dark-900 100%);
+  border-top: 2px solid $gold;
+  border-left: 1px solid $border;
+  border-right: 1px solid $border;
+  box-shadow: 0 -8px 40px rgba(0,0,0,.85), 0 -2px 0 $gold;
+  transition: bottom .35s cubic-bezier(.4,0,.2,1);
   display: flex;
   flex-direction: column;
-  background: $dark;
-  border: $border;
-  border-left: none;
-  border-radius: 0 $radius $radius 0;
-  box-shadow: 6px 0 32px rgba(0,0,0,.9);
-  transition: left 0.3s cubic-bezier(.4,0,.2,1);
-  scrollbar-width: none;
-  &::-webkit-scrollbar { display: none; }
 
-  &::before, &::after {
+  // Gold top shimmer line
+  &::before {
     content: '';
-    display: block;
-    height: 2px;
-    flex-shrink: 0;
-    background: linear-gradient(90deg, transparent, $gold 40%, $gold-light 50%, $gold 60%, transparent);
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, $gold-light 50%, transparent 100%);
   }
 
-  &--open { left: 38px; }
+  &--open { bottom: 0; }
 
-  &__header {
+  // ── Top bar ───────────────────────────────────────────────────────────────
+  &__topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 12px;
-    background: linear-gradient(180deg, rgba(45,25,5,.98), rgba(20,11,3,.96));
-    border-bottom: $border;
+    padding: 8px 16px 6px;
+    border-bottom: 1px solid $border;
+    background: linear-gradient(180deg, $dark-700 0%, $dark-800 100%);
+    flex-shrink: 0;
   }
   &__title {
-    font-size: 11px;
-    font-weight: bold;
-    letter-spacing: .1em;
-    color: $gold-light;
-    text-transform: uppercase;
+    font-size: 12px; font-weight: 700;
+    color: $gold-light; text-transform: uppercase; letter-spacing: .12em;
+    text-shadow: 0 0 10px rgba(200,154,60,.4);
+  }
+  &__topbar-right {
+    display: flex; align-items: center; gap: 8px;
+  }
+  &__queued-label {
+    font-size: 10px; color: $gold-dim; font-style: italic;
   }
   &__close {
     background: none;
-    border: 1px solid rgba(200,160,60,.3);
-    color: $gold;
-    font-size: 11px;
+    border: 1px solid rgba(200,154,60,.3);
+    color: $gold; font-size: 11px;
     width: 22px; height: 22px;
-    border-radius: 3px;
-    cursor: pointer;
+    border-radius: 4px; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    &:hover { background: rgba(200,160,60,.15); }
-  }
-
-  &__selector {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    padding: 10px;
-    background: $dark-mid;
-  }
-
-  &__queue {
-    padding: 6px 10px;
-    background: $dark-mid;
-    border-top: $border;
-  }
-
-  &__actions {
-    display: flex;
-    gap: 5px;
-    padding: 8px 10px;
-    background: $dark-mid;
-    border-top: $border;
-  }
-
-  &__results {
-    padding: 8px 10px;
-    background: rgba(10,6,2,.98);
-    border-top: $border;
+    transition: background .15s;
+    &:hover { background: rgba(200,154,60,.15); }
   }
 }
 
-// ── Dice buttons ──────────────────────────────────────────────────────────────
-.dice-btn {
+// ── Roll animation area ───────────────────────────────────────────────────────
+.dr-roll-area {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  min-height: 100px;
+  background: rgba(0,0,0,.35);
+  border-bottom: 1px solid $border;
+}
+
+.dr-anim-die {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  width: 60px;
-  height: 44px;
-  background: linear-gradient(180deg, rgba(32,18,4,.96), rgba(12,7,2,.98));
-  border: 1px solid rgba(200,160,60,.22);
-  border-radius: 5px;
+  width: 72px;
+  height: 72px;
+  background: $dark-700;
+  border: 2px solid rgba(200,154,60,.35);
+  border-radius: $radius-md;
+  transition: border-color .3s, box-shadow .3s, transform .3s;
+
+  &--rolling {
+    animation: die-shake .12s ease-in-out infinite alternate;
+    border-color: rgba(200,154,60,.7);
+    box-shadow: 0 0 18px rgba(200,154,60,.35);
+
+    .dr-anim-die__value { color: rgba(240,208,112,.5); }
+  }
+
+  &--nat20 {
+    border-color: $gold;
+    box-shadow: 0 0 24px rgba(200,154,60,.7), 0 0 8px $gold inset;
+    .dr-anim-die__value { color: $gold-light; text-shadow: 0 0 16px $gold; }
+  }
+
+  &--crit {
+    border-color: $red-bright;
+    box-shadow: 0 0 24px rgba(255,51,0,.6), 0 0 8px $red inset;
+    .dr-anim-die__value { color: #ff6060; text-shadow: 0 0 14px $red-bright; }
+  }
+
+  &--max:not(&--nat20) {
+    border-color: $green;
+    box-shadow: 0 0 16px rgba(39,174,96,.45);
+    .dr-anim-die__value { color: #60ff90; }
+  }
+
+  &__type  { font-size: 9px; color: $gold-dim; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
+  &__value { font-size: 28px; font-weight: 900; color: $gold-light; line-height: 1; }
+
+  &__badge {
+    position: absolute;
+    bottom: -20px; left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 9px; font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 8px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+
+    &--nat20 { background: $gold; color: $dark-900; }
+    &--crit  { background: $red-bright; color: #fff; }
+  }
+}
+
+.dr-total {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 72px;
+  background: linear-gradient(180deg, $dark-600, $dark-900);
+  border: 2px solid $gold;
+  border-radius: $radius-md;
+  box-shadow: 0 0 18px rgba(200,154,60,.3);
+  margin-left: 6px;
+
+  &__label { font-size: 9px; color: $gold-dim; text-transform: uppercase; letter-spacing: .1em; }
+  &__value { font-size: 32px; font-weight: 900; color: $gold-light; line-height: 1; text-shadow: 0 0 12px $gold; }
+}
+
+// ── Dice picker row ───────────────────────────────────────────────────────────
+.dr-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.dr-die-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  position: relative;
+}
+
+// +/- controls
+.dr-die-ctrl {
+  width: 22px; height: 18px;
+  background: rgba(200,154,60,.12);
+  border: 1px solid rgba(200,154,60,.3);
+  border-radius: 4px;
+  color: $gold; font-size: 14px; font-weight: 700;
+  cursor: pointer; line-height: 1;
+  transition: background .15s;
+  display: flex; align-items: center; justify-content: center;
+  &:hover { background: rgba(200,154,60,.28); }
+  &--plus { order: 2; }
+  &--minus { order: 0; }
+}
+
+// Die button
+.dr-die {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 58px; height: 64px;
+  background: linear-gradient(180deg, $dark-700, $dark-900);
+  border: 2px solid rgba(200,154,60,.2);
+  border-radius: $radius-md;
   cursor: pointer;
-  font-size: 13px;
-  font-weight: bold;
-  color: $gold-dim;
-  letter-spacing: .04em;
   transition: all .15s;
   user-select: none;
+  order: 1;
+  gap: 0;
 
   &:hover {
-    border-color: $gold;
-    color: $gold-light;
-    background: linear-gradient(180deg, rgba(55,30,5,.98), rgba(20,11,3,.98));
-    box-shadow: 0 0 10px rgba(200,160,60,.2);
-    transform: translateY(-1px);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,.5);
   }
-  &:active { transform: translateY(0); }
+  &:active { transform: translateY(-1px); }
+
+  &--queued {
+    border-width: 2px;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0,0,0,.4);
+  }
+
+  // Per-die accent colours
+  @each $die, $color in (k4, $accent-k4), (k6, $accent-k6), (k8, $accent-k8), (k10, $accent-k10), (k12, $accent-k12), (k20, $accent-k20) {
+    &--#{$die} {
+      &:hover, &.dr-die--queued {
+        border-color: $color;
+        box-shadow: 0 4px 18px rgba(0,0,0,.5), 0 0 10px rgba(0,0,0,.2);
+      }
+      .dr-die__svg polygon, .dr-die__svg rect {
+        fill: rgba(0,0,0,.0);
+        stroke: $color;
+        stroke-width: 2.5;
+        transition: fill .15s;
+      }
+      &:hover .dr-die__svg polygon,
+      &:hover .dr-die__svg rect,
+      &.dr-die--queued .dr-die__svg polygon,
+      &.dr-die--queued .dr-die__svg rect {
+        fill: rgba(0,0,0,.15);
+      }
+    }
+  }
+
+  &__svg {
+    width: 32px; height: 32px;
+    flex-shrink: 0;
+  }
+
+  &__label {
+    font-size: 11px; font-weight: 700; color: $gold-dim;
+    letter-spacing: .04em;
+    margin-top: 2px;
+  }
+
+  &__count {
+    position: absolute;
+    top: 2px; right: 4px;
+    font-size: 9px; font-weight: 700; color: $gold;
+    background: rgba(200,154,60,.18);
+    padding: 1px 3px;
+    border-radius: 4px;
+    line-height: 1.2;
+  }
+}
+
+// ── Roll button ───────────────────────────────────────────────────────────────
+.dr-roll-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 66px; height: 64px;
+  background: linear-gradient(180deg, $dark-600, $dark-900);
+  border: 2px solid rgba(200,154,60,.25);
+  border-radius: $radius-md;
+  color: $gold-dim;
+  font-size: 11px; font-weight: 700;
+  cursor: pointer;
+  transition: all .18s;
+  margin-left: 6px;
+  letter-spacing: .04em;
 
   &--active {
     border-color: $gold;
     color: $gold-light;
-    box-shadow: 0 0 10px rgba(200,160,60,.25);
-  }
-
-  &--k20 {
-    color: #ff8844;
-    border-color: rgba(255,80,0,.35);
-    &.dice-btn--active { border-color: #ff4400; box-shadow: 0 0 12px rgba(255,68,0,.35); }
-    &:hover { color: #ffaa66; border-color: #ff4400; }
-  }
-
-  &__badge {
-    position: absolute;
-    top: 2px; right: 3px;
-    width: 15px; height: 15px;
-    background: $gold;
-    color: #1a0a00;
-    font-size: 8px;
-    font-weight: bold;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-  }
-}
-
-// ── Queue chips ───────────────────────────────────────────────────────────────
-.queue-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-
-.queue-chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-size: 10px;
-  font-weight: bold;
-  color: $gold-light;
-  background: rgba(200,160,60,.12);
-  border: 1px solid rgba(200,160,60,.3);
-  cursor: pointer;
-  user-select: none;
-  transition: background .15s;
-
-  &:hover { background: rgba(180,40,40,.3); border-color: $red; color: #ff8080; }
-  &__x { opacity: .6; }
-}
-
-// ── Action buttons ────────────────────────────────────────────────────────────
-.dice-action-btn {
-  flex: 1;
-  padding: 8px 4px;
-  font-size: 11px;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 4px;
-  border: 1px solid;
-  transition: all .15s;
-
-  &--roll {
-    background: linear-gradient(180deg, rgba(80,45,5,.98), rgba(40,22,4,.98));
-    border-color: rgba(200,160,60,.45);
-    color: $gold-light;
-    &:hover:not([disabled]) {
-      border-color: $gold;
-      box-shadow: 0 0 12px rgba(200,160,60,.2);
+    background: linear-gradient(180deg, #3a2008, $dark-900);
+    box-shadow: 0 0 18px rgba(200,154,60,.3);
+    &:hover {
+      background: linear-gradient(180deg, #4e2a0a, $dark-800);
+      box-shadow: 0 0 24px rgba(200,154,60,.45);
+      transform: translateY(-2px);
     }
-    &[disabled] { opacity: .4; cursor: not-allowed; }
+    &:active { transform: none; }
   }
 
-  &--clear {
-    flex: 0 0 36px;
-    background: linear-gradient(180deg, rgba(50,12,8,.95), rgba(20,5,3,.98));
-    border-color: rgba(175,34,34,.4);
-    color: rgba(255,120,120,.8);
-    &:hover { border-color: $red; color: #ff8080; }
+  &[disabled] { opacity: .35; cursor: not-allowed; transform: none !important; }
+
+  &__spinner {
+    width: 18px; height: 18px;
+    border: 2px solid $gold-dim;
+    border-top-color: $gold;
+    border-radius: 50%;
+    animation: spin .6s linear infinite;
   }
 }
 
-// ── Results ───────────────────────────────────────────────────────────────────
-.results-grid {
+// ── History bar ───────────────────────────────────────────────────────────────
+.dr-history {
   display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
+  gap: 8px;
+  padding: 6px 16px 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-top: 1px solid $border;
+  background: rgba(0,0,0,.25);
+  flex-shrink: 0;
+  &::-webkit-scrollbar { display: none; }
 }
 
-.dice-result {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 42px;
-  padding: 4px 8px 3px;
-  background: linear-gradient(180deg, rgba(38,20,4,.92), rgba(14,7,2,.96));
-  border: 1px solid rgba(200,160,60,.3);
-  border-radius: 4px;
-  cursor: pointer;
-  user-select: none;
-  transition: border-color .15s;
+.dr-history__entry {
+  white-space: nowrap;
+  font-size: 10px; color: rgba(200,154,60,.45);
+  padding: 2px 8px;
+  border: 1px solid rgba(200,154,60,.12);
+  border-radius: 10px;
+  background: rgba(200,154,60,.05);
+  cursor: default;
+  transition: color .2s;
 
-  &:hover { border-color: $red; }
+  &--latest {
+    color: $gold-light;
+    border-color: rgba(200,154,60,.4);
+    background: rgba(200,154,60,.1);
+    font-weight: 600;
+  }
+}
 
-  &__type  { font-size: 8px; color: $gold-dim; text-transform: uppercase; letter-spacing: .04em; }
-  &__value { font-size: 22px; font-weight: bold; color: $gold-light; line-height: 1.1; }
+// ── Ghost button ──────────────────────────────────────────────────────────────
+.dr-btn {
+  cursor: pointer; border-radius: $radius-sm;
+  border: 1px solid $border; background: none;
+  color: $gold-dim; transition: all .15s;
+  &:hover { background: rgba(200,154,60,.12); color: $gold; }
+  &--sm { padding: 3px 10px; font-size: 10px; }
+  &--ghost { background: transparent; }
+}
 
-  &--nat20 {
-    border-color: $gold;
-    box-shadow: 0 0 10px rgba(200,160,60,.4);
-    .dice-result__value { color: #ffe066; text-shadow: 0 0 12px $gold; }
-  }
-  &--crit-fail {
-    border-color: $red;
-    box-shadow: 0 0 10px rgba(175,34,34,.4);
-    .dice-result__value { color: #ff6060; text-shadow: 0 0 10px $red; }
-  }
-  &--total {
-    border-color: rgba(200,160,60,.55);
-    cursor: default;
-    &:hover { border-color: rgba(200,160,60,.55); }
-    .dice-result__value { color: #fff0a0; font-size: 24px; }
-  }
+// ── Animations ────────────────────────────────────────────────────────────────
+@keyframes die-shake {
+  from { transform: rotate(-4deg) scale(1.05); }
+  to   { transform: rotate( 4deg) scale(1.05); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
