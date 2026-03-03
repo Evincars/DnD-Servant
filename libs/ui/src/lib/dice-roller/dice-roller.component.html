@@ -1,0 +1,80 @@
+<!-- Floating trigger tab on left side -->
+<div class="dice-trigger" (click)="togglePanel()" [class.open]="isOpen()">
+  <span class="dice-trigger__icon">⚄</span>
+  <span class="dice-trigger__label">Kostky</span>
+</div>
+
+<!-- Floating panel -->
+<div class="dice-panel" [class.dice-panel--open]="isOpen()">
+  <!-- Header -->
+  <div class="dice-panel__header">
+    <span class="dice-panel__title">🎲 Hod kostkou</span>
+    <button class="dice-panel__close" (click)="togglePanel()">✕</button>
+  </div>
+
+  <!-- 3D Canvas -->
+  <div class="dice-panel__canvas-wrap">
+    <canvas #canvas class="dice-panel__canvas"></canvas>
+    @if (isRolling()) {
+      <div class="dice-panel__rolling-msg">Hází se...</div>
+    }
+  </div>
+
+  <!-- Results -->
+  @if (results().length > 0) {
+    <div class="dice-panel__results">
+      @for (r of results(); track $index) {
+        <span class="dice-result" [class.dice-result--nat20]="r.dice === 'd20' && r.value === 20"
+              [class.dice-result--crit-fail]="r.dice === 'd20' && r.value === 1">
+          <span class="dice-result__type">{{ r.dice }}</span>
+          <span class="dice-result__value">{{ r.value }}</span>
+        </span>
+      }
+      @if (results().length > 1) {
+        <span class="dice-result dice-result--total">
+          <span class="dice-result__type">Σ</span>
+          <span class="dice-result__value">{{ totalSum() }}</span>
+        </span>
+      }
+    </div>
+  }
+
+  <!-- Dice selector -->
+  <div class="dice-panel__selector">
+    @for (dice of diceTypes; track dice) {
+      <button
+        class="dice-btn"
+        [class.dice-btn--selected]="selectedDice().includes(dice)"
+        [class.dice-btn--d20]="dice === 'd20'"
+        (click)="toggleDice(dice)"
+        (dblclick)="rollSingle(dice); $event.stopPropagation()"
+        [title]="'Klikni pro výběr, 2× pro rychlý hod ' + dice"
+      >
+        <span class="dice-btn__shape dice-btn__shape--{{ dice }}"></span>
+        <span class="dice-btn__label">{{ dice }}</span>
+      </button>
+    }
+  </div>
+
+  <!-- Actions -->
+  <div class="dice-panel__actions">
+    <button
+      class="dice-action-btn dice-action-btn--roll"
+      [disabled]="selectedDice().length === 0 || isRolling()"
+      (click)="rollSelected()"
+    >
+      🎲 Hodit ({{ selectedDice().length }})
+    </button>
+    <button class="dice-action-btn dice-action-btn--clear" (click)="clearAll()">
+      ✕ Vymazat
+    </button>
+  </div>
+
+  <p class="dice-panel__hint">Klikni na kostku pro výběr · 2× klik = rychlý hod</p>
+</div>
+
+<!-- Backdrop (close on click outside) -->
+@if (isOpen()) {
+  <div class="dice-backdrop" (click)="togglePanel()"></div>
+}
+

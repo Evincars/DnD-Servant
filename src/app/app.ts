@@ -15,6 +15,7 @@ import {
   DB_BACKUP_KEY_GROUP,
   DB_BACKUP_KEY_NOTES,
 } from '@dn-d-servant/character-sheet-data-access';
+import { DiceRollerComponent } from '@dn-d-servant/ui';
 
 @Component({
   selector: 'app-root',
@@ -147,6 +148,8 @@ import {
         }
       </mat-sidenav-content>
     </mat-sidenav-container>
+    <!-- Always-visible dice roller floating on left side -->
+    <dice-roller />
   `,
   styleUrl: './app.component.scss',
   imports: [
@@ -159,6 +162,7 @@ import {
     MatIconButton,
     MatFabButton,
     MatTooltip,
+    DiceRollerComponent,
   ],
 })
 export class App implements OnInit, OnDestroy {

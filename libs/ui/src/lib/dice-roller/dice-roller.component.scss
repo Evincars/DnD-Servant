@@ -1,0 +1,419 @@
+// ── Variables ─────────────────────────────────────────────────────────────────
+$gold:        #c8a03c;
+$gold-light:  #f0d080;
+$gold-dim:    #7a5f1e;
+$dark-bg:     rgba(10, 6, 2, 0.97);
+$dark-mid:    rgba(25, 15, 5, 0.95);
+$red:         #af2222;
+$red-bright:  #ff3300;
+$border:      1px solid rgba(200, 160, 60, 0.35);
+$radius:      6px;
+$panel-width: 300px;
+
+// ── Trigger tab ───────────────────────────────────────────────────────────────
+.dice-trigger {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 42px;
+  padding: 14px 6px;
+  cursor: pointer;
+  user-select: none;
+  background: linear-gradient(180deg, rgba(30,18,4,0.98) 0%, rgba(12,7,2,0.99) 100%);
+  border: $border;
+  border-left: none;
+  border-radius: 0 $radius $radius 0;
+  box-shadow: 3px 0 18px rgba(0,0,0,.7), inset -1px 0 0 rgba(200,160,60,.1);
+  transition: width 0.2s, background 0.2s;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $gold, transparent);
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $gold, transparent);
+  }
+
+  &:hover, &.open {
+    background: linear-gradient(180deg, rgba(60,30,5,0.99) 0%, rgba(20,10,2,0.99) 100%);
+    box-shadow: 4px 0 24px rgba(200,160,60,.25), 3px 0 18px rgba(0,0,0,.8);
+  }
+
+  &__icon {
+    font-size: 22px;
+    line-height: 1;
+    filter: drop-shadow(0 0 6px $gold);
+    color: $gold-light;
+  }
+
+  &__label {
+    font-size: 9px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    color: $gold;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+}
+
+// ── Backdrop ──────────────────────────────────────────────────────────────────
+.dice-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1199;
+  background: transparent;
+}
+
+// ── Panel ─────────────────────────────────────────────────────────────────────
+.dice-panel {
+  position: fixed;
+  left: -$panel-width - 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1200;
+  width: $panel-width;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: $dark-bg;
+  border: $border;
+  border-left: none;
+  border-radius: 0 $radius $radius 0;
+  box-shadow:
+    4px 0 32px rgba(0,0,0,.85),
+    0 0 60px rgba(200,160,60,.08),
+    inset 0 1px 0 rgba(200,160,60,.15);
+  overflow: hidden;
+  transition: left 0.3s cubic-bezier(.4,0,.2,1);
+
+  // Top ornament line
+  &::before {
+    content: '';
+    display: block;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $gold 30%, $gold-light 50%, $gold 70%, transparent);
+    flex-shrink: 0;
+  }
+
+  &--open {
+    left: 42px;
+  }
+
+  // ── Header ────────────────────────────────────────────────────────────────
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px 6px;
+    background: linear-gradient(180deg, rgba(40,22,4,.98) 0%, rgba(20,11,3,.95) 100%);
+    border-bottom: $border;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    color: $gold-light;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(200,160,60,.5);
+  }
+
+  &__close {
+    background: none;
+    border: 1px solid rgba(200,160,60,.3);
+    color: $gold;
+    font-size: 12px;
+    width: 22px;
+    height: 22px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    &:hover { background: rgba(200,160,60,.15); color: $gold-light; }
+  }
+
+  // ── 3D canvas ─────────────────────────────────────────────────────────────
+  &__canvas-wrap {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    background: radial-gradient(ellipse at center,
+      rgba(30,15,3,.9) 0%,
+      rgba(8,4,1,.98) 100%);
+    border-bottom: $border;
+    flex-shrink: 0;
+  }
+
+  &__canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  &__rolling-msg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: bold;
+    color: $gold-light;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-shadow: 0 0 15px $gold;
+    pointer-events: none;
+    animation: pulse 0.6s ease-in-out infinite alternate;
+  }
+
+  // ── Results ────────────────────────────────────────────────────────────────
+  &__results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 8px 10px;
+    background: rgba(15,8,2,.95);
+    border-bottom: $border;
+    min-height: 44px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  // ── Dice selector ─────────────────────────────────────────────────────────
+  &__selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px 10px 6px;
+    background: $dark-mid;
+    flex-shrink: 0;
+  }
+
+  // ── Actions ───────────────────────────────────────────────────────────────
+  &__actions {
+    display: flex;
+    gap: 6px;
+    padding: 6px 10px 4px;
+    background: $dark-mid;
+    flex-shrink: 0;
+  }
+
+  &__hint {
+    margin: 0;
+    padding: 4px 10px 8px;
+    font-size: 9px;
+    color: rgba(200,160,60,.4);
+    text-align: center;
+    letter-spacing: 0.05em;
+    background: $dark-mid;
+    flex-shrink: 0;
+  }
+
+  // Bottom ornament
+  &::after {
+    content: '';
+    display: block;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $gold 30%, $gold-light 50%, $gold 70%, transparent);
+    flex-shrink: 0;
+  }
+}
+
+// ── Result chips ──────────────────────────────────────────────────────────────
+.dice-result {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 38px;
+  padding: 3px 6px;
+  background: linear-gradient(180deg, rgba(40,22,4,.9) 0%, rgba(15,8,2,.95) 100%);
+  border: 1px solid rgba(200,160,60,.3);
+  border-radius: 4px;
+
+  &__type {
+    font-size: 8px;
+    color: $gold-dim;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  &__value {
+    font-size: 18px;
+    font-weight: bold;
+    color: $gold-light;
+    line-height: 1.1;
+    text-shadow: 0 0 8px rgba(200,160,60,.6);
+  }
+
+  &--nat20 {
+    border-color: $gold;
+    box-shadow: 0 0 12px rgba(200,160,60,.5);
+    .dice-result__value { color: #ffe066; text-shadow: 0 0 16px $gold; }
+  }
+  &--crit-fail {
+    border-color: $red;
+    box-shadow: 0 0 12px rgba(175,34,34,.5);
+    .dice-result__value { color: #ff6060; text-shadow: 0 0 14px $red; }
+  }
+  &--total {
+    border-color: rgba(200,160,60,.6);
+    background: linear-gradient(180deg, rgba(60,35,5,.95) 0%, rgba(25,14,3,.98) 100%);
+    .dice-result__value { color: #fff0a0; font-size: 20px; }
+  }
+}
+
+// ── Individual dice buttons ───────────────────────────────────────────────────
+.dice-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 64px;
+  background: linear-gradient(180deg, rgba(35,20,4,.95) 0%, rgba(12,7,2,.98) 100%);
+  border: 1px solid rgba(200,160,60,.25);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.15s;
+  gap: 3px;
+  user-select: none;
+
+  &:hover {
+    border-color: rgba(200,160,60,.6);
+    background: linear-gradient(180deg, rgba(55,30,5,.98) 0%, rgba(20,11,3,.98) 100%);
+    box-shadow: 0 0 12px rgba(200,160,60,.2);
+  }
+
+  &--selected {
+    border-color: $gold;
+    background: linear-gradient(180deg, rgba(70,40,6,.98) 0%, rgba(30,16,3,.98) 100%);
+    box-shadow: 0 0 16px rgba(200,160,60,.35), inset 0 0 8px rgba(200,160,60,.08);
+    .dice-btn__label { color: $gold-light; }
+  }
+
+  &--d20 {
+    &.dice-btn--selected {
+      border-color: #ff4400;
+      box-shadow: 0 0 20px rgba(255,68,0,.4), inset 0 0 10px rgba(255,68,0,.1);
+    }
+  }
+
+  &__label {
+    font-size: 10px;
+    font-weight: bold;
+    color: $gold-dim;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    z-index: 1;
+  }
+
+  // ── Geometric shapes for each dice type ─────────────────────────────────
+  &__shape {
+    display: block;
+    position: relative;
+
+    &--d4 {
+      width: 0; height: 0;
+      border-left: 13px solid transparent;
+      border-right: 13px solid transparent;
+      border-bottom: 22px solid $gold;
+      filter: drop-shadow(0 0 4px rgba(200,160,60,.5));
+    }
+    &--d6 {
+      width: 20px; height: 20px;
+      border: 2.5px solid $gold;
+      border-radius: 2px;
+      box-shadow: 0 0 6px rgba(200,160,60,.4);
+      transform: rotate(15deg);
+    }
+    &--d8 {
+      width: 0; height: 0;
+      border-left: 13px solid transparent;
+      border-right: 13px solid transparent;
+      border-bottom: 20px solid $gold;
+      filter: drop-shadow(0 4px 0 $gold) drop-shadow(0 0 4px rgba(200,160,60,.5));
+    }
+    &--d10 {
+      width: 0; height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 20px solid $gold;
+      filter: drop-shadow(0 0 4px rgba(200,160,60,.4));
+    }
+    &--d12 {
+      width: 20px; height: 20px;
+      border: 2.5px solid $gold;
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(200,160,60,.4);
+      clip-path: polygon(50% 0%, 79% 9%, 97% 35%, 97% 65%, 79% 91%, 50% 100%, 21% 91%, 3% 65%, 3% 35%, 21% 9%);
+    }
+    &--d20 {
+      width: 0; height: 0;
+      border-left: 13px solid transparent;
+      border-right: 13px solid transparent;
+      border-bottom: 22px solid $red-bright;
+      filter: drop-shadow(0 0 6px rgba(255,68,0,.7));
+    }
+  }
+}
+
+// ── Action buttons ────────────────────────────────────────────────────────────
+.dice-action-btn {
+  flex: 1;
+  padding: 7px 6px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.15s;
+  border: 1px solid;
+
+  &--roll {
+    background: linear-gradient(180deg, rgba(80,45,6,.98) 0%, rgba(40,22,4,.98) 100%);
+    border-color: rgba(200,160,60,.5);
+    color: $gold-light;
+    &:hover:not([disabled]) {
+      background: linear-gradient(180deg, rgba(110,60,8,.98) 0%, rgba(55,30,5,.98) 100%);
+      box-shadow: 0 0 14px rgba(200,160,60,.3);
+      border-color: $gold;
+    }
+    &[disabled] { opacity: 0.4; cursor: not-allowed; }
+  }
+
+  &--clear {
+    background: linear-gradient(180deg, rgba(50,12,8,.95) 0%, rgba(20,5,3,.98) 100%);
+    border-color: rgba(175,34,34,.4);
+    color: rgba(255,120,120,.8);
+    &:hover {
+      background: linear-gradient(180deg, rgba(70,18,12,.98) 0%, rgba(30,8,5,.98) 100%);
+      border-color: $red;
+      color: #ff8080;
+    }
+  }
+}
+
+// ── Animation ─────────────────────────────────────────────────────────────────
+@keyframes pulse {
+  from { opacity: 0.5; text-shadow: 0 0 8px $gold; }
+  to   { opacity: 1;   text-shadow: 0 0 20px $gold-light; }
+}
+
