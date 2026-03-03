@@ -92,9 +92,9 @@ import { DiceRollerComponent } from '@dn-d-servant/ui';
                 matTooltip="Stáhnout zálohu jako obrázky (PNG)"
               >
                 @if (screenshotLoading()) {
-                <mat-icon class="toolbar-icon">hourglass_empty</mat-icon>
+                <mat-icon class="backup-button-icon">hourglass_empty</mat-icon>
                 } @else {
-                <mat-icon class="toolbar-icon">photo_camera</mat-icon>
+                <mat-icon class="backup-button-icon">photo_camera</mat-icon>
                 }
                 <span class="backup-btn__label">Záloha</span>
               </button>
@@ -103,7 +103,7 @@ import { DiceRollerComponent } from '@dn-d-servant/ui';
                 class="github-link backup-btn u-ml-2"
                 matTooltip="Stáhnout zálohu databáze jako JSON soubor"
               >
-                <mat-icon class="toolbar-icon">download</mat-icon>
+                <mat-icon class="backup-button-icon">download</mat-icon>
                 <span class="backup-btn__label">JSON</span>
               </button>
             </div>

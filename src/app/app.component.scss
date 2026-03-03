@@ -370,13 +370,14 @@
 .backup-btn {
   width: auto;
   padding: 0 8px;
+  font-size: 13px !important;
   gap: 5px;
 
   &:disabled { opacity: .45; cursor: not-allowed; }
 
   &__label {
     font-family: 'Mikadan', sans-serif;
-    font-size: 10px;
+    font-size: 13px !important;
     letter-spacing: .06em;
     color: #a08060;
     transition: color .15s;
@@ -396,6 +397,13 @@
     color: #e8c96a;
     filter: drop-shadow(0 0 6px rgba(200,160,60,.6));
   }
+}
+
+.backup-button-icon {
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+  color: #a08060;
 }
 
 @keyframes menu-pulse {
