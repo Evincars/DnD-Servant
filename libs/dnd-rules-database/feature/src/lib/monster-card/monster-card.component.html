@@ -15,9 +15,9 @@
   @if (monster(); as m) {
     <div class="m-name">{{ m.name }}</div>
     <div class="m-meta">
-      {{ m.size }} {{ m.type }}
-      @if (m.subtype) { ({{ m.subtype }}) }
-      @if (m.alignment) { · {{ m.alignment }} }
+      {{ m.size | dndTranslate | async }} {{ m.type | dndTranslate | async }}
+      @if (m.subtype) { ({{ m.subtype | dndTranslate | async }}) }
+      @if (m.alignment) { · {{ m.alignment | dndTranslate | async }} }
     </div>
 
     <div class="m-rule"></div>
@@ -29,7 +29,7 @@
           <span class="m-stat-pill__label">OČ</span>
           <span class="m-stat-pill__val">
             {{ m.armor_class[0].value }}
-            @if (m.armor_class[0].type) { <small>({{ m.armor_class[0].type }})</small> }
+            @if (m.armor_class[0].type) { <small>({{ m.armor_class[0].type | dndTranslate | async }})</small> }
           </span>
         </div>
       }
@@ -89,20 +89,20 @@
     <div class="m-rule"></div>
 
     <!-- Properties -->
-    @if (m.proficiencies?.length)          { <div class="m-prop"><b>Zdatnosti:</b> {{ profList(m) }}</div> }
-    @if (m.damage_vulnerabilities?.length) { <div class="m-prop"><b>Zranitelnosti:</b> {{ m.damage_vulnerabilities.join(', ') }}</div> }
-    @if (m.damage_resistances?.length)     { <div class="m-prop"><b>Odolnosti:</b> {{ m.damage_resistances.join(', ') }}</div> }
-    @if (m.damage_immunities?.length)      { <div class="m-prop"><b>Imunity (poškození):</b> {{ m.damage_immunities.join(', ') }}</div> }
-    @if (m.condition_immunities?.length)   { <div class="m-prop"><b>Imunity (stavy):</b> {{ conditionNames(m) }}</div> }
+    @if (m.proficiencies?.length)          { <div class="m-prop"><b>Zdatnosti:</b> {{ profList(m) | dndTranslate | async }}</div> }
+    @if (m.damage_vulnerabilities?.length) { <div class="m-prop"><b>Zranitelnosti:</b> {{ m.damage_vulnerabilities.join(', ') | dndTranslate | async }}</div> }
+    @if (m.damage_resistances?.length)     { <div class="m-prop"><b>Odolnosti:</b> {{ m.damage_resistances.join(', ') | dndTranslate | async }}</div> }
+    @if (m.damage_immunities?.length)      { <div class="m-prop"><b>Imunity (poškození):</b> {{ m.damage_immunities.join(', ') | dndTranslate | async }}</div> }
+    @if (m.condition_immunities?.length)   { <div class="m-prop"><b>Imunity (stavy):</b> {{ conditionNames(m) | dndTranslate | async }}</div> }
     @if (m.senses)                         { <div class="m-prop"><b>Smysly:</b> {{ sensesText(m) }}</div> }
-    @if (m.languages)                      { <div class="m-prop"><b>Jazyky:</b> {{ m.languages }}</div> }
+    @if (m.languages)                      { <div class="m-prop"><b>Jazyky:</b> {{ m.languages | dndTranslate | async }}</div> }
 
     <!-- Special abilities -->
     @if (m.special_abilities?.length) {
       <div class="m-rule"></div>
       <div class="m-section">Speciální schopnosti</div>
       @for (a of m.special_abilities; track a.name) {
-        <p class="m-ability"><b class="m-ability__name">{{ a.name }}.</b> {{ a.desc }}</p>
+        <p class="m-ability"><b class="m-ability__name">{{ a.name }}.</b> {{ a.desc | dndTranslate | async }}</p>
       }
     }
 
@@ -112,9 +112,9 @@
       <div class="m-section">Akce</div>
       @for (a of m.actions; track a.name) {
         <p class="m-ability">
-          <b class="m-ability__name">{{ a.name }}.</b> {{ a.desc }}
+          <b class="m-ability__name">{{ a.name }}.</b> {{ a.desc | dndTranslate | async }}
           @if (a.attack_bonus != null) { <span class="m-tag">+{{ a.attack_bonus }} k zásahu</span> }
-          @if (a.dc) { <span class="m-tag">SO {{ a.dc.dc_value }} {{ a.dc.dc_type.name }}</span> }
+          @if (a.dc) { <span class="m-tag">SO {{ a.dc.dc_value }} {{ a.dc.dc_type.name | dndTranslate | async }}</span> }
         </p>
       }
     }
@@ -124,7 +124,7 @@
       <div class="m-rule"></div>
       <div class="m-section">Legendární akce</div>
       @for (a of m.legendary_actions; track a.name) {
-        <p class="m-ability"><b class="m-ability__name">{{ a.name }}.</b> {{ a.desc }}</p>
+        <p class="m-ability"><b class="m-ability__name">{{ a.name }}.</b> {{ a.desc | dndTranslate | async }}</p>
       }
     }
 
@@ -133,7 +133,7 @@
       <div class="m-rule"></div>
       <div class="m-section">Reakce</div>
       @for (a of m.reactions; track a.name) {
-        <p class="m-ability"><b class="m-ability__name">{{ a.name }}.</b> {{ a.desc }}</p>
+        <p class="m-ability"><b class="m-ability__name">{{ a.name }}.</b> {{ a.desc | dndTranslate | async }}</p>
       }
     }
 

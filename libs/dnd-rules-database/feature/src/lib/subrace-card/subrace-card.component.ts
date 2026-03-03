@@ -1,5 +1,6 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { Subrace } from '@dn-d-servant/util';
+import { DndTranslatePipe, Subrace } from '@dn-d-servant/util';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -7,7 +8,7 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './subrace-card.component.html',
   styleUrl: './subrace-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIcon],
+  imports: [MatIcon, DndTranslatePipe, AsyncPipe],
 })
 export class SubraceCardComponent {
   subrace = input<Subrace | null>(null);

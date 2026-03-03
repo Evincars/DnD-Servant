@@ -1,5 +1,12 @@
 {
   "projects": {
     "default": "dnd-servant"
+  },
+  "targets": {
+    "dnd-servant": {
+      "hosting": {
+        "dnd-servant": ["dnd-servant"]
+      }
+    }
   }
 }

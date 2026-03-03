@@ -14,6 +14,7 @@ import { NgClass } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AnimalKey, animalsSelect } from './animals-select';
 import { openGroupBackgroundDialog } from './help-dialogs/group-background-dialog.component';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'group-sheet',
@@ -590,6 +591,17 @@ export class GroupSheetComponent {
           break;
       }
     });
+
+    // ── Auto-draft every 30 s → localStorage only (no DB) ──────────────────
+    interval(30_000)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        const username = this.authService.currentUser()?.username;
+        if (!username) return;
+        const model = FormUtil.convertFormToModel(this.form.getRawValue(), GroupSheetFormModelMappers.groupSheetFormToApiMapper);
+        model.username = `${username}${this.documentName}`;
+        this.characterSheetStore.saveDraftToLocalStorage({ type: 'group', model });
+      });
   }
 
   _setInventoryClasses(lightWeight: number, mediumWeight: number, heavyWeight: number) {

@@ -38,6 +38,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { CharacterSheetSecondPageComponent } from './character-sheet-second-page.component';
 import { CharacterSheetThirdPageComponent } from './character-sheet-third-page.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { interval, merge } from 'rxjs';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { openWeaponsAndArmorsDialog } from './help-dialogs/weapons-and-armors-dialog.component';
@@ -294,98 +295,98 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
 
         <!--    Proficiency with armors -->
-        <input
-          [formControl]="armorClassControls.zdatnostLehke"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:481.51px; left:449.33px;"
-        />
-        <input
-          [formControl]="armorClassControls.zdatnostStredni"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:481.51px; left:541.03px;"
-        />
-        <input
-          [formControl]="armorClassControls.zdatnostTezke"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:481.51px; left:644.52px;"
-        />
-        <input
-          [formControl]="armorClassControls.zdatnostStity"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:481.51px; left:734.91px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(armorClassControls.zdatnostLehke)"
+          (click)="cycleAbilityZdatnost(armorClassControls.zdatnostLehke)"
+          class="field ability-zdatnost-checkbox"
+          style="top:484.51px; left:453.33px;"
+        ></div>
+        <div
+          [ngClass]="abilityCheckboxClass(armorClassControls.zdatnostStredni)"
+          (click)="cycleAbilityZdatnost(armorClassControls.zdatnostStredni)"
+          class="field ability-zdatnost-checkbox"
+          style="top:484.51px; left:545.03px;"
+        ></div>
+        <div
+          [ngClass]="abilityCheckboxClass(armorClassControls.zdatnostTezke)"
+          (click)="cycleAbilityZdatnost(armorClassControls.zdatnostTezke)"
+          class="field ability-zdatnost-checkbox"
+          style="top:484.51px; left:647.52px;"
+        ></div>
+        <div
+          [ngClass]="abilityCheckboxClass(armorClassControls.zdatnostStity)"
+          (click)="cycleAbilityZdatnost(armorClassControls.zdatnostStity)"
+          class="field ability-zdatnost-checkbox"
+          style="top:484.51px; left:737.91px;"
+        ></div>
 
         <!--    Saving throws -->
-        <input
-          [formControl]="savingThrowsControls.silaZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:572.36px; left:442.78px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(savingThrowsControls.silaZdatnost)"
+          (click)="cycleAbilityZdatnost(savingThrowsControls.silaZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:575.36px; left:445.78px;"
+        ></div>
         <input
           [formControl]="savingThrowsControls.sila"
           class="field no-pb"
           style="top:559.64px; left:554.13px; width:61.57px; text-align: right;"
           placeholder="SIL"
         />
-        <input
-          [formControl]="savingThrowsControls.obratnostZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:599.61px; left:442.78px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(savingThrowsControls.obratnostZdatnost)"
+          (click)="cycleAbilityZdatnost(savingThrowsControls.obratnostZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:602.61px; left:445.78px;"
+        ></div>
         <input
           [formControl]="savingThrowsControls.obratnost"
           class="field no-pb"
           style="top:588.71px; left:554.13px; width:61.57px; text-align: right;"
           placeholder="OBR"
         />
-        <input
-          [formControl]="savingThrowsControls.odolnostZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:628.68px; left:442.78px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(savingThrowsControls.odolnostZdatnost)"
+          (click)="cycleAbilityZdatnost(savingThrowsControls.odolnostZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:631.68px; left:445.78px;"
+        ></div>
         <input
           [formControl]="savingThrowsControls.odolnost"
           class="field no-pb"
           style="top:617.78px; left:554.13px; width:61.57px; text-align: right;"
           placeholder="ODL"
         />
-        <input
-          [formControl]="savingThrowsControls.inteligenceZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:657.75px; left:442.78px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(savingThrowsControls.inteligenceZdatnost)"
+          (click)="cycleAbilityZdatnost(savingThrowsControls.inteligenceZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:660.75px; left:445.78px;"
+        ></div>
         <input
           [formControl]="savingThrowsControls.inteligence"
           class="field no-pb"
           style="top:646.85px; left:554.13px; width:61.57px; text-align: right;"
           placeholder="INT"
         />
-        <input
-          [formControl]="savingThrowsControls.moudrostZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:685.01px; left:442.78px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(savingThrowsControls.moudrostZdatnost)"
+          (click)="cycleAbilityZdatnost(savingThrowsControls.moudrostZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:688.01px; left:445.78px;"
+        ></div>
         <input
           [formControl]="savingThrowsControls.moudrost"
           class="field no-pb"
           style="top:675.92px; left:554.13px; width:61.57px; text-align: right;"
           placeholder="MDR"
         />
-        <input
-          [formControl]="savingThrowsControls.charismaZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:714.08px; left:442.78px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(savingThrowsControls.charismaZdatnost)"
+          (click)="cycleAbilityZdatnost(savingThrowsControls.charismaZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:717.08px; left:445.78px;"
+        ></div>
         <input
           [formControl]="savingThrowsControls.charisma"
           class="field no-pb"
@@ -394,72 +395,72 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
 
         <!--    passive skills -->
-        <input
-          [formControl]="passiveSkillsControls.atletikaZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:572.36px; left:630.11px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(passiveSkillsControls.atletikaZdatnost)"
+          (click)="cycleAbilityZdatnost(passiveSkillsControls.atletikaZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:575.36px; left:634.11px;"
+        ></div>
         <input
           [formControl]="passiveSkillsControls.atletika"
           class="field no-pb"
           style="top:559.64px; left:743.77px; width:61.57px; text-align: right;"
           placeholder="ATL"
         />
-        <input
-          [formControl]="passiveSkillsControls.akrobacieZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:599.61px; left:630.11px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(passiveSkillsControls.akrobacieZdatnost)"
+          (click)="cycleAbilityZdatnost(passiveSkillsControls.akrobacieZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:602.61px; left:634.11px;"
+        ></div>
         <input
           [formControl]="passiveSkillsControls.akrobacie"
           class="field no-pb"
           style="top:588.71px; left:743.77px; width:61.57px; text-align: right;"
           placeholder="AKR"
         />
-        <input
-          [formControl]="passiveSkillsControls.nenapadnostZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:628.68px; left:630.11px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(passiveSkillsControls.nenapadnostZdatnost)"
+          (click)="cycleAbilityZdatnost(passiveSkillsControls.nenapadnostZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:631.68px; left:634.11px;"
+        ></div>
         <input
           [formControl]="passiveSkillsControls.nenapadnost"
           class="field no-pb"
           style="top:617.78px; left:743.77px; width:61.57px; text-align: right;"
           placeholder="NEN"
         />
-        <input
-          [formControl]="passiveSkillsControls.vhledZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:657.75px; left:630.11px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(passiveSkillsControls.vhledZdatnost)"
+          (click)="cycleAbilityZdatnost(passiveSkillsControls.vhledZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:660.75px; left:634.11px;"
+        ></div>
         <input
           [formControl]="passiveSkillsControls.vhled"
           class="field no-pb"
           style="top:646.85px; left:743.77px; width:61.57px; text-align: right;"
           placeholder="VHL"
         />
-        <input
-          [formControl]="passiveSkillsControls.vnimaniZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:685.01px; left:630.11px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(passiveSkillsControls.vnimaniZdatnost)"
+          (click)="cycleAbilityZdatnost(passiveSkillsControls.vnimaniZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:688.01px; left:634.11px;"
+        ></div>
         <input
           [formControl]="passiveSkillsControls.vnimani"
           class="field no-pb"
           style="top:675.92px; left:743.77px; width:61.57px; text-align: right;"
           placeholder="VNI"
         />
-        <input
-          [formControl]="passiveSkillsControls.jineZdatnost"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:714.08px; left:630.11px;"
-        />
+        <div
+          [ngClass]="abilityCheckboxClass(passiveSkillsControls.jineZdatnost)"
+          (click)="cycleAbilityZdatnost(passiveSkillsControls.jineZdatnost)"
+          class="field ability-zdatnost-checkbox"
+          style="top:717.08px; left:634.11px;"
+        ></div>
         <input
           [formControl]="passiveSkillsControls.jineNazev"
           class="field no-pb"
@@ -1532,20 +1533,20 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           placeholder="Dosah"
         />
 
-        <input
-          [formControl]="weaponsControls.zdatnostJednoduche"
+        <div
+          [ngClass]="abilityCheckboxClass(weaponsControls.zdatnostJednoduche)"
+          (click)="cycleAbilityZdatnost(weaponsControls.zdatnostJednoduche)"
           id="zdatnostSJednoduchymaZbranema"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:1252px; left:442.78px;"
-        />
-        <input
-          [formControl]="weaponsControls.zdatnostValecne"
+          class="field ability-zdatnost-checkbox"
+          style="top:1255px; left:446.78px;"
+        ></div>
+        <div
+          [ngClass]="abilityCheckboxClass(weaponsControls.zdatnostValecne)"
+          (click)="cycleAbilityZdatnost(weaponsControls.zdatnostValecne)"
           id="zdatnostSValecnymaZbranema"
-          type="checkbox"
-          class="field checkbox red-checkbox"
-          style="top:1252px; left:568.54px;"
-        />
+          class="field ability-zdatnost-checkbox"
+          style="top:1255px; left:572.54px;"
+        ></div>
         <input
           [formControl]="weaponsControls.dalsiZdatnosti"
           id="dalsiZdatnostSeZbrani"
@@ -2203,6 +2204,57 @@ export class CharacterSheetComponent {
       this._updateSpeedHighlight();
     });
 
+    // ── Auto-recalc ability fixes, dovednosti, záchranné hody, pasivní dovednosti ──
+    const abilityScores$ = merge(
+      this.main6SkillsControls.sila.valueChanges,
+      this.main6SkillsControls.obratnost.valueChanges,
+      this.main6SkillsControls.odolnost.valueChanges,
+      this.main6SkillsControls.inteligence.valueChanges,
+      this.main6SkillsControls.moudrost.valueChanges,
+      this.main6SkillsControls.charisma.valueChanges,
+      this.form.controls.abilityBonus.controls.zdatnostniBonus.valueChanges,
+      this.form.controls.topInfo.controls.uroven.valueChanges,
+      // Zdatnost checkboxes for saving throws
+      this.form.controls.savingThrowsForm.controls.silaZdatnost.valueChanges,
+      this.form.controls.savingThrowsForm.controls.obratnostZdatnost.valueChanges,
+      this.form.controls.savingThrowsForm.controls.odolnostZdatnost.valueChanges,
+      this.form.controls.savingThrowsForm.controls.inteligenceZdatnost.valueChanges,
+      this.form.controls.savingThrowsForm.controls.moudrostZdatnost.valueChanges,
+      this.form.controls.savingThrowsForm.controls.charismaZdatnost.valueChanges,
+      // Zdatnost checkboxes for dovednosti
+      this.abilitiesControls.atletikaZdatnost.valueChanges,
+      this.abilitiesControls.akrobacieZdatnost.valueChanges,
+      this.abilitiesControls.cachryZdatnost.valueChanges,
+      this.abilitiesControls.nenapadnostZdatnost.valueChanges,
+      this.abilitiesControls.historieZdatnost.valueChanges,
+      this.abilitiesControls.mystikaZdatnost.valueChanges,
+      this.abilitiesControls.nabozenstviZdatnost.valueChanges,
+      this.abilitiesControls.patraniZdatnost.valueChanges,
+      this.abilitiesControls.prirodaZdatnost.valueChanges,
+      this.abilitiesControls.lekarstviZdatnost.valueChanges,
+      this.abilitiesControls.ovladaniZviratZdatnost.valueChanges,
+      this.abilitiesControls.prezitiZdatnost.valueChanges,
+      this.abilitiesControls.vhledZdatnost.valueChanges,
+      this.abilitiesControls.vnimaniZdatnost.valueChanges,
+      this.abilitiesControls.klamaniZdatnost.valueChanges,
+      this.abilitiesControls.presvedcovaniZdatnost.valueChanges,
+      this.abilitiesControls.vystupovaniZdatnost.valueChanges,
+      this.abilitiesControls.zastrasovaniZdatnost.valueChanges,
+      // Zdatnost checkboxes for passive skills
+      this.form.controls.passiveSkillsForm.controls.atletikaZdatnost.valueChanges,
+      this.form.controls.passiveSkillsForm.controls.akrobacieZdatnost.valueChanges,
+      this.form.controls.passiveSkillsForm.controls.nenapadnostZdatnost.valueChanges,
+      this.form.controls.passiveSkillsForm.controls.vhledZdatnost.valueChanges,
+      this.form.controls.passiveSkillsForm.controls.vnimaniZdatnost.valueChanges,
+      this.form.controls.passiveSkillsForm.controls.jineZdatnost.valueChanges,
+    );
+
+    abilityScores$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this._applyDefaultsOnZdatnostChange();
+      this._syncZdatnostniBonusFromUroven();
+      this._recalcDerivedStats();
+    });
+
     this.spellSlotsControls.urovenSesilatele.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(level => {
       const levelNumber = parseInt(level ?? '0');
 
@@ -2433,6 +2485,9 @@ export class CharacterSheetComponent {
             CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
           );
           this.form.patchValue(formValue);
+          // Sync zdatnostniBonus from uroven, then recalculate all derived stats
+          this._syncZdatnostniBonusFromUroven();
+          this._recalcDerivedStats();
           // Apply disable logic only if the view is already initialized
           if (this._viewInitialized()) {
             this._applyLevelDisabling();
@@ -2450,6 +2505,25 @@ export class CharacterSheetComponent {
         this._updateSpeedHighlight();
       }
     });
+
+    // ── Auto-draft every 30 s → localStorage only (no DB) ─────────────────
+    interval(30_000)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        const username = this.authService.currentUser()?.username;
+        if (!username) return;
+        const model = FormUtil.convertFormToModel(
+          this.form.getRawValue(),
+          CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
+        );
+        model.username = username;
+        const imageThisSession = this.characterSheetStore.characterImage();
+        const imageFromDb = this.characterSheetStore.characterSheet()?.secondPageForm?.obrazekPostavy ?? null;
+        if (model.secondPageForm) {
+          model.secondPageForm.obrazekPostavy = imageThisSession ?? imageFromDb;
+        }
+        this.characterSheetStore.saveDraftToLocalStorage({ type: 'character', model });
+      });
   }
 
   _applyLevelDisabling() {
@@ -2776,6 +2850,148 @@ export class CharacterSheetComponent {
       'ability-zdatnost--checked': v === 'true' || v === true,
       'ability-zdatnost--expertise': v === 'expertise',
     };
+  }
+
+  /**
+   * D&D 5e proficiency bonus by character level.
+   * 1–4 → +2 | 5–8 → +3 | 9–12 → +4 | 13–16 → +5 | 17–20 → +6
+   */
+  private _zdatnostBonusByLevel(level: number): number {
+    if (level <= 4) return 2;
+    if (level <= 8) return 3;
+    if (level <= 12) return 4;
+    if (level <= 16) return 5;
+    return 6;
+  }
+
+  /**
+   * If any zdatnost checkbox is checked AND zdatnostniBonus is still empty,
+   * fill in the default +2 bonus AND set uroven to 1.
+   */
+  private _applyDefaultsOnZdatnostChange(): void {
+    const zbCtrl = this.form.controls.abilityBonus.controls.zdatnostniBonus;
+    const urovenCtrl = this.form.controls.topInfo.controls.uroven;
+    if (zbCtrl.value) return; // already set — don't overwrite
+
+    const anyChecked = [
+      ...Object.entries(this.form.controls.savingThrowsForm.controls),
+      ...Object.entries(this.abilitiesControls),
+      ...Object.entries(this.form.controls.passiveSkillsForm.controls),
+    ].some(
+      ([k, c]) => k.toLowerCase().endsWith('zdatnost') && (c.value === 'true' || c.value === '1' || c.value === 'expertise'),
+    );
+
+    if (anyChecked && !zbCtrl.value) {
+      zbCtrl.setValue('+2', { emitEvent: false });
+      if (!urovenCtrl.value) {
+        urovenCtrl.setValue('1', { emitEvent: false });
+      }
+    }
+  }
+
+  /**
+   * When uroven changes and zdatnostniBonus is either empty or matches the
+   * auto-computed value for the previous level, update zdatnostniBonus
+   * according to the D&D proficiency table.
+   */
+  private _syncZdatnostniBonusFromUroven(): void {
+    const urovenCtrl = this.form.controls.topInfo.controls.uroven;
+    const zbCtrl = this.form.controls.abilityBonus.controls.zdatnostniBonus;
+    const level = parseInt(urovenCtrl.value ?? '0');
+    if (!level || isNaN(level)) return;
+    const expected = `+${this._zdatnostBonusByLevel(level)}`;
+    // Auto-update only if the field is empty or already matches any auto value (+2..+6)
+    const current = zbCtrl.value ?? '';
+    const isAutoValue = /^\+[2-6]$/.test(current) || current === '';
+    if (isAutoValue) {
+      zbCtrl.setValue(expected, { emitEvent: false });
+    }
+  }
+
+  /**
+   * Auto-fills:
+   * 1. Oprava (fix) for each of the 6 ability scores
+   * 2. Each dovednost value  = abilityMod [+ zdatnostniBonus if checked, +2× if expertise]
+   * 3. Each záchranný hod   = abilityMod [+ zdatnostniBonus if checked]
+   * 4. Each pasivní dovednost = 10 + corresponding dovednost value
+   */
+  _recalcDerivedStats(): void {
+    const s6 = this.main6SkillsControls;
+    const zb = parseInt(this.form.controls.abilityBonus.controls.zdatnostniBonus.value?.replace('+', '') ?? '0') || 0;
+    const st = this.form.controls.savingThrowsForm.controls;
+    const ab = this.abilitiesControls;
+    const ps = this.form.controls.passiveSkillsForm.controls;
+
+    // ── Helpers ───────────────────────────────────────────────────────────
+    const mod = (raw: string | null | undefined): number => {
+      const n = parseInt(raw ?? '0');
+      return isNaN(n) ? 0 : Math.floor((n - 10) / 2);
+    };
+    /** Returns bonus multiplier: 0 = no zdatnost, 1 = zdatnost, 2 = expertise */
+    const zbMult = (ctrl: { value: string | null | undefined }): number => {
+      const v = ctrl.value;
+      if (v === 'expertise') return 2;
+      if (v === 'true' || v === '1') return 1;
+      return 0;
+    };
+    const fmtMod = (n: number): string => (n >= 0 ? `+${n}` : `${n}`);
+    const skillVal = (base: number, zdCtrl: { value: string | null | undefined }): string => fmtMod(base + zbMult(zdCtrl) * zb);
+
+    // ── 1. Ability fixes (oprava) ─────────────────────────────────────────
+    const silaMod = mod(s6.sila.value);
+    const obrMod = mod(s6.obratnost.value);
+    const odlMod = mod(s6.odolnost.value);
+    const intMod = mod(s6.inteligence.value);
+    const mdrMod = mod(s6.moudrost.value);
+    const chaMod = mod(s6.charisma.value);
+
+    s6.silaOprava.setValue(fmtMod(silaMod), { emitEvent: false });
+    s6.obratnostOprava.setValue(fmtMod(obrMod), { emitEvent: false });
+    s6.odolnostOprava.setValue(fmtMod(odlMod), { emitEvent: false });
+    s6.inteligenceOprava.setValue(fmtMod(intMod), { emitEvent: false });
+    s6.moudrostOprava.setValue(fmtMod(mdrMod), { emitEvent: false });
+    s6.charismaOprava.setValue(fmtMod(chaMod), { emitEvent: false });
+
+    // Also keep inventory classes in sync with the new silaOprava
+    this._setInventoryClasses(fmtMod(silaMod));
+
+    // ── 2. Záchranné hody ─────────────────────────────────────────────────
+    st.sila.setValue(skillVal(silaMod, st.silaZdatnost), { emitEvent: false });
+    st.obratnost.setValue(skillVal(obrMod, st.obratnostZdatnost), { emitEvent: false });
+    st.odolnost.setValue(skillVal(odlMod, st.odolnostZdatnost), { emitEvent: false });
+    st.inteligence.setValue(skillVal(intMod, st.inteligenceZdatnost), { emitEvent: false });
+    st.moudrost.setValue(skillVal(mdrMod, st.moudrostZdatnost), { emitEvent: false });
+    st.charisma.setValue(skillVal(chaMod, st.charismaZdatnost), { emitEvent: false });
+
+    // ── 3. Dovednosti ─────────────────────────────────────────────────────
+    ab.atletika.setValue(skillVal(silaMod, ab.atletikaZdatnost), { emitEvent: false });
+    ab.akrobacie.setValue(skillVal(obrMod, ab.akrobacieZdatnost), { emitEvent: false });
+    ab.cachry.setValue(skillVal(obrMod, ab.cachryZdatnost), { emitEvent: false });
+    ab.nenapadnost.setValue(skillVal(obrMod, ab.nenapadnostZdatnost), { emitEvent: false });
+    ab.historie.setValue(skillVal(intMod, ab.historieZdatnost), { emitEvent: false });
+    ab.mystika.setValue(skillVal(intMod, ab.mystikaZdatnost), { emitEvent: false });
+    ab.nabozenstvi.setValue(skillVal(intMod, ab.nabozenstviZdatnost), { emitEvent: false });
+    ab.patrani.setValue(skillVal(intMod, ab.patraniZdatnost), { emitEvent: false });
+    ab.priroda.setValue(skillVal(intMod, ab.prirodaZdatnost), { emitEvent: false });
+    ab.lekarstvi.setValue(skillVal(mdrMod, ab.lekarstviZdatnost), { emitEvent: false });
+    ab.ovladaniZvirat.setValue(skillVal(mdrMod, ab.ovladaniZviratZdatnost), { emitEvent: false });
+    ab.preziti.setValue(skillVal(mdrMod, ab.prezitiZdatnost), { emitEvent: false });
+    ab.vhled.setValue(skillVal(mdrMod, ab.vhledZdatnost), { emitEvent: false });
+    ab.vnimani.setValue(skillVal(mdrMod, ab.vnimaniZdatnost), { emitEvent: false });
+    ab.klamani.setValue(skillVal(chaMod, ab.klamaniZdatnost), { emitEvent: false });
+    ab.presvedcovani.setValue(skillVal(chaMod, ab.presvedcovaniZdatnost), { emitEvent: false });
+    ab.vystupovani.setValue(skillVal(chaMod, ab.vystupovaniZdatnost), { emitEvent: false });
+    ab.zastrasovani.setValue(skillVal(chaMod, ab.zastrasovaniZdatnost), { emitEvent: false });
+
+    // ── 4. Pasivní dovednosti = 10 + dovednost value ─────────────────────
+    const passiveVal = (base: number, zdCtrl: { value: string | null | undefined }): string =>
+      String(10 + base + zbMult(zdCtrl) * zb);
+
+    ps.atletika.setValue(passiveVal(silaMod, ps.atletikaZdatnost), { emitEvent: false });
+    ps.akrobacie.setValue(passiveVal(obrMod, ps.akrobacieZdatnost), { emitEvent: false });
+    ps.nenapadnost.setValue(passiveVal(obrMod, ps.nenapadnostZdatnost), { emitEvent: false });
+    ps.vhled.setValue(passiveVal(mdrMod, ps.vhledZdatnost), { emitEvent: false });
+    ps.vnimani.setValue(passiveVal(mdrMod, ps.vnimaniZdatnost), { emitEvent: false });
   }
 
   _setInventoryClasses(strength: string) {

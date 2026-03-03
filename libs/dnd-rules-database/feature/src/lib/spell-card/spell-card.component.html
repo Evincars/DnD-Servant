@@ -16,7 +16,7 @@
     <!-- Name + school badge -->
     <div class="sc-name">{{ s.name }}</div>
     <div class="sc-meta">
-      <span class="sc-badge sc-badge--school">{{ s.school.name }}</span>
+      <span class="sc-badge sc-badge--school">{{ s.school.name | dndTranslate | async }}</span>
       <span class="sc-badge sc-badge--level">{{ levelLabel(s.level) }}</span>
       @if (s.ritual)        { <span class="sc-badge sc-badge--tag">Rituál</span> }
       @if (s.concentration) { <span class="sc-badge sc-badge--tag">Soustředění</span> }
@@ -28,15 +28,15 @@
     <div class="sc-pills">
       <div class="sc-pill">
         <span class="sc-pill__label">Vyvolání</span>
-        <span class="sc-pill__val">{{ s.casting_time }}</span>
+        <span class="sc-pill__val">{{ s.casting_time | dndTranslate | async }}</span>
       </div>
       <div class="sc-pill">
         <span class="sc-pill__label">Dosah</span>
-        <span class="sc-pill__val">{{ s.range }}</span>
+        <span class="sc-pill__val">{{ s.range | dndTranslate | async }}</span>
       </div>
       <div class="sc-pill">
         <span class="sc-pill__label">Trvání</span>
-        <span class="sc-pill__val">{{ s.duration }}</span>
+        <span class="sc-pill__val">{{ s.duration | dndTranslate | async }}</span>
       </div>
       <div class="sc-pill">
         <span class="sc-pill__label">Složky</span>
@@ -47,42 +47,38 @@
     <!-- Material component -->
     @if (s.material) {
       <div class="sc-prop sc-prop--material">
-        <b>Materiál:</b> {{ s.material }}
+        <b>Materiál:</b> {{ s.material | dndTranslate | async }}
       </div>
     }
 
     <!-- Area of effect -->
     @if (s.area_of_effect) {
       <div class="sc-prop">
-        <b>Oblast účinku:</b> {{ s.area_of_effect.type }} {{ s.area_of_effect.size }} ft
+        <b>Oblast účinku:</b> {{ s.area_of_effect.type | dndTranslate | async }} {{ s.area_of_effect.size }} ft
       </div>
     }
 
     <!-- DC -->
     @if (s.dc) {
       <div class="sc-prop">
-        <b>Záchrana:</b> {{ s.dc.dc_type.name }}
-        @if (s.dc.dc_success !== 'none') { — při úspěchu {{ s.dc.dc_success }} }
+        <b>Záchrana:</b> {{ s.dc.dc_type.name | dndTranslate | async }}
+        @if (s.dc.dc_success !== 'none') { — při úspěchu {{ s.dc.dc_success | dndTranslate | async }} }
       </div>
     }
 
     <!-- Damage -->
     @if (s.damage?.damage_type) {
       <div class="sc-prop">
-        <b>Poškození:</b> {{ s.damage!.damage_type!.name }}
+        <b>Poškození:</b> {{ s.damage!.damage_type!.name | dndTranslate | async }}
       </div>
     }
     @if (damageScaling(s); as ds) {
-      <div class="sc-prop">
-        <b>Stupňování poškození:</b> {{ ds }}
-      </div>
+      <div class="sc-prop"><b>Stupňování poškození:</b> {{ ds }}</div>
     }
 
     <!-- Healing -->
     @if (healScaling(s); as hs) {
-      <div class="sc-prop">
-        <b>Léčení:</b> {{ hs }}
-      </div>
+      <div class="sc-prop"><b>Léčení:</b> {{ hs }}</div>
     }
 
     <div class="sc-rule"></div>
@@ -90,15 +86,15 @@
     <!-- Description -->
     <div class="sc-section">Popis</div>
     @for (para of s.desc; track $index) {
-      <p class="sc-desc">{{ para }}</p>
+      <p class="sc-desc">{{ para | dndTranslate | async }}</p>
     }
 
     <!-- Higher level / upcasting -->
     @if (hasHigherLevel(s)) {
       <div class="sc-rule"></div>
-      <div class="sc-section">Na vyšší úrovni</div>
+      <div class="sc-section">Na vyšším stupni</div>
       @for (para of s.higher_level!; track $index) {
-        <p class="sc-desc">{{ para }}</p>
+        <p class="sc-desc">{{ para | dndTranslate | async }}</p>
       }
     }
 

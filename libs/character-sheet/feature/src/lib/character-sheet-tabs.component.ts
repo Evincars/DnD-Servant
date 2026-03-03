@@ -117,7 +117,7 @@ const TAB_INDEX_KEY = 'active-tab-index';
         font-size: 11px !important;
         letter-spacing: .14em !important;
         text-transform: uppercase !important;
-        color: #3d3428 !important;
+        color: #7a6a58 !important;
         transition: color .18s, text-shadow .18s !important;
         white-space: nowrap;
         padding-bottom: 4px;
@@ -134,7 +134,7 @@ const TAB_INDEX_KEY = 'active-tab-index';
           border-top-color: rgba(200,130,40,.5);
           filter: drop-shadow(0 -2px 6px rgba(200,140,40,.2));
         }
-        .mdc-tab__text-label { color: #a08060 !important; }
+        .mdc-tab__text-label { color: #c0986a !important; }
       }
     }
 

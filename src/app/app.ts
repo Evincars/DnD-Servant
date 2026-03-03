@@ -5,10 +5,17 @@ import { MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { routes } from './app.routes';
-import { AuthService } from '@dn-d-servant/util';
+import { AuthService, LocalStorageService } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTooltip } from '@angular/material/tooltip';
 import html2canvas from 'html2canvas';
+import {
+  CharacterSheetStore,
+  DB_BACKUP_KEY_CHARACTER,
+  DB_BACKUP_KEY_GROUP,
+  DB_BACKUP_KEY_NOTES,
+} from '@dn-d-servant/character-sheet-data-access';
+import { DiceRollerComponent } from '@dn-d-servant/ui';
 
 @Component({
   selector: 'app-root',
@@ -50,6 +57,11 @@ import html2canvas from 'html2canvas';
             <span class="sidenav__link-label">Databáze D&amp;D</span>
             <span class="sidenav__link-arrow">›</span>
           </a>
+          <a [routerLink]="routes.helpAndTips" class="sidenav__link" (click)="sidenav.toggle()">
+            <span class="sidenav__link-icon"><mat-icon>help_outline</mat-icon></span>
+            <span class="sidenav__link-label">Nápověda &amp; Tipy</span>
+            <span class="sidenav__link-arrow">›</span>
+          </a>
         </nav>
 
         <div class="sidenav__divider">
@@ -85,6 +97,14 @@ import html2canvas from 'html2canvas';
                 <mat-icon class="toolbar-icon">photo_camera</mat-icon>
                 }
                 <span class="backup-btn__label">Záloha</span>
+              </button>
+              <button
+                (click)="onJsonBackupClick()"
+                class="github-link backup-btn u-ml-2"
+                matTooltip="Stáhnout zálohu databáze jako JSON soubor"
+              >
+                <mat-icon class="toolbar-icon">download</mat-icon>
+                <span class="backup-btn__label">JSON</span>
               </button>
             </div>
             <div class="toolbar__right author-info u-flex u-align-center">
@@ -128,6 +148,8 @@ import html2canvas from 'html2canvas';
         }
       </mat-sidenav-content>
     </mat-sidenav-container>
+    <!-- Always-visible dice roller floating on left side -->
+    <dice-roller />
   `,
   styleUrl: './app.component.scss',
   imports: [
@@ -140,11 +162,14 @@ import html2canvas from 'html2canvas';
     MatIconButton,
     MatFabButton,
     MatTooltip,
+    DiceRollerComponent,
   ],
 })
 export class App implements OnInit, OnDestroy {
   authService = inject(AuthService);
   destroyRef = inject(DestroyRef);
+  private readonly localStorage = inject(LocalStorageService);
+  private readonly characterSheetStore = inject(CharacterSheetStore);
 
   routes = routes;
   showBackToTop = signal(false);
@@ -159,6 +184,8 @@ export class App implements OnInit, OnDestroy {
           email: user.email!,
           username: user.displayName!,
         });
+        // Restore any unsaved drafts from localStorage back to DB after reload/refresh
+        this.characterSheetStore.restoreDraftsToDb();
       } else {
         this.authService.currentUser.set(null);
       }
@@ -176,6 +203,29 @@ export class App implements OnInit, OnDestroy {
 
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  onJsonBackupClick(): void {
+    const characterSheet = this.localStorage.getDataSync(DB_BACKUP_KEY_CHARACTER);
+    const groupSheet = this.localStorage.getDataSync(DB_BACKUP_KEY_GROUP);
+    const notesPage = this.localStorage.getDataSync(DB_BACKUP_KEY_NOTES);
+
+    const backup = {
+      exportedAt: new Date().toISOString(),
+      characterSheet: characterSheet ?? null,
+      groupSheet: groupSheet ?? null,
+      notesPage: notesPage ?? null,
+    };
+
+    const json = JSON.stringify(backup, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const timestamp = new Date().toISOString().slice(0, 10);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `dnd-servant-backup-${timestamp}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
   }
 
   async onScreenshotBackupClick() {

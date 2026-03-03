@@ -1,0 +1,114 @@
+<div class="help-page">
+
+  <!-- ── Header ────────────────────────────────────────────────────────────── -->
+  <div class="help-header">
+    <div class="help-header__icon-wrap">
+      <mat-icon class="help-header__icon">help_outline</mat-icon>
+    </div>
+    <div>
+      <h1 class="help-header__title">Nápověda &amp; Tipy</h1>
+      <p class="help-header__subtitle">Vše co potřebuješ vědět pro práci s aplikací Servant</p>
+    </div>
+  </div>
+
+  <!-- ── Layout: sidebar + content ────────────────────────────────────────── -->
+  <div class="help-layout">
+
+    <!-- Sidebar nav -->
+    <nav class="help-nav">
+      @for (section of sections; track section.id) {
+        <button
+          class="help-nav__item"
+          [class.active]="activeSection() === section.id"
+          [style.--accent]="section.color"
+          (click)="selectSection(section.id)"
+        >
+          <mat-icon class="help-nav__icon">{{ section.icon }}</mat-icon>
+          <span class="help-nav__label">{{ section.title }}</span>
+          <mat-icon class="help-nav__arrow">chevron_right</mat-icon>
+        </button>
+      }
+    </nav>
+
+    <!-- Tips content -->
+    <div class="help-content">
+
+      <!-- Section title -->
+      <div class="help-content__header" [style.--accent]="currentSection.color">
+        <mat-icon class="help-content__header-icon">{{ currentSection.icon }}</mat-icon>
+        <h2 class="help-content__title">{{ currentSection.title }}</h2>
+        <span class="help-content__count">{{ currentSection.tips.length }} tipů</span>
+      </div>
+
+      <!-- Tips list -->
+      <div class="tips-list">
+        @for (tip of currentSection.tips; track tip.title) {
+          <div
+            class="tip-card"
+            [class.expanded]="expandedTip() === (currentSection.id + '_' + tip.title)"
+            [style.--accent]="currentSection.color"
+            (click)="toggleTip(currentSection.id + '_' + tip.title)"
+          >
+            <!-- Header row -->
+            <div class="tip-card__header">
+              <div class="tip-card__left">
+                @if (tip.badge) {
+                  <span class="tip-card__badge" [style.background]="currentSection.color + '22'" [style.border-color]="currentSection.color + '66'" [style.color]="currentSection.color">
+                    {{ tip.badge }}
+                  </span>
+                }
+                <h3 class="tip-card__title">{{ tip.title }}</h3>
+              </div>
+              <mat-icon class="tip-card__chevron">
+                {{ expandedTip() === (currentSection.id + '_' + tip.title) ? 'expand_less' : 'expand_more' }}
+              </mat-icon>
+            </div>
+
+            <!-- Expanded body -->
+            @if (expandedTip() === (currentSection.id + '_' + tip.title)) {
+              <div class="tip-card__body">
+                <p class="tip-card__desc">{{ tip.description }}</p>
+                @if (tip.gif) {
+                  <div class="tip-card__gif-wrap">
+                    <img [src]="tip.gif" alt="{{ tip.title }}" class="tip-card__gif" loading="lazy" />
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Quick reference footer -->
+      @if (activeSection() === 'character-sheet') {
+        <div class="help-quick-ref">
+          <div class="help-quick-ref__title">
+            <mat-icon>keyboard</mat-icon>
+            Klávesové zkratky
+          </div>
+          <div class="help-quick-ref__grid">
+            <div class="help-quick-ref__item"><kbd>Enter</kbd><span>Uložit kartu</span></div>
+            <div class="help-quick-ref__item"><kbd>Ctrl+B</kbd><span>Tučný text</span></div>
+            <div class="help-quick-ref__item"><kbd>Ctrl+I</kbd><span>Kurzíva</span></div>
+            <div class="help-quick-ref__item"><kbd>Ctrl+Z</kbd><span>Zpět</span></div>
+          </div>
+        </div>
+      }
+
+      @if (activeSection() === 'start') {
+        <div class="help-quick-ref help-quick-ref--gold">
+          <div class="help-quick-ref__title">
+            <mat-icon>star</mat-icon>
+            Rychlý start — 3 kroky
+          </div>
+          <ol class="help-quick-ref__steps">
+            <li>Zaregistruj se nebo přihlaš kliknutím na <strong>"Přihlásit"</strong> v horní liště</li>
+            <li>Vyplň <strong>Kartu postavy</strong> — začni jménem, rasou a základními vlastnostmi</li>
+            <li>Klikni na <strong>"Uložit [enter]"</strong> nebo stiskni Enter — hotovo!</li>
+          </ol>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+

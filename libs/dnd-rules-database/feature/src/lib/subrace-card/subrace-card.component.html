@@ -4,7 +4,7 @@
   @if (loading()) {
     <div class="src-loading">
       <mat-icon class="src-loading__icon">hourglass_empty</mat-icon>
-      <span>Načítám podrasu…</span>
+      <span>Načítám rod…</span>
     </div>
   }
 
@@ -15,27 +15,23 @@
   @if (subrace(); as s) {
 
     <div class="src-name">{{ s.name }}</div>
-    <div class="src-meta">Podrasa · {{ s.race.name }}</div>
+    <div class="src-meta">Rod · {{ s.race.name }}</div>
 
     <div class="src-rule"></div>
 
-    <!-- Description -->
     @if (s.desc) {
-      <p class="src-desc">{{ s.desc }}</p>
+      <p class="src-desc">{{ s.desc | dndTranslate | async }}</p>
       <div class="src-rule"></div>
     }
 
-    <!-- Ability bonuses -->
     @if (abilityBonusText(s); as abt) {
-      <div class="src-prop"><b>Bonus vlastností:</b> {{ abt }}</div>
+      <div class="src-prop"><b>Bonus vlastností:</b> {{ abt | dndTranslate | async }}</div>
     }
 
-    <!-- Proficiencies -->
     @if (proficienciesText(s); as pt) {
-      <div class="src-prop"><b>Zdatnosti:</b> {{ pt }}</div>
+      <div class="src-prop"><b>Zdatnosti:</b> {{ pt | dndTranslate | async }}</div>
     }
 
-    <!-- Languages -->
     @if (languagesText(s); as lt) {
       <div class="src-prop"><b>Jazyky:</b> {{ lt }}</div>
     }
@@ -43,7 +39,6 @@
       <div class="src-prop"><b>Volba jazyka:</b> {{ lot }}</div>
     }
 
-    <!-- Racial traits -->
     @if (s.racial_traits?.length) {
       <div class="src-rule"></div>
       <div class="src-section">Rasové rysy</div>
@@ -54,9 +49,8 @@
       </div>
     }
 
-    <!-- Optional trait choices -->
     @if (traitOptionsText(s); as tot) {
-      <div class="src-prop src-prop--choice"><b>Volitelný rys:</b> {{ tot }}</div>
+      <div class="src-prop src-prop--choice"><b>Volitelný rys:</b> {{ tot | dndTranslate | async }}</div>
     }
 
   }

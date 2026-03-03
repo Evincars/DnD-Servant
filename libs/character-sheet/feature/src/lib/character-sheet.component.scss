@@ -53,6 +53,7 @@
   padding-top: 11px;
   padding-bottom: -2px;
   border: 0;
+  user-select: none;
 }
 
 .checkbox {
@@ -74,24 +75,68 @@
 }
 
 .ability-zdatnost-checkbox {
-  width: 15px;
-  height: 15px;
+  width: 25px;
+  height: 25px;
   background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  border: none;
   box-sizing: border-box;
   cursor: pointer;
-  border-radius: 2px;
   padding: 0 !important;
+  position: absolute;
+  user-select: none;
 
-  &.ability-zdatnost--checked {
-    background: #af5555;
-    border-color: #af5555;
+  // Circle for expertise — drawn centered on the star
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: calc(50% - 4px);
+    left: calc(50% - 5px);
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    transition: border-color 0.15s;
   }
 
-  &.ability-zdatnost--expertise {
+  // Star shape via pseudo-element
+  &::before {
+    content: '';
+    display: block;
+    position: relative;
+    top: -4px;
+    left: -5px;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(
+      50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2%  35%,
+      39% 35%
+    );
+    background: rgba(0, 0, 0, 0.18);
+    transition: background 0.15s;
+  }
+
+  &.ability-zdatnost--checked::before {
     background: #af5555;
+  }
+
+  &.ability-zdatnost--expertise::before {
+    background: #af5555;
+  }
+
+  &.ability-zdatnost--expertise::after {
     border-color: #af5555;
-    box-shadow: 0 0 0 2px #af5555, 0 0 0 4px white, 0 0 0 6px #af5555;
   }
 }
 
@@ -119,6 +164,7 @@ input[type='checkbox'][disabled] {
   font-family: 'Mikadan', sans-serif;
   color: rgb(205, 66, 66);
   font-size: 22px;
+  user-select: none;
 }
 
 .dead-throw-success {

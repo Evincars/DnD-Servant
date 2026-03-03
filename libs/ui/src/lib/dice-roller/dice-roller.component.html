@@ -1,0 +1,127 @@
+<!-- ── Collapsed trigger tab on left ── -->
+<div class="dr-tab" (click)="togglePanel()" [class.dr-tab--open]="isOpen()">
+  <span class="dr-tab__icon">🎲</span>
+  <span class="dr-tab__label">Kostky</span>
+</div>
+
+<!-- ── Main tray ── -->
+<div class="dr-tray" [class.dr-tray--open]="isOpen()">
+
+  <!-- Top bar -->
+  <div class="dr-tray__topbar">
+    <span class="dr-tray__title">Hod kostkami</span>
+    <div class="dr-tray__topbar-right">
+      @if (totalQueued() > 0) {
+        <span class="dr-tray__queued-label">{{ totalQueued() }} kostek</span>
+      }
+      <button class="dr-btn dr-btn--ghost dr-btn--sm" (click)="clearQueue()">Vymazat</button>
+      <button class="dr-tray__close" (click)="togglePanel()">✕</button>
+    </div>
+  </div>
+
+  <!-- ── Animated roll result area ── -->
+  @if (animDice().length > 0) {
+    <div class="dr-roll-area">
+      @for (d of animDice(); track d.id) {
+        <div class="dr-anim-die"
+             [class.dr-anim-die--rolling]="d.rolling"
+             [class.dr-anim-die--nat20]="!d.rolling && d.dice === 'k20' && d.final === 20"
+             [class.dr-anim-die--crit]="!d.rolling && d.dice === 'k20' && d.final === 1"
+             [class.dr-anim-die--max]="!d.rolling && d.final === +d.dice.slice(1)">
+          <span class="dr-anim-die__type">{{ d.dice }}</span>
+          <span class="dr-anim-die__value">{{ d.display }}</span>
+          @if (!d.rolling && d.dice === 'k20' && d.final === 20) {
+            <span class="dr-anim-die__badge dr-anim-die__badge--nat20">NAT 20!</span>
+          }
+          @if (!d.rolling && d.dice === 'k20' && d.final === 1) {
+            <span class="dr-anim-die__badge dr-anim-die__badge--crit">KRITICKÝ NEÚSPĚCH</span>
+          }
+        </div>
+      }
+      @if (totalSum() !== null) {
+        <div class="dr-total">
+          <span class="dr-total__label">Celkem</span>
+          <span class="dr-total__value">{{ totalSum() }}</span>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- ── Dice picker ── -->
+  <div class="dr-picker">
+    @for (dice of diceTypes; track dice) {
+      <div class="dr-die-slot">
+        <!-- − button -->
+        @if (countInQueue(dice) > 0) {
+          <button class="dr-die-ctrl dr-die-ctrl--minus" (click)="removeDie(dice)">−</button>
+        }
+
+        <!-- Die button -->
+        <button
+          class="dr-die dr-die--{{ dice }}"
+          [class.dr-die--queued]="countInQueue(dice) > 0"
+          (click)="addDie(dice)"
+          (dblclick)="quickRoll(dice); $event.stopPropagation()"
+          [title]="'Klikni pro přidání · 2× klik = rychlý hod ' + dice"
+        >
+          <svg class="dr-die__svg" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            @switch (dice) {
+              @case ('k4') {
+                <polygon points="30,4 56,52 4,52" />
+              }
+              @case ('k6') {
+                <rect x="6" y="6" width="48" height="48" rx="4" />
+              }
+              @case ('k8') {
+                <polygon points="30,3 57,30 30,57 3,30" />
+              }
+              @case ('k10') {
+                <polygon points="30,3 55,22 46,52 14,52 5,22" />
+              }
+              @case ('k12') {
+                <polygon points="30,3 54,14 58,41 38,57 22,57 2,41 6,14" />
+              }
+              @case ('k20') {
+                <polygon points="30,2 58,18 58,42 30,58 2,42 2,18" />
+              }
+            }
+          </svg>
+          <span class="dr-die__label">{{ dice }}</span>
+          @if (countInQueue(dice) > 0) {
+            <span class="dr-die__count">×{{ countInQueue(dice) }}</span>
+          }
+        </button>
+
+        <!-- + button -->
+        @if (countInQueue(dice) > 0) {
+          <button class="dr-die-ctrl dr-die-ctrl--plus" (click)="addDie(dice)">+</button>
+        }
+      </div>
+    }
+
+    <!-- Roll button -->
+    <button
+      class="dr-roll-btn"
+      [class.dr-roll-btn--active]="totalQueued() > 0"
+      [disabled]="totalQueued() === 0 || isRolling()"
+      (click)="rollAll()"
+    >
+      @if (isRolling()) {
+        <span class="dr-roll-btn__spinner"></span>
+      } @else {
+        🎲
+      }
+      <span>{{ isRolling() ? 'Hází se...' : 'Hodit' }}</span>
+    </button>
+  </div>
+
+  <!-- ── History ── -->
+  @if (historyLog().length > 0) {
+    <div class="dr-history">
+      @for (entry of historyLog(); track $index) {
+        <span class="dr-history__entry" [class.dr-history__entry--latest]="$index === 0">{{ entry }}</span>
+      }
+    </div>
+  }
+
+</div>

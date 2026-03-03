@@ -1,5 +1,6 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { Spell } from '@dn-d-servant/util';
+import { DndTranslatePipe, Spell } from '@dn-d-servant/util';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -7,7 +8,7 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './spell-card.component.html',
   styleUrl: './spell-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIcon],
+  imports: [MatIcon, DndTranslatePipe, AsyncPipe],
 })
 export class SpellCardComponent {
   spell = input<Spell | null>(null);
@@ -17,7 +18,7 @@ export class SpellCardComponent {
 
   /** "0" → "Cantrip", otherwise "Level N" */
   levelLabel(level: number): string {
-    return level === 0 ? 'Cantrip' : `${level}. úroveň`;
+    return level === 0 ? 'Cantrip' : `${level}. stupeň`;
   }
 
   /** ["V","S","M"] → "V, S, M" */

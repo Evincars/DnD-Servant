@@ -6,6 +6,8 @@ import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotesFormModelMappers } from './api-mappers/notes-form-model-mappers';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'notes-sheet',
@@ -75,6 +77,17 @@ export class NotesSheetComponent {
         }
       });
     });
+
+    // ── Auto-draft every 30 s → localStorage only (no DB) ──────────────────
+    interval(30_000)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        const username = this.authService.currentUser()?.username;
+        if (!username) return;
+        const model = FormUtil.convertFormToModel(this.form.getRawValue(), NotesFormModelMappers.notesFormToApiMapper);
+        model.username = `${username}${this.documentName}`;
+        this.characterSheetStore.saveDraftToLocalStorage({ type: 'notes', model });
+      });
   }
 
   onSaveClick() {

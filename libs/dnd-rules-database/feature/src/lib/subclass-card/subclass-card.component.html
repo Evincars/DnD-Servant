@@ -15,14 +15,14 @@
   @if (subclass(); as s) {
 
     <div class="scc-name">{{ s.name }}</div>
-    <div class="scc-meta">{{ s.subclass_flavor }} · {{ s.class.name }}</div>
+    <div class="scc-meta">{{ s.subclass_flavor | dndTranslate | async }} · {{ s.class.name }}</div>
 
     <div class="scc-rule"></div>
 
     <!-- Description -->
     <div class="scc-section">Popis</div>
     @for (para of s.desc; track $index) {
-      <p class="scc-desc">{{ para }}</p>
+      <p class="scc-desc">{{ para | dndTranslate | async }}</p>
     }
 
     <!-- Spellcasting (e.g. Eldritch Knight, Arcane Trickster) -->
@@ -30,13 +30,13 @@
       <div class="scc-rule"></div>
       <div class="scc-section">Sesílání kouzel</div>
       <div class="scc-prop">
-        <b>Sesílací vlastnost:</b> {{ s.spellcasting.spellcasting_ability.name }}
+        <b>Sesílací vlastnost:</b> {{ s.spellcasting.spellcasting_ability.name | dndTranslate | async }}
         · od {{ s.spellcasting.level }}. úrovně
       </div>
       @for (info of s.spellcasting.info; track info.name) {
         <div class="scc-prop"><b>{{ info.name }}:</b></div>
         @for (para of info.desc; track $index) {
-          <p class="scc-desc">{{ para }}</p>
+          <p class="scc-desc">{{ para | dndTranslate | async }}</p>
         }
       }
     }

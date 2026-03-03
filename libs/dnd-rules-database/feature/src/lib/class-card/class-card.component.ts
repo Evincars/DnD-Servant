@@ -1,5 +1,6 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { DndClass } from '@dn-d-servant/util';
+import { DndTranslatePipe, DndClass } from '@dn-d-servant/util';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -7,7 +8,7 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './class-card.component.html',
   styleUrl: './class-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIcon],
+  imports: [MatIcon, DndTranslatePipe, AsyncPipe],
 })
 export class ClassCardComponent {
   dndClass = input<DndClass | null>(null);

@@ -15,7 +15,7 @@
   @if (race(); as r) {
 
     <div class="rc-name">{{ r.name }}</div>
-    <div class="rc-meta">{{ r.size }} · {{ r.speed }} ft pohyb</div>
+    <div class="rc-meta">{{ r.size | dndTranslate | async }} · {{ r.speed }} ft pohyb</div>
 
     <div class="rc-rule"></div>
 
@@ -27,31 +27,31 @@
       </div>
       <div class="rc-pill">
         <span class="rc-pill__label">Velikost</span>
-        <span class="rc-pill__val">{{ r.size }}</span>
+        <span class="rc-pill__val">{{ r.size | dndTranslate | async }}</span>
       </div>
       @if (r.ability_bonuses.length) {
         <div class="rc-pill rc-pill--wide">
           <span class="rc-pill__label">Bonus vlastností</span>
-          <span class="rc-pill__val">{{ abilityBonusText(r) }}</span>
+          <span class="rc-pill__val">{{ abilityBonusText(r) | dndTranslate | async }}</span>
         </div>
       }
     </div>
 
     <!-- Choosable ability bonuses -->
     @if (abilityBonusOptionsText(r); as abt) {
-      <div class="rc-prop"><b>Volitelný bonus:</b> {{ abt }}</div>
+      <div class="rc-prop"><b>Volitelný bonus:</b> {{ abt | dndTranslate | async }}</div>
     }
 
     <div class="rc-rule"></div>
 
     <!-- Flavour -->
     <div class="rc-section">Věk &amp; přesvědčení</div>
-    <p class="rc-desc">{{ r.age }}</p>
-    <p class="rc-desc">{{ r.alignment }}</p>
+    <p class="rc-desc">{{ r.age | dndTranslate | async }}</p>
+    <p class="rc-desc">{{ r.alignment | dndTranslate | async }}</p>
 
     @if (r.size_description) {
       <div class="rc-section">Velikost</div>
-      <p class="rc-desc">{{ r.size_description }}</p>
+      <p class="rc-desc">{{ r.size_description | dndTranslate | async }}</p>
     }
 
     <div class="rc-rule"></div>
@@ -63,17 +63,17 @@
       <div class="rc-prop"><b>Volba jazyka:</b> {{ lot }}</div>
     }
     @if (r.language_desc) {
-      <p class="rc-desc">{{ r.language_desc }}</p>
+      <p class="rc-desc">{{ r.language_desc | dndTranslate | async }}</p>
     }
 
     <!-- Proficiencies -->
     @if (proficiencyText(r); as pt) {
       <div class="rc-rule"></div>
       <div class="rc-section">Zdatnosti</div>
-      <div class="rc-prop"><b>Automatické:</b> {{ pt }}</div>
+      <div class="rc-prop"><b>Automatické:</b> {{ pt | dndTranslate | async }}</div>
     }
     @if (proficiencyOptionsText(r); as pot) {
-      <div class="rc-prop"><b>Volitelné zdatnosti:</b> {{ pot }}</div>
+      <div class="rc-prop"><b>Volitelné zdatnosti:</b> {{ pot | dndTranslate | async }}</div>
     }
 
     <!-- Traits -->
@@ -90,7 +90,7 @@
     <!-- Subraces -->
     @if (r.subraces?.length) {
       <div class="rc-rule"></div>
-      <div class="rc-section">Podrasy</div>
+      <div class="rc-section">Rody</div>
       <div class="rc-tag-row">
         @for (s of r.subraces; track s.index) {
           <span class="rc-tag">{{ s.name }}</span>

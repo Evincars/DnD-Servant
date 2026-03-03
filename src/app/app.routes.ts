@@ -4,6 +4,7 @@ export const routes = {
   characterSheet: 'character-sheet',
   dmScreen: 'dm-screen',
   dndDatabase: 'dnd-database',
+  helpAndTips: 'help-and-tips',
   login: 'login',
   register: 'register',
 };
@@ -33,5 +34,9 @@ export const appRoutes: Array<Route> = [
   {
     path: routes.dndDatabase,
     loadComponent: () => import('@dn-d-servant/dnd-rules-database-feature').then(c => c.DndDatabaseSearchComponent),
+  },
+  {
+    path: routes.helpAndTips,
+    loadComponent: () => import('@dn-d-servant/help-and-tips-feature').then(c => c.HelpAndTipsComponent),
   },
 ];
