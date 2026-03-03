@@ -147,7 +147,11 @@ export const CharacterSheetStore = signalStore(
                 (_: any) => {
                   patchState(store, { characterSheetSaved: true, characterSheetError: '', loading: false });
                   _localStorage.setDataSync(DB_BACKUP_KEY_CHARACTER, req);
-                  _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
+                  _snackBar.open('⚔️ Karta postavy uložena do trezoru!', '✕', {
+                    verticalPosition: 'top',
+                    duration: 2300,
+                    panelClass: ['snackbar--save'],
+                  });
                 },
                 (error: HttpErrorResponse) => {
                   patchState(store, {
@@ -174,7 +178,11 @@ export const CharacterSheetStore = signalStore(
                 (_: any) => {
                   patchState(store, { groupSheetSaved: true, characterSheetError: '', loading: false });
                   _localStorage.setDataSync(DB_BACKUP_KEY_GROUP, req);
-                  _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
+                  _snackBar.open('🛡️ Karta družiny uložena do trezoru!', '✕', {
+                    verticalPosition: 'top',
+                    duration: 2300,
+                    panelClass: ['snackbar--save'],
+                  });
                 },
                 (error: HttpErrorResponse) => {
                   patchState(store, {
@@ -201,7 +209,11 @@ export const CharacterSheetStore = signalStore(
                 (_: any) => {
                   patchState(store, { characterSheetError: '', loading: false });
                   _localStorage.setDataSync(DB_BACKUP_KEY_NOTES, req);
-                  _snackBar.open('Uložení bylo úspěšné.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
+                  _snackBar.open('📜 Poznámky zapsány do svitku!', '✕', {
+                    verticalPosition: 'top',
+                    duration: 2300,
+                    panelClass: ['snackbar--save'],
+                  });
                 },
                 (error: HttpErrorResponse) => {
                   patchState(store, {
@@ -245,7 +257,11 @@ export const CharacterSheetStore = signalStore(
               tapResponse(
                 () => {
                   patchState(store, { itemVault: req, loading: false });
-                  _snackBar.open('Předměty uloženy.', 'Zavřít', { verticalPosition: 'top', duration: 2300 });
+                  _snackBar.open('💰 Předměty uloženy do truhly!', '✕', {
+                    verticalPosition: 'top',
+                    duration: 2300,
+                    panelClass: ['snackbar--save'],
+                  });
                 },
                 (error: HttpErrorResponse) => {
                   _snackBar.open('Ukládání předmětů se nezdařilo: ' + error.message, 'Zavřít', {

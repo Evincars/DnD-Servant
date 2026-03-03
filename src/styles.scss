@@ -344,6 +344,26 @@ mat-dialog-content.dialog-content,
   }
 }
 
+// save variant — gold tint with checkmark glow
+.snackbar--save .mdc-snackbar__surface {
+  border-color: rgba(200,160,60,.7) !important;
+  box-shadow:
+    0 0 0 1px rgba(200,160,60,.15),
+    0 6px 30px rgba(0,0,0,.85),
+    0 0 18px rgba(200,160,60,.18),
+    inset 0 1px 0 rgba(255,220,100,.08) !important;
+
+  &::before {
+    background: linear-gradient(90deg, transparent, rgba(240,208,100,.7), transparent) !important;
+  }
+}
+
+.snackbar--save .mat-mdc-snack-bar-label {
+  color: #f0d070 !important;
+  font-weight: 600 !important;
+  letter-spacing: .04em !important;
+}
+
 // ════════════════════════════════════════════════════════════════
 // OVERFLOW — kill horizontal browser scroll
 // ════════════════════════════════════════════════════════════════
