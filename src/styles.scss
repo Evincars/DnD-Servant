@@ -318,6 +318,32 @@ mat-dialog-content.dialog-content,
   }
 }
 
+// success variant — green tint (login)
+.snackbar--success .mdc-snackbar__surface {
+  border-color: rgba(60,180,80,.55) !important;
+  box-shadow:
+    0 0 0 1px rgba(60,180,80,.1),
+    0 6px 30px rgba(0,0,0,.85),
+    inset 0 1px 0 rgba(100,255,130,.05) !important;
+
+  &::before {
+    background: linear-gradient(90deg, transparent, rgba(60,180,80,.5), transparent) !important;
+  }
+}
+
+// info variant — blue/purple tint (logout)
+.snackbar--info .mdc-snackbar__surface {
+  border-color: rgba(100,140,220,.55) !important;
+  box-shadow:
+    0 0 0 1px rgba(100,140,220,.1),
+    0 6px 30px rgba(0,0,0,.85),
+    inset 0 1px 0 rgba(140,180,255,.05) !important;
+
+  &::before {
+    background: linear-gradient(90deg, transparent, rgba(100,140,220,.5), transparent) !important;
+  }
+}
+
 // ════════════════════════════════════════════════════════════════
 // OVERFLOW — kill horizontal browser scroll
 // ════════════════════════════════════════════════════════════════

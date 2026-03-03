@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIcon } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'login',
@@ -268,6 +269,7 @@ export class LoginComponent {
   router = inject(Router);
   authService = inject(AuthService);
   destroyRef = inject(DestroyRef);
+  private readonly snackBar = inject(MatSnackBar);
 
   form = this.fb.nonNullable.group({
     email: ['', Validators.required],
@@ -282,6 +284,11 @@ export class LoginComponent {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
+          this.snackBar.open('⚔️ Přihlášení úspěšné! Vítej zpět, hrdino.', '✕', {
+            verticalPosition: 'top',
+            duration: 3500,
+            panelClass: ['snackbar--success'],
+          });
           this.router.navigateByUrl('/');
         },
         error: err => {
