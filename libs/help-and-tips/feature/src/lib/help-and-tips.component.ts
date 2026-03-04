@@ -62,20 +62,55 @@ const SECTIONS: TipSection[] = [
           'Pole "Zázemí" a "Přesvědčení" mají ikonu ℹ️ pro nápovědu s dostupnými hodnotami.',
       },
       {
-        title: '6 hlavních vlastností',
-        badge: 'Karta',
+        title: 'Automatické vyplňování vlastností',
+        badge: 'Autofill ✨',
         description:
-          'Na levé straně jsou 6 hlavních vlastností (SIL, OBR, ODL, INT, MDR, CHA). ' +
-          'Do horního pole vyplň opravu (bonus), do dolního základní hodnotu vlastnosti. ' +
-          'Opravy vlastností ovlivňují ostatní výpočty jako dovednosti a záchranné hody.',
+          'Stačí vyplnit 6 hlavních vlastností (SIL, OBR, ODL, INT, MDR, CHA) — opravy se vypočítají samy podle pravidel JaD. ' +
+          'Například hodnota 14–15 = oprava +2. ' +
+          'Opravy se okamžitě propíší do Dovedností, Záchranných hodů a Pasivních dovedností. ' +
+          'Iniciativa se automaticky rovná opravě Obratnosti.',
+        gif: 'autofill-of-abilities.gif',
       },
       {
-        title: 'Dovednosti a zdatnosti',
+        title: 'Úroveň postavy a zdatnostní bonus',
+        badge: 'Autofill ✨',
+        description:
+          'Po vyplnění pole "Úroveň" se automaticky aktualizuje Zdatnostní bonus (ZB) podle tabulky JaD. ' +
+          'Úroveň 1–4 = +2, 5–8 = +3, 9–12 = +4, 13–16 = +5, 17–20 = +6. ' +
+          'Všechny dovednosti, záchranné hody a pasivní dovednosti kde máš zaškrtnutou zdatnost se přepočítají automaticky.',
+      },
+      {
+        title: 'Zdatnosti a expertízy (hvězdičky)',
+        badge: 'Dovednosti',
+        description:
+          '1. kliknutí na hvězdičku = zdatnost → přičte se ZB k hodnotě. ' +
+          '2. kliknutí = expertíza → přičtou se 2× ZB. ' +
+          '3. kliknutí = reset na výchozí hodnotu. ' +
+          'Stejný systém platí pro Záchranné hody a Pasivní dovednosti.',
+      },
+      {
+        title: 'Hod kostkou přímo z vlastnosti nebo dovednosti',
+        badge: 'Kostky 🎲',
+        description:
+          'Najeď myší na pole Dovednosti (Atletika, Akrobacie…), Záchranného hodu nebo hlavní vlastnosti (SIL, OBR…). ' +
+          'Zobrazí se ikona 🎲 — klikni na ni pro automatický hod k20 + hodnota daného pole. ' +
+          'Výsledek se zobrazí v panelu kostek vlevo na obrazovce včetně historie hodů.',
+      },
+      {
+        title: 'Záchranné hody a obranné číslo',
         badge: 'Karta',
         description:
-          'U každé dovednosti je checkbox pro zdatnost. Jedno kliknutí = zdatnost (modré podbarvení), ' +
-          'druhé kliknutí = odbornost/expertíza (červený kroužek = dvojný bonus zdatnosti), ' +
-          'třetí kliknutí = reset. Čísla vpravo jsou výsledné bonusy.',
+          'Zaškrtni hvězdičku u záchranného hodu pro přidání zdatnostního bonusu. ' +
+          'OČ (obranné číslo) se skládá ze tří polí: Zbroj, Bez zbroje (10 + OBR) a Jiné (štít, kouzla). ' +
+          'Klikni na ℹ️ u OČ pro tabulku zbrojí a jejich hodnot.',
+      },
+      {
+        title: 'Záchranné hody proti smrti (srdíčka a lebky)',
+        badge: 'Karta',
+        description:
+          'Při 0 HP klikej na srdíčka (úspěch) nebo lebky (neúspěch). ' +
+          'Srdíčko = zelené při úspěchu, lebka = červená při neúspěchu. ' +
+          '3 úspěchy = stabilizace, 3 neúspěchy = smrt.',
       },
       {
         title: 'Nosnost a rychlost pohybu',
@@ -84,14 +119,6 @@ const SECTIONS: TipSection[] = [
           'Do kolonky "SIL oprava" zadej opravu Síly — aplikace automaticky vypočítá prahy nosnosti. ' +
           'Políčka inventáře se zbarví: zelená = lehká, žlutá = střední, červená = těžká nosnost. ' +
           'Příslušná rychlost pohybu se automaticky zvýrazní podle počtu zaplněných řádků inventáře.',
-      },
-      {
-        title: 'Záchranné hody a obranné číslo',
-        badge: 'Karta',
-        description:
-          'Zaškrtni checkbox u záchranného hodu pro přidání zdatnostního bonusu. ' +
-          'OČ (obranné číslo) se skládá ze tří polí: Zbroj, Bez zbroje (10 + OBR) a Jiné (štít, kouzla). ' +
-          'Klikni na ℹ️ u OČ pro tabulku zbrojí a jejich hodnot.',
       },
       {
         title: 'Sloty kouzel',
@@ -142,8 +169,57 @@ const SECTIONS: TipSection[] = [
     ],
   },
   {
+    id: 'dice-roller',
+    title: 'Hod kostkami',
+    icon: 'casino',
+    color: '#a840ff',
+    tips: [
+      {
+        title: 'Otevření panelu kostek',
+        badge: 'Kostky 🎲',
+        description:
+          'Panel kostek je přichycen na levé straně obrazovky — klikni na záložku "🎲 Kostky" pro otevření. ' +
+          'Panel je vždy viditelný bez ohledu na to, na které stránce se nacházíš.',
+      },
+      {
+        title: 'Přidání kostek a hod',
+        badge: 'Kostky 🎲',
+        description:
+          'Klikni na kostku (k4, k6, k8, k10, k12, k20) pro přidání do fronty. ' +
+          'Klikni vícekrát pro přidání více kostek stejného typu. ' +
+          'Tlačítka + a − mění počet kostek ve frontě. ' +
+          'Dvakrát klikni na kostku pro okamžitý hod bez fronty.',
+      },
+      {
+        title: 'Hod přímo z karty postavy',
+        badge: 'Kostky 🎲',
+        description:
+          'Najeď myší na pole Dovednosti, Záchranného hodu nebo hlavní vlastnosti (SIL, OBR…). ' +
+          'Zobrazí se ikona 🎲 — klikni pro automatický hod k20 s přičtením bonusu daného pole. ' +
+          'Výsledek se ihned zobrazí v panelu (např. "Atletika k20 8+3 = 11").',
+      },
+      {
+        title: 'Historie hodů',
+        badge: 'Kostky 🎲',
+        description:
+          'Poslední hody jsou zobrazeny v dolní části panelu ve dvou řadách. ' +
+          'Nejaktuálnější hod je zvýrazněn zlatě. ' +
+          'NAT 20 = zlaté zvýraznění s textem "NAT 20!", kritický neúspěch (1) = červené zvýraznění. ' +
+          'Najeď myší na zkrácený výsledek pro zobrazení celého textu v tooltipu. ' +
+          'Historie se ukládá do localStorage a zachová se po refreshi.',
+      },
+      {
+        title: 'Vymazání výsledků',
+        badge: 'Kostky 🎲',
+        description:
+          'Tlačítko "Vymazat" v horní části panelu smaže frontu, aktuální výsledky i celou historii hodů. ' +
+          'Data jsou smazána i z localStorage.',
+      },
+    ],
+  },
+  {
     id: 'initiative',
-    title: 'Iniciativní tabulka (PH zástěna)',
+    title: 'Tabulka iniciativy (PH zástěna)',
     icon: 'full_coverage',
     color: '#af5555',
     tips: [
