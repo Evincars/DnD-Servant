@@ -77,6 +77,43 @@ export const AUTOFILL_DIALOG_HIDDEN_KEY = 'autofill-dialog-hidden';
         </li>
       </ol>
 
+      <div class="dice-info-box">
+        <div class="dice-info-box__header">
+          <img src="d20.png" alt="d20" class="dice-info-box__icon" />
+          <span class="dice-info-box__title">🎲 Kostka u polí schopností</span>
+        </div>
+        <p class="dice-info-box__text">
+          Najeď myší na pole
+          <strong>základní schopnosti</strong>
+          (Síla, Obratnost…),
+          <strong>Dovednosti</strong>
+          (Atletika, Akrobacie…) nebo
+          <strong>Záchranné hody</strong>
+          — zobrazí se ikona
+          <img src="d20.png" alt="d20" class="dice-info-box__inline-icon" />
+          . Klikni na ni a automaticky se:
+        </p>
+        <ul class="dice-info-box__list">
+          <li>
+            <span class="dice-info-box__tag dice-info-box__tag--ability">Schopnosti</span>
+            Hodí k20 a přičte opravu dané základní schopnosti (Síla, Obr, Odl…)
+          </li>
+          <li>
+            <span class="dice-info-box__tag dice-info-box__tag--skill">Dovednosti</span>
+            Hodí k20 a přičte hodnotu dané dovednosti (vč. zdatnosti/expertízy)
+          </li>
+          <li>
+            <span class="dice-info-box__tag dice-info-box__tag--save">Záchranné hody</span>
+            Hodí k20 a přičte opravu záchranného hodu (vč. zdatnostního bonusu)
+          </li>
+        </ul>
+        <p class="dice-info-box__text" style="margin-top: 10px; margin-bottom: 0;">
+          Výsledek se zobrazí v plovoucím
+          <strong>panelu kostky</strong>
+          vlevo na obrazovce spolu s historií hodů.
+        </p>
+      </div>
+
       <div class="autofill-gif-wrap">
         <img src="autofill-of-abilities.gif" alt="Ukázka automatického vyplňování" class="autofill-gif" />
       </div>
@@ -170,6 +207,85 @@ export const AUTOFILL_DIALOG_HIDDEN_KEY = 'autofill-dialog-hidden';
         strong { color: #f0d070; font-weight: 700; }
         span   { color: #c8b890; }
         em     { color: #a09060; font-style: normal; font-size: 12px; }
+      }
+    }
+
+    .dice-info-box {
+      margin: 0 0 18px;
+      padding: 14px 16px;
+      background: linear-gradient(135deg, rgba(20,10,0,.6), rgba(10,5,0,.8));
+      border: 1px solid rgba(200,160,60,.45);
+      border-radius: 8px;
+      box-shadow: 0 0 16px rgba(200,160,60,.1);
+
+      &__header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      &__icon {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+        filter: drop-shadow(0 0 6px rgba(200,160,60,.7));
+      }
+
+      &__inline-icon {
+        width: 14px;
+        height: 14px;
+        object-fit: contain;
+        vertical-align: middle;
+        margin: 0 1px;
+        filter: drop-shadow(0 0 3px rgba(200,160,60,.6));
+      }
+
+      &__title {
+        font-size: 14px;
+        color: #f0d070;
+        font-weight: 700;
+        text-shadow: 0 0 8px rgba(200,160,60,.4);
+      }
+
+      &__text {
+        margin: 0 0 12px;
+        font-size: 12.5px;
+        color: #c8b890;
+        line-height: 1.65;
+
+        strong { color: #f0d070; }
+      }
+
+      &__list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        li {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 12px;
+          color: #a09060;
+        }
+      }
+
+      &__tag {
+        flex-shrink: 0;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+
+        &--ability { background: rgba(168,64,255,.25); border: 1px solid rgba(168,64,255,.5); color: #d090ff; }
+        &--skill   { background: rgba(58,184,106,.2);  border: 1px solid rgba(58,184,106,.45); color: #80e0a0; }
+        &--save    { background: rgba(72,120,224,.2);  border: 1px solid rgba(72,120,224,.45); color: #90b8f0; }
       }
     }
 
