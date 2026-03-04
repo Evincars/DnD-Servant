@@ -2955,6 +2955,9 @@ export class CharacterSheetComponent {
     // Also keep inventory classes in sync with the new silaOprava
     this._setInventoryClasses(fmtMod(silaMod));
 
+    // ── Iniciativa = oprava obratnosti ────────────────────────────────────
+    this.form.controls.abilityBonus.controls.iniciativa.setValue(fmtMod(obrMod), { emitEvent: false });
+
     // ── 2. Záchranné hody ─────────────────────────────────────────────────
     st.sila.setValue(skillVal(silaMod, st.silaZdatnost), { emitEvent: false });
     st.obratnost.setValue(skillVal(obrMod, st.obratnostZdatnost), { emitEvent: false });
