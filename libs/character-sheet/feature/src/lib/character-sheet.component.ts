@@ -147,7 +147,8 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilityBonusControls.zdatnostniBonus"
           matTooltip="Ke každé Dovednosti se kterou máš zdatnost připočítej tento bonus"
-          class="field"
+          class="field readonly-field"
+          readonly
           style="top:274.37px; left:183.4px; width:44.54px; text-align: center"
           placeholder="ZB"
         />
@@ -997,19 +998,14 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         ></div>
 
         <!--    main 6 skills-->
-        <span class="roll-d20-wrap" style="top:332.51px; left:78.60px; width:49.78px;">
+        <span class="roll-d20-wrap roll-d20-center" style="top:332.51px; left:78.60px; width:49.78px;">
           <input
             [formControl]="main6SkillsControls.silaOprava"
             class="field main-skill"
             style="top:0;left:0;width:100%;position:relative;"
             placeholder="SIL"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(main6SkillsControls.silaOprava.value, 'Oprava Síly')"
-            matTooltip="Hodit k20 + oprava Síly"
-          >
+          <button class="roll-d20-btn" type="button" (click)="rollD20(main6SkillsControls.silaOprava.value, 'Oprava Síly')">
             🎲
           </button>
         </span>
@@ -1019,7 +1015,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:378.94px; left:78.60px; width:49.78px; text-align: center"
           placeholder="SIL"
         />
-        <span class="roll-d20-wrap" style="top:497.86px; left:78.60px; width:49.78px;">
+        <span class="roll-d20-wrap roll-d20-center" style="top:497.86px; left:78.60px; width:49.78px;">
           <input
             [formControl]="main6SkillsControls.obratnostOprava"
             class="field main-skill"
@@ -1030,7 +1026,6 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             class="roll-d20-btn"
             type="button"
             (click)="rollD20(main6SkillsControls.obratnostOprava.value, 'Oprava Obratnosti')"
-            matTooltip="Hodit k20 + oprava Obratnosti"
           >
             🎲
           </button>
@@ -1041,7 +1036,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:545.10px; left:78.60px; width:49.78px; text-align: center"
           placeholder="OBR"
         />
-        <span class="roll-d20-wrap" style="top:672.29px; left:78.60px; width:49.78px;">
+        <span class="roll-d20-wrap roll-d20-center" style="top:672.29px; left:78.60px; width:49.78px;">
           <input
             [formControl]="main6SkillsControls.odolnostOprava"
             class="field main-skill"
@@ -1052,7 +1047,6 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             class="roll-d20-btn"
             type="button"
             (click)="rollD20(main6SkillsControls.odolnostOprava.value, 'Oprava Odolnosti')"
-            matTooltip="Hodit k20 + oprava Odolnosti"
           >
             🎲
           </button>
@@ -1063,7 +1057,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:720.53px; left:78.60px; width:49.78px; text-align: center"
           placeholder="ODL"
         />
-        <span class="roll-d20-wrap" style="top:847.72px; left:78.60px; width:49.78px;">
+        <span class="roll-d20-wrap roll-d20-center" style="top:847.72px; left:78.60px; width:49.78px;">
           <input
             [formControl]="main6SkillsControls.inteligenceOprava"
             class="field main-skill"
@@ -1084,7 +1078,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:894.15px; left:78.60px; width:49.78px; text-align: center"
           placeholder="INT"
         />
-        <span class="roll-d20-wrap" style="top:1015.30px; left:78.60px; width:49.78px;">
+        <span class="roll-d20-wrap roll-d20-center" style="top:1015.30px; left:78.60px; width:49.78px;">
           <input
             [formControl]="main6SkillsControls.moudrostOprava"
             class="field main-skill"
@@ -1105,7 +1099,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:1061.73px; left:78.60px; width:49.78px; text-align: center"
           placeholder="MDR"
         />
-        <span class="roll-d20-wrap" style="top:1189.92px; left:78.60px; width:49.78px;">
+        <span class="roll-d20-wrap roll-d20-center" style="top:1189.92px; left:78.60px; width:49.78px;">
           <input
             [formControl]="main6SkillsControls.charismaOprava"
             class="field main-skill"
