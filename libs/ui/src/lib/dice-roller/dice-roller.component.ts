@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, effect, inject, OnDestroy, signal, computed } from '@angular/core';
+import { NgClass } from '@angular/common';
 import { DiceRollerService } from './dice-roller.service';
 
 export type DiceType = 'k4' | 'k6' | 'k8' | 'k10' | 'k12' | 'k20';
@@ -41,7 +42,7 @@ const MAX_HISTORY = 20;
   templateUrl: './dice-roller.component.html',
   styleUrl: './dice-roller.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [],
+  imports: [NgClass],
 })
 export class DiceRollerComponent implements OnDestroy {
   private readonly diceRollerService = inject(DiceRollerService);
@@ -126,9 +127,6 @@ export class DiceRollerComponent implements OnDestroy {
     this.results.set([]);
     this.totalSum.set(null);
     this.animDice.set([]);
-  }
-
-  clearHistory(): void {
     this.historyLog.set([]);
     localStorage.removeItem(LS_KEY);
   }

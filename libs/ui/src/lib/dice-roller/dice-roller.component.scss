@@ -428,15 +428,15 @@ $accent-k20:  #a840ff;
     font-weight: 700;
   }
 
-  // horizontal wrap — max 2 rows, then scroll right
+  // grid: 2 rows fixed, items fill top→bottom then new column to the right
   &__list {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-content: flex-start;
+    display: grid;
+    grid-template-rows: repeat(2, 28px);
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    align-content: start;
     gap: 4px;
     padding: 6px 12px 7px;
-    max-height: calc(2 * 28px + 6px + 14px); // 2 rows + gap + padding
     overflow-x: auto;
     overflow-y: hidden;
     scrollbar-width: thin;
