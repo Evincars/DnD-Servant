@@ -28,7 +28,7 @@ import {
   TopInfoForm,
   InventoryForm,
 } from '@dn-d-servant/character-sheet-util';
-import { RichTextareaComponent, SpinnerOverlayComponent } from '@dn-d-servant/ui';
+import { RichTextareaComponent, SpinnerOverlayComponent, DiceRollerService } from '@dn-d-servant/ui';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
 import { CharacterSheetFormModelMappers } from './api-mappers/character-sheet-form-model-mappers';
@@ -1967,6 +1967,7 @@ export class CharacterSheetComponent {
   destroyRef = inject(DestroyRef);
   snackBar = inject(MatSnackBar);
   dialog = inject(MatDialog);
+  private readonly diceRollerService = inject(DiceRollerService);
 
   @ViewChild('level1Slot1Input') level1Slot1Input!: ElementRef<HTMLInputElement>;
   @ViewChild('level1Slot2Input') level1Slot2Input!: ElementRef<HTMLInputElement>;
@@ -2942,20 +2943,8 @@ export class CharacterSheetComponent {
   }
 
   rollD20(fieldValue: string | null | undefined, label: string): void {
-    const d20 = Math.floor(Math.random() * 20) + 1;
     const mod = parseInt((fieldValue ?? '0').replace('+', '')) || 0;
-    const total = d20 + mod;
-    const modStr = mod >= 0 ? `+${mod}` : `${mod}`;
-    const isNat20 = d20 === 20;
-    const isCrit = d20 === 1;
-    const icon = isNat20 ? '🌟' : isCrit ? '💀' : '🎲';
-    const prefix = isNat20 ? 'NAT 20! ' : isCrit ? 'KRITICKÝ NEÚSPĚCH! ' : '';
-    const msg = `${icon} ${prefix}${label}: k20(${d20}) ${modStr} = ${total}`;
-    this.snackBar.open(msg, '✕', {
-      verticalPosition: 'top',
-      duration: 4000,
-      panelClass: isNat20 ? ['snackbar--save'] : isCrit ? ['snackbar--crit'] : [],
-    });
+    this.diceRollerService.rollD20WithModifier(label, mod);
   }
 
   onOpenDamagesDialog() {

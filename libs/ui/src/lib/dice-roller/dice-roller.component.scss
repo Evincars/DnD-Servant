@@ -145,8 +145,10 @@ $accent-k20:  #a840ff;
   align-items: center;
   justify-content: center;
   position: relative;
-  width: 72px;
-  height: 72px;
+  min-width: 72px;
+  width: auto;
+  padding: 6px 10px;
+  height: 80px;
   background: $dark-700;
   border: 2px solid rgba(200,154,60,.35);
   border-radius: $radius-md;
@@ -180,6 +182,38 @@ $accent-k20:  #a840ff;
 
   &__type  { font-size: 9px; color: $gold-dim; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
   &__value { font-size: 28px; font-weight: 900; color: $gold-light; line-height: 1; }
+
+  &__label {
+    font-size: 8px;
+    color: $gold-dim;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
+    margin-bottom: 1px;
+  }
+
+  &__result-row {
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+  }
+
+  &__modifier {
+    font-size: 15px;
+    font-weight: 700;
+    color: $gold;
+    line-height: 1;
+  }
+
+  &__total {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,.7);
+    line-height: 1;
+  }
 
   &__badge {
     position: absolute;

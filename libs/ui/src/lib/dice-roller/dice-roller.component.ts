@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, signal, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, OnDestroy, signal, computed } from '@angular/core';
+import { DiceRollerService } from './dice-roller.service';
 
 export type DiceType = 'k4' | 'k6' | 'k8' | 'k10' | 'k12' | 'k20';
 
@@ -11,6 +12,8 @@ interface RollResult {
   id: number;
   dice: DiceType;
   value: number;
+  modifier?: number;
+  label?: string;
 }
 interface AnimDie {
   id: number;
@@ -18,6 +21,8 @@ interface AnimDie {
   rolling: boolean;
   display: number;
   final: number;
+  modifier?: number;
+  label?: string;
 }
 
 @Component({
@@ -28,6 +33,8 @@ interface AnimDie {
   imports: [],
 })
 export class DiceRollerComponent implements OnDestroy {
+  private readonly diceRollerService = inject(DiceRollerService);
+
   readonly diceTypes: DiceType[] = ['k4', 'k6', 'k8', 'k10', 'k12', 'k20'];
 
   isOpen = signal(false);
@@ -43,6 +50,17 @@ export class DiceRollerComponent implements OnDestroy {
   private nextId = 0;
   private timers: ReturnType<typeof setTimeout>[] = [];
   private intervals: ReturnType<typeof setInterval>[] = [];
+
+  constructor() {
+    // Watch for external d20+modifier roll requests from character sheet
+    effect(() => {
+      const req = this.diceRollerService.pendingRoll();
+      if (!req) return;
+      this.diceRollerService.pendingRoll.set(null); // consume
+      this.isOpen.set(true);
+      this._quickRollWithModifier('k20', req.modifier, req.label);
+    });
+  }
 
   togglePanel(): void {
     this.isOpen.update(v => !v);
@@ -78,11 +96,10 @@ export class DiceRollerComponent implements OnDestroy {
   }
 
   // ── Roll ───────────────────────────────────────────────────────────────────
-  rollAll(): void {
+  rollAll(modifier?: number, label?: string): void {
     const toRoll = this.queue();
     if (!toRoll.length || this.isRolling()) return;
 
-    // Clear old timers
     this.timers.forEach(clearTimeout);
     this.intervals.forEach(clearInterval);
     this.timers = [];
@@ -92,7 +109,6 @@ export class DiceRollerComponent implements OnDestroy {
     this.results.set([]);
     this.totalSum.set(null);
 
-    // Expand queue into individual dice
     const expanded: { id: number; type: DiceType; final: number }[] = [];
     toRoll.forEach(d => {
       for (let i = 0; i < d.count; i++) {
@@ -101,7 +117,6 @@ export class DiceRollerComponent implements OnDestroy {
       }
     });
 
-    // Init anim dice — all rolling
     this.animDice.set(
       expanded.map(d => ({
         id: d.id,
@@ -109,10 +124,11 @@ export class DiceRollerComponent implements OnDestroy {
         rolling: true,
         display: 1,
         final: d.final,
+        modifier,
+        label,
       })),
     );
 
-    // Rapid number cycling interval
     const CYCLE_MS = 60;
     const SETTLE_MS = 900;
 
@@ -127,38 +143,48 @@ export class DiceRollerComponent implements OnDestroy {
     }, CYCLE_MS);
     this.intervals.push(iv);
 
-    // Settle each die one by one with staggered delay
     expanded.forEach((d, i) => {
-      const t = (this.timers[this.timers.length] = setTimeout(() => {
+      const t = setTimeout(() => {
         this.animDice.update(dice => dice.map(ad => (ad.id === d.id ? { ...ad, rolling: false, display: d.final } : ad)));
-      }, SETTLE_MS + i * 120));
+      }, SETTLE_MS + i * 120);
       this.timers.push(t);
     });
 
-    // After all settled — show results
     const totalDelay = SETTLE_MS + expanded.length * 120 + 200;
     const done = setTimeout(() => {
       clearInterval(iv);
-      const res: RollResult[] = expanded.map(d => ({ id: d.id, dice: d.type, value: d.final }));
-      const sum = res.reduce((a, r) => a + r.value, 0);
+      const res: RollResult[] = expanded.map(d => ({ id: d.id, dice: d.type, value: d.final, modifier, label }));
+      const rollSum = res.reduce((a, r) => a + r.value, 0);
+      const total = modifier !== undefined ? rollSum + modifier : rollSum;
       this.results.set(res);
-      this.totalSum.set(res.length > 1 ? sum : null);
+      this.totalSum.set(res.length > 1 ? total : null);
       this.isRolling.set(false);
       this.queue.set([]);
 
-      // Add to history
-      const label = expanded.map(d => `${d.type}`).join(' + ');
+      const diceLabel = expanded.map(d => d.type).join(' + ');
       const vals = res.map(r => r.value).join(', ');
-      const entry = res.length > 1 ? `${label} → [${vals}] = ${sum}` : `${label} → ${res[0].value}`;
+      const modStr = modifier !== undefined ? (modifier >= 0 ? ` + ${modifier}` : ` - ${Math.abs(modifier)}`) : '';
+      const totalStr = modifier !== undefined ? ` = ${total}` : res.length > 1 ? ` = ${rollSum}` : '';
+      const prefix = label ? `${label}: ` : '';
+      const entry =
+        res.length > 1
+          ? `${prefix}${diceLabel} → [${vals}]${modStr}${totalStr}`
+          : `${prefix}${diceLabel} → ${res[0].value}${modStr}${totalStr}`;
       this.historyLog.update(h => [entry, ...h].slice(0, 10));
     }, totalDelay);
     this.timers.push(done);
   }
 
-  // ── Quick single roll (double-click) ───────────────────────────────────────
+  // ── Quick single roll (double-click on die button) ─────────────────────────
   quickRoll(type: DiceType): void {
     this.queue.set([{ id: this.nextId++, type, count: 1 }]);
     this.rollAll();
+  }
+
+  // ── Internal: quick roll triggered by character-sheet with modifier ────────
+  private _quickRollWithModifier(type: DiceType, modifier: number, label?: string): void {
+    this.queue.set([{ id: this.nextId++, type, count: 1 }]);
+    this.rollAll(modifier, label);
   }
 
   clearResults(): void {
