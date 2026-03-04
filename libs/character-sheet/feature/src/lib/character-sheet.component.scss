@@ -333,9 +333,8 @@ input[type='checkbox'][disabled] {
   position: absolute;
   display: flex;
   align-items: center;
-  justify-content: center;
 
-  // inner input fills wrapper
+  // inner input fills wrapper naturally
   input.field {
     position: relative !important;
     top: 0 !important;
@@ -346,25 +345,29 @@ input[type='checkbox'][disabled] {
   .roll-d20-btn {
     display: none;
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(10, 5, 0, 0.72);
-    border: 1px solid rgba(200, 160, 60, 0.6);
-    border-radius: var(--border-radius-1);
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 3px;
+    width: 22px;
+    height: 22px;
+    background: rgba(10, 5, 0, 0.82);
+    border: 1px solid rgba(200, 160, 60, 0.55);
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 1;
     padding: 0;
     align-items: center;
     justify-content: center;
-    transition: background 0.15s, border-color 0.15s;
+    transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
     z-index: 10;
+    white-space: nowrap;
 
     &:hover {
-      background: rgba(30, 15, 0, 0.88);
+      background: rgba(40, 20, 0, 0.95);
       border-color: rgba(200, 160, 60, 1);
-      box-shadow: 0 0 8px rgba(200, 160, 60, 0.4);
+      box-shadow: 0 0 8px rgba(200, 160, 60, 0.45);
     }
   }
 

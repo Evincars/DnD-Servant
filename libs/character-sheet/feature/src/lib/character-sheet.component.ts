@@ -334,12 +334,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="SIL"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(savingThrowsControls.sila.value, 'Záchranný hod Síla')"
-            matTooltip="Hodit k20 + záchranný hod Síla"
-          >
+          <button class="roll-d20-btn" type="button" (click)="rollD20(savingThrowsControls.sila.value, 'Záchranný hod Síla')">
             🎲
           </button>
         </span>
@@ -360,7 +355,6 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             class="roll-d20-btn"
             type="button"
             (click)="rollD20(savingThrowsControls.obratnost.value, 'Záchranný hod Obratnost')"
-            matTooltip="Hodit k20 + záchranný hod Obratnost"
           >
             🎲
           </button>
@@ -382,7 +376,6 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             class="roll-d20-btn"
             type="button"
             (click)="rollD20(savingThrowsControls.odolnost.value, 'Záchranný hod Odolnost')"
-            matTooltip="Hodit k20 + záchranný hod Odolnost"
           >
             🎲
           </button>
@@ -404,7 +397,6 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             class="roll-d20-btn"
             type="button"
             (click)="rollD20(savingThrowsControls.inteligence.value, 'Záchranný hod Inteligence')"
-            matTooltip="Hodit k20 + záchranný hod Inteligence"
           >
             🎲
           </button>
@@ -426,7 +418,6 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             class="roll-d20-btn"
             type="button"
             (click)="rollD20(savingThrowsControls.moudrost.value, 'Záchranný hod Moudrost')"
-            matTooltip="Hodit k20 + záchranný hod Moudrost"
           >
             🎲
           </button>
@@ -448,7 +439,6 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             class="roll-d20-btn"
             type="button"
             (click)="rollD20(savingThrowsControls.charisma.value, 'Záchranný hod Charisma')"
-            matTooltip="Hodit k20 + záchranný hod Charisma"
           >
             🎲
           </button>
@@ -1084,7 +1074,6 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             class="roll-d20-btn"
             type="button"
             (click)="rollD20(main6SkillsControls.inteligenceOprava.value, 'Oprava Inteligence')"
-            matTooltip="Hodit k20 + oprava Inteligence"
           >
             🎲
           </button>
@@ -1106,7 +1095,6 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             class="roll-d20-btn"
             type="button"
             (click)="rollD20(main6SkillsControls.moudrostOprava.value, 'Oprava Moudrosti')"
-            matTooltip="Hodit k20 + oprava Moudrosti"
           >
             🎲
           </button>
@@ -1128,7 +1116,6 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             class="roll-d20-btn"
             type="button"
             (click)="rollD20(main6SkillsControls.charismaOprava.value, 'Oprava Charismatu')"
-            matTooltip="Hodit k20 + oprava Charismatu"
           >
             🎲
           </button>
@@ -1156,14 +1143,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.atletika.value, 'Atletika')"
-            matTooltip="Hodit k20 + Atletika"
-          >
-            🎲
-          </button>
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.atletika.value, 'Atletika')">🎲</button>
         </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.akrobacieZdatnost)"
@@ -1179,14 +1159,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.akrobacie.value, 'Akrobacie')"
-            matTooltip="Hodit k20 + Akrobacie"
-          >
-            🎲
-          </button>
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.akrobacie.value, 'Akrobacie')">🎲</button>
         </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.cachryZdatnost)"
@@ -1202,14 +1175,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.cachry.value, 'Čachry')"
-            matTooltip="Hodit k20 + Čachry"
-          >
-            🎲
-          </button>
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.cachry.value, 'Čachry')">🎲</button>
         </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.nenapadnostZdatnost)"
@@ -1225,12 +1191,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.nenapadnost.value, 'Nenápadnost')"
-            matTooltip="Hodit k20 + Nenápadnost"
-          >
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.nenapadnost.value, 'Nenápadnost')">
             🎲
           </button>
         </span>
@@ -1248,14 +1209,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.historie.value, 'Historie')"
-            matTooltip="Hodit k20 + Historie"
-          >
-            🎲
-          </button>
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.historie.value, 'Historie')">🎲</button>
         </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.mystikaZdatnost)"
@@ -1271,14 +1225,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.mystika.value, 'Mystika')"
-            matTooltip="Hodit k20 + Mystika"
-          >
-            🎲
-          </button>
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.mystika.value, 'Mystika')">🎲</button>
         </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.nabozenstviZdatnost)"
@@ -1294,12 +1241,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.nabozenstvi.value, 'Náboženství')"
-            matTooltip="Hodit k20 + Náboženství"
-          >
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.nabozenstvi.value, 'Náboženství')">
             🎲
           </button>
         </span>
@@ -1317,14 +1259,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.patrani.value, 'Pátrání')"
-            matTooltip="Hodit k20 + Pátrání"
-          >
-            🎲
-          </button>
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.patrani.value, 'Pátrání')">🎲</button>
         </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.prirodaZdatnost)"
@@ -1340,14 +1275,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.priroda.value, 'Příroda')"
-            matTooltip="Hodit k20 + Příroda"
-          >
-            🎲
-          </button>
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.priroda.value, 'Příroda')">🎲</button>
         </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.lekarstviZdatnost)"
@@ -1363,14 +1291,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.lekarstvi.value, 'Lékařství')"
-            matTooltip="Hodit k20 + Lékařství"
-          >
-            🎲
-          </button>
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.lekarstvi.value, 'Lékařství')">🎲</button>
         </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.ovladaniZviratZdatnost)"
@@ -1386,12 +1307,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.ovladaniZvirat.value, 'Ovládání zvířat')"
-            matTooltip="Hodit k20 + Ovládání zvířat"
-          >
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.ovladaniZvirat.value, 'Ovládání zvířat')">
             🎲
           </button>
         </span>
@@ -1409,14 +1325,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.preziti.value, 'Přežití')"
-            matTooltip="Hodit k20 + Přežití"
-          >
-            🎲
-          </button>
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.preziti.value, 'Přežití')">🎲</button>
         </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.vhledZdatnost)"
@@ -1432,14 +1341,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.vhled.value, 'Vhled')"
-            matTooltip="Hodit k20 + Vhled"
-          >
-            🎲
-          </button>
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.vhled.value, 'Vhled')">🎲</button>
         </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.vnimaniZdatnost)"
@@ -1455,14 +1357,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.vnimani.value, 'Vnímání')"
-            matTooltip="Hodit k20 + Vnímání"
-          >
-            🎲
-          </button>
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.vnimani.value, 'Vnímání')">🎲</button>
         </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.klamaniZdatnost)"
@@ -1478,14 +1373,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.klamani.value, 'Klamání')"
-            matTooltip="Hodit k20 + Klamání"
-          >
-            🎲
-          </button>
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.klamani.value, 'Klamání')">🎲</button>
         </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.presvedcovaniZdatnost)"
@@ -1501,12 +1389,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.presvedcovani.value, 'Přesvědčování')"
-            matTooltip="Hodit k20 + Přesvědčování"
-          >
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.presvedcovani.value, 'Přesvědčování')">
             🎲
           </button>
         </span>
@@ -1524,12 +1407,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.vystupovani.value, 'Vystupování')"
-            matTooltip="Hodit k20 + Vystupování"
-          >
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.vystupovani.value, 'Vystupování')">
             🎲
           </button>
         </span>
@@ -1547,12 +1425,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;text-align:right;"
             placeholder="*"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(abilitiesControls.zastrasovani.value, 'Zastrašování')"
-            matTooltip="Hodit k20 + Zastrašování"
-          >
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.zastrasovani.value, 'Zastrašování')">
             🎲
           </button>
         </span>
