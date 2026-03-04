@@ -1034,7 +1034,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         ></div>
 
         <!--    main 6 skills-->
-        <span class="roll-d20-wrap roll-d20-center" style="top:332.51px; left:78.60px; width:49.78px;">
+        <span class="roll-d20-wrap roll-d20-center" style="top:332.51px; left:78.60px; width:59.78px;">
           <input
             [formControl]="main6SkillsControls.silaOprava"
             class="field main-skill"
@@ -1051,7 +1051,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:378.94px; left:78.60px; width:49.78px; text-align: center"
           placeholder="SIL"
         />
-        <span class="roll-d20-wrap roll-d20-center" style="top:497.86px; left:78.60px; width:49.78px;">
+        <span class="roll-d20-wrap roll-d20-center" style="top:497.86px; left:78.60px; width:59.78px;">
           <input
             [formControl]="main6SkillsControls.obratnostOprava"
             class="field main-skill"
@@ -1072,7 +1072,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:545.10px; left:78.60px; width:49.78px; text-align: center"
           placeholder="OBR"
         />
-        <span class="roll-d20-wrap roll-d20-center" style="top:672.29px; left:78.60px; width:49.78px;">
+        <span class="roll-d20-wrap roll-d20-center" style="top:672.29px; left:78.60px; width:59.78px;">
           <input
             [formControl]="main6SkillsControls.odolnostOprava"
             class="field main-skill"
@@ -1093,7 +1093,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:720.53px; left:78.60px; width:49.78px; text-align: center"
           placeholder="ODL"
         />
-        <span class="roll-d20-wrap roll-d20-center" style="top:847.72px; left:78.60px; width:49.78px;">
+        <span class="roll-d20-wrap roll-d20-center" style="top:847.72px; left:78.60px; width:59.78px;">
           <input
             [formControl]="main6SkillsControls.inteligenceOprava"
             class="field main-skill"
@@ -1114,7 +1114,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:894.15px; left:78.60px; width:49.78px; text-align: center"
           placeholder="INT"
         />
-        <span class="roll-d20-wrap roll-d20-center" style="top:1015.30px; left:78.60px; width:49.78px;">
+        <span class="roll-d20-wrap roll-d20-center" style="top:1015.30px; left:78.60px; width:59.78px;">
           <input
             [formControl]="main6SkillsControls.moudrostOprava"
             class="field main-skill"
@@ -1135,7 +1135,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           style="top:1061.73px; left:78.60px; width:49.78px; text-align: center"
           placeholder="MDR"
         />
-        <span class="roll-d20-wrap roll-d20-center" style="top:1189.92px; left:78.60px; width:49.78px;">
+        <span class="roll-d20-wrap roll-d20-center" style="top:1189.92px; left:78.60px; width:59.78px;">
           <input
             [formControl]="main6SkillsControls.charismaOprava"
             class="field main-skill"
