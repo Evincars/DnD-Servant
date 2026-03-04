@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, effect, inject, OnDestroy, signal, computed } from '@angular/core';
-import { NgClass } from '@angular/common';
 import { DiceRollerService } from './dice-roller.service';
 
 export type DiceType = 'k4' | 'k6' | 'k8' | 'k10' | 'k12' | 'k20';
@@ -9,6 +8,7 @@ interface QueuedDie {
   type: DiceType;
   count: number;
 }
+
 interface RollResult {
   id: number;
   dice: DiceType;
@@ -16,6 +16,7 @@ interface RollResult {
   modifier?: number;
   label?: string;
 }
+
 interface AnimDie {
   id: number;
   dice: DiceType;
@@ -42,7 +43,7 @@ const MAX_HISTORY = 20;
   templateUrl: './dice-roller.component.html',
   styleUrl: './dice-roller.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgClass],
+  imports: [],
 })
 export class DiceRollerComponent implements OnDestroy {
   private readonly diceRollerService = inject(DiceRollerService);
@@ -192,13 +193,11 @@ export class DiceRollerComponent implements OnDestroy {
       // Build structured history entry
       const diceLabel = expanded.map(d => d.type).join('+');
       const vals = res.map(r => r.value).join(', ');
-      const modStr = modifier !== undefined ? (modifier >= 0 ? ` +${modifier}` : ` ${modifier}`) : '';
-      const totalStr = modifier !== undefined ? ` = ${total}` : res.length > 1 ? ` = ${rollSum}` : '';
-      const prefix = label ? `${label}: ` : '';
-      const text =
-        res.length > 1
-          ? `${prefix}${diceLabel} [${vals}]${modStr}${totalStr}`
-          : `${prefix}${diceLabel} ${res[0].value}${modStr}${totalStr}`;
+      const modStr = modifier !== undefined && modifier !== 0 ? (modifier >= 0 ? `+${modifier}` : `${modifier}`) : '';
+      const totalStr = modifier !== undefined && modifier !== 0 ? ` = ${total}` : '';
+      const prefix = label ? `${label} ` : '';
+      const rollPart = res.length > 1 ? `${diceLabel} [${vals}]` : `${diceLabel} ${res[0].value}`;
+      const text = modStr ? `${prefix}${rollPart}${modStr}${totalStr}` : `${prefix}${rollPart}`;
 
       const isSingleD20 = res.length === 1 && res[0].dice === 'k20';
       const entry: HistoryEntry = {

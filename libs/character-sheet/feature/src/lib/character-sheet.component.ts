@@ -1041,9 +1041,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;"
             placeholder="SIL"
           />
-          <button class="roll-d20-btn" type="button" (click)="rollD20(main6SkillsControls.silaOprava.value, 'Oprava Síly')">
-            🎲
-          </button>
+          <button class="roll-d20-btn" type="button" (click)="rollD20(main6SkillsControls.silaOprava.value, 'Síla')">🎲</button>
         </span>
         <input
           [formControl]="main6SkillsControls.sila"
@@ -1058,11 +1056,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;"
             placeholder="OBR"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(main6SkillsControls.obratnostOprava.value, 'Oprava Obratnosti')"
-          >
+          <button class="roll-d20-btn" type="button" (click)="rollD20(main6SkillsControls.obratnostOprava.value, 'Obratnost')">
             🎲
           </button>
         </span>
@@ -1079,11 +1073,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;"
             placeholder="ODL"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(main6SkillsControls.odolnostOprava.value, 'Oprava Odolnosti')"
-          >
+          <button class="roll-d20-btn" type="button" (click)="rollD20(main6SkillsControls.odolnostOprava.value, 'Odolnost')">
             🎲
           </button>
         </span>
@@ -1103,7 +1093,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           <button
             class="roll-d20-btn"
             type="button"
-            (click)="rollD20(main6SkillsControls.inteligenceOprava.value, 'Oprava Inteligence')"
+            (click)="rollD20(main6SkillsControls.inteligenceOprava.value, 'Inteligence')"
           >
             🎲
           </button>
@@ -1121,11 +1111,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;"
             placeholder="MDR"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(main6SkillsControls.moudrostOprava.value, 'Oprava Moudrosti')"
-          >
+          <button class="roll-d20-btn" type="button" (click)="rollD20(main6SkillsControls.moudrostOprava.value, 'Moudrost')">
             🎲
           </button>
         </span>
@@ -1142,11 +1128,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
             style="top:0;left:0;width:100%;position:relative;"
             placeholder="CHA"
           />
-          <button
-            class="roll-d20-btn"
-            type="button"
-            (click)="rollD20(main6SkillsControls.charismaOprava.value, 'Oprava Charismatu')"
-          >
+          <button class="roll-d20-btn" type="button" (click)="rollD20(main6SkillsControls.charismaOprava.value, 'Charisma')">
             🎲
           </button>
         </span>
