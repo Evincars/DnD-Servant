@@ -23,6 +23,13 @@ export const AUTOFILL_DIALOG_HIDDEN_KEY = 'autofill-dialog-hidden';
     </div>
 
     <mat-dialog-content class="dialog-content autofill-dialog-content">
+      <div class="autofill-footer autofill-footer--top">
+        <label class="autofill-no-show">
+          <mat-checkbox [(ngModel)]="dontShow" color="primary" />
+          <span>Příště nezobrazovat</span>
+        </label>
+      </div>
+
       <div class="autofill-intro">
         <p class="autofill-intro__text">
           Karta postavy podporuje
@@ -116,13 +123,6 @@ export const AUTOFILL_DIALOG_HIDDEN_KEY = 'autofill-dialog-hidden';
 
       <div class="autofill-gif-wrap">
         <img src="autofill-of-abilities.gif" alt="Ukázka automatického vyplňování" class="autofill-gif" />
-      </div>
-
-      <div class="autofill-footer">
-        <label class="autofill-no-show">
-          <mat-checkbox [(ngModel)]="dontShow" color="primary" />
-          <span>Příště nezobrazovat</span>
-        </label>
       </div>
     </mat-dialog-content>
   `,
@@ -304,8 +304,9 @@ export const AUTOFILL_DIALOG_HIDDEN_KEY = 'autofill-dialog-hidden';
     .autofill-footer {
       display: flex;
       justify-content: flex-end;
-      padding-top: 8px;
-      border-top: 1px solid rgba(200,160,60,.15);
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid rgba(200,160,60,.15);
     }
 
     .autofill-no-show {
