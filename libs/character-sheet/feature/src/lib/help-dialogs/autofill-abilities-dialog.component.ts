@@ -13,8 +13,10 @@ export const AUTOFILL_DIALOG_HIDDEN_KEY = 'autofill-dialog-hidden';
   selector: 'autofill-abilities-dialog',
   template: `
     <div class="dialog-title" mat-dialog-title>
-      <span class="dialog-title__icon">⚙️</span>
-      Automatické vyplňování schopností
+      <span class="dialog-title__text">
+        <span class="dialog-title__icon">⚙️</span>
+        Automatické vyplňování schopností
+      </span>
       <button class="dialog-title__close" (click)="onClose()" matIconButton>
         <mat-icon>close</mat-icon>
       </button>
@@ -93,6 +95,18 @@ export const AUTOFILL_DIALOG_HIDDEN_KEY = 'autofill-dialog-hidden';
       max-width: 680px;
       max-height: 82vh;
       overflow-y: auto;
+    }
+
+    :host ::ng-deep .dialog-title {
+      position: relative !important;
+    }
+
+    .dialog-title__text {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      pointer-events: none;
     }
 
     .autofill-intro {
