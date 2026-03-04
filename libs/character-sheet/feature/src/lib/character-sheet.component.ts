@@ -261,7 +261,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           class="field death-save-icon death-save-skull"
           [class.death-save-icon--active]="speedAndHealingDicesControls.smrtNeuspech1.value"
           (click)="toggleDeathSave(speedAndHealingDicesControls.smrtNeuspech1)"
-          style="top:455px; left:1091px;"
+          style="top:455px; left:1092px;"
         >
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -273,7 +273,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           class="field death-save-icon death-save-skull"
           [class.death-save-icon--active]="speedAndHealingDicesControls.smrtNeuspech2.value"
           (click)="toggleDeathSave(speedAndHealingDicesControls.smrtNeuspech2)"
-          style="top:455px; left:1122px;"
+          style="top:455px; left:1124px;"
         >
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -285,7 +285,7 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           class="field death-save-icon death-save-skull"
           [class.death-save-icon--active]="speedAndHealingDicesControls.smrtNeuspech3.value"
           (click)="toggleDeathSave(speedAndHealingDicesControls.smrtNeuspech3)"
-          style="top:455px; left:1153px;"
+          style="top:455px; left:1155px;"
         >
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path

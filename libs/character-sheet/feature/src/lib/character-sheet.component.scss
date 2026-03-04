@@ -207,7 +207,8 @@ input[type='checkbox'][disabled] {
 }
 
 .death-save-heart {
-  svg { width: 26px; height: 26px; position: relative; top: 9px; left: 8px; }
+  border: none;
+  svg { width: 26px; height: 26px; position: relative; top: 10px; left: 8px; }
 
   &.death-save-icon--active svg {
     fill: #2e9e3e;
@@ -216,7 +217,8 @@ input[type='checkbox'][disabled] {
 }
 
 .death-save-skull {
-  svg { width: 28px; height: 28px; }
+  border: none;
+  svg { width: 36px; height: 36px; position: relative; top: 12px; left: 7px; }
 
   &.death-save-icon--active svg {
     fill: #c0392b;
