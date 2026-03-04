@@ -175,6 +175,55 @@ input[type='checkbox'][disabled] {
   accent-color: red;
 }
 
+// ── Death save heart / skull icons ───────────────────────────────────────────
+.death-save-icon {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  overflow: visible;
+  transition: transform 0.15s ease, filter 0.15s ease;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    fill: rgba(60, 40, 20, 0.35);
+    transition: fill 0.2s ease, filter 0.2s ease;
+  }
+
+  &:hover svg {
+    filter: brightness(1.4);
+    transform: scale(1.1);
+  }
+
+  &--active svg {
+    filter: drop-shadow(0 0 3px currentColor);
+  }
+}
+
+.death-save-heart {
+  svg { width: 26px; height: 26px; position: relative; top: 9px; left: 8px; }
+
+  &.death-save-icon--active svg {
+    fill: #2e9e3e;
+    filter: drop-shadow(0 0 4px rgba(46, 158, 62, 0.8));
+  }
+}
+
+.death-save-skull {
+  svg { width: 28px; height: 28px; }
+
+  &.death-save-icon--active svg {
+    fill: #c0392b;
+    filter: drop-shadow(0 0 4px rgba(192, 57, 43, 0.8));
+  }
+}
+
 .inventory-item {
   font-size: 13px;
 }

@@ -219,44 +219,80 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
 
         <!--    Hearts for Dead saving -->
-        <input
-          [formControl]="speedAndHealingDicesControls.smrtUspech1"
-          type="checkbox"
-          class="field checkbox dead-throw-success"
-          style="top:427px; left:1093.85px;"
-        />
-        <input
-          [formControl]="speedAndHealingDicesControls.smrtUspech2"
-          type="checkbox"
-          class="field checkbox dead-throw-success"
-          style="top:427px; left:1125.29px;"
-        />
-        <input
-          [formControl]="speedAndHealingDicesControls.smrtUspech3"
-          type="checkbox"
-          class="field checkbox dead-throw-success"
-          style="top:427px; left:1156.73px;"
-        />
+        <div
+          class="field death-save-icon death-save-heart"
+          [class.death-save-icon--active]="speedAndHealingDicesControls.smrtUspech1.value"
+          (click)="toggleDeathSave(speedAndHealingDicesControls.smrtUspech1)"
+          style="top:424px; left:1091px;"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+            />
+          </svg>
+        </div>
+        <div
+          class="field death-save-icon death-save-heart"
+          [class.death-save-icon--active]="speedAndHealingDicesControls.smrtUspech2.value"
+          (click)="toggleDeathSave(speedAndHealingDicesControls.smrtUspech2)"
+          style="top:424px; left:1122px;"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+            />
+          </svg>
+        </div>
+        <div
+          class="field death-save-icon death-save-heart"
+          [class.death-save-icon--active]="speedAndHealingDicesControls.smrtUspech3.value"
+          (click)="toggleDeathSave(speedAndHealingDicesControls.smrtUspech3)"
+          style="top:424px; left:1153px;"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+            />
+          </svg>
+        </div>
 
         <!--    Skulls for Death saving -->
-        <input
-          [formControl]="speedAndHealingDicesControls.smrtNeuspech1"
-          type="checkbox"
-          class="field checkbox dead-throw-fail"
-          style="top:457.88px; left:1093.85px;"
-        />
-        <input
-          [formControl]="speedAndHealingDicesControls.smrtNeuspech2"
-          type="checkbox"
-          class="field checkbox dead-throw-fail"
-          style="top:457.88px; left:1125.29px;"
-        />
-        <input
-          [formControl]="speedAndHealingDicesControls.smrtNeuspech3"
-          type="checkbox"
-          class="field checkbox dead-throw-fail"
-          style="top:457.88px; left:1155.42px;"
-        />
+        <div
+          class="field death-save-icon death-save-skull"
+          [class.death-save-icon--active]="speedAndHealingDicesControls.smrtNeuspech1.value"
+          (click)="toggleDeathSave(speedAndHealingDicesControls.smrtNeuspech1)"
+          style="top:455px; left:1091px;"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm-2 14v-1h4v1h-4zm4-3H10v-.62C8.79 11.53 8 10.36 8 9c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.36-.79 2.53-2 3.38V13zm-3 2h2v1h-2v-1z"
+            />
+          </svg>
+        </div>
+        <div
+          class="field death-save-icon death-save-skull"
+          [class.death-save-icon--active]="speedAndHealingDicesControls.smrtNeuspech2.value"
+          (click)="toggleDeathSave(speedAndHealingDicesControls.smrtNeuspech2)"
+          style="top:455px; left:1122px;"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm-2 14v-1h4v1h-4zm4-3H10v-.62C8.79 11.53 8 10.36 8 9c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.36-.79 2.53-2 3.38V13zm-3 2h2v1h-2v-1z"
+            />
+          </svg>
+        </div>
+        <div
+          class="field death-save-icon death-save-skull"
+          [class.death-save-icon--active]="speedAndHealingDicesControls.smrtNeuspech3.value"
+          (click)="toggleDeathSave(speedAndHealingDicesControls.smrtNeuspech3)"
+          style="top:455px; left:1153px;"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm-2 14v-1h4v1h-4zm4-3H10v-.62C8.79 11.53 8 10.36 8 9c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.36-.79 2.53-2 3.38V13zm-3 2h2v1h-2v-1z"
+            />
+          </svg>
+        </div>
 
         <rich-textarea
           [formControl]="form.controls['infoAboutCharacter']"
@@ -3795,5 +3831,10 @@ export class CharacterSheetComponent {
   }
   private _acd(name: keyof AlchemistChestForm) {
     this._ach(name).disable({ emitEvent: false });
+  }
+
+  // ── Death saves toggle ────────────────────────────────────────────────────
+  toggleDeathSave(control: AbstractControl): void {
+    control.setValue(!control.value);
   }
 }
