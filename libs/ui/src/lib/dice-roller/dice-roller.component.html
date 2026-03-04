@@ -129,9 +129,26 @@
   <!-- ── History ── -->
   @if (historyLog().length > 0) {
     <div class="dr-history">
-      @for (entry of historyLog(); track $index) {
-        <span class="dr-history__entry" [class.dr-history__entry--latest]="$index === 0">{{ entry }}</span>
-      }
+      <div class="dr-history__header">
+        <span class="dr-history__title">Historie hodů</span>
+        <button class="dr-btn dr-btn--ghost dr-btn--sm" (click)="clearHistory()">Smazat</button>
+      </div>
+      <div class="dr-history__list">
+        @for (entry of historyLog(); track $index) {
+          <div class="dr-history__entry"
+               [class.dr-history__entry--latest]="$index === 0"
+               [class.dr-history__entry--nat20]="entry.isNat20"
+               [class.dr-history__entry--crit]="entry.isCrit">
+            <span class="dr-history__entry-time">{{ entry.timestamp }}</span>
+            <span class="dr-history__entry-text">{{ entry.text }}</span>
+            <span class="dr-history__entry-total"
+                  [class.dr-history__entry-total--nat20]="entry.isNat20"
+                  [class.dr-history__entry-total--crit]="entry.isCrit">
+              {{ entry.total }}
+            </span>
+          </div>
+        }
+      </div>
     </div>
   }
 

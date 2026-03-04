@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, effect, inject, OnDestroy, signal, computed } from '@angular/core';
+import { NgClass } from '@angular/common';
 import { DiceRollerService } from './dice-roller.service';
 
 export type DiceType = 'k4' | 'k6' | 'k8' | 'k10' | 'k12' | 'k20';
@@ -25,12 +26,23 @@ interface AnimDie {
   label?: string;
 }
 
+export interface HistoryEntry {
+  text: string; // human-readable line
+  total: number; // final total for highlight
+  isNat20: boolean;
+  isCrit: boolean;
+  timestamp: string; // HH:MM
+}
+
+const LS_KEY = 'dice-roller-history';
+const MAX_HISTORY = 20;
+
 @Component({
   selector: 'dice-roller',
   templateUrl: './dice-roller.component.html',
   styleUrl: './dice-roller.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [],
+  imports: [NgClass],
 })
 export class DiceRollerComponent implements OnDestroy {
   private readonly diceRollerService = inject(DiceRollerService);
@@ -43,7 +55,7 @@ export class DiceRollerComponent implements OnDestroy {
   results = signal<RollResult[]>([]);
   queue = signal<QueuedDie[]>([]);
   totalSum = signal<number | null>(null);
-  historyLog = signal<string[]>([]);
+  historyLog = signal<HistoryEntry[]>(this._loadHistory());
 
   totalQueued = computed(() => this.queue().reduce((a, d) => a + d.count, 0));
 
@@ -60,6 +72,28 @@ export class DiceRollerComponent implements OnDestroy {
       this.isOpen.set(true);
       this._quickRollWithModifier('k20', req.modifier, req.label);
     });
+  }
+
+  private _loadHistory(): HistoryEntry[] {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      return raw ? (JSON.parse(raw) as HistoryEntry[]) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  private _saveHistory(entries: HistoryEntry[]): void {
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify(entries));
+    } catch {
+      /* ignore */
+    }
+  }
+
+  private _timestamp(): string {
+    const d = new Date();
+    return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
   }
 
   togglePanel(): void {
@@ -95,6 +129,11 @@ export class DiceRollerComponent implements OnDestroy {
     this.animDice.set([]);
   }
 
+  clearHistory(): void {
+    this.historyLog.set([]);
+    localStorage.removeItem(LS_KEY);
+  }
+
   // ── Roll ───────────────────────────────────────────────────────────────────
   rollAll(modifier?: number, label?: string): void {
     const toRoll = this.queue();
@@ -118,15 +157,7 @@ export class DiceRollerComponent implements OnDestroy {
     });
 
     this.animDice.set(
-      expanded.map(d => ({
-        id: d.id,
-        dice: d.type,
-        rolling: true,
-        display: 1,
-        final: d.final,
-        modifier,
-        label,
-      })),
+      expanded.map(d => ({ id: d.id, dice: d.type, rolling: true, display: 1, final: d.final, modifier, label })),
     );
 
     const CYCLE_MS = 60;
@@ -161,16 +192,29 @@ export class DiceRollerComponent implements OnDestroy {
       this.isRolling.set(false);
       this.queue.set([]);
 
-      const diceLabel = expanded.map(d => d.type).join(' + ');
+      // Build structured history entry
+      const diceLabel = expanded.map(d => d.type).join('+');
       const vals = res.map(r => r.value).join(', ');
-      const modStr = modifier !== undefined ? (modifier >= 0 ? ` + ${modifier}` : ` - ${Math.abs(modifier)}`) : '';
+      const modStr = modifier !== undefined ? (modifier >= 0 ? ` +${modifier}` : ` ${modifier}`) : '';
       const totalStr = modifier !== undefined ? ` = ${total}` : res.length > 1 ? ` = ${rollSum}` : '';
       const prefix = label ? `${label}: ` : '';
-      const entry =
+      const text =
         res.length > 1
-          ? `${prefix}${diceLabel} → [${vals}]${modStr}${totalStr}`
-          : `${prefix}${diceLabel} → ${res[0].value}${modStr}${totalStr}`;
-      this.historyLog.update(h => [entry, ...h].slice(0, 10));
+          ? `${prefix}${diceLabel} [${vals}]${modStr}${totalStr}`
+          : `${prefix}${diceLabel} ${res[0].value}${modStr}${totalStr}`;
+
+      const isSingleD20 = res.length === 1 && res[0].dice === 'k20';
+      const entry: HistoryEntry = {
+        text,
+        total,
+        isNat20: isSingleD20 && res[0].value === 20,
+        isCrit: isSingleD20 && res[0].value === 1,
+        timestamp: this._timestamp(),
+      };
+
+      const updated = [entry, ...this.historyLog()].slice(0, MAX_HISTORY);
+      this.historyLog.set(updated);
+      this._saveHistory(updated);
     }, totalDelay);
     this.timers.push(done);
   }
