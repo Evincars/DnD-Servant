@@ -327,72 +327,132 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           class="field ability-zdatnost-checkbox"
           style="top:575.36px; left:445.78px;"
         ></div>
-        <input
-          [formControl]="savingThrowsControls.sila"
-          class="field no-pb"
-          style="top:559.64px; left:554.13px; width:61.57px; text-align: right;"
-          placeholder="SIL"
-        />
+        <span class="roll-d20-wrap" style="top:559.64px; left:554.13px; width:61.57px;">
+          <input
+            [formControl]="savingThrowsControls.sila"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="SIL"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(savingThrowsControls.sila.value, 'Záchranný hod Síla')"
+            matTooltip="Hodit k20 + záchranný hod Síla"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(savingThrowsControls.obratnostZdatnost)"
           (click)="cycleAbilityZdatnost(savingThrowsControls.obratnostZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:602.61px; left:445.78px;"
         ></div>
-        <input
-          [formControl]="savingThrowsControls.obratnost"
-          class="field no-pb"
-          style="top:588.71px; left:554.13px; width:61.57px; text-align: right;"
-          placeholder="OBR"
-        />
+        <span class="roll-d20-wrap" style="top:588.71px; left:554.13px; width:61.57px;">
+          <input
+            [formControl]="savingThrowsControls.obratnost"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="OBR"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(savingThrowsControls.obratnost.value, 'Záchranný hod Obratnost')"
+            matTooltip="Hodit k20 + záchranný hod Obratnost"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(savingThrowsControls.odolnostZdatnost)"
           (click)="cycleAbilityZdatnost(savingThrowsControls.odolnostZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:631.68px; left:445.78px;"
         ></div>
-        <input
-          [formControl]="savingThrowsControls.odolnost"
-          class="field no-pb"
-          style="top:617.78px; left:554.13px; width:61.57px; text-align: right;"
-          placeholder="ODL"
-        />
+        <span class="roll-d20-wrap" style="top:617.78px; left:554.13px; width:61.57px;">
+          <input
+            [formControl]="savingThrowsControls.odolnost"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="ODL"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(savingThrowsControls.odolnost.value, 'Záchranný hod Odolnost')"
+            matTooltip="Hodit k20 + záchranný hod Odolnost"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(savingThrowsControls.inteligenceZdatnost)"
           (click)="cycleAbilityZdatnost(savingThrowsControls.inteligenceZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:660.75px; left:445.78px;"
         ></div>
-        <input
-          [formControl]="savingThrowsControls.inteligence"
-          class="field no-pb"
-          style="top:646.85px; left:554.13px; width:61.57px; text-align: right;"
-          placeholder="INT"
-        />
+        <span class="roll-d20-wrap" style="top:646.85px; left:554.13px; width:61.57px;">
+          <input
+            [formControl]="savingThrowsControls.inteligence"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="INT"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(savingThrowsControls.inteligence.value, 'Záchranný hod Inteligence')"
+            matTooltip="Hodit k20 + záchranný hod Inteligence"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(savingThrowsControls.moudrostZdatnost)"
           (click)="cycleAbilityZdatnost(savingThrowsControls.moudrostZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:688.01px; left:445.78px;"
         ></div>
-        <input
-          [formControl]="savingThrowsControls.moudrost"
-          class="field no-pb"
-          style="top:675.92px; left:554.13px; width:61.57px; text-align: right;"
-          placeholder="MDR"
-        />
+        <span class="roll-d20-wrap" style="top:675.92px; left:554.13px; width:61.57px;">
+          <input
+            [formControl]="savingThrowsControls.moudrost"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="MDR"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(savingThrowsControls.moudrost.value, 'Záchranný hod Moudrost')"
+            matTooltip="Hodit k20 + záchranný hod Moudrost"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(savingThrowsControls.charismaZdatnost)"
           (click)="cycleAbilityZdatnost(savingThrowsControls.charismaZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:717.08px; left:445.78px;"
         ></div>
-        <input
-          [formControl]="savingThrowsControls.charisma"
-          class="field no-pb"
-          style="top:703.18px; left:554.13px; width:61.57px; text-align: right;"
-          placeholder="CHA"
-        />
+        <span class="roll-d20-wrap" style="top:703.18px; left:554.13px; width:61.57px;">
+          <input
+            [formControl]="savingThrowsControls.charisma"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="CHA"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(savingThrowsControls.charisma.value, 'Záchranný hod Charisma')"
+            matTooltip="Hodit k20 + záchranný hod Charisma"
+          >
+            🎲
+          </button>
+        </span>
 
         <!--    passive skills -->
         <div
@@ -947,72 +1007,132 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         ></div>
 
         <!--    main 6 skills-->
-        <input
-          [formControl]="main6SkillsControls.silaOprava"
-          class="field main-skill"
-          style="top:332.51px; left:78.60px; width:49.78px; text-align: center;"
-          placeholder="SIL"
-        />
+        <span class="roll-d20-wrap" style="top:332.51px; left:78.60px; width:49.78px;">
+          <input
+            [formControl]="main6SkillsControls.silaOprava"
+            class="field main-skill"
+            style="top:0;left:0;width:100%;position:relative;"
+            placeholder="SIL"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(main6SkillsControls.silaOprava.value, 'Oprava Síly')"
+            matTooltip="Hodit k20 + oprava Síly"
+          >
+            🎲
+          </button>
+        </span>
         <input
           [formControl]="main6SkillsControls.sila"
           class="field"
           style="top:378.94px; left:78.60px; width:49.78px; text-align: center"
           placeholder="SIL"
         />
-        <input
-          [formControl]="main6SkillsControls.obratnostOprava"
-          class="field main-skill"
-          style="top:497.86px; left:78.60px; width:49.78px; text-align: center"
-          placeholder="OBR"
-        />
+        <span class="roll-d20-wrap" style="top:497.86px; left:78.60px; width:49.78px;">
+          <input
+            [formControl]="main6SkillsControls.obratnostOprava"
+            class="field main-skill"
+            style="top:0;left:0;width:100%;position:relative;"
+            placeholder="OBR"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(main6SkillsControls.obratnostOprava.value, 'Oprava Obratnosti')"
+            matTooltip="Hodit k20 + oprava Obratnosti"
+          >
+            🎲
+          </button>
+        </span>
         <input
           [formControl]="main6SkillsControls.obratnost"
           class="field"
           style="top:545.10px; left:78.60px; width:49.78px; text-align: center"
           placeholder="OBR"
         />
-        <input
-          [formControl]="main6SkillsControls.odolnostOprava"
-          class="field main-skill"
-          style="top:672.29px; left:78.60px; width:49.78px; text-align: center"
-          placeholder="ODL"
-        />
+        <span class="roll-d20-wrap" style="top:672.29px; left:78.60px; width:49.78px;">
+          <input
+            [formControl]="main6SkillsControls.odolnostOprava"
+            class="field main-skill"
+            style="top:0;left:0;width:100%;position:relative;"
+            placeholder="ODL"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(main6SkillsControls.odolnostOprava.value, 'Oprava Odolnosti')"
+            matTooltip="Hodit k20 + oprava Odolnosti"
+          >
+            🎲
+          </button>
+        </span>
         <input
           [formControl]="main6SkillsControls.odolnost"
           class="field"
           style="top:720.53px; left:78.60px; width:49.78px; text-align: center"
           placeholder="ODL"
         />
-        <input
-          [formControl]="main6SkillsControls.inteligenceOprava"
-          class="field main-skill"
-          style="top:847.72px; left:78.60px; width:49.78px; text-align: center"
-          placeholder="INT"
-        />
+        <span class="roll-d20-wrap" style="top:847.72px; left:78.60px; width:49.78px;">
+          <input
+            [formControl]="main6SkillsControls.inteligenceOprava"
+            class="field main-skill"
+            style="top:0;left:0;width:100%;position:relative;"
+            placeholder="INT"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(main6SkillsControls.inteligenceOprava.value, 'Oprava Inteligence')"
+            matTooltip="Hodit k20 + oprava Inteligence"
+          >
+            🎲
+          </button>
+        </span>
         <input
           [formControl]="main6SkillsControls.inteligence"
           class="field"
           style="top:894.15px; left:78.60px; width:49.78px; text-align: center"
           placeholder="INT"
         />
-        <input
-          [formControl]="main6SkillsControls.moudrostOprava"
-          class="field main-skill"
-          style="top:1015.30px; left:78.60px; width:49.78px; text-align: center"
-          placeholder="MDR"
-        />
+        <span class="roll-d20-wrap" style="top:1015.30px; left:78.60px; width:49.78px;">
+          <input
+            [formControl]="main6SkillsControls.moudrostOprava"
+            class="field main-skill"
+            style="top:0;left:0;width:100%;position:relative;"
+            placeholder="MDR"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(main6SkillsControls.moudrostOprava.value, 'Oprava Moudrosti')"
+            matTooltip="Hodit k20 + oprava Moudrosti"
+          >
+            🎲
+          </button>
+        </span>
         <input
           [formControl]="main6SkillsControls.moudrost"
           class="field"
           style="top:1061.73px; left:78.60px; width:49.78px; text-align: center"
           placeholder="MDR"
         />
-        <input
-          [formControl]="main6SkillsControls.charismaOprava"
-          class="field main-skill"
-          style="top:1189.92px; left:78.60px; width:49.78px; text-align: center"
-          placeholder="CHA"
-        />
+        <span class="roll-d20-wrap" style="top:1189.92px; left:78.60px; width:49.78px;">
+          <input
+            [formControl]="main6SkillsControls.charismaOprava"
+            class="field main-skill"
+            style="top:0;left:0;width:100%;position:relative;"
+            placeholder="CHA"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(main6SkillsControls.charismaOprava.value, 'Oprava Charismatu')"
+            matTooltip="Hodit k20 + oprava Charismatu"
+          >
+            🎲
+          </button>
+        </span>
         <input
           [formControl]="main6SkillsControls.charisma"
           class="field"
@@ -1028,237 +1148,414 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           class="field ability-zdatnost-checkbox"
           style="top:418px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.atletika"
-          id="atletika"
-          class="field no-pb"
-          style="top:403.38px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:403.38px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.atletika"
+            id="atletika"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.atletika.value, 'Atletika')"
+            matTooltip="Hodit k20 + Atletika"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.akrobacieZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.akrobacieZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:476px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.akrobacie"
-          id="akrobacie"
-          class="field no-pb"
-          style="top:461.52px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:461.52px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.akrobacie"
+            id="akrobacie"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.akrobacie.value, 'Akrobacie')"
+            matTooltip="Hodit k20 + Akrobacie"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.cachryZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.cachryZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:504px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.cachry"
-          id="cachry"
-          class="field no-pb"
-          style="top:490.59px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:490.59px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.cachry"
+            id="cachry"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.cachry.value, 'Čachry')"
+            matTooltip="Hodit k20 + Čachry"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.nenapadnostZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.nenapadnostZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:532px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.nenapadnost"
-          id="nenapadnost"
-          class="field no-pb"
-          style="top:519.66px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
-
+        <span class="roll-d20-wrap" style="top:519.66px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.nenapadnost"
+            id="nenapadnost"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.nenapadnost.value, 'Nenápadnost')"
+            matTooltip="Hodit k20 + Nenápadnost"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.historieZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.historieZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:595px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.historie"
-          id="historie"
-          class="field no-pb"
-          style="top:581.44px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:581.44px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.historie"
+            id="historie"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.historie.value, 'Historie')"
+            matTooltip="Hodit k20 + Historie"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.mystikaZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.mystikaZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:624px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.mystika"
-          id="mystika"
-          class="field no-pb"
-          style="top:610.51px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:610.51px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.mystika"
+            id="mystika"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.mystika.value, 'Mystika')"
+            matTooltip="Hodit k20 + Mystika"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.nabozenstviZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.nabozenstviZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:653px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.nabozenstvi"
-          id="nabozenstvi"
-          class="field no-pb"
-          style="top:639.59px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:639.59px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.nabozenstvi"
+            id="nabozenstvi"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.nabozenstvi.value, 'Náboženství')"
+            matTooltip="Hodit k20 + Náboženství"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.patraniZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.patraniZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:681px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.patrani"
-          id="patrani"
-          class="field no-pb"
-          style="top:666.84px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:666.84px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.patrani"
+            id="patrani"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.patrani.value, 'Pátrání')"
+            matTooltip="Hodit k20 + Pátrání"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.prirodaZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.prirodaZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:709px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.priroda"
-          id="priroda"
-          class="field no-pb"
-          style="top:695.89px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
-
+        <span class="roll-d20-wrap" style="top:695.89px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.priroda"
+            id="priroda"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.priroda.value, 'Příroda')"
+            matTooltip="Hodit k20 + Příroda"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.lekarstviZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.lekarstviZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:771px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.lekarstvi"
-          id="lekarstvi"
-          class="field no-pb"
-          style="top:757.69px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:757.69px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.lekarstvi"
+            id="lekarstvi"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.lekarstvi.value, 'Lékařství')"
+            matTooltip="Hodit k20 + Lékařství"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.ovladaniZviratZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.ovladaniZviratZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:800px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.ovladaniZvirat"
-          id="ovladaniZvirat"
-          class="field no-pb"
-          style="top:787.76px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:787.76px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.ovladaniZvirat"
+            id="ovladaniZvirat"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.ovladaniZvirat.value, 'Ovládání zvířat')"
+            matTooltip="Hodit k20 + Ovládání zvířat"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.prezitiZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.prezitiZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:829px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.preziti"
-          id="preziti"
-          class="field no-pb"
-          style="top:814.42px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:814.42px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.preziti"
+            id="preziti"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.preziti.value, 'Přežití')"
+            matTooltip="Hodit k20 + Přežití"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.vhledZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.vhledZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:857px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.vhled"
-          id="vhled"
-          class="field no-pb"
-          style="top:844.49px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:844.49px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.vhled"
+            id="vhled"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.vhled.value, 'Vhled')"
+            matTooltip="Hodit k20 + Vhled"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.vnimaniZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.vnimaniZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:885px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.vnimani"
-          id="vnimani"
-          class="field no-pb"
-          style="top:871.16px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
-
+        <span class="roll-d20-wrap" style="top:871.16px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.vnimani"
+            id="vnimani"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.vnimani.value, 'Vnímání')"
+            matTooltip="Hodit k20 + Vnímání"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.klamaniZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.klamaniZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:948px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.klamani"
-          id="klamani"
-          class="field no-pb"
-          style="top:934.75px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:934.75px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.klamani"
+            id="klamani"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.klamani.value, 'Klamání')"
+            matTooltip="Hodit k20 + Klamání"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.presvedcovaniZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.presvedcovaniZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:977px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.presvedcovani"
-          id="presvedcovani"
-          class="field no-pb"
-          style="top:963.01px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:963.01px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.presvedcovani"
+            id="presvedcovani"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.presvedcovani.value, 'Přesvědčování')"
+            matTooltip="Hodit k20 + Přesvědčování"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.vystupovaniZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.vystupovaniZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:1005px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.vystupovani"
-          id="vystupovani"
-          class="field no-pb"
-          style="top:992.48px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:992.48px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.vystupovani"
+            id="vystupovani"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.vystupovani.value, 'Vystupování')"
+            matTooltip="Hodit k20 + Vystupování"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.zastrasovaniZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.zastrasovaniZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:1035px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.zastrasovani"
-          id="zastrasovani"
-          class="field no-pb"
-          style="top:1019.80px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:1019.80px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.zastrasovani"
+            id="zastrasovani"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(abilitiesControls.zastrasovani.value, 'Zastrašování')"
+            matTooltip="Hodit k20 + Zastrašování"
+          >
+            🎲
+          </button>
+        </span>
 
         <!--    =============================================-->
 
@@ -2775,6 +3072,23 @@ export class CharacterSheetComponent {
 
   onOpenWeaponsAndArmorsDialog() {
     openWeaponsAndArmorsDialog(this.dialog);
+  }
+
+  rollD20(fieldValue: string | null | undefined, label: string): void {
+    const d20 = Math.floor(Math.random() * 20) + 1;
+    const mod = parseInt((fieldValue ?? '0').replace('+', '')) || 0;
+    const total = d20 + mod;
+    const modStr = mod >= 0 ? `+${mod}` : `${mod}`;
+    const isNat20 = d20 === 20;
+    const isCrit = d20 === 1;
+    const icon = isNat20 ? '🌟' : isCrit ? '💀' : '🎲';
+    const prefix = isNat20 ? 'NAT 20! ' : isCrit ? 'KRITICKÝ NEÚSPĚCH! ' : '';
+    const msg = `${icon} ${prefix}${label}: k20(${d20}) ${modStr} = ${total}`;
+    this.snackBar.open(msg, '✕', {
+      verticalPosition: 'top',
+      duration: 4000,
+      panelClass: isNat20 ? ['snackbar--save'] : isCrit ? ['snackbar--crit'] : [],
+    });
   }
 
   onOpenDamagesDialog() {
