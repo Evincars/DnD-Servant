@@ -184,15 +184,19 @@ $accent-k20:  #a840ff;
   &__value { font-size: 28px; font-weight: 900; color: $gold-light; line-height: 1; }
 
   &__label {
-    font-size: 8px;
-    color: $gold-dim;
+    font-size: 11px;
+    font-weight: 700;
+    color: $gold-light;
     text-transform: uppercase;
-    letter-spacing: .05em;
+    letter-spacing: .06em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 90%;
-    margin-bottom: 1px;
+    max-width: 100%;
+    margin-bottom: 2px;
+    text-shadow: 0 0 8px rgba(200,154,60,.5);
+    border-bottom: 1px solid rgba(200,154,60,.3);
+    padding-bottom: 1px;
   }
 
   &__result-row {
@@ -407,14 +411,12 @@ $accent-k20:  #a840ff;
   border-top: 1px solid $border;
   background: rgba(0,0,0,.25);
   flex-shrink: 0;
-  max-height: 220px;
-  overflow: hidden;
 
   &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 6px 16px 4px;
+    padding: 5px 16px 3px;
     border-bottom: 1px solid rgba(200,154,60,.1);
   }
 
@@ -426,44 +428,56 @@ $accent-k20:  #a840ff;
     font-weight: 700;
   }
 
+  // horizontal wrap — max 2 rows, then scroll right
   &__list {
-    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: flex-start;
+    gap: 4px;
+    padding: 6px 12px 7px;
+    max-height: calc(2 * 28px + 6px + 14px); // 2 rows + gap + padding
+    overflow-x: auto;
+    overflow-y: hidden;
     scrollbar-width: thin;
     scrollbar-color: rgba(200,154,60,.2) transparent;
-    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar { height: 3px; }
     &::-webkit-scrollbar-thumb { background: rgba(200,154,60,.25); border-radius: 2px; }
   }
 
   &__entry {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 5px 16px;
-    border-bottom: 1px solid rgba(200,154,60,.06);
+    gap: 5px;
+    padding: 3px 8px 3px 6px;
+    height: 28px;
+    border: 1px solid rgba(200,154,60,.15);
+    border-radius: 14px;
+    background: rgba(200,154,60,.05);
     transition: background .15s;
+    flex-shrink: 0;
 
-    &:hover { background: rgba(200,154,60,.05); }
+    &:hover { background: rgba(200,154,60,.1); }
 
     &--latest {
-      background: rgba(200,154,60,.08);
-      border-bottom-color: rgba(200,154,60,.15);
+      border-color: rgba(200,154,60,.4);
+      background: rgba(200,154,60,.1);
     }
 
-    &--nat20 { background: rgba(200,154,60,.12) !important; }
-    &--crit  { background: rgba(192,57,43,.12) !important; }
+    &--nat20 { background: rgba(200,154,60,.14) !important; border-color: $gold !important; }
+    &--crit  { background: rgba(192,57,43,.14) !important; border-color: $red !important; }
 
     &-time {
       font-size: 9px;
       color: $gold-dim;
       flex-shrink: 0;
-      min-width: 28px;
     }
 
     &-text {
       font-size: 10px;
       color: rgba(200,154,60,.7);
-      flex: 1;
       white-space: nowrap;
+      max-width: 130px;
       overflow: hidden;
       text-overflow: ellipsis;
 
@@ -472,32 +486,31 @@ $accent-k20:  #a840ff;
 
     &-total {
       flex-shrink: 0;
-      min-width: 32px;
+      min-width: 22px;
       text-align: center;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 900;
       color: $gold-light;
-      background: rgba(200,154,60,.18);
-      border: 1px solid rgba(200,154,60,.35);
-      border-radius: 6px;
-      padding: 1px 6px;
-      text-shadow: 0 0 8px $gold;
-      line-height: 1.4;
+      background: rgba(200,154,60,.22);
+      border: 1px solid rgba(200,154,60,.4);
+      border-radius: 5px;
+      padding: 0 5px;
+      text-shadow: 0 0 6px $gold;
+      line-height: 1.5;
 
       &--nat20 {
         color: $dark-900;
         background: $gold;
         border-color: $gold-light;
         text-shadow: none;
-        box-shadow: 0 0 10px rgba(200,154,60,.6);
+        box-shadow: 0 0 8px rgba(200,154,60,.5);
       }
 
       &--crit {
         color: #fff;
         background: $red;
         border-color: $red-bright;
-        text-shadow: 0 0 6px $red-bright;
-        box-shadow: 0 0 8px rgba(192,57,43,.5);
+        text-shadow: 0 0 5px $red-bright;
       }
     }
   }
@@ -527,7 +540,5 @@ $accent-k20:  #a840ff;
   0%   { transform: scale(0.6); opacity: 0; }
   70%  { transform: scale(1.15); }
   100% { transform: scale(1);    opacity: 1; }
-}
-  to { transform: rotate(360deg); }
 }
 
