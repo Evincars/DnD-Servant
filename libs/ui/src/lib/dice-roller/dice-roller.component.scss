@@ -428,21 +428,16 @@ $accent-k20:  #a840ff;
     font-weight: 700;
   }
 
-  // grid: 2 rows fixed, items fill top→bottom then new column to the right
+  // flex: items fill left→right, wrap to next row
   &__list {
-    display: grid;
-    grid-template-rows: repeat(2, 28px);
-    grid-auto-flow: column;
-    grid-auto-columns: max-content;
-    align-content: start;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: flex-start;
     gap: 4px;
     padding: 6px 12px 7px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(200,154,60,.2) transparent;
-    &::-webkit-scrollbar { height: 3px; }
-    &::-webkit-scrollbar-thumb { background: rgba(200,154,60,.25); border-radius: 2px; }
+    max-height: calc(2 * 28px + 3 * 4px); // 2 rows + gaps
+    overflow: hidden;
   }
 
   &__entry {
