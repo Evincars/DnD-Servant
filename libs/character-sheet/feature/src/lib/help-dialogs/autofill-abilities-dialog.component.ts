@@ -79,8 +79,8 @@ export const AUTOFILL_DIALOG_HIDDEN_KEY = 'autofill-dialog-hidden';
 
       <div class="dice-info-box">
         <div class="dice-info-box__header">
-          <img src="d20.png" alt="d20" class="dice-info-box__icon" />
-          <span class="dice-info-box__title">🎲 Kostka u polí schopností</span>
+          <span class="dice-info-box__icon">🎲</span>
+          <span class="dice-info-box__title">Kostka u čísel schopností a dovedností</span>
         </div>
         <p class="dice-info-box__text">
           Najeď myší na pole
@@ -90,7 +90,7 @@ export const AUTOFILL_DIALOG_HIDDEN_KEY = 'autofill-dialog-hidden';
           (Atletika, Akrobacie…) nebo
           <strong>Záchranné hody</strong>
           — zobrazí se ikona
-          <img src="d20.png" alt="d20" class="dice-info-box__inline-icon" />
+          <span class="dice-info-box__inline-icon">🎲</span>
           . Klikni na ni a automaticky se:
         </p>
         <ul class="dice-info-box__list">
@@ -226,19 +226,16 @@ export const AUTOFILL_DIALOG_HIDDEN_KEY = 'autofill-dialog-hidden';
       }
 
       &__icon {
-        width: 32px;
-        height: 32px;
-        object-fit: contain;
+        font-size: 28px;
+        line-height: 1;
         filter: drop-shadow(0 0 6px rgba(200,160,60,.7));
       }
 
       &__inline-icon {
-        width: 14px;
-        height: 14px;
-        object-fit: contain;
+        font-size: 14px;
+        line-height: 1;
         vertical-align: middle;
         margin: 0 1px;
-        filter: drop-shadow(0 0 3px rgba(200,160,60,.6));
       }
 
       &__title {
