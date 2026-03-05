@@ -5,7 +5,9 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "update": "nx migrate latest",
+    "migrate": "set NX_MIGRATE_SKIP_INSTALL=true npx nx migrate --run-migrations"
   },
   "private": true,
   "dependencies": {
