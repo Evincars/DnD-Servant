@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { CharacterSheetComponent } from './character-sheet.component';
 import { GroupSheetComponent } from './group-sheet.component';
@@ -7,6 +7,8 @@ import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { InitiativeTrackerComponent } from './initiative-tracker/initiative-tracker.component';
 import { PlayerItemsCardsComponent } from './players-items-cards/player-items-cards.component';
 import { LocalStorageService } from '@dn-d-servant/util';
+import { MatDialog } from '@angular/material/dialog';
+import { openAutofillAbilitiesDialog, AUTOFILL_DIALOG_HIDDEN_KEY } from './help-dialogs/autofill-abilities-dialog.component';
 
 const TAB_INDEX_KEY = 'active-tab-index';
 
@@ -209,10 +211,19 @@ const TAB_INDEX_KEY = 'active-tab-index';
     PlayerItemsCardsComponent,
   ],
 })
-export class CharacterSheetTabsComponent {
+export class CharacterSheetTabsComponent implements OnInit {
   private readonly ls = inject(LocalStorageService);
+  private readonly dialog = inject(MatDialog);
 
   selectedTab = signal<number>(this.ls.getDataSync<number>(TAB_INDEX_KEY) ?? 0);
+
+  ngOnInit(): void {
+    const hidden = this.ls.getDataSync<boolean>(AUTOFILL_DIALOG_HIDDEN_KEY);
+    if (!hidden) {
+      // Small delay so the app renders first
+      setTimeout(() => openAutofillAbilitiesDialog(this.dialog).subscribe(), 600);
+    }
+  }
 
   onTabChange(index: number): void {
     this.selectedTab.set(index);

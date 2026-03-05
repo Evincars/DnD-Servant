@@ -165,6 +165,13 @@ input[type='checkbox'][disabled] {
   color: rgb(205, 66, 66);
   font-size: 22px;
   user-select: none;
+  border-color: transparent !important;
+  background: transparent !important;
+
+  &:focus {
+    border-color: red !important;
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.25) !important;
+  }
 }
 
 .dead-throw-success {
@@ -173,6 +180,57 @@ input[type='checkbox'][disabled] {
 
 .dead-throw-fail {
   accent-color: red;
+}
+
+// ── Death save heart / skull icons ───────────────────────────────────────────
+.death-save-icon {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  overflow: visible;
+  transition: transform 0.15s ease, filter 0.15s ease;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    fill: rgba(60, 40, 20, 0.35);
+    transition: fill 0.2s ease, filter 0.2s ease;
+  }
+
+  &:hover svg {
+    filter: brightness(1.4);
+    transform: scale(1.1);
+  }
+
+  &--active svg {
+    filter: drop-shadow(0 0 3px currentColor);
+  }
+}
+
+.death-save-heart {
+  border: none;
+  svg { width: 26px; height: 26px; position: relative; top: 10px; left: 8px; }
+
+  &.death-save-icon--active svg {
+    fill: #2e9e3e;
+    filter: drop-shadow(0 0 4px rgba(46, 158, 62, 0.8));
+  }
+}
+
+.death-save-skull {
+  border: none;
+  svg { width: 36px; height: 36px; position: relative; top: 12px; left: 7px; }
+
+  &.death-save-icon--active svg {
+    fill: #c0392b;
+    filter: drop-shadow(0 0 4px rgba(192, 57, 43, 0.8));
+  }
 }
 
 .inventory-item {
@@ -312,6 +370,14 @@ input[type='checkbox'][disabled] {
   height: 15px;
 }
 
+.readonly-field {
+  cursor: default !important;
+  pointer-events: none;
+  opacity: 0.75;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+  color: #444 !important;
+}
+
 .small-info-button-icon {
   width: 20px;
   height: 20px;
@@ -325,5 +391,61 @@ input[type='checkbox'][disabled] {
   font-size: 15px;
   &:hover {
     text-decoration: underline;
+  }
+}
+
+// ── Dice roll hover overlay ───────────────────────────────────────────────────
+.roll-d20-wrap {
+  position: absolute;
+  display: block;
+
+  input.field {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box;
+    padding-right: 22px; // leave room for dice icon inside
+    transition: padding-right 0.1s;
+  }
+
+  // ability oprava fields — keep text centered
+  &.roll-d20-center input.field {
+    text-align: center !important;
+  }
+
+  .roll-d20-btn {
+    display: none;
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: all;
+    transition: transform 0.1s, filter 0.1s;
+
+    &:hover {
+      transform: translateY(-50%) scale(1.2);
+      filter: drop-shadow(0 0 4px rgba(200, 160, 60, 0.8));
+    }
+
+    &:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+  }
+
+  &:hover .roll-d20-btn {
+    display: flex;
   }
 }

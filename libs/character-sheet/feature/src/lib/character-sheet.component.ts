@@ -28,7 +28,7 @@ import {
   TopInfoForm,
   InventoryForm,
 } from '@dn-d-servant/character-sheet-util';
-import { RichTextareaComponent, SpinnerOverlayComponent } from '@dn-d-servant/ui';
+import { RichTextareaComponent, SpinnerOverlayComponent, DiceRollerService } from '@dn-d-servant/ui';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
 import { CharacterSheetFormModelMappers } from './api-mappers/character-sheet-form-model-mappers';
@@ -147,7 +147,8 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         <input
           [formControl]="abilityBonusControls.zdatnostniBonus"
           matTooltip="Ke každé Dovednosti se kterou máš zdatnost připočítej tento bonus"
-          class="field"
+          class="field readonly-field"
+          readonly
           style="top:274.37px; left:183.4px; width:44.54px; text-align: center"
           placeholder="ZB"
         />
@@ -218,44 +219,80 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         />
 
         <!--    Hearts for Dead saving -->
-        <input
-          [formControl]="speedAndHealingDicesControls.smrtUspech1"
-          type="checkbox"
-          class="field checkbox dead-throw-success"
-          style="top:427px; left:1093.85px;"
-        />
-        <input
-          [formControl]="speedAndHealingDicesControls.smrtUspech2"
-          type="checkbox"
-          class="field checkbox dead-throw-success"
-          style="top:427px; left:1125.29px;"
-        />
-        <input
-          [formControl]="speedAndHealingDicesControls.smrtUspech3"
-          type="checkbox"
-          class="field checkbox dead-throw-success"
-          style="top:427px; left:1156.73px;"
-        />
+        <div
+          class="field death-save-icon death-save-heart"
+          [class.death-save-icon--active]="speedAndHealingDicesControls.smrtUspech1.value"
+          (click)="toggleDeathSave(speedAndHealingDicesControls.smrtUspech1)"
+          style="top:424px; left:1091px;"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+            />
+          </svg>
+        </div>
+        <div
+          class="field death-save-icon death-save-heart"
+          [class.death-save-icon--active]="speedAndHealingDicesControls.smrtUspech2.value"
+          (click)="toggleDeathSave(speedAndHealingDicesControls.smrtUspech2)"
+          style="top:424px; left:1122px;"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+            />
+          </svg>
+        </div>
+        <div
+          class="field death-save-icon death-save-heart"
+          [class.death-save-icon--active]="speedAndHealingDicesControls.smrtUspech3.value"
+          (click)="toggleDeathSave(speedAndHealingDicesControls.smrtUspech3)"
+          style="top:424px; left:1153px;"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+            />
+          </svg>
+        </div>
 
         <!--    Skulls for Death saving -->
-        <input
-          [formControl]="speedAndHealingDicesControls.smrtNeuspech1"
-          type="checkbox"
-          class="field checkbox dead-throw-fail"
-          style="top:457.88px; left:1093.85px;"
-        />
-        <input
-          [formControl]="speedAndHealingDicesControls.smrtNeuspech2"
-          type="checkbox"
-          class="field checkbox dead-throw-fail"
-          style="top:457.88px; left:1125.29px;"
-        />
-        <input
-          [formControl]="speedAndHealingDicesControls.smrtNeuspech3"
-          type="checkbox"
-          class="field checkbox dead-throw-fail"
-          style="top:457.88px; left:1155.42px;"
-        />
+        <div
+          class="field death-save-icon death-save-skull"
+          [class.death-save-icon--active]="speedAndHealingDicesControls.smrtNeuspech1.value"
+          (click)="toggleDeathSave(speedAndHealingDicesControls.smrtNeuspech1)"
+          style="top:455px; left:1092px;"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm-2 14v-1h4v1h-4zm4-3H10v-.62C8.79 11.53 8 10.36 8 9c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.36-.79 2.53-2 3.38V13zm-3 2h2v1h-2v-1z"
+            />
+          </svg>
+        </div>
+        <div
+          class="field death-save-icon death-save-skull"
+          [class.death-save-icon--active]="speedAndHealingDicesControls.smrtNeuspech2.value"
+          (click)="toggleDeathSave(speedAndHealingDicesControls.smrtNeuspech2)"
+          style="top:455px; left:1124px;"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm-2 14v-1h4v1h-4zm4-3H10v-.62C8.79 11.53 8 10.36 8 9c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.36-.79 2.53-2 3.38V13zm-3 2h2v1h-2v-1z"
+            />
+          </svg>
+        </div>
+        <div
+          class="field death-save-icon death-save-skull"
+          [class.death-save-icon--active]="speedAndHealingDicesControls.smrtNeuspech3.value"
+          (click)="toggleDeathSave(speedAndHealingDicesControls.smrtNeuspech3)"
+          style="top:455px; left:1155px;"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm-2 14v-1h4v1h-4zm4-3H10v-.62C8.79 11.53 8 10.36 8 9c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.36-.79 2.53-2 3.38V13zm-3 2h2v1h-2v-1z"
+            />
+          </svg>
+        </div>
 
         <rich-textarea
           [formControl]="form.controls['infoAboutCharacter']"
@@ -327,72 +364,122 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           class="field ability-zdatnost-checkbox"
           style="top:575.36px; left:445.78px;"
         ></div>
-        <input
-          [formControl]="savingThrowsControls.sila"
-          class="field no-pb"
-          style="top:559.64px; left:554.13px; width:61.57px; text-align: right;"
-          placeholder="SIL"
-        />
+        <span class="roll-d20-wrap" style="top:559.64px; left:554.13px; width:61.57px;">
+          <input
+            [formControl]="savingThrowsControls.sila"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="SIL"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(savingThrowsControls.sila.value, 'Záchranný hod Síla')">
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(savingThrowsControls.obratnostZdatnost)"
           (click)="cycleAbilityZdatnost(savingThrowsControls.obratnostZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:602.61px; left:445.78px;"
         ></div>
-        <input
-          [formControl]="savingThrowsControls.obratnost"
-          class="field no-pb"
-          style="top:588.71px; left:554.13px; width:61.57px; text-align: right;"
-          placeholder="OBR"
-        />
+        <span class="roll-d20-wrap" style="top:588.71px; left:554.13px; width:61.57px;">
+          <input
+            [formControl]="savingThrowsControls.obratnost"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="OBR"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(savingThrowsControls.obratnost.value, 'Záchranný hod Obratnost')"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(savingThrowsControls.odolnostZdatnost)"
           (click)="cycleAbilityZdatnost(savingThrowsControls.odolnostZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:631.68px; left:445.78px;"
         ></div>
-        <input
-          [formControl]="savingThrowsControls.odolnost"
-          class="field no-pb"
-          style="top:617.78px; left:554.13px; width:61.57px; text-align: right;"
-          placeholder="ODL"
-        />
+        <span class="roll-d20-wrap" style="top:617.78px; left:554.13px; width:61.57px;">
+          <input
+            [formControl]="savingThrowsControls.odolnost"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="ODL"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(savingThrowsControls.odolnost.value, 'Záchranný hod Odolnost')"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(savingThrowsControls.inteligenceZdatnost)"
           (click)="cycleAbilityZdatnost(savingThrowsControls.inteligenceZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:660.75px; left:445.78px;"
         ></div>
-        <input
-          [formControl]="savingThrowsControls.inteligence"
-          class="field no-pb"
-          style="top:646.85px; left:554.13px; width:61.57px; text-align: right;"
-          placeholder="INT"
-        />
+        <span class="roll-d20-wrap" style="top:646.85px; left:554.13px; width:61.57px;">
+          <input
+            [formControl]="savingThrowsControls.inteligence"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="INT"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(savingThrowsControls.inteligence.value, 'Záchranný hod Inteligence')"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(savingThrowsControls.moudrostZdatnost)"
           (click)="cycleAbilityZdatnost(savingThrowsControls.moudrostZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:688.01px; left:445.78px;"
         ></div>
-        <input
-          [formControl]="savingThrowsControls.moudrost"
-          class="field no-pb"
-          style="top:675.92px; left:554.13px; width:61.57px; text-align: right;"
-          placeholder="MDR"
-        />
+        <span class="roll-d20-wrap" style="top:675.92px; left:554.13px; width:61.57px;">
+          <input
+            [formControl]="savingThrowsControls.moudrost"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="MDR"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(savingThrowsControls.moudrost.value, 'Záchranný hod Moudrost')"
+          >
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(savingThrowsControls.charismaZdatnost)"
           (click)="cycleAbilityZdatnost(savingThrowsControls.charismaZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:717.08px; left:445.78px;"
         ></div>
-        <input
-          [formControl]="savingThrowsControls.charisma"
-          class="field no-pb"
-          style="top:703.18px; left:554.13px; width:61.57px; text-align: right;"
-          placeholder="CHA"
-        />
+        <span class="roll-d20-wrap" style="top:703.18px; left:554.13px; width:61.57px;">
+          <input
+            [formControl]="savingThrowsControls.charisma"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="CHA"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(savingThrowsControls.charisma.value, 'Záchranný hod Charisma')"
+          >
+            🎲
+          </button>
+        </span>
 
         <!--    passive skills -->
         <div
@@ -947,72 +1034,104 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
         ></div>
 
         <!--    main 6 skills-->
-        <input
-          [formControl]="main6SkillsControls.silaOprava"
-          class="field main-skill"
-          style="top:332.51px; left:78.60px; width:49.78px; text-align: center;"
-          placeholder="SIL"
-        />
+        <span class="roll-d20-wrap roll-d20-center" style="top:332.51px; left:78.60px; width:59.78px;">
+          <input
+            [formControl]="main6SkillsControls.silaOprava"
+            class="field main-skill"
+            style="top:0;left:0;width:100%;position:relative;"
+            placeholder="SIL"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(main6SkillsControls.silaOprava.value, 'Síla')">🎲</button>
+        </span>
         <input
           [formControl]="main6SkillsControls.sila"
           class="field"
           style="top:378.94px; left:78.60px; width:49.78px; text-align: center"
           placeholder="SIL"
         />
-        <input
-          [formControl]="main6SkillsControls.obratnostOprava"
-          class="field main-skill"
-          style="top:497.86px; left:78.60px; width:49.78px; text-align: center"
-          placeholder="OBR"
-        />
+        <span class="roll-d20-wrap roll-d20-center" style="top:497.86px; left:78.60px; width:59.78px;">
+          <input
+            [formControl]="main6SkillsControls.obratnostOprava"
+            class="field main-skill"
+            style="top:0;left:0;width:100%;position:relative;"
+            placeholder="OBR"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(main6SkillsControls.obratnostOprava.value, 'Obratnost')">
+            🎲
+          </button>
+        </span>
         <input
           [formControl]="main6SkillsControls.obratnost"
           class="field"
           style="top:545.10px; left:78.60px; width:49.78px; text-align: center"
           placeholder="OBR"
         />
-        <input
-          [formControl]="main6SkillsControls.odolnostOprava"
-          class="field main-skill"
-          style="top:672.29px; left:78.60px; width:49.78px; text-align: center"
-          placeholder="ODL"
-        />
+        <span class="roll-d20-wrap roll-d20-center" style="top:672.29px; left:78.60px; width:59.78px;">
+          <input
+            [formControl]="main6SkillsControls.odolnostOprava"
+            class="field main-skill"
+            style="top:0;left:0;width:100%;position:relative;"
+            placeholder="ODL"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(main6SkillsControls.odolnostOprava.value, 'Odolnost')">
+            🎲
+          </button>
+        </span>
         <input
           [formControl]="main6SkillsControls.odolnost"
           class="field"
           style="top:720.53px; left:78.60px; width:49.78px; text-align: center"
           placeholder="ODL"
         />
-        <input
-          [formControl]="main6SkillsControls.inteligenceOprava"
-          class="field main-skill"
-          style="top:847.72px; left:78.60px; width:49.78px; text-align: center"
-          placeholder="INT"
-        />
+        <span class="roll-d20-wrap roll-d20-center" style="top:847.72px; left:78.60px; width:59.78px;">
+          <input
+            [formControl]="main6SkillsControls.inteligenceOprava"
+            class="field main-skill"
+            style="top:0;left:0;width:100%;position:relative;"
+            placeholder="INT"
+          />
+          <button
+            class="roll-d20-btn"
+            type="button"
+            (click)="rollD20(main6SkillsControls.inteligenceOprava.value, 'Inteligence')"
+          >
+            🎲
+          </button>
+        </span>
         <input
           [formControl]="main6SkillsControls.inteligence"
           class="field"
           style="top:894.15px; left:78.60px; width:49.78px; text-align: center"
           placeholder="INT"
         />
-        <input
-          [formControl]="main6SkillsControls.moudrostOprava"
-          class="field main-skill"
-          style="top:1015.30px; left:78.60px; width:49.78px; text-align: center"
-          placeholder="MDR"
-        />
+        <span class="roll-d20-wrap roll-d20-center" style="top:1015.30px; left:78.60px; width:59.78px;">
+          <input
+            [formControl]="main6SkillsControls.moudrostOprava"
+            class="field main-skill"
+            style="top:0;left:0;width:100%;position:relative;"
+            placeholder="MDR"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(main6SkillsControls.moudrostOprava.value, 'Moudrost')">
+            🎲
+          </button>
+        </span>
         <input
           [formControl]="main6SkillsControls.moudrost"
           class="field"
           style="top:1061.73px; left:78.60px; width:49.78px; text-align: center"
           placeholder="MDR"
         />
-        <input
-          [formControl]="main6SkillsControls.charismaOprava"
-          class="field main-skill"
-          style="top:1189.92px; left:78.60px; width:49.78px; text-align: center"
-          placeholder="CHA"
-        />
+        <span class="roll-d20-wrap roll-d20-center" style="top:1189.92px; left:78.60px; width:59.78px;">
+          <input
+            [formControl]="main6SkillsControls.charismaOprava"
+            class="field main-skill"
+            style="top:0;left:0;width:100%;position:relative;"
+            placeholder="CHA"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(main6SkillsControls.charismaOprava.value, 'Charisma')">
+            🎲
+          </button>
+        </span>
         <input
           [formControl]="main6SkillsControls.charisma"
           class="field"
@@ -1028,237 +1147,300 @@ import { openSpecialSituationsDialog } from './help-dialogs/special-situations-d
           class="field ability-zdatnost-checkbox"
           style="top:418px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.atletika"
-          id="atletika"
-          class="field no-pb"
-          style="top:403.38px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:403.38px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.atletika"
+            id="atletika"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.atletika.value, 'Atletika')">🎲</button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.akrobacieZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.akrobacieZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:476px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.akrobacie"
-          id="akrobacie"
-          class="field no-pb"
-          style="top:461.52px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:461.52px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.akrobacie"
+            id="akrobacie"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.akrobacie.value, 'Akrobacie')">🎲</button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.cachryZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.cachryZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:504px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.cachry"
-          id="cachry"
-          class="field no-pb"
-          style="top:490.59px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:490.59px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.cachry"
+            id="cachry"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.cachry.value, 'Čachry')">🎲</button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.nenapadnostZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.nenapadnostZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:532px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.nenapadnost"
-          id="nenapadnost"
-          class="field no-pb"
-          style="top:519.66px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
-
+        <span class="roll-d20-wrap" style="top:519.66px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.nenapadnost"
+            id="nenapadnost"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.nenapadnost.value, 'Nenápadnost')">
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.historieZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.historieZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:595px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.historie"
-          id="historie"
-          class="field no-pb"
-          style="top:581.44px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:581.44px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.historie"
+            id="historie"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.historie.value, 'Historie')">🎲</button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.mystikaZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.mystikaZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:624px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.mystika"
-          id="mystika"
-          class="field no-pb"
-          style="top:610.51px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:610.51px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.mystika"
+            id="mystika"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.mystika.value, 'Mystika')">🎲</button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.nabozenstviZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.nabozenstviZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:653px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.nabozenstvi"
-          id="nabozenstvi"
-          class="field no-pb"
-          style="top:639.59px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:639.59px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.nabozenstvi"
+            id="nabozenstvi"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.nabozenstvi.value, 'Náboženství')">
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.patraniZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.patraniZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:681px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.patrani"
-          id="patrani"
-          class="field no-pb"
-          style="top:666.84px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:666.84px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.patrani"
+            id="patrani"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.patrani.value, 'Pátrání')">🎲</button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.prirodaZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.prirodaZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:709px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.priroda"
-          id="priroda"
-          class="field no-pb"
-          style="top:695.89px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
-
+        <span class="roll-d20-wrap" style="top:695.89px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.priroda"
+            id="priroda"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.priroda.value, 'Příroda')">🎲</button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.lekarstviZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.lekarstviZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:771px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.lekarstvi"
-          id="lekarstvi"
-          class="field no-pb"
-          style="top:757.69px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:757.69px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.lekarstvi"
+            id="lekarstvi"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.lekarstvi.value, 'Lékařství')">🎲</button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.ovladaniZviratZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.ovladaniZviratZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:800px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.ovladaniZvirat"
-          id="ovladaniZvirat"
-          class="field no-pb"
-          style="top:787.76px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:787.76px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.ovladaniZvirat"
+            id="ovladaniZvirat"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.ovladaniZvirat.value, 'Ovládání zvířat')">
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.prezitiZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.prezitiZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:829px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.preziti"
-          id="preziti"
-          class="field no-pb"
-          style="top:814.42px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:814.42px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.preziti"
+            id="preziti"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.preziti.value, 'Přežití')">🎲</button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.vhledZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.vhledZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:857px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.vhled"
-          id="vhled"
-          class="field no-pb"
-          style="top:844.49px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:844.49px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.vhled"
+            id="vhled"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.vhled.value, 'Vhled')">🎲</button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.vnimaniZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.vnimaniZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:885px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.vnimani"
-          id="vnimani"
-          class="field no-pb"
-          style="top:871.16px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
-
+        <span class="roll-d20-wrap" style="top:871.16px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.vnimani"
+            id="vnimani"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.vnimani.value, 'Vnímání')">🎲</button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.klamaniZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.klamaniZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:948px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.klamani"
-          id="klamani"
-          class="field no-pb"
-          style="top:934.75px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:934.75px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.klamani"
+            id="klamani"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.klamani.value, 'Klamání')">🎲</button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.presvedcovaniZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.presvedcovaniZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:977px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.presvedcovani"
-          id="presvedcovani"
-          class="field no-pb"
-          style="top:963.01px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:963.01px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.presvedcovani"
+            id="presvedcovani"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.presvedcovani.value, 'Přesvědčování')">
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.vystupovaniZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.vystupovaniZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:1005px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.vystupovani"
-          id="vystupovani"
-          class="field no-pb"
-          style="top:992.48px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:992.48px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.vystupovani"
+            id="vystupovani"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.vystupovani.value, 'Vystupování')">
+            🎲
+          </button>
+        </span>
         <div
           [ngClass]="abilityCheckboxClass(abilitiesControls.zastrasovaniZdatnost)"
           (click)="cycleAbilityZdatnost(abilitiesControls.zastrasovaniZdatnost)"
           class="field ability-zdatnost-checkbox"
           style="top:1035px; left:186.09px;"
         ></div>
-        <input
-          [formControl]="abilitiesControls.zastrasovani"
-          id="zastrasovani"
-          class="field no-pb"
-          style="top:1019.80px; left:348.46px; width:70.74px; text-align: right"
-          placeholder="*"
-        />
+        <span class="roll-d20-wrap" style="top:1019.80px; left:348.46px; width:70.74px;">
+          <input
+            [formControl]="abilitiesControls.zastrasovani"
+            id="zastrasovani"
+            class="field no-pb"
+            style="top:0;left:0;width:100%;position:relative;text-align:right;"
+            placeholder="*"
+          />
+          <button class="roll-d20-btn" type="button" (click)="rollD20(abilitiesControls.zastrasovani.value, 'Zastrašování')">
+            🎲
+          </button>
+        </span>
 
         <!--    =============================================-->
 
@@ -1803,6 +1985,7 @@ export class CharacterSheetComponent {
   destroyRef = inject(DestroyRef);
   snackBar = inject(MatSnackBar);
   dialog = inject(MatDialog);
+  private readonly diceRollerService = inject(DiceRollerService);
 
   @ViewChild('level1Slot1Input') level1Slot1Input!: ElementRef<HTMLInputElement>;
   @ViewChild('level1Slot2Input') level1Slot2Input!: ElementRef<HTMLInputElement>;
@@ -2777,6 +2960,11 @@ export class CharacterSheetComponent {
     openWeaponsAndArmorsDialog(this.dialog);
   }
 
+  rollD20(fieldValue: string | null | undefined, label: string): void {
+    const mod = parseInt((fieldValue ?? '0').replace('+', '')) || 0;
+    this.diceRollerService.rollD20WithModifier(label, mod);
+  }
+
   onOpenDamagesDialog() {
     openDamagesDialog(this.dialog);
   }
@@ -2954,6 +3142,9 @@ export class CharacterSheetComponent {
 
     // Also keep inventory classes in sync with the new silaOprava
     this._setInventoryClasses(fmtMod(silaMod));
+
+    // ── Iniciativa = oprava obratnosti ────────────────────────────────────
+    this.form.controls.abilityBonus.controls.iniciativa.setValue(fmtMod(obrMod), { emitEvent: false });
 
     // ── 2. Záchranné hody ─────────────────────────────────────────────────
     st.sila.setValue(skillVal(silaMod, st.silaZdatnost), { emitEvent: false });
@@ -3622,5 +3813,10 @@ export class CharacterSheetComponent {
   }
   private _acd(name: keyof AlchemistChestForm) {
     this._ach(name).disable({ emitEvent: false });
+  }
+
+  // ── Death saves toggle ────────────────────────────────────────────────────
+  toggleDeathSave(control: AbstractControl): void {
+    control.setValue(!control.value);
   }
 }

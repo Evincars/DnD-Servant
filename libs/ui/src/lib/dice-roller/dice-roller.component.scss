@@ -145,8 +145,10 @@ $accent-k20:  #a840ff;
   align-items: center;
   justify-content: center;
   position: relative;
-  width: 72px;
-  height: 72px;
+  min-width: 80px;
+  width: auto;
+  padding: 6px 12px;
+  height: 90px;
   background: $dark-700;
   border: 2px solid rgba(200,154,60,.35);
   border-radius: $radius-md;
@@ -180,6 +182,46 @@ $accent-k20:  #a840ff;
 
   &__type  { font-size: 9px; color: $gold-dim; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
   &__value { font-size: 28px; font-weight: 900; color: $gold-light; line-height: 1; }
+
+  &__label {
+    font-size: 11px;
+    font-weight: 700;
+    color: $gold-light;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    margin-bottom: 2px;
+    text-shadow: 0 0 8px rgba(200,154,60,.5);
+    border-bottom: 1px solid rgba(200,154,60,.3);
+    padding-bottom: 1px;
+  }
+
+  &__result-row {
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+  }
+
+  &__modifier {
+    font-size: 18px;
+    font-weight: 700;
+    color: $gold;
+    line-height: 1;
+  }
+
+  &__total {
+    font-size: 32px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    text-shadow: 0 0 14px $gold, 0 0 28px rgba(200,154,60,.5);
+    border-bottom: 2px solid $gold;
+    padding: 0 3px;
+    animation: total-pop .25s ease-out;
+  }
 
   &__badge {
     position: absolute;
@@ -365,31 +407,107 @@ $accent-k20:  #a840ff;
 // ── History bar ───────────────────────────────────────────────────────────────
 .dr-history {
   display: flex;
-  gap: 8px;
-  padding: 6px 16px 8px;
-  overflow-x: auto;
-  scrollbar-width: none;
+  flex-direction: column;
   border-top: 1px solid $border;
   background: rgba(0,0,0,.25);
   flex-shrink: 0;
-  &::-webkit-scrollbar { display: none; }
-}
 
-.dr-history__entry {
-  white-space: nowrap;
-  font-size: 10px; color: rgba(200,154,60,.45);
-  padding: 2px 8px;
-  border: 1px solid rgba(200,154,60,.12);
-  border-radius: 10px;
-  background: rgba(200,154,60,.05);
-  cursor: default;
-  transition: color .2s;
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 16px 3px;
+    border-bottom: 1px solid rgba(200,154,60,.1);
+  }
 
-  &--latest {
-    color: $gold-light;
-    border-color: rgba(200,154,60,.4);
-    background: rgba(200,154,60,.1);
-    font-weight: 600;
+  &__title {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: $gold-dim;
+    font-weight: 700;
+  }
+
+  // flex: items fill left→right, wrap to next row
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: flex-start;
+    gap: 4px;
+    padding: 6px 12px 7px;
+    max-height: calc(2 * 28px + 3 * 4px); // 2 rows + gaps
+    overflow: hidden;
+  }
+
+  &__entry {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px 3px 6px;
+    height: 28px;
+    border: 1px solid rgba(200,154,60,.15);
+    border-radius: 14px;
+    background: rgba(200,154,60,.05);
+    transition: background .15s;
+    flex-shrink: 0;
+
+    &:hover { background: rgba(200,154,60,.1); }
+
+    &--latest {
+      border-color: rgba(200,154,60,.4);
+      background: rgba(200,154,60,.1);
+    }
+
+    &--nat20 { background: rgba(200,154,60,.14) !important; border-color: $gold !important; }
+    &--crit  { background: rgba(192,57,43,.14) !important; border-color: $red !important; }
+
+    &-time {
+      font-size: 9px;
+      color: $gold-dim;
+      flex-shrink: 0;
+    }
+
+    &-text {
+      font-size: 10px;
+      color: rgba(200,154,60,.7);
+      white-space: nowrap;
+      max-width: 130px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      .dr-history__entry--latest & { color: $gold-light; font-weight: 600; }
+    }
+
+    &-total {
+      flex-shrink: 0;
+      min-width: 22px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 900;
+      color: $gold-light;
+      background: rgba(200,154,60,.22);
+      border: 1px solid rgba(200,154,60,.4);
+      border-radius: 5px;
+      padding: 0 5px;
+      text-shadow: 0 0 6px $gold;
+      line-height: 1.5;
+
+      &--nat20 {
+        color: $dark-900;
+        background: $gold;
+        border-color: $gold-light;
+        text-shadow: none;
+        box-shadow: 0 0 8px rgba(200,154,60,.5);
+      }
+
+      &--crit {
+        color: #fff;
+        background: $red;
+        border-color: $red-bright;
+        text-shadow: 0 0 5px $red-bright;
+      }
+    }
   }
 }
 
@@ -412,3 +530,10 @@ $accent-k20:  #a840ff;
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+@keyframes total-pop {
+  0%   { transform: scale(0.6); opacity: 0; }
+  70%  { transform: scale(1.15); }
+  100% { transform: scale(1);    opacity: 1; }
+}
+

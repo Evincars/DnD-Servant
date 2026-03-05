@@ -28,8 +28,19 @@
              [class.dr-anim-die--nat20]="!d.rolling && d.dice === 'k20' && d.final === 20"
              [class.dr-anim-die--crit]="!d.rolling && d.dice === 'k20' && d.final === 1"
              [class.dr-anim-die--max]="!d.rolling && d.final === +d.dice.slice(1)">
+          @if (d.label) {
+            <span class="dr-anim-die__label">{{ d.label }}</span>
+          }
           <span class="dr-anim-die__type">{{ d.dice }}</span>
-          <span class="dr-anim-die__value">{{ d.display }}</span>
+          <div class="dr-anim-die__result-row">
+            <span class="dr-anim-die__value">{{ d.display }}</span>
+            @if (!d.rolling && d.modifier !== undefined && d.modifier !== null) {
+              <span class="dr-anim-die__modifier">
+                {{ d.modifier >= 0 ? '+' : '' }}{{ d.modifier }}
+              </span>
+              <span class="dr-anim-die__total">= {{ d.display + d.modifier }}</span>
+            }
+          </div>
           @if (!d.rolling && d.dice === 'k20' && d.final === 20) {
             <span class="dr-anim-die__badge dr-anim-die__badge--nat20">NAT 20!</span>
           }
@@ -118,9 +129,26 @@
   <!-- ── History ── -->
   @if (historyLog().length > 0) {
     <div class="dr-history">
-      @for (entry of historyLog(); track $index) {
-        <span class="dr-history__entry" [class.dr-history__entry--latest]="$index === 0">{{ entry }}</span>
-      }
+      <div class="dr-history__header">
+        <span class="dr-history__title">Historie hodů</span>
+      </div>
+      <div class="dr-history__list">
+        @for (entry of historyLog(); track $index) {
+          <div class="dr-history__entry"
+               [title]="entry.text"
+               [class.dr-history__entry--latest]="$index === 0"
+               [class.dr-history__entry--nat20]="entry.isNat20"
+               [class.dr-history__entry--crit]="entry.isCrit">
+            <span class="dr-history__entry-time">{{ entry.timestamp }}</span>
+            <span class="dr-history__entry-text" [title]="entry.text">{{ entry.text }}</span>
+            <span class="dr-history__entry-total"
+                  [class.dr-history__entry-total--nat20]="entry.isNat20"
+                  [class.dr-history__entry-total--crit]="entry.isCrit">
+              {{ entry.total }}
+            </span>
+          </div>
+        }
+      </div>
     </div>
   }
 

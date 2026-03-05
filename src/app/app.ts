@@ -1,5 +1,5 @@
 import { Component, DestroyRef, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
@@ -8,6 +8,7 @@ import { routes } from './app.routes';
 import { AuthService, LocalStorageService } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTooltip } from '@angular/material/tooltip';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import html2canvas from 'html2canvas';
 import {
   CharacterSheetStore,
@@ -92,9 +93,9 @@ import { DiceRollerComponent } from '@dn-d-servant/ui';
                 matTooltip="Stáhnout zálohu jako obrázky (PNG)"
               >
                 @if (screenshotLoading()) {
-                <mat-icon class="toolbar-icon">hourglass_empty</mat-icon>
+                <mat-icon class="backup-button-icon">hourglass_empty</mat-icon>
                 } @else {
-                <mat-icon class="toolbar-icon">photo_camera</mat-icon>
+                <mat-icon class="backup-button-icon">photo_camera</mat-icon>
                 }
                 <span class="backup-btn__label">Záloha</span>
               </button>
@@ -103,14 +104,14 @@ import { DiceRollerComponent } from '@dn-d-servant/ui';
                 class="github-link backup-btn u-ml-2"
                 matTooltip="Stáhnout zálohu databáze jako JSON soubor"
               >
-                <mat-icon class="toolbar-icon">download</mat-icon>
+                <mat-icon class="backup-button-icon">download</mat-icon>
                 <span class="backup-btn__label">JSON</span>
               </button>
             </div>
             <div class="toolbar__right author-info u-flex u-align-center">
               @if (authService.currentUser()) {
               <b class="username u-mr-2">{{ authService.currentUser()!.username }}</b>
-              <a class="link token u-mr-2" href="#" (click)="$event.preventDefault(); this.authService.logout()">Odhlásit</a>
+              <a class="link token u-mr-2" href="#" (click)="$event.preventDefault(); logout()">Odhlásit</a>
               } @if (authService.currentUser() === null) {
               <a class="link token u-mr-2" [routerLink]="routes.login">Přihlásit</a>
               <a class="link token u-mr-2" [routerLink]="routes.register">Registrovat</a>
@@ -170,10 +171,13 @@ export class App implements OnInit, OnDestroy {
   destroyRef = inject(DestroyRef);
   private readonly localStorage = inject(LocalStorageService);
   private readonly characterSheetStore = inject(CharacterSheetStore);
+  private readonly router = inject(Router);
+  private readonly snackBar = inject(MatSnackBar);
 
   routes = routes;
   showBackToTop = signal(false);
   screenshotLoading = signal(false);
+  private firstLoad = true;
 
   @ViewChild('content') formElement: ElementRef | undefined;
 
@@ -184,11 +188,19 @@ export class App implements OnInit, OnDestroy {
           email: user.email!,
           username: user.displayName!,
         });
-        // Restore any unsaved drafts from localStorage back to DB after reload/refresh
         this.characterSheetStore.restoreDraftsToDb();
+
+        if (!this.firstLoad) {
+          this.snackBar.open(`⚔️ Vítej zpět, ${user.displayName}!`, '✕', {
+            verticalPosition: 'top',
+            duration: 3500,
+            panelClass: ['snackbar--success'],
+          });
+        }
       } else {
         this.authService.currentUser.set(null);
       }
+      this.firstLoad = false;
     });
     window.addEventListener('scroll', this.onScroll, true);
   }
@@ -203,6 +215,20 @@ export class App implements OnInit, OnDestroy {
 
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  logout(): void {
+    this.authService
+      .logout()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.snackBar.open('🚪 Byl jsi odhlášen. Šťastný lov!', '✕', {
+          verticalPosition: 'top',
+          duration: 3500,
+          panelClass: ['snackbar--info'],
+        });
+        this.router.navigateByUrl('/login');
+      });
   }
 
   onJsonBackupClick(): void {
@@ -229,50 +255,42 @@ export class App implements OnInit, OnDestroy {
   }
 
   async onScreenshotBackupClick() {
-    if (!this.formElement || this.screenshotLoading()) return;
+    if (this.screenshotLoading()) return;
     this.screenshotLoading.set(true);
 
     try {
-      const element = this.formElement.nativeElement as HTMLElement;
-      const fullHeight = element.scrollHeight;
-      const fullWidth = element.scrollWidth;
+      // Target only the currently visible tab body
+      const activeTabBody =
+        (document.querySelector('.mat-mdc-tab-body-active .mat-mdc-tab-body-content') as HTMLElement) ??
+        (document.querySelector('.mat-mdc-tab-body-active') as HTMLElement) ??
+        (this.formElement?.nativeElement as HTMLElement);
 
-      // Capture the full element at its natural size
-      const canvas = await html2canvas(element, {
+      if (!activeTabBody) return;
+
+      // Temporarily expand overflow so full scroll height is captured
+      const prevOverflow = activeTabBody.style.overflow;
+      activeTabBody.style.overflow = 'visible';
+
+      const canvas = await html2canvas(activeTabBody, {
         scale: 1,
         useCORS: true,
         allowTaint: true,
         scrollX: 0,
         scrollY: 0,
-        width: fullWidth,
-        height: fullHeight,
-        windowWidth: fullWidth,
-        windowHeight: fullHeight,
+        width: activeTabBody.scrollWidth,
+        height: activeTabBody.scrollHeight,
+        windowWidth: activeTabBody.scrollWidth,
+        windowHeight: activeTabBody.scrollHeight,
         logging: false,
       });
 
-      // Split into A4-height slices (~1122px at 96dpi) so each image fits on a page
-      const sliceHeight = 1122;
-      const totalSlices = Math.ceil(fullHeight / sliceHeight);
+      activeTabBody.style.overflow = prevOverflow;
+
       const timestamp = new Date().toISOString().slice(0, 10);
-
-      for (let i = 0; i < totalSlices; i++) {
-        const sliceCanvas = document.createElement('canvas');
-        const currentSliceHeight = Math.min(sliceHeight, fullHeight - i * sliceHeight);
-        sliceCanvas.width = fullWidth;
-        sliceCanvas.height = currentSliceHeight;
-
-        const ctx = sliceCanvas.getContext('2d')!;
-        ctx.drawImage(canvas, 0, i * sliceHeight, fullWidth, currentSliceHeight, 0, 0, fullWidth, currentSliceHeight);
-
-        const link = document.createElement('a');
-        link.download = `karta-postavy-${timestamp}-${i + 1}z${totalSlices}.png`;
-        link.href = sliceCanvas.toDataURL('image/png');
-        link.click();
-
-        // Small delay between downloads so browser doesn't block them
-        await new Promise(r => setTimeout(r, 300));
-      }
+      const link = document.createElement('a');
+      link.download = `karta-postavy-${timestamp}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
     } finally {
       this.screenshotLoading.set(false);
     }
