@@ -24,7 +24,7 @@
 
 Veškerá data jsou uložena v **Firebase Realtime Database** a přístupná odkudkoliv po přihlášení.
 
-*Dostupné na [https://dnd-servant-3409a.web.app/](https://dnd-servant-3409a.web.app/)*
+*Dostupné na [https://dnd-servant.web.app](https://dnd-servant.web.app)*
 
 ---
 
