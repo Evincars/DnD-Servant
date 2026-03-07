@@ -73,7 +73,7 @@ import { CsInventoryComponent } from './character-sheet/cs-inventory.component';
 
         <cs-spell-slots [spellSlotsForm]="controls.spellSlotsForm" [alchemistChestForm]="controls.alchemistChestForm" />
 
-        <cs-skills [form]="controls.abilitiesForm" [pomuckyControl]="form.controls['pomucky']" />
+        <cs-skills [form]="controls.abilitiesForm" [pomuckyControl]="$any(controls.pomucky)" />
 
         <cs-weapons [form]="controls.weaponsForm" />
 

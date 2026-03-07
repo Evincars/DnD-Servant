@@ -329,7 +329,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class CsSkillsComponent {
   form = input.required<FormGroup<AbilitiesForm>>();
-  pomuckyControl = input.required<FormControl<string>>();
+  pomuckyControl = input.required<FormControl<string | undefined>>();
   private dialog = inject(MatDialog);
   private diceRollerService = inject(DiceRollerService);
   private destroyRef = inject(DestroyRef);
