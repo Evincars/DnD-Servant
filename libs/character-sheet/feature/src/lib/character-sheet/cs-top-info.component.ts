@@ -70,7 +70,13 @@ import { DestroyRef } from '@angular/core';
         >
           <mat-icon class="small-info-icon">info</mat-icon>
         </button>
-        <input [formControl]="c.uroven" class="field" style="top:92px; left:858px; width:183px;" placeholder="Úroveň" />
+        <input
+          [formControl]="c.uroven"
+          id="uroven-input"
+          class="field"
+          style="top:92px; left:858px; width:183px;"
+          placeholder="Úroveň"
+        />
         <input
           [formControl]="c.zkusenosti"
           class="field"

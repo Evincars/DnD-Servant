@@ -21,6 +21,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       <ng-container [formGroup]="form()">
         <!-- detailed skills -->
         <div
+          id="atletika-zdatnost"
           [ngClass]="abilityCheckboxClass(c.atletikaZdatnost)"
           (click)="cycleAbilityZdatnost(c.atletikaZdatnost)"
           class="field ability-zdatnost-checkbox"

@@ -49,6 +49,7 @@ import { merge } from 'rxjs';
         </span>
         <input
           [formControl]="c.sila"
+          id="sila-input"
           class="field"
           style="top:378.94px; left:78.60px; width:49.78px; text-align: center"
           placeholder="SIL"
@@ -65,6 +66,7 @@ import { merge } from 'rxjs';
         </span>
         <input
           [formControl]="c.obratnost"
+          id="obratnost-input"
           class="field"
           style="top:545.10px; left:78.60px; width:49.78px; text-align: center"
           placeholder="OBR"
@@ -81,6 +83,7 @@ import { merge } from 'rxjs';
         </span>
         <input
           [formControl]="c.odolnost"
+          id="odolnost-input"
           class="field"
           style="top:720.53px; left:78.60px; width:49.78px; text-align: center"
           placeholder="ODL"
@@ -97,6 +100,7 @@ import { merge } from 'rxjs';
         </span>
         <input
           [formControl]="c.inteligence"
+          id="inteligence-input"
           class="field"
           style="top:894.15px; left:78.60px; width:49.78px; text-align: center"
           placeholder="INT"
@@ -113,6 +117,7 @@ import { merge } from 'rxjs';
         </span>
         <input
           [formControl]="c.moudrost"
+          id="moudrost-input"
           class="field"
           style="top:1061.73px; left:78.60px; width:49.78px; text-align: center"
           placeholder="MDR"
@@ -129,6 +134,7 @@ import { merge } from 'rxjs';
         </span>
         <input
           [formControl]="c.charisma"
+          id="charisma-input"
           class="field"
           style="top:1236.36px; left:78.60px; width:49.78px; text-align: center"
           placeholder="CHA"
