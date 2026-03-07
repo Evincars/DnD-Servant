@@ -1,0 +1,227 @@
+import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { InventoryForm } from '@dn-d-servant/character-sheet-util';
+import { NgClass } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatDialog } from '@angular/material/dialog';
+import { openCarriageDialog } from '../help-dialogs/carriage-dialog.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+@Component({
+  selector: 'cs-inventory',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { style: 'display: contents' },
+  imports: [ReactiveFormsModule, NgClass, MatIcon, MatTooltip],
+  styleUrl: '../character-sheet.component.scss',
+  template: `
+    @if (_tick()) {
+      <ng-container [formGroup]="form()">
+        <button
+          (click)="onOpenCarriageDialog()"
+          type="button"
+          matTooltip="Nosnost"
+          style="top:1310px; left:376px"
+          class="field button small-info-button-icon"
+        >
+          <mat-icon class="small-info-icon">info</mat-icon>
+        </button>
+        <input
+          [formControl]="c.penize"
+          id="penize"
+          class="field"
+          style="top:1350px; left:111.35px; width:495.18px"
+          placeholder="Peníze"
+        />
+
+        <!-- Column 1 -->
+        <input
+          [formControl]="c.radek1"
+          [ngClass]="inventoryClasses()[0]"
+          id="inventoryItemRow1"
+          class="field inventory-item"
+          style="top:1390.19px; left:68.12px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek2"
+          [ngClass]="inventoryClasses()[1]"
+          id="inventoryItemRow2"
+          class="field inventory-item"
+          style="top:1427.53px; left:68.12px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek3"
+          [ngClass]="inventoryClasses()[2]"
+          id="inventoryItemRow3"
+          class="field inventory-item"
+          style="top:1465.69px; left:68.12px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek4"
+          [ngClass]="inventoryClasses()[3]"
+          id="inventoryItemRow4"
+          class="field inventory-item"
+          style="top:1503.85px; left:68.12px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek5"
+          [ngClass]="inventoryClasses()[4]"
+          id="inventoryItemRow5"
+          class="field inventory-item"
+          style="top:1542.01px; left:68.12px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek6"
+          [ngClass]="inventoryClasses()[5]"
+          id="inventoryItemRow6"
+          class="field inventory-item"
+          style="top:1580.17px; left:68.12px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek7"
+          [ngClass]="inventoryClasses()[6]"
+          id="inventoryItemRow7"
+          class="field inventory-item"
+          style="top:1618.33px; left:68.12px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek8"
+          [ngClass]="inventoryClasses()[7]"
+          id="inventoryItemRow8"
+          class="field inventory-item"
+          style="top:1656.49px; left:68.12px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek9"
+          [ngClass]="inventoryClasses()[8]"
+          id="inventoryItemRow9"
+          class="field inventory-item"
+          style="top:1694.65px; left:68.12px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek10"
+          [ngClass]="inventoryClasses()[9]"
+          id="inventoryItemRow10"
+          class="field inventory-item"
+          style="top:1732.81px; left:68.12px; width:254.14px"
+          placeholder="*"
+        />
+
+        <!-- Column 2 -->
+        <input
+          [formControl]="c.radek11"
+          [ngClass]="inventoryClasses()[10]"
+          id="inventoryItemRow11"
+          class="field inventory-item"
+          style="top:1390.19px; left:352.39px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek12"
+          [ngClass]="inventoryClasses()[11]"
+          id="inventoryItemRow12"
+          class="field inventory-item"
+          style="top:1427.53px; left:352.39px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek13"
+          [ngClass]="inventoryClasses()[12]"
+          id="inventoryItemRow13"
+          class="field inventory-item"
+          style="top:1465.69px; left:352.39px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek14"
+          [ngClass]="inventoryClasses()[13]"
+          id="inventoryItemRow14"
+          class="field inventory-item"
+          style="top:1503.85px; left:352.39px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek15"
+          [ngClass]="inventoryClasses()[14]"
+          id="inventoryItemRow15"
+          class="field inventory-item"
+          style="top:1542.01px; left:352.39px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek16"
+          [ngClass]="inventoryClasses()[15]"
+          id="inventoryItemRow16"
+          class="field inventory-item"
+          style="top:1580.17px; left:352.39px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek17"
+          [ngClass]="inventoryClasses()[16]"
+          id="inventoryItemRow17"
+          class="field inventory-item"
+          style="top:1618.33px; left:352.39px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek18"
+          [ngClass]="inventoryClasses()[17]"
+          id="inventoryItemRow18"
+          class="field inventory-item"
+          style="top:1656.49px; left:352.39px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek19"
+          [ngClass]="inventoryClasses()[18]"
+          id="inventoryItemRow19"
+          class="field inventory-item"
+          style="top:1694.65px; left:352.39px; width:254.14px"
+          placeholder="*"
+        />
+        <input
+          [formControl]="c.radek20"
+          [ngClass]="inventoryClasses()[19]"
+          id="inventoryItemRow20"
+          class="field inventory-item"
+          style="top:1732.81px; left:352.39px; width:254.14px"
+          placeholder="*"
+        />
+      </ng-container>
+    }
+  `,
+})
+export class CsInventoryComponent {
+  form = input.required<FormGroup<InventoryForm>>();
+  inventoryClasses = input.required<string[]>();
+  private dialog = inject(MatDialog);
+  private destroyRef = inject(DestroyRef);
+  readonly _tick = signal(0);
+
+  constructor() {
+    effect(() => {
+      this.form()
+        .valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => this._tick.update(v => v + 1));
+      this._tick.update(v => v + 1);
+    });
+  }
+
+  get c() {
+    return this.form().controls;
+  }
+
+  onOpenCarriageDialog() {
+    openCarriageDialog(this.dialog);
+  }
+}
