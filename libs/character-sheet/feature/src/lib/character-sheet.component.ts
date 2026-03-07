@@ -451,8 +451,8 @@ export class CharacterSheetComponent {
     });
 
     this.spellSlotsControls.urovenCernokneznika.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(level => {
-      const sesilateleLevel = parseInt(this.spellSlotsControls.urovenSesilatele.value ?? '0');
-      this.spellSlotsService.applyBlackPriestLevel(parseInt(level ?? '0'), this.spellSlotsControls, sesilateleLevel);
+      const spellCasterLevel = parseInt(this.spellSlotsControls.urovenSesilatele.value ?? '0');
+      this.spellSlotsService.applyBlackPriestLevel(parseInt(level ?? '0'), this.spellSlotsControls, spellCasterLevel);
     });
 
     this.alchemistChestControls.urovenAlchymisty.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(level => {
@@ -516,14 +516,14 @@ export class CharacterSheetComponent {
   }
 
   _applyLevelDisabling() {
-    const sesilateleLevel = parseInt(this.spellSlotsControls.urovenSesilatele.value ?? '0');
-    this.spellSlotsService.applySpellSlotsLevel(sesilateleLevel, this.spellSlotsControls);
+    const sorcererLevel = parseInt(this.spellSlotsControls.urovenSesilatele.value ?? '0');
+    this.spellSlotsService.applySpellSlotsLevel(sorcererLevel, this.spellSlotsControls);
 
-    const cernokneznikLevel = parseInt(this.spellSlotsControls.urovenCernokneznika.value ?? '0');
-    this.spellSlotsService.applyBlackPriestLevel(cernokneznikLevel, this.spellSlotsControls, sesilateleLevel);
+    const warlockLevel = parseInt(this.spellSlotsControls.urovenCernokneznika.value ?? '0');
+    this.spellSlotsService.applyBlackPriestLevel(warlockLevel, this.spellSlotsControls, sorcererLevel);
 
-    const alchymistLevel = parseInt(this.alchemistChestControls.urovenAlchymisty.value ?? '0');
-    this.spellSlotsService.applyAlchemistLevel(alchymistLevel, this.alchemistChestControls);
+    const alchemistLevel = parseInt(this.alchemistChestControls.urovenAlchymisty.value ?? '0');
+    this.spellSlotsService.applyAlchemistLevel(alchemistLevel, this.alchemistChestControls);
   }
 
   onSaveClick() {
@@ -562,30 +562,6 @@ export class CharacterSheetComponent {
     }
     request.secondPageForm.obrazekPostavy = base64;
     this.characterSheetStore.saveCharacterSheet(request);
-  }
-
-  rollD20(fieldValue: string | null | undefined, label: string): void {
-    const mod = parseInt((fieldValue ?? '0').replace('+', '')) || 0;
-    this.diceRollerService.rollD20WithModifier(label, mod);
-  }
-
-  cycleAbilityZdatnost(ctrl: AbstractControl): void {
-    const current = ctrl.value;
-    if (!current || current === '' || current === false || current === 'false') {
-      ctrl.setValue('true');
-    } else if (current === 'true' || current === true) {
-      ctrl.setValue('expertise');
-    } else {
-      ctrl.setValue('');
-    }
-  }
-
-  abilityCheckboxClass(ctrl: AbstractControl): Record<string, boolean> {
-    const v = ctrl.value;
-    return {
-      'ability-zdatnost--checked': v === 'true' || v === true,
-      'ability-zdatnost--expertise': v === 'expertise',
-    };
   }
 
   private _zdatnostBonusByLevel(level: number): number {
