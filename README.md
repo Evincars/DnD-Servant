@@ -3,7 +3,7 @@
 # ⚔️ JaD Servant ⚔️
 ### Digitální pomocník pro *Jeskyně a Draci*
 
-[![Angular](https://img.shields.io/badge/Angular-20-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev)
+[![Angular](https://img.shields.io/badge/Angular-21-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev)
 [![Firebase](https://img.shields.io/badge/Firebase-Realtime_DB-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com)
 [![Nx](https://img.shields.io/badge/Nx-Monorepo-143055?style=for-the-badge&logo=nx&logoColor=white)](https://nx.dev)
 [![NgRx](https://img.shields.io/badge/NgRx-Signals-BA2BD2?style=for-the-badge&logo=ngrx&logoColor=white)](https://ngrx.io)
