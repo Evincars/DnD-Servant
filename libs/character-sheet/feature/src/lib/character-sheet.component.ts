@@ -46,7 +46,6 @@ import { CsSpellSlotsComponent } from './character-sheet/cs-spell-slots.componen
 import { CsWeaponsComponent } from './character-sheet/cs-weapons.component';
 import { CsLanguagesComponent } from './character-sheet/cs-languages.component';
 import { CsInventoryComponent } from './character-sheet/cs-inventory.component';
-import { CsOnboardingTooltipComponent } from './onboarding-tooltip/onboarding-tooltip.component';
 
 @Component({
   selector: 'character-sheet',
@@ -55,8 +54,6 @@ import { CsOnboardingTooltipComponent } from './onboarding-tooltip/onboarding-to
       <img src="character-sheet-1-copy.webp" alt="Character Sheet" height="1817" width="1293" />
 
       <form [formGroup]="form" #sheetForm>
-        <cs-onboarding-tooltip [steps]="onboardingSteps" />
-
         <cs-top-info [form]="controls.topInfo" />
 
         <cs-ability-scores [main6Form]="controls.main6SkillsForm" [abilityBonusForm]="controls.abilityBonus" />
@@ -110,7 +107,6 @@ import { CsOnboardingTooltipComponent } from './onboarding-tooltip/onboarding-to
     CsWeaponsComponent,
     CsLanguagesComponent,
     CsInventoryComponent,
-    CsOnboardingTooltipComponent,
   ],
 })
 export class CharacterSheetComponent {
@@ -127,24 +123,6 @@ export class CharacterSheetComponent {
   speedHighlight = signal<'light' | 'medium' | 'heavy' | ''>('');
   _viewInitialized = signal(false);
 
-  readonly onboardingSteps = [
-    {
-      selector: '#sila-input',
-      title: '⚔️ Síla (a ostatní schopnosti)',
-      text: 'Zadej hodnotu Síly (např. 14). Oprava Síly (+2) se vypočítá automaticky a ovlivní Atletiku, záchranný hod na Sílu a další. Stejně funguje všech 6 hlavních schopností.',
-    },
-    {
-      selector: '#atletika-zdatnost',
-      title: '★ Zdatnost a Expertiáza',
-      text: 'Klikni na hvězdičku u Atletiky (nebo jiné dovednosti) pro přidání zdatnosti — oprava se automaticky zvýší o Zdatnostní Bonus. Klikni znovu pro Expertiázu (2× bonus). Třetí klik hvězdičku vypne.',
-    },
-    {
-      selector: '#uroven-input',
-      title: '🎖️ Úroveň postavy',
-      text: 'Zadej úroveň postavy (1–20). Zdatnostní Bonus se nastaví automaticky a okamžitě přepočítá všechny dovednosti, kde máš zdatnost nebo expertiázu.',
-      offsetX: -140,
-    },
-  ];
   fb = new FormBuilder().nonNullable;
   form = this.fb.group<CharacterSheetForm>({
     topInfo: this.fb.group<TopInfoForm>({
