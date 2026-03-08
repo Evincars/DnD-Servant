@@ -96,6 +96,18 @@ export class InitiativeTrackerComponent {
       next: m => {
         this.monsterData.set(m);
         this.loadingIndex.set(null);
+        // Auto-fill AC and HP into the row
+        this.rows.update(rows =>
+          rows.map((row, i) =>
+            i === rowIndex
+              ? {
+                  ...row,
+                  ac: m.armor_class?.[0]?.value ?? row.ac,
+                  hp: m.hit_points ?? row.hp,
+                }
+              : row,
+          ),
+        );
       },
       error: () => {
         this.monsterError.set(`Příšera „${name.trim()}" nebyla nalezena.`);
