@@ -17,7 +17,8 @@
       "@dn-d-servant/character-sheet-util": ["libs/character-sheet/util/src/index.ts"],
       "@dn-d-servant/ui": ["libs/ui/src/index.ts"],
       "@dn-d-servant/dnd-rules-database-feature": ["libs/dnd-rules-database/feature/src/index.ts"],
-      "@dn-d-servant/help-and-tips-feature": ["libs/help-and-tips/feature/src/index.ts"]
+      "@dn-d-servant/help-and-tips-feature": ["libs/help-and-tips/feature/src/index.ts"],
+      "@dn-d-servant/dm-page-feature": ["libs/dm-page/feature/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
