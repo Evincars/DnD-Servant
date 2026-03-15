@@ -13,6 +13,8 @@ interface InitiativeRow {
   name: string;
   ac: number | null;
   hp: number | null;
+  /** Temporary delta used by the +/- HP adjuster — defaults to 1 */
+  hpDelta: number;
 }
 
 const STORAGE_KEY = 'initiative-tracker';
@@ -43,11 +45,11 @@ export class InitiativeTrackerComponent {
 
   private _load(): InitiativeRow[] {
     const saved = this.localStorageService.getDataSync<InitiativeRow[]>(STORAGE_KEY);
-    return saved ?? [this._emptyRow()];
+    return saved?.map(r => ({ hpDelta: 1, ...r })) ?? [this._emptyRow()];
   }
 
   private _emptyRow(): InitiativeRow {
-    return { initiative: null, name: '', ac: null, hp: null };
+    return { initiative: null, name: '', ac: null, hp: null, hpDelta: 1 };
   }
 
   addRow() {
@@ -75,6 +77,22 @@ export class InitiativeTrackerComponent {
       newRow,
       ...rows.slice(index + 1),
     ]);
+  }
+
+  addHp(index: number) {
+    this.rows.update(rows =>
+      rows.map((row, i) =>
+        i === index ? { ...row, hp: (row.hp ?? 0) + (row.hpDelta || 1) } : row,
+      ),
+    );
+  }
+
+  removeHp(index: number) {
+    this.rows.update(rows =>
+      rows.map((row, i) =>
+        i === index ? { ...row, hp: (row.hp ?? 0) - (row.hpDelta || 1) } : row,
+      ),
+    );
   }
 
   removeRow(index: number) {

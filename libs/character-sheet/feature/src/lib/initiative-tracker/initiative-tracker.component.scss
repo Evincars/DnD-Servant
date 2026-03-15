@@ -121,6 +121,7 @@
   &--sm        { width: 70px; text-align: center; flex-shrink: 0; }
   &--name      { flex: 1; padding-left: 4px; }
   &--icon      { width: 32px; flex-shrink: 0; }
+  &--hp-adj    { width: 90px; text-align: center; flex-shrink: 0; }
 }
 
 // ── Rows ──────────────────────────────────────────────────────────────────────
@@ -245,6 +246,61 @@ datalist { display: none; }
   .mdc-icon-button__ripple { display: none !important; }
 
   &:hover { color: rgba(200,60,50,.9) !important; background: rgba(160,30,30,.1) !important; }
+}
+
+// ── HP adjuster widget ────────────────────────────────────────────────────────
+.it-hp-adj {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  flex-shrink: 0;
+  width: 90px;
+
+  &__input {
+    width: 36px;
+    flex-shrink: 0;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 2px;
+    color: #c8c4bc;
+    font-size: 12px;
+    text-align: center;
+    padding: 2px 0;
+    outline: none;
+    -moz-appearance: textfield;
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    &:focus { border-color: rgba(200,160,60,.5); background: rgba(255,255,255,.07); }
+  }
+
+  &__btn {
+    width: 22px !important; height: 22px !important;
+    padding: 0 !important; line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important; justify-content: center !important;
+    flex-shrink: 0;
+    border-radius: 2px !important;
+    transition: color .15s, background .15s !important;
+
+    mat-icon, .mat-icon {
+      font-size: 13px !important; width: 13px !important;
+      height: 13px !important; line-height: 13px !important;
+      display: flex !important; align-items: center !important; justify-content: center !important;
+    }
+
+    .mat-mdc-button-touch-target,
+    .mat-mdc-button-persistent-ripple,
+    .mdc-icon-button__ripple { display: none !important; }
+
+    &--remove {
+      color: rgba(200,80,70,.55) !important;
+      &:hover { color: rgba(220,80,70,.9) !important; background: rgba(200,60,50,.12) !important; }
+    }
+    &--add {
+      color: rgba(70,180,90,.55) !important;
+      &:hover { color: rgba(70,200,90,.9) !important; background: rgba(50,160,70,.12) !important; }
+    }
+  }
 }
 
 .it-copy-btn {

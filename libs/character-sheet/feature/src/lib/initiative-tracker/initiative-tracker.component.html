@@ -21,6 +21,7 @@
         <span class="it-col-header it-col-header--name">👤 Jméno</span>
         <span class="it-col-header it-col-header--sm">🛡 OČ</span>
         <span class="it-col-header it-col-header--sm">❤ HP</span>
+        <span class="it-col-header it-col-header--hp-adj">± HP</span>
         <span class="it-col-header it-col-header--icon"></span>
         <span class="it-col-header it-col-header--icon"></span>
         <span class="it-col-header it-col-header--icon"></span>
@@ -44,6 +45,20 @@
             />
             <input [(ngModel)]="row.ac" type="number" class="it-input it-input--sm" placeholder="—" />
             <input [(ngModel)]="row.hp" type="number" class="it-input it-input--sm" placeholder="—" />
+
+            <!-- ± HP adjuster -->
+            <div class="it-hp-adj">
+              <button mat-icon-button type="button" class="it-hp-adj__btn it-hp-adj__btn--remove"
+                matTooltip="Odečíst HP" (click)="removeHp($index)">
+                <mat-icon>remove</mat-icon>
+              </button>
+              <input [(ngModel)]="row.hpDelta" type="number" min="1" class="it-hp-adj__input" />
+              <button mat-icon-button type="button" class="it-hp-adj__btn it-hp-adj__btn--add"
+                matTooltip="Přidat HP" (click)="addHp($index)">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+
             <button
               mat-icon-button
               type="button"
