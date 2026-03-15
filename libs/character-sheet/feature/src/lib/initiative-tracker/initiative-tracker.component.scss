@@ -24,7 +24,7 @@
 // ── Card ─────────────────────────────────────────────────────────────────────
 .it-card {
   flex: 1 1 480px;
-  max-width: 740px;
+  max-width: 800px;
   min-width: 0;
   position: relative;
   background: #0e0e12;
@@ -33,6 +33,7 @@
   border-radius: 2px;
   padding: 22px 26px 20px;
   box-sizing: border-box;
+  overflow-x: auto;
   box-shadow:
     0 2px 0 rgba(160,30,30,.4),
     0 12px 40px rgba(0,0,0,.8),
@@ -118,10 +119,10 @@
   user-select: none;
 
   &--indicator { width: 14px; flex-shrink: 0; }
-  &--sm        { width: 70px; text-align: center; flex-shrink: 0; }
+  &--sm        { width: 54px; text-align: center; flex-shrink: 0; }
   &--name      { flex: 1; padding-left: 4px; }
-  &--icon      { width: 32px; flex-shrink: 0; }
-  &--hp-adj    { width: 90px; text-align: center; flex-shrink: 0; }
+  &--icon      { width: 26px; flex-shrink: 0; text-align: center; }
+  &--hp-adj    { width: 82px; text-align: center; flex-shrink: 0; }
 }
 
 // ── Rows ──────────────────────────────────────────────────────────────────────
@@ -172,6 +173,7 @@
   outline: none;
   transition: border-color .15s;
   font-family: sans-serif;
+  box-sizing: border-box;
 
   &::placeholder { color: rgba(255,255,255,.12); }
   &:focus {
@@ -179,7 +181,7 @@
     background: rgba(255,255,255,.02);
   }
 
-  &--sm   { width: 70px; text-align: center; flex-shrink: 0; }
+  &--sm   { width: 54px; text-align: center; flex-shrink: 0; }
   &--name { flex: 1; }
 
   &[type='number'] {
@@ -254,7 +256,7 @@ datalist { display: none; }
   align-items: center;
   gap: 1px;
   flex-shrink: 0;
-  width: 90px;
+  width: 82px;
 
   &__input {
     width: 36px;
