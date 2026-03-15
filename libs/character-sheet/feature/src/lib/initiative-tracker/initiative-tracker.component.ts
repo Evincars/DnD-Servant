@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LocalStorageService, Monster, MONSTER_NAMES } from '@dn-d-servant/util';
 import { AutofillInputComponent } from '@dn-d-servant/ui';
 import { Dnd5eApiService } from '@dn-d-servant/data-access';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { MonsterCardComponent } from '@dn-d-servant/dnd-rules-database-feature';
 
 interface InitiativeRow {
@@ -21,11 +22,14 @@ const STORAGE_KEY = 'initiative-tracker';
   templateUrl: './initiative-tracker.component.html',
   styleUrl: './initiative-tracker.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, MatIconButton, MatIcon, MonsterCardComponent, AutofillInputComponent],
+  imports: [FormsModule, MatIconButton, MatIcon, MatTooltip, MonsterCardComponent, AutofillInputComponent],
 })
 export class InitiativeTrackerComponent {
   private readonly localStorageService = inject(LocalStorageService);
   private readonly dnd5eApi = inject(Dnd5eApiService);
+
+  /** When true the monster-lookup search button is disabled (use DM tools page instead). */
+  readonly disableMonsterSearch = input(false);
 
   readonly monsterNames = MONSTER_NAMES;
 

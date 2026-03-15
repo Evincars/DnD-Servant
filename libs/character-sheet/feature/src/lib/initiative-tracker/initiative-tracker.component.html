@@ -49,8 +49,10 @@
               class="it-lookup-btn"
               [class.it-lookup-btn--active]="selectedRowIndex() === $index"
               [class.it-lookup-btn--loading]="loadingIndex() === $index"
-              title="Vyhledat příšeru"
-              (click)="lookupMonster(row.name, $index)"
+              [class.it-lookup-btn--disabled]="disableMonsterSearch()"
+              [disabled]="disableMonsterSearch() || undefined"
+              [matTooltip]="disableMonsterSearch() ? 'Vyhledávání příšer je dostupné na stránce PH nástroje' : 'Vyhledat příšeru'"
+              (click)="!disableMonsterSearch() && lookupMonster(row.name, $index)"
             >
               <mat-icon>{{ loadingIndex() === $index ? 'hourglass_empty' : 'search' }}</mat-icon>
             </button>

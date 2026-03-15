@@ -216,6 +216,12 @@ datalist { display: none; }
   &:hover    { color: #c8c4bc !important; background: rgba(255,255,255,.05) !important; }
   &--active  { color: rgba(100,150,220,.8) !important; }
   &--loading { color: rgba(160,30,30,.7) !important; animation: it-spin 1s linear infinite; }
+  &--disabled {
+    color: rgba(255,255,255,.1) !important;
+    cursor: not-allowed !important;
+    pointer-events: auto !important;
+    &:hover { color: rgba(255,255,255,.1) !important; background: transparent !important; }
+  }
 }
 
 .it-remove-btn {

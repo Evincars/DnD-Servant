@@ -25,7 +25,7 @@ const TAB_INDEX_KEY = 'active-tab-index';
       <mat-tab label="Karta družiny"><group-sheet class="u-mt-2" /></mat-tab>
       <mat-tab label="Moje předměty"><player-items-cards /></mat-tab>
       <mat-tab label="Poznámky"><notes-sheet class="u-mt-2" /></mat-tab>
-      <mat-tab label="Iniciativa"><initiative-tracker /></mat-tab>
+      <mat-tab label="Iniciativa"><initiative-tracker [disableMonsterSearch]="true" /></mat-tab>
     </mat-tab-group>
   `,
   styles: `
