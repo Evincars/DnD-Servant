@@ -23,6 +23,7 @@
         <span class="it-col-header it-col-header--sm">❤ HP</span>
         <span class="it-col-header it-col-header--icon"></span>
         <span class="it-col-header it-col-header--icon"></span>
+        <span class="it-col-header it-col-header--icon"></span>
       </div>
 
       <div class="it-rows">
@@ -43,6 +44,15 @@
             />
             <input [(ngModel)]="row.ac" type="number" class="it-input it-input--sm" placeholder="—" />
             <input [(ngModel)]="row.hp" type="number" class="it-input it-input--sm" placeholder="—" />
+            <button
+              mat-icon-button
+              type="button"
+              class="it-copy-btn"
+              matTooltip="Kopírovat řádek (přidá B, C, D… za jméno)"
+              (click)="copyRow($index)"
+            >
+              <mat-icon>content_copy</mat-icon>
+            </button>
             <button
               mat-icon-button
               type="button"

@@ -54,6 +54,29 @@ export class InitiativeTrackerComponent {
     this.rows.update(r => [...r, this._emptyRow()]);
   }
 
+  copyRow(index: number) {
+    const row = this.rows()[index];
+    const baseName = this._extractBaseName(row.name);
+    const existingNames = new Set(this.rows().map(r => r.name));
+
+    const letters = 'BCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let nextLetter = '';
+    for (const letter of letters) {
+      if (!existingNames.has(`${baseName} ${letter}`)) {
+        nextLetter = letter;
+        break;
+      }
+    }
+    if (!nextLetter) return;
+
+    const newRow: InitiativeRow = { ...row, name: `${baseName} ${nextLetter}` };
+    this.rows.update(rows => [
+      ...rows.slice(0, index + 1),
+      newRow,
+      ...rows.slice(index + 1),
+    ]);
+  }
+
   removeRow(index: number) {
     this.rows.update(r => r.filter((_, i) => i !== index));
     this.activeIndex.update(i => Math.min(i, Math.max(0, this.rows().length - 1)));
@@ -83,7 +106,10 @@ export class InitiativeTrackerComponent {
       return;
     }
 
-    const index = (name ?? '')
+    // Strip copy-postfix (e.g. "Berserker B" → "Berserker") and find canonical name
+    const canonical = this._resolveCanonicalMonsterName(name);
+
+    const index = (canonical ?? '')
       .trim()
       .toLowerCase()
       .replace(/\s+/g, '-')
@@ -118,6 +144,20 @@ export class InitiativeTrackerComponent {
         this.loadingIndex.set(null);
       },
     });
+  }
+
+  /** Strips trailing single-letter copy postfix (e.g. " B", " C") then finds the
+   *  best match in MONSTER_NAMES (case-insensitive). Falls back to the raw name. */
+  private _resolveCanonicalMonsterName(name: string): string {
+    const baseName = this._extractBaseName(name.trim());
+    const lower = baseName.toLowerCase();
+    const match = MONSTER_NAMES.find(m => m.toLowerCase() === lower);
+    return match ?? baseName;
+  }
+
+  /** Removes a trailing " B"…" Z" postfix added by copyRow(). */
+  private _extractBaseName(name: string): string {
+    return name.replace(/\s+[B-Z]$/i, '').trim();
   }
 
   closeMonster() {
