@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, input, signal } from '@angular/core';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { debounceTime, fromEvent, merge, skip } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { LocalStorageService, Monster, MONSTER_NAMES } from '@dn-d-servant/util';
 import { AutofillInputComponent } from '@dn-d-servant/ui';
@@ -29,6 +31,8 @@ const STORAGE_KEY = 'initiative-tracker';
 export class InitiativeTrackerComponent {
   private readonly localStorageService = inject(LocalStorageService);
   private readonly dnd5eApi = inject(Dnd5eApiService);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly elRef = inject(ElementRef<HTMLElement>);
 
   /** When true the monster-lookup search button is disabled (use DM tools page instead). */
   readonly disableMonsterSearch = input(false);
@@ -43,9 +47,31 @@ export class InitiativeTrackerComponent {
   monsterData = signal<Monster | null>(null);
   monsterError = signal<string | null>(null);
 
+  private _savedMessageTimer: ReturnType<typeof setTimeout> | null = null;
+
+  constructor() {
+    // ① native input events – fires when the user types in any input inside
+    //   this component (ngModel mutates objects in-place without touching the signal)
+    const inputEvents$ = fromEvent(this.elRef.nativeElement, 'input');
+
+    // ② structural changes – fires when rows are added, removed, sorted, copied
+    //   (these call signal.update() so the signal emits a new reference)
+    const structuralChanges$ = toObservable(this.rows).pipe(skip(1));
+
+    merge(inputEvents$, structuralChanges$)
+      .pipe(
+        debounceTime(1500),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe(() => {
+        this.localStorageService.setDataSync(STORAGE_KEY, this.rows());
+        this._showSavedMessage();
+      });
+  }
+
   private _load(): InitiativeRow[] {
     const saved = this.localStorageService.getDataSync<InitiativeRow[]>(STORAGE_KEY);
-    return saved?.map(r => ({ hpDelta: 1, ...r })) ?? [this._emptyRow()];
+    return saved?.map(r => ({ ...r, hpDelta: r.hpDelta ?? 1 })) ?? [this._emptyRow()];
   }
 
   private _emptyRow(): InitiativeRow {
@@ -114,8 +140,13 @@ export class InitiativeTrackerComponent {
 
   save() {
     this.localStorageService.setDataSync(STORAGE_KEY, this.rows());
+    this._showSavedMessage();
+  }
+
+  private _showSavedMessage() {
     this.savedMessage.set(true);
-    setTimeout(() => this.savedMessage.set(false), 2000);
+    if (this._savedMessageTimer) clearTimeout(this._savedMessageTimer);
+    this._savedMessageTimer = setTimeout(() => this.savedMessage.set(false), 2000);
   }
 
   lookupMonster(name: string, rowIndex: number) {
