@@ -3,6 +3,7 @@ import { Route } from '@angular/router';
 export const routes = {
   characterSheet: 'character-sheet',
   dmScreen: 'dm-screen',
+  dmPage: 'ph-nastroje',
   dndDatabase: 'dnd-database',
   helpAndTips: 'help-and-tips',
   login: 'login',
@@ -30,6 +31,10 @@ export const appRoutes: Array<Route> = [
   {
     path: routes.dmScreen,
     loadComponent: () => import('@dn-d-servant/dm-screen-feature').then(c => c.DmScreenComponent),
+  },
+  {
+    path: routes.dmPage,
+    loadComponent: () => import('@dn-d-servant/dm-page-feature').then(c => c.DmPageComponent),
   },
   {
     path: routes.dndDatabase,

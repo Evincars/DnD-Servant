@@ -24,7 +24,7 @@
 // ── Card ─────────────────────────────────────────────────────────────────────
 .it-card {
   flex: 1 1 480px;
-  max-width: 740px;
+  max-width: 800px;
   min-width: 0;
   position: relative;
   background: #0e0e12;
@@ -33,6 +33,7 @@
   border-radius: 2px;
   padding: 22px 26px 20px;
   box-sizing: border-box;
+  overflow-x: auto;
   box-shadow:
     0 2px 0 rgba(160,30,30,.4),
     0 12px 40px rgba(0,0,0,.8),
@@ -118,9 +119,10 @@
   user-select: none;
 
   &--indicator { width: 14px; flex-shrink: 0; }
-  &--sm        { width: 70px; text-align: center; flex-shrink: 0; }
+  &--sm        { width: 54px; text-align: center; flex-shrink: 0; }
   &--name      { flex: 1; padding-left: 4px; }
-  &--icon      { width: 32px; flex-shrink: 0; }
+  &--icon      { width: 26px; flex-shrink: 0; text-align: center; }
+  &--hp-adj    { width: 82px; text-align: center; flex-shrink: 0; }
 }
 
 // ── Rows ──────────────────────────────────────────────────────────────────────
@@ -171,6 +173,7 @@
   outline: none;
   transition: border-color .15s;
   font-family: sans-serif;
+  box-sizing: border-box;
 
   &::placeholder { color: rgba(255,255,255,.12); }
   &:focus {
@@ -178,7 +181,7 @@
     background: rgba(255,255,255,.02);
   }
 
-  &--sm   { width: 70px; text-align: center; flex-shrink: 0; }
+  &--sm   { width: 54px; text-align: center; flex-shrink: 0; }
   &--name { flex: 1; }
 
   &[type='number'] {
@@ -216,6 +219,12 @@ datalist { display: none; }
   &:hover    { color: #c8c4bc !important; background: rgba(255,255,255,.05) !important; }
   &--active  { color: rgba(100,150,220,.8) !important; }
   &--loading { color: rgba(160,30,30,.7) !important; animation: it-spin 1s linear infinite; }
+  &--disabled {
+    color: rgba(255,255,255,.1) !important;
+    cursor: not-allowed !important;
+    pointer-events: auto !important;
+    &:hover { color: rgba(255,255,255,.1) !important; background: transparent !important; }
+  }
 }
 
 .it-remove-btn {
@@ -239,6 +248,84 @@ datalist { display: none; }
   .mdc-icon-button__ripple { display: none !important; }
 
   &:hover { color: rgba(200,60,50,.9) !important; background: rgba(160,30,30,.1) !important; }
+}
+
+// ── HP adjuster widget ────────────────────────────────────────────────────────
+.it-hp-adj {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  flex-shrink: 0;
+  width: 82px;
+
+  &__input {
+    width: 36px;
+    flex-shrink: 0;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 2px;
+    color: #c8c4bc;
+    font-size: 12px;
+    text-align: center;
+    padding: 2px 0;
+    outline: none;
+    -moz-appearance: textfield;
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    &:focus { border-color: rgba(200,160,60,.5); background: rgba(255,255,255,.07); }
+  }
+
+  &__btn {
+    width: 22px !important; height: 22px !important;
+    padding: 0 !important; line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important; justify-content: center !important;
+    flex-shrink: 0;
+    border-radius: 2px !important;
+    transition: color .15s, background .15s !important;
+
+    mat-icon, .mat-icon {
+      font-size: 13px !important; width: 13px !important;
+      height: 13px !important; line-height: 13px !important;
+      display: flex !important; align-items: center !important; justify-content: center !important;
+    }
+
+    .mat-mdc-button-touch-target,
+    .mat-mdc-button-persistent-ripple,
+    .mdc-icon-button__ripple { display: none !important; }
+
+    &--remove {
+      color: rgba(200,80,70,.55) !important;
+      &:hover { color: rgba(220,80,70,.9) !important; background: rgba(200,60,50,.12) !important; }
+    }
+    &--add {
+      color: rgba(70,180,90,.55) !important;
+      &:hover { color: rgba(70,200,90,.9) !important; background: rgba(50,160,70,.12) !important; }
+    }
+  }
+}
+
+.it-copy-btn {
+  width: 26px !important; height: 26px !important;
+  padding: 0 !important; line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important; justify-content: center !important;
+  flex-shrink: 0;
+  color: rgba(255,255,255,.2) !important;
+  border-radius: 1px !important;
+  transition: color .15s, background .15s !important;
+
+  mat-icon, .mat-icon {
+    font-size: 15px !important; width: 15px !important;
+    height: 15px !important; line-height: 15px !important;
+    display: flex !important; align-items: center !important; justify-content: center !important;
+  }
+
+  .mat-mdc-button-touch-target,
+  .mat-mdc-button-persistent-ripple,
+  .mdc-icon-button__ripple { display: none !important; }
+
+  &:hover { color: rgba(200,160,60,.9) !important; background: rgba(200,160,60,.08) !important; }
 }
 
 // ── Action buttons ────────────────────────────────────────────────────────────

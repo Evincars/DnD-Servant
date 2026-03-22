@@ -1,19 +1,12 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
-import { CharacterSheetComponent } from './character-sheet.component';
-import { GroupSheetComponent } from './group-sheet.component';
-import { NotesSheetComponent } from './notes-sheet.component';
-import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
-import { InitiativeTrackerComponent } from './initiative-tracker/initiative-tracker.component';
-import { PlayerItemsCardsComponent } from './players-items-cards/player-items-cards.component';
+import { InitiativeTrackerComponent } from '@dn-d-servant/character-sheet-feature';
 import { LocalStorageService } from '@dn-d-servant/util';
-import { MatDialog } from '@angular/material/dialog';
-import { openAutofillAbilitiesDialog, AUTOFILL_DIALOG_HIDDEN_KEY } from './help-dialogs/autofill-abilities-dialog.component';
 
-const TAB_INDEX_KEY = 'active-tab-index';
+const DM_TAB_KEY = 'dm-page-tab-index';
 
 @Component({
-  selector: 'character-sheet-tabs',
+  selector: 'dm-page',
   template: `
     <mat-tab-group
       mat-stretch-tabs="false"
@@ -21,11 +14,9 @@ const TAB_INDEX_KEY = 'active-tab-index';
       [selectedIndex]="selectedTab()"
       (selectedIndexChange)="onTabChange($event)"
     >
-      <mat-tab label="Karta postavy"><character-sheet class="u-mt-2" /></mat-tab>
-      <mat-tab label="Karta družiny"><group-sheet class="u-mt-2" /></mat-tab>
-      <mat-tab label="Moje předměty"><player-items-cards /></mat-tab>
-      <mat-tab label="Poznámky"><notes-sheet class="u-mt-2" /></mat-tab>
-      <mat-tab label="Iniciativa"><initiative-tracker [disableMonsterSearch]="true" /></mat-tab>
+      <mat-tab label="Iniciativa">
+        <initiative-tracker />
+      </mat-tab>
     </mat-tab-group>
   `,
   styles: `
@@ -47,7 +38,6 @@ const TAB_INDEX_KEY = 'active-tab-index';
       overflow: visible !important;
       position: relative;
 
-      /* top thin gold rule */
       &::before {
         content: '';
         position: absolute;
@@ -61,7 +51,6 @@ const TAB_INDEX_KEY = 'active-tab-index';
         z-index: 5;
       }
 
-      /* bottom double-rule separator */
       &::after {
         content: '';
         position: absolute;
@@ -105,7 +94,6 @@ const TAB_INDEX_KEY = 'active-tab-index';
         display: flex;
         align-items: center;
         justify-content: center;
-        /* ribbon shape: flat top, V-notch at bottom */
         clip-path: polygon(0% 0%, 100% 0%, 100% 72%, 50% 100%, 0% 72%);
         background: linear-gradient(180deg,
           rgba(40,18,8,.97) 0%,
@@ -199,34 +187,17 @@ const TAB_INDEX_KEY = 'active-tab-index';
       height: 100%;
     }
   `,
-  providers: [CharacterSheetStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    MatTabGroup,
-    MatTab,
-    CharacterSheetComponent,
-    GroupSheetComponent,
-    NotesSheetComponent,
-    InitiativeTrackerComponent,
-    PlayerItemsCardsComponent,
-  ],
+  imports: [MatTabGroup, MatTab, InitiativeTrackerComponent],
 })
-export class CharacterSheetTabsComponent implements OnInit {
+export class DmPageComponent {
   private readonly ls = inject(LocalStorageService);
-  private readonly dialog = inject(MatDialog);
 
-  selectedTab = signal<number>(this.ls.getDataSync<number>(TAB_INDEX_KEY) ?? 0);
-
-  ngOnInit(): void {
-    const hidden = this.ls.getDataSync<boolean>(AUTOFILL_DIALOG_HIDDEN_KEY);
-    if (!hidden) {
-      // Small delay so the app renders first
-      setTimeout(() => openAutofillAbilitiesDialog(this.dialog).subscribe(), 600);
-    }
-  }
+  selectedTab = signal<number>(this.ls.getDataSync<number>(DM_TAB_KEY) ?? 0);
 
   onTabChange(index: number): void {
     this.selectedTab.set(index);
-    this.ls.setDataSync(TAB_INDEX_KEY, index);
+    this.ls.setDataSync(DM_TAB_KEY, index);
   }
 }
+

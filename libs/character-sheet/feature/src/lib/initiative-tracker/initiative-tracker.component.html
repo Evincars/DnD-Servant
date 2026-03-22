@@ -21,6 +21,8 @@
         <span class="it-col-header it-col-header--name">👤 Jméno</span>
         <span class="it-col-header it-col-header--sm">🛡 OČ</span>
         <span class="it-col-header it-col-header--sm">❤ HP</span>
+        <span class="it-col-header it-col-header--hp-adj">± HP</span>
+        <span class="it-col-header it-col-header--icon"></span>
         <span class="it-col-header it-col-header--icon"></span>
         <span class="it-col-header it-col-header--icon"></span>
       </div>
@@ -43,14 +45,39 @@
             />
             <input [(ngModel)]="row.ac" type="number" class="it-input it-input--sm" placeholder="—" />
             <input [(ngModel)]="row.hp" type="number" class="it-input it-input--sm" placeholder="—" />
+
+            <!-- ± HP adjuster -->
+            <div class="it-hp-adj">
+              <button mat-icon-button type="button" class="it-hp-adj__btn it-hp-adj__btn--remove"
+                matTooltip="Odečíst HP" (click)="removeHp($index)">
+                <mat-icon>remove</mat-icon>
+              </button>
+              <input [(ngModel)]="row.hpDelta" type="number" min="1" class="it-hp-adj__input" />
+              <button mat-icon-button type="button" class="it-hp-adj__btn it-hp-adj__btn--add"
+                matTooltip="Přidat HP" (click)="addHp($index)">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+
+            <button
+              mat-icon-button
+              type="button"
+              class="it-copy-btn"
+              matTooltip="Kopírovat řádek (přidá B, C, D… za jméno)"
+              (click)="copyRow($index)"
+            >
+              <mat-icon>content_copy</mat-icon>
+            </button>
             <button
               mat-icon-button
               type="button"
               class="it-lookup-btn"
               [class.it-lookup-btn--active]="selectedRowIndex() === $index"
               [class.it-lookup-btn--loading]="loadingIndex() === $index"
-              title="Vyhledat příšeru"
-              (click)="lookupMonster(row.name, $index)"
+              [class.it-lookup-btn--disabled]="disableMonsterSearch()"
+              [disabled]="disableMonsterSearch() || undefined"
+              [matTooltip]="disableMonsterSearch() ? 'Vyhledávání příšer je dostupné na stránce PH nástroje' : 'Vyhledat příšeru'"
+              (click)="!disableMonsterSearch() && lookupMonster(row.name, $index)"
             >
               <mat-icon>{{ loadingIndex() === $index ? 'hourglass_empty' : 'search' }}</mat-icon>
             </button>

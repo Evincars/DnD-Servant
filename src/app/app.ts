@@ -53,6 +53,11 @@ import { DiceRollerComponent } from '@dn-d-servant/ui';
             <span class="sidenav__link-label">PH zástěna</span>
             <span class="sidenav__link-arrow">›</span>
           </a>
+          <a [routerLink]="routes.dmPage" class="sidenav__link" (click)="sidenav.toggle()">
+            <span class="sidenav__link-icon"><mat-icon>construction</mat-icon></span>
+            <span class="sidenav__link-label">PH nástroje</span>
+            <span class="sidenav__link-arrow">›</span>
+          </a>
           <a [routerLink]="routes.dndDatabase" class="sidenav__link" (click)="sidenav.toggle()">
             <span class="sidenav__link-icon"><mat-icon>menu_book</mat-icon></span>
             <span class="sidenav__link-label">Databáze D&amp;D</span>
