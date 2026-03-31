@@ -158,6 +158,9 @@ input[type='checkbox'][disabled] {
   word-break: break-word;
   padding: 0;       /* inner rt-preview/rt-editor handle their own padding */
   overflow: visible;
+  /* dark text so rich-textarea is readable on the light parchment background */
+  --rt-text-color: #2e2924;
+  --rt-caret-color: #8b1a1a;
 }
 
 .main-skill {
