@@ -257,9 +257,26 @@ datalist { display: none; }
   gap: 1px;
   flex-shrink: 0;
   width: 82px;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 3px;
+  background: rgba(0,0,0,.25);
+  padding: 1px 2px;
+  box-sizing: border-box;
+  margin-left: 2px;
+
+  // Dim the buttons by default so they don't invite accidental clicks
+  &__btn {
+    opacity: 0.3;
+    transition: opacity .15s, color .15s, background .15s !important;
+  }
+
+  // Reveal on explicit hover of the widget
+  &:hover &__btn {
+    opacity: 1;
+  }
 
   &__input {
-    width: 36px;
+    width: 34px;
     flex-shrink: 0;
     background: rgba(255,255,255,.04);
     border: 1px solid rgba(255,255,255,.1);
@@ -276,13 +293,13 @@ datalist { display: none; }
   }
 
   &__btn {
-    width: 22px !important; height: 22px !important;
+    width: 20px !important; height: 20px !important;
     padding: 0 !important; line-height: 1 !important;
     display: inline-flex !important;
     align-items: center !important; justify-content: center !important;
     flex-shrink: 0;
     border-radius: 2px !important;
-    transition: color .15s, background .15s !important;
+    transition: opacity .15s, color .15s, background .15s !important;
 
     mat-icon, .mat-icon {
       font-size: 13px !important; width: 13px !important;
@@ -295,12 +312,12 @@ datalist { display: none; }
     .mdc-icon-button__ripple { display: none !important; }
 
     &--remove {
-      color: rgba(200,80,70,.55) !important;
-      &:hover { color: rgba(220,80,70,.9) !important; background: rgba(200,60,50,.12) !important; }
+      color: rgba(200,80,70,.8) !important;
+      &:hover { color: rgba(220,80,70,1) !important; background: rgba(200,60,50,.18) !important; }
     }
     &--add {
-      color: rgba(70,180,90,.55) !important;
-      &:hover { color: rgba(70,200,90,.9) !important; background: rgba(50,160,70,.12) !important; }
+      color: rgba(70,180,90,.8) !important;
+      &:hover { color: rgba(70,200,90,1) !important; background: rgba(50,160,70,.18) !important; }
     }
   }
 }
