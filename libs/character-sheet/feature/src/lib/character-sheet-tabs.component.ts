@@ -20,7 +20,7 @@ const TAB_INDEX_KEY = 'active-tab-index';
       mat-stretch-tabs="false"
       mat-align-tabs="start"
       [selectedIndex]="selectedTab()"
-      (selectedIndexChange)="onTabChange($event)"
+      (selectedIndexChange)="onTabChange($any($event))"
     >
       <mat-tab label="Karta postavy"><character-sheet class="u-mt-2" /></mat-tab>
       <mat-tab label="Karta družiny"><group-sheet class="u-mt-2" /></mat-tab>

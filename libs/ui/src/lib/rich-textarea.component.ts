@@ -171,6 +171,7 @@ function parseMarkup(raw: string): string {
       font-size: 13px;
       word-break: break-word;
       white-space: pre-wrap;
+      color: #c8c4bc;
     }
     ::ng-deep .rt-preview .rt-h1 { font-size: 17px; font-weight: bold; }
     ::ng-deep .rt-preview .rt-h2 { font-size: 15px; font-weight: bold; }
@@ -193,6 +194,8 @@ function parseMarkup(raw: string): string {
       outline: none;
       padding: 4px 6px;
       background: transparent;
+      color: #c8c4bc;
+      caret-color: #e8c96a;
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
