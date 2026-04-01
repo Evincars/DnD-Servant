@@ -102,36 +102,117 @@ const COMPLICATIONS = [
   'Hostitel situace — nevinný svědek či zajatec utíká bojovým polem v panice.',
 ];
 
-const LOOT = [
-  '1k6 × 10 zlatých mincí v roztrhaném vaku',
-  'Stříbrný prsten s vyrytým iniciálami (5 zl)',
-  'Lektvar léčení (2k4+2 HP)',
-  'Kouzelný svitek — kouzlo 1. úrovně (hoď nebo vyber)',
-  'Kožená vázanka s mapou neznámého území',
-  'Polodrahokam (tyrkys, ametyst nebo granát) — 25–50 zlatých',
-  'Bronzový klíč s neznámou runou — k čemu patří?',
-  'Šifrovaný dopis adresovaný "Poslednímu Strážci"',
-  'Balíček exotického koření (30 zlatých pro správného kupce)',
-  'Otrhaná kniha s ručně psanými kouzly — jedno je nečitelné',
-  'Malovaný miniaturní portrét neznámé ušlechtilé osoby',
-  'Kost kostky z kosti s vyrytými runami — při hodu dává vždy 6?',
-  'Trofej ze vzácného zvířete (parohy, šupiny, pírko) — cena 15–40 zl',
-  'Obsidiánová figurka boha — kdo ho uctívá, pochopí hodnotu',
-  'Láhev neznámého nápoje. Zelená. Voní po hřebíčku a zemi.',
+const LOOT_WEAPONS = [
+  'Dýka — dobře udržovaná, kožený pochev',
+  'Krátký meč — vyřezávaná rukojeť, drobné rýhy na čepeli',
+  'Dlouhý meč — poškrábaný, ale plně funkční',
+  'Ruční sekera — mírně otupená, dá se nabrousit',
+  'Krátký luk + 1k6+3 šípů v kožené toulci',
+  'Dlouhý luk (toulec prázdný)',
+  'Lehká kuše + 1k6 šrotů v krabičce',
+  'Válečné kladivo — otlučené, pevná rukojeť',
+  'Kopí — dřevec prasklý, hrot neporušený (opravitelné)',
+  'Palcát — ocelová hlava s malými ostny',
+  'Šestipák — vhodný pro boj zblízka',
+  'Sada 3 vrhacích nožů — dobré vyvážení',
+  'Dřevěný štít s kovaným okrajem — pár škrábanců',
+  'Prošívaná zbroj — potřebuje vyčistit',
+  'Kožená zbroj — stará, ale funkční',
+  'Hůl dubová okovaná železem',
+  'Šavle s ozdobnou záštitou — bojová i dekorativní',
+  'Luk lovecký střední — bez šípů, tetiva neporušena',
+  'Těžká kuše — pomalá, ale silná střela (záchrana DC 14)',
+  'Trident — tříhrotová zbraň, jedna zbroušena',
 ];
+
+const LOOT_POTIONS_COMMON = [
+  'Lektvar léčení 🧪 — obnoví 2k4+2 ŽB',
+  'Lektvar protijed 🧪 — neutralizuje jeden jed (1 hodina)',
+  'Lektvar skalního lezce 🧪 — šplhání bez rukou (1 hodina)',
+  'Lektvar dýchání pod vodou 🧪 — 1 hodina',
+  'Lektvar odolnosti vůči ohni 🧪 — odolnost vůči ohnivému zásahu (1 hodina)',
+  'Lektvar tmavého vidění 🧪 — vidí ve tmě 18 m (8 hodin)',
+  'Lektvar odolnosti vůči jedu 🧪 — výhoda na záchranné hody proti jedu (1 hodina)',
+  'Lektvar dlouhého dechu 🧪 — zadržení dechu + bonus na Atletiku pod vodou (1 hodina)',
+];
+
+const LOOT_POTIONS_RARE = [
+  'Lektvar vyššího léčení ✨ — obnoví 4k4+4 ŽB',
+  'Lektvar neviditelnosti ✨ — trvá dokud nezaútočíš nebo nesešleš kouzlo',
+  'Lektvar létání ✨ — rychlost letu 18 m (1 hodina)',
+  'Lektvar obří síly (kopcová) ✨ — Síla 21 (1 hodina)',
+  'Lektvar rychlosti ✨ — efekt Chvatu (1 minuta)',
+  'Lektvar mistra léčení ✨ — obnoví 8k4+8 ŽB',
+  'Lektvar nehmotnosti ✨ — procházej zdmi (1 min, záchrana Odolnosti DC 13 každé kolo)',
+  'Lektvar přátelství se zvířaty ✨ — zvířata tě považují za přítele (24 hodin)',
+  'Lektvar hrdinství ✨ — 10 dočasných ŽB + efekt Požehnání (1 minuta)',
+];
+
+const LOOT_MISC = [
+  'Starý pergamen s mapou neznámého území',
+  'Polodrahokam: tyrkys nebo granát — hodnota 15–25 zl',
+  'Bronzový klíč s neznámou runou — k čemu patří?',
+  'Šifrovaný dopis adresovaný „Poslednímu Strážci"',
+  'Balíček exotického koření (30 zl pro správného kupce)',
+  'Otrhaná kniha s ručně psanými kouzly — jedno je nečitelné',
+  'Malovaný miniaturní portrét ušlechtilé osoby',
+  'Kostka z kosti s vyrytými runami — při každém hodu padá 6?',
+  'Trofej ze vzácného zvířete (parohy, šupiny, pírko) — 15–40 zl',
+  'Obsidiánová figurka boha — kdo ho uctívá, pochopí hodnotu',
+  'Zapečetěná schránka bez klíče (záchrana Obratnosti DC 13 na vypáčení)',
+  'Stříbrná brož se znakem zapomenutého rodu — 20 zl',
+  'Svazek kouzelných bylin — alchymistická surovina',
+  'Prsten levného kovu s falešným drahokamem — ale co když je prokletý?',
+  'Láhev neznámého nápoje — zelená, voní po hřebíčku a zemi',
+];
+
+const GEM_TABLE = [
+  'tyrkys (10 zl)', 'ametyst (20 zl)', 'granát (25 zl)',
+  'nefrit (50 zl)', 'opál (50 zl)', 'rubín (100 zl)', 'safír (100 zl)',
+];
+
+/** Returns a Czech-language gold description with a rolled amount */
+function rollGoldEntry(): string {
+  const r = Math.random();
+  if (r < 0.35) {
+    const gp = Math.floor(Math.random() * 12) + 1;
+    const sp = Math.floor(Math.random() * 15);
+    return `💰 ${gp} zlatých${sp > 0 ? ` a ${sp} stříbrných` : ''} v roztrhaném vaku`;
+  } else if (r < 0.70) {
+    const gp = Math.floor(Math.random() * 20) + 5;
+    return `💰 ${gp} zlatých v kožené tobolce`;
+  } else if (r < 0.90) {
+    const gp = Math.floor(Math.random() * 30) + 15;
+    return `💰 ${gp} zlatých v dřevěné krabičce`;
+  } else {
+    const gp = Math.floor(Math.random() * 40) + 20;
+    return `💰 ${gp} zlatých + drahokam: ${rand(GEM_TABLE)}`;
+  }
+}
+
+/**
+ * Weighted loot roll:
+ *  30 % → gold (computed amount)
+ *  25 % → weapon / equipment
+ *  18 % → common potion
+ *  15 % → misc item / curiosity
+ *  10 % → rare potion
+ *   2 % → rare potion + bonus gold (jackpot)
+ */
+function rollLootWeighted(): string {
+  const r = Math.random() * 100;
+  if (r < 30)  return rollGoldEntry();
+  if (r < 55)  return `⚔️ ${rand(LOOT_WEAPONS)}`;
+  if (r < 73)  return rand(LOOT_POTIONS_COMMON);
+  if (r < 88)  return rand(LOOT_MISC);
+  if (r < 98)  return rand(LOOT_POTIONS_RARE);
+  // 2 % jackpot
+  const bonusGp = Math.floor(Math.random() * 30) + 10;
+  return `🌟 ${rand(LOOT_POTIONS_RARE)} + ${bonusGp} zlatých jako bonus`;
+}
 
 function rand<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
-}
-
-interface GenSection {
-  id: string;
-  title: string;
-  icon: string;
-  color: string;
-  placeholder: string;
-  result: string;
-  generate: () => string;
 }
 
 @Component({
@@ -184,11 +265,20 @@ interface GenSection {
       position: relative;
       &:hover { border-color: rgba(255,255,255,.1); box-shadow: 0 6px 26px rgba(0,0,0,.6); }
       &::before { content: '◆'; position: absolute; top: 5px; left: 8px; font-size: 6px; color: rgba(255,255,255,.1); pointer-events: none; }
+
+      // Per-card accent colour set as CSS custom property via a class (not Angular binding)
+      &--npc          { --c: rgba(200,160,60,.85); }
+      &--weather      { --c: rgba(80,160,220,.85); }
+      &--encounter    { --c: rgba(200,80,60,.85);  }
+      &--plot         { --c: rgba(100,180,80,.85); }
+      &--room         { --c: rgba(160,100,200,.85);}
+      &--complication { --c: rgba(200,120,40,.85); }
+      &--loot         { --c: rgba(220,200,60,.85); }
     }
 
     .gen-card-rule {
       height: 2px;
-      background: linear-gradient(90deg, transparent, var(--card-color) 40%, var(--card-color) 60%, transparent);
+      background: linear-gradient(90deg, transparent, var(--c) 40%, var(--c) 60%, transparent);
       opacity: .5;
     }
 
@@ -200,17 +290,17 @@ interface GenSection {
     }
     .gen-card-icon {
       font-size: 17px !important; width: 17px !important; height: 17px !important;
-      flex-shrink: 0; color: var(--card-color);
+      flex-shrink: 0; color: var(--c);
     }
     .gen-card-title {
       font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
-      color: var(--card-color); flex: 1;
+      color: var(--c); flex: 1;
     }
 
     .gen-btn {
       font-family: 'Mikadan', sans-serif; font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
-      border: 1px solid var(--card-color); border-radius: 2px;
-      background: rgba(0,0,0,.2); color: var(--card-color);
+      border: 1px solid var(--c); border-radius: 2px;
+      background: rgba(0,0,0,.2); color: var(--c);
       padding: 4px 12px; cursor: pointer;
       display: flex; align-items: center; gap: 4px;
       transition: background .15s, opacity .15s;
@@ -262,7 +352,7 @@ interface GenSection {
     <div class="gen-grid">
 
       <!-- NPC Card -->
-      <div class="gen-card" [style.--card-color]="'rgba(200,160,60,.85)'">
+      <div class="gen-card gen-card--npc">
         <div class="gen-card-rule"></div>
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">person</mat-icon>
@@ -284,7 +374,7 @@ interface GenSection {
       </div>
 
       <!-- Weather Card -->
-      <div class="gen-card" [style.--card-color]="'rgba(80,160,220,.85)'">
+      <div class="gen-card gen-card--weather">
         <div class="gen-card-rule"></div>
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">wb_cloudy</mat-icon>
@@ -301,7 +391,7 @@ interface GenSection {
       </div>
 
       <!-- Encounter Card -->
-      <div class="gen-card" [style.--card-color]="'rgba(200,80,60,.85)'">
+      <div class="gen-card gen-card--encounter">
         <div class="gen-card-rule"></div>
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">warning</mat-icon>
@@ -318,7 +408,7 @@ interface GenSection {
       </div>
 
       <!-- Plot Hook Card -->
-      <div class="gen-card" [style.--card-color]="'rgba(100,180,80,.85)'">
+      <div class="gen-card gen-card--plot">
         <div class="gen-card-rule"></div>
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">psychology</mat-icon>
@@ -335,7 +425,7 @@ interface GenSection {
       </div>
 
       <!-- Room Description Card -->
-      <div class="gen-card" [style.--card-color]="'rgba(160,100,200,.85)'">
+      <div class="gen-card gen-card--room">
         <div class="gen-card-rule"></div>
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">door_back</mat-icon>
@@ -352,7 +442,7 @@ interface GenSection {
       </div>
 
       <!-- Combat Complication Card -->
-      <div class="gen-card" [style.--card-color]="'rgba(200,120,40,.85)'">
+      <div class="gen-card gen-card--complication">
         <div class="gen-card-rule"></div>
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">bolt</mat-icon>
@@ -369,7 +459,7 @@ interface GenSection {
       </div>
 
       <!-- Loot Card -->
-      <div class="gen-card" [style.--card-color]="'rgba(220,200,60,.85)'">
+      <div class="gen-card gen-card--loot">
         <div class="gen-card-rule"></div>
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">auto_awesome</mat-icon>
@@ -416,7 +506,7 @@ export class DmGeneratorComponent {
   rollPlot():         void { this.plot.set(rand(PLOT_HOOKS)); }
   rollRoom():         void { this.room.set(rand(ROOMS)); }
   rollComplication(): void { this.complication.set(rand(COMPLICATIONS)); }
-  rollLoot():         void { this.loot.set(rand(LOOT)); }
+  rollLoot():         void { this.loot.set(rollLootWeighted()); }
 
   rerollAll(): void {
     this.rollNpc();
