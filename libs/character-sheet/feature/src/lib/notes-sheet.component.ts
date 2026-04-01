@@ -50,10 +50,11 @@ import { interval } from 'rxjs';
       &:hover { background: rgba(60,140,60,.18); border-color: rgba(80,180,80,.6); color: #80e080; }
     }
 
-    /* ── 2×2 panel grid ─────────────────────────── */
+    /* ── 2-column panel grid ─────────────────────── */
     .notes-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
       gap: 18px;
     }
 
@@ -80,11 +81,11 @@ import { interval } from 'rxjs';
     .panel-desc { font-family: sans-serif; font-size: 10px; margin-left: auto; color: rgba(255,255,255,.18); font-style: italic; letter-spacing: .03em; }
 
     .panel--expedition { border-color: rgba(200,160,60,.2);
-      .panel-header { background: rgba(200,160,60,.07); } .panel-icon { color: rgba(220,180,80,.7); } .panel-title { color: rgba(230,195,90,.9); } }
+      grid-row: 1 / span 2; display: flex; flex-direction: column;
+      .panel-header { background: rgba(200,160,60,.07); } .panel-icon { color: rgba(220,180,80,.7); } .panel-title { color: rgba(230,195,90,.9); }
+      .rt-wrap { flex: 1; height: auto; min-height: 380px; } }
     .panel--maps { border-color: rgba(80,160,100,.2);
       .panel-header { background: rgba(80,160,100,.06); } .panel-icon { color: rgba(100,190,120,.65); } .panel-title { color: rgba(120,200,140,.85); } }
-    .panel--npcs { border-color: rgba(160,120,220,.2);
-      .panel-header { background: rgba(160,120,220,.06); } .panel-icon { color: rgba(180,140,230,.65); } .panel-title { color: rgba(195,160,240,.85); } }
     .panel--goals { border-color: rgba(220,120,60,.2);
       .panel-header { background: rgba(220,120,60,.06); } .panel-icon { color: rgba(230,140,80,.65); } .panel-title { color: rgba(240,160,90,.85); } }
 
@@ -135,19 +136,6 @@ import { interval } from 'rxjs';
           </div>
         </div>
 
-        <!-- Přátelé & Nepřátelé — notesColumn3 (new) -->
-        <div class="note-panel panel--npcs">
-          <div class="panel-rule"></div>
-          <div class="panel-header">
-            <mat-icon class="panel-icon">groups</mat-icon>
-            <span class="panel-title">Přátelé &amp; Nepřátelé</span>
-            <span class="panel-desc">Důležité postavy, vztahy</span>
-          </div>
-          <div class="rt-wrap">
-            <rich-textarea [formControl]="controls.notesColumn3" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
-          </div>
-        </div>
-
         <!-- Cíle & Tajemství — notesColumn4 (new) -->
         <div class="note-panel panel--goals">
           <div class="panel-rule"></div>
@@ -177,7 +165,6 @@ export class NotesSheetComponent {
   form = this.fb.group<NotesPageForm>({
     notesColumn1: this.fb.control(''),
     notesColumn2: this.fb.control(''),
-    notesColumn3: this.fb.control(''),
     notesColumn4: this.fb.control(''),
   });
 
