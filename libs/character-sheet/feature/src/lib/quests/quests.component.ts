@@ -601,17 +601,17 @@ type SortMode = 'priority' | 'date';
           </div>
         </div>
         <div class="quests-header-actions">
-          <button class="btn-dnd btn-dnd-icon" (click)="expandAll()" matTooltip="Rozbalit vše">
+          <button class="btn-dnd btn-dnd-icon" type="button" (click)="expandAll()" matTooltip="Rozbalit vše">
             <mat-icon>unfold_more</mat-icon>
           </button>
-          <button class="btn-dnd btn-dnd-icon" (click)="collapseAll()" matTooltip="Sbalit vše">
+          <button class="btn-dnd btn-dnd-icon" type="button" (click)="collapseAll()" matTooltip="Sbalit vše">
             <mat-icon>unfold_less</mat-icon>
           </button>
-          <button class="btn-dnd" (click)="addQuest()" matTooltip="Přidat nový quest">
+          <button class="btn-dnd" type="button" (click)="addQuest()" matTooltip="Přidat nový quest">
             <mat-icon>add</mat-icon>
             Přidat quest
           </button>
-          <button class="btn-dnd btn-dnd-save" (click)="save()" matTooltip="Uložit questy do databáze">
+          <button class="btn-dnd btn-dnd-save" type="button" (click)="save()" matTooltip="Uložit questy do databáze">
             <mat-icon>save</mat-icon>
             Uložit
           </button>
@@ -623,6 +623,7 @@ type SortMode = 'priority' | 'date';
         <div class="filter-tabs">
           @for (tab of filterTabs; track tab.value) {
             <button
+              type="button"
               class="filter-tab"
               [class.filter-tab--active]="filterStatus() === tab.value"
               (click)="filterStatus.set(tab.value)"
@@ -633,10 +634,10 @@ type SortMode = 'priority' | 'date';
           }
         </div>
         <div class="sort-tabs">
-          <button class="sort-btn" [class.sort-btn--active]="sortMode() === 'priority'" (click)="sortMode.set('priority')">
+          <button type="button" class="sort-btn" [class.sort-btn--active]="sortMode() === 'priority'" (click)="sortMode.set('priority')">
             <mat-icon>priority_high</mat-icon> Priorita
           </button>
-          <button class="sort-btn" [class.sort-btn--active]="sortMode() === 'date'" (click)="sortMode.set('date')">
+          <button type="button" class="sort-btn" [class.sort-btn--active]="sortMode() === 'date'" (click)="sortMode.set('date')">
             <mat-icon>calendar_today</mat-icon> Datum
           </button>
         </div>
@@ -788,8 +789,8 @@ type SortMode = 'priority' | 'date';
           </div>
           <div class="confirm-rule"></div>
           <div class="confirm-actions">
-            <button class="confirm-btn confirm-btn-cancel" (click)="cancelDelete()">Zrušit</button>
-            <button class="confirm-btn confirm-btn-delete" (click)="confirmDelete()">Smazat</button>
+            <button type="button" class="confirm-btn confirm-btn-cancel" (click)="cancelDelete()">Zrušit</button>
+            <button type="button" class="confirm-btn confirm-btn-delete" (click)="confirmDelete()">Smazat</button>
           </div>
         </div>
       </div>
@@ -799,7 +800,7 @@ type SortMode = 'priority' | 'date';
     @if (previewQuest()) {
       <div class="img-preview-backdrop" (click)="closePreview()">
         <div class="img-preview-container" (click)="$event.stopPropagation()">
-          <button mat-icon-button class="img-preview-close" (click)="closePreview()">
+          <button mat-icon-button type="button" class="img-preview-close" (click)="closePreview()" matTooltip="Zavřít">
             <mat-icon>close</mat-icon>
           </button>
           @if (previewQuest()!.title) {

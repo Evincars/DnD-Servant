@@ -275,10 +275,10 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
           <div class="header-subtitle">Pouze pro Pána Hry — hráči tuto stránku nevidí</div>
         </div>
         <div class="header-actions">
-          <button class="btn btn-icon" (click)="expandAll()" matTooltip="Rozbalit vše"><mat-icon>unfold_more</mat-icon></button>
-          <button class="btn btn-icon" (click)="collapseAll()" matTooltip="Sbalit vše"><mat-icon>unfold_less</mat-icon></button>
-          <button class="btn" (click)="addQuest()"><mat-icon>add</mat-icon>Přidat quest</button>
-          <button class="btn btn-save" (click)="save()"><mat-icon>save</mat-icon>Uložit</button>
+          <button class="btn btn-icon" type="button" (click)="expandAll()" matTooltip="Rozbalit vše"><mat-icon>unfold_more</mat-icon></button>
+          <button class="btn btn-icon" type="button" (click)="collapseAll()" matTooltip="Sbalit vše"><mat-icon>unfold_less</mat-icon></button>
+          <button class="btn" type="button" (click)="addQuest()"><mat-icon>add</mat-icon>Přidat quest</button>
+          <button class="btn btn-save" type="button" (click)="save()"><mat-icon>save</mat-icon>Uložit</button>
         </div>
       </div>
 
@@ -286,7 +286,7 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
       <div class="filter-bar">
         <div class="filter-tabs">
           @for (t of filterTabs; track t.value) {
-            <button class="filter-tab" [class.filter-tab--active]="filterStatus() === t.value" (click)="filterStatus.set(t.value)">
+            <button type="button" class="filter-tab" [class.filter-tab--active]="filterStatus() === t.value" (click)="filterStatus.set(t.value)">
               {{ t.label }}<span class="filter-count">{{ counts()[t.value] }}</span>
             </button>
           }
