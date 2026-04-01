@@ -1,10 +1,12 @@
-import { ChangeDetectionStrategy, Component, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, ElementRef, HostListener, inject, input, output, signal, untracked, viewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HeaderInfoForm, LookAndFeelForm, SecondPageForm } from '@dn-d-servant/character-sheet-util';
 import { RichTextareaComponent } from '@dn-d-servant/ui';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'second-page',
@@ -76,19 +78,49 @@ import { MatTooltip } from '@angular/material/tooltip';
       class="field textarea"
       style="top:725px; left:74px; width:359px; height:82px;"
     ></rich-textarea>
-    <label
-      matTooltip="nejlépe GIF, max 500 KB, ideálně ještě menší"
-      class="field image-label"
-      style="top:835px; left:74px; width:359px;"
+    <!-- ── Character portrait — click to upload, button to full-screen ── -->
+    <div
+      class="field char-img-wrap"
+      style="top:835px; left:74px; width:359px; height:403px;"
+      (click)="triggerFileInput()"
+      matTooltip="Klikni pro nahrání nebo změnu obrázku (max 500 KB, nejlépe GIF)"
     >
-      Klikni pro nahrání obrázku postavy
-      <input type="file" name="file" (change)="onFileSelected($event)" style="display:none;" />
-    </label>
-    <img
-      [src]="base64Image()"
-      style="position: absolute; top:873px; left:74px; width:359px; max-height: 365px; box-shadow: 0 10px 25px rgba(0,0,0,0.0);"
-      alt="Obrázek postavy"
-    />
+      @if (base64Image()) {
+        <img [src]="base64Image()!" alt="Obrázek postavy" class="char-img" />
+        <button
+          mat-icon-button
+          type="button"
+          class="char-img-view-btn"
+          (click)="openPreview($event)"
+          matTooltip="Zobrazit v plné velikosti"
+        >
+          <mat-icon>open_in_full</mat-icon>
+        </button>
+        <div class="char-img-overlay"><mat-icon>upload</mat-icon></div>
+      } @else {
+        <div class="char-img-placeholder">
+          <mat-icon>add_photo_alternate</mat-icon>
+          <span>Klikni pro nahrání obrázku</span>
+          <span class="char-img-hint">nejlépe GIF, max 500 KB</span>
+        </div>
+      }
+      <input #charFileInput type="file" accept="image/*" (change)="onFileSelected($event)" style="display:none;" />
+    </div>
+
+    <!-- ── Full-scale preview overlay ── -->
+    @if (showPreview()) {
+      <div class="char-img-backdrop" (click)="closePreview()">
+        <div class="char-img-preview" (click)="$event.stopPropagation()">
+          <button mat-icon-button type="button" class="char-img-close-btn" (click)="closePreview()" matTooltip="Zavřít">
+            <mat-icon>close</mat-icon>
+          </button>
+          <div class="char-img-preview-frame">
+            <img [src]="base64Image()!" alt="Obrázek postavy" />
+          </div>
+          <div class="char-img-preview-hint">Klikni mimo obrázek nebo stiskni Esc pro zavření</div>
+        </div>
+      </div>
+    }
 
     <rich-textarea
       [formControl]="controls.vztahy"
@@ -109,7 +141,7 @@ import { MatTooltip } from '@angular/material/tooltip';
   `,
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, MatTooltip, RichTextareaComponent],
+  imports: [ReactiveFormsModule, MatTooltip, RichTextareaComponent, MatIconButton, MatIcon],
 })
 export class CharacterSheetSecondPageComponent {
   characterSheetStore = inject(CharacterSheetStore);
@@ -118,7 +150,10 @@ export class CharacterSheetSecondPageComponent {
   form = input.required<FormGroup<SecondPageForm>>();
 
   base64Image = signal<string | null>(null);
+  showPreview = signal(false);
   imageSaved = output<string>();
+
+  private readonly charFileInput = viewChild<ElementRef<HTMLInputElement>>('charFileInput');
 
   get controls(): SecondPageForm {
     return this.form().controls;
@@ -134,6 +169,24 @@ export class CharacterSheetSecondPageComponent {
         }
       });
     });
+  }
+
+  triggerFileInput(): void {
+    this.charFileInput()?.nativeElement.click();
+  }
+
+  openPreview(event: MouseEvent): void {
+    event.stopPropagation();
+    this.showPreview.set(true);
+  }
+
+  closePreview(): void {
+    this.showPreview.set(false);
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.showPreview()) this.closePreview();
   }
 
   static createForm(): FormGroup<SecondPageForm> {

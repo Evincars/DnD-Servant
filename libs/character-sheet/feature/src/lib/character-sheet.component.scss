@@ -387,15 +387,139 @@ input[type='checkbox'][disabled] {
   padding: 2px 0 0 0;
 }
 
-.image-label {
-  display:inline-block;
-  position:absolute;
-  cursor:pointer;
-  font-size: 15px;
-  &:hover {
-    text-decoration: underline;
+// ── Character portrait image widget ──────────────────────────────────────────
+.char-img-wrap {
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(0,0,0,.04);
+  border: 1px solid rgba(0,0,0,.12) !important;
+  padding: 0 !important;
+
+  &:hover .char-img-overlay { opacity: 1; }
+}
+
+.char-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.char-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.42);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity .18s;
+  pointer-events: none;
+  mat-icon { color: rgba(255,255,255,.85); font-size: 32px; width: 32px; height: 32px; }
+}
+
+.char-img-view-btn {
+  position: absolute !important;
+  top: 6px; right: 6px;
+  z-index: 2;
+  width: 28px !important; height: 28px !important;
+  padding: 0 !important;
+  background: rgba(0,0,0,.6) !important;
+  color: rgba(200,160,60,.9) !important;
+  border-radius: 3px !important;
+  display: inline-flex !important;
+  align-items: center !important; justify-content: center !important;
+  mat-icon, .mat-icon { font-size: 15px !important; width: 15px !important; height: 15px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+  .mat-mdc-button-touch-target, .mat-mdc-button-persistent-ripple, .mdc-icon-button__ripple { display: none !important; }
+  &:hover { background: rgba(0,0,0,.88) !important; color: #e8c96a !important; }
+}
+
+.char-img-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  color: rgba(0,0,0,.28);
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  text-align: center;
+  pointer-events: none;
+  mat-icon { font-size: 40px; width: 40px; height: 40px; }
+}
+
+.char-img-hint {
+  font-size: 10px;
+  color: rgba(0,0,0,.18);
+}
+
+// ── Full-scale portrait preview ───────────────────────────────────────────────
+.char-img-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+  animation: char-fadein .18s ease;
+}
+
+.char-img-preview {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: char-scalein .18s ease;
+}
+
+.char-img-preview-frame {
+  border: 1px solid rgba(200,160,60,.35);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.8), 0 8px 40px rgba(0,0,0,.9), 0 0 60px rgba(200,160,60,.08);
+  background: rgba(14,10,4,.95);
+  padding: 6px;
+  img {
+    display: block;
+    max-width: 88vw;
+    max-height: 80vh;
+    object-fit: contain;
   }
 }
+
+.char-img-close-btn {
+  position: absolute !important;
+  top: -14px; right: -14px;
+  z-index: 1;
+  width: 28px !important; height: 28px !important;
+  padding: 0 !important;
+  background: rgba(40,28,10,.98) !important;
+  border: 1px solid rgba(200,160,60,.4) !important;
+  color: #c8a03c !important;
+  border-radius: 3px !important;
+  display: inline-flex !important;
+  align-items: center !important; justify-content: center !important;
+  mat-icon, .mat-icon { font-size: 15px !important; width: 15px !important; height: 15px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+  .mat-mdc-button-touch-target, .mat-mdc-button-persistent-ripple, .mdc-icon-button__ripple { display: none !important; }
+  &:hover { background: rgba(200,160,60,.15) !important; color: #e8c96a !important; }
+}
+
+.char-img-preview-hint {
+  margin-top: 10px;
+  font-family: 'Mikadan', sans-serif;
+  font-size: 10px;
+  color: rgba(200,160,60,.3);
+  letter-spacing: .1em;
+}
+
+@keyframes char-fadein  { from { opacity: 0; }             to { opacity: 1; } }
+@keyframes char-scalein { from { transform: scale(.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
 // ── Dice roll hover overlay ───────────────────────────────────────────────────
 .roll-d20-wrap {
