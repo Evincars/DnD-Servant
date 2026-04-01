@@ -4,6 +4,7 @@ import { InitiativeTrackerComponent } from '@dn-d-servant/character-sheet-featur
 import { LocalStorageService } from '@dn-d-servant/util';
 import { DmQuestsComponent } from './dm-quests/dm-quests.component';
 import { DmNotesComponent } from './dm-notes/dm-notes.component';
+import { DmGeneratorComponent } from './dm-generator/dm-generator.component';
 import { DmPageStore } from '../dm-page.store';
 
 const DM_TAB_KEY = 'dm-page-tab-index';
@@ -25,6 +26,9 @@ const DM_TAB_KEY = 'dm-page-tab-index';
       </mat-tab>
       <mat-tab label="Poznámky PH">
         <dm-notes />
+      </mat-tab>
+      <mat-tab label="Generátor">
+        <dm-generator />
       </mat-tab>
     </mat-tab-group>
   `,
@@ -198,7 +202,7 @@ const DM_TAB_KEY = 'dm-page-tab-index';
   `,
   providers: [DmPageStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatTabGroup, MatTab, InitiativeTrackerComponent, DmQuestsComponent, DmNotesComponent],
+  imports: [MatTabGroup, MatTab, InitiativeTrackerComponent, DmQuestsComponent, DmNotesComponent, DmGeneratorComponent],
 })
 export class DmPageComponent {
   private readonly ls = inject(LocalStorageService);

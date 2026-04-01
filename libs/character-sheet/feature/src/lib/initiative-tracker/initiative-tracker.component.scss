@@ -196,6 +196,23 @@ datalist { display: none; }
 // ── Icon buttons ──────────────────────────────────────────────────────────────
 @keyframes it-spin { to { transform: rotate(360deg); } }
 
+// ── Shared touch-target clamp for all icon buttons in the tracker ─────────────
+// Material's touch-target is 48×48 px by default and bleeds out of the
+// 26×26 px button into neighbouring inputs. Constrain it to the button bounds.
+.it-lookup-btn, .it-remove-btn, .it-copy-btn,
+.it-hp-adj__btn {
+  overflow: hidden !important;
+
+  .mat-mdc-button-touch-target {
+    width: 100% !important;
+    height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+    pointer-events: none !important;
+  }
+}
+
 .it-lookup-btn {
   width: 26px !important; height: 26px !important;
   padding: 0 !important; line-height: 1 !important;

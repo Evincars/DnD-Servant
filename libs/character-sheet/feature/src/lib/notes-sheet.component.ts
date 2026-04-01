@@ -83,7 +83,17 @@ import { interval } from 'rxjs';
     .panel--expedition { border-color: rgba(200,160,60,.2);
       grid-row: 1 / span 2; display: flex; flex-direction: column;
       .panel-header { background: rgba(200,160,60,.07); } .panel-icon { color: rgba(220,180,80,.7); } .panel-title { color: rgba(230,195,90,.9); }
-      .rt-wrap { flex: 1; height: auto; min-height: 380px; } }
+      /* flex:1 stretches the wrapper to fill the full spanned grid area */
+      .rt-wrap { flex: 1; min-height: 380px; }
+      /* override the inline top/left/width/height:100% with inset:0 so the
+         absolutely-positioned rich-textarea fills the parent regardless of
+         whether the parent has an explicit pixel height */
+      rich-textarea {
+        top: 0 !important; left: 0 !important;
+        right: 0 !important; bottom: 0 !important;
+        width: unset !important; height: unset !important;
+      }
+    }
     .panel--maps { border-color: rgba(80,160,100,.2);
       .panel-header { background: rgba(80,160,100,.06); } .panel-icon { color: rgba(100,190,120,.65); } .panel-title { color: rgba(120,200,140,.85); } }
     .panel--goals { border-color: rgba(220,120,60,.2);
@@ -97,7 +107,7 @@ import { interval } from 'rxjs';
       <div class="header">
         <div>
           <div class="header-title"><mat-icon>auto_stories</mat-icon>Zápisník Dobrodruhů</div>
-          <div class="header-subtitle">Osobní zápisky, mapy, NPC a cíle tvojí postavy</div>
+          <div class="header-subtitle">Osobní zápisky, mapy a cíle tvojí postavy</div>
         </div>
         <div class="header-actions">
           <span class="autosave-indicator" [class.autosave-indicator--hidden]="!autoSaved()">
