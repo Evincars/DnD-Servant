@@ -112,6 +112,8 @@ export const LS_KEY = 'player-conditions-v1';
     }
 
     .ct-card {
+      --cond-color: transparent;
+      --cond-glow: transparent;
       position: relative;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: 6px; padding: 12px 8px 10px;
