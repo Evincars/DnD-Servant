@@ -7,7 +7,6 @@ import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { InitiativeTrackerComponent } from './initiative-tracker/initiative-tracker.component';
 import { PlayerItemsCardsComponent } from './players-items-cards/player-items-cards.component';
 import { QuestsTabComponent } from './quests/quests.component';
-import { ConditionsTrackerComponent } from './conditions/conditions-tracker.component';
 import { LocalStorageService } from '@dn-d-servant/util';
 import { MatDialog } from '@angular/material/dialog';
 import { openAutofillAbilitiesDialog, AUTOFILL_DIALOG_HIDDEN_KEY } from './help-dialogs/autofill-abilities-dialog.component';
@@ -30,7 +29,6 @@ const TAB_INDEX_KEY = 'active-tab-index';
       <mat-tab label="Moje předměty"><player-items-cards /></mat-tab>
       <mat-tab label="Poznámky"><notes-sheet /></mat-tab>
       <mat-tab label="Iniciativa"><initiative-tracker [disableMonsterSearch]="true" /></mat-tab>
-      <mat-tab label="Podmínky"><conditions-tracker /></mat-tab>
       <mat-tab label="Konvertor obrázků"><image-converter /></mat-tab>
     </mat-tab-group>
   `,
@@ -216,7 +214,6 @@ const TAB_INDEX_KEY = 'active-tab-index';
     InitiativeTrackerComponent,
     PlayerItemsCardsComponent,
     QuestsTabComponent,
-    ConditionsTrackerComponent,
     ImageConverterComponent,
   ],
 })

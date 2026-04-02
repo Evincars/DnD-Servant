@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, OnInit, signal } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
+import { MAT_TOOLTIP_SCROLL_STRATEGY, MatTooltip } from '@angular/material/tooltip';
+import { Overlay } from '@angular/cdk/overlay';
 
-interface ConditionDef {
+export interface ConditionDef {
   id: string;
   name: string;
   icon: string;
@@ -11,7 +12,7 @@ interface ConditionDef {
   description: string;
 }
 
-const CONDITIONS: ConditionDef[] = [
+export const CONDITIONS: ConditionDef[] = [
   { id: 'concentration', name: 'Soustředění',  icon: 'psychology',                    color: '#d4a830', glow: 'rgba(212,168,48,.6)',  description: 'Soustředění na kouzlo. Záchranný hod na Odolnost (DC 10 nebo ½ zásahu) při každém zásahu.' },
   { id: 'blinded',       name: 'Oslepení',     icon: 'visibility_off',                color: '#c0b060', glow: 'rgba(192,176,96,.55)', description: 'Nemůže vidět. Útočné hody mají výhodu pro protivníky a nevýhodu pro tebe.' },
   { id: 'charmed',       name: 'Okouzlení',    icon: 'favorite',                      color: '#e060c0', glow: 'rgba(224,96,192,.55)', description: 'Nemůže útočit na původce okouzlení. Původce má výhodu na sociální hody vůči tobě.' },
@@ -32,7 +33,7 @@ const CONDITIONS: ConditionDef[] = [
   { id: 'raging',        name: 'Zuřivost',     icon: 'local_fire_department',         color: '#e04818', glow: 'rgba(224,72,24,.65)',  description: 'Výhoda na hody Síly a záchranné hody Síly. Odolnost vůči bodné, sečné a drtivé zbrani.' },
 ];
 
-const EXHAUSTION_EFFECTS = [
+export const EXHAUSTION_EFFECTS = [
   'Žádné vyčerpání',
   'Nevýhoda na hody dovedností',
   'Rychlost snížena na polovinu',
@@ -42,12 +43,19 @@ const EXHAUSTION_EFFECTS = [
   'Smrt',
 ];
 
-const LS_KEY = 'player-conditions-v1';
+export const LS_KEY = 'player-conditions-v1';
 
 @Component({
   selector: 'conditions-tracker',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatIcon, MatTooltip],
+  providers: [
+    {
+      provide: MAT_TOOLTIP_SCROLL_STRATEGY,
+      deps: [Overlay],
+      useFactory: (overlay: Overlay) => () => overlay.scrollStrategies.reposition(),
+    },
+  ],
   styles: `
     :host {
       display: block;

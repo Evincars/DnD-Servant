@@ -1,4 +1,16 @@
-import { ChangeDetectionStrategy, Component, effect, ElementRef, HostListener, inject, input, output, signal, untracked, viewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  ElementRef,
+  HostListener,
+  inject,
+  input,
+  output,
+  signal,
+  untracked,
+  viewChild,
+} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HeaderInfoForm, LookAndFeelForm, SecondPageForm } from '@dn-d-servant/character-sheet-util';
 import { RichTextareaComponent } from '@dn-d-servant/ui';
@@ -83,7 +95,7 @@ import { MatIcon } from '@angular/material/icon';
       class="field char-img-wrap"
       style="top:835px; left:74px; width:359px; height:403px;"
       (click)="triggerFileInput()"
-      matTooltip="Klikni pro nahrání nebo změnu obrázku (max 500 KB, nejlépe GIF)"
+      matTooltip="Klikni pro nahrání nebo změnu obrázku (max 500 KB, GIF) - poslední záložka Konvertor Obrázků"
     >
       @if (base64Image()) {
         <img [src]="base64Image()!" alt="Obrázek postavy" class="char-img" />
