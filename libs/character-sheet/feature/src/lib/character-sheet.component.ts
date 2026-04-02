@@ -46,6 +46,7 @@ import { CsSpellSlotsComponent } from './character-sheet/cs-spell-slots.componen
 import { CsWeaponsComponent } from './character-sheet/cs-weapons.component';
 import { CsLanguagesComponent } from './character-sheet/cs-languages.component';
 import { CsInventoryComponent } from './character-sheet/cs-inventory.component';
+import { ConditionsButtonComponent } from './conditions/conditions-button.component';
 
 @Component({
   selector: 'character-sheet',
@@ -54,6 +55,7 @@ import { CsInventoryComponent } from './character-sheet/cs-inventory.component';
       <img src="character-sheet-1-copy.webp" alt="Character Sheet" height="1817" width="1293" />
 
       <form [formGroup]="form" #sheetForm>
+        <conditions-button />
         <cs-top-info [form]="controls.topInfo" />
 
         <cs-ability-scores [main6Form]="controls.main6SkillsForm" [abilityBonusForm]="controls.abilityBonus" />
@@ -107,6 +109,7 @@ import { CsInventoryComponent } from './character-sheet/cs-inventory.component';
     CsWeaponsComponent,
     CsLanguagesComponent,
     CsInventoryComponent,
+    ConditionsButtonComponent,
   ],
 })
 export class CharacterSheetComponent {

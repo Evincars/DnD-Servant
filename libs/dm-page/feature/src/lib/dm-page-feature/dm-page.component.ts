@@ -2,6 +2,10 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { InitiativeTrackerComponent } from '@dn-d-servant/character-sheet-feature';
 import { LocalStorageService } from '@dn-d-servant/util';
+import { DmQuestsComponent } from './dm-quests/dm-quests.component';
+import { DmNotesComponent } from './dm-notes/dm-notes.component';
+import { DmGeneratorComponent } from './dm-generator/dm-generator.component';
+import { DmPageStore } from '../dm-page.store';
 
 const DM_TAB_KEY = 'dm-page-tab-index';
 
@@ -12,10 +16,19 @@ const DM_TAB_KEY = 'dm-page-tab-index';
       mat-stretch-tabs="false"
       mat-align-tabs="start"
       [selectedIndex]="selectedTab()"
-      (selectedIndexChange)="onTabChange($event)"
+      (selectedIndexChange)="onTabChange($any($event))"
     >
       <mat-tab label="Iniciativa">
         <initiative-tracker />
+      </mat-tab>
+      <mat-tab label="DM Questy">
+        <dm-quests />
+      </mat-tab>
+      <mat-tab label="Poznámky PH">
+        <dm-notes />
+      </mat-tab>
+      <mat-tab label="Generátor">
+        <dm-generator />
       </mat-tab>
     </mat-tab-group>
   `,
@@ -187,8 +200,9 @@ const DM_TAB_KEY = 'dm-page-tab-index';
       height: 100%;
     }
   `,
+  providers: [DmPageStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatTabGroup, MatTab, InitiativeTrackerComponent],
+  imports: [MatTabGroup, MatTab, InitiativeTrackerComponent, DmQuestsComponent, DmNotesComponent, DmGeneratorComponent],
 })
 export class DmPageComponent {
   private readonly ls = inject(LocalStorageService);
@@ -200,4 +214,3 @@ export class DmPageComponent {
     this.ls.setDataSync(DM_TAB_KEY, index);
   }
 }
-

@@ -6,6 +6,7 @@ import {
   GroupSheetApiModel,
   ItemVaultApiModel,
   NotesPageApiModel,
+  QuestsApiModel,
 } from '@dn-d-servant/character-sheet-util';
 import { pipe, switchMap, tap } from 'rxjs';
 import { CharacterSheetApiService } from './character-sheet-api.service';
@@ -31,6 +32,7 @@ export const CharacterSheetStore = signalStore(
     groupSheet: undefined as GroupSheetApiModel | undefined,
     notesPage: undefined as NotesPageApiModel | undefined,
     itemVault: undefined as ItemVaultApiModel | undefined,
+    quests: undefined as QuestsApiModel | undefined,
     characterSheetSaved: false,
     groupSheetSaved: false,
     characterSheetError: '',
@@ -276,6 +278,55 @@ export const CharacterSheetStore = signalStore(
         ),
       );
 
+      const getQuests = rxMethod<string>(
+        pipe(
+          tap(() => patchState(store, { loading: true })),
+          switchMap(username => {
+            return _characterSheetApiService.getQuestsByUsername(username).pipe(
+              tapResponse(
+                res => {
+                  patchState(store, { quests: res, loading: false });
+                },
+                (error: HttpErrorResponse) => {
+                  _snackBar.open('Načtení questů se nezdařilo: ' + error.message, 'Zavřít', {
+                    verticalPosition: 'top',
+                    duration: 3000,
+                  });
+                  patchState(store, { loading: false });
+                },
+              ),
+            );
+          }),
+        ),
+      );
+
+      const saveQuests = rxMethod<QuestsApiModel>(
+        pipe(
+          tap(() => patchState(store, { loading: true })),
+          switchMap(req => {
+            return _characterSheetApiService.saveQuests(req).pipe(
+              tapResponse(
+                () => {
+                  patchState(store, { quests: req, loading: false });
+                  _snackBar.open('📜 Questy zapsány do deníku!', '✕', {
+                    verticalPosition: 'top',
+                    duration: 2300,
+                    panelClass: ['snackbar--save'],
+                  });
+                },
+                (error: HttpErrorResponse) => {
+                  _snackBar.open('Ukládání questů se nezdařilo: ' + error.message, 'Zavřít', {
+                    verticalPosition: 'top',
+                    duration: 3000,
+                  });
+                  patchState(store, { loading: false });
+                },
+              ),
+            );
+          }),
+        ),
+      );
+
       /**
        * Called every 30 s from each sheet component to persist the current
        * in-memory model to localStorage without triggering a DB write.
@@ -329,6 +380,8 @@ export const CharacterSheetStore = signalStore(
         saveGroupSheet,
         saveNotesPage,
         saveItemVault,
+        getQuests,
+        saveQuests,
       };
     },
   ),

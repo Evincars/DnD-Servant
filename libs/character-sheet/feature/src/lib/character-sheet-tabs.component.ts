@@ -6,9 +6,11 @@ import { NotesSheetComponent } from './notes-sheet.component';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { InitiativeTrackerComponent } from './initiative-tracker/initiative-tracker.component';
 import { PlayerItemsCardsComponent } from './players-items-cards/player-items-cards.component';
+import { QuestsTabComponent } from './quests/quests.component';
 import { LocalStorageService } from '@dn-d-servant/util';
 import { MatDialog } from '@angular/material/dialog';
 import { openAutofillAbilitiesDialog, AUTOFILL_DIALOG_HIDDEN_KEY } from './help-dialogs/autofill-abilities-dialog.component';
+import { ImageConverterComponent } from './image-converter/image-converter.component';
 
 const TAB_INDEX_KEY = 'active-tab-index';
 
@@ -19,13 +21,15 @@ const TAB_INDEX_KEY = 'active-tab-index';
       mat-stretch-tabs="false"
       mat-align-tabs="start"
       [selectedIndex]="selectedTab()"
-      (selectedIndexChange)="onTabChange($event)"
+      (selectedIndexChange)="onTabChange($any($event))"
     >
       <mat-tab label="Karta postavy"><character-sheet class="u-mt-2" /></mat-tab>
+      <mat-tab label="Questy"><quests-tab /></mat-tab>
       <mat-tab label="Karta družiny"><group-sheet class="u-mt-2" /></mat-tab>
       <mat-tab label="Moje předměty"><player-items-cards /></mat-tab>
-      <mat-tab label="Poznámky"><notes-sheet class="u-mt-2" /></mat-tab>
+      <mat-tab label="Poznámky"><notes-sheet /></mat-tab>
       <mat-tab label="Iniciativa"><initiative-tracker [disableMonsterSearch]="true" /></mat-tab>
+      <mat-tab label="Konvertor obrázků"><image-converter /></mat-tab>
     </mat-tab-group>
   `,
   styles: `
@@ -209,6 +213,8 @@ const TAB_INDEX_KEY = 'active-tab-index';
     NotesSheetComponent,
     InitiativeTrackerComponent,
     PlayerItemsCardsComponent,
+    QuestsTabComponent,
+    ImageConverterComponent,
   ],
 })
 export class CharacterSheetTabsComponent implements OnInit {

@@ -15,6 +15,9 @@ interface InitiativeRow {
   name: string;
   ac: number | null;
   hp: number | null;
+  /** Max HP as returned by the monster lookup — used to detect whether the user
+   *  has already decreased HP so we don't overwrite it on a repeated search. */
+  maxHp: number | null;
   /** Temporary delta used by the +/- HP adjuster — defaults to 1 */
   hpDelta: number;
 }
@@ -71,11 +74,11 @@ export class InitiativeTrackerComponent {
 
   private _load(): InitiativeRow[] {
     const saved = this.localStorageService.getDataSync<InitiativeRow[]>(STORAGE_KEY);
-    return saved?.map(r => ({ ...r, hpDelta: r.hpDelta ?? 1 })) ?? [this._emptyRow()];
+    return saved?.map(r => ({ ...r, hpDelta: r.hpDelta ?? 1, maxHp: r.maxHp ?? null })) ?? [this._emptyRow()];
   }
 
   private _emptyRow(): InitiativeRow {
-    return { initiative: null, name: '', ac: null, hp: null, hpDelta: 1 };
+    return { initiative: null, name: '', ac: null, hp: null, maxHp: null, hpDelta: 1 };
   }
 
   addRow() {
@@ -177,15 +180,18 @@ export class InitiativeTrackerComponent {
         this.loadingIndex.set(null);
         // Auto-fill AC and HP into the row
         this.rows.update(rows =>
-          rows.map((row, i) =>
-            i === rowIndex
-              ? {
-                  ...row,
-                  ac: m.armor_class?.[0]?.value ?? row.ac,
-                  hp: m.hit_points ?? row.hp,
-                }
-              : row,
-          ),
+          rows.map((row, i) => {
+            if (i !== rowIndex) return row;
+            const monsterHp = m.hit_points ?? null;
+            // Only override HP if the user hasn't changed it since the last lookup
+            const hpUnmodified = row.hp === null || row.hp === row.maxHp;
+            return {
+              ...row,
+              ac: m.armor_class?.[0]?.value ?? row.ac,
+              hp: hpUnmodified ? monsterHp : row.hp,
+              maxHp: monsterHp,
+            };
+          }),
         );
       },
       error: () => {

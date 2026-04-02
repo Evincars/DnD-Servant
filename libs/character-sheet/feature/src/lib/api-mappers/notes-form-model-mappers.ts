@@ -6,6 +6,7 @@ export class NotesFormModelMappers {
     twoWayBindings: {
       notesColumn1: 'notesColumn1',
       notesColumn2: 'notesColumn2',
+      notesColumn4: 'notesColumn4',
     },
   };
 }
