@@ -155,9 +155,10 @@ const SECTIONS: TipSection[] = [
         title: 'Druhá stránka — obrázek postavy',
         badge: 'Karta',
         description:
-          'Na druhé záložce karty můžeš nahrát obrázek své postavy (max. 500 kB). ' +
+          'Na druhé záložce karty můžeš nahrát obrázek své postavy (max. 500 kB, doporučeno GIF). ' +
           'Obrázek je uložen jako Base64 přímo v databázi. ' +
-          'Klikni na pole obrázku nebo přetáhni soubor pro nahrání.',
+          'Klikni na pole obrázku nebo přetáhni soubor pro nahrání. ' +
+          'Pro převod a zmenšení obrázku použij záložku "Konvertor Obrázků".',
       },
       {
         title: 'Třetí stránka — poznámky',
@@ -165,6 +166,14 @@ const SECTIONS: TipSection[] = [
         description:
           'Třetí záložka obsahuje rich-text editor pro poznámky a popis postavy. ' +
           'Podporuje tučný text, kurzívu, odrážky, nadpisy a barevné formátování textu.',
+      },
+      {
+        title: 'Stavy & Podmínky — tlačítko na kartě',
+        badge: 'Stavy 🩺',
+        description:
+          'V levém horním rohu karty postavy (strana 1) najdeš tlačítko "Stavy". ' +
+          'Kliknutím otevřeš dialog se všemi dostupnými herními stavy a stopovačem vyčerpání. ' +
+          'Aktivní stavy se zobrazují jako barevné ikonky přímo pod tlačítkem — přejetím myší uvidíš název a popis stavu.',
       },
     ],
   },
@@ -386,6 +395,121 @@ const SECTIONS: TipSection[] = [
           'Ctrl+B = tučný text, Ctrl+I = kurzíva. ' +
           'Ctrl+Z = zpět (undo). ' +
           'Enter = nový řádek, Shift+Enter = odřádkování bez nového odstavce.',
+      },
+    ],
+  },
+  {
+    id: 'conditions',
+    title: 'Stavy & Podmínky',
+    icon: 'health_and_safety',
+    color: '#9840c0',
+    tips: [
+      {
+        title: 'Otevření přehledu stavů',
+        badge: 'Stavy 🩺',
+        description:
+          'Na první stránce Karty postavy je v levém horním rohu tlačítko "Stavy". ' +
+          'Kliknutím otevřeš dialog se všemi 18 dostupnými stavy (Oslepení, Paralýza, Zuřivost…) a stopovačem vyčerpání. ' +
+          'Počet aktivních stavů je zobrazen červeným číslem přímo na tlačítku.',
+      },
+      {
+        title: 'Aktivace a deaktivace stavu',
+        badge: 'Stavy 🩺',
+        description:
+          'Klikni na kartu stavu pro jeho aktivaci — karta se rozsvítí charakteristickou barvou s efektem záře. ' +
+          'Klikni znovu pro deaktivaci. ' +
+          'Stav "Soustředění" je vhodný pro sledování kouzel vyžadujících soustředění. ' +
+          'Tlačítko "Vymazat vše" deaktivuje všechny stavy najednou.',
+      },
+      {
+        title: 'Popis stavů (tooltip)',
+        badge: 'Stavy 🩺',
+        description:
+          'Najetím myší na kartu stavu v dialogu se zobrazí jeho herní popis s mechanickými efekty. ' +
+          'Například: Paralýza = "Neschopný a nehybný. Automatické kritické zásahy z 1,5 m." ' +
+          'Stejný popis se zobrazí i při najetí na ikonku aktivního stavu přímo na kartě postavy.',
+      },
+      {
+        title: 'Aktivní stavy viditelné na kartě postavy',
+        badge: 'Stavy 🩺',
+        description:
+          'Aktivní stavy se zobrazují jako malé barevné ikonky přímo pod tlačítkem "Stavy" — bez nutnosti otevírat dialog. ' +
+          'Každá ikonka má barvu a záři příslušného stavu. ' +
+          'Přejetím myší zobrazíš název stavu a jeho herní popis.',
+      },
+      {
+        title: 'Stopovač vyčerpání',
+        badge: 'Vyčerpání',
+        description:
+          'V dolní části dialogu je škála vyčerpání 1–6. ' +
+          'Klikni na úroveň pro nastavení stupně vyčerpání tvé postavy. ' +
+          'Přejetím myší nad každou úrovní se zobrazí herní efekt (např. úroveň 2 = Rychlost snížena na polovinu, úroveň 6 = Smrt). ' +
+          'Klikni na aktuálně nastavenou úroveň pro snížení o 1.',
+      },
+      {
+        title: 'Automatické ukládání stavů',
+        badge: 'Stavy 🩺',
+        description:
+          'Všechny aktivní stavy a úroveň vyčerpání se automaticky ukládají v localStorage prohlížeče. ' +
+          'Po zavření dialogu nebo refreshi stránky se stavy zachovají. ' +
+          'Data jsou nezávislá na přihlášení — ukládají se lokálně v daném prohlížeči.',
+      },
+    ],
+  },
+  {
+    id: 'image-converter',
+    title: 'Konvertor Obrázků',
+    icon: 'auto_fix_high',
+    color: '#c8a03c',
+    tips: [
+      {
+        title: 'K čemu konvertor slouží',
+        badge: 'Konvertor',
+        description:
+          'Záložka "Konvertor Obrázků" převede libovolný obrázek (PNG, JPG, JPEG…) na formát GIF ' +
+          'a automaticky ho zmenší pod 200 KB — to je limit pro nahrání portrétu postavy na stránce Karta postavy → Strana 2. ' +
+          'GIF funguje nejlépe pro ilustrace a kreslené portréty; fotografie mohou ztratit kvalitu.',
+      },
+      {
+        title: 'Nahrání obrázku',
+        badge: 'Konvertor',
+        description:
+          'Obrázek lze nahrát přetažením (drag & drop) do vyznačené oblasti nebo kliknutím na "Vybrat soubor". ' +
+          'Podporované formáty: PNG, JPG, JPEG a všechny standardní obrazové formáty. ' +
+          'Po nahrání se zobrazí náhled originálu s jeho velikostí a rozměry.',
+      },
+      {
+        title: 'Převod a automatická redukce',
+        badge: 'Konvertor',
+        description:
+          'Po nahrání klikni na tlačítko "Převést na GIF". ' +
+          'Aplikace automaticky zkouší zmenšovat obrázek v 7 krocích (100 % → 78 % → 60 % → 45 % → 32 % → 22 % → 15 %) ' +
+          'dokud výsledný GIF nepřesáhne 200 KB. ' +
+          'Počet potřebných pokusů je zobrazen v záhlaví výsledku.',
+      },
+      {
+        title: 'Porovnání originál vs. výsledek',
+        badge: 'Konvertor',
+        description:
+          'Po konverzi se zobrazí oba obrázky vedle sebe — originál vlevo, GIF výsledek vpravo. ' +
+          'U každého je zobrazena velikost v KB a rozměry v pixelech. ' +
+          'Zelené ✓ u výsledku znamená, že GIF je pod 200 KB a je vhodný pro nahrání jako portrét.',
+      },
+      {
+        title: 'Stažení výsledného GIF',
+        badge: 'Konvertor',
+        description:
+          'Klikni na tlačítko "Stáhnout GIF (X KB)" pro uložení souboru do počítače. ' +
+          'Soubor se uloží pod stejným názvem jako originál s příponou .gif. ' +
+          'Poté ho nahraj jako portrét na stránce Karta postavy → Strana 2 (klikni na pole obrázku).',
+      },
+      {
+        title: 'Nový obrázek',
+        badge: 'Konvertor',
+        description:
+          'Kliknutím na tlačítko "Nový obrázek" v pravém horním rohu resetuješ konvertor a můžeš nahrát další soubor. ' +
+          'Konvertor lze také znovu spustit tlačítkem "Převést na GIF" na již nahraném obrázku — ' +
+          'to je užitečné pro opakovaný pokus s jiným nastavením.',
       },
     ],
   },
