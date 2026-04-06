@@ -81,7 +81,7 @@ import { ConditionsButtonComponent } from './conditions/conditions-button.compon
 
         <cs-languages [form]="controls.languagesForm" />
 
-        <cs-inventory [form]="controls.inventoryForm" [inventoryClasses]="inventoryClasses()" />
+        <cs-inventory [form]="controls.inventoryForm" [inventoryClasses]="inventoryClasses()" [main6Form]="controls.main6SkillsForm" />
 
         <second-page [form]="controls.secondPageForm" (imageSaved)="onImageSaved($event)" />
 
