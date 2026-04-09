@@ -1,0 +1,27 @@
+<div class="cc-card">
+  <button class="cc-close" (click)="close.emit()" title="Zavřít">✕</button>
+
+  @if (loading()) {
+    <div class="cc-loading">
+      <mat-icon class="cc-loading__icon">hourglass_empty</mat-icon>
+      <span>Načítám stav…</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="cc-error">⚠ {{ error() }}</div>
+  }
+
+  @if (condition(); as c) {
+    <div class="cc-name">{{ c.name }}</div>
+    <div class="cc-meta">Stav (Condition)</div>
+
+    <div class="cc-rule"></div>
+
+    <div class="cc-section">Efekty</div>
+    @for (para of c.desc; track $index) {
+      <p class="cc-desc">{{ para | dndTranslate | async }}</p>
+    }
+  }
+</div>
+

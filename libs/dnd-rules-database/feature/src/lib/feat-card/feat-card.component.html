@@ -30,7 +30,7 @@
     <!-- Description -->
     <div class="fc-section">Popis</div>
     @for (para of f.desc; track $index) {
-      <p class="fc-desc">{{ para }}</p>
+      <p class="fc-desc">{{ para | dndTranslate | async }}</p>
     }
 
   }

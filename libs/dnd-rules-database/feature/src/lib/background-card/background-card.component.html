@@ -1,0 +1,53 @@
+<div class="bgc-card">
+  <button class="bgc-close" (click)="close.emit()" title="Zavřít">✕</button>
+
+  @if (loading()) {
+    <div class="bgc-loading">
+      <mat-icon class="bgc-loading__icon">hourglass_empty</mat-icon>
+      <span>Načítám zázemí…</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="bgc-error">⚠ {{ error() }}</div>
+  }
+
+  @if (background(); as b) {
+    <div class="bgc-name">{{ b.name }}</div>
+    <div class="bgc-meta">Zázemí (Background)</div>
+
+    <div class="bgc-rule"></div>
+
+    <!-- Proficiencies -->
+    @if (b.starting_proficiencies.length) {
+      <div class="bgc-prop"><b>Zdatnosti:</b> {{ proficienciesText(b) | dndTranslate | async }}</div>
+    }
+
+    <!-- Language options -->
+    @if (languageOptionsText(b); as lot) {
+      <div class="bgc-prop"><b>Jazyky:</b> {{ lot | dndTranslate | async }}</div>
+    }
+
+    <!-- Starting equipment -->
+    @if (b.starting_equipment.length) {
+      <div class="bgc-prop"><b>Vybavení:</b> {{ equipmentText(b) | dndTranslate | async }}</div>
+    }
+
+    <!-- Feature -->
+    <div class="bgc-rule"></div>
+    <div class="bgc-section">Zvláštní schopnost — {{ b.feature.name | dndTranslate | async }}</div>
+    @for (para of b.feature.desc; track $index) {
+      <p class="bgc-desc">{{ para | dndTranslate | async }}</p>
+    }
+
+    <!-- Personality traits sample -->
+    @if (personalityTraits(b).length) {
+      <div class="bgc-rule"></div>
+      <div class="bgc-section">Rysy osobnosti (ukázky)</div>
+      @for (trait of personalityTraits(b); track $index) {
+        <p class="bgc-desc bgc-desc--trait">{{ trait | dndTranslate | async }}</p>
+      }
+    }
+  }
+</div>
+

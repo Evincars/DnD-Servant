@@ -1,5 +1,6 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { Feat } from '@dn-d-servant/util';
+import { DndTranslatePipe, Feat } from '@dn-d-servant/util';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -7,7 +8,7 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './feat-card.component.html',
   styleUrl: './feat-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIcon],
+  imports: [MatIcon, DndTranslatePipe, AsyncPipe],
 })
 export class FeatCardComponent {
   feat = input<Feat | null>(null);
