@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { InitiativeTrackerComponent } from '@dn-d-servant/character-sheet-feature';
-import { LocalStorageService } from '@dn-d-servant/util';
+import { LocalStorageService, DM_TAB_KEY } from '@dn-d-servant/util';
 import { DmQuestsComponent } from './dm-quests/dm-quests.component';
 import { DmNotesComponent } from './dm-notes/dm-notes.component';
 import { DmGeneratorComponent } from './dm-generator/dm-generator.component';
 import { DmPageStore } from '../dm-page.store';
 
-const DM_TAB_KEY = 'dm-page-tab-index';
 
 @Component({
   selector: 'dm-page',

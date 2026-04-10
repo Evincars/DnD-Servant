@@ -7,12 +7,12 @@ import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { InitiativeTrackerComponent } from './initiative-tracker/initiative-tracker.component';
 import { PlayerItemsCardsComponent } from './players-items-cards/player-items-cards.component';
 import { QuestsTabComponent } from './quests/quests.component';
-import { LocalStorageService } from '@dn-d-servant/util';
+import { LocalStorageService, ACTIVE_TAB_INDEX_KEY, AUTOFILL_DIALOG_HIDDEN_KEY } from '@dn-d-servant/util';
 import { MatDialog } from '@angular/material/dialog';
-import { openAutofillAbilitiesDialog, AUTOFILL_DIALOG_HIDDEN_KEY } from './help-dialogs/autofill-abilities-dialog.component';
+import { openAutofillAbilitiesDialog } from './help-dialogs/autofill-abilities-dialog.component';
 import { ImageConverterComponent } from './image-converter/image-converter.component';
 
-const TAB_INDEX_KEY = 'active-tab-index';
+const TAB_INDEX_KEY = ACTIVE_TAB_INDEX_KEY;
 
 @Component({
   selector: 'character-sheet-tabs',

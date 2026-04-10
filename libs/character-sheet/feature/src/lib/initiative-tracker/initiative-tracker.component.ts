@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, inp
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { debounceTime, fromEvent, merge, skip } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { LocalStorageService, Monster, MONSTER_NAMES } from '@dn-d-servant/util';
+import { LocalStorageService, Monster, MONSTER_NAMES, INITIATIVE_TRACKER_KEY } from '@dn-d-servant/util';
 import { AutofillInputComponent } from '@dn-d-servant/ui';
 import { Dnd5eApiService } from '@dn-d-servant/data-access';
 import { MatIconButton } from '@angular/material/button';
@@ -25,7 +25,7 @@ interface InitiativeRow {
   hpDelta: number;
 }
 
-const STORAGE_KEY = 'initiative-tracker';
+const STORAGE_KEY = INITIATIVE_TRACKER_KEY;
 
 @Component({
   selector: 'initiative-tracker',

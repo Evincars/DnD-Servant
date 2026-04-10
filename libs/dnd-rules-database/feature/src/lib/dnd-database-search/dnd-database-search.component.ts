@@ -7,6 +7,7 @@ import {
   Monster, Spell, Race, Feat, DndClass, Subclass, Subrace,
   Condition, Equipment, MagicItem, Background,
   LocalStorageService,
+  DND_DATABASE_RESULTS_KEY,
 } from '@dn-d-servant/util';
 import { MonsterCardComponent } from '../monster-card/monster-card.component';
 import { SpellCardComponent } from '../spell-card/spell-card.component';
@@ -120,7 +121,7 @@ const CATEGORIES: CategoryDef[] = [
   },
 ];
 
-const STORAGE_KEY = 'dnd-database-results';
+const STORAGE_KEY = DND_DATABASE_RESULTS_KEY;
 
 interface StoredResults {
   monsters: Monster[];
