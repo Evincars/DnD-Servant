@@ -7,8 +7,10 @@
 .container {
   background: url('/wallpaper-1.webp') no-repeat center center fixed;
   background-size: cover;
-  min-height: 100vh;
+  min-height: 100dvh;
   min-width: 100vw;
+  // Ensure the dark wallpaper covers everything even when content is short
+  background-color: #0a0710;
 }
 
 // Make mat-sidenav-content scroll naturally via the browser — no inner scrollbar
@@ -189,7 +191,6 @@
   padding: calc(var(--spacing-3) + 8px) calc(var(--spacing-3) + 8px) 0;
   background: rgba(14,11,8,.97);
   margin-top: var(--spacing-3) !important;
-  margin-bottom: var(--spacing-3) !important;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
