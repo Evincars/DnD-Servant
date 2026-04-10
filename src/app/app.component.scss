@@ -186,7 +186,7 @@
   width: 1350px;
   max-width: calc(100vw - 32px);
   margin: 0 auto;
-  padding: calc(var(--spacing-3) + 8px);
+  padding: calc(var(--spacing-3) + 8px) calc(var(--spacing-3) + 8px) 0;
   background: rgba(14,11,8,.97);
   margin-top: var(--spacing-3) !important;
   margin-bottom: var(--spacing-3) !important;

@@ -34,10 +34,7 @@ const TAB_INDEX_KEY = ACTIVE_TAB_INDEX_KEY;
   `,
   styles: `
     :host {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      min-height: 0;
+      display: block;
     }
 
     /* ── Tab header ─────────────────────────────────────── */
@@ -185,22 +182,22 @@ const TAB_INDEX_KEY = ACTIVE_TAB_INDEX_KEY;
 
     /* ── Tab body ───────────────────────────────────────── */
     ::ng-deep mat-tab-group {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
+      display: block;
     }
     ::ng-deep .mat-mdc-tab-body-wrapper {
-      flex: 1;
-      overflow: hidden;
+      overflow: visible;
     }
     ::ng-deep .mat-mdc-tab-body-content {
-      height: 100%;
-      overflow: hidden;
+      /* Let content grow naturally — page scroll is the only scrollbar */
+      height: auto !important;
+      overflow: visible !important;
     }
 
+    /* Initiative tracker needs a viewport-constrained height with its own scroll */
     ::ng-deep initiative-tracker {
       display: block;
-      height: 100%;
+      height: calc(100svh - 165px);
+      min-height: 400px;
     }
   `,
   providers: [CharacterSheetStore],

@@ -31,9 +31,7 @@ type SortMode = 'priority' | 'date';
     :host {
       display: block;
       padding: 24px 32px 40px;
-      min-height: 100%;
       font-family: 'Mikadan', sans-serif;
-      overflow: visible;
     }
 
     /* ── Page header ───────────────────────────── */
