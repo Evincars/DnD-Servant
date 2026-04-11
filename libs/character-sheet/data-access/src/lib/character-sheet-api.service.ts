@@ -15,86 +15,103 @@ export class CharacterSheetApiService {
   private readonly firestore = inject(Firestore);
   private readonly injector = inject(Injector);
 
+  // collection() is called during construction — injection context is active here
   characterSheetsCollection = collection(this.firestore, environment.characterSheetCollectionName);
 
-  private _getDoc(ref: Parameters<typeof doc>[0]) {
-    return runInInjectionContext(this.injector, () => getDoc(ref as any));
-  }
-
-  private _setDoc(ref: Parameters<typeof doc>[0], data: object) {
-    return runInInjectionContext(this.injector, () => setDoc(ref as any, data));
-  }
-
   getCharacterSheetByUsername(username: string): Observable<CharacterSheetApiModel | undefined> {
-    const docRef = doc(this.firestore, `${environment.characterSheetCollectionName}/${username}`);
-    return from(this._getDoc(docRef)).pipe(
-      map(snapshot => (snapshot.exists() ? (snapshot.data() as CharacterSheetApiModel) : undefined)),
-    );
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `${environment.characterSheetCollectionName}/${username}`);
+      return getDoc(ref);
+    })).pipe(map(s => (s.exists() ? (s.data() as CharacterSheetApiModel) : undefined)));
   }
 
   getGroupSheetByUsername(username: string): Observable<GroupSheetApiModel | undefined> {
-    const docRef = doc(this.firestore, `${environment.characterSheetCollectionName}/${username}`);
-    return from(this._getDoc(docRef)).pipe(map(snapshot => (snapshot.exists() ? (snapshot.data() as GroupSheetApiModel) : undefined)));
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `${environment.characterSheetCollectionName}/${username}`);
+      return getDoc(ref);
+    })).pipe(map(s => (s.exists() ? (s.data() as GroupSheetApiModel) : undefined)));
   }
 
   getNotesPageByUsername(username: string): Observable<NotesPageApiModel | undefined> {
-    const docRef = doc(this.firestore, `${environment.characterSheetCollectionName}/${username}`);
-    return from(this._getDoc(docRef)).pipe(map(snapshot => (snapshot.exists() ? (snapshot.data() as NotesPageApiModel) : undefined)));
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `${environment.characterSheetCollectionName}/${username}`);
+      return getDoc(ref);
+    })).pipe(map(s => (s.exists() ? (s.data() as NotesPageApiModel) : undefined)));
   }
 
   // ------------------------------------------
 
   addCharacterSheet(characterSheet: CharacterSheetApiModel): Observable<void> {
-    const docRef = doc(this.characterSheetsCollection, characterSheet.username);
-    return from(this._setDoc(docRef, characterSheet));
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.characterSheetsCollection, characterSheet.username);
+      return setDoc(ref, characterSheet);
+    }));
   }
 
   updateCharacterSheet(characterSheet: CharacterSheetApiModel): Observable<void> {
-    const docRef = doc(this.firestore, `${environment.characterSheetCollectionName}/${characterSheet.username}`);
-    return from(this._setDoc(docRef, characterSheet));
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `${environment.characterSheetCollectionName}/${characterSheet.username}`);
+      return setDoc(ref, characterSheet);
+    }));
   }
 
-  addGroupSheet(characterSheet: GroupSheetApiModel): Observable<void> {
-    const docRef = doc(this.characterSheetsCollection, characterSheet.username);
-    return from(this._setDoc(docRef, characterSheet));
+  addGroupSheet(groupSheet: GroupSheetApiModel): Observable<void> {
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.characterSheetsCollection, groupSheet.username);
+      return setDoc(ref, groupSheet);
+    }));
   }
 
-  updateGroupSheet(characterSheet: GroupSheetApiModel): Observable<void> {
-    const docRef = doc(this.firestore, `${environment.characterSheetCollectionName}/${characterSheet.username}`);
-    return from(this._setDoc(docRef, characterSheet));
+  updateGroupSheet(groupSheet: GroupSheetApiModel): Observable<void> {
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `${environment.characterSheetCollectionName}/${groupSheet.username}`);
+      return setDoc(ref, groupSheet);
+    }));
   }
 
   addNotesPage(notesPage: NotesPageApiModel): Observable<void> {
-    const docRef = doc(this.characterSheetsCollection, notesPage.username);
-    return from(this._setDoc(docRef, notesPage));
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.characterSheetsCollection, notesPage.username);
+      return setDoc(ref, notesPage);
+    }));
   }
 
   updateNotesPage(notesPage: NotesPageApiModel): Observable<void> {
-    const docRef = doc(this.firestore, `${environment.characterSheetCollectionName}/${notesPage.username}`);
-    return from(this._setDoc(docRef, notesPage));
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `${environment.characterSheetCollectionName}/${notesPage.username}`);
+      return setDoc(ref, notesPage);
+    }));
   }
 
   // ------------------------------------------
 
   getItemVaultByUsername(username: string): Observable<ItemVaultApiModel | undefined> {
-    const docRef = doc(this.firestore, `item-vault/${username}`);
-    return from(this._getDoc(docRef)).pipe(map(snapshot => (snapshot.exists() ? (snapshot.data() as ItemVaultApiModel) : undefined)));
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `item-vault/${username}`);
+      return getDoc(ref);
+    })).pipe(map(s => (s.exists() ? (s.data() as ItemVaultApiModel) : undefined)));
   }
 
   saveItemVault(vault: ItemVaultApiModel): Observable<void> {
-    const docRef = doc(this.firestore, `item-vault/${vault.username}`);
-    return from(this._setDoc(docRef, vault));
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `item-vault/${vault.username}`);
+      return setDoc(ref, vault);
+    }));
   }
 
   // ------------------------------------------
 
   getQuestsByUsername(username: string): Observable<QuestsApiModel | undefined> {
-    const docRef = doc(this.firestore, `quests/${username}`);
-    return from(this._getDoc(docRef)).pipe(map(snapshot => (snapshot.exists() ? (snapshot.data() as QuestsApiModel) : undefined)));
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `quests/${username}`);
+      return getDoc(ref);
+    })).pipe(map(s => (s.exists() ? (s.data() as QuestsApiModel) : undefined)));
   }
 
   saveQuests(model: QuestsApiModel): Observable<void> {
-    const docRef = doc(this.firestore, `quests/${model.username}`);
-    return from(this._setDoc(docRef, model));
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `quests/${model.username}`);
+      return setDoc(ref, model);
+    }));
   }
 }
