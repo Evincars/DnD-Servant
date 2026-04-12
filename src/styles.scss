@@ -9,6 +9,7 @@
 
 body {
   margin: 0;
+  background-color: #0a0710;
 }
 
 html,
@@ -182,6 +183,13 @@ body {
 mat-sidenav-content {
   display: flex !important;
   flex-direction: column !important;
+}
+
+// Kill Material's default white surface so the wallpaper shows everywhere.
+// Target only the CONTENT wrapper, NOT the container (which carries the wallpaper).
+.mat-drawer-content,
+mat-sidenav-content {
+  background: transparent !important;
 }
 
 // ════════════════════════════════════════════════════════════════

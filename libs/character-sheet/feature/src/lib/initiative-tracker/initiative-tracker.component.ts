@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, inp
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { debounceTime, fromEvent, merge, skip } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { LocalStorageService, Monster, MONSTER_NAMES } from '@dn-d-servant/util';
+import { LocalStorageService, Monster, MONSTER_NAMES, INITIATIVE_TRACKER_KEY } from '@dn-d-servant/util';
 import { AutofillInputComponent } from '@dn-d-servant/ui';
 import { Dnd5eApiService } from '@dn-d-servant/data-access';
 import { MatIconButton } from '@angular/material/button';
@@ -14,6 +14,9 @@ interface InitiativeRow {
   initiative: number | null;
   name: string;
   ac: number | null;
+  /** Base AC as returned by the monster lookup — used to detect whether the user
+   *  has already overridden AC so we don't overwrite it on a repeated search. */
+  baseAc: number | null;
   hp: number | null;
   /** Max HP as returned by the monster lookup — used to detect whether the user
    *  has already decreased HP so we don't overwrite it on a repeated search. */
@@ -22,7 +25,7 @@ interface InitiativeRow {
   hpDelta: number;
 }
 
-const STORAGE_KEY = 'initiative-tracker';
+const STORAGE_KEY = INITIATIVE_TRACKER_KEY;
 
 @Component({
   selector: 'initiative-tracker',
@@ -74,11 +77,11 @@ export class InitiativeTrackerComponent {
 
   private _load(): InitiativeRow[] {
     const saved = this.localStorageService.getDataSync<InitiativeRow[]>(STORAGE_KEY);
-    return saved?.map(r => ({ ...r, hpDelta: r.hpDelta ?? 1, maxHp: r.maxHp ?? null })) ?? [this._emptyRow()];
+    return saved?.map(r => ({ ...r, hpDelta: r.hpDelta ?? 1, maxHp: r.maxHp ?? null, baseAc: r.baseAc ?? null })) ?? [this._emptyRow()];
   }
 
   private _emptyRow(): InitiativeRow {
-    return { initiative: null, name: '', ac: null, hp: null, maxHp: null, hpDelta: 1 };
+    return { initiative: null, name: '', ac: null, baseAc: null, hp: null, maxHp: null, hpDelta: 1 };
   }
 
   addRow() {
@@ -183,11 +186,15 @@ export class InitiativeTrackerComponent {
           rows.map((row, i) => {
             if (i !== rowIndex) return row;
             const monsterHp = m.hit_points ?? null;
+            const monsterAc = m.armor_class?.[0]?.value ?? null;
             // Only override HP if the user hasn't changed it since the last lookup
             const hpUnmodified = row.hp === null || row.hp === row.maxHp;
+            // Only override AC if the user hasn't changed it since the last lookup
+            const acUnmodified = row.ac === null || row.ac === row.baseAc;
             return {
               ...row,
-              ac: m.armor_class?.[0]?.value ?? row.ac,
+              ac: acUnmodified ? monsterAc : row.ac,
+              baseAc: monsterAc,
               hp: hpUnmodified ? monsterHp : row.hp,
               maxHp: monsterHp,
             };

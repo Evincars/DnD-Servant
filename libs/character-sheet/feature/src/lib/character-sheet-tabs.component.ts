@@ -7,12 +7,12 @@ import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { InitiativeTrackerComponent } from './initiative-tracker/initiative-tracker.component';
 import { PlayerItemsCardsComponent } from './players-items-cards/player-items-cards.component';
 import { QuestsTabComponent } from './quests/quests.component';
-import { LocalStorageService } from '@dn-d-servant/util';
+import { LocalStorageService, ACTIVE_TAB_INDEX_KEY, AUTOFILL_DIALOG_HIDDEN_KEY } from '@dn-d-servant/util';
 import { MatDialog } from '@angular/material/dialog';
-import { openAutofillAbilitiesDialog, AUTOFILL_DIALOG_HIDDEN_KEY } from './help-dialogs/autofill-abilities-dialog.component';
+import { openAutofillAbilitiesDialog } from './help-dialogs/autofill-abilities-dialog.component';
 import { ImageConverterComponent } from './image-converter/image-converter.component';
 
-const TAB_INDEX_KEY = 'active-tab-index';
+const TAB_INDEX_KEY = ACTIVE_TAB_INDEX_KEY;
 
 @Component({
   selector: 'character-sheet-tabs',
@@ -34,10 +34,7 @@ const TAB_INDEX_KEY = 'active-tab-index';
   `,
   styles: `
     :host {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      min-height: 0;
+      display: block;
     }
 
     /* ── Tab header ─────────────────────────────────────── */
@@ -185,22 +182,22 @@ const TAB_INDEX_KEY = 'active-tab-index';
 
     /* ── Tab body ───────────────────────────────────────── */
     ::ng-deep mat-tab-group {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
+      display: block;
     }
     ::ng-deep .mat-mdc-tab-body-wrapper {
-      flex: 1;
-      overflow: hidden;
+      overflow: visible;
     }
     ::ng-deep .mat-mdc-tab-body-content {
-      height: 100%;
-      overflow: hidden;
+      /* Let content grow naturally — page scroll is the only scrollbar */
+      height: auto !important;
+      overflow: visible !important;
     }
 
+    /* Initiative tracker needs a viewport-constrained height with its own scroll */
     ::ng-deep initiative-tracker {
       display: block;
-      height: 100%;
+      height: calc(100svh - 165px);
+      min-height: 400px;
     }
   `,
   providers: [CharacterSheetStore],

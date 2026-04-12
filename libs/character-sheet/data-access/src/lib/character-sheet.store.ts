@@ -13,17 +13,25 @@ import { CharacterSheetApiService } from './character-sheet-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { tapResponse } from '@ngrx/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LocalStorageService } from '@dn-d-servant/util';
+import {
+  LocalStorageService,
+  DB_BACKUP_KEY_CHARACTER,
+  DB_BACKUP_KEY_GROUP,
+  DB_BACKUP_KEY_NOTES,
+  DB_DRAFT_KEY_CHARACTER,
+  DB_DRAFT_KEY_GROUP,
+  DB_DRAFT_KEY_NOTES,
+} from '@dn-d-servant/util';
 
-/** Keys for last-successfully-saved DB snapshots */
-export const DB_BACKUP_KEY_CHARACTER = 'db-backup-character-sheet';
-export const DB_BACKUP_KEY_GROUP = 'db-backup-group-sheet';
-export const DB_BACKUP_KEY_NOTES = 'db-backup-notes-page';
-
-/** Keys for 30-second auto-draft (form state that may not yet be saved to DB) */
-export const DB_DRAFT_KEY_CHARACTER = 'db-draft-character-sheet';
-export const DB_DRAFT_KEY_GROUP = 'db-draft-group-sheet';
-export const DB_DRAFT_KEY_NOTES = 'db-draft-notes-page';
+// Re-export so existing consumers (e.g. app.ts) don't need an immediate import change.
+export {
+  DB_BACKUP_KEY_CHARACTER,
+  DB_BACKUP_KEY_GROUP,
+  DB_BACKUP_KEY_NOTES,
+  DB_DRAFT_KEY_CHARACTER,
+  DB_DRAFT_KEY_GROUP,
+  DB_DRAFT_KEY_NOTES,
+};
 
 export const CharacterSheetStore = signalStore(
   { providedIn: 'root' },

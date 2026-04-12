@@ -1,0 +1,26 @@
+@use '../../../../../../src/app/styles/dnd-card' with (
+  $accent:        rgba(180,40,100,.65),
+  $accent-dim:    rgba(180,40,100,.35),
+  $accent-mid:    rgba(180,40,100,.5),
+  $accent-glow:   rgba(180,40,100,.3),
+  $accent-faint:  rgba(180,40,100,.04),
+  $accent-label:  rgba(180,40,100,.75),
+  $accent-prop:   rgba(230,80,140,.7),
+  $accent-tag-bg: rgba(180,40,100,.08),
+  $accent-tag-bd: rgba(180,40,100,.28),
+  $accent-tag-tx: rgba(230,80,140,.8)
+);
+
+:host { display: contents; }
+
+.cc-card    { @extend %dnd-card-shell;   }
+.cc-close   { @extend %dnd-card-close;  }
+.cc-loading { @extend %dnd-card-loading; }
+.cc-error   { @extend %dnd-card-error;  }
+.cc-name    { @extend %dnd-card-name;   color: #f0b0c8; }
+.cc-meta    { @extend %dnd-card-meta;   }
+.cc-rule    { @extend %dnd-card-rule;   }
+.cc-section { @extend %dnd-card-section; }
+.cc-desc    { @extend %dnd-card-desc;   }
+.cc-prop    { @extend %dnd-card-prop;   }
+

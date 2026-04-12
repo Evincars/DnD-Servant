@@ -27,9 +27,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     :host {
       display: block;
       padding: 24px 32px;
-      min-height: 100%;
       font-family: 'Mikadan', sans-serif;
-      overflow: visible;
     }
 
     /* ── Page header ─────────────────────────────────────── */

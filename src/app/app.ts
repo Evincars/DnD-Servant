@@ -5,17 +5,12 @@ import { MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { routes } from './app.routes';
-import { AuthService, LocalStorageService } from '@dn-d-servant/util';
+import { AuthService, LocalStorageService, DB_BACKUP_KEY_CHARACTER, DB_BACKUP_KEY_GROUP, DB_BACKUP_KEY_NOTES } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import html2canvas from 'html2canvas';
-import {
-  CharacterSheetStore,
-  DB_BACKUP_KEY_CHARACTER,
-  DB_BACKUP_KEY_GROUP,
-  DB_BACKUP_KEY_NOTES,
-} from '@dn-d-servant/character-sheet-data-access';
+import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { DiceRollerComponent } from '@dn-d-servant/ui';
 
 @Component({

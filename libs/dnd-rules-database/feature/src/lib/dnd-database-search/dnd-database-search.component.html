@@ -7,7 +7,7 @@
     </div>
     <div>
       <div class="db-header__title">Databáze D&amp;D 2014</div>
-      <div class="db-header__subtitle">Vyhledej příšery, kouzla, rasy, rody, povolání a subpovolání ze systému D&amp;D 5e (2014)</div>
+      <div class="db-header__subtitle">Vyhledej příšery, kouzla, rasy, rody, povolání, schopnosti, stavy, vybavení a zázemí ze systému D&amp;D 5e (2014)</div>
     </div>
   </div>
 
@@ -128,6 +128,36 @@
       @for (sc of subclasses(); track sc.index) {
         <div class="db-results__item">
           <subclass-card [subclass]="sc" [loading]="false" [error]="null" (close)="removeSubclass($index)" />
+        </div>
+      }
+
+      @for (f of feats(); track f.index) {
+        <div class="db-results__item">
+          <feat-card [feat]="f" [loading]="false" [error]="null" (close)="removeFeat($index)" />
+        </div>
+      }
+
+      @for (cond of conditions(); track cond.index) {
+        <div class="db-results__item">
+          <condition-card [condition]="cond" [loading]="false" [error]="null" (close)="removeCondition($index)" />
+        </div>
+      }
+
+      @for (eq of equipment(); track eq.index) {
+        <div class="db-results__item">
+          <equipment-card [equipment]="eq" [loading]="false" [error]="null" (close)="removeEquipment($index)" />
+        </div>
+      }
+
+      @for (mi of magicItems(); track mi.index) {
+        <div class="db-results__item">
+          <magic-item-card [magicItem]="mi" [loading]="false" [error]="null" (close)="removeMagicItem($index)" />
+        </div>
+      }
+
+      @for (bg of backgrounds(); track bg.index) {
+        <div class="db-results__item">
+          <background-card [background]="bg" [loading]="false" [error]="null" (close)="removeBackground($index)" />
         </div>
       }
 

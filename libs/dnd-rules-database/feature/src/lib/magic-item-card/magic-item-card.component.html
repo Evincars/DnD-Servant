@@ -1,0 +1,44 @@
+<div class="mi-card">
+  <button class="mi-close" (click)="close.emit()" title="Zavřít">✕</button>
+
+  @if (loading()) {
+    <div class="mi-loading">
+      <mat-icon class="mi-loading__icon">hourglass_empty</mat-icon>
+      <span>Načítám předmět…</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="mi-error">⚠ {{ error() }}</div>
+  }
+
+  @if (magicItem(); as m) {
+    <div class="mi-name">{{ m.name }}</div>
+
+    <div class="mi-meta">
+      @if (m.equipment_category) { {{ m.equipment_category.name | dndTranslate | async }} · }
+      <span class="mi-rarity" [style.color]="rarityColor(m.rarity.name)">{{ m.rarity.name | dndTranslate | async }}</span>
+      @if (m.variant) { · Varianta }
+    </div>
+
+    <div class="mi-rule"></div>
+
+    <!-- Description -->
+    <div class="mi-section">Popis</div>
+    @for (para of m.desc; track $index) {
+      <p class="mi-desc">{{ para | dndTranslate | async }}</p>
+    }
+
+    <!-- Variants -->
+    @if (m.variants?.length) {
+      <div class="mi-rule"></div>
+      <div class="mi-section">Varianty</div>
+      <div class="mi-tag-row">
+        @for (v of m.variants; track v.index) {
+          <span class="mi-tag">{{ v.name }}</span>
+        }
+      </div>
+    }
+  }
+</div>
+

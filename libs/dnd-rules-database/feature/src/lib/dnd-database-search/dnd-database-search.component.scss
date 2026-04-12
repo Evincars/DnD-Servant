@@ -141,6 +141,36 @@
       color: rgba(60,210,210,.9);
       .db-switcher__icon { color: rgba(60,210,210,.8); }
     }
+    &:nth-child(8) { // feats — amber
+      background: rgba(180,100,20,.12);
+      border-color: rgba(180,100,20,.5);
+      color: rgba(240,160,60,.9);
+      .db-switcher__icon { color: rgba(240,160,60,.8); }
+    }
+    &:nth-child(9) { // conditions — crimson
+      background: rgba(180,40,100,.12);
+      border-color: rgba(180,40,100,.5);
+      color: rgba(240,100,160,.9);
+      .db-switcher__icon { color: rgba(240,100,160,.8); }
+    }
+    &:nth-child(10) { // equipment — steel
+      background: rgba(110,130,155,.12);
+      border-color: rgba(110,130,155,.5);
+      color: rgba(170,190,210,.9);
+      .db-switcher__icon { color: rgba(170,190,210,.8); }
+    }
+    &:nth-child(11) { // magic items — gold
+      background: rgba(200,165,40,.12);
+      border-color: rgba(200,165,40,.5);
+      color: rgba(250,220,90,.9);
+      .db-switcher__icon { color: rgba(250,220,90,.8); }
+    }
+    &:nth-child(12) { // backgrounds — sea-green
+      background: rgba(60,150,130,.12);
+      border-color: rgba(60,150,130,.5);
+      color: rgba(90,210,180,.9);
+      .db-switcher__icon { color: rgba(90,210,180,.8); }
+    }
   }
 }
 
@@ -321,7 +351,11 @@
     subrace-card,
     class-card,
     subclass-card,
-    feat-card {
+    feat-card,
+    condition-card,
+    equipment-card,
+    magic-item-card,
+    background-card {
       display: block;
     }
   }

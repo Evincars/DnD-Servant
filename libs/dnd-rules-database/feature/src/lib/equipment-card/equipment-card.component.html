@@ -1,0 +1,117 @@
+<div class="ec-card">
+  <button class="ec-close" (click)="close.emit()" title="Zavřít">✕</button>
+
+  @if (loading()) {
+    <div class="ec-loading">
+      <mat-icon class="ec-loading__icon">hourglass_empty</mat-icon>
+      <span>Načítám vybavení…</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="ec-error">⚠ {{ error() }}</div>
+  }
+
+  @if (equipment(); as e) {
+    <div class="ec-name">{{ e.name }}</div>
+    <div class="ec-meta">
+      {{ e.equipment_category.name | dndTranslate | async }}
+      @if (e.weapon_category) { · {{ e.weapon_category | dndTranslate | async }} · {{ e.weapon_range | dndTranslate | async }} }
+      @if (e.armor_category)  { · {{ e.armor_category | dndTranslate | async }} }
+    </div>
+
+    <div class="ec-rule"></div>
+
+    <!-- Key stat pills -->
+    <div class="ec-pill-row">
+      <div class="ec-pill">
+        <span class="ec-pill__label">Cena</span>
+        <span class="ec-pill__val">{{ costText(e) }}</span>
+      </div>
+      @if (e.weight) {
+        <div class="ec-pill">
+          <span class="ec-pill__label">Váha</span>
+          <span class="ec-pill__val">{{ e.weight }} lb</span>
+        </div>
+      }
+      @if (e.damage) {
+        <div class="ec-pill">
+          <span class="ec-pill__label">Zranění</span>
+          <span class="ec-pill__val">{{ e.damage.damage_dice }}</span>
+        </div>
+        <div class="ec-pill">
+          <span class="ec-pill__label">Typ</span>
+          <span class="ec-pill__val">{{ e.damage.damage_type.name | dndTranslate | async }}</span>
+        </div>
+      }
+      @if (e.two_handed_damage) {
+        <div class="ec-pill">
+          <span class="ec-pill__label">Obouruč</span>
+          <span class="ec-pill__val">{{ e.two_handed_damage.damage_dice }}</span>
+        </div>
+        <div class="ec-pill">
+          <span class="ec-pill__label">Typ (2H)</span>
+          <span class="ec-pill__val">{{ e.two_handed_damage.damage_type.name | dndTranslate | async }}</span>
+        </div>
+      }
+      @if (e.armor_class) {
+        <div class="ec-pill ec-pill--wide">
+          <span class="ec-pill__label">OČ</span>
+          <span class="ec-pill__val">{{ acText(e) }}</span>
+        </div>
+      }
+      @if (e.str_minimum) {
+        <div class="ec-pill">
+          <span class="ec-pill__label">Min. SÍL</span>
+          <span class="ec-pill__val">{{ e.str_minimum }}</span>
+        </div>
+      }
+      @if (rangeText(e); as rt) {
+        <div class="ec-pill">
+          <span class="ec-pill__label">Dosah</span>
+          <span class="ec-pill__val">{{ rt }}</span>
+        </div>
+      }
+    </div>
+
+    <!-- Stealth disadvantage -->
+    @if (e.stealth_disadvantage) {
+      <div class="ec-prop"><b>Nevýhoda ke Skrývání</b></div>
+    }
+
+    <!-- Weapon properties -->
+    @if (e.properties?.length) {
+      <div class="ec-rule"></div>
+      <div class="ec-section">Vlastnosti</div>
+      <div class="ec-tag-row">
+        @for (p of e.properties; track p.index) {
+          <span class="ec-tag">{{ p.name | dndTranslate | async }}</span>
+        }
+      </div>
+    }
+
+    <!-- Gear / tool category -->
+    @if (e.gear_category || e.tool_category || e.vehicle_category) {
+      <div class="ec-rule"></div>
+      @if (e.gear_category) {
+        <div class="ec-prop"><b>Kategorie vybavení:</b> {{ e.gear_category.name | dndTranslate | async }}</div>
+      }
+      @if (e.tool_category) {
+        <div class="ec-prop"><b>Kategorie nástroje:</b> {{ e.tool_category | dndTranslate | async }}</div>
+      }
+      @if (e.vehicle_category) {
+        <div class="ec-prop"><b>Kategorie vozidla:</b> {{ e.vehicle_category | dndTranslate | async }}</div>
+      }
+    }
+
+    <!-- Description -->
+    @if (e.desc?.length) {
+      <div class="ec-rule"></div>
+      <div class="ec-section">Popis</div>
+      @for (para of e.desc; track $index) {
+        <p class="ec-desc">{{ para | dndTranslate | async }}</p>
+      }
+    }
+  }
+</div>
+

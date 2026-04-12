@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { InventoryForm } from '@dn-d-servant/character-sheet-util';
+import { InventoryForm, Main6SkillsForm } from '@dn-d-servant/character-sheet-util';
 import { NgClass } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
 import { openCarriageDialog } from '../help-dialogs/carriage-dialog.component';
+import { openEquipmentDialog } from '../equipment-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -25,6 +26,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field button small-info-button-icon"
         >
           <mat-icon class="small-info-icon">info</mat-icon>
+        </button>
+        <button
+          (click)="onOpenEquipmentDialog()"
+          type="button"
+          matTooltip="Výbava postavy — vybav předměty"
+          style="top:1306px; left:402px; width:26px; height:26px; background:linear-gradient(135deg,#2a1a04,#1a1008); border:1px solid rgba(200,160,60,.55); border-radius:5px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all .2s; box-shadow:0 0 8px rgba(200,160,60,.25);"
+          class="field button"
+        >
+          <mat-icon style="font-size:16px;width:16px;height:16px;color:#c8a03c;">checkroom</mat-icon>
         </button>
         <input
           [formControl]="c.penize"
@@ -204,6 +214,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class CsInventoryComponent {
   form = input.required<FormGroup<InventoryForm>>();
   inventoryClasses = input.required<string[]>();
+  main6Form = input<FormGroup<Main6SkillsForm> | null>(null);
   private dialog = inject(MatDialog);
   private destroyRef = inject(DestroyRef);
   readonly _tick = signal(0);
@@ -223,5 +234,16 @@ export class CsInventoryComponent {
 
   onOpenCarriageDialog() {
     openCarriageDialog(this.dialog);
+  }
+
+  onOpenEquipmentDialog() {
+    const m6 = this.main6Form();
+    const parseMod = (v: string | null | undefined): number => {
+      const n = parseInt((v ?? '0').replace(/[^\d\-+]/g, ''));
+      return isNaN(n) ? 0 : n;
+    };
+    const dexMod = m6 ? parseMod(m6.controls.obratnostOprava.value) : 0;
+    const strScore = m6 ? parseMod(m6.controls.sila.value) : 10;
+    openEquipmentDialog(this.dialog, { dexMod, strScore });
   }
 }

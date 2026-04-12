@@ -4,10 +4,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { Observable } from 'rxjs';
-import { LocalStorageService } from '@dn-d-servant/util';
+import { LocalStorageService, AUTOFILL_DIALOG_HIDDEN_KEY } from '@dn-d-servant/util';
 import { FormsModule } from '@angular/forms';
 
-export const AUTOFILL_DIALOG_HIDDEN_KEY = 'autofill-dialog-hidden';
+// AUTOFILL_DIALOG_HIDDEN_KEY is imported from @dn-d-servant/util
 
 @Component({
   selector: 'autofill-abilities-dialog',

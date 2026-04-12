@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, effect, inject, OnDestroy, signal, computed } from '@angular/core';
 import { DiceRollerService } from './dice-roller.service';
+import { DICE_ROLLER_HISTORY_KEY } from '@dn-d-servant/util';
 
 export type DiceType = 'k4' | 'k6' | 'k8' | 'k10' | 'k12' | 'k20';
 
@@ -35,7 +36,7 @@ export interface HistoryEntry {
   timestamp: string; // HH:MM
 }
 
-const LS_KEY = 'dice-roller-history';
+const LS_KEY = DICE_ROLLER_HISTORY_KEY;
 const MAX_HISTORY = 20;
 
 @Component({

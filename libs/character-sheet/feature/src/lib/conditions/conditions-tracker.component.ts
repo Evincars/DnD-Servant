@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, OnInit, signal } from '@a
 import { MatIcon } from '@angular/material/icon';
 import { MAT_TOOLTIP_SCROLL_STRATEGY, MatTooltip } from '@angular/material/tooltip';
 import { Overlay } from '@angular/cdk/overlay';
+import { PLAYER_CONDITIONS_KEY } from '@dn-d-servant/util';
 
 export interface ConditionDef {
   id: string;
@@ -43,7 +44,7 @@ export const EXHAUSTION_EFFECTS = [
   'Smrt',
 ];
 
-export const LS_KEY = 'player-conditions-v1';
+export const LS_KEY = PLAYER_CONDITIONS_KEY;
 
 @Component({
   selector: 'conditions-tracker',
