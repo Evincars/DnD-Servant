@@ -160,9 +160,8 @@ function matchesQuery(entry: SearchEntry, nq: string): boolean {
       position: absolute;
       top: calc(100% + 4px);
       left: 0;
-      right: 0;
-      min-width: 320px;
-      max-height: 380px;
+      min-width: max(100%, 560px);
+      max-height: 420px;
       overflow-y: auto;
       background: rgba(16,8,2,.99);
       border: 1px solid rgba(200,160,60,.25);

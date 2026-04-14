@@ -278,18 +278,20 @@ const CHAPTERS_PER_LOAD = 2;
         display: inline-flex;
         align-items: center;
         flex-shrink: 0;
-        background: transparent;
+        background: none;
         border: none;
-        padding: 2px 4px;
+        padding: 0 5px;
         cursor: pointer;
-        /* invisible by default; color resets the gradient text-fill inheritance */
         color: transparent;
         -webkit-text-fill-color: initial;
-        transition: color .15s;
+        transition: color .14s, transform .12s;
         line-height: 1;
-        border-radius: 3px;
 
-        .anchor-svg { display: block; }
+        .anchor-svg {
+          display: block;
+          width: 18px;
+          height: 18px;
+        }
       }
 
       h1:hover .heading-anchor,
@@ -299,18 +301,18 @@ const CHAPTERS_PER_LOAD = 2;
       h5:hover .heading-anchor,
       h6:hover .heading-anchor,
       .heading-anchor:focus {
-        color: rgba(200,160,60,.6);
+        color: rgba(210,45,30,.85);
       }
 
       .heading-anchor:hover {
-        color: #c8a03c;
-        background: rgba(200,160,60,.08);
+        color: #e83020 !important;
+        transform: scale(1.15);
       }
 
-      /* Green flash when URL is copied */
       .heading-anchor--copied {
-        color: rgba(80,210,120,.9) !important;
-        background: rgba(80,210,120,.06) !important;
+        color: rgba(60,210,110,.95) !important;
+        transform: scale(1.2) !important;
+        transition: none !important;
       }
 
       /* ── Body text ── */
@@ -335,32 +337,61 @@ const CHAPTERS_PER_LOAD = 2;
 
       table {
         width: 100%;
-        border-collapse: collapse;
-        margin: 1.2em 0;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin: 1.6em 0;
         font-size: 13px;
+        display: block;
+        overflow-x: auto;
+        border: 1px solid rgba(160,100,30,.35);
+        border-radius: 4px;
+        box-shadow: 0 2px 12px rgba(0,0,0,.35);
+
+        &::-webkit-scrollbar { height: 4px; }
+        &::-webkit-scrollbar-thumb { background: rgba(200,160,60,.25); border-radius: 2px; }
 
         thead tr {
-          background: rgba(200,160,60,.1);
-          border-bottom: 1px solid rgba(200,160,60,.3);
+          background:
+            linear-gradient(180deg,
+              rgba(90,45,10,.9) 0%,
+              rgba(65,30,6,.95) 100%);
         }
 
         th {
-          padding: 8px 12px;
+          padding: 10px 16px;
           text-align: left;
-          color: #c8a03c;
-          letter-spacing: .06em;
-          font-size: 11px;
+          color: #e8c060;
+          letter-spacing: .1em;
+          font-size: 10.5px;
           text-transform: uppercase;
           font-family: 'Mikadan', sans-serif;
+          white-space: nowrap;
+          border-bottom: 2px solid rgba(200,140,40,.5);
+          border-right: 1px solid rgba(200,140,40,.12);
+
+          &:last-child { border-right: none; }
         }
 
         td {
-          padding: 7px 12px;
+          padding: 8px 16px;
           border-bottom: 1px solid rgba(200,160,60,.07);
-          color: #b0a090;
+          border-right: 1px solid rgba(200,160,60,.05);
+          color: #baa898;
+          vertical-align: top;
+          line-height: 1.5;
+
+          &:last-child { border-right: none; }
         }
 
-        tr:hover td { background: rgba(200,160,60,.04); }
+        tbody tr:nth-child(odd)  td { background: rgba(200,160,60,.03); }
+        tbody tr:nth-child(even) td { background: rgba(0,0,0,.12); }
+
+        tbody tr:hover td {
+          background: rgba(200,130,30,.1) !important;
+          color: #d8c8b0;
+        }
+
+        tbody tr:last-child td { border-bottom: none; }
       }
 
       blockquote {
@@ -430,6 +461,156 @@ const CHAPTERS_PER_LOAD = 2;
         color: #c8a03c;
         margin-bottom: 8px;
         font-family: 'Mikadan', sans-serif;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════
+         Monster stat block — classic D&D style
+      ═══════════════════════════════════════════════════════════════ */
+      .monster-card {
+        margin: 2em 0;
+        max-width: 560px;
+        position: relative;
+        font-family: sans-serif;
+
+        /* outer "aged parchment" shadow */
+        background: linear-gradient(170deg,
+          rgba(20,11,4,.98) 0%,
+          rgba(16,9,3,.99) 100%);
+        border-top: 5px solid #7c1d0c;
+        border-bottom: 5px solid #7c1d0c;
+        border-left: 1px solid rgba(140,65,20,.4);
+        border-right: 1px solid rgba(140,65,20,.4);
+        box-shadow:
+          0 0 0 1px rgba(80,25,8,.8),
+          4px 4px 18px rgba(0,0,0,.7),
+          inset 0 0 40px rgba(120,50,10,.04);
+      }
+
+      /* ── Name & type ── */
+      .mc-head {
+        padding: 14px 20px 12px;
+      }
+
+      .mc-name {
+        font-family: 'Mikadan', sans-serif;
+        font-size: 22px;
+        letter-spacing: .04em;
+        color: #7c1d0c;
+        line-height: 1.15;
+      }
+
+      .mc-type {
+        font-size: 12.5px;
+        color: #888070;
+        font-style: italic;
+        margin-top: 1px;
+      }
+
+      /* ── Ornamental double-rule (thick + thin) ── */
+      .mc-rule {
+        height: 7px;
+        margin: 0;
+        background:
+          linear-gradient(180deg,
+            rgba(130,40,15,.0)   0%,
+            rgba(130,40,15,.0)  20%,
+            rgba(130,40,15,.85) 20%,
+            rgba(130,40,15,.85) 55%,
+            rgba(130,40,15,.0)  55%,
+            rgba(130,40,15,.0)  65%,
+            rgba(130,40,15,.45) 65%,
+            rgba(130,40,15,.45) 80%,
+            rgba(130,40,15,.0)  80%);
+      }
+
+      /* ── AC / HP / Speed ── */
+      .mc-basics {
+        padding: 8px 20px 6px;
+      }
+
+      .mc-row {
+        font-size: 13.5px;
+        color: #c8baa8;
+        line-height: 1.7;
+      }
+
+      .mc-label {
+        font-family: 'Mikadan', sans-serif;
+        font-size: 13px;
+        color: #7c1d0c;
+        font-weight: bold;
+        margin-right: 4px;
+      }
+
+      /* ── Ability scores ── */
+      .mc-abilities {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        text-align: center;
+        padding: 8px 12px 6px;
+      }
+
+      .mc-ab {
+        line-height: 1.35;
+        padding: 4px 2px;
+        border-right: 1px solid rgba(130,40,15,.2);
+
+        &:last-child { border-right: none; }
+      }
+
+      .mc-ab-name {
+        font-family: 'Mikadan', sans-serif;
+        font-size: 9px;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        color: #7c1d0c;
+        margin-bottom: 3px;
+      }
+
+      .mc-ab-val {
+        font-size: 13px;
+        color: #c8baa8;
+      }
+
+      /* ── Details (skills, senses, languages, CR) ── */
+      .mc-details {
+        padding: 6px 20px 8px;
+      }
+
+      .mc-row + .mc-row { margin-top: 1px; }
+
+      /* ── Body: traits, actions, reactions ── */
+      .mc-body {
+        padding: 8px 20px 16px;
+        font-size: 13.5px;
+        color: #c8baa8;
+
+        p { margin: 0 0 .5em; }
+
+        /* Section headers: h5 "Akce", h6 "Reakce" etc. */
+        h5, h6 {
+          display: block !important;
+          font-family: 'Mikadan', sans-serif;
+          font-size: 19px;
+          letter-spacing: .03em;
+          font-weight: normal;
+          color: #7c1d0c;
+          border-bottom: 1px solid rgba(130,40,15,.4);
+          padding-bottom: 2px;
+          margin: 14px 0 8px;
+          text-transform: none;
+
+          .heading-anchor { display: none !important; }
+        }
+
+        /* Trait / ability names: ***Bold-italic.*** */
+        p em strong, p strong em {
+          color: #d0b878;
+          font-style: normal;
+        }
+
+        /* Italic flavour / attack type text */
+        p > em { color: #9a8870; }
       }
     }
   `,
