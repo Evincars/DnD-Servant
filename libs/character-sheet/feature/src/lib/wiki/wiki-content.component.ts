@@ -27,7 +27,7 @@ const CHAPTERS_PER_LOAD = 2;
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatIcon],
   template: `
-    <div class="content-wrap" #scrollContainer>
+    <div class="content-wrap" #scrollContainer (click)="onContentClick($event)">
 
       @if (!currentBook()) {
         <div class="placeholder">
@@ -127,7 +127,7 @@ const CHAPTERS_PER_LOAD = 2;
       height: 200px;
       gap: 12px;
       color: #8a7a68;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 12px;
     }
 
@@ -167,7 +167,7 @@ const CHAPTERS_PER_LOAD = 2;
     /* ── Chapter divider ── */
     .chapter-divider {
       max-width: 860px;
-      margin: 0 auto 0;
+      margin: 0 auto;
       border: none;
       border-top: 1px solid rgba(200,160,60,.12);
     }
@@ -210,14 +210,19 @@ const CHAPTERS_PER_LOAD = 2;
 
     /* ══════════════════════════════════════════════════════════════════════
        Wiki body — DnD-styled markdown rendering
+       Note: nested selectors apply to [innerHTML] content because only the
+       .wiki-body ancestor needs the Angular _ngcontent attribute, not its
+       descendants. All styling here therefore reaches injected HTML.
     ══════════════════════════════════════════════════════════════════════ */
     .wiki-body {
-      font-family: 'Mikadan', sans-serif;
-      font-size: 14px;
-      line-height: 1.75;
+      font-family: sans-serif;
+      font-size: 14.5px;
+      line-height: 1.78;
       color: #c8baa8;
 
+      /* ── Headings ── */
       h1, h2 {
+        font-family: 'Mikadan', sans-serif;
         font-size: 22px;
         letter-spacing: .08em;
         margin: 2em 0 .6em;
@@ -227,31 +232,88 @@ const CHAPTERS_PER_LOAD = 2;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         border-bottom: 1px solid rgba(200,160,60,.2);
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 2px;
       }
 
       h3 {
+        font-family: 'Mikadan', sans-serif;
         font-size: 16px;
         letter-spacing: .06em;
         color: #d4a060;
         margin: 1.6em 0 .5em;
         padding-bottom: 3px;
         border-bottom: 1px solid rgba(200,160,60,.12);
+        display: flex;
+        align-items: center;
+        gap: 2px;
       }
 
       h4 {
+        font-family: 'Mikadan', sans-serif;
         font-size: 13.5px;
         letter-spacing: .06em;
         color: #b89060;
         margin: 1.4em 0 .4em;
         text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 2px;
       }
 
       h5, h6 {
+        font-family: 'Mikadan', sans-serif;
         font-size: 12.5px;
         color: #9a7a58;
         margin: 1.2em 0 .3em;
+        display: flex;
+        align-items: center;
+        gap: 2px;
       }
 
+      /* ── Heading anchor button ── */
+      .heading-anchor {
+        display: inline-flex;
+        align-items: center;
+        flex-shrink: 0;
+        background: transparent;
+        border: none;
+        padding: 2px 4px;
+        cursor: pointer;
+        /* invisible by default; color resets the gradient text-fill inheritance */
+        color: transparent;
+        -webkit-text-fill-color: initial;
+        transition: color .15s;
+        line-height: 1;
+        border-radius: 3px;
+
+        .anchor-svg { display: block; }
+      }
+
+      h1:hover .heading-anchor,
+      h2:hover .heading-anchor,
+      h3:hover .heading-anchor,
+      h4:hover .heading-anchor,
+      h5:hover .heading-anchor,
+      h6:hover .heading-anchor,
+      .heading-anchor:focus {
+        color: rgba(200,160,60,.6);
+      }
+
+      .heading-anchor:hover {
+        color: #c8a03c;
+        background: rgba(200,160,60,.08);
+      }
+
+      /* Green flash when URL is copied */
+      .heading-anchor--copied {
+        color: rgba(80,210,120,.9) !important;
+        background: rgba(80,210,120,.06) !important;
+      }
+
+      /* ── Body text ── */
       p { margin: 0 0 .9em; }
 
       strong { color: #d8b878; }
@@ -289,6 +351,7 @@ const CHAPTERS_PER_LOAD = 2;
           letter-spacing: .06em;
           font-size: 11px;
           text-transform: uppercase;
+          font-family: 'Mikadan', sans-serif;
         }
 
         td {
@@ -316,6 +379,7 @@ const CHAPTERS_PER_LOAD = 2;
         padding: 1px 5px;
         border-radius: 3px;
         font-size: .9em;
+        font-family: monospace;
       }
 
       pre {
@@ -365,6 +429,7 @@ const CHAPTERS_PER_LOAD = 2;
         text-transform: uppercase;
         color: #c8a03c;
         margin-bottom: 8px;
+        font-family: 'Mikadan', sans-serif;
       }
     }
   `,
@@ -382,6 +447,8 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
   protected readonly currentBook = signal<WikiBook | null>(null);
   private nextIndex = 0;
   private observer: IntersectionObserver | null = null;
+  /** Heading slug to scroll to after the first batch of chunks loads */
+  private pendingScrollSlug: string | null = null;
 
   readonly hasMore = computed(() => {
     const book = this.currentBook();
@@ -413,12 +480,15 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
     this.observer.observe(sentinelEl);
   }
 
-  /** Called when the user selects a chapter from the sidebar. */
-  loadFromChapter(book: WikiBook, chapter: WikiChapter): void {
+  /**
+   * Load the chapter's book starting at the given chapter.
+   * @param scrollToSlug  Optional heading ID to scroll to after load (from URL fragment).
+   */
+  loadFromChapter(book: WikiBook, chapter: WikiChapter, scrollToSlug?: string): void {
     this.currentBook.set(book);
+    this.pendingScrollSlug = scrollToSlug ?? null;
     const chapterIndex = book.chapters.findIndex(c => c.id === chapter.id);
 
-    // Scroll to top
     const container = this.scrollContainer().nativeElement;
     container.scrollTop = 0;
 
@@ -450,6 +520,7 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
           if (remaining === 0) {
             this.chunks.update(prev => [...prev, ...(results.filter(Boolean) as LoadedChunk[])]);
             this.loading.set(false);
+            this.maybScrollToSlug();
           }
         },
         error: () => {
@@ -462,12 +533,44 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
       });
     });
   }
+
+  /** If a heading slug was requested (via URL fragment), scroll to it after render. */
+  private maybScrollToSlug(): void {
+    if (!this.pendingScrollSlug) return;
+    const slug = this.pendingScrollSlug;
+    this.pendingScrollSlug = null;
+
+    // Give Angular one tick to render the new chunks into the DOM
+    setTimeout(() => {
+      const el = this.scrollContainer().nativeElement.querySelector(`#${slug}`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 80);
+  }
+
+  /** Handle clicks on heading anchor buttons via event delegation. */
+  onContentClick(event: MouseEvent): void {
+    const btn = (event.target as HTMLElement).closest('[data-anchor]') as HTMLElement | null;
+    if (!btn) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const anchorId = btn.getAttribute('data-anchor');
+    if (!anchorId) return;
+
+    const fragment = `#${anchorId}`;
+    const url = `${window.location.origin}${window.location.pathname}${fragment}`;
+
+    window.history.replaceState(null, '', fragment);
+
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(url).catch(() => {});
+    }
+
+    // Brief green flash to confirm copy
+    btn.classList.add('heading-anchor--copied');
+    setTimeout(() => btn.classList.remove('heading-anchor--copied'), 1600);
+  }
 }
-
-
-
-
-
-
-
-
