@@ -1,6 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
+  effect,
+  inject,
   input,
   model,
   output,
@@ -221,6 +224,31 @@ export class WikiSidebarComponent {
 
   readonly catalog = WIKI_CATALOG;
   readonly expandedBook = signal<string | null>(null);
+
+  private readonly elRef = inject(ElementRef<HTMLElement>);
+
+  constructor() {
+    // When activeBookId changes (e.g. from a search result), expand the correct
+    // book in the sidebar and scroll the active chapter item into view.
+    effect(() => {
+      const bookId = this.activeBookId();
+      if (!bookId) return;
+
+      this.expandedBook.set(bookId);
+
+      // If sidebar is collapsed, open it so the location is visible
+      if (this.collapsed()) {
+        this.collapsed.set(false);
+      }
+
+      // After Angular renders the chapter list, scroll to the active item
+      setTimeout(() => {
+        const activeEl = this.elRef.nativeElement
+          .querySelector('.chapter--active') as HTMLElement | null;
+        activeEl?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }, 80);
+    }, { allowSignalWrites: true });
+  }
 
   toggleBook(bookId: string): void {
     this.expandedBook.update(current => (current === bookId ? null : bookId));
