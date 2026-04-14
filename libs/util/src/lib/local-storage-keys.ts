@@ -59,4 +59,9 @@ export const DICE_ROLLER_HISTORY_KEY = 'dice-roller-history';
 /** Active player conditions (v1 schema) */
 export const PLAYER_CONDITIONS_KEY = 'player-conditions-v1';
 
+// ── J&D Wiki ──────────────────────────────────────────────────────────────────
+
+/** Last viewed wiki position (book + chapter) */
+export const WIKI_LAST_POSITION_KEY = 'wiki-last-position';
+
 
