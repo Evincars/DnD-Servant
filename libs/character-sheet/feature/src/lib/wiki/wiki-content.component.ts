@@ -270,60 +270,49 @@ const CHAPTERS_PER_LOAD = 2;
     }
 
     /* ══════════════════════════════════════════════════════════════
-       Heading anchor button — Material Symbols icon, red, no bg
+       Heading anchor button — red icon, bold on hover, no animations
     ══════════════════════════════════════════════════════════════ */
     wiki-content .wiki-body .heading-anchor {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       background: transparent;
       border: none;
-      border-radius: 50%;
+      border-radius: 4px;
       padding: 0;
       margin-left: 4px;
       cursor: pointer;
-      color: rgba(184, 73, 73, .3);
+      /* Always red — the app's primary colour */
+      color: #b84949;
       -webkit-text-fill-color: initial;
-      transition: color .15s, background .15s, transform .14s;
+      /* No transition/animation */
       line-height: 1;
       vertical-align: middle;
     }
 
     wiki-content .wiki-body .heading-anchor .anchor-icon {
-      font-size: 20px;
+      font-size: 18px;
       line-height: 1;
+      /* Normal weight by default */
       font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
     }
 
-    wiki-content .wiki-body h1:hover .heading-anchor,
-    wiki-content .wiki-body h2:hover .heading-anchor,
-    wiki-content .wiki-body h3:hover .heading-anchor,
-    wiki-content .wiki-body h4:hover .heading-anchor,
-    wiki-content .wiki-body h5:hover .heading-anchor,
-    wiki-content .wiki-body h6:hover .heading-anchor,
-    wiki-content .wiki-body .heading-anchor:focus-visible {
-      color: #b84949;
-      background: rgba(184, 73, 73, .1);
-    }
-
-    wiki-content .wiki-body .heading-anchor:hover {
-      color: #d45050 !important;
-      background: rgba(184, 73, 73, .15) !important;
-      transform: scale(1.15);
-    }
-
-    wiki-content .wiki-body .heading-anchor:active {
-      transform: scale(0.95);
+    /* On hover — just bolder icon, nothing else */
+    wiki-content .wiki-body .heading-anchor:hover .anchor-icon,
+    wiki-content .wiki-body h1:hover .heading-anchor .anchor-icon,
+    wiki-content .wiki-body h2:hover .heading-anchor .anchor-icon,
+    wiki-content .wiki-body h3:hover .heading-anchor .anchor-icon,
+    wiki-content .wiki-body h4:hover .heading-anchor .anchor-icon,
+    wiki-content .wiki-body h5:hover .heading-anchor .anchor-icon,
+    wiki-content .wiki-body h6:hover .heading-anchor .anchor-icon {
+      font-variation-settings: 'FILL' 0, 'wght' 700, 'GRAD' 0, 'opsz' 20;
     }
 
     wiki-content .wiki-body .heading-anchor--copied {
       color: rgba(60,210,110,.95) !important;
-      background: rgba(60,210,110,.1) !important;
-      transform: scale(1.15) !important;
-      transition: none !important;
     }
 
     /* ── Body text ── */
