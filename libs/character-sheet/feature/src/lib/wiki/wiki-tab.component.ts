@@ -73,7 +73,10 @@ export class WikiTabComponent implements AfterViewInit {
   readonly activeChapter = signal<WikiChapter | null>(null);
 
   ngAfterViewInit(): void {
-    this.handleUrlFragment();
+    // URL fragment takes precedence over saved position
+    if (!this.handleUrlFragment()) {
+      this.restoreLastPosition();
+    }
   }
 
   onChapterSelect(selection: WikiSelection): void {
@@ -91,30 +94,51 @@ export class WikiTabComponent implements AfterViewInit {
   /**
    * On initial load, parse `#wiki/{bookId}/{chapterId}/{headingSlug}` from the
    * URL and navigate directly to that location (enables shared links).
+   * @returns `true` if a valid fragment was found and navigation was triggered.
    */
-  private handleUrlFragment(): void {
+  private handleUrlFragment(): boolean {
     const hash = window.location.hash;
-    if (!hash.startsWith('#wiki/')) return;
+    if (!hash.startsWith('#wiki/')) return false;
 
     // parts: ['wiki', bookId, chapterId, headingSlug?]
     const parts = hash.slice(1).split('/');
-    if (parts.length < 3) return;
+    if (parts.length < 3) return false;
 
     const bookId = parts[1];
     const chapterSlug = parts[2];
     const headingSlug = parts[3] as string | undefined;
 
     const book = WIKI_CATALOG.find(b => b.id === bookId);
-    if (!book) return;
+    if (!book) return false;
 
     const chapter = book.chapters.find(c => {
       const slug = slugify(c.file.replace(/\.md$/i, '').split('/').pop() ?? c.file);
       return slug === chapterSlug;
     });
-    if (!chapter) return;
+    if (!chapter) return false;
 
     this.activeBook.set(book);
     this.activeChapter.set(chapter);
     this.contentRef().loadFromChapter(book, chapter, headingSlug);
+    return true;
+  }
+
+  /**
+   * Restore the last viewed wiki position from LocalStorage.
+   * Used on startup when no URL fragment is present.
+   */
+  private restoreLastPosition(): void {
+    const saved = this.ls.getDataSync<{ bookId: string; chapterId: string }>(WIKI_LAST_POSITION_KEY);
+    if (!saved?.bookId || !saved?.chapterId) return;
+
+    const book = WIKI_CATALOG.find(b => b.id === saved.bookId);
+    if (!book) return;
+
+    const chapter = book.chapters.find(c => c.id === saved.chapterId);
+    if (!chapter) return;
+
+    this.activeBook.set(book);
+    this.activeChapter.set(chapter);
+    this.contentRef().loadFromChapter(book, chapter);
   }
 }
