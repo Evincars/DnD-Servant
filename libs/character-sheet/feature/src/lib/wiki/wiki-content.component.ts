@@ -758,11 +758,14 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
 
     // Give Angular one tick to render the new chunks into the DOM
     setTimeout(() => {
-      const el = this.scrollContainer().nativeElement.querySelector(`#${slug}`);
+      // Use attribute selector instead of CSS ID selector (#…) because
+      // querySelector throws a SyntaxError when the ID starts with a digit.
+      const el = this.scrollContainer().nativeElement
+        .querySelector(`[id="${slug}"]`) as HTMLElement | null;
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-    }, 80);
+    }, 120);
   }
 
   /** Handle clicks on heading anchor buttons via event delegation. */
