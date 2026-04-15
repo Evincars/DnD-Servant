@@ -1,9 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, input, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, signal, Signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
+import { MatAutocomplete, MatAutocompleteTrigger, MatOption } from '@angular/material/autocomplete';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
 import { startWith, switchMap } from 'rxjs';
 import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } from '@dn-d-servant/character-sheet-util';
+import { JadSpellsService } from './jad-spells.service';
+import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detail-dialog.component';
 
 @Component({
   selector: 'third-page',
@@ -169,10 +174,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r1Nazev"
-      class="field spell-row "
-      style="top:511px; left:152px; width:193px;"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(1)"
+      class="field spell-row"
+      style="top:511px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:511px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r1Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r1Utok"
       class="field spell-row"
@@ -233,10 +243,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r2Nazev"
-      class="field spell-row "
-      style="top:546px; left:152px; width:193px;"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(2)"
+      class="field spell-row"
+      style="top:546px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:546px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r2Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r2Utok"
       class="field spell-row"
@@ -297,10 +312,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r3Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(3)"
       class="field spell-row "
-      style="top:582px; left:152px; width:193px;"
+      style="top:582px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:582px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r3Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r3Utok"
       class="field spell-row"
@@ -361,10 +381,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r4Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(4)"
       class="field spell-row "
-      style="top:618px; left:152px; width:193px;"
+      style="top:618px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:618px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r4Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r4Utok"
       class="field spell-row"
@@ -425,10 +450,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r5Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(5)"
       class="field spell-row "
-      style="top:653px; left:152px; width:193px;"
+      style="top:653px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:653px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r5Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r5Utok"
       class="field spell-row"
@@ -489,10 +519,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r6Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(6)"
       class="field spell-row "
-      style="top:689px; left:152px; width:193px;"
+      style="top:689px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:689px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r6Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r6Utok"
       class="field spell-row"
@@ -553,10 +588,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r7Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(7)"
       class="field spell-row "
-      style="top:725px; left:152px; width:193px;"
+      style="top:725px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:725px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r7Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r7Utok"
       class="field spell-row"
@@ -617,10 +657,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r8Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(8)"
       class="field spell-row "
-      style="top:760px; left:152px; width:193px;"
+      style="top:760px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:760px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r8Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r8Utok"
       class="field spell-row"
@@ -681,10 +726,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r9Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(9)"
       class="field spell-row "
-      style="top:796px; left:152px; width:193px;"
+      style="top:796px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:796px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r9Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r9Utok"
       class="field spell-row"
@@ -745,10 +795,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r10Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(10)"
       class="field spell-row "
-      style="top:831px; left:152px; width:193px;"
+      style="top:831px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:831px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r10Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r10Utok"
       class="field spell-row"
@@ -808,10 +863,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r11Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(11)"
       class="field spell-row "
-      style="top:867px; left:152px; width:193px;"
+      style="top:867px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:867px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r11Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r11Utok"
       class="field spell-row"
@@ -871,10 +931,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r12Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(12)"
       class="field spell-row "
-      style="top:903px; left:152px; width:193px;"
+      style="top:903px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:903px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r12Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r12Utok"
       class="field spell-row"
@@ -934,10 +999,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r13Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(13)"
       class="field spell-row "
-      style="top:939px; left:152px; width:193px;"
+      style="top:939px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:939px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r13Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r13Utok"
       class="field spell-row"
@@ -997,10 +1067,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r14Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(14)"
       class="field spell-row "
-      style="top:975px; left:152px; width:193px;"
+      style="top:975px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:975px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r14Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r14Utok"
       class="field spell-row"
@@ -1060,10 +1135,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r15Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(15)"
       class="field spell-row "
-      style="top:1011px; left:152px; width:193px;"
+      style="top:1011px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1011px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r15Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r15Utok"
       class="field spell-row"
@@ -1123,10 +1203,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r16Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(16)"
       class="field spell-row "
-      style="top:1047px; left:152px; width:193px;"
+      style="top:1047px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1047px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r16Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r16Utok"
       class="field spell-row"
@@ -1186,10 +1271,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r17Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(17)"
       class="field spell-row "
-      style="top:1083px; left:152px; width:193px;"
+      style="top:1083px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1083px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r17Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r17Utok"
       class="field spell-row"
@@ -1249,10 +1339,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r18Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(18)"
       class="field spell-row "
-      style="top:1119px; left:152px; width:193px;"
+      style="top:1119px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1119px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r18Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r18Utok"
       class="field spell-row"
@@ -1312,10 +1407,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r19Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(19)"
       class="field spell-row "
-      style="top:1155px; left:152px; width:193px;"
+      style="top:1155px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1155px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r19Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r19Utok"
       class="field spell-row"
@@ -1375,10 +1475,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(20)"
       class="field spell-row "
-      style="top:1189px; left:152px; width:193px;"
+      style="top:1189px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1189px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r20Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r20Utok"
       class="field spell-row"
@@ -1438,10 +1543,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(21)"
       class="field spell-row "
-      style="top:1225px; left:152px; width:193px;"
+      style="top:1225px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1225px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r21Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r21Utok"
       class="field spell-row"
@@ -1501,10 +1611,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(22)"
       class="field spell-row "
-      style="top:1261px; left:152px; width:193px;"
+      style="top:1261px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1261px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r22Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r22Utok"
       class="field spell-row"
@@ -1564,10 +1679,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(23)"
       class="field spell-row "
-      style="top:1297px; left:152px; width:193px;"
+      style="top:1297px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1297px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r23Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r23Utok"
       class="field spell-row"
@@ -1627,10 +1747,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(24)"
       class="field spell-row "
-      style="top:1330px; left:152px; width:193px;"
+      style="top:1330px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1330px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r24Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r24Utok"
       class="field spell-row"
@@ -1690,10 +1815,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(25)"
       class="field spell-row "
-      style="top:1366px; left:152px; width:193px;"
+      style="top:1366px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1366px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r25Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r25Utok"
       class="field spell-row"
@@ -1753,10 +1883,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(26)"
       class="field spell-row "
-      style="top:1402px; left:152px; width:193px;"
+      style="top:1402px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1402px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r26Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r26Utok"
       class="field spell-row"
@@ -1816,10 +1951,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(27)"
       class="field spell-row "
-      style="top:1438px; left:152px; width:193px;"
+      style="top:1438px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1438px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r27Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r27Utok"
       class="field spell-row"
@@ -1865,6 +2005,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
 
     <!--    ROW 28-->
+    <!--    ###################################################################################-->
     <input
       [formControl]="controls.spellsForm.controls.r28P"
       type="checkbox"
@@ -1879,10 +2020,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(28)"
       class="field spell-row "
-      style="top:1474px; left:152px; width:193px;"
+      style="top:1474px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1474px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r28Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r28Utok"
       class="field spell-row"
@@ -1928,6 +2074,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
 
     <!--    ROW 29-->
+    <!--    ###################################################################################-->
     <input
       [formControl]="controls.spellsForm.controls.r29P"
       type="checkbox"
@@ -1942,10 +2089,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(29)"
       class="field spell-row "
-      style="top:1507px; left:152px; width:193px;"
+      style="top:1507px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1507px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r29Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r29Utok"
       class="field spell-row"
@@ -1991,6 +2143,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
 
     <!--    ROW 30-->
+    <!--    ###################################################################################-->
     <input
       [formControl]="controls.spellsForm.controls.r30P"
       type="checkbox"
@@ -2005,10 +2158,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(30)"
       class="field spell-row "
-      style="top:1543px; left:152px; width:193px;"
+      style="top:1543px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1543px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r30Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r30Utok"
       class="field spell-row"
@@ -2054,6 +2212,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
 
     <!--    ROW 31-->
+    <!--    ###################################################################################-->
     <input
       [formControl]="controls.spellsForm.controls.r31P"
       type="checkbox"
@@ -2068,10 +2227,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(31)"
       class="field spell-row "
-      style="top:1579px; left:152px; width:193px;"
+      style="top:1579px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1579px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r31Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r31Utok"
       class="field spell-row"
@@ -2117,6 +2281,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
 
     <!--    ROW 32-->
+    <!--    ###################################################################################-->
     <input
       [formControl]="controls.spellsForm.controls.r32P"
       type="checkbox"
@@ -2131,10 +2296,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(32)"
       class="field spell-row "
-      style="top:1615px; left:152px; width:193px;"
+      style="top:1615px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1615px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r32Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r32Utok"
       class="field spell-row"
@@ -2180,6 +2350,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
 
     <!--    ROW 33-->
+    <!--    ###################################################################################-->
     <input
       [formControl]="controls.spellsForm.controls.r33P"
       type="checkbox"
@@ -2194,10 +2365,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(33)"
       class="field spell-row "
-      style="top:1651px; left:152px; width:193px;"
+      style="top:1651px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1651px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r33Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r33Utok"
       class="field spell-row"
@@ -2243,6 +2419,7 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
 
     <!--    ROW 34-->
+    <!--    ###################################################################################-->
     <input
       [formControl]="controls.spellsForm.controls.r34P"
       type="checkbox"
@@ -2257,10 +2434,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(34)"
       class="field spell-row "
-      style="top:1687px; left:152px; width:193px;"
+      style="top:1687px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1687px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r34Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r34Utok"
       class="field spell-row"
@@ -2320,10 +2502,15 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Nazev"
+      [matAutocomplete]="spellAuto"
+      (focus)="activeRow.set(35)"
       class="field spell-row "
-      style="top:1728px; left:152px; width:193px;"
+      style="top:1728px; left:152px; width:176px;"
       placeholder="*"
     />
+    <button class="field spell-detail-btn" style="top:1728px; left:329px;"
+      (click)="openSpellDetail(controls.spellsForm.controls.r35Nazev.value)"
+      title="Zobrazit detail kouzla"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
     <input
       [formControl]="controls.spellsForm.controls.r35Utok"
       class="field spell-row"
@@ -2367,13 +2554,23 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
       style="top:1728px; left:1160px; width:60px;"
       placeholder="*"
     />
+
+    <mat-autocomplete #spellAuto="matAutocomplete">
+      @for (spell of filteredSpells(); track spell.slug) {
+        <mat-option [value]="spell.name">{{ spell.name }}</mat-option>
+      }
+    </mat-autocomplete>
   `,
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, MatTooltip],
+  imports: [ReactiveFormsModule, MatTooltip, MatAutocomplete, MatAutocompleteTrigger, MatOption, MatIcon],
 })
 export class CharacterSheetThirdPageComponent {
   form = input.required<FormGroup<ThirdPageForm>>();
+
+  activeRow = signal(0);
+  private readonly dialog = inject(MatDialog);
+  private readonly spellsService = inject(JadSpellsService);
 
   /**
    * Single signal tracking the entire spellsForm value reactively.
@@ -2388,9 +2585,26 @@ export class CharacterSheetThirdPageComponent {
     { initialValue: {} as Record<string, string> },
   );
 
+  readonly filteredSpells = computed(() => {
+    const row = this.activeRow();
+    const rawVal = this._spellValues() as Record<string, string>;
+    const query = (rawVal[`r${row}Nazev`] ?? '').toLowerCase();
+    if (!query) return this.spellsService.allSpells();
+    return this.spellsService.allSpells().filter(s => s.name.toLowerCase().includes(query));
+  });
+
   /** Returns a computed signal for the poznamka tooltip of row N */
   poz(n: number): Signal<string> {
     return computed(() => (this._spellValues() as Record<string, string>)[`r${n}Poznamka`] ?? '');
+  }
+
+  openSpellDetail(spellName?: string): void {
+    const name = spellName?.trim();
+    if (!name) return;
+    this.dialog.open(SpellDetailDialogComponent, {
+      data: { spellName: name } satisfies SpellDetailDialogData,
+      panelClass: 'spell-detail-panel',
+    });
   }
 
   get controls(): ThirdPageForm {

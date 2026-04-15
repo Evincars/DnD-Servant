@@ -373,6 +373,32 @@ input[type='checkbox'][disabled] {
   height: 15px;
 }
 
+.spell-detail-btn {
+  width: 16px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(200, 160, 60, 0.12);
+  border: 1px solid rgba(200, 160, 60, 0.35) !important;
+  border-radius: 0 3px 3px 0 !important;
+  color: rgba(200, 160, 60, 0.65);
+  cursor: pointer;
+  z-index: 2;
+
+  mat-icon {
+    font-size: 11px;
+    width: 11px;
+    height: 11px;
+    line-height: 1;
+  }
+
+  &:hover {
+    background: rgba(200, 160, 60, 0.32);
+    color: #e8c96a;
+  }
+}
+
 .readonly-field {
   cursor: default !important;
   pointer-events: none;
