@@ -65,12 +65,18 @@ const MAX_CHAPTER_RESULTS = 10;
 const MAX_HEADING_RESULTS = 10;
 
 function matchesChapter(e: ChapterEntry, nq: string): boolean {
-  return e._words.some(w => w.startsWith(nq));
+  const queryWords = nq.split(/\s+/).filter(Boolean);
+  if (queryWords.length === 0) return false;
+  // Every query word must match at least one indexed word (prefix match).
+  return queryWords.every(qw => e._words.some(w => w.startsWith(qw)));
 }
 
 function matchesHeading(e: HeadingEntry, nq: string): boolean {
-  // Use includes so "rychlost" matches "Cestovní rychlost"
-  return normalizeStr(e.label).includes(nq) || e._words.some(w => w.startsWith(nq));
+  // Full-phrase substring match on the heading label.
+  if (normalizeStr(e.label).includes(nq)) return true;
+  // Fallback: every query word matches at least one indexed word (prefix match).
+  const queryWords = nq.split(/\s+/).filter(Boolean);
+  return queryWords.length > 0 && queryWords.every(qw => e._words.some(w => w.startsWith(qw)));
 }
 
 @Component({

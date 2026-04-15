@@ -61,8 +61,11 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
     /**
      * Reactive scroll-to-heading effect.
      * Runs after each render cycle. When a pending slug exists and chunks are
-     * present in the DOM, scroll the container so the heading sits 70 px below
-     * the viewport top (clearing the fixed top-menu).
+     * present in the DOM, scroll the container so the heading sits just below
+     * the fixed top-menu.
+     *
+     * Uses requestAnimationFrame to ensure the browser has fully laid out the
+     * innerHTML content before measuring positions.
      */
     effect(() => {
       const slug = this.pendingScrollSlug();
@@ -72,17 +75,34 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
       const chunks = this.chunks();
       if (chunks.length === 0) return;
 
-      const container = this.scrollContainer().nativeElement;
-      const el = container.querySelector(`[id="${slug}"]`) as HTMLElement | null;
-      if (!el) return;
-
-      // Clear the pending slug first (untracked to avoid triggering this effect again).
+      // Clear the pending slug immediately to prevent duplicate scheduling.
       untracked(() => this.pendingScrollSlug.set(null));
 
-      const containerRect = container.getBoundingClientRect();
-      const elRect = el.getBoundingClientRect();
-      container.scrollTop += elRect.top - containerRect.top - SCROLL_TOP_OFFSET;
+      // Defer scroll to after the browser has completed layout + paint of
+      // the newly inserted innerHTML content. A double rAF ensures the frame
+      // with the new DOM has been fully committed.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          this.scrollToSlug(slug);
+        });
+      });
     });
+  }
+
+  /**
+   * Scroll the content container so that the element with the given `id`
+   * sits SCROLL_TOP_OFFSET pixels below the top of the container.
+   */
+  private scrollToSlug(slug: string): void {
+    const container = this.scrollContainer().nativeElement;
+    const el = container.querySelector(`[id="${slug}"]`) as HTMLElement | null;
+    if (!el) return;
+
+    // Calculate absolute offset of the element within the scroll container.
+    const containerRect = container.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const absoluteTop = container.scrollTop + (elRect.top - containerRect.top);
+    container.scrollTop = Math.max(0, absoluteTop - SCROLL_TOP_OFFSET);
   }
 
   ngAfterViewInit(): void {
