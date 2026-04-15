@@ -3,7 +3,6 @@ import {
   Component,
   effect,
   ElementRef,
-  HostListener,
   inject,
   input,
   output,
@@ -154,6 +153,7 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, MatTooltip, RichTextareaComponent, MatIconButton, MatIcon],
+  host: { '(document:keydown.escape)': 'onEscape()' },
 })
 export class CharacterSheetSecondPageComponent {
   characterSheetStore = inject(CharacterSheetStore);
@@ -196,7 +196,6 @@ export class CharacterSheetSecondPageComponent {
     this.showPreview.set(false);
   }
 
-  @HostListener('document:keydown.escape')
   onEscape(): void {
     if (this.showPreview()) this.closePreview();
   }

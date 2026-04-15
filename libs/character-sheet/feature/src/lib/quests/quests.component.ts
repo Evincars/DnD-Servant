@@ -4,7 +4,6 @@ import {
   computed,
   effect,
   ElementRef,
-  HostListener,
   inject,
   signal,
   untracked,
@@ -27,6 +26,7 @@ type SortMode = 'priority' | 'date';
   selector: 'quests-tab',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, MatIcon, MatIconButton, MatTooltip, SpinnerOverlayComponent, RichTextareaComponent],
+  host: { '(document:keydown.escape)': 'onEscape()' },
   styles: `
     :host {
       display: block;
@@ -1040,7 +1040,6 @@ export class QuestsTabComponent {
     this.previewQuest.set(null);
   }
 
-  @HostListener('document:keydown.escape')
   onEscape(): void {
     if (this.previewQuest()) { this.closePreview(); return; }
     if (this.confirmDeleteIndex() !== null) this.cancelDelete();

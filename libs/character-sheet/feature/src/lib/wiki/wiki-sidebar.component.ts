@@ -1,4 +1,5 @@
 import {
+  afterRenderEffect,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -242,6 +243,8 @@ export class WikiSidebarComponent {
   readonly expandedBook = signal<string | null>(null);
 
   private readonly elRef = inject(ElementRef<HTMLElement>);
+  /** Set to true when the sidebar needs to scroll to the active chapter after the next render. */
+  private readonly needsScroll = signal(false);
 
   constructor() {
     // When activeBookId changes (e.g. from a search result), expand the correct
@@ -260,14 +263,21 @@ export class WikiSidebarComponent {
           this.collapsed.set(false);
         }
 
-        // After Angular renders the chapter list, scroll to the active item
-        setTimeout(() => {
-          const activeEl = this.elRef.nativeElement.querySelector('.chapter--active') as HTMLElement | null;
-          activeEl?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-        }, 80);
+        this.needsScroll.set(true);
       },
       { allowSignalWrites: true },
     );
+
+    // After Angular renders (and the chapter list is in the DOM), scroll to the
+    // active chapter. Retries automatically on every render cycle until the element
+    // appears. Uses afterRenderEffect instead of setTimeout to stay zone-less safe.
+    afterRenderEffect(() => {
+      if (!this.needsScroll()) return;
+      const activeEl = this.elRef.nativeElement.querySelector('.chapter--active') as HTMLElement | null;
+      if (!activeEl) return; // not in DOM yet — next render cycle will retry
+      this.needsScroll.set(false);
+      activeEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    });
   }
 
   toggleBook(bookId: string): void {

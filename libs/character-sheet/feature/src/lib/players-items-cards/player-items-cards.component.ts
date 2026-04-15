@@ -3,7 +3,6 @@ import {
   Component,
   effect,
   ElementRef,
-  HostListener,
   inject,
   signal,
   untracked,
@@ -23,6 +22,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   selector: 'player-items-cards',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, MatIcon, MatIconButton, MatTooltip, SpinnerOverlayComponent],
+  host: { '(document:keydown.escape)': 'onEscape()' },
   styles: `
     :host {
       display: block;
@@ -884,7 +884,6 @@ export class PlayerItemsCardsComponent {
     this.previewItem.set(null);
   }
 
-  @HostListener('document:keydown.escape')
   onEscape(): void {
     if (this.previewItem()) {
       this.closePreview();
