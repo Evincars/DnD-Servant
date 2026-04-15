@@ -1,7 +1,8 @@
 /* ══════════════════════════════════════════════════════════════
-   ViewEncapsulation.None — all selectors scoped under wiki-content
+   Emulated encapsulation — :host for the host element,
+   ::ng-deep for innerHTML (wiki-body) content.
 ══════════════════════════════════════════════════════════════ */
-wiki-content {
+:host {
   display: flex;
   flex: 1;
   min-width: 0;
@@ -10,23 +11,24 @@ wiki-content {
 }
 
 /* ── Scrollable wrapper ── */
-wiki-content .content-wrap {
+.content-wrap {
   flex: 1;
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 0 0 40px;
   scroll-behavior: smooth;
-}
-wiki-content .content-wrap::-webkit-scrollbar { width: 6px; }
-wiki-content .content-wrap::-webkit-scrollbar-track { background: rgba(0,0,0,.3); }
-wiki-content .content-wrap::-webkit-scrollbar-thumb {
-  background: rgba(200,160,60,.3);
-  border-radius: 3px;
+
+  &::-webkit-scrollbar { width: 6px; }
+  &::-webkit-scrollbar-track { background: rgba(0,0,0,.3); }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(200,160,60,.3);
+    border-radius: 3px;
+  }
 }
 
 /* ── Placeholder ── */
-wiki-content .placeholder {
+.placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,13 +37,13 @@ wiki-content .placeholder {
   gap: 16px;
   opacity: .35;
 }
-wiki-content .placeholder__icon {
+.placeholder__icon {
   font-size: 64px;
   width: 64px;
   height: 64px;
   color: #c8a03c;
 }
-wiki-content .placeholder__text {
+.placeholder__text {
   font-family: 'Mikadan', sans-serif;
   font-size: 14px;
   letter-spacing: .1em;
@@ -49,7 +51,7 @@ wiki-content .placeholder__text {
 }
 
 /* ── Initial loading ── */
-wiki-content .loading-initial {
+.loading-initial {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,7 +64,7 @@ wiki-content .loading-initial {
 }
 
 /* ── Spinner ── */
-wiki-content .spinner {
+.spinner {
   width: 28px;
   height: 28px;
   border: 2px solid rgba(200,160,60,.2);
@@ -73,17 +75,17 @@ wiki-content .spinner {
 @keyframes wiki-spin { to { transform: rotate(360deg); } }
 
 /* ── Chapter article ── */
-wiki-content .chapter-article {
+.chapter-article {
   padding: 32px 40px 24px;
   max-width: 860px;
   margin: 0 auto;
 }
-wiki-content .chapter-article__header {
+.chapter-article__header {
   margin-bottom: 16px;
   padding-bottom: 8px;
   border-bottom: 1px solid rgba(200,160,60,.2);
 }
-wiki-content .chapter-article__label {
+.chapter-article__label {
   font-family: 'Mikadan', sans-serif;
   font-size: 11px;
   letter-spacing: .18em;
@@ -92,7 +94,7 @@ wiki-content .chapter-article__label {
 }
 
 /* ── Chapter divider ── */
-wiki-content .chapter-divider {
+.chapter-divider {
   max-width: 860px;
   margin: 0 auto;
   border: none;
@@ -100,14 +102,14 @@ wiki-content .chapter-divider {
 }
 
 /* ── Sentinel / load-more area ── */
-wiki-content .sentinel {
+.sentinel {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 32px 16px;
   min-height: 80px;
 }
-wiki-content .load-more-btn {
+.load-more-btn {
   font-family: 'Mikadan', sans-serif;
   font-size: 11px;
   letter-spacing: .14em;
@@ -118,13 +120,14 @@ wiki-content .load-more-btn {
   padding: 8px 20px;
   cursor: pointer;
   transition: color .15s, border-color .15s, background .15s;
+
+  &:hover {
+    color: #c8a03c;
+    border-color: rgba(200,160,60,.5);
+    background: rgba(200,160,60,.05);
+  }
 }
-wiki-content .load-more-btn:hover {
-  color: #c8a03c;
-  border-color: rgba(200,160,60,.5);
-  background: rgba(200,160,60,.05);
-}
-wiki-content .end-of-book {
+.end-of-book {
   font-family: 'Mikadan', sans-serif;
   font-size: 13px;
   letter-spacing: .18em;
@@ -133,9 +136,13 @@ wiki-content .end-of-book {
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   Wiki body — DnD-styled markdown rendering (innerHTML content)
+   Wiki body — DnD-styled markdown rendering (innerHTML content).
+   Uses ::ng-deep because [innerHTML] elements don't receive Angular's
+   encapsulation attributes.
 ══════════════════════════════════════════════════════════════════════ */
-wiki-content .wiki-body {
+:host ::ng-deep {
+
+.wiki-body {
   font-family: sans-serif;
   font-size: 14.5px;
   line-height: 1.78;
@@ -143,8 +150,8 @@ wiki-content .wiki-body {
 }
 
 /* ── Headings ── */
-wiki-content .wiki-body h1,
-wiki-content .wiki-body h2 {
+.wiki-body h1,
+.wiki-body h2 {
   font-family: 'Mikadan', sans-serif;
   font-size: 22px;
   letter-spacing: .08em;
@@ -161,7 +168,7 @@ wiki-content .wiki-body h2 {
   gap: 4px;
 }
 
-wiki-content .wiki-body h3 {
+.wiki-body h3 {
   font-family: 'Mikadan', sans-serif;
   font-size: 16px;
   letter-spacing: .06em;
@@ -174,7 +181,7 @@ wiki-content .wiki-body h3 {
   gap: 4px;
 }
 
-wiki-content .wiki-body h4 {
+.wiki-body h4 {
   font-family: 'Mikadan', sans-serif;
   font-size: 13.5px;
   letter-spacing: .06em;
@@ -186,8 +193,8 @@ wiki-content .wiki-body h4 {
   gap: 4px;
 }
 
-wiki-content .wiki-body h5,
-wiki-content .wiki-body h6 {
+.wiki-body h5,
+.wiki-body h6 {
   font-family: 'Mikadan', sans-serif;
   font-size: 12.5px;
   color: #9a7a58;
@@ -200,7 +207,7 @@ wiki-content .wiki-body h6 {
 /* ══════════════════════════════════════════════════════════════
    Heading anchor button — red icon, bold on hover, no animations
 ══════════════════════════════════════════════════════════════ */
-wiki-content .wiki-body .heading-anchor {
+.wiki-body .heading-anchor {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -221,7 +228,7 @@ wiki-content .wiki-body .heading-anchor {
   vertical-align: middle;
 }
 
-wiki-content .wiki-body .heading-anchor .anchor-icon {
+.wiki-body .heading-anchor .anchor-icon {
   font-size: 18px;
   line-height: 1;
   /* Normal weight by default */
@@ -229,17 +236,17 @@ wiki-content .wiki-body .heading-anchor .anchor-icon {
 }
 
 /* On hover — just bolder icon, nothing else */
-wiki-content .wiki-body .heading-anchor:hover .anchor-icon,
-wiki-content .wiki-body h1:hover .heading-anchor .anchor-icon,
-wiki-content .wiki-body h2:hover .heading-anchor .anchor-icon,
-wiki-content .wiki-body h3:hover .heading-anchor .anchor-icon,
-wiki-content .wiki-body h4:hover .heading-anchor .anchor-icon,
-wiki-content .wiki-body h5:hover .heading-anchor .anchor-icon,
-wiki-content .wiki-body h6:hover .heading-anchor .anchor-icon {
+.wiki-body .heading-anchor:hover .anchor-icon,
+.wiki-body h1:hover .heading-anchor .anchor-icon,
+.wiki-body h2:hover .heading-anchor .anchor-icon,
+.wiki-body h3:hover .heading-anchor .anchor-icon,
+.wiki-body h4:hover .heading-anchor .anchor-icon,
+.wiki-body h5:hover .heading-anchor .anchor-icon,
+.wiki-body h6:hover .heading-anchor .anchor-icon {
   font-variation-settings: 'FILL' 0, 'wght' 700, 'GRAD' 0, 'opsz' 20;
 }
 
-wiki-content .wiki-body .heading-anchor--copied {
+.wiki-body .heading-anchor--copied {
   animation: anchor-copied-flash 1.6s forwards;
   -webkit-text-fill-color: initial;
 }
@@ -250,28 +257,28 @@ wiki-content .wiki-body .heading-anchor--copied {
 }
 
 /* ── Body text ── */
-wiki-content .wiki-body p { margin: 0 0 .9em; }
-wiki-content .wiki-body strong { color: #d8b878; }
-wiki-content .wiki-body em { color: #b09070; font-style: italic; }
+.wiki-body p { margin: 0 0 .9em; }
+.wiki-body strong { color: #d8b878; }
+.wiki-body em { color: #b09070; font-style: italic; }
 
-wiki-content .wiki-body a {
+.wiki-body a {
   color: #c8a03c;
   text-decoration: none;
   border-bottom: 1px dashed rgba(200,160,60,.3);
 }
-wiki-content .wiki-body a:hover { border-bottom-style: solid; }
+.wiki-body a:hover { border-bottom-style: solid; }
 
-wiki-content .wiki-body ul,
-wiki-content .wiki-body ol {
+.wiki-body ul,
+.wiki-body ol {
   padding-left: 1.6em;
   margin: 0 0 .9em;
 }
-wiki-content .wiki-body li { margin-bottom: .3em; }
+.wiki-body li { margin-bottom: .3em; }
 
 /* ══════════════════════════════════════════════════════════════
    Tables — DnD dark fantasy style with crimson/gold accents
 ══════════════════════════════════════════════════════════════ */
-wiki-content .wiki-body table {
+.wiki-body table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
@@ -288,19 +295,19 @@ wiki-content .wiki-body table {
     inset 0 1px 0 rgba(180,90,30,.08);
 }
 
-wiki-content .wiki-body table::-webkit-scrollbar { height: 4px; }
-wiki-content .wiki-body table::-webkit-scrollbar-thumb {
+.wiki-body table::-webkit-scrollbar { height: 4px; }
+.wiki-body table::-webkit-scrollbar-thumb {
   background: rgba(200,160,60,.25);
   border-radius: 2px;
 }
 
-wiki-content .wiki-body thead tr {
+.wiki-body thead tr {
   background: linear-gradient(180deg,
     rgba(85,18,6,.97) 0%,
     rgba(55,10,3,.98) 100%);
 }
 
-wiki-content .wiki-body th {
+.wiki-body th {
   padding: 11px 16px;
   text-align: left;
   color: #e8c060;
@@ -312,9 +319,9 @@ wiki-content .wiki-body th {
   border-bottom: 2px solid rgba(160,50,15,.7);
   border-right: 1px solid rgba(160,50,15,.2);
 }
-wiki-content .wiki-body th:last-child { border-right: none; }
+.wiki-body th:last-child { border-right: none; }
 
-wiki-content .wiki-body td {
+.wiki-body td {
   padding: 8px 16px;
   border-bottom: 1px solid rgba(200,160,60,.06);
   border-right: 1px solid rgba(200,160,60,.04);
@@ -322,24 +329,24 @@ wiki-content .wiki-body td {
   vertical-align: top;
   line-height: 1.55;
 }
-wiki-content .wiki-body td:first-child { color: #ccb898; }
-wiki-content .wiki-body td:last-child { border-right: none; }
+.wiki-body td:first-child { color: #ccb898; }
+.wiki-body td:last-child { border-right: none; }
 
-wiki-content .wiki-body tbody tr:nth-child(odd) td {
+.wiki-body tbody tr:nth-child(odd) td {
   background: rgba(160,100,30,.04);
 }
-wiki-content .wiki-body tbody tr:nth-child(even) td {
+.wiki-body tbody tr:nth-child(even) td {
   background: rgba(0,0,0,.15);
 }
-wiki-content .wiki-body tbody tr:hover td {
+.wiki-body tbody tr:hover td {
   background: rgba(160,50,15,.1) !important;
   color: #d8c8b0;
   transition: background .12s, color .12s;
 }
-wiki-content .wiki-body tbody tr:last-child td { border-bottom: none; }
+.wiki-body tbody tr:last-child td { border-bottom: none; }
 
 /* ── Blockquotes ── */
-wiki-content .wiki-body blockquote {
+.wiki-body blockquote {
   margin: 1em 0;
   padding: 12px 20px;
   border-left: 3px solid rgba(200,120,40,.5);
@@ -350,7 +357,7 @@ wiki-content .wiki-body blockquote {
 }
 
 /* ── Code ── */
-wiki-content .wiki-body code {
+.wiki-body code {
   background: rgba(200,160,60,.08);
   color: #c8a03c;
   padding: 1px 5px;
@@ -358,27 +365,27 @@ wiki-content .wiki-body code {
   font-size: .9em;
   font-family: monospace;
 }
-wiki-content .wiki-body pre {
+.wiki-body pre {
   background: rgba(0,0,0,.4);
   border: 1px solid rgba(200,160,60,.15);
   padding: 16px;
   overflow-x: auto;
   border-radius: 4px;
 }
-wiki-content .wiki-body pre code {
+.wiki-body pre code {
   background: none;
   padding: 0;
   color: #b0c880;
 }
 
-wiki-content .wiki-body hr {
+.wiki-body hr {
   border: none;
   border-top: 1px solid rgba(200,160,60,.15);
   margin: 1.5em 0;
 }
 
 /* ── VuePress card blocks ── */
-wiki-content .wiki-body .wiki-card {
+.wiki-body .wiki-card {
   display: block;
   margin: 1.2em 0;
   padding: 14px 18px;
@@ -387,7 +394,7 @@ wiki-content .wiki-body .wiki-card {
   border-radius: 4px;
   position: relative;
 }
-wiki-content .wiki-body .wiki-card::before {
+.wiki-body .wiki-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0;
@@ -395,7 +402,7 @@ wiki-content .wiki-body .wiki-card::before {
   background: rgba(200,160,60,.4);
   border-radius: 4px 0 0 4px;
 }
-wiki-content .wiki-body .wiki-card__header {
+.wiki-body .wiki-card__header {
   display: block;
   font-size: 11px;
   letter-spacing: .12em;
@@ -408,7 +415,7 @@ wiki-content .wiki-body .wiki-card__header {
 /* ══════════════════════════════════════════════════════════════
    Monster stat block — classic D&D stat block design
 ══════════════════════════════════════════════════════════════ */
-wiki-content .wiki-body .monster-card {
+.wiki-body .monster-card {
   margin: 2.5em auto;
   max-width: 580px;
   position: relative;
@@ -430,8 +437,8 @@ wiki-content .wiki-body .monster-card {
 }
 
 /* corner fleur decorations */
-wiki-content .wiki-body .monster-card::before,
-wiki-content .wiki-body .monster-card::after {
+.wiki-body .monster-card::before,
+.wiki-body .monster-card::after {
   content: '⬥';
   position: absolute;
   color: rgba(140,28,10,.5);
@@ -440,18 +447,18 @@ wiki-content .wiki-body .monster-card::after {
   pointer-events: none;
   z-index: 1;
 }
-wiki-content .wiki-body .monster-card::before { top: 5px; left: 8px; }
-wiki-content .wiki-body .monster-card::after  { top: 5px; right: 8px; }
+.wiki-body .monster-card::before { top: 5px; left: 8px; }
+.wiki-body .monster-card::after  { top: 5px; right: 8px; }
 
 /* ── Name & type header ── */
-wiki-content .wiki-body .mc-head {
+.wiki-body .mc-head {
   padding: 16px 22px 12px;
   background: linear-gradient(180deg,
     rgba(80,16,5,.4) 0%,
     transparent 100%);
 }
 
-wiki-content .wiki-body .mc-name {
+.wiki-body .mc-name {
   font-family: 'Mikadan', sans-serif;
   font-size: 26px;
   letter-spacing: .04em;
@@ -462,7 +469,7 @@ wiki-content .wiki-body .mc-name {
     0 1px 3px rgba(0,0,0,.8);
 }
 
-wiki-content .wiki-body .mc-type {
+.wiki-body .mc-type {
   font-size: 12px;
   color: #7a6850;
   font-style: italic;
@@ -471,7 +478,7 @@ wiki-content .wiki-body .mc-type {
 }
 
 /* ── Ornamental double-rule (thick + thin separator) ── */
-wiki-content .wiki-body .mc-rule {
+.wiki-body .mc-rule {
   height: 7px;
   margin: 0 10px;
   background:
@@ -488,17 +495,17 @@ wiki-content .wiki-body .mc-rule {
 }
 
 /* ── AC / HP / Speed ── */
-wiki-content .wiki-body .mc-basics {
+.wiki-body .mc-basics {
   padding: 10px 22px 8px;
 }
 
-wiki-content .wiki-body .mc-row {
+.wiki-body .mc-row {
   font-size: 13.5px;
   color: #c0b098;
   line-height: 1.75;
 }
 
-wiki-content .wiki-body .mc-label {
+.wiki-body .mc-label {
   font-family: 'Mikadan', sans-serif;
   font-size: 13px;
   color: #b84949;
@@ -508,7 +515,7 @@ wiki-content .wiki-body .mc-label {
 }
 
 /* ── Ability scores grid ── */
-wiki-content .wiki-body .mc-abilities {
+.wiki-body .mc-abilities {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   text-align: center;
@@ -516,14 +523,14 @@ wiki-content .wiki-body .mc-abilities {
   background: rgba(80,15,5,.06);
 }
 
-wiki-content .wiki-body .mc-ab {
+.wiki-body .mc-ab {
   line-height: 1.35;
   padding: 6px 3px;
   border-right: 1px solid rgba(140,28,10,.22);
 }
-wiki-content .wiki-body .mc-ab:last-child { border-right: none; }
+.wiki-body .mc-ab:last-child { border-right: none; }
 
-wiki-content .wiki-body .mc-ab-name {
+.wiki-body .mc-ab-name {
   font-family: 'Mikadan', sans-serif;
   font-size: 9.5px;
   letter-spacing: .2em;
@@ -533,30 +540,30 @@ wiki-content .wiki-body .mc-ab-name {
   display: block;
 }
 
-wiki-content .wiki-body .mc-ab-val {
+.wiki-body .mc-ab-val {
   font-size: 13.5px;
   color: #c0b098;
   display: block;
 }
 
 /* ── Details (skills, senses, languages, CR) ── */
-wiki-content .wiki-body .mc-details {
+.wiki-body .mc-details {
   padding: 8px 22px 10px;
 }
 
-wiki-content .wiki-body .mc-row + .mc-row { margin-top: 1px; }
+.wiki-body .mc-row + .mc-row { margin-top: 1px; }
 
 /* ── Body: traits, actions, reactions, legendary ── */
-wiki-content .wiki-body .mc-body {
+.wiki-body .mc-body {
   padding: 10px 22px 20px;
   font-size: 13.5px;
   color: #c0b098;
 }
-wiki-content .wiki-body .mc-body p { margin: 0 0 .55em; }
+.wiki-body .mc-body p { margin: 0 0 .55em; }
 
 /* Section sub-headers inside monster card */
-wiki-content .wiki-body .mc-body h5,
-wiki-content .wiki-body .mc-body h6 {
+.wiki-body .mc-body h5,
+.wiki-body .mc-body h6 {
   display: block !important;
   font-family: 'Mikadan', sans-serif;
   font-size: 20px;
@@ -569,18 +576,18 @@ wiki-content .wiki-body .mc-body h6 {
   text-transform: none;
   text-shadow: 0 0 16px rgba(184,73,73,.15);
 }
-wiki-content .wiki-body .mc-body h5 .heading-anchor,
-wiki-content .wiki-body .mc-body h6 .heading-anchor {
+.wiki-body .mc-body h5 .heading-anchor,
+.wiki-body .mc-body h6 .heading-anchor {
   display: none !important;
 }
 
 /* Trait / ability names: ***Bold-italic.*** */
-wiki-content .wiki-body .mc-body p em strong,
-wiki-content .wiki-body .mc-body p strong em {
+.wiki-body .mc-body p em strong,
+.wiki-body .mc-body p strong em {
   color: #c8a868;
   font-style: normal;
 }
 /* Italic flavour / attack type text */
-wiki-content .wiki-body .mc-body p > em { color: #8a7860; }
+.wiki-body .mc-body p > em { color: #8a7860; }
 
-
+} /* end :host ::ng-deep */

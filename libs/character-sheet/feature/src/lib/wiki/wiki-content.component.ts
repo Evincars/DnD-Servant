@@ -1,16 +1,14 @@
 import {
+  afterRenderEffect,
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   ElementRef,
   inject,
   OnDestroy,
   signal,
-  untracked,
   viewChild,
-  ViewEncapsulation,
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { WikiBook, WikiChapter } from './wiki-catalog.const';
@@ -25,16 +23,11 @@ interface LoadedChunk {
 
 const CHAPTERS_PER_LOAD = 2;
 /** Pixels to offset from the top of the scroll container so the heading clears the fixed top-menu. */
-const SCROLL_TOP_OFFSET = 70;
-/** Maximum number of retries when the target heading element is not yet in the DOM. */
-const SCROLL_MAX_RETRIES = 8;
-/** Delay (ms) between scroll-to-heading retries. */
-const SCROLL_RETRY_DELAY = 80;
+const SCROLL_TOP_OFFSET = 160;
 
 @Component({
   selector: 'wiki-content',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
   imports: [MatIcon],
   templateUrl: './wiki-content.component.html',
   styleUrl: './wiki-content.component.scss',
@@ -63,60 +56,29 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
 
   constructor() {
     /**
-     * Reactive scroll-to-heading effect.
-     * Runs after each render cycle. When a pending slug exists and chunks are
-     * present in the DOM, scroll the container so the heading sits just below
-     * the fixed top-menu.
-     *
-     * Uses requestAnimationFrame to ensure the browser has fully laid out the
-     * innerHTML content before measuring positions.
+     * Scroll-to-heading via afterRenderEffect.
+     * Runs after every render cycle when tracked signals change. When a pending
+     * slug exists, query for the heading element inside the scroll container.
+     * Once found, scroll and clear the slug. If the element is not yet in the
+     * DOM (e.g. innerHTML not painted), the next render cycle will retry
+     * automatically — no setTimeout needed.
      */
-    effect(() => {
+    afterRenderEffect(() => {
       const slug = this.pendingScrollSlug();
       if (!slug) return;
 
-      // Track chunks so the effect re-evaluates after each new batch renders.
-      const chunks = this.chunks();
-      if (chunks.length === 0) return;
+      const container = this.scrollContainer()?.nativeElement;
+      if (!container) return;
 
-      // Clear the pending slug immediately to prevent duplicate scheduling.
-      untracked(() => this.pendingScrollSlug.set(null));
+      const el = container.querySelector(`[id="${slug}"]`) as HTMLElement | null;
+      if (!el) return; // element not in DOM yet — next render will retry
 
-      // Defer scroll to after the browser has completed layout + paint of
-      // the newly inserted innerHTML content. A double rAF ensures the frame
-      // with the new DOM has been fully committed.
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          this.scrollToSlug(slug);
-        });
-      });
+      this.pendingScrollSlug.set(null);
+      const containerRect = container.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+      const absoluteTop = container.scrollTop + (elRect.top - containerRect.top);
+      container.scrollTo({ top: Math.max(0, absoluteTop - SCROLL_TOP_OFFSET), behavior: 'instant' as ScrollBehavior });
     });
-  }
-
-  /**
-   * Scroll the content container so that the element with the given `id`
-   * sits SCROLL_TOP_OFFSET pixels below the top of the container.
-   *
-   * Because innerHTML content may not be fully laid out when this runs,
-   * the method retries up to SCROLL_MAX_RETRIES times with a
-   * SCROLL_RETRY_DELAY ms gap between attempts.
-   */
-  private scrollToSlug(slug: string, attempt = 0): void {
-    const container = this.scrollContainer().nativeElement;
-    const el = container.querySelector(`[id="${slug}"]`) as HTMLElement | null;
-
-    if (!el) {
-      if (attempt < SCROLL_MAX_RETRIES) {
-        setTimeout(() => this.scrollToSlug(slug, attempt + 1), SCROLL_RETRY_DELAY);
-      }
-      return;
-    }
-
-    // Calculate absolute offset of the element within the scroll container.
-    const containerRect = container.getBoundingClientRect();
-    const elRect = el.getBoundingClientRect();
-    const absoluteTop = container.scrollTop + (elRect.top - containerRect.top);
-    container.scrollTop = Math.max(0, absoluteTop - SCROLL_TOP_OFFSET);
   }
 
   ngAfterViewInit(): void {
@@ -153,7 +115,7 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
     const chapterIndex = book.chapters.findIndex(c => c.id === chapter.id);
 
     const container = this.scrollContainer().nativeElement;
-    container.scrollTop = 0;
+    container.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
 
     this.chunks.set([]);
     this.nextIndex = chapterIndex;
@@ -195,7 +157,6 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
       });
     });
   }
-
 
   /** Handle clicks on heading anchor buttons via event delegation. */
   onContentClick(event: MouseEvent): void {

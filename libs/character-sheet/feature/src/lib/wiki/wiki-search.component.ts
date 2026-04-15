@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, ElementRef, HostListener, output, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ElementRef, output, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { WIKI_CATALOG, WikiBook, WikiChapter, WikiSelection } from './wiki-catalog.const';
 import { normalizeStr } from './wiki-utils';
@@ -78,6 +78,9 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
   selector: 'wiki-search',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule],
+  host: {
+    '(document:keydown.escape)': 'onEscapeGlobal()',
+  },
   template: `
     <div class="search-wrap">
       <div class="search-row">
@@ -112,7 +115,7 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
       </div>
 
       @if (open() && results().length > 0) {
-        <ul class="dropdown" role="listbox" #dropdownRef>
+        <ul class="dropdown" role="listbox" #dropdownRef (mousedown)="$event.preventDefault()">
           @for (entry of results(); track trackEntry(entry); let i = $index) {
             <li
               class="result"
@@ -388,23 +391,13 @@ export class WikiSearchComponent {
   }
 
   onBlur(): void {
-    // Delay so mousedown on a result registers before we close
-    setTimeout(() => this.open.set(false), 160);
+    this.open.set(false);
   }
 
   select(entry: SearchEntry): void {
     const selection: WikiSelection = { book: entry.book, chapter: entry.chapter };
     if (entry.kind === 'heading') {
       selection.headingSlug = entry.headingSlug;
-      // Scroll to the heading element with an offset of -100px
-      setTimeout(() => {
-        const headingElement = document.getElementById(entry.headingSlug);
-        if (headingElement) {
-          const yOffset = -160;
-          const y = headingElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
-          window.scrollTo({ top: y, behavior: 'smooth' });
-        }
-      }, 0);
     }
     this.chapterSelect.emit(selection);
     this.query.set('');
@@ -423,7 +416,6 @@ export class WikiSearchComponent {
       : `c:${entry.book.id}:${entry.chapter.id}`;
   }
 
-  @HostListener('document:keydown.escape')
   onEscapeGlobal(): void {
     if (this.open()) this.open.set(false);
   }
