@@ -26,6 +26,10 @@ interface LoadedChunk {
 const CHAPTERS_PER_LOAD = 2;
 /** Pixels to offset from the top of the scroll container so the heading clears the fixed top-menu. */
 const SCROLL_TOP_OFFSET = 70;
+/** Maximum number of retries when the target heading element is not yet in the DOM. */
+const SCROLL_MAX_RETRIES = 8;
+/** Delay (ms) between scroll-to-heading retries. */
+const SCROLL_RETRY_DELAY = 80;
 
 @Component({
   selector: 'wiki-content',
@@ -92,11 +96,21 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
   /**
    * Scroll the content container so that the element with the given `id`
    * sits SCROLL_TOP_OFFSET pixels below the top of the container.
+   *
+   * Because innerHTML content may not be fully laid out when this runs,
+   * the method retries up to SCROLL_MAX_RETRIES times with a
+   * SCROLL_RETRY_DELAY ms gap between attempts.
    */
-  private scrollToSlug(slug: string): void {
+  private scrollToSlug(slug: string, attempt = 0): void {
     const container = this.scrollContainer().nativeElement;
     const el = container.querySelector(`[id="${slug}"]`) as HTMLElement | null;
-    if (!el) return;
+
+    if (!el) {
+      if (attempt < SCROLL_MAX_RETRIES) {
+        setTimeout(() => this.scrollToSlug(slug, attempt + 1), SCROLL_RETRY_DELAY);
+      }
+      return;
+    }
 
     // Calculate absolute offset of the element within the scroll container.
     const containerRect = container.getBoundingClientRect();

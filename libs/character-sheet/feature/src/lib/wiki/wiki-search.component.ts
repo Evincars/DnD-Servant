@@ -1,13 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  ElementRef,
-  HostListener,
-  output,
-  signal,
-  viewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ElementRef, HostListener, output, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { WIKI_CATALOG, WikiBook, WikiChapter, WikiSelection } from './wiki-catalog.const';
 import { normalizeStr } from './wiki-utils';
@@ -28,8 +19,12 @@ const CHAPTER_INDEX: ChapterEntry[] = WIKI_CATALOG.flatMap(book =>
   book.chapters.map(chapter => {
     const filename = chapter.file.split('/').pop()?.replace(/\.md$/i, '') ?? chapter.id;
     const words = [
-      ...normalizeStr(chapter.label).split(/[\s\-–—_]+/).filter(Boolean),
-      ...normalizeStr(filename).split(/[\s\-_]+/).filter(Boolean),
+      ...normalizeStr(chapter.label)
+        .split(/[\s\-–—_]+/)
+        .filter(Boolean),
+      ...normalizeStr(filename)
+        .split(/[\s\-_]+/)
+        .filter(Boolean),
     ];
     return { kind: 'chapter', label: chapter.label, bookLabel: book.label, book, chapter, _words: words };
   }),
@@ -39,15 +34,15 @@ const CHAPTER_INDEX: ChapterEntry[] = WIKI_CATALOG.flatMap(book =>
 
 /** Shape of one entry in the static heading-index.json file. */
 interface RawHeadingEntry {
-  b: string;   // bookId
-  f: string;   // chapter file path
-  h: string;   // heading text
-  s: string;   // heading slug
+  b: string; // bookId
+  f: string; // chapter file path
+  h: string; // heading text
+  s: string; // heading slug
 }
 
 interface HeadingEntry {
   kind: 'heading';
-  label: string;       // heading text
+  label: string; // heading text
   bookLabel: string;
   chapterLabel: string;
   book: WikiBook;
@@ -88,7 +83,9 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
       <div class="search-row">
         <!-- Search icon -->
         <svg class="search-icon" viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
-          <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          <path
+            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+          />
         </svg>
 
         <input
@@ -108,7 +105,7 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
         @if (query()) {
           <button class="clear-btn" (click)="clear()" tabindex="-1" title="Vymazat">
             <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
-              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
             </svg>
           </button>
         }
@@ -143,9 +140,14 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
     </div>
   `,
   styles: `
-    :host { display: block; position: relative; }
+    :host {
+      display: block;
+      position: relative;
+    }
 
-    .search-wrap { position: relative; }
+    .search-wrap {
+      position: relative;
+    }
 
     /* ── Input row ── */
     .search-row {
@@ -153,19 +155,24 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
       align-items: center;
       gap: 7px;
       padding: 5px 10px;
-      background: rgba(22,12,4,.97);
-      border: 1px solid rgba(200,160,60,.18);
+      background: rgba(22, 12, 4, 0.97);
+      border: 1px solid rgba(200, 160, 60, 0.18);
       border-radius: 3px;
       min-width: 240px;
-      transition: border-color .15s, box-shadow .15s;
+      transition:
+        border-color 0.15s,
+        box-shadow 0.15s;
 
       &:focus-within {
-        border-color: rgba(200,160,60,.45);
-        box-shadow: 0 0 0 1px rgba(200,160,60,.12);
+        border-color: rgba(200, 160, 60, 0.45);
+        box-shadow: 0 0 0 1px rgba(200, 160, 60, 0.12);
       }
     }
 
-    .search-icon { color: #5a4a38; flex-shrink: 0; }
+    .search-icon {
+      color: #5a4a38;
+      flex-shrink: 0;
+    }
 
     .search-input {
       flex: 1;
@@ -177,7 +184,9 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
       color: #c8baa8;
       min-width: 0;
 
-      &::placeholder { color: #3e3028; }
+      &::placeholder {
+        color: #3e3028;
+      }
     }
 
     .clear-btn {
@@ -189,9 +198,11 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
       display: flex;
       align-items: center;
       flex-shrink: 0;
-      transition: color .12s;
+      transition: color 0.12s;
 
-      &:hover { color: #c8a03c; }
+      &:hover {
+        color: #c8a03c;
+      }
     }
 
     /* ── Dropdown ── */
@@ -202,17 +213,24 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
       min-width: max(100%, 560px);
       max-height: 440px;
       overflow-y: auto;
-      background: rgba(16,8,2,.99);
-      border: 1px solid rgba(200,160,60,.25);
+      background: rgba(16, 8, 2, 0.99);
+      border: 1px solid rgba(200, 160, 60, 0.25);
       border-radius: 3px;
       list-style: none;
       margin: 0;
       padding: 3px 0;
       z-index: 1000;
-      box-shadow: 0 10px 28px rgba(0,0,0,.7), 0 2px 8px rgba(0,0,0,.4);
+      box-shadow:
+        0 10px 28px rgba(0, 0, 0, 0.7),
+        0 2px 8px rgba(0, 0, 0, 0.4);
 
-      &::-webkit-scrollbar { width: 4px; }
-      &::-webkit-scrollbar-thumb { background: rgba(200,160,60,.2); border-radius: 2px; }
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgba(200, 160, 60, 0.2);
+        border-radius: 2px;
+      }
     }
 
     /* ── Result item ── */
@@ -223,23 +241,29 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
       padding: 7px 13px;
       cursor: pointer;
       gap: 10px;
-      border-bottom: 1px solid rgba(200,160,60,.04);
-      transition: background .08s;
+      border-bottom: 1px solid rgba(200, 160, 60, 0.04);
+      transition: background 0.08s;
 
-      &:last-child { border-bottom: none; }
+      &:last-child {
+        border-bottom: none;
+      }
     }
 
-    .result--focused { background: rgba(200,160,60,.08); }
+    .result--focused {
+      background: rgba(200, 160, 60, 0.08);
+    }
 
     /* Heading results get a very subtle indent */
-    .result--heading { padding-left: 11px; }
+    .result--heading {
+      padding-left: 11px;
+    }
 
     .result__hash {
       font-size: 11px;
       color: #b84949;
       flex-shrink: 0;
       margin-right: 2px;
-      opacity: .7;
+      opacity: 0.7;
     }
 
     .result__label {
@@ -285,7 +309,7 @@ export class WikiSearchComponent {
     this.headingIndexLoaded = true;
 
     fetch('/dnd5esrd/heading-index.json')
-      .then(r => r.ok ? r.json() as Promise<RawHeadingEntry[]> : Promise.resolve([]))
+      .then(r => (r.ok ? (r.json() as Promise<RawHeadingEntry[]>) : Promise.resolve([])))
       .then(data => {
         const entries: HeadingEntry[] = [];
         for (const raw of data) {
@@ -301,7 +325,9 @@ export class WikiSearchComponent {
             book,
             chapter,
             headingSlug: raw.s,
-            _words: normalizeStr(raw.h).split(/[\s\-–—_]+/).filter(Boolean),
+            _words: normalizeStr(raw.h)
+              .split(/[\s\-–—_]+/)
+              .filter(Boolean),
           });
         }
         this.headingEntries.set(entries);
@@ -315,9 +341,7 @@ export class WikiSearchComponent {
     const nq = normalizeStr(this.query().trim());
     if (nq.length < 2) return [];
 
-    const chapterResults = CHAPTER_INDEX
-      .filter(e => matchesChapter(e, nq))
-      .slice(0, MAX_CHAPTER_RESULTS);
+    const chapterResults = CHAPTER_INDEX.filter(e => matchesChapter(e, nq)).slice(0, MAX_CHAPTER_RESULTS);
 
     const headingResults = this.headingEntries()
       .filter(e => matchesHeading(e, nq))
@@ -358,7 +382,7 @@ export class WikiSearchComponent {
       }
       case 'Escape':
         this.open.set(false);
-        (this.inputRef()?.nativeElement)?.blur();
+        this.inputRef()?.nativeElement?.blur();
         break;
     }
   }
@@ -370,7 +394,18 @@ export class WikiSearchComponent {
 
   select(entry: SearchEntry): void {
     const selection: WikiSelection = { book: entry.book, chapter: entry.chapter };
-    if (entry.kind === 'heading') selection.headingSlug = entry.headingSlug;
+    if (entry.kind === 'heading') {
+      selection.headingSlug = entry.headingSlug;
+      // Scroll to the heading element with an offset of -100px
+      setTimeout(() => {
+        const headingElement = document.getElementById(entry.headingSlug);
+        if (headingElement) {
+          const yOffset = -160;
+          const y = headingElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 0);
+    }
     this.chapterSelect.emit(selection);
     this.query.set('');
     this.open.set(false);
