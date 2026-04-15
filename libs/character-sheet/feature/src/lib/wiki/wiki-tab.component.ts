@@ -1,15 +1,8 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  signal,
-  viewChild,
-} from '@angular/core';
-import { WikiSidebarComponent, WikiSelection } from './wiki-sidebar.component';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, signal, viewChild } from '@angular/core';
+import { WikiSidebarComponent } from './wiki-sidebar.component';
 import { WikiContentComponent } from './wiki-content.component';
 import { WikiSearchComponent } from './wiki-search.component';
-import { WikiBook, WikiChapter, WIKI_CATALOG } from './wiki-catalog.const';
+import { WikiBook, WikiChapter, WikiSelection, WIKI_CATALOG } from './wiki-catalog.const';
 import { LocalStorageService, WIKI_LAST_POSITION_KEY } from '@dn-d-servant/util';
 import { slugify } from './wiki-utils';
 
@@ -47,7 +40,7 @@ import { slugify } from './wiki-utils';
       flex-direction: column;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, rgba(10,6,2,.99) 0%, rgba(16,10,4,.98) 100%);
+      background: linear-gradient(135deg, rgba(10, 6, 2, 0.99) 0%, rgba(16, 10, 4, 0.98) 100%);
       overflow: hidden;
     }
 
@@ -56,8 +49,8 @@ import { slugify } from './wiki-utils';
       display: flex;
       align-items: center;
       padding: 8px 16px;
-      border-bottom: 1px solid rgba(200,160,60,.12);
-      background: rgba(12,7,2,.98);
+      border-bottom: 1px solid rgba(200, 160, 60, 0.12);
+      background: rgba(12, 7, 2, 0.98);
       flex-shrink: 0;
       gap: 12px;
     }
@@ -92,7 +85,7 @@ export class WikiTabComponent implements AfterViewInit {
       chapterId: selection.chapter.id,
     });
 
-    this.contentRef().loadFromChapter(selection.book, selection.chapter);
+    this.contentRef().loadFromChapter(selection.book, selection.chapter, selection.headingSlug);
   }
 
   /**

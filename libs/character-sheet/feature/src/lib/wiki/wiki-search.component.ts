@@ -9,45 +9,68 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { WIKI_CATALOG, WikiBook, WikiChapter } from './wiki-catalog.const';
-import { WikiSelection } from './wiki-sidebar.component';
+import { WIKI_CATALOG, WikiBook, WikiChapter, WikiSelection } from './wiki-catalog.const';
 import { normalizeStr } from './wiki-utils';
 
-interface SearchEntry {
+// ── Chapter-level search index ───────────────────────────────────────────────
+
+interface ChapterEntry {
+  kind: 'chapter';
   label: string;
   bookLabel: string;
   book: WikiBook;
   chapter: WikiChapter;
-  /** Pre-computed normalized label words for fast matching */
-  _labelWords: string[];
-  /** Pre-computed normalized filename words for fast matching */
-  _fileWords: string[];
+  _words: string[];
 }
 
-/** Build the search index once at module load time. */
-const SEARCH_INDEX: SearchEntry[] = WIKI_CATALOG.flatMap(book =>
+/** Build the chapter index once at module load time. */
+const CHAPTER_INDEX: ChapterEntry[] = WIKI_CATALOG.flatMap(book =>
   book.chapters.map(chapter => {
     const filename = chapter.file.split('/').pop()?.replace(/\.md$/i, '') ?? chapter.id;
-    const normalizedLabel = normalizeStr(chapter.label);
-    const normalizedFile = normalizeStr(filename);
-    return {
-      label: chapter.label,
-      bookLabel: book.label,
-      book,
-      chapter,
-      _labelWords: normalizedLabel.split(/[\s\-–—_]+/).filter(Boolean),
-      _fileWords: normalizedFile.split(/[\s\-_]+/).filter(Boolean),
-    };
+    const words = [
+      ...normalizeStr(chapter.label).split(/[\s\-–—_]+/).filter(Boolean),
+      ...normalizeStr(filename).split(/[\s\-_]+/).filter(Boolean),
+    ];
+    return { kind: 'chapter', label: chapter.label, bookLabel: book.label, book, chapter, _words: words };
   }),
 );
 
-const MAX_RESULTS = 16;
+// ── Heading-level search index (loaded lazily) ───────────────────────────────
 
-function matchesQuery(entry: SearchEntry, nq: string): boolean {
-  return (
-    entry._labelWords.some(w => w.startsWith(nq)) ||
-    entry._fileWords.some(w => w.startsWith(nq))
-  );
+/** Shape of one entry in the static heading-index.json file. */
+interface RawHeadingEntry {
+  b: string;   // bookId
+  f: string;   // chapter file path
+  h: string;   // heading text
+  s: string;   // heading slug
+}
+
+interface HeadingEntry {
+  kind: 'heading';
+  label: string;       // heading text
+  bookLabel: string;
+  chapterLabel: string;
+  book: WikiBook;
+  chapter: WikiChapter;
+  headingSlug: string;
+  _words: string[];
+}
+
+// ── Unified result type ───────────────────────────────────────────────────────
+
+type SearchEntry = ChapterEntry | HeadingEntry;
+
+const MAX_RESULTS = 20;
+const MAX_CHAPTER_RESULTS = 10;
+const MAX_HEADING_RESULTS = 10;
+
+function matchesChapter(e: ChapterEntry, nq: string): boolean {
+  return e._words.some(w => w.startsWith(nq));
+}
+
+function matchesHeading(e: HeadingEntry, nq: string): boolean {
+  // Use includes so "rychlost" matches "Cestovní rychlost"
+  return normalizeStr(e.label).includes(nq) || e._words.some(w => w.startsWith(nq));
 }
 
 @Component({
@@ -72,7 +95,7 @@ function matchesQuery(entry: SearchEntry, nq: string): boolean {
           [ngModel]="query()"
           (ngModelChange)="onQueryChange($event)"
           (keydown)="onKeyDown($event)"
-          (focus)="open.set(true)"
+          (focus)="onFocus()"
           (blur)="onBlur()"
         />
 
@@ -87,16 +110,26 @@ function matchesQuery(entry: SearchEntry, nq: string): boolean {
 
       @if (open() && results().length > 0) {
         <ul class="dropdown" role="listbox" #dropdownRef>
-          @for (entry of results(); track entry.chapter.id; let i = $index) {
+          @for (entry of results(); track trackEntry(entry); let i = $index) {
             <li
               class="result"
               [class.result--focused]="focusedIndex() === i"
+              [class.result--heading]="entry.kind === 'heading'"
               role="option"
               (mousedown)="select(entry)"
               (mouseenter)="focusedIndex.set(i)"
             >
+              @if (entry.kind === 'heading') {
+                <span class="result__hash">#</span>
+              }
               <span class="result__label">{{ entry.label }}</span>
-              <span class="result__book">{{ entry.bookLabel }}</span>
+              <span class="result__book">
+                @if (entry.kind === 'heading') {
+                  {{ entry.chapterLabel }} &middot; {{ entry.bookLabel }}
+                } @else {
+                  {{ entry.bookLabel }}
+                }
+              </span>
             </li>
           }
         </ul>
@@ -161,7 +194,7 @@ function matchesQuery(entry: SearchEntry, nq: string): boolean {
       top: calc(100% + 4px);
       left: 0;
       min-width: max(100%, 560px);
-      max-height: 420px;
+      max-height: 440px;
       overflow-y: auto;
       background: rgba(16,8,2,.99);
       border: 1px solid rgba(200,160,60,.25);
@@ -183,7 +216,7 @@ function matchesQuery(entry: SearchEntry, nq: string): boolean {
       justify-content: space-between;
       padding: 7px 13px;
       cursor: pointer;
-      gap: 12px;
+      gap: 10px;
       border-bottom: 1px solid rgba(200,160,60,.04);
       transition: background .08s;
 
@@ -192,6 +225,17 @@ function matchesQuery(entry: SearchEntry, nq: string): boolean {
 
     .result--focused { background: rgba(200,160,60,.08); }
 
+    /* Heading results get a very subtle indent */
+    .result--heading { padding-left: 11px; }
+
+    .result__hash {
+      font-size: 11px;
+      color: #b84949;
+      flex-shrink: 0;
+      margin-right: 2px;
+      opacity: .7;
+    }
+
     .result__label {
       font-family: sans-serif;
       font-size: 13px;
@@ -199,6 +243,13 @@ function matchesQuery(entry: SearchEntry, nq: string): boolean {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .result--heading .result__label {
+      font-size: 12.5px;
+      color: #b8a898;
     }
 
     .result__book {
@@ -219,11 +270,63 @@ export class WikiSearchComponent {
 
   readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('inputRef');
 
+  // ── Heading index (lazy-loaded) ─────────────────────────────────────────────
+  private readonly headingEntries = signal<HeadingEntry[]>([]);
+  private headingIndexLoaded = false;
+
+  private loadHeadingIndex(): void {
+    if (this.headingIndexLoaded) return;
+    this.headingIndexLoaded = true;
+
+    fetch('/dnd5esrd/heading-index.json')
+      .then(r => r.ok ? r.json() as Promise<RawHeadingEntry[]> : Promise.resolve([]))
+      .then(data => {
+        const entries: HeadingEntry[] = [];
+        for (const raw of data) {
+          const book = WIKI_CATALOG.find(b => b.id === raw.b);
+          if (!book) continue;
+          const chapter = book.chapters.find(c => c.file === raw.f);
+          if (!chapter) continue;
+          entries.push({
+            kind: 'heading',
+            label: raw.h,
+            bookLabel: book.label,
+            chapterLabel: chapter.label,
+            book,
+            chapter,
+            headingSlug: raw.s,
+            _words: normalizeStr(raw.h).split(/[\s\-–—_]+/).filter(Boolean),
+          });
+        }
+        this.headingEntries.set(entries);
+      })
+      .catch(() => {});
+  }
+
+  // ── Search results ─────────────────────────────────────────────────────────
+
   readonly results = computed<SearchEntry[]>(() => {
     const nq = normalizeStr(this.query().trim());
-    if (nq.length < 1) return [];
-    return SEARCH_INDEX.filter(e => matchesQuery(e, nq)).slice(0, MAX_RESULTS);
+    if (nq.length < 2) return [];
+
+    const chapterResults = CHAPTER_INDEX
+      .filter(e => matchesChapter(e, nq))
+      .slice(0, MAX_CHAPTER_RESULTS);
+
+    const headingResults = this.headingEntries()
+      .filter(e => matchesHeading(e, nq))
+      .slice(0, MAX_HEADING_RESULTS);
+
+    return [...chapterResults, ...headingResults].slice(0, MAX_RESULTS);
   });
+
+  // ── Event handlers ─────────────────────────────────────────────────────────
+
+  onFocus(): void {
+    this.open.set(true);
+    // Lazy-load heading index on first focus
+    this.loadHeadingIndex();
+  }
 
   onQueryChange(value: string): void {
     this.query.set(value);
@@ -260,7 +363,9 @@ export class WikiSearchComponent {
   }
 
   select(entry: SearchEntry): void {
-    this.chapterSelect.emit({ book: entry.book, chapter: entry.chapter });
+    const selection: WikiSelection = { book: entry.book, chapter: entry.chapter };
+    if (entry.kind === 'heading') selection.headingSlug = entry.headingSlug;
+    this.chapterSelect.emit(selection);
     this.query.set('');
     this.open.set(false);
   }
@@ -271,12 +376,14 @@ export class WikiSearchComponent {
     this.inputRef()?.nativeElement.focus();
   }
 
+  trackEntry(entry: SearchEntry): string {
+    return entry.kind === 'heading'
+      ? `h:${entry.book.id}:${entry.chapter.id}:${entry.headingSlug}`
+      : `c:${entry.book.id}:${entry.chapter.id}`;
+  }
+
   @HostListener('document:keydown.escape')
   onEscapeGlobal(): void {
     if (this.open()) this.open.set(false);
   }
 }
-
-
-
-

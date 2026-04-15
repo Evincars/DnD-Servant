@@ -8,14 +8,10 @@ import {
   model,
   output,
   signal,
+  untracked,
 } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import { WikiBook, WikiChapter, WIKI_CATALOG } from './wiki-catalog.const';
-
-export interface WikiSelection {
-  book: WikiBook;
-  chapter: WikiChapter;
-}
+import { WikiBook, WikiChapter, WikiSelection, WIKI_CATALOG } from './wiki-catalog.const';
 
 @Component({
   selector: 'wiki-sidebar',
@@ -24,8 +20,11 @@ export interface WikiSelection {
   template: `
     <div class="sidebar" [class.sidebar--collapsed]="collapsed()">
       <!-- Toggle button -->
-      <button class="sidebar__toggle" (click)="collapsed.set(!collapsed())"
-              [title]="collapsed() ? 'Rozbalit nabídku' : 'Sbalit nabídku'">
+      <button
+        class="sidebar__toggle"
+        (click)="collapsed.set(!collapsed())"
+        [title]="collapsed() ? 'Rozbalit nabídku' : 'Sbalit nabídku'"
+      >
         <mat-icon>{{ collapsed() ? 'menu_open' : 'menu' }}</mat-icon>
       </button>
 
@@ -46,9 +45,7 @@ export interface WikiSelection {
               @if (expandedBook() === book.id) {
                 <ul class="book__chapters">
                   @for (chapter of book.chapters; track chapter.id) {
-                    <li class="chapter"
-                        [class.chapter--active]="isActive(book, chapter)"
-                        (click)="selectChapter(book, chapter)">
+                    <li class="chapter" [class.chapter--active]="isActive(book, chapter)" (click)="selectChapter(book, chapter)">
                       {{ chapter.label }}
                     </li>
                   }
@@ -72,9 +69,11 @@ export interface WikiSelection {
       height: 100%;
       display: flex;
       flex-direction: column;
-      background: linear-gradient(180deg, rgba(18,10,4,.98) 0%, rgba(12,7,2,.99) 100%);
-      border-right: 1px solid rgba(200,160,60,.2);
-      transition: width .2s ease, min-width .2s ease;
+      background: linear-gradient(180deg, rgba(18, 10, 4, 0.98) 0%, rgba(12, 7, 2, 0.99) 100%);
+      border-right: 1px solid rgba(200, 160, 60, 0.2);
+      transition:
+        width 0.2s ease,
+        min-width 0.2s ease;
       overflow: hidden;
       position: relative;
     }
@@ -94,17 +93,23 @@ export interface WikiSelection {
       flex-shrink: 0;
       background: transparent;
       border: none;
-      border-bottom: 1px solid rgba(200,160,60,.15);
+      border-bottom: 1px solid rgba(200, 160, 60, 0.15);
       color: #8a7a68;
       cursor: pointer;
-      transition: color .15s, background .15s;
+      transition:
+        color 0.15s,
+        background 0.15s;
 
       &:hover {
         color: #c8a03c;
-        background: rgba(200,160,60,.06);
+        background: rgba(200, 160, 60, 0.06);
       }
 
-      mat-icon { font-size: 20px; width: 20px; height: 20px; }
+      mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
     }
 
     /* ── Scrollable content ── */
@@ -114,20 +119,27 @@ export interface WikiSelection {
       overflow-x: hidden;
       padding: 0 0 40px;
 
-      &::-webkit-scrollbar { width: 4px; }
-      &::-webkit-scrollbar-track { background: transparent; }
-      &::-webkit-scrollbar-thumb { background: rgba(200,160,60,.25); border-radius: 2px; }
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgba(200, 160, 60, 0.25);
+        border-radius: 2px;
+      }
     }
 
     .sidebar__heading {
       font-family: 'Mikadan', sans-serif;
       font-size: 13px;
-      letter-spacing: .18em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(200,160,60,.5);
+      color: rgba(200, 160, 60, 0.5);
       padding: 16px 16px 8px;
       margin: 0;
-      border-bottom: 1px solid rgba(200,160,60,.12);
+      border-bottom: 1px solid rgba(200, 160, 60, 0.12);
     }
 
     /* ── Book accordion ── */
@@ -138,22 +150,24 @@ export interface WikiSelection {
       padding: 10px 14px 10px 12px;
       background: transparent;
       border: none;
-      border-bottom: 1px solid rgba(200,160,60,.07);
+      border-bottom: 1px solid rgba(200, 160, 60, 0.07);
       color: #7a6a58;
       cursor: pointer;
       gap: 8px;
       text-align: left;
-      transition: color .15s, background .15s;
+      transition:
+        color 0.15s,
+        background 0.15s;
 
       &:hover {
         color: #c8a03c;
-        background: rgba(200,160,60,.05);
+        background: rgba(200, 160, 60, 0.05);
       }
     }
 
     .book--active .book__header {
       color: #e0a060;
-      background: rgba(200,100,30,.08);
+      background: rgba(200, 100, 30, 0.08);
     }
 
     .book__icon {
@@ -167,7 +181,7 @@ export interface WikiSelection {
       flex: 1;
       font-family: 'Mikadan', sans-serif;
       font-size: 11.5px;
-      letter-spacing: .08em;
+      letter-spacing: 0.08em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -178,7 +192,7 @@ export interface WikiSelection {
       width: 16px;
       height: 16px;
       flex-shrink: 0;
-      opacity: .6;
+      opacity: 0.6;
     }
 
     /* ── Chapters list ── */
@@ -186,32 +200,34 @@ export interface WikiSelection {
       list-style: none;
       margin: 0;
       padding: 0;
-      background: rgba(0,0,0,.25);
+      background: rgba(0, 0, 0, 0.25);
     }
 
     .chapter {
       padding: 7px 16px 7px 36px;
       font-family: 'Mikadan', sans-serif;
       font-size: 11px;
-      letter-spacing: .05em;
+      letter-spacing: 0.05em;
       color: #5e5448;
-      border-bottom: 1px solid rgba(200,160,60,.04);
+      border-bottom: 1px solid rgba(200, 160, 60, 0.04);
       cursor: pointer;
-      transition: color .12s, background .12s;
+      transition:
+        color 0.12s,
+        background 0.12s;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
 
       &:hover {
         color: #b89060;
-        background: rgba(200,160,60,.06);
+        background: rgba(200, 160, 60, 0.06);
       }
     }
 
     .chapter--active {
       color: #f0c080 !important;
-      background: rgba(180,80,20,.15) !important;
-      border-left: 2px solid rgba(210,120,40,.6);
+      background: rgba(180, 80, 20, 0.15) !important;
+      border-left: 2px solid rgba(210, 120, 40, 0.6);
       padding-left: 34px;
     }
   `,
@@ -230,24 +246,28 @@ export class WikiSidebarComponent {
   constructor() {
     // When activeBookId changes (e.g. from a search result), expand the correct
     // book in the sidebar and scroll the active chapter item into view.
-    effect(() => {
-      const bookId = this.activeBookId();
-      if (!bookId) return;
+    effect(
+      () => {
+        const bookId = this.activeBookId();
+        if (!bookId) return;
 
-      this.expandedBook.set(bookId);
+        this.expandedBook.set(bookId);
 
-      // If sidebar is collapsed, open it so the location is visible
-      if (this.collapsed()) {
-        this.collapsed.set(false);
-      }
+        // Use untracked so `collapsed` is NOT a reactive dependency of this effect.
+        // Without this, every user click to collapse re-triggers the effect which
+        // immediately un-collapses the sidebar again.
+        if (untracked(() => this.collapsed())) {
+          this.collapsed.set(false);
+        }
 
-      // After Angular renders the chapter list, scroll to the active item
-      setTimeout(() => {
-        const activeEl = this.elRef.nativeElement
-          .querySelector('.chapter--active') as HTMLElement | null;
-        activeEl?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-      }, 80);
-    }, { allowSignalWrites: true });
+        // After Angular renders the chapter list, scroll to the active item
+        setTimeout(() => {
+          const activeEl = this.elRef.nativeElement.querySelector('.chapter--active') as HTMLElement | null;
+          activeEl?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }, 80);
+      },
+      { allowSignalWrites: true },
+    );
   }
 
   toggleBook(bookId: string): void {
@@ -262,4 +282,3 @@ export class WikiSidebarComponent {
     return this.activeBookId() === book.id && this.activeChapterId() === chapter.id;
   }
 }
-

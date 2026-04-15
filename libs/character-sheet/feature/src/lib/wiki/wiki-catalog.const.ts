@@ -14,6 +14,14 @@ export interface WikiBook {
   chapters: WikiChapter[];
 }
 
+/** Represents a wiki navigation event: a selected chapter, optionally scrolled to a heading anchor. */
+export interface WikiSelection {
+  book: WikiBook;
+  chapter: WikiChapter;
+  /** When set, the content view scrolls to this heading slug after the chapter loads. */
+  headingSlug?: string;
+}
+
 function ch(file: string, label: string): WikiChapter {
   return { id: file.replace(/[\s/]/g, '-'), file, label };
 }
