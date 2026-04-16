@@ -180,9 +180,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:511px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:516px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:516px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r1Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r1Utok"
       class="field spell-row"
@@ -249,9 +254,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:546px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:551px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:551px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r2Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r2Utok"
       class="field spell-row"
@@ -318,9 +328,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:582px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:587px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:587px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r3Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r3Utok"
       class="field spell-row"
@@ -387,9 +402,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:618px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:623px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:623px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r4Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r4Utok"
       class="field spell-row"
@@ -456,9 +476,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:653px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:658px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:658px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r5Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r5Utok"
       class="field spell-row"
@@ -525,9 +550,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:689px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:694px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:694px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r6Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r6Utok"
       class="field spell-row"
@@ -594,9 +624,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:725px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:730px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:730px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r7Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r7Utok"
       class="field spell-row"
@@ -663,9 +698,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:760px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:765px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:765px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r8Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r8Utok"
       class="field spell-row"
@@ -732,9 +772,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:796px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:801px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:801px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r9Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r9Utok"
       class="field spell-row"
@@ -801,9 +846,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:831px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:836px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:836px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r10Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r10Utok"
       class="field spell-row"
@@ -869,9 +919,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:867px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:872px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:872px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r11Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r11Utok"
       class="field spell-row"
@@ -937,9 +992,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:903px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:908px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:908px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r12Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r12Utok"
       class="field spell-row"
@@ -1005,9 +1065,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:939px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:944px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:944px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r13Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r13Utok"
       class="field spell-row"
@@ -1073,9 +1138,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:975px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:980px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:980px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r14Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r14Utok"
       class="field spell-row"
@@ -1141,9 +1211,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1011px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1016px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1016px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r15Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r15Utok"
       class="field spell-row"
@@ -1209,9 +1284,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1047px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1052px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1052px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r16Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r16Utok"
       class="field spell-row"
@@ -1277,9 +1357,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1083px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1088px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1088px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r17Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r17Utok"
       class="field spell-row"
@@ -1345,9 +1430,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1119px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1124px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1124px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r18Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r18Utok"
       class="field spell-row"
@@ -1413,9 +1503,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1155px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1160px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1160px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r19Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r19Utok"
       class="field spell-row"
@@ -1481,9 +1576,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1189px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1194px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1194px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r20Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r20Utok"
       class="field spell-row"
@@ -1549,9 +1649,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1225px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1230px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1230px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r21Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r21Utok"
       class="field spell-row"
@@ -1617,9 +1722,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1261px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1266px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1266px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r22Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r22Utok"
       class="field spell-row"
@@ -1685,9 +1795,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1297px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1302px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1302px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r23Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r23Utok"
       class="field spell-row"
@@ -1753,9 +1868,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1330px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1335px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1335px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r24Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r24Utok"
       class="field spell-row"
@@ -1821,9 +1941,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1366px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1371px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1371px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r25Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r25Utok"
       class="field spell-row"
@@ -1889,9 +2014,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1402px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1407px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1407px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r26Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r26Utok"
       class="field spell-row"
@@ -1957,9 +2087,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1438px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1443px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1443px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r27Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r27Utok"
       class="field spell-row"
@@ -2026,9 +2161,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1474px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1479px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1479px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r28Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r28Utok"
       class="field spell-row"
@@ -2095,9 +2235,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1507px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1512px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1512px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r29Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r29Utok"
       class="field spell-row"
@@ -2164,9 +2309,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1543px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1548px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1548px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r30Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r30Utok"
       class="field spell-row"
@@ -2233,9 +2383,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1579px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1584px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1584px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r31Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r31Utok"
       class="field spell-row"
@@ -2302,9 +2457,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1615px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1620px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1620px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r32Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r32Utok"
       class="field spell-row"
@@ -2371,9 +2531,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1651px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1656px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1656px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r33Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r33Utok"
       class="field spell-row"
@@ -2440,9 +2605,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1687px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1692px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1692px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r34Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r34Utok"
       class="field spell-row"
@@ -2508,9 +2678,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       style="top:1728px; left:152px; width:176px;"
       placeholder="*"
     />
-    <button class="field spell-detail-btn" style="top:1733px; left:329px;"
+    <button
+      class="field spell-detail-btn"
+      style="top:1733px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r35Nazev.value)"
-      [matTooltip]="'Zobrazit detail kouzla'"><mat-icon class="small-info-icon">auto_stories</mat-icon></button>
+      [matTooltip]="'Zobrazit detail kouzla'"
+    >
+      <mat-icon class="small-info-icon">auto_stories</mat-icon>
+    </button>
     <input
       [formControl]="controls.spellsForm.controls.r35Utok"
       class="field spell-row"
@@ -2604,6 +2779,7 @@ export class CharacterSheetThirdPageComponent {
     this.dialog.open(SpellDetailDialogComponent, {
       data: { spellName: name } satisfies SpellDetailDialogData,
       panelClass: 'spell-detail-panel',
+      minWidth: '750px',
     });
   }
 
