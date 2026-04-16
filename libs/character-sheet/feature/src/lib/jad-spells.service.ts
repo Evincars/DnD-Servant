@@ -55,8 +55,17 @@ export class JadSpellsService {
   );
 
   findSpellByName(name: string): JadSpell | undefined {
-    const lower = name.toLowerCase();
-    return this.allSpells().find(s => s.name.toLowerCase() === lower);
+    const norm = JadSpellsService.normalizeStr(name);
+    return this.allSpells().find(s => JadSpellsService.normalizeStr(s.name) === norm);
+  }
+
+  static normalizeStr(s: string): string {
+    return s
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '')
+      .toLowerCase()
+      .replace(/\s+/g, ' ')
+      .trim();
   }
 
   loadSpellContent(slug: string) {

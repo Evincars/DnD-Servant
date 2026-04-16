@@ -375,22 +375,27 @@ input[type='checkbox'][disabled] {
 
 .spell-detail-btn {
   width: 16px;
-  padding: 0;
+  padding: 0 !important;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(200, 160, 60, 0.12);
   border: 1px solid rgba(200, 160, 60, 0.35) !important;
+  border-left: none !important;
   border-radius: 0 3px 3px 0 !important;
   color: rgba(200, 160, 60, 0.65);
   cursor: pointer;
   z-index: 2;
 
   mat-icon {
-    font-size: 11px;
-    width: 11px;
-    height: 11px;
-    line-height: 1;
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+    line-height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
   }
 
   &:hover {
