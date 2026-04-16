@@ -1,12 +1,14 @@
 import { computed, inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { catchError, of } from 'rxjs';
+import { catchError, map, of } from 'rxjs';
+import { marked } from 'marked';
 import { WikiService } from './wiki/wiki.service';
 
 export interface JadSpell {
   name: string;
   slug: string;
+  file: string;
 }
 
 interface HeadingEntry {
@@ -51,7 +53,7 @@ export class JadSpellsService {
           !EXCLUDED_SLUGS.has(e.s) &&
           !EXCLUDED_SLUG_PATTERN.test(e.s),
       )
-      .map(e => ({ name: e.h, slug: e.s })),
+      .map(e => ({ name: e.h, slug: e.s, file: e.f })),
   );
 
   findSpellByName(name: string): JadSpell | undefined {
@@ -68,13 +70,59 @@ export class JadSpellsService {
       .trim();
   }
 
-  loadSpellContent(slug: string) {
-    return this.wiki.loadChapter('snippets', `kouzla/${slug}-jad.md`).pipe(
-      catchError(() => this.wiki.loadChapter('snippets', `kouzla/${slug}.md`)),
-      catchError(() =>
-        of(`<p>Obsah kouzla nenalezen pro: <strong>${slug}</strong></p>`),
-      ),
+  loadSpellContent(spell: JadSpell) {
+    return this.wiki.loadChapter('snippets', `kouzla/${spell.slug}-jad.md`).pipe(
+      catchError(() => this.wiki.loadChapter('snippets', `kouzla/${spell.slug}.md`)),
+      catchError(() => this.extractSpellFromArticle(spell)),
     );
+  }
+
+  /** Extract a spell section from the big markdown article by heading name. */
+  private extractSpellFromArticle(spell: JadSpell) {
+    return this.http
+      .get(`/dnd5esrd/jeskyne-a-draci/${spell.file}`, { responseType: 'text' })
+      .pipe(
+        map(md => {
+          const section = this.extractSection(md, spell.name);
+          if (!section) {
+            return `<p>Obsah kouzla nenalezen pro: <strong>${spell.slug}</strong></p>`;
+          }
+          return marked.parse(section, { async: false }) as string;
+        }),
+        catchError(() =>
+          of(`<p>Obsah kouzla nenalezen pro: <strong>${spell.slug}</strong></p>`),
+        ),
+      );
+  }
+
+  /**
+   * Extract markdown between a heading matching `name` and the next heading
+   * of the same or higher level.
+   */
+  private extractSection(md: string, name: string): string | null {
+    const lines = md.split('\n');
+    let startIdx = -1;
+    let headingLevel = 0;
+
+    for (let i = 0; i < lines.length; i++) {
+      const hMatch = lines[i].match(/^(#{1,6})\s+(.+)$/);
+      if (!hMatch) continue;
+
+      if (startIdx === -1) {
+        if (JadSpellsService.normalizeStr(hMatch[2]) === JadSpellsService.normalizeStr(name)) {
+          startIdx = i;
+          headingLevel = hMatch[1].length;
+        }
+      } else {
+        // Next heading of same or higher level → end of section
+        if (hMatch[1].length <= headingLevel) {
+          return lines.slice(startIdx, i).join('\n').trim();
+        }
+      }
+    }
+
+    // Section goes until end of file
+    return startIdx !== -1 ? lines.slice(startIdx).join('\n').trim() : null;
   }
 }
 

@@ -23,7 +23,7 @@ export interface SpellDetailDialogData {
       display: flex;
       flex-direction: column;
       max-height: 80vh;
-      min-width: 580px;
+      min-width: 750px;
       max-width: 820px;
       background: #0d0b1a;
       color: #d4c9a0;
@@ -210,7 +210,7 @@ export class SpellDetailDialogComponent {
         if (!spell) {
           return of(`<p>Kouzlo "<strong>${this.data.spellName}</strong>" nebylo nalezeno v databázi JaD.</p>`);
         }
-        return this.spellsService.loadSpellContent(spell.slug);
+        return this.spellsService.loadSpellContent(spell);
       }),
     ),
   );
