@@ -23,7 +23,9 @@ import { SheetThemeService } from './sheet-theme.service';
 @Component({
   selector: 'second-page',
   template: `
-    <img [src]="sheetTheme.darkMode() ? 'character-sheet-2-copy-dark.webp' : 'character-sheet-2-copy.webp'" alt="Character Sheet" height="1817" width="1293" />
+    <img class="cs-bg-img" [src]="sheetTheme.darkMode() ? 'character-sheet-2-copy-dark.webp' : 'character-sheet-2-copy.webp'" alt="Character Sheet" height="1817" width="1293" />
+
+    <h3 class="cs-section-title">Vzhled a povaha</h3>
 
     <input
       [formControl]="controls.headerInfo.controls.jmenoPostavy"
@@ -134,12 +136,14 @@ import { SheetThemeService } from './sheet-theme.service';
       </div>
     }
 
+    <h4 class="cs-section-title cs-sub-title">Vztahy a příběh</h4>
     <rich-textarea
       [formControl]="controls.vztahy"
       class="field textarea"
       style="top:315px; left:464px; width:754px; height:912px;"
     ></rich-textarea>
 
+    <h4 class="cs-section-title cs-sub-title">Další poznámky</h4>
     <rich-textarea
       [formControl]="controls.dalsiPoznamky1"
       class="field textarea"

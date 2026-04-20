@@ -17,6 +17,7 @@ import { DestroyRef } from '@angular/core';
   imports: [ReactiveFormsModule, MatIcon, MatTooltip],
   styleUrl: '../character-sheet.component.scss',
   template: `
+    <h3 class="cs-section-title">Základní informace</h3>
     @if (_tick()) {
       <ng-container [formGroup]="form()">
         <input [formControl]="c.rasa" class="field" style="top:92.21px; left:58.95px; width:183.4px" placeholder="Rasa" />

@@ -13,6 +13,7 @@ import { merge } from 'rxjs';
   imports: [ReactiveFormsModule, MatTooltip],
   styleUrl: '../character-sheet.component.scss',
   template: `
+    <h3 class="cs-section-title">Schopnosti</h3>
     @if (_tick()) {
       <ng-container [formGroup]="main6Form()">
         <input

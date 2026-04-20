@@ -16,6 +16,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   imports: [ReactiveFormsModule, NgClass, MatIcon, MatTooltip, RichTextareaComponent],
   styleUrl: '../character-sheet.component.scss',
   template: `
+    <h3 class="cs-section-title">Dovednosti</h3>
     <!-- consume formValues signal so OnPush re-renders when form is patched -->
     @if (_tick()) {
       <ng-container [formGroup]="form()">
@@ -27,7 +28,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:418px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:403.38px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Atletika (SIL)" style="top:403.38px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.atletika"
             id="atletika"
@@ -43,7 +44,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:476px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:461.52px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Akrobacie (OBR)" style="top:461.52px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.akrobacie"
             id="akrobacie"
@@ -59,7 +60,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:504px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:490.59px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Čachry (OBR)" style="top:490.59px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.cachry"
             id="cachry"
@@ -75,7 +76,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:532px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:519.66px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Nenápadnost (OBR)" style="top:519.66px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.nenapadnost"
             id="nenapadnost"
@@ -91,7 +92,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:595px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:581.44px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Historie (INT)" style="top:581.44px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.historie"
             id="historie"
@@ -107,7 +108,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:624px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:610.51px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Mystika (INT)" style="top:610.51px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.mystika"
             id="mystika"
@@ -123,7 +124,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:653px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:639.59px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Náboženství (INT)" style="top:639.59px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.nabozenstvi"
             id="nabozenstvi"
@@ -139,7 +140,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:681px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:666.84px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Pátrání (INT)" style="top:666.84px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.patrani"
             id="patrani"
@@ -155,7 +156,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:709px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:695.89px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Příroda (INT)" style="top:695.89px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.priroda"
             id="priroda"
@@ -171,7 +172,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:771px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:757.69px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Lékařství (MDR)" style="top:757.69px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.lekarstvi"
             id="lekarstvi"
@@ -187,7 +188,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:800px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:787.76px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Ovl. zvířat (MDR)" style="top:787.76px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.ovladaniZvirat"
             id="ovladaniZvirat"
@@ -203,7 +204,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:829px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:814.42px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Přežití (MDR)" style="top:814.42px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.preziti"
             id="preziti"
@@ -219,7 +220,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:857px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:844.49px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Vhled (MDR)" style="top:844.49px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.vhled"
             id="vhled"
@@ -235,7 +236,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:885px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:871.16px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Vnímání (MDR)" style="top:871.16px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.vnimani"
             id="vnimani"
@@ -251,7 +252,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:948px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:934.75px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Klamání (CHA)" style="top:934.75px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.klamani"
             id="klamani"
@@ -267,7 +268,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:977px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:963.01px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Přesvědčování (CHA)" style="top:963.01px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.presvedcovani"
             id="presvedcovani"
@@ -283,7 +284,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:1005px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:992.48px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Vystupování (CHA)" style="top:992.48px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.vystupovani"
             id="vystupovani"
@@ -299,7 +300,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           class="field ability-zdatnost-checkbox"
           style="top:1035px; left:186.09px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:1019.80px; left:348.46px; width:70.74px;">
+        <span class="roll-d20-wrap" data-label="Zastrašování (CHA)" style="top:1019.80px; left:348.46px; width:70.74px;">
           <input
             [formControl]="c.zastrasovani"
             id="zastrasovani"

@@ -53,7 +53,9 @@ import { ConditionsButtonComponent } from './conditions/conditions-button.compon
   selector: 'character-sheet',
   template: `
     <spinner-overlay [diameter]="70" [showSpinner]="characterSheetStore.loading()">
-      <img [src]="sheetTheme.darkMode() ? 'character-sheet-1-copy-dark.webp' : 'character-sheet-1-copy.webp'" alt="Character Sheet" height="1817" width="1293" />
+      <img class="cs-bg-img" [src]="sheetTheme.darkMode() ? 'character-sheet-1-copy-dark.webp' : 'character-sheet-1-copy.webp'" alt="Character Sheet" height="1817" width="1293" />
+
+      <h2 class="cs-section-title cs-main-title">Karta Postavy</h2>
 
       <form [formGroup]="form" #sheetForm>
         <conditions-button />
@@ -88,7 +90,7 @@ import { ConditionsButtonComponent } from './conditions/conditions-button.compon
 
         <third-page [form]="controls.thirdPageForm" />
 
-        <button (click)="onSaveClick()" type="submit" class="field button" style="top:4px; left:1090px; width:150px;">
+        <button (click)="onSaveClick()" type="submit" class="field button cs-save-btn" style="top:4px; left:1090px; width:150px;">
           Uložit [enter]
         </button>
       </form>
@@ -721,3 +723,5 @@ export class CharacterSheetComponent {
     }
   }
 }
+
+

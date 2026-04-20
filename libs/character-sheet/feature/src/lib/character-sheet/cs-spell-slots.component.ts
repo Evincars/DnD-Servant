@@ -12,6 +12,7 @@ import { merge } from 'rxjs';
   imports: [ReactiveFormsModule, MatTooltip],
   styleUrl: '../character-sheet.component.scss',
   template: `
+    <h3 class="cs-section-title">Pozice kouzel · Alchymistická truhla</h3>
     @if (_tick()) {
       <ng-container [formGroup]="spellSlotsForm()">
         <p
@@ -50,6 +51,7 @@ import { merge } from 'rxjs';
         />
 
         <!-- Spell slots level 1 -->
+        <span class="cs-slot-level-label">1.</span>
         <div
           class="spell-slot-cb"
           [class.disabled]="ss.level1Slot1.disabled"
@@ -79,6 +81,7 @@ import { merge } from 'rxjs';
           style="top:956px; left:444px;"
         ></div>
         <!-- Level 2 -->
+        <span class="cs-slot-level-label">2.</span>
         <div
           class="spell-slot-cb"
           [class.disabled]="ss.level2Slot1.disabled"
@@ -108,6 +111,7 @@ import { merge } from 'rxjs';
           style="top:956px; left:471px;"
         ></div>
         <!-- Level 3 -->
+        <span class="cs-slot-level-label">3.</span>
         <div
           class="spell-slot-cb"
           [class.disabled]="ss.level3Slot1.disabled"
@@ -137,6 +141,7 @@ import { merge } from 'rxjs';
           style="top:956px; left:498px;"
         ></div>
         <!-- Level 4 -->
+        <span class="cs-slot-level-label">4.</span>
         <div
           class="spell-slot-cb"
           [class.disabled]="ss.level4Slot1.disabled"
@@ -166,6 +171,7 @@ import { merge } from 'rxjs';
           style="top:956px; left:525px;"
         ></div>
         <!-- Level 5 -->
+        <span class="cs-slot-level-label">5.</span>
         <div
           class="spell-slot-cb"
           [class.disabled]="ss.level5Slot1.disabled"
@@ -195,6 +201,7 @@ import { merge } from 'rxjs';
           style="top:956px; left:552px;"
         ></div>
         <!-- Level 6 -->
+        <span class="cs-slot-level-label">6.</span>
         <div
           class="spell-slot-cb"
           [class.disabled]="ss.level6Slot1.disabled"
@@ -210,6 +217,7 @@ import { merge } from 'rxjs';
           style="top:915px; left:579px;"
         ></div>
         <!-- Level 7 -->
+        <span class="cs-slot-level-label">7.</span>
         <div
           class="spell-slot-cb"
           [class.disabled]="ss.level7Slot1.disabled"
@@ -225,6 +233,7 @@ import { merge } from 'rxjs';
           style="top:915px; left:605px;"
         ></div>
         <!-- Level 8 -->
+        <span class="cs-slot-level-label">8.</span>
         <div
           class="spell-slot-cb"
           [class.disabled]="ss.level8Slot1.disabled"
@@ -233,6 +242,7 @@ import { merge } from 'rxjs';
           style="top:895px; left:632px;"
         ></div>
         <!-- Level 9 -->
+        <span class="cs-slot-level-label">9.</span>
         <div
           class="spell-slot-cb"
           [class.disabled]="ss.level9Slot1.disabled"

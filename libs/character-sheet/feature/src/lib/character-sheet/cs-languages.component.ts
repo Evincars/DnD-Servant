@@ -16,6 +16,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   imports: [ReactiveFormsModule, MatIcon, MatTooltip, RichTextareaComponent],
   styleUrl: '../character-sheet.component.scss',
   template: `
+    <h3 class="cs-section-title">Jazyky a schopnosti</h3>
     @if (_tick()) {
       <ng-container [formGroup]="form()">
         <button

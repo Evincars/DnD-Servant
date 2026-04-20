@@ -679,3 +679,512 @@ input[type='checkbox'][disabled] {
   }
 }
 
+// ── Section titles & slot level labels (hidden by default) ─────────────────
+.cs-section-title,
+.cs-slot-level-label {
+  display: none;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ── RESPONSIVE LAYOUT  (<1360px) ─────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+@media (max-width: 1359px) {
+  // ── Hide background images ───────────────────────────────────────────────
+  .cs-bg-img {
+    display: none !important;
+  }
+
+  // ── Hide ALL help/info tooltip icon buttons ──────────────────────────────
+  .small-info-button-icon {
+    display: none !important;
+  }
+
+  // ── Show section titles ──────────────────────────────────────────────────
+  .cs-section-title {
+    display: block !important;
+    font-family: 'Mikadan', sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #3b1e0a;
+    border-bottom: 2px solid rgba(36, 12, 5, 0.35);
+    padding: 0 0 6px 0;
+    margin: 0 0 8px 0;
+  }
+
+  .cs-main-title {
+    font-size: 20px;
+    text-align: center;
+    color: #8b1a1a;
+    border-bottom: 3px solid rgba(139, 26, 26, 0.4);
+    padding: 8px 0 10px;
+    margin: 0 12px 4px;
+  }
+
+  .cs-sub-title {
+    font-size: 13px;
+    margin-top: 8px;
+  }
+
+  // ── Host: normal flow ─────────────────────────────────────────────────
+  :host {
+    position: static;
+    display: block;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  // ── Form: flex column ─────────────────────────────────────────────────
+  form {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    position: static !important;
+  }
+
+  // ── Save button: sticky top ───────────────────────────────────────────
+  .cs-save-btn {
+    position: sticky !important;
+    top: 0 !important;
+    left: auto !important;
+    width: 100% !important;
+    z-index: 100;
+    font-size: 16px !important;
+    padding: 10px !important;
+    border-radius: 0 !important;
+    text-align: center;
+  }
+
+  // ── Child component hosts → block cards ───────────────────────────────
+  cs-top-info,
+  cs-ability-scores,
+  cs-combat-stats,
+  cs-saving-throws-passive,
+  cs-spell-slots,
+  cs-skills,
+  cs-weapons,
+  cs-languages,
+  cs-inventory,
+  second-page,
+  third-page {
+    display: block !important;
+    background: rgba(245, 235, 220, 0.95);
+    border: 1px solid rgba(36, 12, 5, 0.25);
+    border-radius: 0;
+    padding: 12px !important;
+    border-bottom: 2px solid rgba(36, 12, 5, 0.15);
+  }
+
+  // ── Global field reset ────────────────────────────────────────────────
+  .field,
+  .label {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .field {
+    width: 100% !important;
+    margin-bottom: 6px;
+    font-size: 14px !important;
+  }
+
+  .roll-d20-wrap {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center;
+
+    input.field {
+      width: 100% !important;
+    }
+  }
+
+  .ability-zdatnost-checkbox {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    display: inline-flex !important;
+    flex-shrink: 0;
+    vertical-align: middle;
+    // Smaller star for responsive
+    width: 18px !important;
+    height: 18px !important;
+
+    &::before {
+      top: -3px !important;
+      left: -3px !important;
+    }
+    &::after {
+      width: 16px !important;
+      height: 16px !important;
+      top: calc(50% - 3px) !important;
+      left: calc(50% - 3px) !important;
+    }
+  }
+
+  .spell-slot-cb {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    display: inline-block !important;
+    flex-shrink: 0;
+  }
+
+  .label {
+    display: inline-block !important;
+    margin-bottom: 4px;
+  }
+
+  .textarea {
+    width: 100% !important;
+    height: 120px !important;
+    min-height: 80px;
+    resize: vertical;
+  }
+
+  // ── Responsive labels via data-label (shown via ::before) ─────────────
+  .roll-d20-wrap[data-label] {
+    display: flex !important;
+    align-items: center;
+    gap: 0;
+
+    &::before {
+      content: attr(data-label);
+      display: block;
+      flex: 1 1 auto;
+      font-size: 12px;
+      font-weight: normal;
+      font-family: Arial, sans-serif;
+      color: #3b1e0a;
+      padding: 2px 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    input.field {
+      flex: 0 0 55px !important;
+      width: 55px !important;
+      text-align: center !important;
+    }
+
+    // Hide dice button - field click rolls instead
+    .roll-d20-btn {
+      display: none !important;
+    }
+  }
+
+  // ── Skill rows: make field clickable for dice roll ────────────────────
+  // In responsive, clicking the value itself should roll dice.
+  // The roll-d20-wrap[data-label] input gets cursor:pointer
+  .roll-d20-wrap[data-label] input.field {
+    cursor: pointer;
+  }
+
+  // ── cs-top-info ───────────────────────────────────────────────────────
+  cs-top-info {
+    .field {
+      width: 100% !important;
+    }
+  }
+
+  // ── cs-ability-scores ─────────────────────────────────────────────────
+  cs-ability-scores {
+    .readonly-field {
+      width: calc(33% - 4px) !important;
+      display: inline-block !important;
+    }
+
+    .roll-d20-wrap {
+      display: inline-flex !important;
+      width: calc(50% - 4px) !important;
+      margin-bottom: 4px;
+    }
+
+    .main-skill {
+      background: transparent !important;
+      border-color: rgba(0, 0, 0, 0.15) !important;
+      font-size: 18px !important;
+    }
+
+    input[id$='-input'] {
+      width: calc(50% - 4px) !important;
+      display: inline-block !important;
+    }
+  }
+
+  // ── cs-combat-stats ───────────────────────────────────────────────────
+  cs-combat-stats {
+    .field[placeholder='Lehké'],
+    .field[placeholder='Střední'],
+    .field[placeholder='Těžké'] {
+      width: calc(30% - 4px) !important;
+      display: inline-block !important;
+    }
+
+    .field[placeholder='20 / 20'] {
+      width: 80px !important;
+      display: inline-block !important;
+    }
+
+    // ── HIDE death saves (hearts + skulls) entirely ─────────────────────
+    .death-save-icon {
+      display: none !important;
+    }
+
+    // Armor class inputs
+    .field[placeholder='Zbroj'],
+    .field[placeholder='Bez'],
+    .field[placeholder='Jiné'] {
+      width: calc(33% - 4px) !important;
+      display: inline-block !important;
+    }
+
+    .ability-zdatnost-checkbox {
+      margin: 4px 12px 4px 0;
+    }
+  }
+
+  // ── cs-saving-throws-passive ──────────────────────────────────────────
+  cs-saving-throws-passive {
+    .ability-zdatnost-checkbox {
+      margin-right: 6px;
+      margin-bottom: 4px;
+    }
+
+    .roll-d20-wrap {
+      display: inline-flex !important;
+      width: calc(100% - 28px) !important;
+      margin-bottom: 3px;
+    }
+
+    .roll-d20-wrap[data-label] input.field {
+      flex: 0 0 50px !important;
+      width: 50px !important;
+    }
+
+    .no-pb {
+      padding-top: 4px !important;
+      border: 1px solid rgba(0, 0, 0, 0.18) !important;
+    }
+
+    // Passive skill inputs: show placeholder as label via full width
+    input.no-pb:not([formControl]) {
+      width: calc(100% - 28px) !important;
+      display: inline-block !important;
+    }
+
+    .field[placeholder='Vlastnost'],
+    .field[placeholder='Út bonus'],
+    .field[placeholder='SO záchr.'] {
+      width: calc(33% - 4px) !important;
+      display: inline-block !important;
+    }
+
+    .textarea {
+      height: 150px !important;
+    }
+  }
+
+  // ── cs-spell-slots: show level labels, full-width layout ──────────────
+  cs-spell-slots {
+    .cs-slot-level-label {
+      display: inline-block !important;
+      font-family: 'Mikadan', sans-serif;
+      font-size: 12px;
+      color: #5a3018;
+      width: 22px;
+      text-align: center;
+      margin-right: 2px;
+      vertical-align: middle;
+      font-weight: bold;
+    }
+
+    .label {
+      font-size: 12px !important;
+      margin-right: 4px;
+    }
+
+    input[type='number'] {
+      width: 60px !important;
+      display: inline-block !important;
+      margin-right: 8px;
+    }
+
+    .spell-slot-cb {
+      margin: 2px;
+    }
+  }
+
+  // ── cs-skills: star (col-3) + label (col-6) + value (col-3) ──────────
+  cs-skills {
+    .ability-zdatnost-checkbox {
+      margin-right: 4px;
+      margin-bottom: 3px;
+    }
+
+    .roll-d20-wrap {
+      display: inline-flex !important;
+      width: calc(100% - 26px) !important;
+      margin-bottom: 2px;
+    }
+
+    .roll-d20-wrap[data-label] input.field {
+      flex: 0 0 50px !important;
+      width: 50px !important;
+    }
+
+    .no-pb {
+      padding-top: 4px !important;
+      border: 1px solid rgba(0, 0, 0, 0.18) !important;
+    }
+
+    .textarea {
+      height: 100px !important;
+    }
+  }
+
+  // ── cs-weapons ────────────────────────────────────────────────────────
+  cs-weapons {
+    .field-sm {
+      display: inline-block !important;
+      margin-bottom: 2px;
+    }
+
+    .field-sm[placeholder='Zbraň / útok'] {
+      width: 100% !important;
+    }
+
+    .field-sm[placeholder='Bonus'],
+    .field-sm[placeholder='Zásah'],
+    .field-sm[placeholder='Typ'],
+    .field-sm[placeholder='Dosah'] {
+      width: calc(25% - 3px) !important;
+    }
+
+    .ability-zdatnost-checkbox {
+      margin: 4px 12px 4px 0;
+    }
+  }
+
+  // ── cs-languages ──────────────────────────────────────────────────────
+  cs-languages {
+    .textarea {
+      height: 180px !important;
+    }
+  }
+
+  // ── cs-inventory ──────────────────────────────────────────────────────
+  cs-inventory {
+    .inventory-item {
+      width: 100% !important;
+      font-size: 14px !important;
+    }
+  }
+
+  // ── second-page ───────────────────────────────────────────────────────
+  second-page {
+    .field[placeholder='Věk'],
+    .field[placeholder='Pleť'],
+    .field[placeholder='Výška'],
+    .field[placeholder='Vlasy'],
+    .field[placeholder='Váha'],
+    .field[placeholder='Oči'] {
+      width: calc(50% - 4px) !important;
+      display: inline-block !important;
+    }
+
+    .char-img-wrap {
+      position: static !important;
+      top: auto !important;
+      left: auto !important;
+      width: 100% !important;
+      height: 300px !important;
+    }
+
+    .textarea {
+      height: 150px !important;
+    }
+  }
+
+  // ── third-page ────────────────────────────────────────────────────────
+  third-page {
+    .spell-row {
+      display: inline-block !important;
+      margin-bottom: 1px;
+      font-size: 12px !important;
+    }
+
+    .spell-detail-btn {
+      position: static !important;
+      top: auto !important;
+      left: auto !important;
+      display: inline-flex !important;
+      width: 20px !important;
+      margin-bottom: 1px;
+    }
+
+    .checkbox {
+      position: static !important;
+      top: auto !important;
+      left: auto !important;
+      display: inline-block !important;
+      vertical-align: middle;
+      margin: 0 4px 2px 0;
+    }
+
+    .spell-dropdown {
+      position: fixed !important;
+      left: 12px !important;
+      right: 12px !important;
+      width: auto !important;
+      max-height: 200px;
+    }
+  }
+}
+
+// ── Responsive + dark theme ─────────────────────────────────────────────────
+@media (max-width: 1359px) {
+  :host.theme-dark {
+    .cs-section-title {
+      color: rgba(255, 255, 255, 0.85);
+      border-bottom-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .cs-main-title {
+      color: #e8c96a;
+      border-bottom-color: rgba(200, 160, 60, 0.35);
+    }
+
+    cs-top-info,
+    cs-ability-scores,
+    cs-combat-stats,
+    cs-saving-throws-passive,
+    cs-spell-slots,
+    cs-skills,
+    cs-weapons,
+    cs-languages,
+    cs-inventory,
+    second-page,
+    third-page {
+      background: rgba(18, 12, 8, 0.95);
+      border-color: rgba(200, 160, 60, 0.15);
+      border-bottom-color: rgba(200, 160, 60, 0.1);
+    }
+
+    .roll-d20-wrap[data-label]::before {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .cs-slot-level-label {
+      color: rgba(200, 160, 60, 0.8) !important;
+    }
+  }
+}

@@ -13,7 +13,9 @@ import { SheetThemeService } from './sheet-theme.service';
 @Component({
   selector: 'third-page',
   template: `
-    <img [src]="sheetTheme.darkMode() ? 'character-sheet-3-dark.webp' : 'character-sheet-3.webp'" alt="Character Sheet" height="1817" width="1293" />
+    <img class="cs-bg-img" [src]="sheetTheme.darkMode() ? 'character-sheet-3-dark.webp' : 'character-sheet-3.webp'" alt="Character Sheet" height="1817" width="1293" />
+
+    <h3 class="cs-section-title">Kouzla</h3>
 
     <input
       [formControl]="controls.topInfoForSpellSheet.controls.jmenoPostavy"

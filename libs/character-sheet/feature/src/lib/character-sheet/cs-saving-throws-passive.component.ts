@@ -18,6 +18,7 @@ import { merge } from 'rxjs';
   imports: [ReactiveFormsModule, NgClass, MatIcon, MatTooltip, RichTextareaComponent],
   styleUrl: '../character-sheet.component.scss',
   template: `
+    <h3 class="cs-section-title">Záchranné hody · Pasivní dovednosti · Sesílání</h3>
     @if (_tick()) {
       <!-- Saving throws -->
       <ng-container [formGroup]="savingThrowsForm()">
@@ -27,7 +28,7 @@ import { merge } from 'rxjs';
           class="field ability-zdatnost-checkbox"
           style="top:575.36px; left:445.78px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:559.64px; left:554.13px; width:61.57px;">
+        <span class="roll-d20-wrap" data-label="Síla" style="top:559.64px; left:554.13px; width:61.57px;">
           <input
             [formControl]="st.sila"
             class="field no-pb"
@@ -42,7 +43,7 @@ import { merge } from 'rxjs';
           class="field ability-zdatnost-checkbox"
           style="top:602.61px; left:445.78px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:588.71px; left:554.13px; width:61.57px;">
+        <span class="roll-d20-wrap" data-label="Obratnost" style="top:588.71px; left:554.13px; width:61.57px;">
           <input
             [formControl]="st.obratnost"
             class="field no-pb"
@@ -57,7 +58,7 @@ import { merge } from 'rxjs';
           class="field ability-zdatnost-checkbox"
           style="top:631.68px; left:445.78px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:617.78px; left:554.13px; width:61.57px;">
+        <span class="roll-d20-wrap" data-label="Odolnost" style="top:617.78px; left:554.13px; width:61.57px;">
           <input
             [formControl]="st.odolnost"
             class="field no-pb"
@@ -72,7 +73,7 @@ import { merge } from 'rxjs';
           class="field ability-zdatnost-checkbox"
           style="top:660.75px; left:445.78px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:646.85px; left:554.13px; width:61.57px;">
+        <span class="roll-d20-wrap" data-label="Inteligence" style="top:646.85px; left:554.13px; width:61.57px;">
           <input
             [formControl]="st.inteligence"
             class="field no-pb"
@@ -89,7 +90,7 @@ import { merge } from 'rxjs';
           class="field ability-zdatnost-checkbox"
           style="top:688.01px; left:445.78px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:675.92px; left:554.13px; width:61.57px;">
+        <span class="roll-d20-wrap" data-label="Moudrost" style="top:675.92px; left:554.13px; width:61.57px;">
           <input
             [formControl]="st.moudrost"
             class="field no-pb"
@@ -104,7 +105,7 @@ import { merge } from 'rxjs';
           class="field ability-zdatnost-checkbox"
           style="top:717.08px; left:445.78px;"
         ></div>
-        <span class="roll-d20-wrap" style="top:703.18px; left:554.13px; width:61.57px;">
+        <span class="roll-d20-wrap" data-label="Charisma" style="top:703.18px; left:554.13px; width:61.57px;">
           <input
             [formControl]="st.charisma"
             class="field no-pb"
