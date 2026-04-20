@@ -70,6 +70,11 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
       const container = this.scrollContainer()?.nativeElement;
       if (!container) return;
 
+      // Track chunks so this effect re-runs when a new batch renders asynchronously.
+      // Without this, the effect would only fire once (when pendingScrollSlug was set)
+      // and miss the heading that arrives in a later async HTTP response.
+      this.chunks();
+
       const el = container.querySelector(`[id="${slug}"]`) as HTMLElement | null;
       if (!el) return; // element not in DOM yet — next render will retry
 
