@@ -4,6 +4,7 @@ import { MatIcon } from '@angular/material/icon';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { combineLatest, filter, map, of, switchMap, take } from 'rxjs';
 import { JadSpellsService } from './jad-spells.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 export interface SpellDetailDialogData {
   spellName: string;
@@ -196,8 +197,10 @@ export class SpellDetailDialogComponent {
   readonly data: SpellDetailDialogData = inject(MAT_DIALOG_DATA);
   private readonly spellsService = inject(JadSpellsService);
 
+  private readonly sanitizer = inject(DomSanitizer);
+
   readonly loading = signal(true);
-  readonly content = signal('');
+  readonly content = signal<SafeHtml>('');
 
   private readonly _rawContent = toSignal(
     combineLatest([
@@ -223,7 +226,7 @@ export class SpellDetailDialogComponent {
     effect(() => {
       const val = this._rawContent();
       if (val !== undefined) {
-        this.content.set(val);
+        this.content.set(this.sanitizer.bypassSecurityTrustHtml(val));
         this.loading.set(false);
       }
     });

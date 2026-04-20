@@ -265,7 +265,6 @@ export class WikiSidebarComponent {
 
         this.needsScroll.set(true);
       },
-      { allowSignalWrites: true },
     );
 
     // After Angular renders (and the chapter list is in the DOM), scroll to the
