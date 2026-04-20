@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@ang
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { filter, of, switchMap, take } from 'rxjs';
+import { combineLatest, filter, map, of, switchMap, take } from 'rxjs';
 import { JadSpellsService } from './jad-spells.service';
 
 export interface SpellDetailDialogData {
@@ -200,9 +200,13 @@ export class SpellDetailDialogComponent {
   readonly content = signal('');
 
   private readonly _rawContent = toSignal(
-    toObservable(this.spellsService.allSpells).pipe(
-      filter(spells => spells.length > 0),
+    combineLatest([
+      toObservable(this.spellsService.allSpells),
+      toObservable(this.spellsService.snippetFiles),
+    ]).pipe(
+      filter(([spells, snippets]) => spells.length > 0 && snippets !== null),
       take(1),
+      map(([spells]) => spells),
       switchMap(spells => {
         const spell = spells.find(
           s => JadSpellsService.normalizeStr(s.name) === JadSpellsService.normalizeStr(this.data.spellName),
