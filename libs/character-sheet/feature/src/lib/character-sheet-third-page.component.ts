@@ -1,11 +1,10 @@
 ﻿import { ChangeDetectionStrategy, Component, computed, inject, input, signal, Signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatAutocomplete, MatAutocompleteTrigger, MatOption } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
-import { startWith, switchMap } from 'rxjs';
+import { startWith, Subject, Subscription, switchMap, timer } from 'rxjs';
 import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } from '@dn-d-servant/character-sheet-util';
 import { JadSpellsService } from './jad-spells.service';
 import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detail-dialog.component';
@@ -174,8 +173,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r1Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(1)"
+      (focus)="openDropdown($event, 1)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row"
       style="top:511px; left:152px; width:176px;"
       placeholder="*"
@@ -248,8 +246,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r2Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(2)"
+      (focus)="openDropdown($event, 2)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row"
       style="top:546px; left:152px; width:176px;"
       placeholder="*"
@@ -322,8 +319,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r3Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(3)"
+      (focus)="openDropdown($event, 3)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:582px; left:152px; width:176px;"
       placeholder="*"
@@ -396,8 +392,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r4Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(4)"
+      (focus)="openDropdown($event, 4)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:618px; left:152px; width:176px;"
       placeholder="*"
@@ -470,8 +465,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r5Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(5)"
+      (focus)="openDropdown($event, 5)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:653px; left:152px; width:176px;"
       placeholder="*"
@@ -544,8 +538,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r6Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(6)"
+      (focus)="openDropdown($event, 6)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:689px; left:152px; width:176px;"
       placeholder="*"
@@ -618,8 +611,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r7Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(7)"
+      (focus)="openDropdown($event, 7)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:725px; left:152px; width:176px;"
       placeholder="*"
@@ -692,8 +684,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r8Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(8)"
+      (focus)="openDropdown($event, 8)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:760px; left:152px; width:176px;"
       placeholder="*"
@@ -766,8 +757,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r9Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(9)"
+      (focus)="openDropdown($event, 9)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:796px; left:152px; width:176px;"
       placeholder="*"
@@ -840,8 +830,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r10Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(10)"
+      (focus)="openDropdown($event, 10)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:831px; left:152px; width:176px;"
       placeholder="*"
@@ -913,8 +902,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r11Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(11)"
+      (focus)="openDropdown($event, 11)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:867px; left:152px; width:176px;"
       placeholder="*"
@@ -986,8 +974,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r12Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(12)"
+      (focus)="openDropdown($event, 12)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:903px; left:152px; width:176px;"
       placeholder="*"
@@ -1059,8 +1046,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r13Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(13)"
+      (focus)="openDropdown($event, 13)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:939px; left:152px; width:176px;"
       placeholder="*"
@@ -1132,8 +1118,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r14Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(14)"
+      (focus)="openDropdown($event, 14)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:975px; left:152px; width:176px;"
       placeholder="*"
@@ -1205,8 +1190,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r15Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(15)"
+      (focus)="openDropdown($event, 15)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1011px; left:152px; width:176px;"
       placeholder="*"
@@ -1278,8 +1262,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r16Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(16)"
+      (focus)="openDropdown($event, 16)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1047px; left:152px; width:176px;"
       placeholder="*"
@@ -1351,8 +1334,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r17Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(17)"
+      (focus)="openDropdown($event, 17)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1083px; left:152px; width:176px;"
       placeholder="*"
@@ -1424,8 +1406,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r18Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(18)"
+      (focus)="openDropdown($event, 18)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1119px; left:152px; width:176px;"
       placeholder="*"
@@ -1497,8 +1478,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r19Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(19)"
+      (focus)="openDropdown($event, 19)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1155px; left:152px; width:176px;"
       placeholder="*"
@@ -1570,8 +1550,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(20)"
+      (focus)="openDropdown($event, 20)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1189px; left:152px; width:176px;"
       placeholder="*"
@@ -1643,8 +1622,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(21)"
+      (focus)="openDropdown($event, 21)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1225px; left:152px; width:176px;"
       placeholder="*"
@@ -1716,8 +1694,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(22)"
+      (focus)="openDropdown($event, 22)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1261px; left:152px; width:176px;"
       placeholder="*"
@@ -1789,8 +1766,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(23)"
+      (focus)="openDropdown($event, 23)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1297px; left:152px; width:176px;"
       placeholder="*"
@@ -1862,8 +1838,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(24)"
+      (focus)="openDropdown($event, 24)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1330px; left:152px; width:176px;"
       placeholder="*"
@@ -1935,8 +1910,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(25)"
+      (focus)="openDropdown($event, 25)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1366px; left:152px; width:176px;"
       placeholder="*"
@@ -2008,8 +1982,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(26)"
+      (focus)="openDropdown($event, 26)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1402px; left:152px; width:176px;"
       placeholder="*"
@@ -2081,8 +2054,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(27)"
+      (focus)="openDropdown($event, 27)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1438px; left:152px; width:176px;"
       placeholder="*"
@@ -2155,8 +2127,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(28)"
+      (focus)="openDropdown($event, 28)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1474px; left:152px; width:176px;"
       placeholder="*"
@@ -2229,8 +2200,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(29)"
+      (focus)="openDropdown($event, 29)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1507px; left:152px; width:176px;"
       placeholder="*"
@@ -2303,8 +2273,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(30)"
+      (focus)="openDropdown($event, 30)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1543px; left:152px; width:176px;"
       placeholder="*"
@@ -2377,8 +2346,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(31)"
+      (focus)="openDropdown($event, 31)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1579px; left:152px; width:176px;"
       placeholder="*"
@@ -2451,8 +2419,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(32)"
+      (focus)="openDropdown($event, 32)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1615px; left:152px; width:176px;"
       placeholder="*"
@@ -2525,8 +2492,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(33)"
+      (focus)="openDropdown($event, 33)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1651px; left:152px; width:176px;"
       placeholder="*"
@@ -2599,8 +2565,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(34)"
+      (focus)="openDropdown($event, 34)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1687px; left:152px; width:176px;"
       placeholder="*"
@@ -2672,8 +2637,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Nazev"
-      [matAutocomplete]="spellAuto"
-      (focus)="activeRow.set(35)"
+      (focus)="openDropdown($event, 35)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1728px; left:152px; width:176px;"
       placeholder="*"
@@ -2730,20 +2694,35 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
       placeholder="*"
     />
 
-    <mat-autocomplete #spellAuto="matAutocomplete">
-      @for (spell of filteredSpells(); track spell.slug) {
-        <mat-option [value]="spell.name">{{ spell.name }}</mat-option>
-      }
-    </mat-autocomplete>
+        @if (dropdownOpen() && filteredSpells().length > 0) {
+      <div class="spell-dropdown" [style]="dropdownStyle()" (mousedown)="$event.preventDefault()">
+        @for (spell of filteredSpells(); track spell.slug; let i = $index) {
+          <div
+            class="spell-dropdown__item"
+            [class.spell-dropdown__item--active]="i === activeIndex()"
+            (mousedown)="pickSpell(spell.name)"
+          >{{ spell.name }}</div>
+        }
+      </div>
+    }
   `,
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, MatTooltip, MatAutocomplete, MatAutocompleteTrigger, MatOption, MatIcon],
+  imports: [ReactiveFormsModule, MatTooltip, MatIcon],
 })
 export class CharacterSheetThirdPageComponent {
   form = input.required<FormGroup<ThirdPageForm>>();
 
   activeRow = signal(0);
+  dropdownOpen = signal(false);
+  activeIndex = signal(-1);
+  private _dropdownPos = signal<{ top: number; left: number; width: number } | null>(null);
+
+  readonly dropdownStyle = computed(() => {
+    const pos = this._dropdownPos();
+    if (!pos) return '';
+    return `top:${pos.top}px;left:${pos.left}px;width:${pos.width}px;`;
+  });
   private readonly dialog = inject(MatDialog);
   private readonly spellsService = inject(JadSpellsService);
 
@@ -2763,10 +2742,79 @@ export class CharacterSheetThirdPageComponent {
   readonly filteredSpells = computed(() => {
     const row = this.activeRow();
     const rawVal = this._spellValues() as Record<string, string>;
-    const query = (rawVal[`r${row}Nazev`] ?? '').toLowerCase();
+    const query = JadSpellsService.normalizeStr(rawVal[`r${row}Nazev`] ?? '');
     if (!query) return this.spellsService.allSpells();
-    return this.spellsService.allSpells().filter(s => s.name.toLowerCase().includes(query));
+    return this.spellsService.allSpells().filter(s =>
+      JadSpellsService.normalizeStr(s.name).includes(query)
+    );
   });
+
+  private readonly _cancelBlur$ = new Subject<void>();
+  private _blurSub: Subscription | null = null;
+
+  openDropdown(event: FocusEvent, row: number): void {
+    this._cancelBlur$.next();
+    this._blurSub?.unsubscribe();
+    this.activeRow.set(row);
+    const el = event.target as HTMLInputElement;
+    const top = parseFloat(el.style.top) + 22;
+    const left = parseFloat(el.style.left);
+    const width = Math.max(parseFloat(el.style.width), 200);
+    this._dropdownPos.set({ top, left, width });
+    this.dropdownOpen.set(true);
+  }
+
+  closeDropdown(): void {
+    this._blurSub = timer(150).subscribe(() => {
+      this.dropdownOpen.set(false);
+      this.activeIndex.set(-1);
+    });
+  }
+
+  onSpellInput(): void {
+    this.activeIndex.set(-1);
+    this._blurSub?.unsubscribe();
+    this.dropdownOpen.set(true);
+  }
+
+  onKeydown(event: KeyboardEvent): void {
+    if (!this.dropdownOpen()) {
+      if (event.key === 'ArrowDown') {
+        this.dropdownOpen.set(true);
+        this.activeIndex.set(0);
+        event.preventDefault();
+      }
+      return;
+    }
+    const spells = this.filteredSpells();
+    const count = spells.length;
+    switch (event.key) {
+      case 'ArrowDown':
+        this.activeIndex.set(Math.min(this.activeIndex() + 1, count - 1));
+        event.preventDefault();
+        break;
+      case 'ArrowUp':
+        this.activeIndex.set(Math.max(this.activeIndex() - 1, -1));
+        event.preventDefault();
+        break;
+      case 'Enter':
+        if (this.activeIndex() >= 0 && this.activeIndex() < count) {
+          this.pickSpell(spells[this.activeIndex()].name);
+          event.preventDefault();
+        }
+        break;
+      case 'Escape':
+        this.dropdownOpen.set(false);
+        this.activeIndex.set(-1);
+        break;
+    }
+  }
+
+  pickSpell(name: string): void {
+    const ctrl = (this.controls.spellsForm.controls as Record<string, AbstractControl>)[`r${this.activeRow()}Nazev`];
+    ctrl?.setValue(name);
+    this.dropdownOpen.set(false);
+  }
 
   /** Returns a computed signal for the poznamka tooltip of row N */
   poz(n: number): Signal<string> {

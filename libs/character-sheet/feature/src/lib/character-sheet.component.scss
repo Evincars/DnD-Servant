@@ -607,3 +607,43 @@ input[type='checkbox'][disabled] {
     display: flex;
   }
 }
+
+// ── Spell name autocomplete dropdown — custom, no Material chrome ──────────────
+.spell-dropdown {
+  position: absolute;
+  z-index: 1000;
+  max-height: 220px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: linear-gradient(180deg, rgba(10,7,20,.99) 0%, rgba(16,11,28,.99) 100%);
+  border: 1px solid rgba(200,160,60,.3);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  box-shadow:
+    0 0 0 1px rgba(200,160,60,.08),
+    0 8px 30px rgba(0,0,0,.85);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200,160,60,.4) rgba(10,8,20,.6);
+
+  &__item {
+    padding: 5px 10px;
+    font-size: 11px;
+    font-family: sans-serif;
+    color: #d4c9a0;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 1px solid rgba(200,160,60,.07);
+    letter-spacing: .02em;
+
+    &:last-child { border-bottom: none; }
+
+    &:hover,
+    &--active {
+      background: rgba(120,80,200,.18);
+      color: #e8c96a;
+    }
+  }
+}
+
