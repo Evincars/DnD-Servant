@@ -18,11 +18,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { SheetThemeService } from './sheet-theme.service';
 
 @Component({
   selector: 'second-page',
   template: `
-    <img src="character-sheet-2-copy.webp" alt="Character Sheet" height="1817" width="1293" />
+    <img [src]="sheetTheme.darkMode() ? 'character-sheet-2-copy-dark.webp' : 'character-sheet-2-copy.webp'" alt="Character Sheet" height="1817" width="1293" />
 
     <input
       [formControl]="controls.headerInfo.controls.jmenoPostavy"
@@ -153,11 +154,12 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, MatTooltip, RichTextareaComponent, MatIconButton, MatIcon],
-  host: { '(document:keydown.escape)': 'onEscape()' },
+  host: { '(document:keydown.escape)': 'onEscape()', '[class.theme-dark]': 'sheetTheme.darkMode()' },
 })
 export class CharacterSheetSecondPageComponent {
   characterSheetStore = inject(CharacterSheetStore);
   private snackBar = inject(MatSnackBar);
+  readonly sheetTheme = inject(SheetThemeService);
 
   form = input.required<FormGroup<SecondPageForm>>();
 

@@ -8,11 +8,12 @@ import { startWith, Subject, Subscription, switchMap, timer } from 'rxjs';
 import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } from '@dn-d-servant/character-sheet-util';
 import { JadSpellsService } from './jad-spells.service';
 import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detail-dialog.component';
+import { SheetThemeService } from './sheet-theme.service';
 
 @Component({
   selector: 'third-page',
   template: `
-    <img src="character-sheet-3.webp" alt="Character Sheet" height="1817" width="1293" />
+    <img [src]="sheetTheme.darkMode() ? 'character-sheet-3-dark.webp' : 'character-sheet-3.webp'" alt="Character Sheet" height="1817" width="1293" />
 
     <input
       [formControl]="controls.topInfoForSpellSheet.controls.jmenoPostavy"
@@ -2708,10 +2709,12 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
   `,
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '[class.theme-dark]': 'sheetTheme.darkMode()' },
   imports: [ReactiveFormsModule, MatTooltip, MatIcon],
 })
 export class CharacterSheetThirdPageComponent {
   form = input.required<FormGroup<ThirdPageForm>>();
+  readonly sheetTheme = inject(SheetThemeService);
 
   activeRow = signal(0);
   dropdownOpen = signal(false);

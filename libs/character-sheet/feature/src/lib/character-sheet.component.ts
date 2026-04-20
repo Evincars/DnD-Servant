@@ -29,6 +29,7 @@ import {
 import { SpinnerOverlayComponent, DiceRollerService } from '@dn-d-servant/ui';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService, FormUtil } from '@dn-d-servant/util';
+import { SheetThemeService } from './sheet-theme.service';
 import { CharacterSheetFormModelMappers } from './api-mappers/character-sheet-form-model-mappers';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CharacterSheetSecondPageComponent } from './character-sheet-second-page.component';
@@ -52,7 +53,7 @@ import { ConditionsButtonComponent } from './conditions/conditions-button.compon
   selector: 'character-sheet',
   template: `
     <spinner-overlay [diameter]="70" [showSpinner]="characterSheetStore.loading()">
-      <img src="character-sheet-1-copy.webp" alt="Character Sheet" height="1817" width="1293" />
+      <img [src]="sheetTheme.darkMode() ? 'character-sheet-1-copy-dark.webp' : 'character-sheet-1-copy.webp'" alt="Character Sheet" height="1817" width="1293" />
 
       <form [formGroup]="form" #sheetForm>
         <conditions-button />
@@ -95,6 +96,7 @@ import { ConditionsButtonComponent } from './conditions/conditions-button.compon
   `,
   styleUrl: 'character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '[class.theme-dark]': 'sheetTheme.darkMode()' },
   imports: [
     ReactiveFormsModule,
     CharacterSheetSecondPageComponent,
@@ -116,6 +118,7 @@ export class CharacterSheetComponent {
   characterSheetStore = inject(CharacterSheetStore);
   authService = inject(AuthService);
   destroyRef = inject(DestroyRef);
+  readonly sheetTheme = inject(SheetThemeService);
   snackBar = inject(MatSnackBar);
   dialog = inject(MatDialog);
   private readonly diceRollerService = inject(DiceRollerService);

@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import html2canvas from 'html2canvas';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { DiceRollerComponent } from '@dn-d-servant/ui';
+import { SheetThemeService } from '@dn-d-servant/character-sheet-feature';
 
 @Component({
   selector: 'app-root',
@@ -107,6 +108,14 @@ import { DiceRollerComponent } from '@dn-d-servant/ui';
                 <mat-icon class="backup-button-icon">download</mat-icon>
                 <span class="backup-btn__label">JSON</span>
               </button>
+              <button
+                (click)="sheetTheme.toggle()"
+                class="github-link backup-btn u-ml-2"
+                [matTooltip]="sheetTheme.darkMode() ? 'Přepnout na světlé pozadí karet' : 'Přepnout na tmavé pozadí karet'"
+              >
+                <mat-icon class="backup-button-icon">{{ sheetTheme.darkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+                <span class="backup-btn__label">{{ sheetTheme.darkMode() ? 'Světlé' : 'Tmavé' }}</span>
+              </button>
             </div>
             <div class="toolbar__right author-info u-flex u-align-center">
               @if (authService.currentUser()) {
@@ -169,6 +178,7 @@ import { DiceRollerComponent } from '@dn-d-servant/ui';
 export class App implements OnInit, OnDestroy {
   authService = inject(AuthService);
   destroyRef = inject(DestroyRef);
+  readonly sheetTheme = inject(SheetThemeService);
   private readonly localStorage = inject(LocalStorageService);
   private readonly characterSheetStore = inject(CharacterSheetStore);
   private readonly router = inject(Router);
