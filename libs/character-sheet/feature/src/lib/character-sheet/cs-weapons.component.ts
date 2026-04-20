@@ -60,48 +60,55 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
         <!-- Weapon rows 1-5 -->
         @for (row of weaponRows; track row.num) {
-          <input
-            [formControl]="getControl(row.zbranKey)"
-            [id]="'weapon' + row.num"
-            class="field field-sm"
-            [style]="row.zbranStyle"
-            placeholder="Zbraň / útok"
-          />
-          <input
-            [formControl]="getControl(row.bonusKey)"
-            [id]="'weapon' + row.num + '_bonus'"
-            class="field field-sm"
-            [style]="row.bonusStyle"
-            placeholder="Bonus"
-          />
-          <input
-            [formControl]="getControl(row.zasahKey)"
-            [id]="'weapon' + row.num + '_hit'"
-            class="field field-sm"
-            [style]="row.zasahStyle"
-            placeholder="Zásah"
-          />
-          <input
-            [formControl]="getControl(row.typKey)"
-            [id]="'weapon' + row.num + '_type'"
-            class="field field-sm"
-            [style]="row.typStyle"
-            placeholder="Typ"
-          />
-          <input
-            [formControl]="getControl(row.dosahKey)"
-            [id]="'weapon' + row.num + '_distance'"
-            class="field field-sm"
-            [style]="row.dosahStyle"
-            placeholder="Dosah"
-          />
-          <input
-            [formControl]="getControl(row.ocKey)"
-            [id]="'weapon' + row.num + '_armorClass'"
-            class="field field-sm"
-            [style]="row.ocStyle"
-            placeholder="Dosah"
-          />
+          <div class="cs-weapon-row">
+            <input
+              [formControl]="getControl(row.zbranKey)"
+              [id]="'weapon' + row.num"
+              class="field field-sm"
+              [style]="row.zbranStyle"
+              placeholder="Zbraň / útok"
+            />
+            <input
+              [formControl]="getControl(row.bonusKey)"
+              [id]="'weapon' + row.num + '_bonus'"
+              class="field field-sm"
+              [style]="row.bonusStyle"
+              data-label="Bonus"
+              placeholder="Bonus"
+            />
+            <input
+              [formControl]="getControl(row.zasahKey)"
+              [id]="'weapon' + row.num + '_hit'"
+              class="field field-sm"
+              [style]="row.zasahStyle"
+              data-label="Zásah"
+              placeholder="Zásah"
+            />
+            <input
+              [formControl]="getControl(row.typKey)"
+              [id]="'weapon' + row.num + '_type'"
+              class="field field-sm"
+              [style]="row.typStyle"
+              data-label="Typ"
+              placeholder="Typ"
+            />
+            <input
+              [formControl]="getControl(row.dosahKey)"
+              [id]="'weapon' + row.num + '_distance'"
+              class="field field-sm"
+              [style]="row.dosahStyle"
+              data-label="Dosah"
+              placeholder="Dosah"
+            />
+            <input
+              [formControl]="getControl(row.ocKey)"
+              [id]="'weapon' + row.num + '_armorClass'"
+              class="field field-sm"
+              [style]="row.ocStyle"
+              data-label="OČ"
+              placeholder="OČ"
+            />
+          </div>
         }
 
         <div

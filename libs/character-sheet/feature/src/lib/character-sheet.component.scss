@@ -679,10 +679,14 @@ input[type='checkbox'][disabled] {
   }
 }
 
-// ── Section titles & slot level labels (hidden by default) ─────────────────
+// ── Section titles, slot level labels, weapon row wrappers (hidden/transparent by default) ──
 .cs-section-title,
 .cs-slot-level-label {
   display: none;
+}
+
+.cs-weapon-row {
+  display: contents; // transparent wrapper on desktop
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -696,6 +700,11 @@ input[type='checkbox'][disabled] {
 
   // ── Hide ALL help/info tooltip icon buttons ──────────────────────────────
   .small-info-button-icon {
+    display: none !important;
+  }
+
+  // ── Hide conditions button ───────────────────────────────────────────────
+  conditions-button {
     display: none !important;
   }
 
@@ -732,7 +741,8 @@ input[type='checkbox'][disabled] {
     display: block;
     padding: 0;
     width: 100%;
-    max-width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
     overflow-x: hidden;
   }
 
@@ -813,7 +823,6 @@ input[type='checkbox'][disabled] {
     display: inline-flex !important;
     flex-shrink: 0;
     vertical-align: middle;
-    // Smaller star for responsive
     width: 18px !important;
     height: 18px !important;
 
@@ -849,7 +858,27 @@ input[type='checkbox'][disabled] {
     resize: vertical;
   }
 
-  // ── Responsive labels via data-label (shown via ::before) ─────────────
+  // ── Responsive labels via data-label on .field (shown via ::before) ───
+  // For inputs that have data-label (top-info, weapons, etc.)
+  .field[data-label] {
+    position: relative !important;
+
+    &::before {
+      content: attr(data-label);
+      display: block;
+      font-size: 10px;
+      font-weight: normal;
+      font-family: Arial, sans-serif;
+      color: rgba(80, 50, 20, 0.55);
+      letter-spacing: 0.03em;
+      margin-bottom: 1px;
+    }
+  }
+
+  // Note: ::before doesn't work on <input>. Use wrapper approach for inputs.
+  // We'll rely on placeholder for inputs and use labels for roll-d20-wrap.
+
+  // ── Responsive labels via data-label on roll-d20-wrap ─────────────────
   .roll-d20-wrap[data-label] {
     display: flex !important;
     align-items: center;
@@ -862,7 +891,7 @@ input[type='checkbox'][disabled] {
       font-size: 12px;
       font-weight: normal;
       font-family: Arial, sans-serif;
-      color: #3b1e0a;
+      color: rgba(255, 250, 240, 0.85);
       padding: 2px 6px;
       white-space: nowrap;
       overflow: hidden;
@@ -875,23 +904,32 @@ input[type='checkbox'][disabled] {
       text-align: center !important;
     }
 
-    // Hide dice button - field click rolls instead
     .roll-d20-btn {
       display: none !important;
     }
   }
 
-  // ── Skill rows: make field clickable for dice roll ────────────────────
-  // In responsive, clicking the value itself should roll dice.
-  // The roll-d20-wrap[data-label] input gets cursor:pointer
   .roll-d20-wrap[data-label] input.field {
     cursor: pointer;
   }
 
-  // ── cs-top-info ───────────────────────────────────────────────────────
+  // ── cs-top-info: 2-col grid with labels ───────────────────────────────
   cs-top-info {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+
+    .cs-section-title {
+      grid-column: 1 / -1;
+    }
+
     .field {
       width: 100% !important;
+    }
+
+    // Jméno postavy spans full width
+    .field[data-label='Jméno postavy'] {
+      grid-column: 1 / -1;
     }
   }
 
@@ -939,7 +977,6 @@ input[type='checkbox'][disabled] {
       display: none !important;
     }
 
-    // Armor class inputs
     .field[placeholder='Zbroj'],
     .field[placeholder='Bez'],
     .field[placeholder='Jiné'] {
@@ -975,12 +1012,6 @@ input[type='checkbox'][disabled] {
       border: 1px solid rgba(0, 0, 0, 0.18) !important;
     }
 
-    // Passive skill inputs: show placeholder as label via full width
-    input.no-pb:not([formControl]) {
-      width: calc(100% - 28px) !important;
-      display: inline-block !important;
-    }
-
     .field[placeholder='Vlastnost'],
     .field[placeholder='Út bonus'],
     .field[placeholder='SO záchr.'] {
@@ -993,7 +1024,7 @@ input[type='checkbox'][disabled] {
     }
   }
 
-  // ── cs-spell-slots: show level labels, full-width layout ──────────────
+  // ── cs-spell-slots ────────────────────────────────────────────────────
   cs-spell-slots {
     .cs-slot-level-label {
       display: inline-block !important;
@@ -1023,7 +1054,7 @@ input[type='checkbox'][disabled] {
     }
   }
 
-  // ── cs-skills: star (col-3) + label (col-6) + value (col-3) ──────────
+  // ── cs-skills ─────────────────────────────────────────────────────────
   cs-skills {
     .ability-zdatnost-checkbox {
       margin-right: 4px;
@@ -1051,22 +1082,42 @@ input[type='checkbox'][disabled] {
     }
   }
 
-  // ── cs-weapons ────────────────────────────────────────────────────────
+  // ── cs-weapons: weapon rows with separator + labels ───────────────────
   cs-weapons {
-    .field-sm {
-      display: inline-block !important;
-      margin-bottom: 2px;
-    }
+    .cs-weapon-row {
+      display: flex !important;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+      border-bottom: 1px dashed rgba(36, 12, 5, 0.2);
 
-    .field-sm[placeholder='Zbraň / útok'] {
-      width: 100% !important;
-    }
+      &:last-of-type {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
 
-    .field-sm[placeholder='Bonus'],
-    .field-sm[placeholder='Zásah'],
-    .field-sm[placeholder='Typ'],
-    .field-sm[placeholder='Dosah'] {
-      width: calc(25% - 3px) !important;
+      .field-sm {
+        position: static !important;
+        top: auto !important;
+        left: auto !important;
+      }
+
+      .field-sm[placeholder='Zbraň / útok'] {
+        width: 100% !important;
+        font-weight: bold;
+        font-size: 14px !important;
+      }
+
+      .field-sm[placeholder='Bonus'],
+      .field-sm[placeholder='Zásah'],
+      .field-sm[placeholder='Typ'],
+      .field-sm[placeholder='Dosah'],
+      .field-sm[placeholder='OČ'] {
+        width: calc(20% - 4px) !important;
+        font-size: 12px !important;
+      }
     }
 
     .ability-zdatnost-checkbox {
@@ -1091,17 +1142,23 @@ input[type='checkbox'][disabled] {
 
   // ── second-page ───────────────────────────────────────────────────────
   second-page {
-    .field[placeholder='Věk'],
-    .field[placeholder='Pleť'],
-    .field[placeholder='Výška'],
-    .field[placeholder='Vlasy'],
-    .field[placeholder='Váha'],
-    .field[placeholder='Oči'] {
-      width: calc(50% - 4px) !important;
-      display: inline-block !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+
+    .cs-section-title,
+    .cs-sub-title {
+      grid-column: 1 / -1;
+    }
+
+    .field[placeholder='Postava'],
+    .field[placeholder='Jméno postavy'],
+    .field[placeholder='Tituly, hodnosti, řády, ...'] {
+      grid-column: 1 / -1;
     }
 
     .char-img-wrap {
+      grid-column: 1 / -1;
       position: static !important;
       top: auto !important;
       left: auto !important;
@@ -1110,11 +1167,12 @@ input[type='checkbox'][disabled] {
     }
 
     .textarea {
+      grid-column: 1 / -1;
       height: 150px !important;
     }
   }
 
-  // ── third-page ────────────────────────────────────────────────────────
+  // ── third-page: spell rows with separators ────────────────────────────
   third-page {
     .spell-row {
       display: inline-block !important;
@@ -1138,6 +1196,13 @@ input[type='checkbox'][disabled] {
       display: inline-block !important;
       vertical-align: middle;
       margin: 0 4px 2px 0;
+    }
+
+    // Each red-checkbox (spell prepared) marks start of a spell row → add top border
+    .red-checkbox {
+      border-top: 1px solid rgba(36, 12, 5, 0.12) !important;
+      padding-top: 4px;
+      margin-top: 4px;
     }
 
     .spell-dropdown {
@@ -1180,11 +1245,19 @@ input[type='checkbox'][disabled] {
     }
 
     .roll-d20-wrap[data-label]::before {
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 250, 240, 0.75);
     }
 
     .cs-slot-level-label {
       color: rgba(200, 160, 60, 0.8) !important;
+    }
+
+    .cs-weapon-row {
+      border-bottom-color: rgba(200, 160, 60, 0.15) !important;
+    }
+
+    third-page .red-checkbox {
+      border-top-color: rgba(200, 160, 60, 0.12) !important;
     }
   }
 }
