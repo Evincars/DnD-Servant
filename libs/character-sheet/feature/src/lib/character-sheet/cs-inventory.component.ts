@@ -37,13 +37,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         >
           <mat-icon style="font-size:16px;width:16px;height:16px;color:#c8a03c;">checkroom</mat-icon>
         </button>
-        <input
-          [formControl]="c.penize"
-          id="penize"
-          class="field"
-          style="top:1350px; left:111.35px; width:495.18px"
-          placeholder="Peníze"
-        />
+        <div class="cs-inventory-field-wrap" data-label="Peníze">
+          <input
+            [formControl]="c.penize"
+            id="penize"
+            class="field"
+            style="top:1350px; left:111.35px; width:495.18px"
+            placeholder="Peníze"
+          />
+        </div>
 
         <!-- Column 1 -->
         <input

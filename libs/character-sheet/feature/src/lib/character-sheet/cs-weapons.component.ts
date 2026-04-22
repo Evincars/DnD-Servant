@@ -111,27 +111,37 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           </div>
         }
 
-        <div
-          [ngClass]="abilityCheckboxClass(c.zdatnostJednoduche)"
-          (click)="cycleAbilityZdatnost(c.zdatnostJednoduche)"
-          id="zdatnostSJednoduchymaZbranema"
-          class="field ability-zdatnost-checkbox"
-          style="top:1255px; left:446.78px;"
-        ></div>
-        <div
-          [ngClass]="abilityCheckboxClass(c.zdatnostValecne)"
-          (click)="cycleAbilityZdatnost(c.zdatnostValecne)"
-          id="zdatnostSValecnymaZbranema"
-          class="field ability-zdatnost-checkbox"
-          style="top:1255px; left:572.54px;"
-        ></div>
-        <input
-          [formControl]="c.dalsiZdatnosti"
-          id="dalsiZdatnostSeZbrani"
-          class="field"
-          style="top:1248px; left:666.79px; width:514.83px"
-          placeholder="Další zdatnosti..."
-        />
+        <div class="cs-weapon-prof-row">
+          <div class="cs-combat-prof-item">
+            <div
+              [ngClass]="abilityCheckboxClass(c.zdatnostJednoduche)"
+              (click)="cycleAbilityZdatnost(c.zdatnostJednoduche)"
+              id="zdatnostSJednoduchymaZbranema"
+              class="field ability-zdatnost-checkbox"
+              style="top:1255px; left:446.78px;"
+            ></div>
+            <span class="cs-combat-prof-label">Jednoduché</span>
+          </div>
+          <div class="cs-combat-prof-item">
+            <div
+              [ngClass]="abilityCheckboxClass(c.zdatnostValecne)"
+              (click)="cycleAbilityZdatnost(c.zdatnostValecne)"
+              id="zdatnostSValecnymaZbranema"
+              class="field ability-zdatnost-checkbox"
+              style="top:1255px; left:572.54px;"
+            ></div>
+            <span class="cs-combat-prof-label">Válečné</span>
+          </div>
+          <div class="cs-weapon-extra-wrap" data-label="Další zdatnosti se zbraněmi">
+            <input
+              [formControl]="c.dalsiZdatnosti"
+              id="dalsiZdatnostSeZbrani"
+              class="field"
+              style="top:1248px; left:666.79px; width:514.83px"
+              placeholder="Další zdatnosti..."
+            />
+          </div>
+        </div>
       </ng-container>
     }
   `,

@@ -689,8 +689,84 @@ input[type='checkbox'][disabled] {
   display: contents; // transparent wrapper on desktop
 }
 
+// ── Ability label (hidden on desktop) ─────────────────────────────────────
+.cs-ability-label {
+  display: none;
+}
+
+// ── Ability bonus row (transparent on desktop) ────────────────────────────
+.cs-ability-bonus-row {
+  display: contents;
+}
+
+// ── Ability bonus item wrapper (transparent on desktop) ──────────────────
+.cs-ability-bonus-item {
+  display: contents;
+}
+
+// ── Combat wrapper divs (transparent on desktop) ──────────────────────────
+.cs-combat-speed-row,
+.cs-combat-healing-row,
+.cs-combat-ac-row,
+.cs-combat-armor-prof-row,
+.cs-combat-prof-item,
+.cs-combat-field-wrap {
+  display: contents;
+}
+
+.cs-combat-prof-label {
+  display: none;
+}
+
+// ── Top-info field wrapper (transparent on desktop) ───────────────────────
+.cs-top-field-wrap {
+  display: contents;
+}
+
+// ── Skill row (transparent on desktop) ─────────────────────────────────────
+.cs-skill-row {
+  display: contents;
+}
+
+// ── Saving-throw / passive row (transparent on desktop) ────────────────────
+.cs-saving-row {
+  display: contents;
+}
+
+.cs-passive-field-wrap,
+.cs-spells-field-wrap,
+.cs-lang-field-wrap,
+.cs-inventory-field-wrap,
+.cs-weapon-prof-row,
+.cs-weapon-extra-wrap {
+  display: contents;
+}
+
+// ── Saving-throws-passive container (transparent on desktop) ───────────
+.cs-stp-container,
+.cs-stp-section {
+  display: contents;
+}
+
 // ══════════════════════════════════════════════════════════════════════════════
-// ── RESPONSIVE LAYOUT  (<1360px) ─────────────────────────────────────────────
+// ── RESPONSIVE UTILITIES ─────────────────────────────────────────────────────
+// ── Bootstrap-like 12-col breakpoints: xl(≥1200) lg(≥992) md(≥768) sm(≥576) xs(<576)
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ── Shared label mixin ──────────────────────────────────────────────────────
+@mixin responsive-label($size: 10px, $color: rgba(255, 255, 255, 0.7)) {
+  content: attr(data-label);
+  display: block;
+  font-size: $size;
+  font-weight: normal;
+  font-family: Arial, sans-serif;
+  color: $color;
+  letter-spacing: 0.03em;
+  margin-bottom: 1px;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ── RESPONSIVE LAYOUT — all responsive screens  (≤1359px) ────────────────────
 // ══════════════════════════════════════════════════════════════════════════════
 @media (max-width: 1359px) {
   // ── Hide background images ───────────────────────────────────────────────
@@ -708,6 +784,11 @@ input[type='checkbox'][disabled] {
     display: none !important;
   }
 
+  // ── HIDE death saves (hearts + skulls) entirely on all responsive ────────
+  .death-save-icon {
+    display: none !important;
+  }
+
   // ── Show section titles ──────────────────────────────────────────────────
   .cs-section-title {
     display: block !important;
@@ -715,17 +796,19 @@ input[type='checkbox'][disabled] {
     font-size: 15px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #3b1e0a;
-    border-bottom: 2px solid rgba(36, 12, 5, 0.35);
+    color: #c8a03c;
+    border-bottom: 2px solid rgba(200, 160, 60, 0.4);
     padding: 0 0 6px 0;
     margin: 0 0 8px 0;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    grid-column: 1 / -1; // span full width when inside any grid container
   }
 
   .cs-main-title {
     font-size: 20px;
     text-align: center;
-    color: #8b1a1a;
-    border-bottom: 3px solid rgba(139, 26, 26, 0.4);
+    color: #e8c96a;
+    border-bottom: 3px solid rgba(200, 160, 60, 0.5);
     padding: 8px 0 10px;
     margin: 0 12px 4px;
   }
@@ -733,6 +816,8 @@ input[type='checkbox'][disabled] {
   .cs-sub-title {
     font-size: 13px;
     margin-top: 8px;
+    color: #b8943a;
+    border-bottom-color: rgba(200, 160, 60, 0.25);
   }
 
   // ── Host: normal flow ─────────────────────────────────────────────────
@@ -858,45 +943,23 @@ input[type='checkbox'][disabled] {
     resize: vertical;
   }
 
-  // ── Responsive labels via data-label on .field (shown via ::before) ───
-  // For inputs that have data-label (top-info, weapons, etc.)
-  .field[data-label] {
-    position: relative !important;
-
-    &::before {
-      content: attr(data-label);
-      display: block;
-      font-size: 10px;
-      font-weight: normal;
-      font-family: Arial, sans-serif;
-      color: rgba(80, 50, 20, 0.55);
-      letter-spacing: 0.03em;
-      margin-bottom: 1px;
-    }
+  // ── Responsive labels via data-label on wrapper divs ──────────────────
+  .cs-combat-field-wrap[data-label] {
+    display: block !important;
+    &::before { @include responsive-label; }
   }
 
-  // Note: ::before doesn't work on <input>. Use wrapper approach for inputs.
-  // We'll rely on placeholder for inputs and use labels for roll-d20-wrap.
+  .field[data-label] {
+    position: relative !important;
+    &::before { @include responsive-label; }
+  }
 
-  // ── Responsive labels via data-label on roll-d20-wrap ─────────────────
   .roll-d20-wrap[data-label] {
     display: flex !important;
     align-items: center;
     gap: 0;
 
-    &::before {
-      content: attr(data-label);
-      display: block;
-      flex: 1 1 auto;
-      font-size: 12px;
-      font-weight: normal;
-      font-family: Arial, sans-serif;
-      color: rgba(255, 250, 240, 0.85);
-      padding: 2px 6px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    &::before { @include responsive-label(12px, rgba(255, 255, 255, 0.8)); flex: 1 1 auto; padding: 2px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
     input.field {
       flex: 0 0 55px !important;
@@ -913,305 +976,392 @@ input[type='checkbox'][disabled] {
     cursor: pointer;
   }
 
-  // ── cs-top-info: 2-col grid with labels ───────────────────────────────
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-top-info ─────────────────────────────────────────────────────────
+  // HOST only — inner-element rules must be top-level (Angular scope)
+  // ════════════════════════════════════════════════════════════════════════
   cs-top-info {
     display: grid !important;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 8px;
+  }
 
-    .cs-section-title {
-      grid-column: 1 / -1;
+  // INNER: top-level so they compile via cs-top-info's own _ngcontent scope
+  .cs-top-field-wrap {
+    display: block !important;
+    grid-column: span 3; // 4-per-row
+
+    &::before {
+      @include responsive-label(10px, rgba(255, 255, 255, 0.75));
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 3px;
     }
 
     .field {
       width: 100% !important;
+      font-size: 15px !important;
+      padding: 8px 10px !important;
+      margin-bottom: 0 !important;
     }
 
-    // Jméno postavy spans full width
-    .field[data-label='Jméno postavy'] {
+    &.cs-top-field-wrap--jmeno {
       grid-column: 1 / -1;
+      .field { font-size: 17px !important; text-align: center !important; font-weight: bold !important; }
     }
   }
 
-  // ── cs-ability-scores ─────────────────────────────────────────────────
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-ability-scores ───────────────────────────────────────────────────
+  // HOST only — inner-element rules must be top-level (Angular scope)
+  // ════════════════════════════════════════════════════════════════════════
   cs-ability-scores {
-    .readonly-field {
-      width: calc(33% - 4px) !important;
-      display: inline-block !important;
-    }
-
-    .roll-d20-wrap {
-      display: inline-flex !important;
-      width: calc(50% - 4px) !important;
-      margin-bottom: 4px;
-    }
-
-    .main-skill {
-      background: transparent !important;
-      border-color: rgba(0, 0, 0, 0.15) !important;
-      font-size: 18px !important;
-    }
-
-    input[id$='-input'] {
-      width: calc(50% - 4px) !important;
-      display: inline-block !important;
-    }
-  }
-
-  // ── cs-combat-stats ───────────────────────────────────────────────────
-  cs-combat-stats {
-    .field[placeholder='Lehké'],
-    .field[placeholder='Střední'],
-    .field[placeholder='Těžké'] {
-      width: calc(30% - 4px) !important;
-      display: inline-block !important;
-    }
-
-    .field[placeholder='20 / 20'] {
-      width: 80px !important;
-      display: inline-block !important;
-    }
-
-    // ── HIDE death saves (hearts + skulls) entirely ─────────────────────
-    .death-save-icon {
-      display: none !important;
-    }
-
-    .field[placeholder='Zbroj'],
-    .field[placeholder='Bez'],
-    .field[placeholder='Jiné'] {
-      width: calc(33% - 4px) !important;
-      display: inline-block !important;
-    }
-
-    .ability-zdatnost-checkbox {
-      margin: 4px 12px 4px 0;
-    }
-  }
-
-  // ── cs-saving-throws-passive ──────────────────────────────────────────
-  cs-saving-throws-passive {
-    .ability-zdatnost-checkbox {
-      margin-right: 6px;
-      margin-bottom: 4px;
-    }
-
-    .roll-d20-wrap {
-      display: inline-flex !important;
-      width: calc(100% - 28px) !important;
-      margin-bottom: 3px;
-    }
-
-    .roll-d20-wrap[data-label] input.field {
-      flex: 0 0 50px !important;
-      width: 50px !important;
-    }
-
-    .no-pb {
-      padding-top: 4px !important;
-      border: 1px solid rgba(0, 0, 0, 0.18) !important;
-    }
-
-    .field[placeholder='Vlastnost'],
-    .field[placeholder='Út bonus'],
-    .field[placeholder='SO záchr.'] {
-      width: calc(33% - 4px) !important;
-      display: inline-block !important;
-    }
-
-    .textarea {
-      height: 150px !important;
-    }
-  }
-
-  // ── cs-spell-slots ────────────────────────────────────────────────────
-  cs-spell-slots {
-    .cs-slot-level-label {
-      display: inline-block !important;
-      font-family: 'Mikadan', sans-serif;
-      font-size: 12px;
-      color: #5a3018;
-      width: 22px;
-      text-align: center;
-      margin-right: 2px;
-      vertical-align: middle;
-      font-weight: bold;
-    }
-
-    .label {
-      font-size: 12px !important;
-      margin-right: 4px;
-    }
-
-    input[type='number'] {
-      width: 60px !important;
-      display: inline-block !important;
-      margin-right: 8px;
-    }
-
-    .spell-slot-cb {
-      margin: 2px;
-    }
-  }
-
-  // ── cs-skills ─────────────────────────────────────────────────────────
-  cs-skills {
-    .ability-zdatnost-checkbox {
-      margin-right: 4px;
-      margin-bottom: 3px;
-    }
-
-    .roll-d20-wrap {
-      display: inline-flex !important;
-      width: calc(100% - 26px) !important;
-      margin-bottom: 2px;
-    }
-
-    .roll-d20-wrap[data-label] input.field {
-      flex: 0 0 50px !important;
-      width: 50px !important;
-    }
-
-    .no-pb {
-      padding-top: 4px !important;
-      border: 1px solid rgba(0, 0, 0, 0.18) !important;
-    }
-
-    .textarea {
-      height: 100px !important;
-    }
-  }
-
-  // ── cs-weapons: weapon rows with separator + labels ───────────────────
-  cs-weapons {
-    .cs-weapon-row {
-      display: flex !important;
-      flex-wrap: wrap;
-      gap: 4px;
-      padding-bottom: 8px;
-      margin-bottom: 8px;
-      border-bottom: 1px dashed rgba(36, 12, 5, 0.2);
-
-      &:last-of-type {
-        border-bottom: none;
-        margin-bottom: 0;
-        padding-bottom: 0;
-      }
-
-      .field-sm {
-        position: static !important;
-        top: auto !important;
-        left: auto !important;
-      }
-
-      .field-sm[placeholder='Zbraň / útok'] {
-        width: 100% !important;
-        font-weight: bold;
-        font-size: 14px !important;
-      }
-
-      .field-sm[placeholder='Bonus'],
-      .field-sm[placeholder='Zásah'],
-      .field-sm[placeholder='Typ'],
-      .field-sm[placeholder='Dosah'],
-      .field-sm[placeholder='OČ'] {
-        width: calc(20% - 4px) !important;
-        font-size: 12px !important;
-      }
-    }
-
-    .ability-zdatnost-checkbox {
-      margin: 4px 12px 4px 0;
-    }
-  }
-
-  // ── cs-languages ──────────────────────────────────────────────────────
-  cs-languages {
-    .textarea {
-      height: 180px !important;
-    }
-  }
-
-  // ── cs-inventory ──────────────────────────────────────────────────────
-  cs-inventory {
-    .inventory-item {
-      width: 100% !important;
-      font-size: 14px !important;
-    }
-  }
-
-  // ── second-page ───────────────────────────────────────────────────────
-  second-page {
     display: grid !important;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 6px;
+  }
+
+  // INNER: top-level so they compile via cs-ability-scores' own _ngcontent scope
+  .cs-ability-bonus-row {
+    display: grid !important;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(12, 1fr);
     gap: 6px;
 
-    .cs-section-title,
-    .cs-sub-title {
-      grid-column: 1 / -1;
-    }
+    .cs-ability-bonus-item {
+      display: block !important;
+      grid-column: span 4;
 
-    .field[placeholder='Postava'],
-    .field[placeholder='Jméno postavy'],
-    .field[placeholder='Tituly, hodnosti, řády, ...'] {
-      grid-column: 1 / -1;
-    }
+      &::before {
+        @include responsive-label(10px, rgba(255, 255, 255, 0.75));
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 3px;
+      }
 
-    .char-img-wrap {
-      grid-column: 1 / -1;
-      position: static !important;
-      top: auto !important;
-      left: auto !important;
-      width: 100% !important;
-      height: 300px !important;
-    }
-
-    .textarea {
-      grid-column: 1 / -1;
-      height: 150px !important;
+      .field { width: 100% !important; margin-bottom: 0; }
     }
   }
 
-  // ── third-page: spell rows with separators ────────────────────────────
+  .cs-ability-group {
+    grid-column: span 4; // 3-per-row
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(36, 12, 5, 0.08);
+
+    .cs-ability-label {
+      display: block !important;
+      font-size: 12px;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+      color: rgba(255, 255, 255, 0.8);
+      min-width: 70px;
+      flex-shrink: 0;
+    }
+
+    .roll-d20-wrap { display: inline-flex !important; flex: 1 1 auto; width: auto !important; margin-bottom: 0 !important; }
+    .main-skill { background: transparent !important; border-color: rgba(0, 0, 0, 0.15) !important; font-size: 18px !important; }
+    input[id$='-input'] { flex: 0 0 50px !important; width: 50px !important; display: inline-block !important; margin-bottom: 0 !important; }
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-combat-stats ─────────────────────────────────────────────────────
+  // HOST only
+  // ════════════════════════════════════════════════════════════════════════
+  cs-combat-stats {
+    display: grid !important;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 6px;
+  }
+
+  // INNER: top-level
+  .cs-combat-speed-row {
+    display: grid !important;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 6px;
+    .cs-combat-field-wrap { grid-column: span 3; display: block !important; }
+    .cs-combat-field-wrap .field { width: 100% !important; }
+  }
+
+  .cs-combat-healing-row {
+    display: grid !important;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 6px;
+    .cs-combat-field-wrap { grid-column: span 6; display: block !important; }
+    .cs-combat-field-wrap .field { width: 100% !important; }
+  }
+
+  .cs-combat-ac-row {
+    display: grid !important;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 6px;
+    .cs-combat-field-wrap { grid-column: span 4; display: block !important; }
+    .cs-combat-field-wrap .field { width: 100% !important; font-size: 18px !important; }
+  }
+
+  .cs-combat-armor-prof-row {
+    display: flex !important;
+    grid-column: 1 / -1;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .cs-combat-prof-item { display: flex !important; align-items: center; gap: 4px; }
+
+  .cs-combat-prof-label {
+    display: inline !important;
+    font-size: 11px;
+    font-family: Arial, sans-serif;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-saving-throws-passive (Bootstrap grid) ───────────────────────────
+  // INNER: top-level
+  // ════════════════════════════════════════════════════════════════════════
+  .cs-stp-container {
+    display: flex !important;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cs-stp-section { margin-bottom: 4px; }
+
+  .cs-saving-row {
+    display: flex !important;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 2px;
+    padding: 2px 0;
+    .ability-zdatnost-checkbox { margin: 0 !important; flex-shrink: 0; }
+  }
+
+  .cs-passive-field-wrap {
+    display: flex !important;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: 4px;
+
+    &::before { @include responsive-label(12px, rgba(255, 255, 255, 0.8)); flex: 1 1 auto; padding: 2px 6px; white-space: nowrap; }
+    .field { flex: 0 0 50px !important; width: 50px !important; margin-bottom: 0 !important; }
+    &--custom {
+      .field:first-of-type { flex: 1 1 auto !important; width: auto !important; }
+      .field:last-of-type  { flex: 0 0 50px !important; width: 50px !important; }
+    }
+  }
+
+  .cs-spells-field-wrap {
+    display: block !important;
+    &::before { @include responsive-label; }
+    .field { width: 100% !important; margin-bottom: 0 !important; }
+    &--textarea { .textarea { height: 150px !important; } }
+  }
+
+  .no-pb { padding-top: 4px !important; border: 1px solid rgba(0, 0, 0, 0.18) !important; }
+
+  // also override roll-d20-wrap inside saving row
+  cs-saving-throws-passive .roll-d20-wrap { display: flex !important; flex: 1 1 auto; width: auto !important; margin-bottom: 0 !important; }
+  cs-saving-throws-passive .roll-d20-wrap[data-label] input.field { flex: 0 0 50px !important; width: 50px !important; margin-bottom: 0 !important; }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-spell-slots ──────────────────────────────────────────────────────
+  // INNER: top-level
+  // ════════════════════════════════════════════════════════════════════════
+  .cs-slot-level-label {
+    display: inline-block !important;
+    font-family: 'Mikadan', sans-serif;
+    font-size: 12px;
+    color: #5a3018;
+    width: 22px;
+    text-align: center;
+    margin-right: 2px;
+    vertical-align: middle;
+    font-weight: bold;
+  }
+
+  cs-spell-slots {
+    .label { font-size: 12px !important; margin-right: 4px; }
+    input[type='number'] { width: 60px !important; display: inline-block !important; margin-right: 8px; }
+    .spell-slot-cb { margin: 2px; }
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-skills ───────────────────────────────────────────────────────────
+  // INNER: top-level
+  // ════════════════════════════════════════════════════════════════════════
+  .cs-skill-row {
+    display: flex !important;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 2px;
+    .ability-zdatnost-checkbox { margin: 0 !important; flex-shrink: 0; }
+    .roll-d20-wrap { display: flex !important; flex: 1 1 auto; width: auto !important; margin-bottom: 0 !important; }
+    .roll-d20-wrap[data-label] {
+      &::before { flex: 1 1 auto; }
+      input.field { flex: 0 0 50px !important; width: 50px !important; margin-bottom: 0 !important; }
+    }
+  }
+
+  cs-skills .textarea { height: 100px !important; }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-weapons ──────────────────────────────────────────────────────────
+  // INNER: top-level
+  // ════════════════════════════════════════════════════════════════════════
+  .cs-weapon-row {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px dashed rgba(36, 12, 5, 0.2);
+    &:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .field-sm { position: static !important; top: auto !important; left: auto !important; }
+    .field-sm[placeholder='Zbraň / útok'] { width: 100% !important; font-weight: bold; font-size: 14px !important; }
+    .field-sm[placeholder='Bonus'],
+    .field-sm[placeholder='Zásah'],
+    .field-sm[placeholder='Typ'],
+    .field-sm[placeholder='Dosah'],
+    .field-sm[placeholder='OČ'] { width: calc(20% - 4px) !important; font-size: 12px !important; }
+  }
+
+  cs-weapons .ability-zdatnost-checkbox { margin: 4px 12px 4px 0; }
+
+  .cs-weapon-prof-row { display: flex !important; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 4px; }
+
+  .cs-weapon-extra-wrap {
+    display: block !important;
+    flex: 1 1 auto;
+    &::before { @include responsive-label; }
+    .field { width: 100% !important; }
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-languages ────────────────────────────────────────────────────────
+  // INNER: top-level
+  // ════════════════════════════════════════════════════════════════════════
+  .cs-lang-field-wrap {
+    display: block !important;
+    &::before { @include responsive-label; }
+    .field { width: 100% !important; }
+    &--textarea .textarea { height: 180px !important; }
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-inventory ────────────────────────────────────────────────────────
+  // INNER: top-level
+  // ════════════════════════════════════════════════════════════════════════
+  .cs-inventory-field-wrap {
+    display: block !important;
+    &::before { @include responsive-label; }
+    .field { width: 100% !important; }
+  }
+
+  .inventory-item { width: 100% !important; font-size: 14px !important; }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── second-page ─────────────────────────────────────────────────────────
+  // ════════════════════════════════════════════════════════════════════════
+  second-page {
+    display: grid !important;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 6px;
+    .field { grid-column: span 6; }
+    .field[placeholder='Postava'],
+    .field[placeholder='Jméno postavy'],
+    .field[placeholder='Tituly, hodnosti, řády, ...'] { grid-column: 1 / -1; }
+    .char-img-wrap { grid-column: 1 / -1; position: static !important; top: auto !important; left: auto !important; width: 100% !important; height: 300px !important; }
+    .textarea { grid-column: 1 / -1; height: 150px !important; }
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── third-page ──────────────────────────────────────────────────────────
+  // ════════════════════════════════════════════════════════════════════════
   third-page {
-    .spell-row {
-      display: inline-block !important;
-      margin-bottom: 1px;
-      font-size: 12px !important;
-    }
+    .spell-row { display: inline-block !important; margin-bottom: 1px; font-size: 12px !important; }
+    .spell-detail-btn { position: static !important; top: auto !important; left: auto !important; display: inline-flex !important; width: 20px !important; margin-bottom: 1px; }
+    .checkbox { position: static !important; top: auto !important; left: auto !important; display: inline-block !important; vertical-align: middle; margin: 0 4px 2px 0; }
+    .red-checkbox { border-top: 1px solid rgba(36, 12, 5, 0.12) !important; padding-top: 4px; margin-top: 4px; }
+    .spell-dropdown { position: fixed !important; left: 12px !important; right: 12px !important; width: auto !important; max-height: 200px; }
+  }
+}
 
-    .spell-detail-btn {
-      position: static !important;
-      top: auto !important;
-      left: auto !important;
-      display: inline-flex !important;
-      width: 20px !important;
-      margin-bottom: 1px;
-    }
+// ══════════════════════════════════════════════════════════════════════════════
+// ── md breakpoint (768px–991px): fields get wider columns ────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+@media (max-width: 991px) {
+  // top-level rules so Angular scope compiles them against each component's own scope
+  .cs-top-field-wrap { grid-column: span 3 !important; }      // keep 4-per-row
+  .cs-ability-group { grid-column: span 6 !important; }       // 2-per-row
+  .cs-ability-bonus-item { grid-column: span 4 !important; }  // keep 3-per-row
 
-    .checkbox {
-      position: static !important;
-      top: auto !important;
-      left: auto !important;
-      display: inline-block !important;
-      vertical-align: middle;
-      margin: 0 4px 2px 0;
-    }
+  .cs-combat-speed-row .cs-combat-field-wrap { grid-column: span 6 !important; }  // 2-per-row
+  .cs-combat-ac-row .cs-combat-field-wrap { grid-column: span 4 !important; }     // 3-per-row
 
-    // Each red-checkbox (spell prepared) marks start of a spell row → add top border
-    .red-checkbox {
-      border-top: 1px solid rgba(36, 12, 5, 0.12) !important;
-      padding-top: 4px;
-      margin-top: 4px;
-    }
+  second-page .field { grid-column: span 6 !important; }
+}
 
-    .spell-dropdown {
-      position: fixed !important;
-      left: 12px !important;
-      right: 12px !important;
-      width: auto !important;
-      max-height: 200px;
-    }
+// ══════════════════════════════════════════════════════════════════════════════
+// ── sm breakpoint (576px–767px): even wider ──────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+@media (max-width: 767px) {
+  .cs-top-field-wrap { grid-column: span 3 !important; }          // keep 4-per-row
+  .cs-top-field-wrap.cs-top-field-wrap--jmeno { grid-column: 1 / -1 !important; }
+
+  .cs-ability-group { grid-column: 1 / -1 !important; }           // 1-per-row
+  .cs-ability-bonus-item { grid-column: span 4 !important; }      // keep 3-per-row
+
+  .cs-combat-speed-row .cs-combat-field-wrap { grid-column: span 6 !important; }
+  .cs-combat-healing-row .cs-combat-field-wrap { grid-column: span 6 !important; }
+  .cs-combat-ac-row .cs-combat-field-wrap { grid-column: span 6 !important; }
+
+  second-page {
+    .field { grid-column: span 6 !important; }
+    .field[placeholder='Postava'],
+    .field[placeholder='Jméno postavy'],
+    .field[placeholder='Tituly, hodnosti, řády, ...'] { grid-column: 1 / -1 !important; }
+    .textarea { grid-column: 1 / -1 !important; }
+    .char-img-wrap { grid-column: 1 / -1 !important; }
+  }
+
+  .cs-weapon-row {
+    .field-sm[placeholder='Bonus'],
+    .field-sm[placeholder='Zásah'],
+    .field-sm[placeholder='Typ'],
+    .field-sm[placeholder='Dosah'],
+    .field-sm[placeholder='OČ'] { width: calc(33% - 4px) !important; }
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ── xs breakpoint (<576px): biggest columns, minimal per row ─────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+@media (max-width: 575px) {
+  .cs-top-field-wrap { grid-column: span 6 !important; }          // 2-per-row on xs
+  .cs-ability-bonus-item { grid-column: span 6 !important; }      // 2-per-row
+
+  .cs-combat-speed-row .cs-combat-field-wrap { grid-column: span 12 !important; }
+  .cs-combat-healing-row .cs-combat-field-wrap { grid-column: span 12 !important; }
+  .cs-combat-ac-row .cs-combat-field-wrap { grid-column: span 6 !important; }
+  .cs-combat-armor-prof-row { flex-direction: column !important; gap: 6px !important; }
+
+  second-page {
+    .field { grid-column: span 12 !important; }
+    .textarea { grid-column: 1 / -1 !important; }
+    .char-img-wrap { grid-column: 1 / -1 !important; }
+  }
+
+  .cs-weapon-row {
+    .field-sm[placeholder='Bonus'],
+    .field-sm[placeholder='Zásah'],
+    .field-sm[placeholder='Typ'],
+    .field-sm[placeholder='Dosah'],
+    .field-sm[placeholder='OČ'] { width: calc(50% - 4px) !important; }
   }
 }
 
@@ -1219,13 +1369,19 @@ input[type='checkbox'][disabled] {
 @media (max-width: 1359px) {
   :host.theme-dark {
     .cs-section-title {
-      color: rgba(255, 255, 255, 0.85);
-      border-bottom-color: rgba(255, 255, 255, 0.2);
+      color: #e8c96a;
+      border-bottom-color: rgba(200, 160, 60, 0.35);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
     }
 
     .cs-main-title {
-      color: #e8c96a;
-      border-bottom-color: rgba(200, 160, 60, 0.35);
+      color: #f0d870;
+      border-bottom-color: rgba(200, 160, 60, 0.5);
+    }
+
+    .cs-sub-title {
+      color: #d4b44a;
+      border-bottom-color: rgba(200, 160, 60, 0.2);
     }
 
     cs-top-info,
@@ -1246,6 +1402,46 @@ input[type='checkbox'][disabled] {
 
     .roll-d20-wrap[data-label]::before {
       color: rgba(255, 250, 240, 0.75);
+    }
+
+    .cs-top-field-wrap[data-label]::before {
+      color: rgba(200, 160, 60, 0.65) !important;
+    }
+
+    .cs-ability-label {
+      color: rgba(200, 160, 60, 0.8) !important;
+    }
+
+    .cs-ability-bonus-item[data-label]::before {
+      color: rgba(200, 160, 60, 0.65) !important;
+    }
+
+    .cs-combat-field-wrap[data-label]::before {
+      color: rgba(200, 160, 60, 0.6) !important;
+    }
+
+    .cs-combat-prof-label {
+      color: rgba(200, 160, 60, 0.6) !important;
+    }
+
+    .cs-passive-field-wrap[data-label]::before {
+      color: rgba(255, 250, 240, 0.75) !important;
+    }
+
+    .cs-spells-field-wrap[data-label]::before {
+      color: rgba(200, 160, 60, 0.6) !important;
+    }
+
+    .cs-lang-field-wrap[data-label]::before {
+      color: rgba(200, 160, 60, 0.6) !important;
+    }
+
+    .cs-inventory-field-wrap[data-label]::before {
+      color: rgba(200, 160, 60, 0.6) !important;
+    }
+
+    .cs-weapon-extra-wrap[data-label]::before {
+      color: rgba(200, 160, 60, 0.6) !important;
     }
 
     .cs-slot-level-label {

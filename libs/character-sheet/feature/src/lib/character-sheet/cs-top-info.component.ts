@@ -20,14 +20,12 @@ import { DestroyRef } from '@angular/core';
     <h3 class="cs-section-title">Základní informace</h3>
     @if (_tick()) {
       <ng-container [formGroup]="form()">
-        <input [formControl]="c.rasa" class="field" data-label="Rasa" style="top:92.21px; left:58.95px; width:183.4px" placeholder="Rasa" />
-        <input
-          [formControl]="c.povolani"
-          class="field"
-          data-label="Povolání"
-          style="top:92.21px; left:255.45px; width:183.4px;"
-          placeholder="Povolání"
-        />
+        <div class="cs-top-field-wrap" data-label="Rasa">
+          <input [formControl]="c.rasa" class="field" style="top:92.21px; left:58.95px; width:183.4px" placeholder="Rasa" />
+        </div>
+        <div class="cs-top-field-wrap" data-label="Povolání">
+          <input [formControl]="c.povolani" class="field" style="top:92.21px; left:255.45px; width:183.4px;" placeholder="Povolání" />
+        </div>
 
         <button
           (click)="onOpenBackgroundDialog()"
@@ -38,7 +36,9 @@ import { DestroyRef } from '@angular/core';
         >
           <mat-icon class="small-info-icon">info</mat-icon>
         </button>
-        <input [formControl]="c.zazemi" class="field" data-label="Zázemí" style="top: 158px; left: 58px; width: 183px;" placeholder="Zázemí" />
+        <div class="cs-top-field-wrap" data-label="Zázemí">
+          <input [formControl]="c.zazemi" class="field" style="top: 158px; left: 58px; width: 183px;" placeholder="Zázemí" />
+        </div>
 
         <button
           (click)="onOpenConvictionDialog()"
@@ -49,21 +49,13 @@ import { DestroyRef } from '@angular/core';
         >
           <mat-icon class="small-info-icon">info</mat-icon>
         </button>
-        <input
-          [formControl]="c.presvedceni"
-          class="field"
-          data-label="Přesvědčení"
-          style="top:158px; left:255px; width:183px;"
-          placeholder="Přesvědčení"
-        />
+        <div class="cs-top-field-wrap" data-label="Přesvědčení">
+          <input [formControl]="c.presvedceni" class="field" style="top:158px; left:255px; width:183px;" placeholder="Přesvědčení" />
+        </div>
 
-        <input
-          [formControl]="c.jmenoPostavy"
-          class="field"
-          data-label="Jméno postavy"
-          style="top:145.36px; left:550.2px; width:196.5px; text-align: center; font-weight: bold"
-          placeholder="Jméno postavy"
-        />
+        <div class="cs-top-field-wrap cs-top-field-wrap--jmeno" data-label="Jméno postavy">
+          <input [formControl]="c.jmenoPostavy" class="field" style="top:145.36px; left:550.2px; width:196.5px; text-align: center; font-weight: bold" placeholder="Jméno postavy" />
+        </div>
 
         <button
           (click)="onOpenLevelsDialog()"
@@ -74,22 +66,15 @@ import { DestroyRef } from '@angular/core';
         >
           <mat-icon class="small-info-icon">info</mat-icon>
         </button>
-        <input
-          [formControl]="c.uroven"
-          id="uroven-input"
-          class="field"
-          data-label="Úroveň"
-          style="top:92px; left:858px; width:183px;"
-          placeholder="Úroveň"
-        />
-        <input
-          [formControl]="c.zkusenosti"
-          class="field"
-          data-label="Zkušenosti"
-          style="top:92.67px; left:1051.93px; width:183.4px;"
-          placeholder="Zkušenost"
-        />
-        <input [formControl]="c.hrac" class="field" data-label="Hráč" style="top:158.08px; left:858.05px; width:183.4px;" placeholder="Hráč" />
+        <div class="cs-top-field-wrap" data-label="Úroveň">
+          <input [formControl]="c.uroven" id="uroven-input" class="field" style="top:92px; left:858px; width:183px;" placeholder="Úroveň" />
+        </div>
+        <div class="cs-top-field-wrap" data-label="Zkušenosti">
+          <input [formControl]="c.zkusenosti" class="field" style="top:92.67px; left:1051.93px; width:183.4px;" placeholder="Zkušenost" />
+        </div>
+        <div class="cs-top-field-wrap" data-label="Hráč">
+          <input [formControl]="c.hrac" class="field" style="top:158.08px; left:858.05px; width:183.4px;" placeholder="Hráč" />
+        </div>
       </ng-container>
     }
   `,
