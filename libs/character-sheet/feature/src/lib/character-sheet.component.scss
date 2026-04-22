@@ -968,12 +968,19 @@ input[type='checkbox'][disabled] {
     }
 
     .roll-d20-btn {
-      display: none !important;
+      display: flex !important; // always visible on responsive (touch devices have no hover)
+      position: static !important;
+      transform: none !important;
+      flex-shrink: 0;
     }
   }
 
-  .roll-d20-wrap[data-label] input.field {
-    cursor: pointer;
+  // show roll button always on responsive (no hover on touch screens)
+  .roll-d20-btn {
+    display: flex !important;
+    position: static !important;
+    transform: none !important;
+    flex-shrink: 0;
   }
 
   // ════════════════════════════════════════════════════════════════════════
@@ -1061,7 +1068,9 @@ input[type='checkbox'][disabled] {
       flex-shrink: 0;
     }
 
-    .roll-d20-wrap { display: inline-flex !important; flex: 1 1 auto; width: auto !important; margin-bottom: 0 !important; }
+    .roll-d20-wrap { display: inline-flex !important; flex: 1 1 auto; width: auto !important; margin-bottom: 0 !important;
+      .roll-d20-btn { position: static !important; transform: none !important; }
+    }
     .main-skill { background: transparent !important; border-color: rgba(0, 0, 0, 0.15) !important; font-size: 18px !important; }
     input[id$='-input'] { flex: 0 0 50px !important; width: 50px !important; display: inline-block !important; margin-bottom: 0 !important; }
   }
