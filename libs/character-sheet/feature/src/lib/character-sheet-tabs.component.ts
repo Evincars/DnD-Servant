@@ -11,6 +11,7 @@ import { LocalStorageService, ACTIVE_TAB_INDEX_KEY, AUTOFILL_DIALOG_HIDDEN_KEY }
 import { MatDialog } from '@angular/material/dialog';
 import { openAutofillAbilitiesDialog } from './help-dialogs/autofill-abilities-dialog.component';
 import { ImageConverterComponent } from './image-converter/image-converter.component';
+import { WikiTabComponent } from './wiki/wiki-tab.component';
 
 const TAB_INDEX_KEY = ACTIVE_TAB_INDEX_KEY;
 
@@ -30,6 +31,7 @@ const TAB_INDEX_KEY = ACTIVE_TAB_INDEX_KEY;
       <mat-tab label="Poznámky"><notes-sheet /></mat-tab>
       <mat-tab label="Iniciativa"><initiative-tracker [disableMonsterSearch]="true" /></mat-tab>
       <mat-tab label="Konvertor obrázků"><image-converter /></mat-tab>
+      <mat-tab label="J&D wiki"><wiki-tab /></mat-tab>
     </mat-tab-group>
   `,
   styles: `
@@ -199,6 +201,13 @@ const TAB_INDEX_KEY = ACTIVE_TAB_INDEX_KEY;
       height: calc(100svh - 165px);
       min-height: 400px;
     }
+
+    /* Wiki tab needs full viewport height with internal scrolling */
+    ::ng-deep wiki-tab {
+      display: flex;
+      height: calc(100svh - 165px);
+      min-height: 400px;
+    }
   `,
   providers: [CharacterSheetStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -212,6 +221,7 @@ const TAB_INDEX_KEY = ACTIVE_TAB_INDEX_KEY;
     PlayerItemsCardsComponent,
     QuestsTabComponent,
     ImageConverterComponent,
+    WikiTabComponent,
   ],
 })
 export class CharacterSheetTabsComponent implements OnInit {

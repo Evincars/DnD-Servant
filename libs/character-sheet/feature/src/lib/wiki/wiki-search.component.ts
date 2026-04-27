@@ -1,0 +1,422 @@
+import { ChangeDetectionStrategy, Component, computed, ElementRef, output, signal, viewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { WIKI_CATALOG, WikiBook, WikiChapter, WikiSelection } from './wiki-catalog.const';
+import { normalizeStr } from './wiki-utils';
+
+// ── Chapter-level search index ───────────────────────────────────────────────
+
+interface ChapterEntry {
+  kind: 'chapter';
+  label: string;
+  bookLabel: string;
+  book: WikiBook;
+  chapter: WikiChapter;
+  _words: string[];
+}
+
+/** Build the chapter index once at module load time. */
+const CHAPTER_INDEX: ChapterEntry[] = WIKI_CATALOG.flatMap(book =>
+  book.chapters.map(chapter => {
+    const filename = chapter.file.split('/').pop()?.replace(/\.md$/i, '') ?? chapter.id;
+    const words = [
+      ...normalizeStr(chapter.label)
+        .split(/[\s\-–—_]+/)
+        .filter(Boolean),
+      ...normalizeStr(filename)
+        .split(/[\s\-_]+/)
+        .filter(Boolean),
+    ];
+    return { kind: 'chapter', label: chapter.label, bookLabel: book.label, book, chapter, _words: words };
+  }),
+);
+
+// ── Heading-level search index (loaded lazily) ───────────────────────────────
+
+/** Shape of one entry in the static heading-index.json file. */
+interface RawHeadingEntry {
+  b: string; // bookId
+  f: string; // chapter file path
+  h: string; // heading text
+  s: string; // heading slug
+}
+
+interface HeadingEntry {
+  kind: 'heading';
+  label: string; // heading text
+  bookLabel: string;
+  chapterLabel: string;
+  book: WikiBook;
+  chapter: WikiChapter;
+  headingSlug: string;
+  _words: string[];
+}
+
+// ── Unified result type ───────────────────────────────────────────────────────
+
+type SearchEntry = ChapterEntry | HeadingEntry;
+
+const MAX_RESULTS = 20;
+const MAX_CHAPTER_RESULTS = 10;
+const MAX_HEADING_RESULTS = 10;
+
+function matchesChapter(e: ChapterEntry, nq: string): boolean {
+  const queryWords = nq.split(/\s+/).filter(Boolean);
+  if (queryWords.length === 0) return false;
+  // Every query word must match at least one indexed word (prefix match).
+  return queryWords.every(qw => e._words.some(w => w.startsWith(qw)));
+}
+
+function matchesHeading(e: HeadingEntry, nq: string): boolean {
+  // Full-phrase substring match on the heading label.
+  if (normalizeStr(e.label).includes(nq)) return true;
+  // Fallback: every query word matches at least one indexed word (prefix match).
+  const queryWords = nq.split(/\s+/).filter(Boolean);
+  return queryWords.length > 0 && queryWords.every(qw => e._words.some(w => w.startsWith(qw)));
+}
+
+@Component({
+  selector: 'wiki-search',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [FormsModule],
+  host: {
+    '(document:keydown.escape)': 'onEscapeGlobal()',
+  },
+  template: `
+    <div class="search-wrap">
+      <div class="search-row">
+        <!-- Search icon -->
+        <svg class="search-icon" viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+          <path
+            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+          />
+        </svg>
+
+        <input
+          #inputRef
+          class="search-input"
+          type="text"
+          placeholder="Hledat v J&D Wiki…"
+          autocomplete="off"
+          spellcheck="false"
+          [ngModel]="query()"
+          (ngModelChange)="onQueryChange($event)"
+          (keydown)="onKeyDown($event)"
+          (focus)="onFocus()"
+          (blur)="onBlur()"
+        />
+
+        @if (query()) {
+          <button class="clear-btn" (click)="clear()" tabindex="-1" title="Vymazat">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+            </svg>
+          </button>
+        }
+      </div>
+
+      @if (open() && results().length > 0) {
+        <ul class="dropdown" role="listbox" #dropdownRef (mousedown)="$event.preventDefault()">
+          @for (entry of results(); track trackEntry(entry); let i = $index) {
+            <li
+              class="result"
+              [class.result--focused]="focusedIndex() === i"
+              [class.result--heading]="entry.kind === 'heading'"
+              role="option"
+              (mousedown)="select(entry)"
+              (mouseenter)="focusedIndex.set(i)"
+            >
+              @if (entry.kind === 'heading') {
+                <span class="result__hash">#</span>
+              }
+              <span class="result__label">{{ entry.label }}</span>
+              <span class="result__book">
+                @if (entry.kind === 'heading') {
+                  {{ entry.chapterLabel }} &middot; {{ entry.bookLabel }}
+                } @else {
+                  {{ entry.bookLabel }}
+                }
+              </span>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  `,
+  styles: `
+    :host {
+      display: block;
+      position: relative;
+    }
+
+    .search-wrap {
+      position: relative;
+    }
+
+    /* ── Input row ── */
+    .search-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 10px;
+      background: rgba(22, 12, 4, 0.97);
+      border: 1px solid rgba(200, 160, 60, 0.18);
+      border-radius: 3px;
+      min-width: 240px;
+      transition:
+        border-color 0.15s,
+        box-shadow 0.15s;
+
+      &:focus-within {
+        border-color: rgba(200, 160, 60, 0.45);
+        box-shadow: 0 0 0 1px rgba(200, 160, 60, 0.12);
+      }
+    }
+
+    .search-icon {
+      color: #5a4a38;
+      flex-shrink: 0;
+    }
+
+    .search-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: sans-serif;
+      font-size: 13px;
+      color: #c8baa8;
+      min-width: 0;
+
+      &::placeholder {
+        color: #3e3028;
+      }
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      color: #4a3a28;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      transition: color 0.12s;
+
+      &:hover {
+        color: #c8a03c;
+      }
+    }
+
+    /* ── Dropdown ── */
+    .dropdown {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      min-width: max(100%, 560px);
+      max-height: 440px;
+      overflow-y: auto;
+      background: rgba(16, 8, 2, 0.99);
+      border: 1px solid rgba(200, 160, 60, 0.25);
+      border-radius: 3px;
+      list-style: none;
+      margin: 0;
+      padding: 3px 0;
+      z-index: 1000;
+      box-shadow:
+        0 10px 28px rgba(0, 0, 0, 0.7),
+        0 2px 8px rgba(0, 0, 0, 0.4);
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgba(200, 160, 60, 0.2);
+        border-radius: 2px;
+      }
+    }
+
+    /* ── Result item ── */
+    .result {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 7px 13px;
+      cursor: pointer;
+      gap: 10px;
+      border-bottom: 1px solid rgba(200, 160, 60, 0.04);
+      transition: background 0.08s;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .result--focused {
+      background: rgba(200, 160, 60, 0.08);
+    }
+
+    /* Heading results get a very subtle indent */
+    .result--heading {
+      padding-left: 11px;
+    }
+
+    .result__hash {
+      font-size: 11px;
+      color: #b84949;
+      flex-shrink: 0;
+      margin-right: 2px;
+      opacity: 0.7;
+    }
+
+    .result__label {
+      font-family: sans-serif;
+      font-size: 13px;
+      color: #c8baa8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .result--heading .result__label {
+      font-size: 12.5px;
+      color: #b8a898;
+    }
+
+    .result__book {
+      font-family: sans-serif;
+      font-size: 10.5px;
+      color: #5a4a38;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  `,
+})
+export class WikiSearchComponent {
+  readonly chapterSelect = output<WikiSelection>();
+
+  readonly query = signal('');
+  readonly open = signal(false);
+  readonly focusedIndex = signal(0);
+
+  readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('inputRef');
+
+  // ── Heading index (lazy-loaded) ─────────────────────────────────────────────
+  private readonly headingEntries = signal<HeadingEntry[]>([]);
+  private headingIndexLoaded = false;
+
+  private loadHeadingIndex(): void {
+    if (this.headingIndexLoaded) return;
+    this.headingIndexLoaded = true;
+
+    fetch('/dnd5esrd/heading-index.json')
+      .then(r => (r.ok ? (r.json() as Promise<RawHeadingEntry[]>) : Promise.resolve([])))
+      .then(data => {
+        const entries: HeadingEntry[] = [];
+        for (const raw of data) {
+          const book = WIKI_CATALOG.find(b => b.id === raw.b);
+          if (!book) continue;
+          const chapter = book.chapters.find(c => c.file === raw.f);
+          if (!chapter) continue;
+          entries.push({
+            kind: 'heading',
+            label: raw.h,
+            bookLabel: book.label,
+            chapterLabel: chapter.label,
+            book,
+            chapter,
+            headingSlug: raw.s,
+            _words: normalizeStr(raw.h)
+              .split(/[\s\-–—_]+/)
+              .filter(Boolean),
+          });
+        }
+        this.headingEntries.set(entries);
+      })
+      .catch(() => {});
+  }
+
+  // ── Search results ─────────────────────────────────────────────────────────
+
+  readonly results = computed<SearchEntry[]>(() => {
+    const nq = normalizeStr(this.query().trim());
+    if (nq.length < 2) return [];
+
+    const chapterResults = CHAPTER_INDEX.filter(e => matchesChapter(e, nq)).slice(0, MAX_CHAPTER_RESULTS);
+
+    const headingResults = this.headingEntries()
+      .filter(e => matchesHeading(e, nq))
+      .slice(0, MAX_HEADING_RESULTS);
+
+    return [...chapterResults, ...headingResults].slice(0, MAX_RESULTS);
+  });
+
+  // ── Event handlers ─────────────────────────────────────────────────────────
+
+  onFocus(): void {
+    this.open.set(true);
+    // Lazy-load heading index on first focus
+    this.loadHeadingIndex();
+  }
+
+  onQueryChange(value: string): void {
+    this.query.set(value);
+    this.focusedIndex.set(0);
+    this.open.set(true);
+  }
+
+  onKeyDown(event: KeyboardEvent): void {
+    const res = this.results();
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault();
+        this.focusedIndex.update(i => Math.min(i + 1, res.length - 1));
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
+        this.focusedIndex.update(i => Math.max(i - 1, 0));
+        break;
+      case 'Enter': {
+        const entry = res[this.focusedIndex()];
+        if (entry) this.select(entry);
+        break;
+      }
+      case 'Escape':
+        this.open.set(false);
+        this.inputRef()?.nativeElement?.blur();
+        break;
+    }
+  }
+
+  onBlur(): void {
+    this.open.set(false);
+  }
+
+  select(entry: SearchEntry): void {
+    const selection: WikiSelection = { book: entry.book, chapter: entry.chapter };
+    if (entry.kind === 'heading') {
+      selection.headingSlug = entry.headingSlug;
+    }
+    this.chapterSelect.emit(selection);
+    this.query.set('');
+    this.open.set(false);
+  }
+
+  clear(): void {
+    this.query.set('');
+    this.open.set(false);
+    this.inputRef()?.nativeElement.focus();
+  }
+
+  trackEntry(entry: SearchEntry): string {
+    return entry.kind === 'heading'
+      ? `h:${entry.book.id}:${entry.chapter.id}:${entry.headingSlug}`
+      : `c:${entry.book.id}:${entry.chapter.id}`;
+  }
+
+  onEscapeGlobal(): void {
+    if (this.open()) this.open.set(false);
+  }
+}

@@ -1,0 +1,40 @@
+<div class="content-wrap" #scrollContainer (click)="onContentClick($event)">
+
+  @if (!currentBook()) {
+    <div class="placeholder">
+      <mat-icon class="placeholder__icon">auto_stories</mat-icon>
+      <p class="placeholder__text">Vyber knihu v postranním panelu</p>
+    </div>
+  }
+
+  @if (currentBook() && chunks().length === 0 && loading()) {
+    <div class="loading-initial">
+      <div class="spinner"></div>
+      <span>Načítám…</span>
+    </div>
+  }
+
+  @for (chunk of chunks(); track chunk.chapterId) {
+    <article class="chapter-article">
+      <header class="chapter-article__header">
+        <span class="chapter-article__label">{{ chunk.label }}</span>
+      </header>
+      <div class="chapter-article__body wiki-body" [innerHTML]="chunk.html"></div>
+    </article>
+    <hr class="chapter-divider" />
+  }
+
+  <!-- Sentinel for IntersectionObserver -->
+  <div #sentinel class="sentinel">
+    @if (loading()) {
+      <div class="spinner"></div>
+    }
+    @if (!loading() && hasMore()) {
+      <button class="load-more-btn" (click)="loadNext()">Načíst další kapitolu</button>
+    }
+    @if (!hasMore() && chunks().length > 0) {
+      <p class="end-of-book">✦ Konec knihy ✦</p>
+    }
+  </div>
+</div>
+

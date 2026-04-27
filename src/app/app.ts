@@ -1,4 +1,4 @@
-import { Component, DestroyRef, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, DestroyRef, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatFabButton, MatIconButton } from '@angular/material/button';
@@ -12,9 +12,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import html2canvas from 'html2canvas';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { DiceRollerComponent } from '@dn-d-servant/ui';
+import { SheetThemeService } from '@dn-d-servant/character-sheet-feature';
 
 @Component({
   selector: 'app-root',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-sidenav-container class="container">
       <mat-sidenav #sidenav mode="over" class="sidenav">
@@ -107,6 +109,14 @@ import { DiceRollerComponent } from '@dn-d-servant/ui';
                 <mat-icon class="backup-button-icon">download</mat-icon>
                 <span class="backup-btn__label">JSON</span>
               </button>
+              <button
+                (click)="sheetTheme.toggle()"
+                class="github-link backup-btn u-ml-2"
+                [matTooltip]="sheetTheme.darkMode() ? 'Přepnout na světlé pozadí karet' : 'Přepnout na tmavé pozadí karet'"
+              >
+                <mat-icon class="backup-button-icon">{{ sheetTheme.darkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+                <span class="backup-btn__label">{{ sheetTheme.darkMode() ? 'Světlé' : 'Tmavé' }}</span>
+              </button>
             </div>
             <div class="toolbar__right author-info u-flex u-align-center">
               @if (authService.currentUser()) {
@@ -126,8 +136,48 @@ import { DiceRollerComponent } from '@dn-d-servant/ui';
               </a>
               <a class="link author-link" target="_blank" href="https://lasak.netlify.app/">lasaks.eu</a>
             </div>
+
+            <!-- Mobile auth toggle (hidden on desktop) -->
+            <button
+              class="mobile-auth-btn github-link u-ml-2"
+              (click)="mobileMenuOpen.set(!mobileMenuOpen())"
+              aria-label="Účet / přihlášení"
+              matTooltip="Přihlášení & nastavení"
+            >
+              <mat-icon class="toolbar-icon">{{ mobileMenuOpen() ? 'close' : 'manage_accounts' }}</mat-icon>
+            </button>
           </div>
         </mat-toolbar>
+        <!-- Mobile account dropdown -->
+        @if (mobileMenuOpen()) {
+        <div class="mobile-menu-backdrop" (click)="mobileMenuOpen.set(false)"></div>
+        <div class="mobile-menu-dropdown">
+          <div class="mobile-menu-section">
+            @if (authService.currentUser()) {
+            <b class="mobile-menu-username">{{ authService.currentUser()!.username }}</b>
+            <a class="link token mobile-menu-link" href="#" (click)="$event.preventDefault(); logout(); mobileMenuOpen.set(false)">
+              <mat-icon class="mobile-menu-icon">logout</mat-icon> Odhlásit
+            </a>
+            } @if (authService.currentUser() === null) {
+            <a class="link token mobile-menu-link" [routerLink]="routes.login" (click)="mobileMenuOpen.set(false)">
+              <mat-icon class="mobile-menu-icon">login</mat-icon> Přihlásit
+            </a>
+            <a class="link token mobile-menu-link" [routerLink]="routes.register" (click)="mobileMenuOpen.set(false)">
+              <mat-icon class="mobile-menu-icon">person_add</mat-icon> Registrovat
+            </a>
+            }
+          </div>
+          <div class="mobile-menu-divider"></div>
+          <div class="mobile-menu-section">
+            <a target="_blank" href="https://github.com/Evincars/DnD-Servant" class="mobile-menu-link token" (click)="mobileMenuOpen.set(false)">
+              <mat-icon class="mobile-menu-icon">code_blocks</mat-icon> GitHub
+            </a>
+            <a class="mobile-menu-link token" target="_blank" href="https://lasak.netlify.app/" (click)="mobileMenuOpen.set(false)">
+              <mat-icon class="mobile-menu-icon">language</mat-icon> lasaks.eu
+            </a>
+          </div>
+        </div>
+        }
         <div class="main-content u-flex-col" #content>
           <span class="main-corner main-corner--tl">◆</span>
           <span class="main-corner main-corner--tr">◆</span>
@@ -169,6 +219,7 @@ import { DiceRollerComponent } from '@dn-d-servant/ui';
 export class App implements OnInit, OnDestroy {
   authService = inject(AuthService);
   destroyRef = inject(DestroyRef);
+  readonly sheetTheme = inject(SheetThemeService);
   private readonly localStorage = inject(LocalStorageService);
   private readonly characterSheetStore = inject(CharacterSheetStore);
   private readonly router = inject(Router);
@@ -177,6 +228,7 @@ export class App implements OnInit, OnDestroy {
   routes = routes;
   showBackToTop = signal(false);
   screenshotLoading = signal(false);
+  mobileMenuOpen = signal(false);
   private firstLoad = true;
 
   @ViewChild('content') formElement: ElementRef | undefined;

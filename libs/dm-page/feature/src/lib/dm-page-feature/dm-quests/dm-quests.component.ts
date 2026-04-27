@@ -4,7 +4,6 @@ import {
   computed,
   effect,
   ElementRef,
-  HostListener,
   inject,
   signal,
   untracked,
@@ -28,6 +27,7 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
   selector: 'dm-quests',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, MatIcon, MatIconButton, MatTooltip, SpinnerOverlayComponent, RichTextareaComponent],
+  host: { '(document:keydown.escape)': 'onEscape()' },
   styles: `
     :host { display: block; padding: 24px 32px 40px; font-family: 'Mikadan', sans-serif; overflow: visible; }
 
@@ -566,7 +566,6 @@ export class DmQuestsComponent {
   openPreview(e: MouseEvent, q: DmQuestEntry): void { e.stopPropagation(); this.previewQuest.set(q); }
   closePreview(): void { this.previewQuest.set(null); }
 
-  @HostListener('document:keydown.escape')
   onEscape(): void { if (this.previewQuest()) { this.closePreview(); return; } if (this.confirmIdx() !== null) this.cancelDelete(); }
 
   // ── Labels / colours ─────────────────────────────────────────────────────

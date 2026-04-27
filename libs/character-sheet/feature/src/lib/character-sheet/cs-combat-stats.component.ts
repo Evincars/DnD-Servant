@@ -17,57 +17,74 @@ import { merge } from 'rxjs';
   imports: [ReactiveFormsModule, NgClass, MatIcon, MatTooltip],
   styleUrl: '../character-sheet.component.scss',
   template: `
+    <h3 class="cs-section-title">Boj</h3>
     @if (_tick()) {
       <ng-container [formGroup]="speedForm()">
-        <input
-          [formControl]="sc.lehke"
-          [ngClass]="{ 'speed-highlight-light': speedHighlight() === 'light' }"
-          class="field"
-          style="top:308.89px; left:829.23px; width:110.04px;"
-          placeholder="Lehké"
-        />
-        <input
-          [formControl]="sc.stredni"
-          [ngClass]="{ 'speed-highlight-medium': speedHighlight() === 'medium' }"
-          class="field"
-          style="top:308.89px; left:952.37px; width:110.04px;"
-          placeholder="Střední"
-        />
-        <input
-          [formControl]="sc.tezke"
-          [ngClass]="{ 'speed-highlight-heavy': speedHighlight() === 'heavy' }"
-          class="field"
-          style="top:308.89px; left:1073.89px; width:110.04px;"
-          placeholder="Těžké"
-        />
-        <input
-          [formControl]="sc.maxBoduVydrze"
-          class="field"
-          style="top:283px; left:1193.41px; width:68.12px; text-align: center; font-size: 18px; color: red;"
-          placeholder="20 / 20"
-        />
+        <div class="cs-combat-speed-row">
+          <div class="cs-combat-field-wrap" data-label="Lehké naložení">
+            <input
+              [formControl]="sc.lehke"
+              [ngClass]="{ 'speed-highlight-light': speedHighlight() === 'light' }"
+              class="field"
+              style="top:308.89px; left:829.23px; width:110.04px;"
+              placeholder="Lehké"
+            />
+          </div>
+          <div class="cs-combat-field-wrap" data-label="Střední naložení">
+            <input
+              [formControl]="sc.stredni"
+              [ngClass]="{ 'speed-highlight-medium': speedHighlight() === 'medium' }"
+              class="field"
+              style="top:308.89px; left:952.37px; width:110.04px;"
+              placeholder="Střední"
+            />
+          </div>
+          <div class="cs-combat-field-wrap" data-label="Těžké naložení">
+            <input
+              [formControl]="sc.tezke"
+              [ngClass]="{ 'speed-highlight-heavy': speedHighlight() === 'heavy' }"
+              class="field"
+              style="top:308.89px; left:1073.89px; width:110.04px;"
+              placeholder="Těžké"
+            />
+          </div>
+          <div class="cs-combat-field-wrap" data-label="Max bodů výdrže">
+            <input
+              [formControl]="sc.maxBoduVydrze"
+              class="field"
+              style="top:283px; left:1193.41px; width:68.12px; text-align: center; font-size: 18px; color: red;"
+              placeholder="20 / 20"
+            />
+          </div>
+        </div>
 
-        <button
-          (click)="onOpenDamagesDialog()"
-          type="button"
-          matTooltip="Bojové a přetrvávající zranění"
-          style="top:424px; left:842px;"
-          class="field button small-info-button-icon"
-        >
-          <mat-icon class="small-info-icon">info</mat-icon>
-        </button>
-        <input
-          [formControl]="sc.pouzitiKostek"
-          class="field"
-          style="top:420.74px; left:880.32px; width:182.09px;"
-          placeholder="Použití kostek"
-        />
-        <input
-          [formControl]="sc.maxPouzitiKostek"
-          class="field"
-          style="top:454.25px; left:880.32px; width:182.09px;"
-          placeholder="Max"
-        />
+        <div class="cs-combat-healing-row">
+          <button
+            (click)="onOpenDamagesDialog()"
+            type="button"
+            matTooltip="Bojové a přetrvávající zranění"
+            style="top:424px; left:842px;"
+            class="field button small-info-button-icon"
+          >
+            <mat-icon class="small-info-icon">info</mat-icon>
+          </button>
+          <div class="cs-combat-field-wrap" data-label="Použití kostek">
+            <input
+              [formControl]="sc.pouzitiKostek"
+              class="field"
+              style="top:420.74px; left:880.32px; width:182.09px;"
+              placeholder="Použití kostek"
+            />
+          </div>
+          <div class="cs-combat-field-wrap" data-label="Max použití kostek">
+            <input
+              [formControl]="sc.maxPouzitiKostek"
+              class="field"
+              style="top:454.25px; left:880.32px; width:182.09px;"
+              placeholder="Max"
+            />
+          </div>
+        </div>
 
         <!-- Hearts for Dead saving -->
         <div
@@ -157,53 +174,75 @@ import { merge } from 'rxjs';
         >
           <mat-icon class="small-info-icon">info</mat-icon>
         </button>
-        <input
-          [formControl]="ac.zbroj"
-          matTooltip="Podívej se do tabulky Zbrojí kolik ti dává OČ"
-          class="field"
-          style="top:416px; left:478px; width:61px; text-align: center; font-size: 22px;"
-          placeholder="Zbroj"
-        />
-        <input
-          [formControl]="ac.bezeZbroje"
-          matTooltip="10 + oprava Obratnosti"
-          class="field"
-          style="top:416.09px; left:582.95px; width:61.57px; text-align: center; font-size: 22px;"
-          placeholder="Bez"
-        />
-        <input
-          [formControl]="ac.jine"
-          matTooltip="Kolik Ti přičítá štít nebo jiná ochrana (např. magická)"
-          class="field"
-          style="top:416.09px; left:692.99px; width:61.57px; text-align: center; font-size: 22px;"
-          placeholder="Jiné"
-        />
+        <div class="cs-combat-ac-row">
+          <div class="cs-combat-field-wrap" data-label="OČ (Zbroj)">
+            <input
+              [formControl]="ac.zbroj"
+              matTooltip="Podívej se do tabulky Zbrojí kolik ti dává OČ"
+              class="field"
+              style="top:416px; left:478px; width:61px; text-align: center; font-size: 22px;"
+              placeholder="Zbroj"
+            />
+          </div>
+          <div class="cs-combat-field-wrap" data-label="OČ (Bez zbroje)">
+            <input
+              [formControl]="ac.bezeZbroje"
+              matTooltip="10 + oprava Obratnosti"
+              class="field"
+              style="top:416.09px; left:582.95px; width:61.57px; text-align: center; font-size: 22px;"
+              placeholder="Bez"
+            />
+          </div>
+          <div class="cs-combat-field-wrap" data-label="OČ (Jiné)">
+            <input
+              [formControl]="ac.jine"
+              matTooltip="Kolik Ti přičítá štít nebo jiná ochrana (např. magická)"
+              class="field"
+              style="top:416.09px; left:692.99px; width:61.57px; text-align: center; font-size: 22px;"
+              placeholder="Jiné"
+            />
+          </div>
+        </div>
 
         <!-- Proficiency with armors -->
-        <div
-          [ngClass]="abilityCheckboxClass(ac.zdatnostLehke)"
-          (click)="cycleAbilityZdatnost(ac.zdatnostLehke)"
-          class="field ability-zdatnost-checkbox"
-          style="top:484.51px; left:453.33px;"
-        ></div>
-        <div
-          [ngClass]="abilityCheckboxClass(ac.zdatnostStredni)"
-          (click)="cycleAbilityZdatnost(ac.zdatnostStredni)"
-          class="field ability-zdatnost-checkbox"
-          style="top:484.51px; left:545.03px;"
-        ></div>
-        <div
-          [ngClass]="abilityCheckboxClass(ac.zdatnostTezke)"
-          (click)="cycleAbilityZdatnost(ac.zdatnostTezke)"
-          class="field ability-zdatnost-checkbox"
-          style="top:484.51px; left:647.52px;"
-        ></div>
-        <div
-          [ngClass]="abilityCheckboxClass(ac.zdatnostStity)"
-          (click)="cycleAbilityZdatnost(ac.zdatnostStity)"
-          class="field ability-zdatnost-checkbox"
-          style="top:484.51px; left:737.91px;"
-        ></div>
+        <div class="cs-combat-armor-prof-row">
+          <div class="cs-combat-prof-item">
+            <div
+              [ngClass]="abilityCheckboxClass(ac.zdatnostLehke)"
+              (click)="cycleAbilityZdatnost(ac.zdatnostLehke)"
+              class="field ability-zdatnost-checkbox"
+              style="top:484.51px; left:453.33px;"
+            ></div>
+            <span class="cs-combat-prof-label">Lehké</span>
+          </div>
+          <div class="cs-combat-prof-item">
+            <div
+              [ngClass]="abilityCheckboxClass(ac.zdatnostStredni)"
+              (click)="cycleAbilityZdatnost(ac.zdatnostStredni)"
+              class="field ability-zdatnost-checkbox"
+              style="top:484.51px; left:545.03px;"
+            ></div>
+            <span class="cs-combat-prof-label">Střední</span>
+          </div>
+          <div class="cs-combat-prof-item">
+            <div
+              [ngClass]="abilityCheckboxClass(ac.zdatnostTezke)"
+              (click)="cycleAbilityZdatnost(ac.zdatnostTezke)"
+              class="field ability-zdatnost-checkbox"
+              style="top:484.51px; left:647.52px;"
+            ></div>
+            <span class="cs-combat-prof-label">Těžké</span>
+          </div>
+          <div class="cs-combat-prof-item">
+            <div
+              [ngClass]="abilityCheckboxClass(ac.zdatnostStity)"
+              (click)="cycleAbilityZdatnost(ac.zdatnostStity)"
+              class="field ability-zdatnost-checkbox"
+              style="top:484.51px; left:737.91px;"
+            ></div>
+            <span class="cs-combat-prof-label">Štíty</span>
+          </div>
+        </div>
       </ng-container>
     }
   `,

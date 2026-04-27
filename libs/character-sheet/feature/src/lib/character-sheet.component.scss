@@ -8,8 +8,8 @@
   position: absolute;
   box-sizing: border-box;
   pointer-events: auto;
-  background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.18);
   border-radius: var(--border-radius-1);
   padding: 4px 6px;
   font-size: clamp(16px, 4vw, 16px);
@@ -23,6 +23,38 @@
 .field:focus {
   box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.25);
   border-color: red;
+}
+
+// ── Dark-theme overrides ──────────────────────────────────────────────────────
+:host.theme-dark {
+  .field {
+    background: rgba(0, 0, 0, 0.52);
+    border-color: rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .field::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  .field:focus {
+    box-shadow: 0 0 0 3px rgba(120, 180, 255, 0.35);
+    border-color: rgba(120, 180, 255, 0.7);
+  }
+
+  .label {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .checkbox {
+    border-color: rgba(255, 255, 255, 0.25);
+    filter: invert(1);
+  }
+
+  .textarea {
+    --rt-text-color: rgba(255, 255, 255, 0.9);
+    --rt-caret-color: rgba(180, 210, 255, 0.9);
+  }
 }
 
 .label {
@@ -373,6 +405,37 @@ input[type='checkbox'][disabled] {
   height: 15px;
 }
 
+.spell-detail-btn {
+  width: 16px;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(200, 160, 60, 0.12);
+  border: 1px solid rgba(200, 160, 60, 0.35) !important;
+  border-left: none !important;
+  border-radius: 0 3px 3px 0 !important;
+  color: rgba(200, 160, 60, 0.65);
+  cursor: pointer;
+  z-index: 2;
+
+  mat-icon {
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+    line-height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    background: rgba(200, 160, 60, 0.32);
+    color: #e8c96a;
+  }
+}
+
 .readonly-field {
   cursor: default !important;
   pointer-events: none;
@@ -574,5 +637,1061 @@ input[type='checkbox'][disabled] {
 
   &:hover .roll-d20-btn {
     display: flex;
+  }
+}
+
+// ── Spell name autocomplete dropdown — custom, no Material chrome ──────────────
+.spell-dropdown {
+  position: absolute;
+  z-index: 1000;
+  max-height: 220px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: linear-gradient(180deg, rgba(10,7,20,.99) 0%, rgba(16,11,28,.99) 100%);
+  border: 1px solid rgba(200,160,60,.3);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  box-shadow:
+    0 0 0 1px rgba(200,160,60,.08),
+    0 8px 30px rgba(0,0,0,.85);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200,160,60,.4) rgba(10,8,20,.6);
+
+  &__item {
+    padding: 5px 10px;
+    font-size: 11px;
+    font-family: sans-serif;
+    color: #d4c9a0;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 1px solid rgba(200,160,60,.07);
+    letter-spacing: .02em;
+
+    &:last-child { border-bottom: none; }
+
+    &:hover,
+    &--active {
+      background: rgba(120,80,200,.18);
+      color: #e8c96a;
+    }
+  }
+}
+
+// ── Section titles, slot level labels, weapon row wrappers (hidden/transparent by default) ──
+.cs-section-title,
+.cs-slot-level-label {
+  display: none;
+}
+
+.cs-weapon-row {
+  display: contents; // transparent wrapper on desktop
+}
+
+// ── Ability label (hidden on desktop) ─────────────────────────────────────
+.cs-ability-label {
+  display: none;
+}
+
+// ── Ability bonus row (transparent on desktop) ────────────────────────────
+.cs-ability-bonus-row {
+  display: contents;
+}
+
+// ── Ability bonus item wrapper (transparent on desktop) ──────────────────
+.cs-ability-bonus-item {
+  display: contents;
+}
+
+// ── Combat wrapper divs (transparent on desktop) ──────────────────────────
+.cs-combat-speed-row,
+.cs-combat-healing-row,
+.cs-combat-ac-row,
+.cs-combat-armor-prof-row,
+.cs-combat-prof-item,
+.cs-combat-field-wrap {
+  display: contents;
+}
+
+.cs-combat-prof-label {
+  display: none;
+}
+
+// ── Top-info field wrapper (transparent on desktop) ───────────────────────
+.cs-top-field-wrap {
+  display: contents;
+}
+
+// ── Skill row (transparent on desktop) ─────────────────────────────────────
+.cs-skill-row {
+  display: contents;
+}
+
+// ── Saving-throw / passive row (transparent on desktop) ────────────────────
+.cs-saving-row {
+  display: contents;
+}
+
+.cs-passive-field-wrap,
+.cs-spells-field-wrap,
+.cs-lang-field-wrap,
+.cs-inventory-field-wrap,
+.cs-weapon-prof-row,
+.cs-weapon-extra-wrap {
+  display: contents;
+}
+
+// ── Saving-throws-passive container (transparent on desktop) ───────────
+.cs-stp-container,
+.cs-stp-section {
+  display: contents;
+}
+
+// ── Spell-slots new wrappers (transparent on desktop) ─────────────────
+.cs-spell-levels-row,
+.cs-spell-level-wrap,
+.cs-spell-slots-grid,
+.cs-spell-level-col,
+.cs-alch-chest-grid,
+.cs-alch-chest-row {
+  display: contents;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ── RESPONSIVE UTILITIES ─────────────────────────────────────────────────────
+// ── Bootstrap-like 12-col breakpoints: xl(≥1200) lg(≥992) md(≥768) sm(≥576) xs(<576)
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ── Shared label mixin ──────────────────────────────────────────────────────
+@mixin responsive-label($size: 10px, $color: rgba(255, 255, 255, 0.7)) {
+  content: attr(data-label);
+  display: block;
+  font-size: $size;
+  font-weight: normal;
+  font-family: Arial, sans-serif;
+  color: $color;
+  letter-spacing: 0.03em;
+  margin-bottom: 1px;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ── RESPONSIVE LAYOUT — all responsive screens  (≤1359px) ────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+@media (max-width: 1359px) {
+  // ── Hide background images ───────────────────────────────────────────────
+  .cs-bg-img {
+    display: none !important;
+  }
+
+  // ── Hide ALL help/info tooltip icon buttons ──────────────────────────────
+  .small-info-button-icon {
+    display: none !important;
+  }
+
+  // ── Hide conditions button ───────────────────────────────────────────────
+  conditions-button {
+    display: none !important;
+  }
+
+  // ── HIDE death saves (hearts + skulls) entirely on all responsive ────────
+  .death-save-icon {
+    display: none !important;
+  }
+
+  // ── Show section titles ──────────────────────────────────────────────────
+  .cs-section-title {
+    display: block !important;
+    font-family: 'Mikadan', sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #c8a03c;
+    border-bottom: 2px solid rgba(200, 160, 60, 0.4);
+    padding: 0 0 6px 0;
+    margin: 0 0 8px 0;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    grid-column: 1 / -1; // span full width when inside any grid container
+  }
+
+  .cs-main-title {
+    font-size: 20px;
+    text-align: center;
+    color: #e8c96a;
+    border-bottom: 3px solid rgba(200, 160, 60, 0.5);
+    padding: 8px 0 10px;
+    margin: 0 12px 4px;
+  }
+
+  .cs-sub-title {
+    font-size: 13px;
+    margin-top: 8px;
+    color: #b8943a;
+    border-bottom-color: rgba(200, 160, 60, 0.25);
+  }
+
+  // ── Host: normal flow ─────────────────────────────────────────────────
+  :host {
+    position: static;
+    display: block;
+    padding: 0;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    // allow horizontal scrolling only as last resort; no clipping of inputs
+    overflow-x: clip;
+  }
+
+  // ── Form: flex column ─────────────────────────────────────────────────
+  form {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    position: static !important;
+  }
+
+  // ── Save button: sticky top ───────────────────────────────────────────
+  .cs-save-btn {
+    position: sticky !important;
+    top: 0 !important;
+    left: auto !important;
+    width: 100% !important;
+    z-index: 100;
+    font-size: 16px !important;
+    padding: 10px !important;
+    border-radius: 0 !important;
+    text-align: center;
+  }
+
+  // ── Child component hosts → block cards ───────────────────────────────
+  cs-top-info,
+  cs-ability-scores,
+  cs-combat-stats,
+  cs-saving-throws-passive,
+  cs-spell-slots,
+  cs-skills,
+  cs-weapons,
+  cs-languages,
+  cs-inventory,
+  second-page,
+  third-page {
+    display: block !important;
+    background: rgba(245, 235, 220, 0.95);
+    border: 1px solid rgba(36, 12, 5, 0.25);
+    border-radius: 0;
+    padding: 12px !important;
+    border-bottom: 2px solid rgba(36, 12, 5, 0.15);
+    overflow: visible; // allow content to flow naturally on responsive
+    box-sizing: border-box;
+  }
+
+  // ── Global field reset ────────────────────────────────────────────────
+  .field,
+  .label {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .field {
+    width: 100% !important;
+    max-width: 100% !important;   // never exceed parent
+    margin-bottom: 6px;
+    font-size: 14px !important;
+  }
+
+  .roll-d20-wrap {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center;
+
+    input.field {
+      width: 100% !important;
+    }
+  }
+
+  // ── Roll dice button: absolute inside its input on responsive (no overflow) ──
+  .roll-d20-wrap[data-label] {
+    position: relative !important;
+    display: flex !important;
+    align-items: center;
+    gap: 0;
+    overflow: visible;
+
+    &::before { @include responsive-label(12px, rgba(255, 255, 255, 0.8)); flex: 1 1 auto; padding: 2px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+
+    input.field {
+      flex: 0 0 52px !important;
+      width: 52px !important;
+      text-align: center !important;
+      padding-right: 22px !important; // room for dice icon
+    }
+
+    .roll-d20-btn {
+      display: flex !important;
+      position: absolute !important;
+      right: 2px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      flex-shrink: 0;
+    }
+  }
+
+  // show roll button always on responsive (no hover on touch screens)
+  .roll-d20-btn {
+    display: flex !important;
+    position: static !important;
+    transform: none !important;
+    flex-shrink: 0;
+  }
+
+  .ability-zdatnost-checkbox {
+    // relative so ::after (expertise circle, position:absolute) stays inside the box
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    display: inline-flex !important;
+    flex-shrink: 0;
+    vertical-align: middle;
+    width: 26px !important;
+    height: 26px !important;
+
+    &::before {
+      top: -1px !important;
+      left: -1px !important;
+    }
+    &::after {
+      width: 28px !important;
+      height: 28px !important;
+      top: calc(50% - 1px) !important;
+      left: calc(50% - 1px) !important;
+      border-width: 3px !important;
+    }
+  }
+
+  // Make inactive stars clearly visible on responsive (high contrast white)
+  .ability-zdatnost-checkbox:not(.ability-zdatnost--checked):not(.ability-zdatnost--expertise)::before {
+    background: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  // Ensure expertise circle is visible
+  .ability-zdatnost-checkbox.ability-zdatnost--expertise::after {
+    border-color: #af5555 !important;
+    border-width: 3px !important;
+  }
+
+  .spell-slot-cb {
+    // relative (not static!) so ::before/::after (cross lines, filled dot, position:absolute) render inside the box
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    display: inline-block !important;
+    flex-shrink: 0;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px;
+    min-height: 28px;
+    border-width: 2px !important;
+    border-radius: 3px !important;
+    // make empty/inactive slots clearly visible on responsive (white border)
+    &:not([data-state='cross']):not([data-state='filled']):not(.disabled) {
+      border-color: rgba(255, 255, 255, 0.75) !important;
+      background: rgba(255, 255, 255, 0.15) !important;
+    }
+    &.disabled {
+      border-color: rgba(180, 160, 140, 0.5) !important;
+    }
+    // cross lines thicker for visibility
+    &[data-state='cross']::before, &[data-state='cross']::after {
+      height: 2.5px !important;
+      width: 65% !important;
+    }
+  }
+
+  // ── Native checkboxes: visible on responsive ──────────────────────────────
+  .checkbox {
+    width: 22px !important;
+    height: 22px !important;
+    accent-color: #af5555;
+    border: 2px solid rgba(255, 255, 255, 0.7) !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+  }
+
+  .third-page-checkbox {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .label {
+    display: inline-block !important;
+    margin-bottom: 4px;
+  }
+
+  .textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 200px !important;
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  // ── Responsive labels via data-label on wrapper divs ──────────────────
+  .cs-combat-field-wrap[data-label] {
+    display: block !important;
+    &::before { @include responsive-label; }
+  }
+
+  .field[data-label] {
+    position: relative !important;
+    &::before { @include responsive-label; }
+  }
+
+
+  // show roll button always on responsive (no hover on touch screens)
+  .roll-d20-btn {
+    display: flex !important;
+    position: static !important;
+    transform: none !important;
+    flex-shrink: 0;
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-top-info ─────────────────────────────────────────────────────────
+  // HOST only — inner-element rules must be top-level (Angular scope)
+  // ════════════════════════════════════════════════════════════════════════
+  cs-top-info {
+    display: grid !important;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 8px;
+  }
+
+  // INNER: top-level so they compile via cs-top-info's own _ngcontent scope
+  .cs-top-field-wrap {
+    display: block !important;
+    grid-column: span 3; // 4-per-row
+
+    &::before {
+      @include responsive-label(10px, rgba(255, 255, 255, 0.75));
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .field {
+      width: 100% !important;
+      font-size: 15px !important;
+      padding: 8px 10px !important;
+      margin-bottom: 0 !important;
+    }
+
+    &.cs-top-field-wrap--jmeno {
+      grid-column: 1 / -1;
+      .field { font-size: 17px !important; text-align: center !important; font-weight: bold !important; }
+    }
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-ability-scores ───────────────────────────────────────────────────
+  // HOST only — inner-element rules must be top-level (Angular scope)
+  // ════════════════════════════════════════════════════════════════════════
+  cs-ability-scores {
+    display: grid !important;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 6px;
+  }
+
+  // INNER: top-level so they compile via cs-ability-scores' own _ngcontent scope
+  .cs-ability-bonus-row {
+    display: grid !important;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 6px;
+
+    .cs-ability-bonus-item {
+      display: block !important;
+      grid-column: span 4;
+
+      &::before {
+        @include responsive-label(10px, rgba(255, 255, 255, 0.75));
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 3px;
+      }
+
+      .field { width: 100% !important; margin-bottom: 0; }
+    }
+  }
+
+  .cs-ability-group {
+    grid-column: span 4; // 3-per-row
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(36, 12, 5, 0.08);
+
+    .cs-ability-label {
+      display: block !important;
+      font-size: 12px;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+      color: rgba(255, 255, 255, 0.8);
+      min-width: 70px;
+      flex-shrink: 0;
+    }
+
+    .roll-d20-wrap { display: inline-flex !important; flex: 1 1 auto; width: auto !important; margin-bottom: 0 !important;
+      .roll-d20-btn { position: static !important; transform: none !important; }
+    }
+    .main-skill { background: transparent !important; border-color: rgba(0, 0, 0, 0.15) !important; font-size: 18px !important; }
+    input[id$='-input'] { flex: 0 0 50px !important; width: 50px !important; display: inline-block !important; margin-bottom: 0 !important; }
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-combat-stats ─────────────────────────────────────────────────────
+  // HOST only
+  // ════════════════════════════════════════════════════════════════════════
+  cs-combat-stats {
+    display: grid !important;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 6px;
+  }
+
+  // INNER: top-level
+  .cs-combat-speed-row {
+    display: grid !important;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 6px;
+    .cs-combat-field-wrap { grid-column: span 3; display: block !important; }
+    .cs-combat-field-wrap .field { width: 100% !important; }
+  }
+
+  .cs-combat-healing-row {
+    display: grid !important;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 6px;
+    .cs-combat-field-wrap { grid-column: span 6; display: block !important; }
+    .cs-combat-field-wrap .field { width: 100% !important; }
+  }
+
+  .cs-combat-ac-row {
+    display: grid !important;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 6px;
+    .cs-combat-field-wrap { grid-column: span 4; display: block !important; }
+    .cs-combat-field-wrap .field { width: 100% !important; font-size: 18px !important; }
+  }
+
+  .cs-combat-armor-prof-row {
+    display: flex !important;
+    grid-column: 1 / -1;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .cs-combat-prof-item { display: flex !important; align-items: center; gap: 4px; }
+
+  .cs-combat-prof-label {
+    display: inline !important;
+    font-size: 11px;
+    font-family: Arial, sans-serif;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-saving-throws-passive (Bootstrap grid) ───────────────────────────
+  // INNER: top-level
+  // ════════════════════════════════════════════════════════════════════════
+  .cs-stp-container {
+    display: flex !important;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cs-stp-section { margin-bottom: 4px; }
+
+  .cs-saving-row {
+    display: flex !important;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 2px;
+    padding: 2px 0;
+    .ability-zdatnost-checkbox { margin: 0 !important; flex-shrink: 0; }
+  }
+
+  .cs-passive-field-wrap {
+    display: flex !important;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: 4px;
+
+    &::before { @include responsive-label(12px, rgba(255, 255, 255, 0.8)); flex: 1 1 auto; padding: 2px 6px; white-space: nowrap; }
+    .field { flex: 0 0 50px !important; width: 50px !important; margin-bottom: 0 !important; }
+    &--custom {
+      .field:first-of-type { flex: 1 1 auto !important; width: auto !important; }
+      .field:last-of-type  { flex: 0 0 50px !important; width: 50px !important; }
+    }
+  }
+
+  .cs-spells-field-wrap {
+    display: block !important;
+    &::before { @include responsive-label; }
+    .field { width: 100% !important; margin-bottom: 0 !important; }
+    &--textarea { .textarea { height: 150px !important; } }
+  }
+
+  .no-pb { padding-top: 4px !important; border: 1px solid rgba(0, 0, 0, 0.18) !important; }
+
+  // saving-throw rows: dice button stays inline (static) so it is never clipped by overflow
+  cs-saving-throws-passive .roll-d20-wrap { display: flex !important; flex: 1 1 auto; width: auto !important; margin-bottom: 0 !important; position: relative !important; }
+  cs-saving-throws-passive .roll-d20-wrap[data-label] input.field { flex: 0 0 48px !important; width: 48px !important; margin-bottom: 0 !important; padding-right: 6px !important; }
+  cs-saving-throws-passive .roll-d20-wrap[data-label] .roll-d20-btn { display: flex !important; position: static !important; transform: none !important; margin-left: 2px; flex-shrink: 0; }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-spell-slots ──────────────────────────────────────────────────────
+  // INNER: top-level
+  // ════════════════════════════════════════════════════════════════════════
+  .cs-slot-level-label {
+    display: inline-block !important;
+    font-family: 'Mikadan', sans-serif;
+    font-size: 12px;
+    color: #5a3018;
+    width: 22px;
+    text-align: center;
+    margin-right: 2px;
+    vertical-align: middle;
+    font-weight: bold;
+  }
+
+  // Three level inputs in one flex row
+  .cs-spell-levels-row {
+    display: flex !important;
+    flex-direction: row;
+    gap: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .cs-spell-level-wrap {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    min-width: 60px;
+
+    .label {
+      position: static !important;
+      font-weight: bold;
+      font-size: 11px;
+      margin-bottom: 2px;
+      text-align: center;
+    }
+
+    input.field {
+      position: static !important;
+      width: 100% !important;
+      text-align: center !important;
+    }
+  }
+
+  // On responsive: show full label name via data-label, hide S*/Č*/A* abbreviation label
+  .cs-spell-level-wrap[data-label] {
+    &::before {
+      content: attr(data-label);
+      font-size: 10px;
+      font-family: Arial, sans-serif;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      white-space: nowrap;
+      text-align: center;
+      letter-spacing: 0.02em;
+      margin-bottom: 2px;
+    }
+    .label { display: none !important; }
+  }
+
+  // Spell slots: columns per level
+  .cs-spell-slots-grid {
+    display: flex !important;
+    flex-direction: row;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+
+  .cs-spell-level-col {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+
+    .cs-slot-level-label {
+      display: block !important;
+      width: auto;
+      margin-right: 0;
+    }
+
+    .spell-slot-cb {
+      position: relative !important;
+      margin: 0 !important;
+      display: block !important;
+    }
+  }
+
+  // Alchemist chest: rows of 5
+  .cs-alch-chest-grid {
+    display: flex !important;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  .cs-alch-chest-row {
+    display: flex !important;
+    flex-direction: row;
+    gap: 4px;
+
+    .spell-slot-cb {
+      position: relative !important;
+      margin: 0 !important;
+      display: block !important;
+      flex-shrink: 0;
+    }
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-skills ───────────────────────────────────────────────────────────
+  // INNER: top-level
+  // ════════════════════════════════════════════════════════════════════════
+  .cs-skill-row {
+    display: flex !important;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 0;
+    padding: 4px 0;
+    // separator line between each skill row
+    border-bottom: 1px solid rgba(36, 12, 5, 0.12);
+    &:last-of-type { border-bottom: none; }
+    .ability-zdatnost-checkbox { margin: 0 !important; flex-shrink: 0; }
+    .roll-d20-wrap {
+      display: flex !important;
+      flex: 1 1 auto;
+      width: auto !important;
+      margin-bottom: 0 !important;
+      position: relative !important;
+      // ensure there's right breathing room so dice icon isn't clipped
+      margin-right: 4px;
+    }
+    .roll-d20-wrap[data-label] {
+      &::before { flex: 1 1 auto; min-width: 0; }
+      input.field { flex: 0 0 48px !important; width: 48px !important; margin-bottom: 0 !important; padding-right: 6px !important; }
+      .roll-d20-btn { display: flex !important; position: static !important; transform: none !important; margin-left: 2px; flex-shrink: 0; }
+    }
+  }
+
+  // ── Hide equipment btn on mobile/tablet ──────────────────────────────────
+  .cs-equip-btn {
+    display: none !important;
+  }
+
+  cs-skills .textarea { height: 100px !important; }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-weapons ──────────────────────────────────────────────────────────
+  // INNER: top-level
+  // ════════════════════════════════════════════════════════════════════════
+  .cs-weapon-row {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px dashed rgba(36, 12, 5, 0.2);
+    &:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .field-sm { position: static !important; top: auto !important; left: auto !important; }
+    .field-sm[placeholder='Zbraň / útok'] { width: 100% !important; font-weight: bold; font-size: 14px !important; }
+    .field-sm[placeholder='Bonus'],
+    .field-sm[placeholder='Zásah'],
+    .field-sm[placeholder='Typ'],
+    .field-sm[placeholder='Dosah'],
+    .field-sm[placeholder='OČ'] { width: calc(20% - 4px) !important; font-size: 12px !important; }
+  }
+
+  cs-weapons .ability-zdatnost-checkbox { margin: 4px 12px 4px 0; }
+
+  .cs-weapon-prof-row { display: flex !important; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 4px; }
+
+  .cs-weapon-extra-wrap {
+    display: block !important;
+    flex: 1 1 auto;
+    &::before { @include responsive-label; }
+    .field { width: 100% !important; }
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-languages ────────────────────────────────────────────────────────
+  // INNER: top-level
+  // ════════════════════════════════════════════════════════════════════════
+  .cs-lang-field-wrap {
+    display: block !important;
+    &::before { @include responsive-label; }
+    .field { width: 100% !important; }
+    &--textarea .textarea { height: 180px !important; }
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── cs-inventory ────────────────────────────────────────────────────────
+  // INNER: top-level
+  // ════════════════════════════════════════════════════════════════════════
+  .cs-inventory-field-wrap {
+    display: block !important;
+    &::before { @include responsive-label; }
+    .field { width: 100% !important; }
+  }
+
+  .inventory-item { width: 100% !important; font-size: 14px !important; }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── second-page ─────────────────────────────────────────────────────────
+  // HOST only — inner rules must be top-level (Angular encapsulation scope)
+  // ════════════════════════════════════════════════════════════════════════
+  second-page {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px;
+    // allow content to fit naturally
+    overflow: visible;
+  }
+
+  // INNER: top-level so Angular compiles them for second-page's own scope
+  // Character image: own line, full width, generous height
+  .char-img-wrap {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    height: 320px !important;
+    flex-shrink: 0;
+    order: 0;
+  }
+
+  // Full-scale preview overlay stays fixed (no layout impact)
+  .char-img-backdrop {
+    position: fixed !important;
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // ── third-page ──────────────────────────────────────────────────────────
+  // ════════════════════════════════════════════════════════════════════════
+  third-page {
+    overflow: visible;
+
+    .spell-row { display: inline-block !important; margin-bottom: 1px; font-size: 12px !important; }
+    .spell-detail-btn { position: static !important; top: auto !important; left: auto !important; display: inline-flex !important; width: 20px !important; margin-bottom: 1px; }
+    .checkbox { position: static !important; top: auto !important; left: auto !important; display: inline-block !important; vertical-align: middle; margin: 0 4px 2px 0; }
+    .red-checkbox { border-top: 1px solid rgba(36, 12, 5, 0.12) !important; padding-top: 4px; margin-top: 4px; }
+    .spell-dropdown { position: fixed !important; left: 12px !important; right: 12px !important; width: auto !important; max-height: 200px; }
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ── md breakpoint (768px–991px): fields get wider columns ────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+@media (max-width: 991px) {
+  // top-level rules so Angular scope compiles them against each component's own scope
+  .cs-top-field-wrap { grid-column: span 3 !important; }      // keep 4-per-row
+  .cs-ability-group { grid-column: span 6 !important; }       // 2-per-row
+  .cs-ability-bonus-item { grid-column: span 4 !important; }  // keep 3-per-row
+
+  .cs-combat-speed-row .cs-combat-field-wrap { grid-column: span 6 !important; }  // 2-per-row
+  .cs-combat-ac-row .cs-combat-field-wrap { grid-column: span 4 !important; }     // 3-per-row
+
+  // second-page is flex-column at all responsive sizes, no grid overrides needed
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ── sm breakpoint (576px–767px): even wider ──────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+@media (max-width: 767px) {
+  .cs-top-field-wrap { grid-column: span 3 !important; }          // keep 4-per-row
+  .cs-top-field-wrap.cs-top-field-wrap--jmeno { grid-column: 1 / -1 !important; }
+
+  .cs-ability-group { grid-column: 1 / -1 !important; }           // 1-per-row
+  .cs-ability-bonus-item { grid-column: span 4 !important; }      // keep 3-per-row
+
+  .cs-combat-speed-row .cs-combat-field-wrap { grid-column: span 6 !important; }
+  .cs-combat-healing-row .cs-combat-field-wrap { grid-column: span 6 !important; }
+  .cs-combat-ac-row .cs-combat-field-wrap { grid-column: span 6 !important; }
+
+  // second-page is flex-column, so no grid overrides needed
+
+  .cs-weapon-row {
+    .field-sm[placeholder='Bonus'],
+    .field-sm[placeholder='Zásah'],
+    .field-sm[placeholder='Typ'],
+    .field-sm[placeholder='Dosah'],
+    .field-sm[placeholder='OČ'] { width: calc(33% - 4px) !important; }
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ── xs breakpoint (<576px): biggest columns, minimal per row ─────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+@media (max-width: 575px) {
+  .cs-top-field-wrap { grid-column: span 6 !important; }          // 2-per-row on xs
+  .cs-ability-bonus-item { grid-column: span 6 !important; }      // 2-per-row
+
+  .cs-combat-speed-row .cs-combat-field-wrap { grid-column: span 12 !important; }
+  .cs-combat-healing-row .cs-combat-field-wrap { grid-column: span 12 !important; }
+  .cs-combat-ac-row .cs-combat-field-wrap { grid-column: span 6 !important; }
+  .cs-combat-armor-prof-row { flex-direction: column !important; gap: 6px !important; }
+
+  // second-page is flex-column, so no grid overrides needed at xs either
+
+  .cs-weapon-row {
+    .field-sm[placeholder='Bonus'],
+    .field-sm[placeholder='Zásah'],
+    .field-sm[placeholder='Typ'],
+    .field-sm[placeholder='Dosah'],
+    .field-sm[placeholder='OČ'] { width: calc(50% - 4px) !important; }
+  }
+}
+
+// ── Responsive + dark theme ─────────────────────────────────────────────────
+@media (max-width: 1359px) {
+  :host.theme-dark {
+    .cs-section-title {
+      color: #e8c96a;
+      border-bottom-color: rgba(200, 160, 60, 0.35);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .cs-main-title {
+      color: #f0d870;
+      border-bottom-color: rgba(200, 160, 60, 0.5);
+    }
+
+    .cs-sub-title {
+      color: #d4b44a;
+      border-bottom-color: rgba(200, 160, 60, 0.2);
+    }
+
+    cs-top-info,
+    cs-ability-scores,
+    cs-combat-stats,
+    cs-saving-throws-passive,
+    cs-spell-slots,
+    cs-skills,
+    cs-weapons,
+    cs-languages,
+    cs-inventory,
+    second-page,
+    third-page {
+      background: rgba(18, 12, 8, 0.95);
+      border-color: rgba(200, 160, 60, 0.15);
+      border-bottom-color: rgba(200, 160, 60, 0.1);
+    }
+
+    .roll-d20-wrap[data-label]::before {
+      color: rgba(255, 250, 240, 0.75);
+    }
+
+    .cs-top-field-wrap[data-label]::before {
+      color: rgba(200, 160, 60, 0.65) !important;
+    }
+
+    .cs-ability-label {
+      color: rgba(200, 160, 60, 0.8) !important;
+    }
+
+    .cs-ability-bonus-item[data-label]::before {
+      color: rgba(200, 160, 60, 0.65) !important;
+    }
+
+    .cs-combat-field-wrap[data-label]::before {
+      color: rgba(200, 160, 60, 0.6) !important;
+    }
+
+    .cs-combat-prof-label {
+      color: rgba(200, 160, 60, 0.6) !important;
+    }
+
+    .cs-passive-field-wrap[data-label]::before {
+      color: rgba(255, 250, 240, 0.75) !important;
+    }
+
+    .cs-spells-field-wrap[data-label]::before {
+      color: rgba(200, 160, 60, 0.6) !important;
+    }
+
+    .cs-lang-field-wrap[data-label]::before {
+      color: rgba(200, 160, 60, 0.6) !important;
+    }
+
+    .cs-inventory-field-wrap[data-label]::before {
+      color: rgba(200, 160, 60, 0.6) !important;
+    }
+
+    .cs-weapon-extra-wrap[data-label]::before {
+      color: rgba(200, 160, 60, 0.6) !important;
+    }
+
+    .cs-slot-level-label {
+      color: rgba(200, 160, 60, 0.8) !important;
+    }
+
+    .cs-spell-level-wrap .label {
+      color: rgba(200, 160, 60, 0.8) !important;
+    }
+
+    // Full label via data-label in dark mode
+    .cs-spell-level-wrap[data-label]::before {
+      color: rgba(200, 160, 60, 0.9) !important;
+    }
+
+    // Inactive spell-slot-cb: white ghost style on dark background
+    .spell-slot-cb:not([data-state='cross']):not([data-state='filled']):not(.disabled) {
+      border-color: rgba(255, 255, 255, 0.55) !important;
+      background: rgba(255, 255, 255, 0.06) !important;
+    }
+    .spell-slot-cb.disabled {
+      border-color: rgba(200, 160, 60, 0.35) !important;
+    }
+
+    // Inactive stars: white on dark card background
+    .ability-zdatnost-checkbox:not(.ability-zdatnost--checked):not(.ability-zdatnost--expertise)::before {
+      background: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    // Expertise circle visible in dark
+    .ability-zdatnost-checkbox.ability-zdatnost--expertise::after {
+      border-color: #d06060 !important;
+    }
+
+    // Native checkboxes: white border in dark mode
+    .checkbox {
+      border-color: rgba(255, 255, 255, 0.6) !important;
+      background: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .cs-skill-row {
+      border-bottom-color: rgba(200, 160, 60, 0.12) !important;
+    }
+
+    .cs-weapon-row {
+      border-bottom-color: rgba(200, 160, 60, 0.15) !important;
+    }
+
+    third-page .red-checkbox {
+      border-top-color: rgba(200, 160, 60, 0.12) !important;
+    }
   }
 }

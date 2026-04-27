@@ -3,7 +3,6 @@ import {
   Component,
   effect,
   ElementRef,
-  HostListener,
   inject,
   input,
   output,
@@ -19,11 +18,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { SheetThemeService } from './sheet-theme.service';
 
 @Component({
   selector: 'second-page',
   template: `
-    <img src="character-sheet-2-copy.webp" alt="Character Sheet" height="1817" width="1293" />
+    <img class="cs-bg-img" [src]="sheetTheme.darkMode() ? 'character-sheet-2-copy-dark.webp' : 'character-sheet-2-copy.webp'" alt="Character Sheet" height="1817" width="1293" />
+
+    <h3 class="cs-section-title">Vzhled a povaha</h3>
 
     <input
       [formControl]="controls.headerInfo.controls.jmenoPostavy"
@@ -134,12 +136,14 @@ import { MatIcon } from '@angular/material/icon';
       </div>
     }
 
+    <h4 class="cs-section-title cs-sub-title">Vztahy a příběh</h4>
     <rich-textarea
       [formControl]="controls.vztahy"
       class="field textarea"
       style="top:315px; left:464px; width:754px; height:912px;"
     ></rich-textarea>
 
+    <h4 class="cs-section-title cs-sub-title">Další poznámky</h4>
     <rich-textarea
       [formControl]="controls.dalsiPoznamky1"
       class="field textarea"
@@ -154,10 +158,12 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, MatTooltip, RichTextareaComponent, MatIconButton, MatIcon],
+  host: { '(document:keydown.escape)': 'onEscape()', '[class.theme-dark]': 'sheetTheme.darkMode()' },
 })
 export class CharacterSheetSecondPageComponent {
   characterSheetStore = inject(CharacterSheetStore);
   private snackBar = inject(MatSnackBar);
+  readonly sheetTheme = inject(SheetThemeService);
 
   form = input.required<FormGroup<SecondPageForm>>();
 
@@ -196,7 +202,6 @@ export class CharacterSheetSecondPageComponent {
     this.showPreview.set(false);
   }
 
-  @HostListener('document:keydown.escape')
   onEscape(): void {
     if (this.showPreview()) this.closePreview();
   }

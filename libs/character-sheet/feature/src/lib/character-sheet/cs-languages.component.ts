@@ -16,6 +16,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   imports: [ReactiveFormsModule, MatIcon, MatTooltip, RichTextareaComponent],
   styleUrl: '../character-sheet.component.scss',
   template: `
+    <h3 class="cs-section-title">Jazyky a schopnosti</h3>
     @if (_tick()) {
       <ng-container [formGroup]="form()">
         <button
@@ -36,18 +37,22 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         >
           <mat-icon class="small-info-icon">info</mat-icon>
         </button>
-        <input
-          [formControl]="c.jazyky"
-          id="jazyky"
-          class="field"
-          style="top:1349px; left:687px; width:492px"
-          placeholder="Jazyky..."
-        />
-        <rich-textarea
-          [formControl]="c.schopnosti"
-          class="field textarea"
-          style="top:1382px; left:634.04px; width:550.20px; height:381px;"
-        ></rich-textarea>
+        <div class="cs-lang-field-wrap" data-label="Jazyky">
+          <input
+            [formControl]="c.jazyky"
+            id="jazyky"
+            class="field"
+            style="top:1349px; left:687px; width:492px"
+            placeholder="Jazyky..."
+          />
+        </div>
+        <div class="cs-lang-field-wrap cs-lang-field-wrap--textarea" data-label="Schopnosti postavy">
+          <rich-textarea
+            [formControl]="c.schopnosti"
+            class="field textarea"
+            style="top:1382px; left:634.04px; width:550.20px; height:381px;"
+          ></rich-textarea>
+        </div>
       </ng-container>
     }
   `,

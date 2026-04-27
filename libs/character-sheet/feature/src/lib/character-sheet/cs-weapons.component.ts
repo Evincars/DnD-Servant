@@ -18,6 +18,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   imports: [ReactiveFormsModule, NgClass, MatIcon, MatTooltip],
   styleUrl: '../character-sheet.component.scss',
   template: `
+    <h3 class="cs-section-title">Zbraně a útoky</h3>
     @if (_tick()) {
       <ng-container [formGroup]="form()">
         <button
@@ -59,71 +60,88 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
         <!-- Weapon rows 1-5 -->
         @for (row of weaponRows; track row.num) {
-          <input
-            [formControl]="getControl(row.zbranKey)"
-            [id]="'weapon' + row.num"
-            class="field field-sm"
-            [style]="row.zbranStyle"
-            placeholder="Zbraň / útok"
-          />
-          <input
-            [formControl]="getControl(row.bonusKey)"
-            [id]="'weapon' + row.num + '_bonus'"
-            class="field field-sm"
-            [style]="row.bonusStyle"
-            placeholder="Bonus"
-          />
-          <input
-            [formControl]="getControl(row.zasahKey)"
-            [id]="'weapon' + row.num + '_hit'"
-            class="field field-sm"
-            [style]="row.zasahStyle"
-            placeholder="Zásah"
-          />
-          <input
-            [formControl]="getControl(row.typKey)"
-            [id]="'weapon' + row.num + '_type'"
-            class="field field-sm"
-            [style]="row.typStyle"
-            placeholder="Typ"
-          />
-          <input
-            [formControl]="getControl(row.dosahKey)"
-            [id]="'weapon' + row.num + '_distance'"
-            class="field field-sm"
-            [style]="row.dosahStyle"
-            placeholder="Dosah"
-          />
-          <input
-            [formControl]="getControl(row.ocKey)"
-            [id]="'weapon' + row.num + '_armorClass'"
-            class="field field-sm"
-            [style]="row.ocStyle"
-            placeholder="Dosah"
-          />
+          <div class="cs-weapon-row">
+            <input
+              [formControl]="getControl(row.zbranKey)"
+              [id]="'weapon' + row.num"
+              class="field field-sm"
+              [style]="row.zbranStyle"
+              placeholder="Zbraň / útok"
+            />
+            <input
+              [formControl]="getControl(row.bonusKey)"
+              [id]="'weapon' + row.num + '_bonus'"
+              class="field field-sm"
+              [style]="row.bonusStyle"
+              data-label="Bonus"
+              placeholder="Bonus"
+            />
+            <input
+              [formControl]="getControl(row.zasahKey)"
+              [id]="'weapon' + row.num + '_hit'"
+              class="field field-sm"
+              [style]="row.zasahStyle"
+              data-label="Zásah"
+              placeholder="Zásah"
+            />
+            <input
+              [formControl]="getControl(row.typKey)"
+              [id]="'weapon' + row.num + '_type'"
+              class="field field-sm"
+              [style]="row.typStyle"
+              data-label="Typ"
+              placeholder="Typ"
+            />
+            <input
+              [formControl]="getControl(row.dosahKey)"
+              [id]="'weapon' + row.num + '_distance'"
+              class="field field-sm"
+              [style]="row.dosahStyle"
+              data-label="Dosah"
+              placeholder="Dosah"
+            />
+            <input
+              [formControl]="getControl(row.ocKey)"
+              [id]="'weapon' + row.num + '_armorClass'"
+              class="field field-sm"
+              [style]="row.ocStyle"
+              data-label="OČ"
+              placeholder="OČ"
+            />
+          </div>
         }
 
-        <div
-          [ngClass]="abilityCheckboxClass(c.zdatnostJednoduche)"
-          (click)="cycleAbilityZdatnost(c.zdatnostJednoduche)"
-          id="zdatnostSJednoduchymaZbranema"
-          class="field ability-zdatnost-checkbox"
-          style="top:1255px; left:446.78px;"
-        ></div>
-        <div
-          [ngClass]="abilityCheckboxClass(c.zdatnostValecne)"
-          (click)="cycleAbilityZdatnost(c.zdatnostValecne)"
-          id="zdatnostSValecnymaZbranema"
-          class="field ability-zdatnost-checkbox"
-          style="top:1255px; left:572.54px;"
-        ></div>
-        <input
-          [formControl]="c.dalsiZdatnosti"
-          id="dalsiZdatnostSeZbrani"
-          class="field"
-          style="top:1248px; left:666.79px; width:514.83px"
-          placeholder="Další zdatnosti..."
-        />
+        <div class="cs-weapon-prof-row">
+          <div class="cs-combat-prof-item">
+            <div
+              [ngClass]="abilityCheckboxClass(c.zdatnostJednoduche)"
+              (click)="cycleAbilityZdatnost(c.zdatnostJednoduche)"
+              id="zdatnostSJednoduchymaZbranema"
+              class="field ability-zdatnost-checkbox"
+              style="top:1255px; left:446.78px;"
+            ></div>
+            <span class="cs-combat-prof-label">Jednoduché</span>
+          </div>
+          <div class="cs-combat-prof-item">
+            <div
+              [ngClass]="abilityCheckboxClass(c.zdatnostValecne)"
+              (click)="cycleAbilityZdatnost(c.zdatnostValecne)"
+              id="zdatnostSValecnymaZbranema"
+              class="field ability-zdatnost-checkbox"
+              style="top:1255px; left:572.54px;"
+            ></div>
+            <span class="cs-combat-prof-label">Válečné</span>
+          </div>
+          <div class="cs-weapon-extra-wrap" data-label="Další zdatnosti se zbraněmi">
+            <input
+              [formControl]="c.dalsiZdatnosti"
+              id="dalsiZdatnostSeZbrani"
+              class="field"
+              style="top:1248px; left:666.79px; width:514.83px"
+              placeholder="Další zdatnosti..."
+            />
+          </div>
+        </div>
       </ng-container>
     }
   `,

@@ -477,3 +477,133 @@
   box-shadow: 0 2px 8px rgba(0,0,0,.3);
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// MOBILE AUTH BUTTON & DROPDOWN
+// ═══════════════════════════════════════════════════════════════════
+.mobile-auth-btn {
+  display: none; // hidden on desktop
+  margin-left: auto; // push to far right
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+
+.mobile-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+}
+
+.mobile-menu-dropdown {
+  position: fixed;
+  top: 56px;
+  right: 8px;
+  z-index: 201;
+  min-width: 200px;
+  background:
+    linear-gradient(180deg, rgba(8,5,16,.99) 0%, rgba(18,12,28,.99) 100%),
+    url('https://www.transparenttextures.com/patterns/dark-leather.png');
+  background-color: #0d0910;
+  border: 1px solid rgba(200,160,60,.35);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.85), 0 0 0 1px rgba(200,160,60,.12);
+  overflow: hidden;
+
+  &::before {
+    content: '◆';
+    position: absolute;
+    top: -7px; right: 14px;
+    font-size: 9px;
+    color: rgba(200,160,60,.6);
+    background: #0d0910;
+    padding: 0 2px;
+    pointer-events: none;
+  }
+}
+
+.mobile-menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 8px;
+}
+
+.mobile-menu-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,160,60,.35), transparent);
+  margin: 0 8px;
+}
+
+.mobile-menu-username {
+  font-family: 'Mikadan', sans-serif;
+  font-size: 15px;
+  color: #e8c96a;
+  text-shadow: 0 0 10px rgba(200,160,60,.3);
+  padding: 2px 8px 6px;
+}
+
+.mobile-menu-icon {
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+  vertical-align: middle;
+  margin-right: 4px;
+  color: #a08060;
+}
+
+.mobile-menu-link {
+  display: flex !important;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 10px !important;
+  border-radius: 5px;
+  font-size: 13px !important;
+  text-decoration: none;
+  color: #c8bfb0;
+  transition: background .15s, color .15s;
+
+  &:hover {
+    background: rgba(200,160,60,.12);
+    color: #e8d5a0;
+    text-decoration: none;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RESPONSIVE TOOLBAR  (≤900px)
+// ═══════════════════════════════════════════════════════════════════
+@media (max-width: 900px) {
+  .toolbar__inner {
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: 0;
+    padding: 0 4px;
+  }
+
+  .toolbar__right {
+    display: none !important; // hidden on mobile — use dropdown instead
+  }
+
+  .mobile-auth-btn {
+    display: flex !important;
+  }
+
+  // Hide text labels on backup buttons — icons only
+  .backup-btn__label {
+    display: none;
+  }
+
+  // Tighten gaps
+  .backup-btn {
+    padding: 0 6px;
+  }
+
+  .logo {
+    height: 30px;
+  }
+
+  .toolbar span {
+    font-size: 14px !important;
+  }
+}
+

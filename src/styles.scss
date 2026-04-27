@@ -6,6 +6,7 @@
 
 @import '@angular/material/prebuilt-themes/cyan-orange.css';
 @import 'material-symbols/outlined.css';
+@import 'bootstrap/dist/css/bootstrap-grid.min.css';
 
 body {
   margin: 0;
@@ -390,6 +391,7 @@ mat-dialog-content.dialog-content,
   color: #ff8080 !important;
   font-weight: 600 !important;
 }
+
 
 // ════════════════════════════════════════════════════════════════
 // OVERFLOW — kill horizontal browser scroll
