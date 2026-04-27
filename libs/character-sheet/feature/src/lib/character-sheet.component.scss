@@ -748,6 +748,16 @@ input[type='checkbox'][disabled] {
   display: contents;
 }
 
+// ── Spell-slots new wrappers (transparent on desktop) ─────────────────
+.cs-spell-levels-row,
+.cs-spell-level-wrap,
+.cs-spell-slots-grid,
+.cs-spell-level-col,
+.cs-alch-chest-grid,
+.cs-alch-chest-row {
+  display: contents;
+}
+
 // ══════════════════════════════════════════════════════════════════════════════
 // ── RESPONSIVE UTILITIES ─────────────────────────────────────────────────────
 // ── Bootstrap-like 12-col breakpoints: xl(≥1200) lg(≥992) md(≥768) sm(≥576) xs(<576)
@@ -901,6 +911,41 @@ input[type='checkbox'][disabled] {
     }
   }
 
+  // ── Roll dice button: absolute inside its input on responsive (no overflow) ──
+  .roll-d20-wrap[data-label] {
+    position: relative !important;
+    display: flex !important;
+    align-items: center;
+    gap: 0;
+    overflow: visible;
+
+    &::before { @include responsive-label(12px, rgba(255, 255, 255, 0.8)); flex: 1 1 auto; padding: 2px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+
+    input.field {
+      flex: 0 0 52px !important;
+      width: 52px !important;
+      text-align: center !important;
+      padding-right: 22px !important; // room for dice icon
+    }
+
+    .roll-d20-btn {
+      display: flex !important;
+      position: absolute !important;
+      right: 2px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      flex-shrink: 0;
+    }
+  }
+
+  // show roll button always on responsive (no hover on touch screens)
+  .roll-d20-btn {
+    display: flex !important;
+    position: static !important;
+    transform: none !important;
+    flex-shrink: 0;
+  }
+
   .ability-zdatnost-checkbox {
     position: static !important;
     top: auto !important;
@@ -954,26 +999,6 @@ input[type='checkbox'][disabled] {
     &::before { @include responsive-label; }
   }
 
-  .roll-d20-wrap[data-label] {
-    display: flex !important;
-    align-items: center;
-    gap: 0;
-
-    &::before { @include responsive-label(12px, rgba(255, 255, 255, 0.8)); flex: 1 1 auto; padding: 2px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-    input.field {
-      flex: 0 0 55px !important;
-      width: 55px !important;
-      text-align: center !important;
-    }
-
-    .roll-d20-btn {
-      display: flex !important; // always visible on responsive (touch devices have no hover)
-      position: static !important;
-      transform: none !important;
-      flex-shrink: 0;
-    }
-  }
 
   // show roll button always on responsive (no hover on touch screens)
   .roll-d20-btn {
@@ -1173,9 +1198,10 @@ input[type='checkbox'][disabled] {
 
   .no-pb { padding-top: 4px !important; border: 1px solid rgba(0, 0, 0, 0.18) !important; }
 
-  // also override roll-d20-wrap inside saving row
-  cs-saving-throws-passive .roll-d20-wrap { display: flex !important; flex: 1 1 auto; width: auto !important; margin-bottom: 0 !important; }
-  cs-saving-throws-passive .roll-d20-wrap[data-label] input.field { flex: 0 0 50px !important; width: 50px !important; margin-bottom: 0 !important; }
+  // saving-throw rows: dice button stays inside the input (no overflow)
+  cs-saving-throws-passive .roll-d20-wrap { display: flex !important; flex: 1 1 auto; width: auto !important; margin-bottom: 0 !important; position: relative !important; }
+  cs-saving-throws-passive .roll-d20-wrap[data-label] input.field { flex: 0 0 52px !important; width: 52px !important; margin-bottom: 0 !important; padding-right: 22px !important; }
+  cs-saving-throws-passive .roll-d20-wrap[data-label] .roll-d20-btn { position: absolute !important; right: 2px !important; top: 50% !important; transform: translateY(-50%) !important; }
 
   // ════════════════════════════════════════════════════════════════════════
   // ── cs-spell-slots ──────────────────────────────────────────────────────
@@ -1193,10 +1219,84 @@ input[type='checkbox'][disabled] {
     font-weight: bold;
   }
 
-  cs-spell-slots {
-    .label { font-size: 12px !important; margin-right: 4px; }
-    input[type='number'] { width: 60px !important; display: inline-block !important; margin-right: 8px; }
-    .spell-slot-cb { margin: 2px; }
+  // Three level inputs in one flex row
+  .cs-spell-levels-row {
+    display: flex !important;
+    flex-direction: row;
+    gap: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .cs-spell-level-wrap {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    min-width: 60px;
+
+    .label {
+      position: static !important;
+      font-weight: bold;
+      font-size: 11px;
+      margin-bottom: 2px;
+      text-align: center;
+    }
+
+    input.field {
+      position: static !important;
+      width: 100% !important;
+      text-align: center !important;
+    }
+  }
+
+  // Spell slots: columns per level
+  .cs-spell-slots-grid {
+    display: flex !important;
+    flex-direction: row;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+
+  .cs-spell-level-col {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+
+    .cs-slot-level-label {
+      display: block !important;
+      width: auto;
+      margin-right: 0;
+    }
+
+    .spell-slot-cb {
+      position: static !important;
+      margin: 0 !important;
+      display: block !important;
+    }
+  }
+
+  // Alchemist chest: rows of 5
+  .cs-alch-chest-grid {
+    display: flex !important;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  .cs-alch-chest-row {
+    display: flex !important;
+    flex-direction: row;
+    gap: 4px;
+
+    .spell-slot-cb {
+      position: static !important;
+      margin: 0 !important;
+      display: block !important;
+      flex-shrink: 0;
+    }
   }
 
   // ════════════════════════════════════════════════════════════════════════
@@ -1209,10 +1309,11 @@ input[type='checkbox'][disabled] {
     gap: 4px;
     margin-bottom: 2px;
     .ability-zdatnost-checkbox { margin: 0 !important; flex-shrink: 0; }
-    .roll-d20-wrap { display: flex !important; flex: 1 1 auto; width: auto !important; margin-bottom: 0 !important; }
+    .roll-d20-wrap { display: flex !important; flex: 1 1 auto; width: auto !important; margin-bottom: 0 !important; position: relative !important; }
     .roll-d20-wrap[data-label] {
-      &::before { flex: 1 1 auto; }
-      input.field { flex: 0 0 50px !important; width: 50px !important; margin-bottom: 0 !important; }
+      &::before { flex: 1 1 auto; min-width: 0; }
+      input.field { flex: 0 0 52px !important; width: 52px !important; margin-bottom: 0 !important; padding-right: 22px !important; }
+      .roll-d20-btn { position: absolute !important; right: 2px !important; top: 50% !important; transform: translateY(-50%) !important; }
     }
   }
 
@@ -1454,6 +1555,10 @@ input[type='checkbox'][disabled] {
     }
 
     .cs-slot-level-label {
+      color: rgba(200, 160, 60, 0.8) !important;
+    }
+
+    .cs-spell-level-wrap .label {
       color: rgba(200, 160, 60, 0.8) !important;
     }
 
