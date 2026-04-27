@@ -18,17 +18,17 @@ import { merge } from 'rxjs';
       <!-- ── Level inputs row (desktop: absolutely positioned; responsive: flex row) ── -->
       <div class="cs-spell-levels-row">
         <ng-container [formGroup]="spellSlotsForm()">
-          <div class="cs-spell-level-wrap">
+          <div class="cs-spell-level-wrap" data-label="úroveň Sesilatele">
             <p class="label" matTooltip="úroveň Sesilatele" matTooltipPosition="left" style="top:904px; left:629px; width:45px; font-size: 13px">S*</p>
             <input [formControl]="ss.urovenSesilatele" matTooltip="úroveň Sesilatele" matTooltipPosition="left" class="field" type="number" style="top:913px; left:645px; width:45px; font-size: 13px;" placeholder="S*" />
           </div>
-          <div class="cs-spell-level-wrap">
+          <div class="cs-spell-level-wrap" data-label="úroveň Černokněžníka">
             <p class="label" matTooltip="úroveň Černokněžníka" matTooltipPosition="left" style="top:929px; left:629px; width:45px; font-size: 13px">Č*</p>
             <input [formControl]="ss.urovenCernokneznika" matTooltip="úroveň Černokněžníka" matTooltipPosition="left" class="field" type="number" style="top:938px; left:645px; width:45px; font-size: 13px;" placeholder="Č*" />
           </div>
         </ng-container>
         <ng-container [formGroup]="alchemistChestForm()">
-          <div class="cs-spell-level-wrap">
+          <div class="cs-spell-level-wrap" data-label="úroveň Alchymisty">
             <p class="label" matTooltip="úroveň Alchymisty" matTooltipPosition="left" style="top:954px; left:629px; width:45px; font-size: 13px">A*</p>
             <input [formControl]="ac.urovenAlchymisty" matTooltip="úroveň Alchymisty" matTooltipPosition="left" class="field" type="number" style="top:963px; left:645px; width:45px; font-size: 13px;" placeholder="A*" />
           </div>

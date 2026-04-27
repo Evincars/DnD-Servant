@@ -968,12 +968,24 @@ input[type='checkbox'][disabled] {
     }
   }
 
+  // Make inactive stars visible on responsive (default rgba(0,0,0,0.18) is invisible on card bg)
+  .ability-zdatnost-checkbox:not(.ability-zdatnost--checked):not(.ability-zdatnost--expertise)::before {
+    background: rgba(155, 115, 75, 0.55) !important;
+  }
+
   .spell-slot-cb {
     position: static !important;
     top: auto !important;
     left: auto !important;
     display: inline-block !important;
     flex-shrink: 0;
+    // make empty/inactive slots clearly visible on responsive (dark bg + black border = invisible)
+    &:not([data-state='cross']):not([data-state='filled']):not(.disabled) {
+      border-color: rgba(130, 90, 50, 0.8) !important;
+    }
+    &.disabled {
+      border-color: rgba(110, 85, 60, 0.65) !important;
+    }
   }
 
   .label {
@@ -1198,10 +1210,10 @@ input[type='checkbox'][disabled] {
 
   .no-pb { padding-top: 4px !important; border: 1px solid rgba(0, 0, 0, 0.18) !important; }
 
-  // saving-throw rows: dice button stays inside the input (no overflow)
+  // saving-throw rows: dice button stays inline (static) so it is never clipped by overflow
   cs-saving-throws-passive .roll-d20-wrap { display: flex !important; flex: 1 1 auto; width: auto !important; margin-bottom: 0 !important; position: relative !important; }
-  cs-saving-throws-passive .roll-d20-wrap[data-label] input.field { flex: 0 0 52px !important; width: 52px !important; margin-bottom: 0 !important; padding-right: 22px !important; }
-  cs-saving-throws-passive .roll-d20-wrap[data-label] .roll-d20-btn { position: absolute !important; right: 2px !important; top: 50% !important; transform: translateY(-50%) !important; }
+  cs-saving-throws-passive .roll-d20-wrap[data-label] input.field { flex: 0 0 48px !important; width: 48px !important; margin-bottom: 0 !important; padding-right: 6px !important; }
+  cs-saving-throws-passive .roll-d20-wrap[data-label] .roll-d20-btn { display: flex !important; position: static !important; transform: none !important; margin-left: 2px; flex-shrink: 0; }
 
   // ════════════════════════════════════════════════════════════════════════
   // ── cs-spell-slots ──────────────────────────────────────────────────────
@@ -1248,6 +1260,22 @@ input[type='checkbox'][disabled] {
       width: 100% !important;
       text-align: center !important;
     }
+  }
+
+  // On responsive: show full label name via data-label, hide S*/Č*/A* abbreviation label
+  .cs-spell-level-wrap[data-label] {
+    &::before {
+      content: attr(data-label);
+      font-size: 10px;
+      font-family: Arial, sans-serif;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      white-space: nowrap;
+      text-align: center;
+      letter-spacing: 0.02em;
+      margin-bottom: 2px;
+    }
+    .label { display: none !important; }
   }
 
   // Spell slots: columns per level
@@ -1312,8 +1340,8 @@ input[type='checkbox'][disabled] {
     .roll-d20-wrap { display: flex !important; flex: 1 1 auto; width: auto !important; margin-bottom: 0 !important; position: relative !important; }
     .roll-d20-wrap[data-label] {
       &::before { flex: 1 1 auto; min-width: 0; }
-      input.field { flex: 0 0 52px !important; width: 52px !important; margin-bottom: 0 !important; padding-right: 22px !important; }
-      .roll-d20-btn { position: absolute !important; right: 2px !important; top: 50% !important; transform: translateY(-50%) !important; }
+      input.field { flex: 0 0 48px !important; width: 48px !important; margin-bottom: 0 !important; padding-right: 6px !important; }
+      .roll-d20-btn { display: flex !important; position: static !important; transform: none !important; margin-left: 2px; flex-shrink: 0; }
     }
   }
 
@@ -1560,6 +1588,24 @@ input[type='checkbox'][disabled] {
 
     .cs-spell-level-wrap .label {
       color: rgba(200, 160, 60, 0.8) !important;
+    }
+
+    // Full label via data-label in dark mode
+    .cs-spell-level-wrap[data-label]::before {
+      color: rgba(200, 160, 60, 0.9) !important;
+    }
+
+    // Inactive spell-slot-cb: golden border on dark background
+    .spell-slot-cb:not([data-state='cross']):not([data-state='filled']):not(.disabled) {
+      border-color: rgba(200, 160, 60, 0.45) !important;
+    }
+    .spell-slot-cb.disabled {
+      border-color: rgba(180, 140, 80, 0.45) !important;
+    }
+
+    // Inactive stars: more visible on dark card background
+    .ability-zdatnost-checkbox:not(.ability-zdatnost--checked):not(.ability-zdatnost--expertise)::before {
+      background: rgba(200, 160, 60, 0.28) !important;
     }
 
     .cs-weapon-row {
