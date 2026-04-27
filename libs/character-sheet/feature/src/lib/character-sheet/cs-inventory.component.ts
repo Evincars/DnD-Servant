@@ -33,7 +33,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           type="button"
           matTooltip="Výbava postavy — vybav předměty"
           style="top:1306px; left:402px; width:26px; height:26px; background:linear-gradient(135deg,#2a1a04,#1a1008); border:1px solid rgba(200,160,60,.55); border-radius:5px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all .2s; box-shadow:0 0 8px rgba(200,160,60,.25);"
-          class="field button"
+          class="field button cs-equip-btn"
         >
           <mat-icon style="font-size:16px;width:16px;height:16px;color:#c8a03c;">checkroom</mat-icon>
         </button>

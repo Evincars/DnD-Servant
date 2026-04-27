@@ -838,7 +838,8 @@ input[type='checkbox'][disabled] {
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
-    overflow-x: hidden;
+    // allow horizontal scrolling only as last resort; no clipping of inputs
+    overflow-x: clip;
   }
 
   // ── Form: flex column ─────────────────────────────────────────────────
@@ -881,6 +882,8 @@ input[type='checkbox'][disabled] {
     border-radius: 0;
     padding: 12px !important;
     border-bottom: 2px solid rgba(36, 12, 5, 0.15);
+    overflow: visible; // allow content to flow naturally on responsive
+    box-sizing: border-box;
   }
 
   // ── Global field reset ────────────────────────────────────────────────
@@ -894,6 +897,7 @@ input[type='checkbox'][disabled] {
 
   .field {
     width: 100% !important;
+    max-width: 100% !important;   // never exceed parent
     margin-bottom: 6px;
     font-size: 14px !important;
   }
@@ -947,45 +951,80 @@ input[type='checkbox'][disabled] {
   }
 
   .ability-zdatnost-checkbox {
-    position: static !important;
+    // relative so ::after (expertise circle, position:absolute) stays inside the box
+    position: relative !important;
     top: auto !important;
     left: auto !important;
     display: inline-flex !important;
     flex-shrink: 0;
     vertical-align: middle;
-    width: 18px !important;
-    height: 18px !important;
+    width: 26px !important;
+    height: 26px !important;
 
     &::before {
-      top: -3px !important;
-      left: -3px !important;
+      top: -1px !important;
+      left: -1px !important;
     }
     &::after {
-      width: 16px !important;
-      height: 16px !important;
-      top: calc(50% - 3px) !important;
-      left: calc(50% - 3px) !important;
+      width: 28px !important;
+      height: 28px !important;
+      top: calc(50% - 1px) !important;
+      left: calc(50% - 1px) !important;
+      border-width: 3px !important;
     }
   }
 
-  // Make inactive stars visible on responsive (default rgba(0,0,0,0.18) is invisible on card bg)
+  // Make inactive stars clearly visible on responsive (high contrast white)
   .ability-zdatnost-checkbox:not(.ability-zdatnost--checked):not(.ability-zdatnost--expertise)::before {
-    background: rgba(155, 115, 75, 0.55) !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  // Ensure expertise circle is visible
+  .ability-zdatnost-checkbox.ability-zdatnost--expertise::after {
+    border-color: #af5555 !important;
+    border-width: 3px !important;
   }
 
   .spell-slot-cb {
-    position: static !important;
+    // relative (not static!) so ::before/::after (cross lines, filled dot, position:absolute) render inside the box
+    position: relative !important;
     top: auto !important;
     left: auto !important;
     display: inline-block !important;
     flex-shrink: 0;
-    // make empty/inactive slots clearly visible on responsive (dark bg + black border = invisible)
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px;
+    min-height: 28px;
+    border-width: 2px !important;
+    border-radius: 3px !important;
+    // make empty/inactive slots clearly visible on responsive (white border)
     &:not([data-state='cross']):not([data-state='filled']):not(.disabled) {
-      border-color: rgba(130, 90, 50, 0.8) !important;
+      border-color: rgba(255, 255, 255, 0.75) !important;
+      background: rgba(255, 255, 255, 0.15) !important;
     }
     &.disabled {
-      border-color: rgba(110, 85, 60, 0.65) !important;
+      border-color: rgba(180, 160, 140, 0.5) !important;
     }
+    // cross lines thicker for visibility
+    &[data-state='cross']::before, &[data-state='cross']::after {
+      height: 2.5px !important;
+      width: 65% !important;
+    }
+  }
+
+  // ── Native checkboxes: visible on responsive ──────────────────────────────
+  .checkbox {
+    width: 22px !important;
+    height: 22px !important;
+    accent-color: #af5555;
+    border: 2px solid rgba(255, 255, 255, 0.7) !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+  }
+
+  .third-page-checkbox {
+    width: 28px !important;
+    height: 28px !important;
   }
 
   .label {
@@ -995,8 +1034,9 @@ input[type='checkbox'][disabled] {
 
   .textarea {
     width: 100% !important;
-    height: 120px !important;
-    min-height: 80px;
+    max-width: 100% !important;
+    height: 200px !important;
+    min-height: 120px;
     resize: vertical;
   }
 
@@ -1300,7 +1340,7 @@ input[type='checkbox'][disabled] {
     }
 
     .spell-slot-cb {
-      position: static !important;
+      position: relative !important;
       margin: 0 !important;
       display: block !important;
     }
@@ -1320,7 +1360,7 @@ input[type='checkbox'][disabled] {
     gap: 4px;
 
     .spell-slot-cb {
-      position: static !important;
+      position: relative !important;
       margin: 0 !important;
       display: block !important;
       flex-shrink: 0;
@@ -1335,14 +1375,31 @@ input[type='checkbox'][disabled] {
     display: flex !important;
     align-items: center;
     gap: 4px;
-    margin-bottom: 2px;
+    margin-bottom: 0;
+    padding: 4px 0;
+    // separator line between each skill row
+    border-bottom: 1px solid rgba(36, 12, 5, 0.12);
+    &:last-of-type { border-bottom: none; }
     .ability-zdatnost-checkbox { margin: 0 !important; flex-shrink: 0; }
-    .roll-d20-wrap { display: flex !important; flex: 1 1 auto; width: auto !important; margin-bottom: 0 !important; position: relative !important; }
+    .roll-d20-wrap {
+      display: flex !important;
+      flex: 1 1 auto;
+      width: auto !important;
+      margin-bottom: 0 !important;
+      position: relative !important;
+      // ensure there's right breathing room so dice icon isn't clipped
+      margin-right: 4px;
+    }
     .roll-d20-wrap[data-label] {
       &::before { flex: 1 1 auto; min-width: 0; }
       input.field { flex: 0 0 48px !important; width: 48px !important; margin-bottom: 0 !important; padding-right: 6px !important; }
       .roll-d20-btn { display: flex !important; position: static !important; transform: none !important; margin-left: 2px; flex-shrink: 0; }
     }
+  }
+
+  // ── Hide equipment btn on mobile/tablet ──────────────────────────────────
+  .cs-equip-btn {
+    display: none !important;
   }
 
   cs-skills .textarea { height: 100px !important; }
@@ -1404,23 +1461,39 @@ input[type='checkbox'][disabled] {
 
   // ════════════════════════════════════════════════════════════════════════
   // ── second-page ─────────────────────────────────────────────────────────
+  // HOST only — inner rules must be top-level (Angular encapsulation scope)
   // ════════════════════════════════════════════════════════════════════════
   second-page {
-    display: grid !important;
-    grid-template-columns: repeat(12, 1fr);
+    display: flex !important;
+    flex-direction: column !important;
     gap: 6px;
-    .field { grid-column: span 6; }
-    .field[placeholder='Postava'],
-    .field[placeholder='Jméno postavy'],
-    .field[placeholder='Tituly, hodnosti, řády, ...'] { grid-column: 1 / -1; }
-    .char-img-wrap { grid-column: 1 / -1; position: static !important; top: auto !important; left: auto !important; width: 100% !important; height: 300px !important; }
-    .textarea { grid-column: 1 / -1; height: 150px !important; }
+    // allow content to fit naturally
+    overflow: visible;
+  }
+
+  // INNER: top-level so Angular compiles them for second-page's own scope
+  // Character image: own line, full width, generous height
+  .char-img-wrap {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    height: 320px !important;
+    flex-shrink: 0;
+    order: 0;
+  }
+
+  // Full-scale preview overlay stays fixed (no layout impact)
+  .char-img-backdrop {
+    position: fixed !important;
   }
 
   // ════════════════════════════════════════════════════════════════════════
   // ── third-page ──────────────────────────────────────────────────────────
   // ════════════════════════════════════════════════════════════════════════
   third-page {
+    overflow: visible;
+
     .spell-row { display: inline-block !important; margin-bottom: 1px; font-size: 12px !important; }
     .spell-detail-btn { position: static !important; top: auto !important; left: auto !important; display: inline-flex !important; width: 20px !important; margin-bottom: 1px; }
     .checkbox { position: static !important; top: auto !important; left: auto !important; display: inline-block !important; vertical-align: middle; margin: 0 4px 2px 0; }
@@ -1441,7 +1514,7 @@ input[type='checkbox'][disabled] {
   .cs-combat-speed-row .cs-combat-field-wrap { grid-column: span 6 !important; }  // 2-per-row
   .cs-combat-ac-row .cs-combat-field-wrap { grid-column: span 4 !important; }     // 3-per-row
 
-  second-page .field { grid-column: span 6 !important; }
+  // second-page is flex-column at all responsive sizes, no grid overrides needed
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -1458,14 +1531,7 @@ input[type='checkbox'][disabled] {
   .cs-combat-healing-row .cs-combat-field-wrap { grid-column: span 6 !important; }
   .cs-combat-ac-row .cs-combat-field-wrap { grid-column: span 6 !important; }
 
-  second-page {
-    .field { grid-column: span 6 !important; }
-    .field[placeholder='Postava'],
-    .field[placeholder='Jméno postavy'],
-    .field[placeholder='Tituly, hodnosti, řády, ...'] { grid-column: 1 / -1 !important; }
-    .textarea { grid-column: 1 / -1 !important; }
-    .char-img-wrap { grid-column: 1 / -1 !important; }
-  }
+  // second-page is flex-column, so no grid overrides needed
 
   .cs-weapon-row {
     .field-sm[placeholder='Bonus'],
@@ -1488,11 +1554,7 @@ input[type='checkbox'][disabled] {
   .cs-combat-ac-row .cs-combat-field-wrap { grid-column: span 6 !important; }
   .cs-combat-armor-prof-row { flex-direction: column !important; gap: 6px !important; }
 
-  second-page {
-    .field { grid-column: span 12 !important; }
-    .textarea { grid-column: 1 / -1 !important; }
-    .char-img-wrap { grid-column: 1 / -1 !important; }
-  }
+  // second-page is flex-column, so no grid overrides needed at xs either
 
   .cs-weapon-row {
     .field-sm[placeholder='Bonus'],
@@ -1595,17 +1657,33 @@ input[type='checkbox'][disabled] {
       color: rgba(200, 160, 60, 0.9) !important;
     }
 
-    // Inactive spell-slot-cb: golden border on dark background
+    // Inactive spell-slot-cb: white ghost style on dark background
     .spell-slot-cb:not([data-state='cross']):not([data-state='filled']):not(.disabled) {
-      border-color: rgba(200, 160, 60, 0.45) !important;
+      border-color: rgba(255, 255, 255, 0.55) !important;
+      background: rgba(255, 255, 255, 0.06) !important;
     }
     .spell-slot-cb.disabled {
-      border-color: rgba(180, 140, 80, 0.45) !important;
+      border-color: rgba(200, 160, 60, 0.35) !important;
     }
 
-    // Inactive stars: more visible on dark card background
+    // Inactive stars: white on dark card background
     .ability-zdatnost-checkbox:not(.ability-zdatnost--checked):not(.ability-zdatnost--expertise)::before {
-      background: rgba(200, 160, 60, 0.28) !important;
+      background: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    // Expertise circle visible in dark
+    .ability-zdatnost-checkbox.ability-zdatnost--expertise::after {
+      border-color: #d06060 !important;
+    }
+
+    // Native checkboxes: white border in dark mode
+    .checkbox {
+      border-color: rgba(255, 255, 255, 0.6) !important;
+      background: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .cs-skill-row {
+      border-bottom-color: rgba(200, 160, 60, 0.12) !important;
     }
 
     .cs-weapon-row {
