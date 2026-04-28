@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
+import { SheetThemeService } from '../sheet-theme.service';
 import { AbstractControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AlchemistChestForm, SpellSlotsForm } from '@dn-d-servant/character-sheet-util';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -8,7 +9,7 @@ import { merge } from 'rxjs';
 @Component({
   selector: 'cs-spell-slots',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
+  host: { style: 'display: contents', '[class.theme-dark]': 'sheetTheme.darkMode()' },
   imports: [ReactiveFormsModule, MatTooltip],
   styleUrl: '../character-sheet.component.scss',
   template: `
@@ -136,6 +137,7 @@ import { merge } from 'rxjs';
   `,
 })
 export class CsSpellSlotsComponent {
+  readonly sheetTheme = inject(SheetThemeService);
   spellSlotsForm = input.required<FormGroup<SpellSlotsForm>>();
   alchemistChestForm = input.required<FormGroup<AlchemistChestForm>>();
   private destroyRef = inject(DestroyRef);

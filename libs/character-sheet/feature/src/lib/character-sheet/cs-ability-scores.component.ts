@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, input, signal, effect } from '@angular/core';
+import { SheetThemeService } from '../sheet-theme.service';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AbilityBonusForm, Main6SkillsForm } from '@dn-d-servant/character-sheet-util';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -9,7 +10,7 @@ import { merge } from 'rxjs';
 @Component({
   selector: 'cs-ability-scores',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
+  host: { style: 'display: contents', '[class.theme-dark]': 'sheetTheme.darkMode()' },
   imports: [ReactiveFormsModule, MatTooltip],
   styleUrl: '../character-sheet.component.scss',
   template: `
@@ -105,6 +106,7 @@ import { merge } from 'rxjs';
   `,
 })
 export class CsAbilityScoresComponent {
+  readonly sheetTheme = inject(SheetThemeService);
   main6Form = input.required<FormGroup<Main6SkillsForm>>();
   abilityBonusForm = input.required<FormGroup<AbilityBonusForm>>();
   private diceRollerService = inject(DiceRollerService);

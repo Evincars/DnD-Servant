@@ -9,11 +9,12 @@ import { openConvictionDialog } from '../help-dialogs/conviction-dialog.componen
 import { openLevelsDialog } from '../help-dialogs/levels-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DestroyRef } from '@angular/core';
+import { SheetThemeService } from '@dn-d-servant/character-sheet-feature';
 
 @Component({
   selector: 'cs-top-info',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
+  host: { style: 'display: contents', '[class.theme-dark]': 'sheetTheme.darkMode()' },
   imports: [ReactiveFormsModule, MatIcon, MatTooltip],
   styleUrl: '../character-sheet.component.scss',
   template: `
@@ -80,6 +81,7 @@ import { DestroyRef } from '@angular/core';
   `,
 })
 export class CsTopInfoComponent {
+  readonly sheetTheme = inject(SheetThemeService);
   form = input.required<FormGroup<TopInfoForm>>();
   private dialog = inject(MatDialog);
   private destroyRef = inject(DestroyRef);

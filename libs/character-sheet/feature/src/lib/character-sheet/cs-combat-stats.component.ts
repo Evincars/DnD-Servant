@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
+import { SheetThemeService } from '../sheet-theme.service';
 import { AbstractControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ArmorClassForm, SpeedAndHealingDicesForm } from '@dn-d-servant/character-sheet-util';
 import { NgClass } from '@angular/common';
@@ -13,7 +14,7 @@ import { merge } from 'rxjs';
 @Component({
   selector: 'cs-combat-stats',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
+  host: { style: 'display: contents', '[class.theme-dark]': 'sheetTheme.darkMode()' },
   imports: [ReactiveFormsModule, NgClass, MatIcon, MatTooltip],
   styleUrl: '../character-sheet.component.scss',
   template: `
@@ -248,6 +249,7 @@ import { merge } from 'rxjs';
   `,
 })
 export class CsCombatStatsComponent {
+  readonly sheetTheme = inject(SheetThemeService);
   speedForm = input.required<FormGroup<SpeedAndHealingDicesForm>>();
   armorForm = input.required<FormGroup<ArmorClassForm>>();
   speedHighlight = input<'light' | 'medium' | 'heavy' | ''>('');

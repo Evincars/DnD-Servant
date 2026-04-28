@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
+import { SheetThemeService } from '../sheet-theme.service';
 import { AbstractControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PassiveSkillsForm, SavingThrowsForm, SpellsAndAlchemistChestForm } from '@dn-d-servant/character-sheet-util';
 import { NgClass } from '@angular/common';
@@ -14,7 +15,7 @@ import { merge } from 'rxjs';
 @Component({
   selector: 'cs-saving-throws-passive',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
+  host: { style: 'display: contents', '[class.theme-dark]': 'sheetTheme.darkMode()' },
   imports: [ReactiveFormsModule, NgClass, MatIcon, MatTooltip, RichTextareaComponent],
   styleUrl: '../character-sheet.component.scss',
   template: `
@@ -207,6 +208,7 @@ import { merge } from 'rxjs';
   `,
 })
 export class CsSavingThrowsPassiveComponent {
+  readonly sheetTheme = inject(SheetThemeService);
   savingThrowsForm = input.required<FormGroup<SavingThrowsForm>>();
   passiveSkillsForm = input.required<FormGroup<PassiveSkillsForm>>();
   spellsAndAlchForm = input.required<FormGroup<SpellsAndAlchemistChestForm>>();

@@ -1633,66 +1633,40 @@ input[type='checkbox'][disabled] {
       border-bottom-color: rgba(200, 160, 60, 0.1);
     }
 
-    // Blanket: all data-label pseudo-labels light/golden on dark bg
+    // Blanket: all data-label pseudo-labels fully WHITE on dark bg
     [data-label]::before {
-      color: rgba(220, 190, 100, 0.8) !important;
-    }
-
-    .roll-d20-wrap[data-label]::before {
-      color: rgba(255, 250, 240, 0.75) !important;
-    }
-
-    .cs-top-field-wrap[data-label]::before {
-      color: rgba(200, 160, 60, 0.65) !important;
+      color: #ffffff !important;
     }
 
     .cs-ability-label {
-      color: rgba(200, 160, 60, 0.8) !important;
-    }
-
-    .cs-ability-bonus-item[data-label]::before {
-      color: rgba(200, 160, 60, 0.65) !important;
-    }
-
-    .cs-combat-field-wrap[data-label]::before {
-      color: rgba(200, 160, 60, 0.6) !important;
+      color: rgba(255, 255, 255, 0.95) !important;
     }
 
     .cs-combat-prof-label {
-      color: rgba(200, 160, 60, 0.6) !important;
-    }
-
-    .cs-passive-field-wrap[data-label]::before {
-      color: rgba(255, 250, 240, 0.75) !important;
-    }
-
-    .cs-spells-field-wrap[data-label]::before {
-      color: rgba(200, 160, 60, 0.6) !important;
-    }
-
-    .cs-lang-field-wrap[data-label]::before {
-      color: rgba(200, 160, 60, 0.6) !important;
-    }
-
-    .cs-inventory-field-wrap[data-label]::before {
-      color: rgba(200, 160, 60, 0.6) !important;
-    }
-
-    .cs-weapon-extra-wrap[data-label]::before {
-      color: rgba(200, 160, 60, 0.6) !important;
+      color: rgba(255, 255, 255, 0.95) !important;
     }
 
     .cs-slot-level-label {
-      color: rgba(200, 160, 60, 0.8) !important;
+      color: #ffffff !important;
     }
 
     .cs-spell-level-wrap .label {
-      color: rgba(200, 160, 60, 0.8) !important;
+      color: #ffffff !important;
     }
 
-    // Full label via data-label in dark mode
     .cs-spell-level-wrap[data-label]::before {
-      color: rgba(200, 160, 60, 0.9) !important;
+      color: #ffffff !important;
+    }
+
+    // Lighter border for ability score inputs (Síla, Obratnost, Odolnost, etc.)
+    .cs-ability-group .field {
+      border-color: rgba(200, 160, 60, 0.5) !important;
+    }
+    .cs-ability-group .field.main-skill {
+      border-color: rgba(200, 160, 60, 0.6) !important;
+    }
+    .cs-ability-bonus-item .field {
+      border-color: rgba(200, 160, 60, 0.45) !important;
     }
 
     // Inactive spell-slot-cb: white ghost style on dark background

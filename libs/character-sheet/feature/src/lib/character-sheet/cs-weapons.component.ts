@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
+import { SheetThemeService } from '../sheet-theme.service';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { WeaponsForm } from '@dn-d-servant/character-sheet-util';
 import { NgClass } from '@angular/common';
@@ -14,7 +15,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'cs-weapons',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
+  host: { style: 'display: contents', '[class.theme-dark]': 'sheetTheme.darkMode()' },
   imports: [ReactiveFormsModule, NgClass, MatIcon, MatTooltip],
   styleUrl: '../character-sheet.component.scss',
   template: `
@@ -147,6 +148,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   `,
 })
 export class CsWeaponsComponent {
+  readonly sheetTheme = inject(SheetThemeService);
   form = input.required<FormGroup<WeaponsForm>>();
   private dialog = inject(MatDialog);
   private destroyRef = inject(DestroyRef);
