@@ -1565,6 +1565,39 @@ input[type='checkbox'][disabled] {
   }
 }
 
+// ── Responsive + light theme: dark grey labels ──────────────────────────────
+@media (max-width: 1359px) {
+  :host:not(.theme-dark) {
+    [data-label]::before {
+      color: rgba(60, 50, 40, 0.75) !important;
+    }
+
+    .cs-section-title {
+      color: #5a3a10;
+    }
+
+    .cs-slot-level-label {
+      color: rgba(80, 55, 20, 0.85) !important;
+    }
+
+    .cs-spell-level-wrap .label {
+      color: rgba(80, 55, 20, 0.85) !important;
+    }
+
+    .cs-spell-level-wrap[data-label]::before {
+      color: rgba(80, 55, 20, 0.85) !important;
+    }
+
+    .cs-ability-label {
+      color: rgba(80, 55, 20, 0.85) !important;
+    }
+
+    .cs-combat-prof-label {
+      color: rgba(80, 55, 20, 0.8) !important;
+    }
+  }
+}
+
 // ── Responsive + dark theme ─────────────────────────────────────────────────
 @media (max-width: 1359px) {
   :host.theme-dark {
@@ -1600,8 +1633,13 @@ input[type='checkbox'][disabled] {
       border-bottom-color: rgba(200, 160, 60, 0.1);
     }
 
+    // Blanket: all data-label pseudo-labels light/golden on dark bg
+    [data-label]::before {
+      color: rgba(220, 190, 100, 0.8) !important;
+    }
+
     .roll-d20-wrap[data-label]::before {
-      color: rgba(255, 250, 240, 0.75);
+      color: rgba(255, 250, 240, 0.75) !important;
     }
 
     .cs-top-field-wrap[data-label]::before {

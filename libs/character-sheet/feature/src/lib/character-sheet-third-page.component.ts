@@ -182,7 +182,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:516px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r1Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -255,7 +255,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:551px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r2Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -328,7 +328,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:587px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r3Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -401,7 +401,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:623px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r4Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -474,7 +474,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:658px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r5Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -547,7 +547,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:694px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r6Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -620,7 +620,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:730px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r7Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -693,7 +693,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:765px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r8Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -766,7 +766,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:801px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r9Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -839,7 +839,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:836px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r10Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -911,7 +911,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:872px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r11Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -983,7 +983,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:908px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r12Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1055,7 +1055,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:944px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r13Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1127,7 +1127,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:980px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r14Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1199,7 +1199,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1016px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r15Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1271,7 +1271,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1052px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r16Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1343,7 +1343,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1088px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r17Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1415,7 +1415,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1124px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r18Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1487,7 +1487,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1160px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r19Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1559,7 +1559,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1194px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r20Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1631,7 +1631,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1230px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r21Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1703,7 +1703,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1266px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r22Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1775,7 +1775,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1302px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r23Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1847,7 +1847,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1335px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r24Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1919,7 +1919,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1371px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r25Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1991,7 +1991,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1407px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r26Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2063,7 +2063,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1443px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r27Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2136,7 +2136,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1479px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r28Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2209,7 +2209,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1512px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r29Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2282,7 +2282,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1548px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r30Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2355,7 +2355,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1584px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r31Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2428,7 +2428,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1620px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r32Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2501,7 +2501,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1656px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r33Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2574,7 +2574,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1692px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r34Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2646,7 +2646,7 @@ import { SheetThemeService } from './sheet-theme.service';
       placeholder="*"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1733px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r35Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
