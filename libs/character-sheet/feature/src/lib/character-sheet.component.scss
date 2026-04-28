@@ -3,7 +3,10 @@
   display: block;
 }
 
-// Desktop: spell-prep-wrap is transparent, label hidden
+// Desktop: spell-row-grid / spell-prep-wrap are transparent, label hidden
+.spell-row-grid {
+  display: contents;
+}
 .spell-prep-wrap {
   display: contents;
 }
@@ -1522,106 +1525,103 @@ input[type='checkbox'][disabled] {
   }
 
   // ════════════════════════════════════════════════════════════════════════
-  // ── third-page ──────────────────────────────────────────────────────────
+  // ── third-page HOST only ─────────────────────────────────────────────────
+  // Inner element rules MUST be top-level so Angular compiles them against
+  // CharacterSheetThirdPageComponent's own _ngcontent attribute.
   // ════════════════════════════════════════════════════════════════════════
   third-page {
     overflow: visible;
     position: relative;
+  }
 
-    .spell-row {
-      display: inline-block !important;
-      position: static !important;
-      top: auto !important;
-      left: auto !important;
-      width: auto !important;
-      margin-bottom: 1px;
-      font-size: 12px !important;
-    }
+  // INNER: top-level so Angular compiles them for third-page's own scope
+  // ── spell row 12-col grid wrapper ────────────────────────────────────
+  .spell-row-grid {
+    display: grid !important;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 4px;
+    align-items: center;
+    border-top: 1px solid rgba(36, 12, 5, 0.12);
+    padding-top: 6px;
+    margin-top: 4px;
+  }
 
-    .spell-detail-btn {
-      position: static !important;
-      top: auto !important;
-      left: auto !important;
-      display: inline-flex !important;
-      width: 20px !important;
-      margin-bottom: 1px;
-    }
+  // "Připraveno" checkbox wrapper: spans full row
+  .spell-prep-wrap {
+    grid-column: 1 / -1 !important;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 4px;
+  }
 
-    .checkbox {
-      position: static !important;
-      top: auto !important;
-      left: auto !important;
-      display: inline-block !important;
-      vertical-align: middle;
-      margin: 0 4px 2px 0;
-    }
+  // "Připraveno" label text — shown on responsive
+  .spell-prep-label {
+    display: inline !important;
+    font-size: 9px;
+    font-family: Arial, sans-serif;
+    color: rgba(180, 100, 50, 0.7);
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
 
-    // "Připraveno" label for the P checkbox
-    .red-checkbox {
-      border-top: 1px solid rgba(36, 12, 5, 0.12) !important;
-      padding-top: 4px;
-      margin-top: 4px;
-    }
+  // Prep checkbox (red-checkbox) resets to static for grid flow
+  .red-checkbox {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    display: inline-block !important;
+    vertical-align: middle;
+  }
 
-    // Wrapper + label for the prep checkbox
-    .spell-prep-wrap {
-      display: inline-flex !important;
-      align-items: center;
-      gap: 3px;
-      border-top: 1px solid rgba(36, 12, 5, 0.12);
-      padding-top: 4px;
-      margin-top: 4px;
-      width: 100%;
-    }
+  // All spell row inputs reset to static for grid participation
+  .spell-row {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    margin-bottom: 0;
+    font-size: 12px !important;
+    box-sizing: border-box !important;
+  }
 
-    .spell-prep-label {
-      display: inline !important;
-      font-size: 9px;
-      font-family: Arial, sans-serif;
-      color: rgba(180, 100, 50, 0.7);
-      letter-spacing: 0.03em;
-      white-space: nowrap;
-    }
+  // Spell detail button (book icon)
+  .spell-detail-btn {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    display: inline-flex !important;
+    width: 100% !important;
+    margin-bottom: 0;
+    justify-content: center;
+    align-items: center;
+  }
 
-    // Spell name input gets wider for the autocomplete to be useful
-    .spell-row[placeholder='Název'] {
-      min-width: calc(100% - 90px) !important;
-    }
+  // ── Grid column assignments — lg default (>=576px): 3-per-row ────────
+  .spell-row[placeholder='St.']       { grid-column: span 2; }
+  .spell-row[placeholder='Název']     { grid-column: span 9; min-width: 0 !important; }
+  .spell-detail-btn                   { grid-column: span 1; }
+  .spell-row[placeholder='Útok']      { grid-column: span 4; }
+  .spell-row[placeholder='Doba']      { grid-column: span 4; }
+  .spell-row[placeholder='Složky']    { grid-column: span 4; }
+  .spell-row[placeholder='Dosah']     { grid-column: span 4; }
+  .spell-row[placeholder='Trvání']    { grid-column: span 4; }
+  .spell-row[placeholder='Str.']      { grid-column: span 4; }
+  .spell-row[placeholder='Poznámka'] { grid-column: 1 / -1; }
 
-    // Spell row fields: 3 per row via 12-col grid
-    .spell-row[placeholder='Útok'],
-    .spell-row[placeholder='Doba'],
-    .spell-row[placeholder='Složky'],
-    .spell-row[placeholder='Dosah'],
-    .spell-row[placeholder='Trvání'],
-    .spell-row[placeholder='St.'],
-    .spell-row[placeholder='Str.'] {
-      width: calc(33.333% - 4px) !important;
-      box-sizing: border-box !important;
-    }
-
-    // Poznámka full width
-    .spell-row[placeholder='Poznámka'] {
-      width: 100% !important;
-      box-sizing: border-box !important;
-    }
-
-    // Spell dropdown: sticky to bottom of viewport on mobile
-    .spell-dropdown {
-      position: fixed !important;
-      left: 8px !important;
-      right: 8px !important;
-      bottom: 0 !important;
-      top: auto !important;
-      width: auto !important;
-      max-height: 40vh;
-      overflow-y: auto !important;
-      z-index: 99999 !important;
-      border-radius: 8px 8px 0 0 !important;
-      box-shadow: 0 -4px 20px rgba(0,0,0,.6) !important;
-      // Override the inline [style] binding from Angular
-      inset: auto 8px 0 8px !important;
-    }
+  // Spell dropdown: sticky bottom sheet on mobile
+  .spell-dropdown {
+    position: fixed !important;
+    left: 8px !important;
+    right: 8px !important;
+    bottom: 0 !important;
+    top: auto !important;
+    width: auto !important;
+    max-height: 40vh;
+    overflow-y: auto !important;
+    z-index: 99999 !important;
+    border-radius: 8px 8px 0 0 !important;
+    box-shadow: 0 -4px 20px rgba(0,0,0,.6) !important;
+    inset: auto 8px 0 8px !important;
   }
 }
 
@@ -1663,6 +1663,17 @@ input[type='checkbox'][disabled] {
     .field-sm[placeholder='Dosah'],
     .field-sm[placeholder='OČ'] { width: calc(33% - 4px) !important; }
   }
+
+  // Spells sm: 2-per-row (span 6) — top-level for third-page scope
+  .spell-row[placeholder='St.']    { grid-column: span 3 !important; }
+  .spell-row[placeholder='Název']  { grid-column: span 8 !important; }
+  .spell-detail-btn                { grid-column: span 1 !important; }
+  .spell-row[placeholder='Útok'],
+  .spell-row[placeholder='Doba'],
+  .spell-row[placeholder='Složky'],
+  .spell-row[placeholder='Dosah'],
+  .spell-row[placeholder='Trvání'],
+  .spell-row[placeholder='Str.']  { grid-column: span 6 !important; }
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -1687,18 +1698,16 @@ input[type='checkbox'][disabled] {
     .field-sm[placeholder='OČ'] { width: calc(50% - 4px) !important; }
   }
 
-  // Spells: keep 3 per row on xs (consistent with tablet)
-  third-page {
-    .spell-row[placeholder='Útok'],
-    .spell-row[placeholder='Doba'],
-    .spell-row[placeholder='Složky'],
-    .spell-row[placeholder='Dosah'],
-    .spell-row[placeholder='Trvání'],
-    .spell-row[placeholder='St.'],
-    .spell-row[placeholder='Str.'] {
-      width: calc(33.333% - 4px) !important;
-    }
-  }
+  // Spells xs: 2-per-row — top-level for third-page scope
+  .spell-row[placeholder='St.']    { grid-column: span 4 !important; }
+  .spell-row[placeholder='Název']  { grid-column: span 7 !important; }
+  .spell-detail-btn                { grid-column: span 1 !important; }
+  .spell-row[placeholder='Útok'],
+  .spell-row[placeholder='Doba'],
+  .spell-row[placeholder='Složky'],
+  .spell-row[placeholder='Dosah'],
+  .spell-row[placeholder='Trvání'],
+  .spell-row[placeholder='Str.']  { grid-column: span 6 !important; }
 }
 
 // ── Responsive + light theme: dark grey labels ──────────────────────────────
@@ -1838,19 +1847,17 @@ input[type='checkbox'][disabled] {
       border-bottom-color: rgba(200, 160, 60, 0.15) !important;
     }
 
-    third-page .red-checkbox {
-      border-top-color: rgba(200, 160, 60, 0.12) !important;
-
+    .red-checkbox {
       &::after {
         color: rgba(200, 160, 60, 0.6) !important;
       }
     }
 
-    third-page .spell-prep-wrap {
+    .spell-row-grid {
       border-top-color: rgba(200, 160, 60, 0.12) !important;
     }
 
-    third-page .spell-prep-label {
+    .spell-prep-label {
       color: rgba(200, 160, 60, 0.6) !important;
     }
   }

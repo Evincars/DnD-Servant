@@ -162,6 +162,7 @@ import { SheetThemeService } from './sheet-theme.service';
 
     <!--    ROW 1-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r1P"
       type="checkbox"
@@ -232,9 +233,11 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:511px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 2-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r2P"
       type="checkbox"
@@ -305,9 +308,11 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:546px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 3-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r3P"
       type="checkbox"
@@ -378,9 +383,11 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:582px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 4-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r4P"
       type="checkbox"
@@ -451,9 +458,11 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:618px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 5-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r5P"
       type="checkbox"
@@ -524,9 +533,11 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:653px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 6-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r6P"
       type="checkbox"
@@ -597,9 +608,11 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:689px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 7-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r7P"
       type="checkbox"
@@ -670,9 +683,11 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:725px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 8-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r8P"
       type="checkbox"
@@ -743,9 +758,11 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:760px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 9-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r9P"
       type="checkbox"
@@ -816,9 +833,11 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:796px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 10-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r10P"
       type="checkbox"
@@ -889,8 +908,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:831px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 11-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r11P"
       type="checkbox"
@@ -961,8 +982,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:867px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 12-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r12P"
       type="checkbox"
@@ -1033,8 +1056,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:903px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 13-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r13P"
       type="checkbox"
@@ -1105,8 +1130,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:939px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 14-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r14P"
       type="checkbox"
@@ -1177,8 +1204,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:975px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 15-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r15P"
       type="checkbox"
@@ -1249,8 +1278,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1011px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 16-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r16P"
       type="checkbox"
@@ -1321,8 +1352,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1047px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 17-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r17P"
       type="checkbox"
@@ -1393,8 +1426,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1083px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 18-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r18P"
       type="checkbox"
@@ -1465,8 +1500,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1119px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 19-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r19P"
       type="checkbox"
@@ -1537,8 +1574,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1155px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 20-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r20P"
       type="checkbox"
@@ -1609,8 +1648,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1189px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 21-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r21P"
       type="checkbox"
@@ -1681,8 +1722,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1225px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 22-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r22P"
       type="checkbox"
@@ -1753,8 +1796,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1261px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 23-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r23P"
       type="checkbox"
@@ -1825,8 +1870,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1297px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 24-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r24P"
       type="checkbox"
@@ -1897,8 +1944,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1330px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 25-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r25P"
       type="checkbox"
@@ -1969,8 +2018,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1366px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 26-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r26P"
       type="checkbox"
@@ -2041,8 +2092,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1402px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 27-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r27P"
       type="checkbox"
@@ -2113,9 +2166,11 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1438px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 28-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r28P"
       type="checkbox"
@@ -2186,9 +2241,11 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1474px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 29-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r29P"
       type="checkbox"
@@ -2259,9 +2316,11 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1507px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 30-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r30P"
       type="checkbox"
@@ -2332,9 +2391,11 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1543px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 31-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r31P"
       type="checkbox"
@@ -2405,9 +2466,11 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1579px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 32-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r32P"
       type="checkbox"
@@ -2478,9 +2541,11 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1615px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 33-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r33P"
       type="checkbox"
@@ -2551,9 +2616,11 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1651px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 34-->
     <!--    ###################################################################################-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r34P"
       type="checkbox"
@@ -2624,8 +2691,10 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1687px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
     <!--    ROW 35-->
+    <div class="spell-row-grid">
     <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r35P"
       type="checkbox"
@@ -2696,6 +2765,7 @@ import { SheetThemeService } from './sheet-theme.service';
       style="top:1728px; left:1160px; width:60px;"
       placeholder="Str."
     />
+    </div>
 
         @if (dropdownOpen() && filteredSpells().length > 0) {
       <div class="spell-dropdown" [style]="dropdownStyle()" (mousedown)="$event.preventDefault()">
