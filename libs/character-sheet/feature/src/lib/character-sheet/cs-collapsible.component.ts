@@ -67,7 +67,7 @@ import { SheetThemeService } from '../sheet-theme.service';
       align-items: center;
       justify-content: space-between;
       padding: 10px 14px;
-      background: transparent;
+      background: rgba(200, 160, 60, 0.08);
       border: none;
       border-bottom: 1px solid rgba(180, 130, 50, 0.18);
       cursor: pointer;
@@ -79,6 +79,11 @@ import { SheetThemeService } from '../sheet-theme.service';
       font-weight: bold;
       color: #5a3a10;
       text-align: left;
+      transition: background 0.15s;
+
+      &:hover {
+        background: rgba(200, 160, 60, 0.16);
+      }
     }
 
     :host.cs-collapsible--open .cs-coll-header {
@@ -109,6 +114,11 @@ import { SheetThemeService } from '../sheet-theme.service';
       /* no extra padding — child components handle their own inner spacing */
     }
 
+    /* ── Hide inner section title when collapsible header already shows it ── */
+    :host.cs-collapsible--responsive ::ng-deep .cs-section-title {
+      display: none !important;
+    }
+
     /* ── Dark theme ──────────────────────────────────────────────────── */
     :host.cs-collapsible--responsive.theme-dark {
       background: rgba(16, 10, 4, 0.97);
@@ -119,6 +129,11 @@ import { SheetThemeService } from '../sheet-theme.service';
     :host.theme-dark .cs-coll-header {
       color: #e8c96a;
       border-bottom-color: rgba(200, 160, 60, 0.15);
+      background: rgba(200, 160, 60, 0.06);
+
+      &:hover {
+        background: rgba(200, 160, 60, 0.14);
+      }
     }
 
     :host.theme-dark .cs-coll-chevron {

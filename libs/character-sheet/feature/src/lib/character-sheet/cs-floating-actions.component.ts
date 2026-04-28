@@ -119,14 +119,15 @@ export class CsFloatingActionsComponent {
   private readonly _doc = inject(DOCUMENT);
 
   scrollTop(): void {
-    this._doc.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+    this._doc.defaultView?.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   scrollBottom(): void {
-    this._doc.documentElement.scrollTo({
-      top: this._doc.documentElement.scrollHeight,
-      behavior: 'smooth',
-    });
+    const scrollHeight = Math.max(
+      this._doc.body.scrollHeight,
+      this._doc.documentElement.scrollHeight,
+    );
+    this._doc.defaultView?.scrollTo({ top: scrollHeight, behavior: 'smooth' });
   }
 }
 

@@ -607,3 +607,12 @@
   }
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// SMALL MOBILE  (≤480px) — hide 'Servant' label to keep auth btn visible
+// ═══════════════════════════════════════════════════════════════════
+@media (max-width: 480px) {
+  .toolbar-servant-text {
+    display: none;
+  }
+}
+

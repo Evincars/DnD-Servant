@@ -87,7 +87,7 @@ import { SheetThemeService } from '@dn-d-servant/character-sheet-feature';
                 <mat-icon>menu</mat-icon>
               </button>
               <img src="JaD-logo.png" alt="Dungeons & Dragons Logo" class="logo u-mr-3" />
-              <span>Servant</span>
+              <span class="toolbar-servant-text">Servant</span>
               <button
                 (click)="onScreenshotBackupClick()"
                 [disabled]="screenshotLoading()"
