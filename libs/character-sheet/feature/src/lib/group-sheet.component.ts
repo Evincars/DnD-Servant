@@ -15,13 +15,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AnimalKey, animalsSelect } from './animals-select';
 import { openGroupBackgroundDialog } from './help-dialogs/group-background-dialog.component';
 import { interval } from 'rxjs';
+import { SheetThemeService } from './sheet-theme.service';
 
 @Component({
   selector: 'group-sheet',
   template: `
     <spinner-overlay [diameter]="70" [showSpinner]="characterSheetStore.loading()">
-      <img src="group-sheet-1.webp" alt="Group Sheet" height="1817" width="1293" />
-      <img src="group-sheet-2.webp" alt="Group Sheet" height="1817" width="1293" />
+      <img [src]="sheetTheme.darkMode() ? 'group-sheet-1-dark.webp' : 'group-sheet-1.webp'" alt="Group Sheet" height="1817" width="1293" />
+      <img [src]="sheetTheme.darkMode() ? 'group-sheet-2-dark.webp' : 'group-sheet-2.webp'" alt="Group Sheet" height="1817" width="1293" />
 
       <form [formGroup]="form">
         <input
@@ -464,6 +465,7 @@ export class GroupSheetComponent {
   destroyRef = inject(DestroyRef);
   snackBar = inject(MatSnackBar);
   dialog = inject(MatDialog);
+  readonly sheetTheme = inject(SheetThemeService);
 
   private readonly documentName = '_group';
   animalsSelect = animalsSelect;
