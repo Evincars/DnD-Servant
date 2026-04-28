@@ -33,6 +33,22 @@
     color: rgba(255, 255, 255, 0.92);
   }
 
+  // Weight highlights must override the dark .field background
+  .soft-weight {
+    background: rgba(80, 200, 80, 0.55) !important;
+    border-color: rgba(60, 170, 60, 0.7) !important;
+  }
+
+  .medium-weight {
+    background: rgba(210, 150, 30, 0.55) !important;
+    border-color: rgba(190, 130, 20, 0.7) !important;
+  }
+
+  .heavy-weight {
+    background: rgba(210, 60, 60, 0.55) !important;
+    border-color: rgba(190, 40, 40, 0.7) !important;
+  }
+
   .field::placeholder {
     color: rgba(255, 255, 255, 0.3);
   }
