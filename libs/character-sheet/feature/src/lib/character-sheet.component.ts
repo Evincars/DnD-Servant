@@ -48,6 +48,8 @@ import { CsWeaponsComponent } from './character-sheet/cs-weapons.component';
 import { CsLanguagesComponent } from './character-sheet/cs-languages.component';
 import { CsInventoryComponent } from './character-sheet/cs-inventory.component';
 import { ConditionsButtonComponent } from './conditions/conditions-button.component';
+import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.component';
+import { CsFloatingActionsComponent } from './character-sheet/cs-floating-actions.component';
 
 @Component({
   selector: 'character-sheet',
@@ -59,41 +61,66 @@ import { ConditionsButtonComponent } from './conditions/conditions-button.compon
 
       <form [formGroup]="form" #sheetForm>
         <conditions-button />
-        <cs-top-info [form]="controls.topInfo" />
 
-        <cs-ability-scores [main6Form]="controls.main6SkillsForm" [abilityBonusForm]="controls.abilityBonus" />
+        <cs-collapsible title="Základní informace" storageKey="top-info">
+          <cs-top-info [form]="controls.topInfo" />
+        </cs-collapsible>
 
-        <cs-combat-stats
-          [speedForm]="controls.speedAndHealingDices"
-          [armorForm]="controls.armorClass"
-          [speedHighlight]="speedHighlight()"
-        />
+        <cs-collapsible title="Schopnosti" storageKey="ability-scores">
+          <cs-ability-scores [main6Form]="controls.main6SkillsForm" [abilityBonusForm]="controls.abilityBonus" />
+        </cs-collapsible>
 
-        <cs-saving-throws-passive
-          [savingThrowsForm]="controls.savingThrowsForm"
-          [passiveSkillsForm]="controls.passiveSkillsForm"
-          [spellsAndAlchForm]="controls.spellsAndAlchemistChestForm"
-          [infoAboutCharacterControl]="form.controls['infoAboutCharacter']"
-        />
+        <cs-collapsible title="Boj" storageKey="combat-stats">
+          <cs-combat-stats
+            [speedForm]="controls.speedAndHealingDices"
+            [armorForm]="controls.armorClass"
+            [speedHighlight]="speedHighlight()"
+          />
+        </cs-collapsible>
 
-        <cs-spell-slots [spellSlotsForm]="controls.spellSlotsForm" [alchemistChestForm]="controls.alchemistChestForm" />
+        <cs-collapsible title="Záchranné hody & Pasivní dovednosti" storageKey="saving-throws">
+          <cs-saving-throws-passive
+            [savingThrowsForm]="controls.savingThrowsForm"
+            [passiveSkillsForm]="controls.passiveSkillsForm"
+            [spellsAndAlchForm]="controls.spellsAndAlchemistChestForm"
+            [infoAboutCharacterControl]="form.controls['infoAboutCharacter']"
+          />
+        </cs-collapsible>
 
-        <cs-skills [form]="controls.abilitiesForm" [pomuckyControl]="$any(controls.pomucky)" />
+        <cs-collapsible title="Pozice kouzel & Alchymistická truhla" storageKey="spell-slots">
+          <cs-spell-slots [spellSlotsForm]="controls.spellSlotsForm" [alchemistChestForm]="controls.alchemistChestForm" />
+        </cs-collapsible>
 
-        <cs-weapons [form]="controls.weaponsForm" />
+        <cs-collapsible title="Dovednosti" storageKey="skills">
+          <cs-skills [form]="controls.abilitiesForm" [pomuckyControl]="$any(controls.pomucky)" />
+        </cs-collapsible>
 
-        <cs-languages [form]="controls.languagesForm" />
+        <cs-collapsible title="Zbraně a útoky" storageKey="weapons">
+          <cs-weapons [form]="controls.weaponsForm" />
+        </cs-collapsible>
 
-        <cs-inventory [form]="controls.inventoryForm" [inventoryClasses]="inventoryClasses()" [main6Form]="controls.main6SkillsForm" />
+        <cs-collapsible title="Jazyky a schopnosti" storageKey="languages">
+          <cs-languages [form]="controls.languagesForm" />
+        </cs-collapsible>
 
-        <second-page [form]="controls.secondPageForm" (imageSaved)="onImageSaved($event)" />
+        <cs-collapsible title="Inventář" storageKey="inventory">
+          <cs-inventory [form]="controls.inventoryForm" [inventoryClasses]="inventoryClasses()" [main6Form]="controls.main6SkillsForm" />
+        </cs-collapsible>
 
-        <third-page [form]="controls.thirdPageForm" />
+        <cs-collapsible title="Vzhled a povaha" storageKey="second-page">
+          <second-page [form]="controls.secondPageForm" (imageSaved)="onImageSaved($event)" />
+        </cs-collapsible>
+
+        <cs-collapsible title="Kouzla" storageKey="third-page">
+          <third-page [form]="controls.thirdPageForm" />
+        </cs-collapsible>
 
         <button (click)="onSaveClick()" type="submit" class="field button cs-save-btn" style="top:4px; left:1090px; width:150px;">
           Uložit [enter]
         </button>
       </form>
+
+      <cs-floating-actions (saveRequested)="onSaveClick()" />
     </spinner-overlay>
   `,
   styleUrl: 'character-sheet.component.scss',
@@ -114,6 +141,8 @@ import { ConditionsButtonComponent } from './conditions/conditions-button.compon
     CsLanguagesComponent,
     CsInventoryComponent,
     ConditionsButtonComponent,
+    CsCollapsibleComponent,
+    CsFloatingActionsComponent,
   ],
 })
 export class CharacterSheetComponent {

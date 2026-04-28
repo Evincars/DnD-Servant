@@ -1,0 +1,166 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  input,
+  signal,
+  untracked,
+} from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
+import { MatIcon } from '@angular/material/icon';
+import { SheetThemeService } from '../sheet-theme.service';
+
+/**
+ * Transparent wrapper on desktop (display:contents).
+ * On mobile/tablet (≤1359px) renders as a collapsible card with a header button.
+ * Open/collapsed state is persisted to localStorage.
+ *
+ * Uses a single <ng-content> to avoid Angular's content-projection-in-conditional limitation.
+ * Visibility is controlled purely by CSS (display:none on the content wrapper when closed).
+ */
+@Component({
+  selector: 'cs-collapsible',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [MatIcon],
+  host: {
+    // On desktop: completely transparent — no box added to the layout.
+    // On responsive: block card that can be toggled.
+    '[style.display]': 'responsive() ? "block" : "contents"',
+    '[class.cs-collapsible--responsive]': 'responsive()',
+    '[class.cs-collapsible--open]': 'isOpen()',
+    '[class.cs-collapsible--closed]': '!isOpen()',
+    '[class.theme-dark]': 'sheetTheme.darkMode()',
+  },
+  template: `
+    @if (responsive()) {
+      <button type="button" class="cs-coll-header" (click)="toggle()">
+        <span class="cs-coll-title">{{ title() }}</span>
+        <mat-icon class="cs-coll-chevron">
+          {{ isOpen() ? 'expand_less' : 'expand_more' }}
+        </mat-icon>
+      </button>
+    }
+    <!-- Content is always projected here; CSS hides it when collapsed on responsive -->
+    <div class="cs-coll-body">
+      <ng-content />
+    </div>
+  `,
+  styles: `
+    /* ── Responsive card shell ────────────────────────────────────────── */
+    :host.cs-collapsible--responsive {
+      display: block;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.14);
+      border: 1px solid rgba(180, 130, 50, 0.22);
+      background: rgba(255, 248, 230, 0.97);
+    }
+
+    /* ── Header button ───────────────────────────────────────────────── */
+    .cs-coll-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(180, 130, 50, 0.18);
+      cursor: pointer;
+      gap: 8px;
+      font-family: 'Mikadan', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: #5a3a10;
+      text-align: left;
+    }
+
+    :host.cs-collapsible--open .cs-coll-header {
+      border-bottom-color: rgba(180, 130, 50, 0.18);
+    }
+
+    :host.cs-collapsible--closed .cs-coll-header {
+      border-bottom: none;
+    }
+
+    .cs-coll-title { flex: 1; }
+
+    .cs-coll-chevron {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      flex-shrink: 0;
+      color: rgba(120, 80, 20, 0.7);
+    }
+
+    /* ── Body: hidden when collapsed on responsive ───────────────────── */
+    :host.cs-collapsible--responsive.cs-collapsible--closed .cs-coll-body {
+      display: none;
+    }
+
+    .cs-coll-body {
+      /* no extra padding — child components handle their own inner spacing */
+    }
+
+    /* ── Dark theme ──────────────────────────────────────────────────── */
+    :host.cs-collapsible--responsive.theme-dark {
+      background: rgba(16, 10, 4, 0.97);
+      border-color: rgba(200, 160, 60, 0.2);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+    }
+
+    :host.theme-dark .cs-coll-header {
+      color: #e8c96a;
+      border-bottom-color: rgba(200, 160, 60, 0.15);
+    }
+
+    :host.theme-dark .cs-coll-chevron {
+      color: rgba(200, 160, 60, 0.7);
+    }
+  `,
+})
+export class CsCollapsibleComponent {
+  readonly title = input.required<string>();
+  readonly storageKey = input.required<string>();
+
+  readonly sheetTheme = inject(SheetThemeService);
+
+  private readonly _breakpoints = inject(BreakpointObserver);
+  readonly responsive = toSignal(
+    this._breakpoints.observe('(max-width: 1359px)').pipe(map(r => r.matches)),
+    { initialValue: false },
+  );
+
+  readonly isOpen = signal(true);
+
+  constructor() {
+    // Initialise from localStorage once the storageKey input is available.
+    effect(() => {
+      const key = this.storageKey();
+      const stored = localStorage.getItem(`cs-section-${key}`);
+      untracked(() => {
+        this.isOpen.set(stored !== null ? stored !== 'false' : true);
+      });
+    });
+  }
+
+  toggle(): void {
+    this.setOpen(!this.isOpen());
+  }
+
+  setOpen(open: boolean): void {
+    this.isOpen.set(open);
+    try {
+      localStorage.setItem(`cs-section-${this.storageKey()}`, String(open));
+    } catch {
+      // Storage quota exceeded or blocked in private mode
+    }
+  }
+}

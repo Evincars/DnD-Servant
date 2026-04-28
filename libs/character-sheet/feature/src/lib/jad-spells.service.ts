@@ -1,7 +1,7 @@
 import { computed, inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, map, of, startWith } from 'rxjs';
 import { marked } from 'marked';
 import { WikiService } from './wiki/wiki.service';
 
@@ -47,10 +47,10 @@ export class JadSpellsService {
   /** Set of filenames available under /dnd5esrd/snippets/kouzla/. Null until loaded. */
   readonly snippetFiles = toSignal(
     this.http.get<string[]>('/dnd5esrd/snippets/kouzla-index.json').pipe(
-      map(files => new Set(files)),
-      catchError(() => of(new Set<string>())),
+      map(files => new Set<string>(files) as Set<string> | null),
+      catchError(() => of<Set<string> | null>(new Set<string>())),
+      startWith<Set<string> | null>(null),
     ),
-    { initialValue: null as Set<string> | null },
   );
 
   readonly allSpells = computed((): JadSpell[] =>
