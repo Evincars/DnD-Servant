@@ -118,9 +118,11 @@ export class JadSpellsService {
   /**
    * Extract markdown between a heading matching `name` and the next heading
    * of the same or higher level.
+   * Handles both LF and CRLF line endings.
    */
   private extractSection(md: string, name: string): string | null {
-    const lines = md.split('\n');
+    // Normalize CRLF → LF so the heading regex ($) always anchors correctly.
+    const lines = md.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
     let startIdx = -1;
     let headingLevel = 0;
 

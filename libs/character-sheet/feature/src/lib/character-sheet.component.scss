@@ -46,18 +46,21 @@
 
   // Weight highlights must override the dark .field background
   .soft-weight {
-    background: rgba(80, 200, 80, 0.55) !important;
-    border-color: rgba(60, 170, 60, 0.7) !important;
+    background: rgba(80, 200, 80, 0.22) !important;
+    border-color: rgba(60, 170, 60, 0.4) !important;
+    color: rgba(140, 240, 140, 0.9) !important;
   }
 
   .medium-weight {
-    background: rgba(210, 150, 30, 0.55) !important;
-    border-color: rgba(190, 130, 20, 0.7) !important;
+    background: rgba(210, 150, 30, 0.22) !important;
+    border-color: rgba(190, 130, 20, 0.4) !important;
+    color: rgba(230, 185, 80, 0.9) !important;
   }
 
   .heavy-weight {
-    background: rgba(210, 60, 60, 0.55) !important;
-    border-color: rgba(190, 40, 40, 0.7) !important;
+    background: rgba(210, 60, 60, 0.22) !important;
+    border-color: rgba(190, 40, 40, 0.4) !important;
+    color: rgba(240, 120, 120, 0.9) !important;
   }
 
   .field::placeholder {
@@ -1591,9 +1594,23 @@ input[type='checkbox'][disabled] {
     left: auto !important;
     display: inline-flex !important;
     width: 100% !important;
+    height: 100%;
     margin-bottom: 0;
     justify-content: center;
     align-items: center;
+    background: rgba(200, 160, 60, 0.18) !important;
+    border-color: rgba(200, 160, 60, 0.5) !important;
+    border-left: none !important;
+  }
+
+  // auto_stories icon inside spell-detail-btn: bigger + highlighted on mobile/tablet
+  .spell-detail-btn mat-icon,
+  .spell-detail-btn .small-info-icon {
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    line-height: 18px !important;
+    color: rgba(200, 160, 60, 0.9) !important;
   }
 
   // ── Grid column assignments — lg default (>=576px): 3-per-row ────────
@@ -1740,6 +1757,17 @@ input[type='checkbox'][disabled] {
     .cs-combat-prof-label {
       color: rgba(80, 55, 20, 0.8) !important;
     }
+
+    // auto_stories icon: warm amber accent on light theme
+    .spell-detail-btn {
+      background: rgba(160, 100, 20, 0.1) !important;
+      border-color: rgba(160, 100, 20, 0.4) !important;
+    }
+
+    .spell-detail-btn mat-icon,
+    .spell-detail-btn .small-info-icon {
+      color: rgba(140, 80, 10, 0.85) !important;
+    }
   }
 }
 
@@ -1859,6 +1887,17 @@ input[type='checkbox'][disabled] {
 
     .spell-prep-label {
       color: rgba(200, 160, 60, 0.6) !important;
+    }
+
+    // auto_stories icon: golden glow on dark theme
+    .spell-detail-btn {
+      background: rgba(200, 160, 60, 0.14) !important;
+      border-color: rgba(200, 160, 60, 0.4) !important;
+    }
+
+    .spell-detail-btn mat-icon,
+    .spell-detail-btn .small-info-icon {
+      color: rgba(220, 180, 70, 0.95) !important;
     }
   }
 }
