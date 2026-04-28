@@ -111,7 +111,11 @@ import { SheetThemeService } from '../sheet-theme.service';
     }
 
     .cs-coll-body {
-      /* no extra padding — child components handle their own inner spacing */
+      /* On responsive the body gets light padding so content doesn't hug the card edges */
+    }
+
+    :host.cs-collapsible--responsive .cs-coll-body {
+      padding: 10px 10px;
     }
 
     /* ── Hide inner section title when collapsible header already shows it ── */
@@ -144,6 +148,8 @@ import { SheetThemeService } from '../sheet-theme.service';
 export class CsCollapsibleComponent {
   readonly title = input.required<string>();
   readonly storageKey = input.required<string>();
+  /** When no localStorage entry exists, this determines the initial state. Default: true (open). */
+  readonly defaultOpen = input<boolean>(true);
 
   readonly sheetTheme = inject(SheetThemeService);
 
@@ -159,9 +165,10 @@ export class CsCollapsibleComponent {
     // Initialise from localStorage once the storageKey input is available.
     effect(() => {
       const key = this.storageKey();
+      const def = this.defaultOpen();
       const stored = localStorage.getItem(`cs-section-${key}`);
       untracked(() => {
-        this.isOpen.set(stored !== null ? stored !== 'false' : true);
+        this.isOpen.set(stored !== null ? stored !== 'false' : def);
       });
     });
   }

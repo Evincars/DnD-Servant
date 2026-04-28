@@ -14,6 +14,18 @@
   display: none;
 }
 
+// Desktop: pact-magic-area and profession-grid are transparent (children all position:absolute)
+.cs-pact-magic-area,
+.cs-profession-grid,
+.cs-pact-row {
+  display: contents;
+}
+// Responsive-only labels are hidden on desktop
+.cs-prof-label,
+.cs-pact-row-label {
+  display: none;
+}
+
 .field {
   font-family: Arial, serif;
   position: absolute;
@@ -1647,6 +1659,131 @@ input[type='checkbox'][disabled] {
     border-radius: 8px 8px 0 0 !important;
     box-shadow: 0 -4px 20px rgba(0,0,0,.6) !important;
     inset: auto 8px 0 8px !important;
+  }
+
+  // ── Hide "Jméno postavy" inside caster-info collapsible on responsive ──
+  .cs-caster-name-field {
+    display: none !important;
+  }
+
+  // ── "Magie paktu" labeled box ─────────────────────────────────────────────
+  // Top-level so Angular compiles it for third-page's own _ngcontent scope.
+  .cs-pact-magic-area {
+    display: block !important;
+    border: 1px solid rgba(180, 130, 50, 0.35);
+    border-radius: 6px;
+    padding: 14px 10px 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: rgba(200, 160, 60, 0.05);
+    position: relative;
+
+    &::before {
+      content: 'Magie paktu';
+      font-family: 'Mikadan', sans-serif;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(120, 80, 20, 0.8);
+      position: absolute;
+      top: -8px;
+      left: 10px;
+      background: rgba(245, 235, 220, 0.97);
+      padding: 0 5px;
+    }
+  }
+
+  // Each pact row: label + input + checkboxes as a flex row
+  .cs-pact-row {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 6px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Row label (e.g. "Stupeň pozic", "Mystický taj")
+  .cs-pact-row-label {
+    display: block !important;
+    width: 100%;
+    font-size: 10px;
+    font-family: 'Mikadan', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(120, 80, 20, 0.7);
+    margin-bottom: 2px;
+  }
+
+  // Pact text inputs grow to fill available space
+  .cs-pact-field {
+    width: auto !important;
+    flex: 1 1 120px !important;
+    margin-bottom: 0 !important;
+  }
+
+  // Pact slot checkboxes: static/inline in flex row
+  .cs-pact-checkbox {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    display: inline-block !important;
+    width: 22px !important;
+    height: 22px !important;
+    flex-shrink: 0;
+    margin: 0;
+  }
+
+  // ── Profession rows grid ─────────────────────────────────────────────────
+  .cs-profession-grid {
+    display: grid !important;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+
+  .cs-prof-label {
+    display: block !important;
+    grid-column: 1 / -1;
+    font-size: 10px;
+    font-family: 'Mikadan', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(120, 80, 20, 0.75);
+    padding: 2px 0 1px;
+    border-bottom: 1px solid rgba(180, 130, 50, 0.2);
+    margin-bottom: 2px;
+  }
+
+  // Column assignments for profession fields
+  .cs-prof-field[placeholder='Sesilatelsé povolání'] { grid-column: span 6; }
+  .cs-prof-field[placeholder='Úroveň']               { grid-column: span 2; }
+  .cs-prof-field[placeholder='Max. st. kouzel']       { grid-column: span 4; }
+  .cs-prof-field[placeholder='Sesilatelsá vlast.']    { grid-column: span 4; }
+  .cs-prof-field[placeholder='SO záchranných hod.']   { grid-column: span 4; }
+  .cs-prof-field[placeholder='Útočný bonus']          { grid-column: span 4; }
+
+  // ── Dark theme overrides for pact area ────────────────────────────────────
+  :host.theme-dark .cs-pact-magic-area {
+    background: rgba(200, 160, 60, 0.04);
+    border-color: rgba(200, 160, 60, 0.2);
+
+    &::before {
+      background: rgba(16, 10, 4, 0.97);
+      color: rgba(200, 160, 60, 0.75);
+    }
+  }
+
+  :host.theme-dark .cs-pact-row-label {
+    color: rgba(200, 160, 60, 0.6);
+  }
+
+  :host.theme-dark .cs-prof-label {
+    color: rgba(200, 160, 60, 0.65);
+    border-bottom-color: rgba(200, 160, 60, 0.18);
   }
 }
 
