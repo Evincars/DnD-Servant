@@ -111,11 +111,12 @@ import { SheetThemeService } from '../sheet-theme.service';
     }
 
     .cs-coll-body {
-      /* On responsive the body gets light padding so content doesn't hug the card edges */
+      /* no padding here — child components carry their own 12 px internal padding */
     }
 
     :host.cs-collapsible--responsive .cs-coll-body {
-      padding: 10px 10px;
+      /* tiny side inset so content never butts the card border */
+      padding: 0 2px;
     }
 
     /* ── Hide inner section title when collapsible header already shows it ── */

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, DestroyRef, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, DestroyRef, ElementRef, inject, OnDestroy, OnInit, signal, viewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatFabButton, MatIconButton } from '@angular/material/button';
@@ -79,7 +79,7 @@ import { SheetThemeService } from '@dn-d-servant/character-sheet-feature';
         </div>
       </mat-sidenav>
 
-      <mat-sidenav-content>
+      <mat-sidenav-content #sidenavContent>
         <mat-toolbar class="toolbar">
           <div class="toolbar__inner">
             <div class="toolbar__left u-flex u-align-center">
@@ -231,7 +231,8 @@ export class App implements OnInit, OnDestroy {
   mobileMenuOpen = signal(false);
   private firstLoad = true;
 
-  @ViewChild('content') formElement: ElementRef | undefined;
+  readonly sidenavContent = viewChild<MatSidenavContent>('sidenavContent');
+  readonly formElement = viewChild<ElementRef>('content');
 
   ngOnInit(): void {
     this.authService.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
@@ -254,19 +255,29 @@ export class App implements OnInit, OnDestroy {
       }
       this.firstLoad = false;
     });
-    window.addEventListener('scroll', this.onScroll, true);
+
+    // Listen to the mat-sidenav-content scroll, not window
+    const contentEl = this.sidenavContent()?.getElementRef().nativeElement as HTMLElement | undefined;
+    if (contentEl) {
+      contentEl.addEventListener('scroll', this.onScroll);
+    }
   }
 
   ngOnDestroy(): void {
-    window.removeEventListener('scroll', this.onScroll, true);
+    const contentEl = this.sidenavContent()?.getElementRef().nativeElement as HTMLElement | undefined;
+    if (contentEl) {
+      contentEl.removeEventListener('scroll', this.onScroll);
+    }
   }
 
   onScroll = (): void => {
-    this.showBackToTop.set(window.scrollY > 200);
+    const contentEl = this.sidenavContent()?.getElementRef().nativeElement as HTMLElement | undefined;
+    this.showBackToTop.set((contentEl?.scrollTop ?? 0) > 200);
   };
 
   scrollToTop(): void {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const contentEl = this.sidenavContent()?.getElementRef().nativeElement as HTMLElement | undefined;
+    contentEl?.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   logout(): void {
@@ -315,7 +326,7 @@ export class App implements OnInit, OnDestroy {
       const activeTabBody =
         (document.querySelector('.mat-mdc-tab-body-active .mat-mdc-tab-body-content') as HTMLElement) ??
         (document.querySelector('.mat-mdc-tab-body-active') as HTMLElement) ??
-        (this.formElement?.nativeElement as HTMLElement);
+        (this.formElement()?.nativeElement as HTMLElement);
 
       if (!activeTabBody) return;
 
