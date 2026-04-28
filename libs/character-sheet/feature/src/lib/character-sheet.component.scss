@@ -863,8 +863,8 @@ input[type='checkbox'][disabled] {
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
-    // allow horizontal scrolling only as last resort; no clipping of inputs
-    overflow-x: clip;
+    // no overflow clipping — fixed-position dropdowns must escape to viewport
+    overflow: visible;
   }
 
   // ── Form: flex column ─────────────────────────────────────────────────
@@ -1526,6 +1526,7 @@ input[type='checkbox'][disabled] {
   // ════════════════════════════════════════════════════════════════════════
   third-page {
     overflow: visible;
+    position: relative;
 
     .spell-row {
       display: inline-block !important;
@@ -1574,6 +1575,7 @@ input[type='checkbox'][disabled] {
     }
 
     .spell-prep-label {
+      display: inline !important;
       font-size: 9px;
       font-family: Arial, sans-serif;
       color: rgba(180, 100, 50, 0.7);
@@ -1586,7 +1588,7 @@ input[type='checkbox'][disabled] {
       min-width: calc(100% - 90px) !important;
     }
 
-    // Spell row fields: 3 per row on >=576px, stacked on <576px
+    // Spell row fields: 3 per row via 12-col grid
     .spell-row[placeholder='Útok'],
     .spell-row[placeholder='Doba'],
     .spell-row[placeholder='Složky'],
@@ -1604,19 +1606,21 @@ input[type='checkbox'][disabled] {
       box-sizing: border-box !important;
     }
 
-    // Spell dropdown: fixed at viewport bottom as a mobile picker
+    // Spell dropdown: sticky to bottom of viewport on mobile
     .spell-dropdown {
       position: fixed !important;
-      left: 12px !important;
-      right: 12px !important;
-      width: auto !important;
-      top: auto !important;
+      left: 8px !important;
+      right: 8px !important;
       bottom: 0 !important;
+      top: auto !important;
+      width: auto !important;
       max-height: 40vh;
       overflow-y: auto !important;
-      z-index: 9999 !important;
+      z-index: 99999 !important;
       border-radius: 8px 8px 0 0 !important;
       box-shadow: 0 -4px 20px rgba(0,0,0,.6) !important;
+      // Override the inline [style] binding from Angular
+      inset: auto 8px 0 8px !important;
     }
   }
 }
@@ -1683,7 +1687,7 @@ input[type='checkbox'][disabled] {
     .field-sm[placeholder='OČ'] { width: calc(50% - 4px) !important; }
   }
 
-  // Spells: 2 per row on xs
+  // Spells: keep 3 per row on xs (consistent with tablet)
   third-page {
     .spell-row[placeholder='Útok'],
     .spell-row[placeholder='Doba'],
@@ -1692,7 +1696,7 @@ input[type='checkbox'][disabled] {
     .spell-row[placeholder='Trvání'],
     .spell-row[placeholder='St.'],
     .spell-row[placeholder='Str.'] {
-      width: calc(50% - 4px) !important;
+      width: calc(33.333% - 4px) !important;
     }
   }
 }

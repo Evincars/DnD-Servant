@@ -167,7 +167,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:512px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r1S"
       class="field spell-row"
@@ -240,7 +240,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:548px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r2S"
       class="field spell-row"
@@ -313,7 +313,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:583px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r3S"
       class="field spell-row"
@@ -386,7 +386,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:619px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r4S"
       class="field spell-row"
@@ -459,7 +459,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:654px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r5S"
       class="field spell-row"
@@ -532,7 +532,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:690px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r6S"
       class="field spell-row"
@@ -605,7 +605,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:726px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r7S"
       class="field spell-row"
@@ -678,7 +678,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:761px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r8S"
       class="field spell-row"
@@ -751,7 +751,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:797px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r9S"
       class="field spell-row"
@@ -824,7 +824,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:832px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r10S"
       class="field spell-row"
@@ -896,7 +896,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:868px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r11S"
       class="field spell-row"
@@ -968,7 +968,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:904px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r12S"
       class="field spell-row"
@@ -1040,7 +1040,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:940px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r13S"
       class="field spell-row"
@@ -1112,7 +1112,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:976px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r14S"
       class="field spell-row"
@@ -1184,7 +1184,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1012px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r15S"
       class="field spell-row"
@@ -1256,7 +1256,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1048px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r16S"
       class="field spell-row"
@@ -1328,7 +1328,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1084px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r17S"
       class="field spell-row"
@@ -1400,7 +1400,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1120px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r18S"
       class="field spell-row"
@@ -1472,7 +1472,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1156px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r19S"
       class="field spell-row"
@@ -1544,7 +1544,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1190px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r20S"
       class="field spell-row"
@@ -1616,7 +1616,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1226px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r21S"
       class="field spell-row"
@@ -1688,7 +1688,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1262px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r22S"
       class="field spell-row"
@@ -1760,7 +1760,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1298px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r23S"
       class="field spell-row"
@@ -1832,7 +1832,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1331px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r24S"
       class="field spell-row"
@@ -1904,7 +1904,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1367px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r25S"
       class="field spell-row"
@@ -1976,7 +1976,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1403px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r26S"
       class="field spell-row"
@@ -2048,7 +2048,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1439px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r27S"
       class="field spell-row"
@@ -2121,7 +2121,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1475px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r28S"
       class="field spell-row"
@@ -2194,7 +2194,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1508px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r29S"
       class="field spell-row"
@@ -2267,7 +2267,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1544px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r30S"
       class="field spell-row"
@@ -2340,7 +2340,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1580px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r31S"
       class="field spell-row"
@@ -2413,7 +2413,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1616px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r32S"
       class="field spell-row"
@@ -2486,7 +2486,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1652px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r33S"
       class="field spell-row"
@@ -2559,7 +2559,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1688px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r34S"
       class="field spell-row"
@@ -2631,7 +2631,7 @@ import { SheetThemeService } from './sheet-theme.service';
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1729px; left:69px;"
-    /><span class="spell-prep-label">P</span></span>
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r35S"
       class="field spell-row"
@@ -2762,9 +2762,12 @@ export class CharacterSheetThirdPageComponent {
     this._blurSub?.unsubscribe();
     this.activeRow.set(row);
     const el = event.target as HTMLInputElement;
-    const top = parseFloat(el.style.top) + 22;
-    const left = parseFloat(el.style.left);
-    const width = Math.max(parseFloat(el.style.width), 200);
+    const rect = el.getBoundingClientRect();
+    const parent = el.offsetParent as HTMLElement | null;
+    const parentRect = parent?.getBoundingClientRect() ?? { top: 0, left: 0 };
+    const top = rect.bottom - parentRect.top;
+    const left = rect.left - parentRect.left;
+    const width = Math.max(rect.width, 200);
     this._dropdownPos.set({ top, left, width });
     this.dropdownOpen.set(true);
   }
