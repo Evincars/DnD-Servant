@@ -1,5 +1,18 @@
-import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, signal, ViewChild } from '@angular/core';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  forwardRef,
+  inject,
+  Injector,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 
 /**
  * Plain-text markup syntax (stored as-is in DB):
@@ -47,34 +60,16 @@ function parseMarkup(raw: string): string {
     const h2Match = !h1Match && line.match(/^# (.*)/);
 
     if (ulMatch) {
-      if (inOl) {
-        htmlLines.push('</ol>');
-        inOl = false;
-      }
-      if (!inUl) {
-        htmlLines.push('<ul>');
-        inUl = true;
-      }
+      if (inOl) { htmlLines.push('</ol>'); inOl = false; }
+      if (!inUl) { htmlLines.push('<ul>'); inUl = true; }
       htmlLines.push(`<li>${ulMatch[2]}</li>`);
     } else if (olMatch) {
-      if (inUl) {
-        htmlLines.push('</ul>');
-        inUl = false;
-      }
-      if (!inOl) {
-        htmlLines.push('<ol>');
-        inOl = true;
-      }
+      if (inUl) { htmlLines.push('</ul>'); inUl = false; }
+      if (!inOl) { htmlLines.push('<ol>'); inOl = true; }
       htmlLines.push(`<li>${olMatch[1]}</li>`);
     } else {
-      if (inUl) {
-        htmlLines.push('</ul>');
-        inUl = false;
-      }
-      if (inOl) {
-        htmlLines.push('</ol>');
-        inOl = false;
-      }
+      if (inUl) { htmlLines.push('</ul>'); inUl = false; }
+      if (inOl) { htmlLines.push('</ol>'); inOl = false; }
       if (h1Match) {
         htmlLines.push(`<span class="rt-h1">${h1Match[1]}</span><br>`);
       } else if (h2Match) {
@@ -89,7 +84,6 @@ function parseMarkup(raw: string): string {
 
   if (inUl) htmlLines.push('</ul>');
   if (inOl) htmlLines.push('</ol>');
-
   return htmlLines.join('');
 }
 
@@ -97,34 +91,43 @@ function parseMarkup(raw: string): string {
   selector: 'rich-textarea',
   template: `
     @if (editing()) {
-    <div class="rt-toolbar" (mousedown)="$event.preventDefault()">
-      <button type="button" title="Tučné (**text**)" (click)="wrap('**', '**')"><strong>B</strong></button>
-      <button type="button" title="Kurzíva (_text_)" (click)="wrap('_', '_')"><em>I</em></button>
-      <button type="button" title="Odrážka (- )" (click)="insertBullet()">•</button>
-      <button type="button" title="Číslovaný seznam (1. )" (click)="insertNumberedBullet()">1.</button>
-      <button type="button" title="Velký nadpis (## )" (click)="insertHeading('## ')">
-        <span style="font-size:13px;font-weight:bold">H1</span>
-      </button>
-      <button type="button" title="Střední nadpis (# )" (click)="insertHeading('# ')">
-        <span style="font-size:11px;font-weight:bold">H2</span>
-      </button>
-      <span class="rt-separator"></span>
-      @for (c of colorList; track c) {
-      <button
-        type="button"
-        [title]="'Barva: ' + c"
-        (click)="wrapColor(c)"
-        [style.color]="colorHex(c)"
-        [style.font-weight]="'bold'"
-      >
-        A
-      </button>
-      }
-    </div>
-    } @if (!editing()) {
-    <div class="rt-preview" (click)="startEditing()" [innerHTML]="html()"></div>
-    } @if (editing()) {
-    <textarea #ta class="rt-editor" [value]="value()" (input)="onInput($event)" (blur)="stopEditing()"></textarea>
+      <!-- Toolbar: inline on mobile (normal flow), absolute on desktop -->
+      <div class="rt-toolbar" [class.rt-toolbar--inline]="responsive()" (mousedown)="$event.preventDefault()">
+        <button type="button" title="Tučné (**text**)" (click)="wrap('**', '**')"><strong>B</strong></button>
+        <button type="button" title="Kurzíva (_text_)" (click)="wrap('_', '_')"><em>I</em></button>
+        <span class="rt-separator"></span>
+        <button type="button" title="Odrážka (- )" (click)="insertBullet()">•</button>
+        <button type="button" title="Číslovaný seznam (1. )" (click)="insertNumberedBullet()">1.</button>
+        <span class="rt-separator"></span>
+        <button type="button" title="Velký nadpis (## )" (click)="insertHeading('## ')">
+          <span style="font-size:13px;font-weight:bold">H1</span>
+        </button>
+        <button type="button" title="Střední nadpis (# )" (click)="insertHeading('# ')">
+          <span style="font-size:11px;font-weight:bold">H2</span>
+        </button>
+        <span class="rt-separator"></span>
+        @for (c of colorList; track c) {
+          <button type="button" [title]="'Barva: ' + c" (click)="wrapColor(c)"
+            [style.color]="colorHex(c)" style="font-weight:bold">A</button>
+        }
+        <!-- Done button: always shown, essential on mobile where blur is unreliable -->
+        <span class="rt-separator"></span>
+        <button type="button" class="rt-done-btn" title="Hotovo (zavřít editor)" (click)="stopEditing()">✓</button>
+      </div>
+      <textarea
+        #ta
+        class="rt-editor"
+        [value]="value()"
+        (input)="onInput($event)"
+        (blur)="onEditorBlur()"
+      ></textarea>
+    } @else {
+      <div
+        class="rt-preview"
+        [class.rt-preview--empty]="!value()"
+        (click)="startEditing()"
+        [innerHTML]="previewHtml()"
+      ></div>
     }
   `,
   styles: `
@@ -133,12 +136,15 @@ function parseMarkup(raw: string): string {
       position: absolute;
       box-sizing: border-box;
     }
+
+    /* ── Desktop toolbar: floats above the component ─────────────────── */
     .rt-toolbar {
       position: absolute;
-      top: -32px;
+      top: -34px;
       left: 0;
-      z-index: 100;
+      z-index: 200;
       display: flex;
+      flex-wrap: wrap;
       gap: 2px;
       align-items: center;
       background: #fff;
@@ -146,6 +152,8 @@ function parseMarkup(raw: string): string {
       border-radius: 4px;
       padding: 2px 4px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      white-space: nowrap;
+
       button {
         background: transparent;
         border: 1px solid transparent;
@@ -159,7 +167,42 @@ function parseMarkup(raw: string): string {
         &:hover { background: #f0f0f0; border-color: #bbb; }
       }
     }
-    .rt-separator { width: 1px; height: 18px; background: #ccc; margin: 0 2px; }
+
+    /* ── Mobile toolbar: inline normal-flow above the editor ─────────── */
+    /* Avoids being clipped by overflow:hidden on parent collapsible.     */
+    .rt-toolbar--inline {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      width: 100%;
+      border-radius: 6px 6px 0 0;
+      border-bottom: none;
+      box-shadow: none;
+      background: #f8f5ee;
+      border-color: rgba(180, 130, 50, 0.35);
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 6px 8px;
+
+      button {
+        min-width: 34px;
+        height: 34px;
+        font-size: 15px;
+        border-radius: 4px;
+      }
+    }
+
+    .rt-done-btn {
+      color: #2a6e2a !important;
+      font-weight: bold !important;
+      font-size: 16px !important;
+      min-width: 32px !important;
+      &:hover { background: rgba(40,140,40,0.12) !important; border-color: #4caf50 !important; }
+    }
+
+    .rt-separator { width: 1px; height: 18px; background: #ccc; margin: 0 2px; flex-shrink: 0; }
+
+    /* ── Preview ─────────────────────────────────────────────────────── */
     .rt-preview {
       width: 100%;
       height: 100%;
@@ -171,8 +214,35 @@ function parseMarkup(raw: string): string {
       font-size: 13px;
       word-break: break-word;
       white-space: pre-wrap;
-      color: var(--rt-text-color, #c8c4bc);
+      color: var(--rt-text-color, #2e2924);
+      border-radius: 3px;
+      transition: border-color 0.15s;
+      position: relative;
     }
+
+    /* Subtle "click to edit" affordance */
+    .rt-preview::after {
+      content: '✎';
+      position: absolute;
+      bottom: 4px;
+      right: 6px;
+      font-size: 11px;
+      opacity: 0;
+      color: var(--rt-text-color, #2e2924);
+      transition: opacity 0.15s;
+      pointer-events: none;
+    }
+    .rt-preview:hover::after { opacity: 0.35; }
+
+    /* Empty placeholder */
+    .rt-preview--empty::before {
+      content: attr(data-placeholder);
+      color: rgba(100, 80, 60, 0.38);
+      font-style: italic;
+      font-size: 12px;
+      pointer-events: none;
+    }
+
     ::ng-deep .rt-preview .rt-h1 { font-size: 17px; font-weight: bold; }
     ::ng-deep .rt-preview .rt-h2 { font-size: 15px; font-weight: bold; }
     ::ng-deep .rt-preview .rt-normal { font-size: 13px; }
@@ -183,7 +253,10 @@ function parseMarkup(raw: string): string {
     ::ng-deep .rt-preview .rt-color-blue   { color: #1e88e5; }
     ::ng-deep .rt-preview .rt-color-orange { color: #fb8c00; }
     ::ng-deep .rt-preview .rt-color-gray   { color: #757575; }
+
+    /* ── Editor ──────────────────────────────────────────────────────── */
     .rt-editor {
+      display: block;
       width: 100%;
       height: 100%;
       box-sizing: border-box;
@@ -194,21 +267,102 @@ function parseMarkup(raw: string): string {
       outline: none;
       padding: 4px 6px;
       background: transparent;
-      color: var(--rt-text-color, #c8c4bc);
-      caret-color: var(--rt-caret-color, #e8c96a);
+      color: var(--rt-text-color, #2e2924);
+      caret-color: var(--rt-caret-color, #8b1a1a);
+    }
+
+    /* When toolbar is inline, editor loses its top portion to the toolbar,
+       so we shrink its height on mobile by giving the host flex layout */
+    :host.rt-editing--inline {
+      display: flex;
+      flex-direction: column;
+
+      .rt-editor {
+        flex: 1 1 auto;
+        height: auto;
+        min-height: 100px;
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       DARK THEME — applied whenever an ancestor has .theme-dark
+       ══════════════════════════════════════════════════════════════════ */
+    :host-context(.theme-dark) {
+      /* Desktop floating toolbar */
+      .rt-toolbar {
+        background: rgba(22, 14, 6, 0.97);
+        border-color: rgba(200, 160, 60, 0.35);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+
+        button {
+          color: rgba(220, 195, 130, 0.9);
+          &:hover { background: rgba(200, 160, 60, 0.14); border-color: rgba(200, 160, 60, 0.45); color: #e8c96a; }
+        }
+      }
+
+      /* Mobile inline toolbar */
+      .rt-toolbar--inline {
+        background: rgba(18, 12, 5, 0.98);
+        border-color: rgba(200, 160, 60, 0.25);
+      }
+
+      .rt-separator { background: rgba(200, 160, 60, 0.3); }
+
+      .rt-done-btn {
+        color: rgba(100, 200, 100, 0.9) !important;
+        &:hover { background: rgba(50, 160, 50, 0.15) !important; border-color: rgba(80, 180, 80, 0.5) !important; }
+      }
+
+      /* Preview panel */
+      .rt-preview {
+        color: var(--rt-text-color, rgba(220, 200, 170, 0.9));
+        &::after { color: rgba(200, 160, 60, 0.5); }
+      }
+
+      .rt-preview--empty::before {
+        color: rgba(200, 160, 60, 0.3);
+      }
+
+      /* Raw editor */
+      .rt-editor {
+        color: var(--rt-text-color, rgba(220, 200, 170, 0.9));
+        caret-color: var(--rt-caret-color, rgba(200, 160, 60, 0.9));
+      }
+
+      /* Rich preview inner spans */
+      ::ng-deep .rt-preview .rt-h1 { color: #e8c96a; }
+      ::ng-deep .rt-preview .rt-h2 { color: #d4aa50; }
+      ::ng-deep .rt-preview .rt-normal { color: inherit; }
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => RichTextareaComponent), multi: true }],
+  host: {
+    '[class.rt-editing--inline]': 'editing() && responsive()',
+  },
 })
 export class RichTextareaComponent implements ControlValueAccessor {
-  @ViewChild('ta') ta?: ElementRef<HTMLTextAreaElement>;
+  private readonly injector = inject(Injector);
+  private readonly bp = inject(BreakpointObserver);
 
-  editing = signal(false);
-  value = signal('');
-  html = signal('');
+  readonly ta = viewChild<ElementRef<HTMLTextAreaElement>>('ta');
+
+  readonly editing = signal(false);
+  readonly value = signal('');
+  readonly html = signal('');
+
+  /** True on ≤1359px — same breakpoint as the character-sheet responsive layout */
+  readonly responsive = toSignal(
+    this.bp.observe('(max-width: 1359px)').pipe(map(r => r.matches)),
+    { initialValue: false },
+  );
 
   readonly colorList = COLORS;
+
+  /** HTML shown in preview — adds a data-placeholder attribute for the empty hint */
+  previewHtml(): string {
+    return this.html();
+  }
 
   colorHex(color: string): string {
     return COLOR_LABELS[color] ?? '#000';
@@ -223,31 +377,41 @@ export class RichTextareaComponent implements ControlValueAccessor {
     this.html.set(parseMarkup(v));
   }
 
-  registerOnChange(fn: (v: string) => void): void {
-    this.onChange = fn;
-  }
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
+  registerOnChange(fn: (v: string) => void): void { this.onChange = fn; }
+  registerOnTouched(fn: () => void): void { this.onTouched = fn; }
+
+  startEditing(): void {
+    this.editing.set(true);
+    // afterNextRender fires after Angular has committed the DOM — guarantees
+    // the <textarea> exists before we focus it. This fixes the mobile issue
+    // where setTimeout() would fire before Angular rendered the @if branch.
+    afterNextRender(() => {
+      this.ta()?.nativeElement.focus();
+    }, { injector: this.injector });
   }
 
-  startEditing() {
-    this.editing.set(true);
-    setTimeout(() => this.ta?.nativeElement.focus(), 0);
-  }
-  stopEditing() {
+  stopEditing(): void {
     this.editing.set(false);
     this.onTouched();
   }
 
-  onInput(event: Event) {
+  /** Called on textarea blur — only close editor if not on mobile, because on
+   *  mobile the soft-keyboard often triggers spurious blur events. */
+  onEditorBlur(): void {
+    if (!this.responsive()) {
+      this.stopEditing();
+    }
+  }
+
+  onInput(event: Event): void {
     const val = (event.target as HTMLTextAreaElement).value;
     this.value.set(val);
     this.html.set(parseMarkup(val));
     this.onChange(val);
   }
 
-  wrap(prefix: string, suffix: string) {
-    const el = this.ta?.nativeElement;
+  wrap(prefix: string, suffix: string): void {
+    const el = this.ta()?.nativeElement;
     if (!el) return;
     const start = el.selectionStart;
     const end = el.selectionEnd;
@@ -260,15 +424,11 @@ export class RichTextareaComponent implements ControlValueAccessor {
     el.focus();
   }
 
-  wrapColor(color: string) {
-    this.wrap(`[${color}]`, `[/${color}]`);
-  }
-  insertBullet() {
-    this._insertLinePrefix('- ');
-  }
+  wrapColor(color: string): void { this.wrap(`[${color}]`, `[/${color}]`); }
+  insertBullet(): void { this._insertLinePrefix('- '); }
 
-  insertNumberedBullet() {
-    const el = this.ta?.nativeElement;
+  insertNumberedBullet(): void {
+    const el = this.ta()?.nativeElement;
     if (!el) return;
     const pos = el.selectionStart;
     const textBefore = el.value.substring(0, pos);
@@ -276,12 +436,10 @@ export class RichTextareaComponent implements ControlValueAccessor {
     this._insertLinePrefix(`${prevNumbered + 1}. `);
   }
 
-  insertHeading(prefix: string) {
-    this._insertLinePrefix(prefix);
-  }
+  insertHeading(prefix: string): void { this._insertLinePrefix(prefix); }
 
-  private _insertLinePrefix(prefix: string) {
-    const el = this.ta?.nativeElement;
+  private _insertLinePrefix(prefix: string): void {
+    const el = this.ta()?.nativeElement;
     if (!el) return;
     const pos = el.selectionStart;
     const val = el.value;
@@ -293,7 +451,7 @@ export class RichTextareaComponent implements ControlValueAccessor {
     el.focus();
   }
 
-  private _emitChange(val: string) {
+  private _emitChange(val: string): void {
     this.value.set(val);
     this.html.set(parseMarkup(val));
     this.onChange(val);
