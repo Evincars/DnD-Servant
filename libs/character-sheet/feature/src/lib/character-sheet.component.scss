@@ -801,6 +801,17 @@ input[type='checkbox'][disabled] {
   display: contents;
 }
 
+// ── second-page: appearance grid — transparent on desktop ────────────────────
+// On desktop all fields are position:absolute over the bg image; wrapper must
+// be invisible so children still participate in the normal absolute layout.
+.cs-sp-appearance-grid {
+  display: contents;
+}
+// Jméno postavy visible on desktop
+.cs-sp-name-hide {
+  // visible on desktop; hidden on responsive via media query below
+}
+
 // ══════════════════════════════════════════════════════════════════════════════
 // ── RESPONSIVE UTILITIES ─────────────────────────────────────────────────────
 // ── Bootstrap-like 12-col breakpoints: xl(≥1200) lg(≥992) md(≥768) sm(≥576) xs(<576)
@@ -1547,6 +1558,32 @@ input[type='checkbox'][disabled] {
     position: fixed !important;
   }
 
+  // ── "Vzhled a povaha" — hide Jméno postavy, grid remaining 8 inputs ─
+  .cs-sp-name-hide {
+    display: none !important;
+  }
+
+  .cs-sp-appearance-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+
+    .field {
+      width: 100% !important;
+      margin-bottom: 0 !important;
+    }
+
+    // data-label pseudo-labels above each cell
+    .field[data-label] {
+      position: relative !important;
+      &::before {
+        @include responsive-label(10px, rgba(60, 50, 40, 0.75));
+        margin-bottom: 2px;
+      }
+    }
+  }
+
   // ════════════════════════════════════════════════════════════════════════
   // ── third-page HOST only ─────────────────────────────────────────────────
   // Inner element rules MUST be top-level so Angular compiles them against
@@ -1816,6 +1853,11 @@ input[type='checkbox'][disabled] {
   .cs-combat-healing-row .cs-combat-field-wrap { grid-column: span 6 !important; }
   .cs-combat-ac-row .cs-combat-field-wrap { grid-column: span 6 !important; }
 
+  // second-page: appearance grid → 2 columns on ≤767px
+  .cs-sp-appearance-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
   // second-page is flex-column, so no grid overrides needed
 
   .cs-weapon-row {
@@ -2043,6 +2085,11 @@ input[type='checkbox'][disabled] {
     .spell-detail-btn mat-icon,
     .spell-detail-btn .small-info-icon {
       color: rgba(220, 180, 70, 0.95) !important;
+    }
+
+    // second-page appearance grid: golden labels on dark
+    .cs-sp-appearance-grid .field[data-label]::before {
+      color: rgba(200, 160, 60, 0.85) !important;
     }
   }
 }
