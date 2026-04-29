@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   ElementRef,
   inject,
@@ -635,12 +636,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       font-size: 10px;
       letter-spacing: .1em;
       color: rgba(100,180,110,.6);
-      animation: fadeBanner .2s ease;
+      transition: opacity .4s;
+      &--hidden { opacity: 0; pointer-events: none; }
     }
-    @keyframes fadeBanner { from { opacity: 0; } to { opacity: 1; } }
   `,
   template: `
-    <spinner-overlay [showSpinner]="store.loading()" [diameter]="50">
+    <spinner-overlay [showSpinner]="showSpinner()" [diameter]="50">
 
       <div class="vault-header">
         <div>
@@ -653,14 +654,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           </div>
         </div>
         <div class="vault-actions">
-          @if (autoSaveStatus() === 'saved') {
-            <span class="autosave-msg">✓ Uloženo</span>
-          }
+          <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
           <button class="btn-dnd" (click)="addItem()" matTooltip="Přidat předmět">
             <mat-icon>add</mat-icon>
             Přidat předmět
           </button>
-          <button class="btn-dnd btn-dnd-save" (click)="save()" matTooltip="Uložit do databáze">
+          <button class="btn-dnd btn-dnd-save" (click)="save(true)" matTooltip="Uložit do databáze">
             <mat-icon>save</mat-icon>
             Uložit
           </button>
@@ -791,6 +790,8 @@ export class PlayerItemsCardsComponent {
   confirmDeleteIndex = signal<number | null>(null);
   autoSaveStatus = signal<'idle' | 'saved'>('idle');
   private readonly _dbLoaded = signal(false);
+  private readonly _manualSaving = signal(false);
+  readonly showSpinner = computed(() => this.store.loading() && this._manualSaving());
   private readonly _autoSave$ = new Subject<void>();
   private readonly _hideBanner$ = new Subject<void>();
 
@@ -808,6 +809,7 @@ export class PlayerItemsCardsComponent {
         if (vault?.items) {
           this.items.set(vault.items.map(i => ({ ...i })));
           this._dbLoaded.set(true);
+          this._manualSaving.set(false);
         }
       });
     });
@@ -940,9 +942,10 @@ export class PlayerItemsCardsComponent {
     if (this.confirmDeleteIndex() !== null) this.cancelDelete();
   }
 
-  save(): void {
+  save(manual = false): void {
     const username = this.authService.currentUser()?.username;
     if (!username) return;
+    if (manual) this._manualSaving.set(true);
     this.store.saveItemVault({ username, items: this.items() });
   }
 }

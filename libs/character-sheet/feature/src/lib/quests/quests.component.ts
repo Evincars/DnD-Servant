@@ -628,14 +628,15 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
       font-size: 10px;
       letter-spacing: .1em;
       color: rgba(100,180,110,.6);
-      animation: fadeIn .2s ease;
+      transition: opacity .4s;
+      &--hidden { opacity: 0; pointer-events: none; }
     }
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes scaleIn { from { transform: scale(.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
   `,
   template: `
-    <spinner-overlay [showSpinner]="store.loading()" [diameter]="50">
+    <spinner-overlay [showSpinner]="showSpinner()" [diameter]="50">
 
       <!-- ── Header ──────────────────────────────────── -->
       <div class="quests-header">
@@ -649,9 +650,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
           </div>
         </div>
         <div class="quests-header-actions">
-          @if (autoSaveStatus() === 'saved') {
-            <span class="autosave-msg">✓ Uloženo</span>
-          }
+          <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
           <button class="btn-dnd btn-dnd-icon" type="button" (click)="expandAll()" matTooltip="Rozbalit vše">
             <mat-icon>unfold_more</mat-icon>
           </button>
@@ -662,7 +661,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
             <mat-icon>add</mat-icon>
             Přidat quest
           </button>
-          <button class="btn-dnd btn-dnd-save" type="button" (click)="save()" matTooltip="Uložit questy do databáze">
+          <button class="btn-dnd btn-dnd-save" type="button" (click)="save(true)" matTooltip="Uložit questy do databáze">
             <mat-icon>save</mat-icon>
             Uložit
           </button>
@@ -938,6 +937,7 @@ export class QuestsTabComponent {
         if (data?.quests) {
           this.quests.set(data.quests.map(q => ({ ...q })));
           this._dbLoaded.set(true);
+          this._manualSaving.set(false);
         }
       });
     });
@@ -989,6 +989,8 @@ export class QuestsTabComponent {
   readonly autoSaveStatus = signal<'idle' | 'saved'>('idle');
   /** True once the DB response has arrived at least once. Prevents auto-save on initial population. */
   private readonly _dbLoaded = signal(false);
+  private readonly _manualSaving = signal(false);
+  readonly showSpinner = computed(() => this.store.loading() && this._manualSaving());
   private readonly _autoSave$ = new Subject<void>();
   private readonly _hideBanner$ = new Subject<void>();
 
@@ -1083,9 +1085,10 @@ export class QuestsTabComponent {
     this.scheduleAutoSave();
   }
 
-  save(): void {
+  save(manual = false): void {
     const username = this.authService.currentUser()?.username;
     if (!username) return;
+    if (manual) this._manualSaving.set(true);
     this.store.saveQuests({ username, quests: this.quests() });
   }
 

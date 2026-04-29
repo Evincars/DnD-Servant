@@ -47,7 +47,8 @@ import { debounceTime } from 'rxjs/operators';
       font-size: 10px;
       letter-spacing: .1em;
       color: rgba(100,180,110,.6);
-      animation: fadeBanner .2s ease;
+      transition: opacity .4s;
+      &--hidden { opacity: 0; pointer-events: none; }
     }
     @keyframes fadeBanner { from { opacity: 0; } to { opacity: 1; } }
 
@@ -166,9 +167,7 @@ import { debounceTime } from 'rxjs/operators';
           <div class="header-subtitle">Osobní zápisky, mapy a cíle tvojí postavy</div>
         </div>
         <div class="header-actions">
-          @if (autoSaveStatus() === 'saved') {
-            <span class="autosave-msg">✓ Uloženo</span>
-          }
+          <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
           <span class="autosave-indicator" [class.autosave-indicator--hidden]="!autoSaved()">
             <mat-icon>check_circle</mat-icon> Automaticky uloženo
           </span>
