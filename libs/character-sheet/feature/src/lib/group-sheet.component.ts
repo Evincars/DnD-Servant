@@ -31,13 +31,24 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
       <form [formGroup]="form">
         <cs-collapsible title="Skupinové zázemí" storageKey="gs-background">
           <div class="gs-section gs-background-section">
-            <input
-              [formControl]="controls.jmenoSkupinovehoZazemi"
-              class="field"
-              data-label="Jméno skupinového zázemí"
-              style="top:82px; left:76px; width:355px; text-align: center"
-              placeholder="*"
-            />
+            <div class="gs-row">
+              <div class="gs-field-wrap" data-label="Jméno skupinového zázemí">
+                <input
+                  [formControl]="controls.jmenoSkupinovehoZazemi"
+                  class="field"
+                  style="top:82px; left:76px; width:355px; text-align: center"
+                  placeholder="*"
+                />
+              </div>
+              <div class="gs-field-wrap" data-label="Typ skupinového zázemí">
+                <input
+                  [formControl]="controls.typSkupinovehoZazemi"
+                  class="field"
+                  style="top:82px; left:862px; width:354px; text-align: center"
+                  placeholder="*"
+                />
+              </div>
+            </div>
 
             <button
               (click)="onOpenGroupBackgroundDialog()"
@@ -48,13 +59,6 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
             >
               <mat-icon class="small-info-icon">info</mat-icon>
             </button>
-            <input
-              [formControl]="controls.typSkupinovehoZazemi"
-              class="field"
-              data-label="Typ skupinového zázemí"
-              style="top:82px; left:862px; width:354px; text-align: center"
-              placeholder="*"
-            />
 
             <rich-textarea
               [formControl]="controls.skupinoveZazemi"
@@ -74,21 +78,24 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
 
         <cs-collapsible title="Skupina" storageKey="gs-group-info">
           <div class="gs-section gs-group-section">
-            <input
-              [formControl]="controls.jmenoSkupiny"
-              class="field"
-              data-label="Jméno skupiny"
-              style="top:300px; left:76px; width:353px; text-align: center"
-              placeholder="Jméno skupiny"
-            />
-
-            <input
-              [formControl]="controls.zdatnostPriSkupinovemOvereni"
-              class="field"
-              data-label="Zdatnost při skupinovém ověření"
-              style="top:417px; left:76px; width:353px; text-align: center"
-              placeholder="Zdatnost při skupinovém ověření"
-            />
+            <div class="gs-row">
+              <div class="gs-field-wrap" data-label="Jméno skupiny">
+                <input
+                  [formControl]="controls.jmenoSkupiny"
+                  class="field"
+                  style="top:300px; left:76px; width:353px; text-align: center"
+                  placeholder="Jméno skupiny"
+                />
+              </div>
+              <div class="gs-field-wrap" data-label="Zdatnost při skupinovém ověření">
+                <input
+                  [formControl]="controls.zdatnostPriSkupinovemOvereni"
+                  class="field"
+                  style="top:417px; left:76px; width:353px; text-align: center"
+                  placeholder="Zdatnost při skupinovém ověření"
+                />
+              </div>
+            </div>
 
             <rich-textarea
               [formControl]="controls.zdatnostSPomuckamiAJazyky"
@@ -110,25 +117,31 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
             >
               <mat-icon class="small-info-icon">info</mat-icon>
             </button>
-            <select [formControl]="controls.zvire" class="field" data-label="Zvíře" style="top:947px; left:124px; width:254px;">
-              @for (animal of animalsSelect; track $index) {
-              <option [value]="animal.key">{{ animal.value }}</option>
-              }
-            </select>
-            <input
-              [formControl]="controls.zvireJmeno"
-              class="field"
-              data-label="Jméno zvířete"
-              style="top:948px; left:381px; width:235px;"
-              placeholder="Jméno zvířete"
-            />
-            <input
-              [formControl]="controls.penize"
-              class="field"
-              data-label="Peníze"
-              style="top:948px; left:727px; width:491px;"
-              placeholder="Peníze"
-            />
+            <div class="gs-row gs-row-3">
+              <div class="gs-field-wrap" data-label="Zvíře">
+                <select [formControl]="controls.zvire" class="field" style="top:947px; left:124px; width:254px;">
+                  @for (animal of animalsSelect; track $index) {
+                  <option [value]="animal.key">{{ animal.value }}</option>
+                  }
+                </select>
+              </div>
+              <div class="gs-field-wrap" data-label="Jméno zvířete">
+                <input
+                  [formControl]="controls.zvireJmeno"
+                  class="field"
+                  style="top:948px; left:381px; width:235px;"
+                  placeholder="Jméno zvířete"
+                />
+              </div>
+              <div class="gs-field-wrap" data-label="Peníze">
+                <input
+                  [formControl]="controls.penize"
+                  class="field"
+                  style="top:948px; left:727px; width:491px;"
+                  placeholder="Peníze"
+                />
+              </div>
+            </div>
           </div>
         </cs-collapsible>
 
@@ -460,20 +473,24 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
         <cs-collapsible title="Reputace a vztahy" storageKey="gs-reputation">
           <div class="gs-section gs-reputation-section">
             <!--        Second page-->
-            <input
-              [formControl]="controls.jmenoSkupiny2"
-              class="field"
-              data-label="Jméno skupiny"
-              style="top:2000px; left:76px; width:357px; text-align: center"
-              placeholder="Jméno skupiny"
-            />
-            <input
-              [formControl]="controls.reputace"
-              class="field"
-              data-label="Reputace"
-              style="top:2000px; left:467px; width:751px; text-align: center"
-              placeholder="Reputace"
-            />
+            <div class="gs-row">
+              <div class="gs-field-wrap" data-label="Jméno skupiny">
+                <input
+                  [formControl]="controls.jmenoSkupiny2"
+                  class="field"
+                  style="top:2000px; left:76px; width:357px; text-align: center"
+                  placeholder="Jméno skupiny"
+                />
+              </div>
+              <div class="gs-field-wrap" data-label="Reputace">
+                <input
+                  [formControl]="controls.reputace"
+                  class="field"
+                  style="top:2000px; left:467px; width:751px; text-align: center"
+                  placeholder="Reputace"
+                />
+              </div>
+            </div>
 
             <rich-textarea
               [formControl]="controls.spolecnici"

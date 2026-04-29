@@ -2048,44 +2048,21 @@ input[type='checkbox'][disabled] {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
+// ── GROUP SHEET — desktop transparent wrappers ───────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+// On desktop these wrappers must be invisible so the absolute-positioned
+// fields inside them still overlay the background image correctly.
+.gs-row,
+.gs-field-wrap {
+  display: contents;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
 // ── GROUP SHEET — RESPONSIVE LAYOUT (≤1359px) ────────────────────────────────
 // ══════════════════════════════════════════════════════════════════════════════
 @media (max-width: 1359px) {
-  // ── Host: normal flow ─────────────────────────────────────────────────
-  group-sheet {
-    position: static;
-    display: block;
-    padding: 0;
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-    overflow: visible;
-  }
-
-  // ── Form: flex column ─────────────────────────────────────────────────
-  group-sheet form {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    padding: 8px 8px 80px 8px; // bottom padding for FAB
-    position: static;
-  }
-
-  // ── Save button: sticky top ───────────────────────────────────────────
-  group-sheet .cs-save-btn {
-    position: sticky !important;
-    top: 0 !important;
-    left: auto !important;
-    width: 100% !important;
-    z-index: 100;
-    font-size: 16px !important;
-    padding: 10px !important;
-    border-radius: 0 !important;
-    text-align: center;
-  }
-
-  // ── Section wrapper hosts → block cards ───────────────────────────────
-  group-sheet .gs-section {
+  // ── Section wrapper → block card ─────────────────────────────────────
+  .gs-section {
     display: block !important;
     background: rgba(245, 235, 220, 0.95);
     border: 1px solid rgba(36, 12, 5, 0.25);
@@ -2096,53 +2073,49 @@ input[type='checkbox'][disabled] {
     box-sizing: border-box;
   }
 
-  // ── Global field reset ────────────────────────────────────────────────
-  group-sheet .field,
-  group-sheet .label {
-    position: static !important;
-    top: auto !important;
-    left: auto !important;
-    box-sizing: border-box !important;
+  // ── Row: flex container (inputs side by side) ─────────────────────────
+  .gs-row {
+    display: flex !important;
+    gap: 8px;
+    margin-bottom: 8px;
   }
 
-  group-sheet .field {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-bottom: 6px;
-    font-size: 14px !important;
-  }
+  // ── Field wrap: label above + field below, each flex child ────────────
+  .gs-field-wrap {
+    display: flex !important;
+    flex-direction: column;
+    flex: 1 1 0;
+    min-width: 0;
 
-  group-sheet .textarea {
-    width: 100% !important;
-    max-width: 100% !important;
-    height: 200px !important;
-    min-height: 120px;
-    resize: vertical;
-  }
+    &::before {
+      @include responsive-label(10px, rgba(60, 50, 40, 0.75));
+      margin-bottom: 2px;
+    }
 
-  // ── Responsive labels via data-label ──────────────────────────────────
-  group-sheet .field[data-label] {
-    position: relative !important;
-    &::before { @include responsive-label; }
+    .field {
+      width: 100% !important;
+      margin-bottom: 0 !important;
+    }
   }
 
   // ── Inventory: single column stack ────────────────────────────────────
-  group-sheet .gs-inventory-section {
+  .gs-inventory-section {
     .inventory-item {
       font-size: 14px !important;
       padding: 8px 10px !important;
+      margin-bottom: 4px;
     }
   }
 }
 
 // ── Group sheet: responsive + light theme ────────────────────────────────────
 @media (max-width: 1359px) {
-  group-sheet:not(.theme-dark) {
+  :host:not(.theme-dark) {
     .gs-section {
       background: rgba(245, 235, 220, 0.95);
     }
 
-    [data-label]::before {
+    .gs-field-wrap::before {
       color: rgba(60, 50, 40, 0.75) !important;
     }
   }
@@ -2150,15 +2123,15 @@ input[type='checkbox'][disabled] {
 
 // ── Group sheet: responsive + dark theme ─────────────────────────────────────
 @media (max-width: 1359px) {
-  group-sheet.theme-dark {
+  :host.theme-dark {
     .gs-section {
       background: rgba(18, 12, 8, 0.95);
       border-color: rgba(200, 160, 60, 0.15);
       border-bottom-color: rgba(200, 160, 60, 0.1);
     }
 
-    [data-label]::before {
-      color: #ffffff !important;
+    .gs-field-wrap::before {
+      color: rgba(200, 160, 60, 0.85) !important;
     }
   }
 }
