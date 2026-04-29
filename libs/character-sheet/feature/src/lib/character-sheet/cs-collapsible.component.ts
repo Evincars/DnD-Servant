@@ -115,8 +115,8 @@ import { SheetThemeService } from '../sheet-theme.service';
     }
 
     :host.cs-collapsible--responsive .cs-coll-body {
-      /* tiny side inset so content never butts the card border */
-      padding: 0 2px;
+      /* side + vertical inset so content doesn't butt the card border */
+      padding: 6px 8px;
     }
 
     /* ── Hide inner section title when collapsible header already shows it ── */

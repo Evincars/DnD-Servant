@@ -1,20 +1,52 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
 import { SheetThemeService } from '../sheet-theme.service';
 import { AbstractControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AlchemistChestForm, SpellSlotsForm } from '@dn-d-servant/character-sheet-util';
+import { AlchemistChestForm, SpellSlotsForm, SpellsAndAlchemistChestForm } from '@dn-d-servant/character-sheet-util';
 import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { merge } from 'rxjs';
+import { openSpellsDialog } from '../help-dialogs/spells-dialog.component';
+import { openAlchemistDialog } from '../help-dialogs/alchemist-dialog.component';
 
 @Component({
   selector: 'cs-spell-slots',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents', '[class.theme-dark]': 'sheetTheme.darkMode()' },
-  imports: [ReactiveFormsModule, MatTooltip],
+  imports: [ReactiveFormsModule, MatTooltip, MatIcon],
   styleUrl: '../character-sheet.component.scss',
   template: `
     <h3 class="cs-section-title">Pozice kouzel · Alchymistická truhla</h3>
     @if (_tick()) {
+
+      <!-- ═══ Sesílání kouzel (responsive only — on desktop these are in saving-throws section) ═══ -->
+      <div class="cs-stp-section cs-responsive-only" [formGroup]="spellsAndAlchForm()">
+        <h4 class="cs-section-title cs-sub-title">Sesílání kouzel</h4>
+        <button (click)="onOpenSpellsDialog()" type="button" matTooltip="Seznam kouzel" style="top:764px; left:452px;" class="field button small-info-button-icon">
+          <mat-icon class="small-info-icon">info</mat-icon>
+        </button>
+        <button (click)="onOpenAlchemistDialog()" type="button" matTooltip="Alchymistická truhla" style="top:764px; left:772px;" class="field button small-info-button-icon">
+          <mat-icon class="small-info-icon">info</mat-icon>
+        </button>
+        <div class="row g-1">
+          <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+            <div class="cs-spells-field-wrap" data-label="Sesílací vlastnost">
+              <input [formControl]="sa.vlastnost" matTooltip="Tvoje sesílací vlastnost (podle povolání)" class="field" style="top:803px; left:442px; width:144px;" placeholder="Vlastnost" />
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+            <div class="cs-spells-field-wrap" data-label="Útočný bonus">
+              <input [formControl]="sa.utBonus" matTooltip="zdat. bonus + oprava sesílací vlastnosti" class="field" style="top:803.11px; left:603.91px; width:94.32px;" placeholder="Út bonus" />
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+            <div class="cs-spells-field-wrap" data-label="SO záchrany">
+              <input [formControl]="sa.soZachrany" matTooltip="8 + zdat. bonus + oprava sesílací vlastnosti" class="field" style="top:803.11px; left:708.71px; width:94.32px;" placeholder="SO záchr." />
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- ── Level inputs row (desktop: absolutely positioned; responsive: flex row) ── -->
       <div class="cs-spell-levels-row">
@@ -140,7 +172,9 @@ export class CsSpellSlotsComponent {
   readonly sheetTheme = inject(SheetThemeService);
   spellSlotsForm = input.required<FormGroup<SpellSlotsForm>>();
   alchemistChestForm = input.required<FormGroup<AlchemistChestForm>>();
+  spellsAndAlchForm = input.required<FormGroup<SpellsAndAlchemistChestForm>>();
   private destroyRef = inject(DestroyRef);
+  private dialog = inject(MatDialog);
   readonly _tick = signal(0);
 
   constructor() {
@@ -160,6 +194,16 @@ export class CsSpellSlotsComponent {
   }
   get ac() {
     return this.alchemistChestForm().controls;
+  }
+  get sa() {
+    return this.spellsAndAlchForm().controls;
+  }
+
+  onOpenSpellsDialog() {
+    openSpellsDialog(this.dialog);
+  }
+  onOpenAlchemistDialog() {
+    openAlchemistDialog(this.dialog);
   }
 
   cycleSlot(control: AbstractControl): void {

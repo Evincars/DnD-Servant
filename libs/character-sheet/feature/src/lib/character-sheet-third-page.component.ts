@@ -2929,7 +2929,7 @@ export class CharacterSheetThirdPageComponent {
     this.dialog.open(SpellDetailDialogComponent, {
       data: { spellName: name } satisfies SpellDetailDialogData,
       panelClass: 'spell-detail-panel',
-      minWidth: '750px',
+      maxWidth: '95vw',
     });
   }
 

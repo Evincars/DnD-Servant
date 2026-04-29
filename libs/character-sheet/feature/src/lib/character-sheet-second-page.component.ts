@@ -92,6 +92,9 @@ import { SheetThemeService } from './sheet-theme.service';
         placeholder="Postava"
       />
     </div>
+    <div class="cs-spells-field-wrap cs-spells-field-wrap--textarea cs-responsive-only" data-label="O postavě">
+      <rich-textarea [formControl]="infoAboutCharacterControl()" class="field textarea" style="top:545.1px; left:834.47px; width:349.77px; height:432px;"></rich-textarea>
+    </div>
     <rich-textarea
       [formControl]="controls.lookAndFeelForm.controls.obleceniAVzezreni"
       class="field textarea"
@@ -176,6 +179,7 @@ export class CharacterSheetSecondPageComponent {
   readonly sheetTheme = inject(SheetThemeService);
 
   form = input.required<FormGroup<SecondPageForm>>();
+  infoAboutCharacterControl = input.required<any>();
 
   base64Image = signal<string | null>(null);
   showPreview = signal(false);

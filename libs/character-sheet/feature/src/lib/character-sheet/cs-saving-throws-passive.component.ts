@@ -169,8 +169,8 @@ import { merge } from 'rxjs';
           </div>
         </div>
 
-        <!-- ═══ Sesílání kouzel ═══ -->
-        <div class="cs-stp-section" [formGroup]="spellsAndAlchForm()">
+        <!-- ═══ Sesílání kouzel (desktop only — on responsive these move to spell-slots collapsible) ═══ -->
+        <div class="cs-stp-section cs-desktop-only" [formGroup]="spellsAndAlchForm()">
           <h4 class="cs-section-title cs-sub-title">Sesílání kouzel</h4>
           <button (click)="onOpenSpellsDialog()" type="button" matTooltip="Seznam kouzel" style="top:764px; left:452px;" class="field button small-info-button-icon">
             <mat-icon class="small-info-icon">info</mat-icon>
@@ -197,8 +197,8 @@ import { merge } from 'rxjs';
           </div>
         </div>
 
-        <!-- ═══ O postavě ═══ -->
-        <div class="cs-stp-section">
+        <!-- ═══ O postavě (desktop only — on responsive moves to Vzhled a povaha collapsible) ═══ -->
+        <div class="cs-stp-section cs-desktop-only">
           <div class="cs-spells-field-wrap cs-spells-field-wrap--textarea" data-label="O postavě">
             <rich-textarea [formControl]="infoAboutCharacterControl()" class="field textarea" style="top:545.1px; left:834.47px; width:349.77px; height:432px;"></rich-textarea>
           </div>
@@ -270,5 +270,4 @@ export class CsSavingThrowsPassiveComponent {
     };
   }
 }
-
 

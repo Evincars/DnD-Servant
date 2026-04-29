@@ -7,6 +7,7 @@ import {
   inject,
   signal,
   untracked,
+  viewChildren,
 } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -35,6 +36,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CharacterSheetSecondPageComponent } from './character-sheet-second-page.component';
 import { CharacterSheetThirdPageComponent } from './character-sheet-third-page.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { interval, merge } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { SpellSlotsService } from './character-sheet/spell-slots.service';
@@ -57,7 +60,17 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
     <spinner-overlay [diameter]="70" [showSpinner]="characterSheetStore.loading()">
       <img class="cs-bg-img" [src]="sheetTheme.darkMode() ? 'character-sheet-1-copy-dark.webp' : 'character-sheet-1-copy.webp'" alt="Character Sheet" height="1817" width="1293" />
 
-      <h2 class="cs-section-title cs-main-title">Karta Postavy</h2>
+      <h2 class="cs-section-title cs-main-title">
+        Karta Postavy
+        <span class="cs-collapse-all-wrap">
+          <button type="button" class="cs-collapse-all-btn" (click)="expandAll()" matTooltip="Rozbalit vše">
+            <mat-icon>unfold_more</mat-icon>
+          </button>
+          <button type="button" class="cs-collapse-all-btn" (click)="collapseAll()" matTooltip="Sbalit vše">
+            <mat-icon>unfold_less</mat-icon>
+          </button>
+        </span>
+      </h2>
 
       <form [formGroup]="form" #sheetForm>
         <conditions-button />
@@ -88,7 +101,11 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
         </cs-collapsible>
 
         <cs-collapsible title="Pozice kouzel & Alchymistická truhla" storageKey="spell-slots">
-          <cs-spell-slots [spellSlotsForm]="controls.spellSlotsForm" [alchemistChestForm]="controls.alchemistChestForm" />
+          <cs-spell-slots
+            [spellSlotsForm]="controls.spellSlotsForm"
+            [alchemistChestForm]="controls.alchemistChestForm"
+            [spellsAndAlchForm]="controls.spellsAndAlchemistChestForm"
+          />
         </cs-collapsible>
 
         <cs-collapsible title="Dovednosti" storageKey="skills">
@@ -108,7 +125,7 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
         </cs-collapsible>
 
         <cs-collapsible title="Vzhled a povaha" storageKey="second-page">
-          <second-page [form]="controls.secondPageForm" (imageSaved)="onImageSaved($event)" />
+          <second-page [form]="controls.secondPageForm" [infoAboutCharacterControl]="form.controls['infoAboutCharacter']" (imageSaved)="onImageSaved($event)" />
         </cs-collapsible>
 
         <cs-collapsible title="Kouzla" storageKey="third-page">
@@ -143,6 +160,8 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
     ConditionsButtonComponent,
     CsCollapsibleComponent,
     CsFloatingActionsComponent,
+    MatIcon,
+    MatTooltip,
   ],
 })
 export class CharacterSheetComponent {
@@ -159,6 +178,8 @@ export class CharacterSheetComponent {
   infoMessage = signal('');
   speedHighlight = signal<'light' | 'medium' | 'heavy' | ''>('');
   _viewInitialized = signal(false);
+
+  private readonly collapsibles = viewChildren(CsCollapsibleComponent);
 
   fb = new FormBuilder().nonNullable;
   form = this.fb.group<CharacterSheetForm>({
@@ -562,6 +583,14 @@ export class CharacterSheetComponent {
 
     const alchemistLevel = parseInt(this.alchemistChestControls.urovenAlchymisty.value ?? '0');
     this.spellSlotsService.applyAlchemistLevel(alchemistLevel, this.alchemistChestControls);
+  }
+
+  expandAll(): void {
+    this.collapsibles().forEach(c => c.setOpen(true));
+  }
+
+  collapseAll(): void {
+    this.collapsibles().forEach(c => c.setOpen(false));
   }
 
   onSaveClick() {
