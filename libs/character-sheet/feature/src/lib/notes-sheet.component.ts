@@ -8,7 +8,8 @@ import { AuthService, FormUtil } from '@dn-d-servant/util';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotesFormModelMappers } from './api-mappers/notes-form-model-mappers';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { interval } from 'rxjs';
+import { interval, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'notes-sheet',
@@ -40,6 +41,15 @@ import { interval } from 'rxjs';
       mat-icon { font-size: 13px; width: 13px; height: 13px; }
       &--hidden { opacity: 0; pointer-events: none; }
     }
+
+    .autosave-msg {
+      font-family: 'Mikadan', sans-serif;
+      font-size: 10px;
+      letter-spacing: .1em;
+      color: rgba(100,180,110,.6);
+      animation: fadeBanner .2s ease;
+    }
+    @keyframes fadeBanner { from { opacity: 0; } to { opacity: 1; } }
 
     .btn-save {
       font-family: 'Mikadan', sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
@@ -156,6 +166,9 @@ import { interval } from 'rxjs';
           <div class="header-subtitle">Osobní zápisky, mapy a cíle tvojí postavy</div>
         </div>
         <div class="header-actions">
+          @if (autoSaveStatus() === 'saved') {
+            <span class="autosave-msg">✓ Uloženo</span>
+          }
           <span class="autosave-indicator" [class.autosave-indicator--hidden]="!autoSaved()">
             <mat-icon>check_circle</mat-icon> Automaticky uloženo
           </span>
@@ -214,6 +227,10 @@ export class NotesSheetComponent {
   destroyRef = inject(DestroyRef);
   snackBar = inject(MatSnackBar);
   autoSaved = signal(false);
+  autoSaveStatus = signal<'idle' | 'saved'>('idle');
+  private readonly _dbLoaded = signal(false);
+  private readonly _hideBanner$ = new Subject<void>();
+  private readonly _hideAutoSaved$ = new Subject<void>();
 
   private readonly documentName = '_notes';
 
@@ -241,7 +258,8 @@ export class NotesSheetComponent {
       untracked(() => {
         if (notesPage) {
           const formValue = FormUtil.convertModelToForm(notesPage, NotesFormModelMappers.notesFormToApiMapper);
-          this.form.patchValue(formValue);
+          this.form.patchValue(formValue, { emitEvent: false });
+          this._dbLoaded.set(true);
         }
       });
     });
@@ -256,8 +274,31 @@ export class NotesSheetComponent {
         model.username = `${username}${this.documentName}`;
         this.characterSheetStore.saveDraftToLocalStorage({ type: 'notes', model });
         this.autoSaved.set(true);
-        setTimeout(() => this.autoSaved.set(false), 3000);
+        this._hideAutoSaved$.next();
       });
+
+    this._hideAutoSaved$
+      .pipe(debounceTime(3000), takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.autoSaved.set(false));
+
+    // ── Auto-save 2.5 s after any form change (only after DB loaded) ───────
+    {
+      const autoSave$ = new Subject<void>();
+      autoSave$.pipe(debounceTime(2500), takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+        if (!this._dbLoaded()) return;
+        this.onSaveClick();
+        this.autoSaveStatus.set('saved');
+        this._hideBanner$.next();
+      });
+
+      this._hideBanner$
+        .pipe(debounceTime(3000), takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => this.autoSaveStatus.set('idle'));
+
+      this.form.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+        if (this._dbLoaded()) autoSave$.next();
+      });
+    }
   }
 
   onSaveClick(): void {

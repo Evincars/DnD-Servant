@@ -19,6 +19,9 @@ import { QuestEntry, QuestPriority, QuestStatus } from '@dn-d-servant/character-
 import { SpinnerOverlayComponent, RichTextareaComponent } from '@dn-d-servant/ui';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DOCUMENT } from '@angular/common';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 type FilterStatus = 'all' | QuestStatus;
 type SortMode = 'priority' | 'date';
@@ -619,11 +622,21 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
     }
     .img-preview-hint { margin-top: 10px; font-size: 10px; color: rgba(200,160,60,.3); letter-spacing: .1em; }
 
+    /* ── Auto-save indicator ─────────────────── */
+    .autosave-msg {
+      font-family: 'Mikadan', sans-serif;
+      font-size: 10px;
+      letter-spacing: .1em;
+      color: rgba(100,180,110,.6);
+      animation: fadeIn .2s ease;
+    }
+
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes scaleIn { from { transform: scale(.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
   `,
   template: `
     <spinner-overlay [showSpinner]="store.loading()" [diameter]="50">
+
       <!-- ── Header ──────────────────────────────────── -->
       <div class="quests-header">
         <div>
@@ -636,6 +649,9 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
           </div>
         </div>
         <div class="quests-header-actions">
+          @if (autoSaveStatus() === 'saved') {
+            <span class="autosave-msg">✓ Uloženo</span>
+          }
           <button class="btn-dnd btn-dnd-icon" type="button" (click)="expandAll()" matTooltip="Rozbalit vše">
             <mat-icon>unfold_more</mat-icon>
           </button>
@@ -731,6 +747,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
               <input
                 class="quest-title-input"
                 [(ngModel)]="quests()[item.idx].title"
+                (ngModelChange)="scheduleAutoSave()"
                 placeholder="Název questu..."
               />
             </div>
@@ -775,15 +792,15 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
                 <div class="quest-meta-row">
                   <div class="quest-meta-field">
                     <mat-icon class="quest-meta-icon">person</mat-icon>
-                    <input class="quest-meta-input" [(ngModel)]="quests()[item.idx].npcName" placeholder="NPC / Zadavatel" />
+                    <input class="quest-meta-input" [(ngModel)]="quests()[item.idx].npcName" (ngModelChange)="scheduleAutoSave()" placeholder="NPC / Zadavatel" />
                   </div>
                   <div class="quest-meta-field">
                     <mat-icon class="quest-meta-icon">place</mat-icon>
-                    <input class="quest-meta-input" [(ngModel)]="quests()[item.idx].location" placeholder="Lokalita / Oblast" />
+                    <input class="quest-meta-input" [(ngModel)]="quests()[item.idx].location" (ngModelChange)="scheduleAutoSave()" placeholder="Lokalita / Oblast" />
                   </div>
                   <div class="quest-meta-field">
                     <mat-icon class="quest-meta-icon" style="color:rgba(200,160,60,.55)">payments</mat-icon>
-                    <input class="quest-meta-input quest-meta-input--gold" [(ngModel)]="quests()[item.idx].rewards" placeholder="Odměna, zkušenosti, předměty..." />
+                    <input class="quest-meta-input quest-meta-input--gold" [(ngModel)]="quests()[item.idx].rewards" (ngModelChange)="scheduleAutoSave()" placeholder="Odměna, zkušenosti, předměty..." />
                   </div>
                 </div>
 
@@ -795,6 +812,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
                 <div class="quest-desc-wrap">
                   <rich-textarea
                     [(ngModel)]="quests()[item.idx].description"
+                    (ngModelChange)="scheduleAutoSave()"
                     style="top:0; left:0; width:100%; height:100%;"
                   ></rich-textarea>
                 </div>
@@ -919,6 +937,7 @@ export class QuestsTabComponent {
       untracked(() => {
         if (data?.quests) {
           this.quests.set(data.quests.map(q => ({ ...q })));
+          this._dbLoaded.set(true);
         }
       });
     });
@@ -951,6 +970,31 @@ export class QuestsTabComponent {
         } catch { /* quota exceeded — ignore */ }
       });
     });
+
+    // ── Auto-save quests with debounce (2.5 s after last user change) ────
+    this._autoSave$
+      .pipe(debounceTime(2500), takeUntilDestroyed())
+      .subscribe(() => {
+        if (!this._dbLoaded()) return;
+        this.save();
+        this.autoSaveStatus.set('saved');
+        this._hideBanner$.next();
+      });
+
+    this._hideBanner$
+      .pipe(debounceTime(3000), takeUntilDestroyed())
+      .subscribe(() => this.autoSaveStatus.set('idle'));
+  }
+
+  readonly autoSaveStatus = signal<'idle' | 'saved'>('idle');
+  /** True once the DB response has arrived at least once. Prevents auto-save on initial population. */
+  private readonly _dbLoaded = signal(false);
+  private readonly _autoSave$ = new Subject<void>();
+  private readonly _hideBanner$ = new Subject<void>();
+
+  /** Call from user-driven actions to schedule a debounced auto-save. */
+  scheduleAutoSave(): void {
+    this._autoSave$.next();
   }
 
   // ── Quest management ─────────────────────────────────────────────────────
@@ -971,6 +1015,7 @@ export class QuestsTabComponent {
     };
     this.quests.update(list => [...list, newQuest]);
     this.expandedIds.update(s => new Set([...s, id]));
+    this.scheduleAutoSave();
   }
 
   toggleExpand(id: string): void {
@@ -999,6 +1044,7 @@ export class QuestsTabComponent {
         return { ...q, status: next };
       }),
     );
+    this.scheduleAutoSave();
   }
 
   cyclePriority(idx: number): void {
@@ -1010,6 +1056,7 @@ export class QuestsTabComponent {
         return { ...q, priority: next };
       }),
     );
+    this.scheduleAutoSave();
   }
 
   askDelete(idx: number): void {
@@ -1024,9 +1071,16 @@ export class QuestsTabComponent {
     const idx = this.confirmDeleteIndex();
     if (idx === null) return;
     const id = this.quests()[idx]?.id;
-    if (id) this.expandedIds.update(s => { const n = new Set(s); n.delete(id); return n; });
+    if (id) {
+      this.expandedIds.update(s => {
+        const next = new Set(s);
+        next.delete(id);
+        return next;
+      });
+    }
     this.quests.update(list => list.filter((_, i) => i !== idx));
     this.confirmDeleteIndex.set(null);
+    this.scheduleAutoSave();
   }
 
   save(): void {
@@ -1035,7 +1089,15 @@ export class QuestsTabComponent {
     this.store.saveQuests({ username, quests: this.quests() });
   }
 
-  // ── Image handling ───────────────────────────────────────────────────────
+  onEscape(): void {
+    if (this.previewQuest()) {
+      this.closePreview();
+    } else if (this.confirmDeleteIndex() !== null) {
+      this.cancelDelete();
+    }
+  }
+
+  // ── Image handling ────────────────────────────────────────────────────────
 
   selectImage(idx: number): void {
     this.pendingFileIdx.set(idx);
@@ -1045,7 +1107,6 @@ export class QuestsTabComponent {
   onDragOver(event: DragEvent, idx: number): void {
     event.preventDefault();
     event.stopPropagation();
-    if (event.dataTransfer) event.dataTransfer.dropEffect = 'copy';
     this.dragOverIndex.set(idx);
   }
 
@@ -1057,42 +1118,35 @@ export class QuestsTabComponent {
     event.preventDefault();
     event.stopPropagation();
     this.dragOverIndex.set(null);
-    const file = event.dataTransfer?.files?.[0];
-    if (file) this.processFile(file, idx);
+    const file = event.dataTransfer?.files[0];
+    if (file) this._processImageFile(file, idx);
   }
 
   onImageSelected(event: Event): void {
     const idx = this.pendingFileIdx();
     if (idx === null) return;
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-    if (!file) return;
-    this.processFile(file, idx);
-    input.value = '';
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) this._processImageFile(file, idx);
+    (event.target as HTMLInputElement).value = '';
     this.pendingFileIdx.set(null);
   }
 
-  private processFile(file: File, idx: number): void {
-    if (!file.type.startsWith('image/')) {
-      this.snackBar.open('Soubor není obrázek.', 'Zavřít', { verticalPosition: 'top', duration: 3000 });
-      return;
-    }
-    const maxBytes = 200 * 1024;
-    if (file.size > maxBytes) {
-      this.snackBar.open(`Obrázek je příliš velký (${(file.size / 1024).toFixed(0)} KB). Maximum je 200 KB.`, 'Zavřít', {
+  private _processImageFile(file: File, idx: number): void {
+    if (file.size > 200 * 1024) {
+      this.snackBar.open('Obrázek je příliš velký (max 200 KB)', 'Zavřít', {
         verticalPosition: 'top',
-        duration: 5000,
+        duration: 3000,
       });
       return;
     }
     const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = (reader.result as string).split(',')[1];
-      this.quests.update(list => {
-        const copy = list.map(q => ({ ...q }));
-        copy[idx] = { ...copy[idx], imageBase64: base64 };
-        return copy;
-      });
+    reader.onload = (e) => {
+      const result = e.target?.result as string;
+      const base64 = result.split(',')[1] ?? result;
+      this.quests.update(list =>
+        list.map((q, i) => (i === idx ? { ...q, imageBase64: base64 } : q)),
+      );
+      this.scheduleAutoSave();
     };
     reader.readAsDataURL(file);
   }
@@ -1106,40 +1160,44 @@ export class QuestsTabComponent {
     this.previewQuest.set(null);
   }
 
-  onEscape(): void {
-    if (this.previewQuest()) { this.closePreview(); return; }
-    if (this.confirmDeleteIndex() !== null) this.cancelDelete();
-  }
-
-  // ── Labels / colours ─────────────────────────────────────────────────────
-
-  statusLabel(status: QuestStatus): string {
-    const map: Record<QuestStatus, string> = { active: 'Aktivní', completed: 'Splněn', failed: 'Neúspěšný', inactive: 'Neaktivní' };
-    return map[status];
-  }
-
-  priorityLabel(priority: QuestPriority): string {
-    const map: Record<QuestPriority, string> = { critical: 'Kritická', high: 'Vysoká', medium: 'Střední', low: 'Nízká' };
-    return map[priority];
-  }
+  // ── Display helpers ───────────────────────────────────────────────────────
 
   priorityColor(priority: QuestPriority): string {
     const map: Record<QuestPriority, string> = {
       critical: 'rgba(180,30,30,.9)',
       high: 'rgba(200,100,30,.9)',
-      medium: 'rgba(200,160,60,.85)',
-      low: 'rgba(80,120,180,.8)',
+      medium: 'rgba(200,160,60,.9)',
+      low: 'rgba(80,120,180,.85)',
     };
     return map[priority];
   }
 
-  // ── localStorage helpers ──────────────────────────────────────────────────
+  statusLabel(status: QuestStatus): string {
+    const map: Record<QuestStatus, string> = {
+      active: 'Aktivní',
+      completed: 'Splněno',
+      failed: 'Neúspěch',
+      inactive: 'Neaktivní',
+    };
+    return map[status];
+  }
+
+  priorityLabel(priority: QuestPriority): string {
+    const map: Record<QuestPriority, string> = {
+      critical: 'Kritická',
+      high: 'Vysoká',
+      medium: 'Střední',
+      low: 'Nízká',
+    };
+    return map[priority];
+  }
+
+  // ── LocalStorage helpers ──────────────────────────────────────────────────
 
   private _loadLocalDraft(): QuestEntry[] {
     try {
       const raw = this._doc.defaultView?.localStorage.getItem(LS_QUESTS_KEY);
-      if (!raw) return [];
-      return JSON.parse(raw) as QuestEntry[];
+      return raw ? (JSON.parse(raw) as QuestEntry[]) : [];
     } catch {
       return [];
     }
@@ -1148,13 +1206,9 @@ export class QuestsTabComponent {
   private _loadExpandedIds(): string[] {
     try {
       const raw = this._doc.defaultView?.localStorage.getItem(LS_EXPANDED_KEY);
-      if (!raw) return [];
-      return JSON.parse(raw) as string[];
+      return raw ? (JSON.parse(raw) as string[]) : [];
     } catch {
       return [];
     }
   }
 }
-
-
-
