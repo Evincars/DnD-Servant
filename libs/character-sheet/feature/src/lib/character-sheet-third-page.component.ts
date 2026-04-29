@@ -19,7 +19,7 @@ import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.compone
     <h3 class="cs-section-title">Kouzla</h3>
 
     <!-- ══ Informace o sesilateli sub-collapsible (transparent on desktop, collapsed on mobile) ══ -->
-    <cs-collapsible title="Informace o sesilateli" storageKey="kouzla-caster-info" [defaultOpen]="false">
+    <cs-collapsible title="Informace o sesilateli" storageKey="kouzla-caster-info" [defaultOpen]="false" icon="person_search">
 
       <!-- Character name on spell sheet (hidden on mobile/tablet via CSS) -->
       <input

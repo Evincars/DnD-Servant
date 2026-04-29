@@ -37,6 +37,9 @@ import { SheetThemeService } from '../sheet-theme.service';
   template: `
     @if (responsive()) {
       <button type="button" class="cs-coll-header" (click)="toggle()">
+        @if (icon()) {
+          <mat-icon class="cs-coll-icon">{{ icon() }}</mat-icon>
+        }
         <span class="cs-coll-title">{{ title() }}</span>
         <mat-icon class="cs-coll-chevron">
           {{ isOpen() ? 'expand_less' : 'expand_more' }}
@@ -96,6 +99,16 @@ import { SheetThemeService } from '../sheet-theme.service';
 
     .cs-coll-title { flex: 1; }
 
+    .cs-coll-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+      flex-shrink: 0;
+      color: rgba(140, 90, 20, 0.7);
+      margin-right: 8px;
+    }
+
     .cs-coll-chevron {
       font-size: 20px;
       width: 20px;
@@ -144,11 +157,16 @@ import { SheetThemeService } from '../sheet-theme.service';
     :host.theme-dark .cs-coll-chevron {
       color: rgba(200, 160, 60, 0.7);
     }
+
+    :host.theme-dark .cs-coll-icon {
+      color: rgba(200, 160, 60, 0.7);
+    }
   `,
 })
 export class CsCollapsibleComponent {
   readonly title = input.required<string>();
   readonly storageKey = input.required<string>();
+  readonly icon = input<string>('');
   /** When no localStorage entry exists, this determines the initial state. Default: true (open). */
   readonly defaultOpen = input<boolean>(true);
 

@@ -75,15 +75,15 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
       <form [formGroup]="form" #sheetForm>
         <conditions-button />
 
-        <cs-collapsible title="Základní informace" storageKey="top-info">
+        <cs-collapsible title="Základní informace" storageKey="top-info" icon="badge">
           <cs-top-info [form]="controls.topInfo" />
         </cs-collapsible>
 
-        <cs-collapsible title="Schopnosti" storageKey="ability-scores">
+        <cs-collapsible title="Schopnosti" storageKey="ability-scores" icon="fitness_center">
           <cs-ability-scores [main6Form]="controls.main6SkillsForm" [abilityBonusForm]="controls.abilityBonus" />
         </cs-collapsible>
 
-        <cs-collapsible title="Boj" storageKey="combat-stats">
+        <cs-collapsible title="Boj" storageKey="combat-stats" icon="swords">
           <cs-combat-stats
             [speedForm]="controls.speedAndHealingDices"
             [armorForm]="controls.armorClass"
@@ -91,7 +91,7 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
           />
         </cs-collapsible>
 
-        <cs-collapsible title="Záchranné hody & Pasivní dovednosti" storageKey="saving-throws">
+        <cs-collapsible title="Záchranné hody & Pasivní dovednosti" storageKey="saving-throws" icon="shield">
           <cs-saving-throws-passive
             [savingThrowsForm]="controls.savingThrowsForm"
             [passiveSkillsForm]="controls.passiveSkillsForm"
@@ -100,7 +100,7 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
           />
         </cs-collapsible>
 
-        <cs-collapsible title="Pozice kouzel & Alchymistická truhla" storageKey="spell-slots">
+        <cs-collapsible title="Pozice kouzel & Alchymistická truhla" storageKey="spell-slots" icon="auto_awesome">
           <cs-spell-slots
             [spellSlotsForm]="controls.spellSlotsForm"
             [alchemistChestForm]="controls.alchemistChestForm"
@@ -108,31 +108,32 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
           />
         </cs-collapsible>
 
-        <cs-collapsible title="Dovednosti" storageKey="skills">
+        <cs-collapsible title="Dovednosti" storageKey="skills" icon="psychology">
           <cs-skills [form]="controls.abilitiesForm" [pomuckyControl]="$any(controls.pomucky)" />
         </cs-collapsible>
 
-        <cs-collapsible title="Zbraně a útoky" storageKey="weapons">
+        <cs-collapsible title="Zbraně a útoky" storageKey="weapons" icon="gavel">
           <cs-weapons [form]="controls.weaponsForm" />
         </cs-collapsible>
 
-        <cs-collapsible title="Jazyky a schopnosti" storageKey="languages">
+        <cs-collapsible title="Jazyky a schopnosti" storageKey="languages" icon="translate">
           <cs-languages [form]="controls.languagesForm" />
         </cs-collapsible>
 
-        <cs-collapsible title="Inventář" storageKey="inventory">
+        <cs-collapsible title="Inventář" storageKey="inventory" icon="inventory_2">
           <cs-inventory [form]="controls.inventoryForm" [inventoryClasses]="inventoryClasses()" [main6Form]="controls.main6SkillsForm" />
         </cs-collapsible>
 
-        <cs-collapsible title="Vzhled a povaha" storageKey="second-page">
+        <cs-collapsible title="Vzhled a povaha" storageKey="second-page" icon="face">
           <second-page [form]="controls.secondPageForm" [infoAboutCharacterControl]="form.controls['infoAboutCharacter']" (imageSaved)="onImageSaved($event)" />
         </cs-collapsible>
 
-        <cs-collapsible title="Kouzla" storageKey="third-page">
+        <cs-collapsible title="Kouzla" storageKey="third-page" icon="auto_fix_high">
           <third-page [form]="controls.thirdPageForm" />
         </cs-collapsible>
 
-        <button (click)="onSaveClick()" type="submit" class="field button cs-save-btn" style="top:4px; left:1090px; width:150px;">
+        <!-- Save button hidden — use floating action button instead -->
+        <button (click)="onSaveClick()" type="submit" class="field button cs-save-btn" style="display:none;">
           Uložit [enter]
         </button>
       </form>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, inject, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -117,65 +117,25 @@ export class CsFloatingActionsComponent {
   readonly saveRequested = output<void>();
 
   private readonly _doc = inject(DOCUMENT);
-  private readonly _el = inject(ElementRef<HTMLElement>);
 
   scrollTop(): void {
-    // Brute-force: scroll every candidate that might be the real scroller.
-    for (const el of this._scrollCandidates()) {
-      el.scrollTo({ top: 0, behavior: 'smooth' });
+    // Use window.scrollTo — the page uses overflow:visible on mat-sidenav-content
+    // so the window is the scrolling element.
+    const win = this._doc.defaultView;
+    if (win) {
+      win.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 
   scrollBottom(): void {
-    const maxH = Math.max(
-      this._doc.body?.scrollHeight ?? 0,
-      this._doc.documentElement?.scrollHeight ?? 0,
-    );
-    for (const el of this._scrollCandidates()) {
-      const h = el instanceof Element ? el.scrollHeight : maxH;
-      el.scrollTo({ top: h, behavior: 'smooth' });
-    }
-  }
-
-  /**
-   * Collect every element that could potentially be the scrollable container.
-   * Depending on CSS overrides, any of these might be the actual scroller:
-   *  1. closest scrollable ancestor of this component
-   *  2. mat-tab-body-content (angular material tabs)
-   *  3. mat-sidenav-content (angular material sidenav)
-   *  4. document.scrollingElement (html or body)
-   *  5. window
-   */
-  private _scrollCandidates(): (Element | Window)[] {
-    const result: (Element | Window)[] = [];
-    const tabBody = this._doc.querySelector('.mat-mdc-tab-body-active .mat-mdc-tab-body-content');
-    if (tabBody) result.push(tabBody);
-
-    const sidenavContent = this._doc.querySelector('.mat-sidenav-content');
-    if (sidenavContent) result.push(sidenavContent);
-
-    // Walk up from this component to find a scrolling ancestor
-    let parent: HTMLElement | null = this._el.nativeElement.parentElement;
-    while (parent) {
-      const style = getComputedStyle(parent);
-      const ov = style.overflow + style.overflowY;
-      if (ov.includes('auto') || ov.includes('scroll')) {
-        if (!result.includes(parent)) result.push(parent);
-        break;
-      }
-      parent = parent.parentElement;
-    }
-
-    if (this._doc.scrollingElement && !result.includes(this._doc.scrollingElement)) {
-      result.push(this._doc.scrollingElement);
-    }
-    if (this._doc.documentElement && !result.includes(this._doc.documentElement)) {
-      result.push(this._doc.documentElement);
-    }
     const win = this._doc.defaultView;
-    if (win) result.push(win);
-
-    return result;
+    if (win) {
+      const maxH = Math.max(
+        this._doc.body?.scrollHeight ?? 0,
+        this._doc.documentElement?.scrollHeight ?? 0,
+      );
+      win.scrollTo({ top: maxH, behavior: 'smooth' });
+    }
   }
 }
 

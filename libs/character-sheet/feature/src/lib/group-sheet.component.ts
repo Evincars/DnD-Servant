@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, signal, untracked, viewChildren } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { GroupInventoryForm, GroupSheetForm } from '@dn-d-servant/character-sheet-util';
 import { RichTextareaComponent, SpinnerOverlayComponent } from '@dn-d-servant/ui';
@@ -26,10 +26,20 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
       <img class="cs-bg-img" [src]="sheetTheme.darkMode() ? 'group-sheet-1-dark.webp' : 'group-sheet-1.webp'" alt="Group Sheet" height="1817" width="1293" />
       <img class="cs-bg-img" [src]="sheetTheme.darkMode() ? 'group-sheet-2-dark.webp' : 'group-sheet-2.webp'" alt="Group Sheet" height="1817" width="1293" />
 
-      <h2 class="cs-section-title cs-main-title">Karta Družiny</h2>
+      <h2 class="cs-section-title cs-main-title">
+        Karta Družiny
+        <span class="cs-collapse-all-wrap">
+          <button type="button" class="cs-collapse-all-btn" (click)="expandAll()" matTooltip="Rozbalit vše">
+            <mat-icon>unfold_more</mat-icon>
+          </button>
+          <button type="button" class="cs-collapse-all-btn" (click)="collapseAll()" matTooltip="Sbalit vše">
+            <mat-icon>unfold_less</mat-icon>
+          </button>
+        </span>
+      </h2>
 
       <form [formGroup]="form">
-        <cs-collapsible title="Skupinové zázemí" storageKey="gs-background">
+        <cs-collapsible title="Skupinové zázemí" storageKey="gs-background" icon="home">
           <div class="gs-section gs-background-section">
             <div class="gs-row">
               <div class="gs-field-wrap" data-label="Jméno skupinového zázemí">
@@ -76,7 +86,7 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
           </div>
         </cs-collapsible>
 
-        <cs-collapsible title="Skupina" storageKey="gs-group-info">
+        <cs-collapsible title="Skupina" storageKey="gs-group-info" icon="groups">
           <div class="gs-section gs-group-section">
             <div class="gs-row">
               <div class="gs-field-wrap" data-label="Jméno skupiny">
@@ -106,7 +116,7 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
           </div>
         </cs-collapsible>
 
-        <cs-collapsible title="Zvíře a peníze" storageKey="gs-animal">
+        <cs-collapsible title="Zvíře a peníze" storageKey="gs-animal" icon="pets">
           <div class="gs-section gs-animal-section">
             <button
               (click)="onOpenAnimalsDialog()"
@@ -145,7 +155,7 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
           </div>
         </cs-collapsible>
 
-        <cs-collapsible title="Výbava" storageKey="gs-inventory" [defaultOpen]="false">
+        <cs-collapsible title="Výbava" storageKey="gs-inventory" [defaultOpen]="false" icon="inventory_2">
           <div class="gs-section gs-inventory-section">
             <!--        Column 1 of inventory-->
             <input
@@ -470,7 +480,7 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
           </div>
         </cs-collapsible>
 
-        <cs-collapsible title="Reputace a vztahy" storageKey="gs-reputation">
+        <cs-collapsible title="Reputace a vztahy" storageKey="gs-reputation" icon="handshake">
           <div class="gs-section gs-reputation-section">
             <!--        Second page-->
             <div class="gs-row">
@@ -508,7 +518,8 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
           </div>
         </cs-collapsible>
 
-        <button (click)="onSaveClick()" type="submit" class="field button cs-save-btn" style="top:4px; left:1090px; width:150px;">
+        <!-- Save button hidden — use floating action button instead -->
+        <button (click)="onSaveClick()" type="submit" class="field button cs-save-btn" style="display:none;">
           Uložit [enter]
         </button>
       </form>
@@ -528,6 +539,8 @@ export class GroupSheetComponent {
   snackBar = inject(MatSnackBar);
   dialog = inject(MatDialog);
   readonly sheetTheme = inject(SheetThemeService);
+
+  private readonly collapsibles = viewChildren(CsCollapsibleComponent);
 
   private readonly documentName = '_group';
   animalsSelect = animalsSelect;
@@ -683,6 +696,14 @@ export class GroupSheetComponent {
       }
     });
     this.inventoryClasses.set(inventoryClassesArray);
+  }
+
+  expandAll(): void {
+    this.collapsibles().forEach(c => c.setOpen(true));
+  }
+
+  collapseAll(): void {
+    this.collapsibles().forEach(c => c.setOpen(false));
   }
 
   onSaveClick() {
