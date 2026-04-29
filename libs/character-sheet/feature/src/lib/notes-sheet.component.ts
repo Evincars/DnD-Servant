@@ -58,6 +58,22 @@ import { interval } from 'rxjs';
       gap: 18px;
     }
 
+    @media (max-width: 700px) {
+      :host { padding: 16px 12px 40px; }
+
+      .notes-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* expedition panel spans only 1 row on single-column layout */
+      .panel--expedition {
+        grid-row: auto !important;
+        .rt-wrap { min-height: 260px !important; }
+      }
+
+      .rt-wrap { height: 260px; }
+    }
+
     /* ── Single note panel ───────────────────────── */
     .note-panel {
       border-radius: 3px; overflow: visible;
