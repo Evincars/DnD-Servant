@@ -60,7 +60,7 @@ import { interval } from 'rxjs';
 
     /* ── Single note panel ───────────────────────── */
     .note-panel {
-      border-radius: 3px; overflow: hidden;
+      border-radius: 3px; overflow: visible;
       background: linear-gradient(160deg, rgba(42,32,14,.97) 0%, rgba(28,20,8,.99) 100%);
       border: 1px solid rgba(200,160,60,.15);
       box-shadow: 0 4px 20px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,220,100,.04);
@@ -100,7 +100,37 @@ import { interval } from 'rxjs';
       .panel-header { background: rgba(220,120,60,.06); } .panel-icon { color: rgba(230,140,80,.65); } .panel-title { color: rgba(240,160,90,.85); } }
 
     /* ── Rich-textarea wrapper ───────────────────── */
-    .rt-wrap { position: relative; height: 380px; background: rgba(0,0,0,.15); }
+    .rt-wrap { position: relative; height: 380px; background: rgba(0,0,0,.15); overflow: visible; }
+
+    /* Dark theme for rich-textarea inside note panels */
+    :host ::ng-deep .rt-wrap {
+      rich-textarea {
+        .rt-toolbar {
+          background: rgba(20,14,4,.92) !important;
+          border-color: rgba(200,160,60,.2) !important;
+          box-shadow: 0 2px 8px rgba(0,0,0,.5) !important;
+          button {
+            color: rgba(200,160,60,.6);
+            &:hover { color: #e8c96a !important; background: rgba(200,160,60,.12) !important; border-color: rgba(200,160,60,.3) !important; }
+          }
+          /* Preserve inline [style.color] on color buttons (A) */
+          button[style*="color"] {
+            filter: brightness(1.3) saturate(1.2);
+          }
+        }
+        .rt-editor {
+          color: #d4c9a0 !important;
+          background: transparent !important;
+          &::placeholder { color: rgba(200,160,60,.25) !important; }
+        }
+        .rt-preview {
+          color: #d4c9a0 !important;
+        }
+        .rt-preview--empty {
+          color: rgba(200,160,60,.25) !important;
+        }
+      }
+    }
   `,
   template: `
     <form [formGroup]="form">

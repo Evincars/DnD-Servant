@@ -223,7 +223,7 @@ type SortMode = 'priority' | 'date';
       border-left: 3px solid transparent;
       box-shadow: 0 4px 20px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,220,100,.04);
       transition: border-color .2s, box-shadow .2s;
-      overflow: hidden;
+      overflow: visible;
 
       &::before {
         content: '◆';
@@ -264,6 +264,9 @@ type SortMode = 'priority' | 'date';
       align-items: center;
       gap: 6px;
       padding: 8px 10px 6px;
+      cursor: pointer;
+      transition: background .15s;
+      &:hover { background: rgba(200,160,60,.04); }
     }
 
     .status-badge {
@@ -500,7 +503,37 @@ type SortMode = 'priority' | 'date';
       border: 1px solid rgba(200,160,60,.1);
       border-radius: 2px;
       background: rgba(0,0,0,.2);
-      overflow: hidden;
+      overflow: visible;
+    }
+
+    /* Dark theme styles for rich-textarea inside quest cards */
+    :host ::ng-deep .quest-desc-wrap {
+      rich-textarea {
+        .rt-toolbar {
+          background: rgba(20,14,4,.92) !important;
+          border-color: rgba(200,160,60,.2) !important;
+          box-shadow: 0 2px 8px rgba(0,0,0,.5) !important;
+          button {
+            color: rgba(200,160,60,.6);
+            &:hover { color: #e8c96a !important; background: rgba(200,160,60,.12) !important; border-color: rgba(200,160,60,.3) !important; }
+          }
+          /* Preserve inline [style.color] on color buttons (A) */
+          button[style*="color"] {
+            filter: brightness(1.3) saturate(1.2);
+          }
+        }
+        .rt-editor {
+          color: #d4c9a0 !important;
+          background: transparent !important;
+          &::placeholder { color: rgba(200,160,60,.25) !important; }
+        }
+        .rt-preview {
+          color: #d4c9a0 !important;
+        }
+        .rt-preview--empty {
+          color: rgba(200,160,60,.25) !important;
+        }
+      }
     }
 
     /* ── Confirm delete dialog ─────────────────── */
@@ -660,16 +693,16 @@ type SortMode = 'priority' | 'date';
             <div class="quest-card-rule"></div>
 
             <!-- Header row -->
-            <div class="quest-card-header">
+            <div class="quest-card-header" (click)="toggleExpand(item.quest.id)">
               <button
                 class="status-badge status-badge--{{ item.quest.status }}"
                 type="button"
-                (click)="cycleStatus(item.idx)"
+                (click)="cycleStatus(item.idx); $event.stopPropagation()"
                 matTooltip="Klikni pro změnu stavu"
               >{{ statusLabel(item.quest.status) }}</button>
               <span
                 class="priority-dot priority-dot--{{ item.quest.priority }}"
-                (click)="cyclePriority(item.idx)"
+                (click)="cyclePriority(item.idx); $event.stopPropagation()"
                 [matTooltip]="'Priorita: ' + priorityLabel(item.quest.priority) + ' — klikni pro změnu'"
               ></span>
               <span class="quest-date">{{ item.quest.dateAdded }}</span>
@@ -678,12 +711,12 @@ type SortMode = 'priority' | 'date';
                   mat-icon-button
                   class="quest-expand-btn"
                   type="button"
-                  (click)="toggleExpand(item.quest.id)"
+                  (click)="toggleExpand(item.quest.id); $event.stopPropagation()"
                   [matTooltip]="expandedIds().has(item.quest.id) ? 'Sbalit' : 'Rozbalit'"
                 >
                   <mat-icon>{{ expandedIds().has(item.quest.id) ? 'expand_less' : 'expand_more' }}</mat-icon>
                 </button>
-                <button mat-icon-button class="quest-delete-btn" type="button" (click)="askDelete(item.idx)" matTooltip="Smazat quest">
+                <button mat-icon-button class="quest-delete-btn" type="button" (click)="askDelete(item.idx); $event.stopPropagation()" matTooltip="Smazat quest">
                   <mat-icon>delete_outline</mat-icon>
                 </button>
               </div>

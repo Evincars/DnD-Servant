@@ -64,18 +64,21 @@
   }
 
   // Weight highlights must override the dark .field background
+  .field.soft-weight,
   .soft-weight {
     background: rgba(80, 200, 80, 0.22) !important;
     border-color: rgba(60, 170, 60, 0.4) !important;
     color: rgba(140, 240, 140, 0.9) !important;
   }
 
+  .field.medium-weight,
   .medium-weight {
     background: rgba(210, 150, 30, 0.22) !important;
     border-color: rgba(190, 130, 20, 0.4) !important;
     color: rgba(230, 185, 80, 0.9) !important;
   }
 
+  .field.heavy-weight,
   .heavy-weight {
     background: rgba(210, 60, 60, 0.22) !important;
     border-color: rgba(190, 40, 40, 0.4) !important;
@@ -103,6 +106,28 @@
   .textarea {
     --rt-text-color: rgba(255, 255, 255, 0.9);
     --rt-caret-color: rgba(180, 210, 255, 0.9);
+  }
+
+  // Speed highlight (encumbrance) overrides for dark theme
+  .speed-highlight-light {
+    background: rgba(60, 180, 60, 0.3) !important;
+    border-color: rgba(80, 200, 80, 0.7) !important;
+    box-shadow: 0 0 0 2px rgba(60, 180, 60, 0.35) !important;
+    color: rgba(140, 240, 140, 0.95) !important;
+  }
+
+  .speed-highlight-medium {
+    background: rgba(200, 150, 30, 0.3) !important;
+    border-color: rgba(220, 170, 50, 0.7) !important;
+    box-shadow: 0 0 0 2px rgba(200, 150, 30, 0.35) !important;
+    color: rgba(240, 200, 80, 0.95) !important;
+  }
+
+  .speed-highlight-heavy {
+    background: rgba(200, 60, 60, 0.3) !important;
+    border-color: rgba(220, 80, 80, 0.7) !important;
+    box-shadow: 0 0 0 2px rgba(200, 60, 60, 0.35) !important;
+    color: rgba(240, 130, 130, 0.95) !important;
   }
 }
 
