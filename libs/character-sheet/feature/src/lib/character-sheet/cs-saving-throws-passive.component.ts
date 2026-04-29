@@ -23,6 +23,7 @@ import { merge } from 'rxjs';
     @if (_tick()) {
       <div class="cs-stp-container">
         <!-- ═══ Záchranné hody ═══ -->
+        <div class="cs-named-area" data-area-label="Záchranné hody">
         <div class="cs-stp-section" [formGroup]="savingThrowsForm()">
           <h4 class="cs-section-title cs-sub-title">Záchranné hody</h4>
           <div class="row g-1">
@@ -112,8 +113,10 @@ import { merge } from 'rxjs';
             </div>
           </div>
         </div>
+        </div><!-- /cs-named-area Záchranné hody -->
 
         <!-- ═══ Pasivní dovednosti ═══ -->
+        <div class="cs-named-area" data-area-label="Pasivní dovednosti">
         <div class="cs-stp-section" [formGroup]="passiveSkillsForm()">
           <h4 class="cs-section-title cs-sub-title">Pasivní dovednosti</h4>
           <div class="row g-1">
@@ -168,6 +171,7 @@ import { merge } from 'rxjs';
             </div>
           </div>
         </div>
+        </div><!-- /cs-named-area Pasivní dovednosti -->
 
         <!-- ═══ Sesílání kouzel (desktop only — on responsive these move to spell-slots collapsible) ═══ -->
         <div class="cs-stp-section cs-desktop-only" [formGroup]="spellsAndAlchForm()">

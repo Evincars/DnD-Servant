@@ -798,6 +798,11 @@ input[type='checkbox'][disabled] {
   display: contents;
 }
 
+// Named areas (transparent on desktop, bordered card on responsive)
+.cs-named-area {
+  display: contents;
+}
+
 // ── Spell-slots new wrappers (transparent on desktop) ─────────────────
 .cs-spell-levels-row,
 .cs-spell-level-wrap,
@@ -1335,6 +1340,45 @@ input[type='checkbox'][disabled] {
   }
 
   .cs-stp-section { margin-bottom: 4px; }
+
+  // Named areas — bordered card with pseudo-element label
+  .cs-named-area {
+    display: block !important;
+    border: 1px solid rgba(180, 130, 50, 0.35);
+    border-radius: 6px;
+    padding: 16px 10px 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: rgba(200, 160, 60, 0.05);
+    position: relative;
+
+    &::before {
+      content: attr(data-area-label);
+      font-family: 'Mikadan', sans-serif;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(120, 80, 20, 0.8);
+      position: absolute;
+      top: -8px;
+      left: 10px;
+      background: rgba(245, 235, 220, 0.97);
+      padding: 0 5px;
+    }
+
+    // Hide the inner h4 sub-title since the area label already shows it
+    .cs-sub-title { display: none !important; }
+  }
+
+  :host.theme-dark .cs-named-area {
+    border-color: rgba(200, 160, 60, 0.25);
+    background: rgba(200, 160, 60, 0.03);
+
+    &::before {
+      color: rgba(200, 160, 60, 0.8);
+      background: rgba(16, 10, 4, 0.97);
+    }
+  }
 
   .cs-saving-row {
     display: flex !important;

@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   inject,
   input,
@@ -37,10 +38,10 @@ import { SheetThemeService } from '../sheet-theme.service';
   template: `
     @if (responsive()) {
       <button type="button" class="cs-coll-header" (click)="toggle()">
-        @if (icon()) {
-          <mat-icon class="cs-coll-icon">{{ icon() }}</mat-icon>
+        @if (_displayIcon()) {
+          <mat-icon class="cs-coll-icon">{{ _displayIcon() }}</mat-icon>
         }
-        <span class="cs-coll-title">{{ title() }}</span>
+        <span class="cs-coll-title">{{ _displayTitle() }}</span>
         <mat-icon class="cs-coll-chevron">
           {{ isOpen() ? 'expand_less' : 'expand_more' }}
         </mat-icon>
@@ -167,10 +168,19 @@ export class CsCollapsibleComponent {
   readonly title = input.required<string>();
   readonly storageKey = input.required<string>();
   readonly icon = input<string>('');
+  /** Override title displayed only on responsive (≤1359px). Falls back to title() if empty. */
+  readonly responsiveTitle = input<string>('');
+  /** Override icon displayed only on responsive (≤1359px). Falls back to icon() if empty. */
+  readonly responsiveIcon = input<string>('');
   /** When no localStorage entry exists, this determines the initial state. Default: true (open). */
   readonly defaultOpen = input<boolean>(true);
 
   readonly sheetTheme = inject(SheetThemeService);
+
+  /** Resolved title — uses responsiveTitle when in responsive mode if provided */
+  readonly _displayTitle = computed(() => (this.responsive() && this.responsiveTitle()) ? this.responsiveTitle() : this.title());
+  /** Resolved icon — uses responsiveIcon when in responsive mode if provided */
+  readonly _displayIcon = computed(() => (this.responsive() && this.responsiveIcon()) ? this.responsiveIcon() : this.icon());
 
   private readonly _breakpoints = inject(BreakpointObserver);
   readonly responsive = toSignal(

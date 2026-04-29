@@ -83,7 +83,7 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
           <cs-ability-scores [main6Form]="controls.main6SkillsForm" [abilityBonusForm]="controls.abilityBonus" />
         </cs-collapsible>
 
-        <cs-collapsible title="Boj" storageKey="combat-stats" icon="swords">
+        <cs-collapsible title="Boj" storageKey="combat-stats" icon="swords" responsiveTitle="OČ - Životy - Rychlost" responsiveIcon="favorite">
           <cs-combat-stats
             [speedForm]="controls.speedAndHealingDices"
             [armorForm]="controls.armorClass"
@@ -112,7 +112,7 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
           <cs-skills [form]="controls.abilitiesForm" [pomuckyControl]="$any(controls.pomucky)" />
         </cs-collapsible>
 
-        <cs-collapsible title="Zbraně a útoky" storageKey="weapons" icon="gavel">
+        <cs-collapsible title="Zbraně a útoky" storageKey="weapons" icon="swords">
           <cs-weapons [form]="controls.weaponsForm" />
         </cs-collapsible>
 
@@ -124,7 +124,7 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
           <cs-inventory [form]="controls.inventoryForm" [inventoryClasses]="inventoryClasses()" [main6Form]="controls.main6SkillsForm" />
         </cs-collapsible>
 
-        <cs-collapsible title="Vzhled a povaha" storageKey="second-page" icon="face">
+        <cs-collapsible title="Vzhled a popis postavy" storageKey="second-page" icon="face">
           <second-page [form]="controls.secondPageForm" [infoAboutCharacterControl]="form.controls['infoAboutCharacter']" (imageSaved)="onImageSaved($event)" />
         </cs-collapsible>
 
