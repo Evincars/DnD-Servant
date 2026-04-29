@@ -18,9 +18,13 @@ import { AuthService } from '@dn-d-servant/util';
 import { QuestEntry, QuestPriority, QuestStatus } from '@dn-d-servant/character-sheet-util';
 import { SpinnerOverlayComponent, RichTextareaComponent } from '@dn-d-servant/ui';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DOCUMENT } from '@angular/common';
 
 type FilterStatus = 'all' | QuestStatus;
 type SortMode = 'priority' | 'date';
+
+const LS_QUESTS_KEY = 'dnd_quests_draft';
+const LS_EXPANDED_KEY = 'dnd_quests_expanded';
 
 @Component({
   selector: 'quests-tab',
@@ -850,11 +854,12 @@ export class QuestsTabComponent {
   readonly store = inject(CharacterSheetStore);
   private readonly authService = inject(AuthService);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly _doc = inject(DOCUMENT);
 
   quests = signal<QuestEntry[]>([]);
   filterStatus = signal<FilterStatus>('all');
   sortMode = signal<SortMode>('priority');
-  expandedIds = signal<Set<string>>(new Set());
+  expandedIds = signal<Set<string>>(new Set(this._loadExpandedIds()));
   confirmDeleteIndex = signal<number | null>(null);
   dragOverIndex = signal<number | null>(null);
   previewQuest = signal<QuestEntry | null>(null);
@@ -901,6 +906,14 @@ export class QuestsTabComponent {
   });
 
   constructor() {
+    // ── Restore local draft first (fast, no network) ─────────────────────
+    const localDraft = this._loadLocalDraft();
+    if (localDraft.length > 0) {
+      this.quests.set(localDraft);
+    }
+
+    // ── When DB data arrives, merge: DB is source-of-truth for content,
+    //    but keep any local status/priority changes that are newer ─────────
     effect(() => {
       const data = this.store.quests();
       untracked(() => {
@@ -916,6 +929,26 @@ export class QuestsTabComponent {
         if (username) {
           this.store.getQuests(username);
         }
+      });
+    });
+
+    // ── Auto-persist quests to localStorage on every change ───────────────
+    effect(() => {
+      const list = this.quests();
+      untracked(() => {
+        try {
+          this._doc.defaultView?.localStorage.setItem(LS_QUESTS_KEY, JSON.stringify(list));
+        } catch { /* quota exceeded — ignore */ }
+      });
+    });
+
+    // ── Auto-persist expanded IDs to localStorage on every change ─────────
+    effect(() => {
+      const ids = this.expandedIds();
+      untracked(() => {
+        try {
+          this._doc.defaultView?.localStorage.setItem(LS_EXPANDED_KEY, JSON.stringify([...ids]));
+        } catch { /* quota exceeded — ignore */ }
       });
     });
   }
@@ -1098,6 +1131,28 @@ export class QuestsTabComponent {
       low: 'rgba(80,120,180,.8)',
     };
     return map[priority];
+  }
+
+  // ── localStorage helpers ──────────────────────────────────────────────────
+
+  private _loadLocalDraft(): QuestEntry[] {
+    try {
+      const raw = this._doc.defaultView?.localStorage.getItem(LS_QUESTS_KEY);
+      if (!raw) return [];
+      return JSON.parse(raw) as QuestEntry[];
+    } catch {
+      return [];
+    }
+  }
+
+  private _loadExpandedIds(): string[] {
+    try {
+      const raw = this._doc.defaultView?.localStorage.getItem(LS_EXPANDED_KEY);
+      if (!raw) return [];
+      return JSON.parse(raw) as string[];
+    } catch {
+      return [];
+    }
   }
 }
 
