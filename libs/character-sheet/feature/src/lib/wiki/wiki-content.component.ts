@@ -8,6 +8,7 @@ import {
   inject,
   OnDestroy,
   signal,
+  untracked,
   viewChild,
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -57,32 +58,42 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
   constructor() {
     /**
      * Scroll-to-heading via afterRenderEffect.
-     * Runs after every render cycle when tracked signals change. When a pending
-     * slug exists, query for the heading element inside the scroll container.
-     * Once found, scroll and clear the slug. If the element is not yet in the
-     * DOM (e.g. innerHTML not painted), the next render cycle will retry
-     * automatically — no setTimeout needed.
+     * Only tracks `pendingScrollSlug` — when set, it queries the DOM for the
+     * heading element. If the element isn't found yet (async HTML not painted),
+     * a one-shot MutationObserver waits for it without keeping the render loop busy.
      */
     afterRenderEffect(() => {
       const slug = this.pendingScrollSlug();
       if (!slug) return;
 
-      const container = this.scrollContainer()?.nativeElement;
-      if (!container) return;
+      // Don't track any other signals — we only want to re-run when slug changes
+      untracked(() => {
+        const container = this.scrollContainer()?.nativeElement;
+        if (!container) return;
 
-      // Track chunks so this effect re-runs when a new batch renders asynchronously.
-      // Without this, the effect would only fire once (when pendingScrollSlug was set)
-      // and miss the heading that arrives in a later async HTTP response.
-      this.chunks();
-
-      const el = container.querySelector(`[id="${slug}"]`) as HTMLElement | null;
-      if (!el) return; // element not in DOM yet — next render will retry
-
-      this.pendingScrollSlug.set(null);
-      const containerRect = container.getBoundingClientRect();
-      const elRect = el.getBoundingClientRect();
-      const absoluteTop = container.scrollTop + (elRect.top - containerRect.top);
-      container.scrollTo({ top: Math.max(0, absoluteTop - SCROLL_TOP_OFFSET), behavior: 'instant' as ScrollBehavior });
+        const el = container.querySelector(`[id="${slug}"]`) as HTMLElement | null;
+        if (el) {
+          this.pendingScrollSlug.set(null);
+          const containerRect = container.getBoundingClientRect();
+          const elRect = el.getBoundingClientRect();
+          const absoluteTop = container.scrollTop + (elRect.top - containerRect.top);
+          container.scrollTo({ top: Math.max(0, absoluteTop - SCROLL_TOP_OFFSET), behavior: 'instant' as ScrollBehavior });
+        } else {
+          // Element not in DOM yet — observe mutations and retry once it appears
+          const mo = new MutationObserver(() => {
+            const target = container.querySelector(`[id="${slug}"]`) as HTMLElement | null;
+            if (target) {
+              mo.disconnect();
+              this.pendingScrollSlug.set(null);
+              const cRect = container.getBoundingClientRect();
+              const tRect = target.getBoundingClientRect();
+              const top = container.scrollTop + (tRect.top - cRect.top);
+              container.scrollTo({ top: Math.max(0, top - SCROLL_TOP_OFFSET), behavior: 'instant' as ScrollBehavior });
+            }
+          });
+          mo.observe(container, { childList: true, subtree: true });
+        }
+      });
     });
   }
 

@@ -10,6 +10,7 @@ import { JadSpellsService } from './jad-spells.service';
 import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detail-dialog.component';
 import { SheetThemeService } from './sheet-theme.service';
 import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.component';
+import { CdkDropList } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'third-page',
@@ -19,7 +20,16 @@ import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.compone
     <h3 class="cs-section-title">Kouzla</h3>
 
     <!-- ══ Informace o sesilateli sub-collapsible (transparent on desktop, collapsed on mobile) ══ -->
-    <cs-collapsible title="Informace o sesilateli" storageKey="kouzla-caster-info" [defaultOpen]="false" icon="person_search">
+    <!--
+      The cdkDropList wrapper below is an ISOLATION BOUNDARY.
+      cs-collapsible carries CdkDrag via hostDirectives and would otherwise register as
+      a spurious 12th drag item in the parent character-sheet drop-list, corrupting all
+      drop indices. Wrapping it in its own cdkDropList makes CdkDrag register here instead.
+      [draggable]="false" additionally disables the drag gesture on mobile so there is no
+      misleading drag handle on a section that cannot be independently reordered.
+    -->
+    <div cdkDropList>
+      <cs-collapsible title="Informace o sesilateli" storageKey="kouzla-caster-info" [defaultOpen]="false" icon="person_search" [draggable]="false">
 
       <!-- Character name on spell sheet (hidden on mobile/tablet via CSS) -->
       <input
@@ -182,6 +192,7 @@ import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.compone
       </div><!-- /cs-profession-grid -->
 
     </cs-collapsible><!-- /Informace o sesilateli -->
+    </div><!-- /isolation cdkDropList -->
     <!--    ===================================================================================-->
 
     <!--    ROW 1-->
@@ -2806,7 +2817,7 @@ import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.compone
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '[class.theme-dark]': 'sheetTheme.darkMode()' },
-  imports: [ReactiveFormsModule, MatTooltip, MatIcon, CsCollapsibleComponent],
+  imports: [ReactiveFormsModule, MatTooltip, MatIcon, CsCollapsibleComponent, CdkDropList],
 })
 export class CharacterSheetThirdPageComponent {
   form = input.required<FormGroup<ThirdPageForm>>();

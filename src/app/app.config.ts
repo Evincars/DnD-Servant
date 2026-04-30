@@ -34,7 +34,7 @@ export const appConfig: ApplicationConfig = {
         showDelay: 0,
         hideDelay: 0,
         touchendHideDelay: 0,
-        touchGestures: 'off',
+        touchGestures: 'auto',
       } satisfies MatTooltipDefaultOptions,
     },
     {

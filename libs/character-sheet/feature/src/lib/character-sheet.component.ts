@@ -1,7 +1,6 @@
 import {
   afterNextRender,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   DestroyRef,
   effect,
@@ -207,7 +206,6 @@ export class CharacterSheetComponent {
   private readonly diceRollerService = inject(DiceRollerService);
   private readonly spellSlotsService = inject(SpellSlotsService);
   private readonly sectionOrderService = inject(CsSectionOrderService);
-  private readonly cdr = inject(ChangeDetectorRef);
 
   private static readonly PAGE_KEY = 'character-sheet';
   private static readonly DEFAULT_KEYS = CS_DEFAULT_SECTIONS.map(s => s.key);
@@ -647,8 +645,6 @@ export class CharacterSheetComponent {
     );
     moveItemInArray(sections, event.previousIndex, event.currentIndex);
     this.orderedSections.set(sections);
-    // Force synchronous DOM update before CDK resets transforms — prevents snap-back
-    this.cdr.detectChanges();
   }
 
   onSaveClick() {

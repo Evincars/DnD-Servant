@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, effect, inject, signal, untracked, viewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, signal, untracked, viewChildren } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { GroupInventoryForm, GroupSheetForm } from '@dn-d-servant/character-sheet-util';
 import { RichTextareaComponent, SpinnerOverlayComponent } from '@dn-d-servant/ui';
@@ -566,7 +566,6 @@ export class GroupSheetComponent {
   dialog = inject(MatDialog);
   readonly sheetTheme = inject(SheetThemeService);
   private readonly sectionOrderService = inject(CsSectionOrderService);
-  private readonly cdr = inject(ChangeDetectorRef);
 
   private static readonly PAGE_KEY = 'group-sheet';
   private static readonly DEFAULT_KEYS = GS_DEFAULT_SECTIONS.map(s => s.key);
@@ -753,8 +752,6 @@ export class GroupSheetComponent {
     );
     moveItemInArray(sections, event.previousIndex, event.currentIndex);
     this.orderedSections.set(sections);
-    // Force synchronous DOM update before CDK resets transforms — prevents snap-back
-    this.cdr.detectChanges();
   }
 
   onSaveClick() {

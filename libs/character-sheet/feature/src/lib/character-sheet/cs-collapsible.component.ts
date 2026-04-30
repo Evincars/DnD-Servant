@@ -239,6 +239,12 @@ export class CsCollapsibleComponent {
   readonly responsiveIcon = input<string>('');
   /** When no localStorage entry exists, this determines the initial state. Default: true (open). */
   readonly defaultOpen = input<boolean>(true);
+  /**
+   * Set to false to permanently disable drag on this collapsible even in responsive mode.
+   * Use this whenever cs-collapsible is nested inside another section that is itself a drag
+   * item, so it does not register as a spurious extra item in the parent CdkDropList.
+   */
+  readonly draggable = input<boolean>(true);
 
   readonly sheetTheme = inject(SheetThemeService);
   private readonly cdkDrag = inject(CdkDrag);
@@ -257,9 +263,10 @@ export class CsCollapsibleComponent {
   readonly isOpen = signal(true);
 
   constructor() {
-    // Disable drag on desktop, enable on responsive.
+    // Disable drag on desktop, enable on responsive — but only when this collapsible
+    // is a real top-level drag item (draggable=true, the default).
     effect(() => {
-      this.cdkDrag.disabled = !this.responsive();
+      this.cdkDrag.disabled = !this.responsive() || !this.draggable();
     });
 
     // Initialise from localStorage once the storageKey input is available.
