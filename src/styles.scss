@@ -259,6 +259,28 @@ mat-dialog-content.dialog-content,
   scrollbar-color: #555 transparent;
 }
 
+// ════════════════════════════════════════════════════════════════
+// SETTINGS DIALOG — zero padding, custom panel handles all styling
+// ════════════════════════════════════════════════════════════════
+.sd-dialog-panel .mat-mdc-dialog-surface {
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+
+  &::before, &::after { display: none !important; }
+}
+
+.sd-dialog-panel {
+  overflow: visible !important;
+}
+
+.sd-dialog-backdrop {
+  background: rgba(4,2,10,.75) !important;
+  backdrop-filter: blur(3px);
+}
+
 
 // ════════════════════════════════════════════════════════════════
 // TOOLTIP — D&D dark fantasy style

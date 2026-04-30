@@ -13,6 +13,8 @@ import html2canvas from 'html2canvas';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { DiceRollerComponent } from '@dn-d-servant/ui';
 import { SheetThemeService } from '@dn-d-servant/character-sheet-feature';
+import { MatDialog } from '@angular/material/dialog';
+import { SettingsDialogComponent, SettingsDialogData } from './settings-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -89,33 +91,12 @@ import { SheetThemeService } from '@dn-d-servant/character-sheet-feature';
               <img src="JaD-logo.png" alt="Dungeons & Dragons Logo" class="logo u-mr-3" />
               <span class="toolbar-servant-text">Servant</span>
               <button
-                (click)="onScreenshotBackupClick()"
-                [disabled]="screenshotLoading()"
-                class="github-link backup-btn u-ml-3"
-                matTooltip="Stáhnout zálohu jako obrázky (PNG)"
+                type="button"
+                class="github-link settings-btn u-ml-2"
+                (click)="openSettings()"
+                matTooltip="Nastavení"
               >
-                @if (screenshotLoading()) {
-                <mat-icon class="backup-button-icon">hourglass_empty</mat-icon>
-                } @else {
-                <mat-icon class="backup-button-icon">photo_camera</mat-icon>
-                }
-                <span class="backup-btn__label">Záloha</span>
-              </button>
-              <button
-                (click)="onJsonBackupClick()"
-                class="github-link backup-btn u-ml-2"
-                matTooltip="Stáhnout zálohu databáze jako JSON soubor"
-              >
-                <mat-icon class="backup-button-icon">download</mat-icon>
-                <span class="backup-btn__label">JSON</span>
-              </button>
-              <button
-                (click)="sheetTheme.toggle()"
-                class="github-link backup-btn u-ml-2"
-                [matTooltip]="sheetTheme.darkMode() ? 'Přepnout na světlé pozadí karet' : 'Přepnout na tmavé pozadí karet'"
-              >
-                <mat-icon class="backup-button-icon">{{ sheetTheme.darkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
-                <span class="backup-btn__label">{{ sheetTheme.darkMode() ? 'Světlé' : 'Tmavé' }}</span>
+                <mat-icon class="toolbar-icon">settings</mat-icon>
               </button>
             </div>
             <div class="toolbar__right author-info u-flex u-align-center">
@@ -224,6 +205,7 @@ export class App implements OnInit, OnDestroy {
   private readonly characterSheetStore = inject(CharacterSheetStore);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly dialog = inject(MatDialog);
 
   routes = routes;
   showBackToTop = signal(false);
@@ -292,6 +274,24 @@ export class App implements OnInit, OnDestroy {
         });
         this.router.navigateByUrl('/login');
       });
+  }
+
+  openSettings(): void {
+    const ref = this.dialog.open<SettingsDialogComponent, SettingsDialogData>(SettingsDialogComponent, {
+      panelClass: 'sd-dialog-panel',
+      backdropClass: 'sd-dialog-backdrop',
+      hasBackdrop: true,
+      data: { screenshotLoading: this.screenshotLoading },
+    });
+
+    ref.componentInstance.screenshotClick.subscribe(() => {
+      ref.close();
+      this.onScreenshotBackupClick();
+    });
+    ref.componentInstance.jsonClick.subscribe(() => {
+      ref.close();
+      this.onJsonBackupClick();
+    });
   }
 
   onJsonBackupClick(): void {

@@ -410,6 +410,21 @@
   color: #a08060;
 }
 
+.settings-btn {
+  width: 30px;
+  height: 30px;
+
+  .toolbar-icon {
+    transition: transform .35s ease, color .15s !important;
+  }
+
+  &:hover .toolbar-icon {
+    transform: rotate(55deg);
+    color: #e8c96a !important;
+    filter: drop-shadow(0 0 6px rgba(200,160,60,.6));
+  }
+}
+
 @keyframes menu-pulse {
   0%, 100% { box-shadow: 0 0 6px rgba(200,160,60,.4), 0 0 0 1px rgba(200,160,60,.25); }
   50%       { box-shadow: 0 0 14px rgba(200,160,60,.7), 0 0 0 1px rgba(200,160,60,.5); }
