@@ -11,6 +11,10 @@
   min-width: 100vw;
   // Ensure the dark wallpaper covers everything even when content is short
   background-color: #0a0710;
+  // Override Bootstrap's .container padding so the toolbar fills full width
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  max-width: 100% !important;
 }
 
 // Make mat-sidenav-content scroll naturally via the browser — no inner scrollbar
