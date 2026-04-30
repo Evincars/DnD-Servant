@@ -18,6 +18,23 @@ import { interval } from 'rxjs';
 import { SheetThemeService } from './sheet-theme.service';
 import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.component';
 import { CsFloatingActionsComponent } from './character-sheet/cs-floating-actions.component';
+import { CdkDropList, type CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CsSectionOrderService } from './character-sheet/cs-section-order.service';
+
+interface GsSectionConfig {
+  readonly key: string;
+  readonly title: string;
+  readonly icon: string;
+  readonly defaultOpen?: boolean;
+}
+
+const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
+  { key: 'gs-background', title: 'Skupinové zázemí', icon: 'home' },
+  { key: 'gs-group-info', title: 'Skupina', icon: 'groups' },
+  { key: 'gs-animal', title: 'Zvíře a peníze', icon: 'pets' },
+  { key: 'gs-inventory', title: 'Výbava', icon: 'inventory_2', defaultOpen: false },
+  { key: 'gs-reputation', title: 'Reputace a vztahy', icon: 'handshake' },
+];
 
 @Component({
   selector: 'group-sheet',
@@ -39,7 +56,16 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
       </h2>
 
       <form [formGroup]="form">
-        <cs-collapsible title="Skupinové zázemí" storageKey="gs-background" icon="home">
+        <div cdkDropList (cdkDropListDropped)="onSectionDrop($event)" class="cs-drop-list">
+          @for (section of orderedSections(); track section.key) {
+            <cs-collapsible
+              [title]="section.title"
+              [storageKey]="section.key"
+              [icon]="section.icon"
+              [defaultOpen]="section.defaultOpen ?? true"
+            >
+              @switch (section.key) {
+                @case ('gs-background') {
           <div class="gs-section gs-background-section">
             <div class="gs-row">
               <div class="gs-field-wrap" data-label="Jméno skupinového zázemí">
@@ -83,11 +109,10 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
               data-label="Schopnost skupinového zázemí"
               style="top:658px; left:76px; width:350px; height:200px;"
             ></rich-textarea>
-          </div>
-        </cs-collapsible>
-
-        <cs-collapsible title="Skupina" storageKey="gs-group-info" icon="groups">
-          <div class="gs-section gs-group-section">
+           </div>
+                }
+                @case ('gs-group-info') {
+           <div class="gs-section gs-group-section">
             <div class="gs-row">
               <div class="gs-field-wrap" data-label="Jméno skupiny">
                 <input
@@ -113,11 +138,10 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
               data-label="Zdatnost s pomůckami a jazyky"
               style="top:516px; left:76px; width:350px; height:90px;"
             ></rich-textarea>
-          </div>
-        </cs-collapsible>
-
-        <cs-collapsible title="Zvíře a peníze" storageKey="gs-animal" icon="pets">
-          <div class="gs-section gs-animal-section">
+           </div>
+                }
+                @case ('gs-animal') {
+           <div class="gs-section gs-animal-section">
             <button
               (click)="onOpenAnimalsDialog()"
               type="button"
@@ -152,11 +176,10 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
                 />
               </div>
             </div>
-          </div>
-        </cs-collapsible>
-
-        <cs-collapsible title="Výbava" storageKey="gs-inventory" [defaultOpen]="false" icon="inventory_2">
-          <div class="gs-section gs-inventory-section">
+           </div>
+                }
+                @case ('gs-inventory') {
+           <div class="gs-section gs-inventory-section">
             <!--        Column 1 of inventory-->
             <input
               [formControl]="controls.vybava.controls.radek1"
@@ -477,11 +500,10 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
               style="top:1689px; left:871px; width:347px;"
               placeholder="*"
             />
-          </div>
-        </cs-collapsible>
-
-        <cs-collapsible title="Reputace a vztahy" storageKey="gs-reputation" icon="handshake">
-          <div class="gs-section gs-reputation-section">
+           </div>
+                }
+                @case ('gs-reputation') {
+           <div class="gs-section gs-reputation-section">
             <!--        Second page-->
             <div class="gs-row">
               <div class="gs-field-wrap" data-label="Jméno skupiny">
@@ -515,8 +537,12 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
               data-label="Vztahy k postavám a organizacím"
               style="top:2235px; left:465px; width:755px; height:1304px;"
             ></rich-textarea>
-          </div>
-        </cs-collapsible>
+           </div>
+                }
+              }
+            </cs-collapsible>
+          }
+        </div>
 
         <!-- Save button hidden — use floating action button instead -->
         <button (click)="onSaveClick()" type="submit" class="field button cs-save-btn" style="display:none;">
@@ -530,7 +556,7 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
   styleUrl: 'character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '[class.theme-dark]': 'sheetTheme.darkMode()' },
-  imports: [ReactiveFormsModule, SpinnerOverlayComponent, MatIcon, MatTooltip, NgClass, RichTextareaComponent, CsCollapsibleComponent, CsFloatingActionsComponent],
+  imports: [ReactiveFormsModule, SpinnerOverlayComponent, MatIcon, MatTooltip, NgClass, RichTextareaComponent, CsCollapsibleComponent, CsFloatingActionsComponent, CdkDropList],
 })
 export class GroupSheetComponent {
   characterSheetStore = inject(CharacterSheetStore);
@@ -539,6 +565,17 @@ export class GroupSheetComponent {
   snackBar = inject(MatSnackBar);
   dialog = inject(MatDialog);
   readonly sheetTheme = inject(SheetThemeService);
+  private readonly sectionOrderService = inject(CsSectionOrderService);
+
+  private static readonly PAGE_KEY = 'group-sheet';
+  private static readonly DEFAULT_KEYS = GS_DEFAULT_SECTIONS.map(s => s.key);
+  private readonly _sectionConfigMap = new Map(GS_DEFAULT_SECTIONS.map(s => [s.key, s]));
+
+  readonly orderedSections = signal<GsSectionConfig[]>(
+    this.sectionOrderService
+      .getOrder(GroupSheetComponent.PAGE_KEY, GroupSheetComponent.DEFAULT_KEYS)
+      .map(k => this._sectionConfigMap.get(k)!)
+  );
 
   private readonly collapsibles = viewChildren(CsCollapsibleComponent);
 
@@ -704,6 +741,15 @@ export class GroupSheetComponent {
 
   collapseAll(): void {
     this.collapsibles().forEach(c => c.setOpen(false));
+  }
+
+  onSectionDrop(event: CdkDragDrop<unknown>): void {
+    if (event.previousIndex === event.currentIndex) return;
+    const currentKeys = this.orderedSections().map(s => s.key);
+    const newKeys = this.sectionOrderService.reorder(
+      GroupSheetComponent.PAGE_KEY, currentKeys, event.previousIndex, event.currentIndex,
+    );
+    this.orderedSections.set(newKeys.map(k => this._sectionConfigMap.get(k)!));
   }
 
   onSaveClick() {

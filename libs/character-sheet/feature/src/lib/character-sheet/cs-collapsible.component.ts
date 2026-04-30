@@ -12,6 +12,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { MatIcon } from '@angular/material/icon';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { SheetThemeService } from '../sheet-theme.service';
 
 /**
@@ -25,7 +26,8 @@ import { SheetThemeService } from '../sheet-theme.service';
 @Component({
   selector: 'cs-collapsible',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIcon],
+  imports: [MatIcon, CdkDragHandle],
+  hostDirectives: [{ directive: CdkDrag, inputs: ['cdkDragDisabled'] }],
   host: {
     // On desktop: completely transparent — no box added to the layout.
     // On responsive: block card that can be toggled.
@@ -38,6 +40,12 @@ import { SheetThemeService } from '../sheet-theme.service';
   template: `
     @if (responsive()) {
       <button type="button" class="cs-coll-header" (click)="toggle()">
+        <mat-icon
+          class="cs-coll-drag-handle"
+          cdkDragHandle
+          (click)="$event.stopPropagation()"
+          (pointerdown)="$event.stopPropagation()"
+        >drag_indicator</mat-icon>
         @if (_displayIcon()) {
           <mat-icon class="cs-coll-icon">{{ _displayIcon() }}</mat-icon>
         }
@@ -124,6 +132,50 @@ import { SheetThemeService } from '../sheet-theme.service';
       color: rgba(120, 80, 20, 0.7);
     }
 
+    /* ── Drag handle ─────────────────────────────────────────────────── */
+    .cs-coll-drag-handle {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+      flex-shrink: 0;
+      color: rgba(140, 90, 20, 0.35);
+      cursor: grab;
+      touch-action: none;
+      margin-right: 4px;
+      transition: color 0.15s;
+
+      &:hover {
+        color: rgba(140, 90, 20, 0.7);
+      }
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+
+    /* ── CDK Drag preview & placeholder ──────────────────────────────── */
+    :host.cdk-drag-preview {
+      border-radius: 8px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+      opacity: 0.92;
+      background: rgba(255, 248, 230, 0.97);
+      border: 1px solid rgba(180, 130, 50, 0.4);
+    }
+
+    :host.cdk-drag-preview.theme-dark {
+      background: rgba(16, 10, 4, 0.97);
+      border-color: rgba(200, 160, 60, 0.35);
+    }
+
+    :host.cdk-drag-placeholder {
+      opacity: 0;
+    }
+
+    :host.cdk-drag-animating {
+      transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+    }
+
     /* ── Body: hidden when collapsed on responsive ───────────────────── */
     :host.cs-collapsible--responsive.cs-collapsible--closed .cs-coll-body {
       display: none;
@@ -167,6 +219,14 @@ import { SheetThemeService } from '../sheet-theme.service';
     :host.theme-dark .cs-coll-icon {
       color: rgba(200, 160, 60, 0.7);
     }
+
+    :host.theme-dark .cs-coll-drag-handle {
+      color: rgba(200, 160, 60, 0.3);
+
+      &:hover {
+        color: rgba(200, 160, 60, 0.65);
+      }
+    }
   `,
 })
 export class CsCollapsibleComponent {
@@ -181,6 +241,7 @@ export class CsCollapsibleComponent {
   readonly defaultOpen = input<boolean>(true);
 
   readonly sheetTheme = inject(SheetThemeService);
+  private readonly cdkDrag = inject(CdkDrag);
 
   /** Resolved title — uses responsiveTitle when in responsive mode if provided */
   readonly _displayTitle = computed(() => (this.responsive() && this.responsiveTitle()) ? this.responsiveTitle() : this.title());
@@ -196,6 +257,11 @@ export class CsCollapsibleComponent {
   readonly isOpen = signal(true);
 
   constructor() {
+    // Disable drag on desktop, enable on responsive.
+    effect(() => {
+      this.cdkDrag.disabled = !this.responsive();
+    });
+
     // Initialise from localStorage once the storageKey input is available.
     effect(() => {
       const key = this.storageKey();

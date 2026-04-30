@@ -40,6 +40,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { interval, merge } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { CdkDropList, type CdkDragDrop } from '@angular/cdk/drag-drop';
 import { SpellSlotsService } from './character-sheet/spell-slots.service';
 import { CsTopInfoComponent } from './character-sheet/cs-top-info.component';
 import { CsAbilityScoresComponent } from './character-sheet/cs-ability-scores.component';
@@ -53,6 +54,30 @@ import { CsInventoryComponent } from './character-sheet/cs-inventory.component';
 import { ConditionsButtonComponent } from './conditions/conditions-button.component';
 import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.component';
 import { CsFloatingActionsComponent } from './character-sheet/cs-floating-actions.component';
+import { CsSectionOrderService } from './character-sheet/cs-section-order.service';
+
+interface SectionConfig {
+  readonly key: string;
+  readonly title: string;
+  readonly icon: string;
+  readonly responsiveTitle?: string;
+  readonly responsiveIcon?: string;
+  readonly defaultOpen?: boolean;
+}
+
+const CS_DEFAULT_SECTIONS: readonly SectionConfig[] = [
+  { key: 'top-info', title: 'Základní informace', icon: 'badge' },
+  { key: 'ability-scores', title: 'Schopnosti', icon: 'fitness_center' },
+  { key: 'combat-stats', title: 'Boj', icon: 'swords', responsiveTitle: 'OČ - Životy - Rychlost', responsiveIcon: 'favorite' },
+  { key: 'saving-throws', title: 'Záchranné hody & Pasivní dovednosti', icon: 'shield' },
+  { key: 'spell-slots', title: 'Pozice kouzel & Alchymistická truhla', icon: 'auto_awesome' },
+  { key: 'skills', title: 'Dovednosti', icon: 'psychology' },
+  { key: 'weapons', title: 'Zbraně a útoky', icon: 'swords' },
+  { key: 'languages', title: 'Jazyky a schopnosti', icon: 'translate' },
+  { key: 'inventory', title: 'Inventář', icon: 'inventory_2' },
+  { key: 'second-page', title: 'Vzhled a popis postavy', icon: 'face' },
+  { key: 'third-page', title: 'Kouzla', icon: 'auto_fix_high' },
+];
 
 @Component({
   selector: 'character-sheet',
@@ -75,62 +100,67 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
       <form [formGroup]="form" #sheetForm>
         <conditions-button />
 
-        <cs-collapsible title="Základní informace" storageKey="top-info" icon="badge">
-          <cs-top-info [form]="controls.topInfo" />
-        </cs-collapsible>
-
-        <cs-collapsible title="Schopnosti" storageKey="ability-scores" icon="fitness_center">
-          <cs-ability-scores [main6Form]="controls.main6SkillsForm" [abilityBonusForm]="controls.abilityBonus" />
-        </cs-collapsible>
-
-        <cs-collapsible title="Boj" storageKey="combat-stats" icon="swords" responsiveTitle="OČ - Životy - Rychlost" responsiveIcon="favorite">
-          <cs-combat-stats
-            [speedForm]="controls.speedAndHealingDices"
-            [armorForm]="controls.armorClass"
-            [speedHighlight]="speedHighlight()"
-          />
-        </cs-collapsible>
-
-        <cs-collapsible title="Záchranné hody & Pasivní dovednosti" storageKey="saving-throws" icon="shield">
-          <cs-saving-throws-passive
-            [savingThrowsForm]="controls.savingThrowsForm"
-            [passiveSkillsForm]="controls.passiveSkillsForm"
-            [spellsAndAlchForm]="controls.spellsAndAlchemistChestForm"
-            [infoAboutCharacterControl]="form.controls['infoAboutCharacter']"
-          />
-        </cs-collapsible>
-
-        <cs-collapsible title="Pozice kouzel & Alchymistická truhla" storageKey="spell-slots" icon="auto_awesome">
-          <cs-spell-slots
-            [spellSlotsForm]="controls.spellSlotsForm"
-            [alchemistChestForm]="controls.alchemistChestForm"
-            [spellsAndAlchForm]="controls.spellsAndAlchemistChestForm"
-          />
-        </cs-collapsible>
-
-        <cs-collapsible title="Dovednosti" storageKey="skills" icon="psychology">
-          <cs-skills [form]="controls.abilitiesForm" [pomuckyControl]="$any(controls.pomucky)" />
-        </cs-collapsible>
-
-        <cs-collapsible title="Zbraně a útoky" storageKey="weapons" icon="swords">
-          <cs-weapons [form]="controls.weaponsForm" />
-        </cs-collapsible>
-
-        <cs-collapsible title="Jazyky a schopnosti" storageKey="languages" icon="translate">
-          <cs-languages [form]="controls.languagesForm" />
-        </cs-collapsible>
-
-        <cs-collapsible title="Inventář" storageKey="inventory" icon="inventory_2">
-          <cs-inventory [form]="controls.inventoryForm" [inventoryClasses]="inventoryClasses()" [main6Form]="controls.main6SkillsForm" />
-        </cs-collapsible>
-
-        <cs-collapsible title="Vzhled a popis postavy" storageKey="second-page" icon="face">
-          <second-page [form]="controls.secondPageForm" [infoAboutCharacterControl]="form.controls['infoAboutCharacter']" (imageSaved)="onImageSaved($event)" />
-        </cs-collapsible>
-
-        <cs-collapsible title="Kouzla" storageKey="third-page" icon="auto_fix_high">
-          <third-page [form]="controls.thirdPageForm" />
-        </cs-collapsible>
+        <div cdkDropList (cdkDropListDropped)="onSectionDrop($event)" class="cs-drop-list">
+          @for (section of orderedSections(); track section.key) {
+            <cs-collapsible
+              [title]="section.title"
+              [storageKey]="section.key"
+              [icon]="section.icon"
+              [responsiveTitle]="section.responsiveTitle ?? ''"
+              [responsiveIcon]="section.responsiveIcon ?? ''"
+              [defaultOpen]="section.defaultOpen ?? true"
+            >
+              @switch (section.key) {
+                @case ('top-info') {
+                  <cs-top-info [form]="controls.topInfo" />
+                }
+                @case ('ability-scores') {
+                  <cs-ability-scores [main6Form]="controls.main6SkillsForm" [abilityBonusForm]="controls.abilityBonus" />
+                }
+                @case ('combat-stats') {
+                  <cs-combat-stats
+                    [speedForm]="controls.speedAndHealingDices"
+                    [armorForm]="controls.armorClass"
+                    [speedHighlight]="speedHighlight()"
+                  />
+                }
+                @case ('saving-throws') {
+                  <cs-saving-throws-passive
+                    [savingThrowsForm]="controls.savingThrowsForm"
+                    [passiveSkillsForm]="controls.passiveSkillsForm"
+                    [spellsAndAlchForm]="controls.spellsAndAlchemistChestForm"
+                    [infoAboutCharacterControl]="form.controls['infoAboutCharacter']"
+                  />
+                }
+                @case ('spell-slots') {
+                  <cs-spell-slots
+                    [spellSlotsForm]="controls.spellSlotsForm"
+                    [alchemistChestForm]="controls.alchemistChestForm"
+                    [spellsAndAlchForm]="controls.spellsAndAlchemistChestForm"
+                  />
+                }
+                @case ('skills') {
+                  <cs-skills [form]="controls.abilitiesForm" [pomuckyControl]="$any(controls.pomucky)" />
+                }
+                @case ('weapons') {
+                  <cs-weapons [form]="controls.weaponsForm" />
+                }
+                @case ('languages') {
+                  <cs-languages [form]="controls.languagesForm" />
+                }
+                @case ('inventory') {
+                  <cs-inventory [form]="controls.inventoryForm" [inventoryClasses]="inventoryClasses()" [main6Form]="controls.main6SkillsForm" />
+                }
+                @case ('second-page') {
+                  <second-page [form]="controls.secondPageForm" [infoAboutCharacterControl]="form.controls['infoAboutCharacter']" (imageSaved)="onImageSaved($event)" />
+                }
+                @case ('third-page') {
+                  <third-page [form]="controls.thirdPageForm" />
+                }
+              }
+            </cs-collapsible>
+          }
+        </div>
 
         <!-- Save button hidden — use floating action button instead -->
         <button (click)="onSaveClick()" type="submit" class="field button cs-save-btn" style="display:none;">
@@ -161,6 +191,7 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
     ConditionsButtonComponent,
     CsCollapsibleComponent,
     CsFloatingActionsComponent,
+    CdkDropList,
     MatIcon,
     MatTooltip,
   ],
@@ -174,6 +205,17 @@ export class CharacterSheetComponent {
   dialog = inject(MatDialog);
   private readonly diceRollerService = inject(DiceRollerService);
   private readonly spellSlotsService = inject(SpellSlotsService);
+  private readonly sectionOrderService = inject(CsSectionOrderService);
+
+  private static readonly PAGE_KEY = 'character-sheet';
+  private static readonly DEFAULT_KEYS = CS_DEFAULT_SECTIONS.map(s => s.key);
+  private readonly _sectionConfigMap = new Map(CS_DEFAULT_SECTIONS.map(s => [s.key, s]));
+
+  readonly orderedSections = signal<SectionConfig[]>(
+    this.sectionOrderService
+      .getOrder(CharacterSheetComponent.PAGE_KEY, CharacterSheetComponent.DEFAULT_KEYS)
+      .map(k => this._sectionConfigMap.get(k)!)
+  );
 
   inventoryClasses = signal(Array(20).fill(''));
   infoMessage = signal('');
@@ -592,6 +634,15 @@ export class CharacterSheetComponent {
 
   collapseAll(): void {
     this.collapsibles().forEach(c => c.setOpen(false));
+  }
+
+  onSectionDrop(event: CdkDragDrop<unknown>): void {
+    if (event.previousIndex === event.currentIndex) return;
+    const currentKeys = this.orderedSections().map(s => s.key);
+    const newKeys = this.sectionOrderService.reorder(
+      CharacterSheetComponent.PAGE_KEY, currentKeys, event.previousIndex, event.currentIndex,
+    );
+    this.orderedSections.set(newKeys.map(k => this._sectionConfigMap.get(k)!));
   }
 
   onSaveClick() {
