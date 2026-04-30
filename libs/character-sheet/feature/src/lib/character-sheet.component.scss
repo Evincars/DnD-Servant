@@ -884,7 +884,17 @@ input[type='checkbox'][disabled] {
     flex-direction: column;
     gap: 0;
     padding: 8px 8px 80px 8px; // bottom padding for FAB
+    padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
   }
+
+  group-sheet form {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 8px 80px 8px;
+    padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  }
+
 
   // ── Hide background images ───────────────────────────────────────────────
   .cs-bg-img {

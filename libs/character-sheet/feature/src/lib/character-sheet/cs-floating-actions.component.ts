@@ -52,8 +52,8 @@ import { DOCUMENT } from '@angular/common';
   styles: `
     :host {
       position: fixed;
-      bottom: 20px;
-      right: 16px;
+      bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+      right: calc(16px + env(safe-area-inset-right, 0px));
       z-index: 9999;
       pointer-events: none;
     }

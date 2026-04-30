@@ -64,6 +64,11 @@ import { SheetThemeService } from '../sheet-theme.service';
       background: rgba(255, 248, 230, 0.97);
     }
 
+    /* ── Extra breathing room after the very last collapsible card ──── */
+    :host.cs-collapsible--responsive:last-of-type {
+      margin-bottom: 32px;
+    }
+
     /* ── Header button ───────────────────────────────────────────────── */
     .cs-coll-header {
       width: 100%;
