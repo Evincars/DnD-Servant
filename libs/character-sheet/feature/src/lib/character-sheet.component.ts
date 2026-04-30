@@ -40,7 +40,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { interval, merge } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { CdkDropList, type CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDropList, moveItemInArray, type CdkDragDrop } from '@angular/cdk/drag-drop';
 import { SpellSlotsService } from './character-sheet/spell-slots.service';
 import { CsTopInfoComponent } from './character-sheet/cs-top-info.component';
 import { CsAbilityScoresComponent } from './character-sheet/cs-ability-scores.component';
@@ -638,11 +638,15 @@ export class CharacterSheetComponent {
 
   onSectionDrop(event: CdkDragDrop<unknown>): void {
     if (event.previousIndex === event.currentIndex) return;
-    const currentKeys = this.orderedSections().map(s => s.key);
+    // CDK already moved the DOM element. Update the signal silently so subsequent
+    // drags use the correct order, but mutate in place to avoid triggering @for re-render.
+    const sections = this.orderedSections();
+    const keys = sections.map(s => s.key);
     const newKeys = this.sectionOrderService.reorder(
-      CharacterSheetComponent.PAGE_KEY, currentKeys, event.previousIndex, event.currentIndex,
+      CharacterSheetComponent.PAGE_KEY, keys, event.previousIndex, event.currentIndex,
     );
-    this.orderedSections.set(newKeys.map(k => this._sectionConfigMap.get(k)!));
+    // Mutate the backing array in-place (no .set()) so Angular doesn't re-render @for
+    moveItemInArray(sections, event.previousIndex, event.currentIndex);
   }
 
   onSaveClick() {

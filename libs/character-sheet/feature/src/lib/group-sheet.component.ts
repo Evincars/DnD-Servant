@@ -18,7 +18,7 @@ import { interval } from 'rxjs';
 import { SheetThemeService } from './sheet-theme.service';
 import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.component';
 import { CsFloatingActionsComponent } from './character-sheet/cs-floating-actions.component';
-import { CdkDropList, type CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDropList, moveItemInArray, type CdkDragDrop } from '@angular/cdk/drag-drop';
 import { CsSectionOrderService } from './character-sheet/cs-section-order.service';
 
 interface GsSectionConfig {
@@ -745,11 +745,14 @@ export class GroupSheetComponent {
 
   onSectionDrop(event: CdkDragDrop<unknown>): void {
     if (event.previousIndex === event.currentIndex) return;
-    const currentKeys = this.orderedSections().map(s => s.key);
-    const newKeys = this.sectionOrderService.reorder(
-      GroupSheetComponent.PAGE_KEY, currentKeys, event.previousIndex, event.currentIndex,
+    // CDK already moved the DOM element. Update the backing array silently
+    // so subsequent drags use the correct order, but don't signal-set to avoid re-render.
+    const sections = this.orderedSections();
+    const keys = sections.map(s => s.key);
+    this.sectionOrderService.reorder(
+      GroupSheetComponent.PAGE_KEY, keys, event.previousIndex, event.currentIndex,
     );
-    this.orderedSections.set(newKeys.map(k => this._sectionConfigMap.get(k)!));
+    moveItemInArray(sections, event.previousIndex, event.currentIndex);
   }
 
   onSaveClick() {
