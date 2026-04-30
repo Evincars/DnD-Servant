@@ -1,6 +1,7 @@
 import {
   afterNextRender,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   DestroyRef,
   effect,
@@ -206,6 +207,7 @@ export class CharacterSheetComponent {
   private readonly diceRollerService = inject(DiceRollerService);
   private readonly spellSlotsService = inject(SpellSlotsService);
   private readonly sectionOrderService = inject(CsSectionOrderService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   private static readonly PAGE_KEY = 'character-sheet';
   private static readonly DEFAULT_KEYS = CS_DEFAULT_SECTIONS.map(s => s.key);
@@ -638,15 +640,15 @@ export class CharacterSheetComponent {
 
   onSectionDrop(event: CdkDragDrop<unknown>): void {
     if (event.previousIndex === event.currentIndex) return;
-    // CDK already moved the DOM element. Update the signal silently so subsequent
-    // drags use the correct order, but mutate in place to avoid triggering @for re-render.
-    const sections = this.orderedSections();
+    const sections = [...this.orderedSections()];
     const keys = sections.map(s => s.key);
-    const newKeys = this.sectionOrderService.reorder(
+    this.sectionOrderService.reorder(
       CharacterSheetComponent.PAGE_KEY, keys, event.previousIndex, event.currentIndex,
     );
-    // Mutate the backing array in-place (no .set()) so Angular doesn't re-render @for
     moveItemInArray(sections, event.previousIndex, event.currentIndex);
+    this.orderedSections.set(sections);
+    // Force synchronous DOM update before CDK resets transforms — prevents snap-back
+    this.cdr.detectChanges();
   }
 
   onSaveClick() {

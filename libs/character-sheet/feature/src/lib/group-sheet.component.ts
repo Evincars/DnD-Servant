@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, signal, untracked, viewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, effect, inject, signal, untracked, viewChildren } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { GroupInventoryForm, GroupSheetForm } from '@dn-d-servant/character-sheet-util';
 import { RichTextareaComponent, SpinnerOverlayComponent } from '@dn-d-servant/ui';
@@ -566,6 +566,7 @@ export class GroupSheetComponent {
   dialog = inject(MatDialog);
   readonly sheetTheme = inject(SheetThemeService);
   private readonly sectionOrderService = inject(CsSectionOrderService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   private static readonly PAGE_KEY = 'group-sheet';
   private static readonly DEFAULT_KEYS = GS_DEFAULT_SECTIONS.map(s => s.key);
@@ -745,14 +746,15 @@ export class GroupSheetComponent {
 
   onSectionDrop(event: CdkDragDrop<unknown>): void {
     if (event.previousIndex === event.currentIndex) return;
-    // CDK already moved the DOM element. Update the backing array silently
-    // so subsequent drags use the correct order, but don't signal-set to avoid re-render.
-    const sections = this.orderedSections();
+    const sections = [...this.orderedSections()];
     const keys = sections.map(s => s.key);
     this.sectionOrderService.reorder(
       GroupSheetComponent.PAGE_KEY, keys, event.previousIndex, event.currentIndex,
     );
     moveItemInArray(sections, event.previousIndex, event.currentIndex);
+    this.orderedSections.set(sections);
+    // Force synchronous DOM update before CDK resets transforms — prevents snap-back
+    this.cdr.detectChanges();
   }
 
   onSaveClick() {

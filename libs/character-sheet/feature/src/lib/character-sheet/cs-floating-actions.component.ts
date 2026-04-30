@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -117,25 +117,58 @@ export class CsFloatingActionsComponent {
   readonly saveRequested = output<void>();
 
   private readonly _doc = inject(DOCUMENT);
+  private readonly _elRef = inject(ElementRef);
 
   scrollTop(): void {
-    // Use window.scrollTo — the page uses overflow:visible on mat-sidenav-content
-    // so the window is the scrolling element.
-    const win = this._doc.defaultView;
-    if (win) {
-      win.scrollTo({ top: 0, behavior: 'smooth' });
+    const scrollEl = this._findScrollContainer();
+    if (scrollEl) {
+      scrollEl.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      this._doc.defaultView?.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 
   scrollBottom(): void {
-    const win = this._doc.defaultView;
-    if (win) {
-      const maxH = Math.max(
-        this._doc.body?.scrollHeight ?? 0,
-        this._doc.documentElement?.scrollHeight ?? 0,
-      );
-      win.scrollTo({ top: maxH, behavior: 'smooth' });
+    const scrollEl = this._findScrollContainer();
+    if (scrollEl) {
+      scrollEl.scrollTo({ top: scrollEl.scrollHeight, behavior: 'smooth' });
+    } else {
+      const win = this._doc.defaultView;
+      if (win) {
+        const maxH = Math.max(
+          this._doc.body?.scrollHeight ?? 0,
+          this._doc.documentElement?.scrollHeight ?? 0,
+        );
+        win.scrollTo({ top: maxH, behavior: 'smooth' });
+      }
     }
+  }
+
+  /**
+   * Walk up the DOM from this component to find the nearest scrollable ancestor.
+   * Falls back to document.scrollingElement or documentElement.
+   */
+  private _findScrollContainer(): Element | null {
+    // First try document.scrollingElement (usually <html> when window scrolls)
+    const scrolling = this._doc.scrollingElement;
+    if (scrolling && scrolling.scrollHeight > scrolling.clientHeight) {
+      return scrolling;
+    }
+
+    // Walk ancestors looking for an actual scroll container (e.g. mat-sidenav-content with overflow)
+    let el: HTMLElement | null = this._elRef.nativeElement;
+    while (el) {
+      el = el.parentElement;
+      if (!el) break;
+      const style = getComputedStyle(el);
+      const overflowY = style.overflowY;
+      if ((overflowY === 'auto' || overflowY === 'scroll') && el.scrollHeight > el.clientHeight) {
+        return el;
+      }
+    }
+
+    // Fallback: documentElement
+    return this._doc.documentElement;
   }
 }
 
