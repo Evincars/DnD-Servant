@@ -162,8 +162,8 @@ const CS_DEFAULT_SECTIONS: readonly SectionConfig[] = [
           }
         </div>
 
-        <!-- Save button hidden — use floating action button instead -->
-        <button (click)="onSaveClick()" type="submit" class="field button cs-save-btn" style="display:none;">
+        <!-- Save button: visible on desktop, hidden on tablet/mobile (≤1359 px) -->
+        <button (click)="onSaveClick()" type="submit" class="field button cs-save-btn">
           Uložit [enter]
         </button>
       </form>

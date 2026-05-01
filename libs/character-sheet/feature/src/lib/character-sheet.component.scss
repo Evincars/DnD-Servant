@@ -3,6 +3,15 @@
   display: block;
 }
 
+// ── Save button: absolute top-right corner on desktop ─────────────────────────
+// Hidden on tablet/mobile via the @media (max-width: 1359px) block below.
+.cs-save-btn {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  z-index: 10;
+}
+
 // ── Responsive visibility utility classes ─────────────────────────────────────
 // Hidden on desktop (>1359px), visible on responsive (≤1359px)
 .cs-responsive-only {
@@ -1009,7 +1018,7 @@ input[type='checkbox'][disabled] {
     position: static !important;
   }
 
-  // ── Save button: sticky top ───────────────────────────────────────────
+  // ── Save button: hidden on tablet/mobile, shown on desktop ──────────────
   .cs-save-btn {
     position: sticky !important;
     top: 0 !important;
