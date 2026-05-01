@@ -12,7 +12,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
-import { LocalStorageService, ACTIVE_TAB_INDEX_KEY, DM_TAB_KEY } from '@dn-d-servant/util';
+import { LocalStorageService, ACTIVE_TAB_INDEX_KEY, DM_TAB_KEY, TabNavigatorService } from '@dn-d-servant/util';
 import { routes } from './app.routes';
 
 export interface CommandItem {
@@ -442,6 +442,7 @@ export class CommandPaletteComponent implements AfterViewInit {
   private readonly dialogRef = inject(MatDialogRef<CommandPaletteComponent>);
   private readonly router = inject(Router);
   private readonly ls = inject(LocalStorageService);
+  private readonly tabNavigator = inject(TabNavigatorService);
 
   private readonly searchInputEl = viewChild.required<ElementRef<HTMLInputElement>>('searchInput');
   private readonly listEl = viewChild<ElementRef<HTMLElement>>('listEl');
@@ -497,9 +498,18 @@ export class CommandPaletteComponent implements AfterViewInit {
   }
 
   selectItem(item: CommandItem): void {
-    // If the item targets a specific tab, persist the index before navigation.
     if (item.tabIndex !== undefined && item.tabStorageKey) {
+      // Always persist so the tab is correct even after a hard reload
       this.ls.setDataSync(item.tabStorageKey, item.tabIndex);
+
+      // If we're already on this route, switch the tab immediately via the
+      // live signal rather than relying on a full re-init from localStorage.
+      const currentPath = this.router.url.split('?')[0].replace(/^\//, '');
+      if (currentPath === item.routePath) {
+        this.tabNavigator.navigateTo(item.tabIndex);
+        this.dialogRef.close();
+        return;
+      }
     }
     this.router.navigateByUrl('/' + item.routePath);
     this.dialogRef.close();
