@@ -80,11 +80,11 @@ const SECTIONS: TipSection[] = [
           'Všechny dovednosti, záchranné hody a pasivní dovednosti kde máš zaškrtnutou zdatnost se přepočítají automaticky.',
       },
       {
-        title: 'Zdatnosti a expertízy (hvězdičky)',
+        title: 'Zdatnosti a kvalifikace (hvězdičky)',
         badge: 'Dovednosti',
         description:
           '1. kliknutí na hvězdičku = zdatnost → přičte se ZB k hodnotě. ' +
-          '2. kliknutí = expertíza → přičtou se 2× ZB. ' +
+          '2. kliknutí = kvalifikace → přičtou se 2× ZB. ' +
           '3. kliknutí = reset na výchozí hodnotu. ' +
           'Stejný systém platí pro Záchranné hody a Pasivní dovednosti.',
       },

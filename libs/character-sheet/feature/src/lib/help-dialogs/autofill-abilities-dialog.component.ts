@@ -56,7 +56,7 @@ import { FormsModule } from '@angular/forms';
             <span>
               →
               <strong>Zdatnostní bonus</strong>
-              se automaticky aktualizuje podle úrovně a podle něj i všechny hodnoty, kde je zdatnost/expertíza. Funguje i zpětně,
+              se automaticky aktualizuje podle úrovně a podle něj i všechny hodnoty, kde je zdatnost/kvalifikace. Funguje i zpětně,
               takže level se může vyplnit jako poslední.
             </span>
           </div>
@@ -78,7 +78,7 @@ import { FormsModule } from '@angular/forms';
           <span class="autofill-step__num">4</span>
           <div class="autofill-step__body">
             <strong>Zaškrtni zdatnosti hvězdičkou</strong>
-            <span>→ Jednoklik = zdatnost (+zdatnostní bonus), dvojklik = expertíza (+2× zdatnostní bonus).</span>
+            <span>→ Jednoklik = zdatnost (+zdatnostní bonus), dvojklik = kvalifikace (+2× zdatnostní bonus).</span>
             <em>→ Hodnoty Dovedností, Záchranných hodů a Pasivních dovedností se přepočítají automaticky.</em>
           </div>
         </li>
