@@ -16,42 +16,45 @@ const RELEASE_NOTES: ReleaseGroup[] = [
   {
     date: 'Květen 2026',
     entries: [
-      { type: 'feature', text: 'Příkazová paleta (Ctrl+K) — rychlá navigace na všechny stránky a záložky aplikace' },
-      { type: 'feature', text: 'Klávesová zkratka Alt+← / Alt+→ pro nekonečné přepínání záložek' },
-      { type: 'feature', text: 'Gesta pro přepínání záložek — přejeďte prstem doleva/doprava na mobilním zařízení' },
-      { type: 'feature', text: 'Přehled klávesových zkratek v dialogu Nastavení' },
-      { type: 'fix', text: 'Vyhledávání v příkazové paletě ignoruje diakritiku — „zas" najde „Zástěna"' },
-      { type: 'fix', text: 'Přesměrování na správnou záložku z příkazové palety při pohybu na stejné stránce' },
+      { type: 'feature', text: 'Příkazová paleta (Ctrl+K) — rychlá navigace na všechny stránky a záložky' },
+      { type: 'feature', text: 'Klávesové zkratky Alt+← / Alt+→ pro přepínání záložek (nekonečné)' },
+      { type: 'feature', text: 'Přejetí prstem doleva/doprava pro přepnutí záložky na mobilu' },
+      { type: 'feature', text: 'Dialog „Co je nového" dostupný z horní lišty' },
+      { type: 'feature', text: 'Klávesové zkratky zobrazeny v dialogu Nastavení' },
+      { type: 'fix', text: 'Vyhledávání v příkazové paletě ignoruje diakritiku' },
+      { type: 'fix', text: 'Přímé přepnutí záložky z příkazové palety bez znovunačtení stránky' },
     ],
   },
   {
     date: 'Duben 2026',
     entries: [
-      { type: 'fix', text: 'Drag & drop sekcí v kartě postavy — sekce si nyní pamatuje pořadí a správně animuje přesunutí' },
-      { type: 'fix', text: 'Oprava náhodného umístění sekce při přetahování způsobené duplicitní registrací přetahovatelného prvku' },
+      { type: 'fix', text: 'Drag & drop sekcí karty postavy — správné pořadí a animace přesunutí' },
+      { type: 'fix', text: 'Oprava duplicitní registrace přetahovatelného prvku způsobující náhodné pozice' },
+      { type: 'improvement', text: 'Responzivní design — karta postavy se přizpůsobuje velikosti obrazovky' },
     ],
   },
   {
     date: 'Únor 2026',
     entries: [
-      { type: 'feature', text: 'Temné téma karet postavy a přepínání motivu v dialogu Nastavení' },
-      { type: 'feature', text: 'Export zálohy postavy jako PNG obrázek nebo JSON soubor' },
-      { type: 'improvement', text: 'Optimalizace výkonu pomocí Angular Signals a OnPush strategie změny detekce' },
+      { type: 'feature', text: 'Automatické ukládání questů, poznámek a iniciativy při každé změně' },
+      { type: 'feature', text: 'Temné téma karet a přepínání motivu v Nastavení' },
+      { type: 'feature', text: 'Export zálohy jako PNG nebo JSON soubor' },
+      { type: 'improvement', text: 'Přechod na Angular Signals a OnPush detekci změn' },
     ],
   },
   {
     date: 'Prosinec 2025',
     entries: [
-      { type: 'feature', text: 'Záložka J&D wiki s vyhledáváním v pravidlech Jeskyně a Draci' },
-      { type: 'feature', text: 'Konvertor obrázků pro formátování fotek profilu postav' },
-      { type: 'improvement', text: 'Drag & drop přeuspořádání sekcí karty postavy s ukládáním do localStorage' },
+      { type: 'feature', text: 'J&D wiki — vyhledávání v pravidlech Jeskyně a Draci přímo v záložce' },
+      { type: 'feature', text: 'Konvertor obrázků — úprava a ořez fotek profilu postav' },
+      { type: 'improvement', text: 'Drag & drop přeuspořádání sekcí karty postavy s ukládáním pořadí' },
     ],
   },
   {
     date: 'Říjen 2025',
     entries: [
       { type: 'feature', text: 'PH zástěna — přehledová obrazovka pro Pána Hry s rychlými referencemi' },
-      { type: 'feature', text: 'PH nástroje — tracker iniciativy, questy PH, poznámky a generátor' },
+      { type: 'feature', text: 'PH nástroje — tracker iniciativy, DM questy, poznámky PH a generátor' },
       { type: 'feature', text: 'Databáze D&D — prohledávatelná encyklopedie pravidel a monster' },
     ],
   },
@@ -236,15 +239,14 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
       gap: 6px;
     }
 
-    /* ── Entry ─────────────────────────────────────────────── */
+    /* ── Entry row ─────────────────────────────────────────── */
     .rn-item {
       display: flex;
-      align-items: baseline;
+      align-items: flex-start;   /* badge stays at top for multi-line text */
       gap: 8px;
       padding: 6px 10px;
       border-radius: 6px;
       background: rgba(200,160,60,.03);
-      border-left: 2px solid transparent;
       transition: background .12s;
 
       &:hover { background: rgba(200,160,60,.07); }
@@ -253,14 +255,19 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
     /* ── Type badge ────────────────────────────────────────── */
     .rn-badge {
       flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       font-size: 9px;
       font-family: 'Mikadan', sans-serif;
       letter-spacing: .1em;
       text-transform: uppercase;
-      padding: 2px 6px;
+      padding: 2px 7px;
       border-radius: 4px;
       border: 1px solid;
-      line-height: 1.4;
+      line-height: 1;
+      height: 18px;            /* fixed height so text is always vertically centred */
+      margin-top: 1px;         /* optical alignment with first line of text */
 
       &--feature {
         color: rgba(100,200,120,.9);
@@ -286,7 +293,7 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
       font-size: 12px;
       color: rgba(200,185,155,.75);
       letter-spacing: .03em;
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
     .rn-author {
@@ -298,6 +305,7 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
       font-family: 'Mikadan', sans-serif;
       transition: color .15s;
       white-space: nowrap;
+      margin-top: 2px;          /* align to first text line */
 
       &:hover { color: rgba(200,160,60,.85); text-decoration: underline; }
 
@@ -348,4 +356,3 @@ export class ReleaseNotesDialogComponent {
     this.dialogRef.close();
   }
 }
-

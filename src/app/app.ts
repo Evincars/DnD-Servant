@@ -91,7 +91,7 @@ import { fromEvent } from 'rxjs';
         <mat-toolbar class="toolbar">
           <div class="toolbar__inner">
             <div class="toolbar__left u-flex u-align-center">
-              <button matIconButton (click)="sidenav.toggle()" class="menu-btn u-mr-3" aria-label="Toggle menu">
+              <button matIconButton (click)="sidenav.toggle()" class="menu-btn u-mr-3" aria-label="Otevřít menu" matTooltip="Navigace">
                 <mat-icon>menu</mat-icon>
               </button>
               <img src="JaD-logo.png" alt="Dungeons & Dragons Logo" class="logo u-mr-3" />
@@ -336,7 +336,7 @@ export class App implements OnInit, OnDestroy {
     this._touchLastY = e.touches[0].clientY;
   }
 
-  private onTouchEnd(e: TouchEvent): void {
+  private onTouchEnd(_e: TouchEvent): void {
     if (!this._touchActive) return;
     this._touchActive = false;
 
