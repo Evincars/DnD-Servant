@@ -1020,15 +1020,7 @@ input[type='checkbox'][disabled] {
 
   // ── Save button: hidden on tablet/mobile, shown on desktop ──────────────
   .cs-save-btn {
-    position: sticky !important;
-    top: 0 !important;
-    left: auto !important;
-    width: 100% !important;
-    z-index: 100;
-    font-size: 16px !important;
-    padding: 10px !important;
-    border-radius: 0 !important;
-    text-align: center;
+    display: none !important;
   }
 
   // ── Child component hosts → block cards ───────────────────────────────
