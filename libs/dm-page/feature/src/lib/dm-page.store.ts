@@ -5,13 +5,14 @@ import { pipe, switchMap, tap } from 'rxjs';
 import { tapResponse } from '@ngrx/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DmNotesApiModel, DmQuestsApiModel } from './dm-page-models';
+import { DmNotesApiModel, DmQuestsApiModel, DmStoryTimelineApiModel } from './dm-page-models';
 import { DmPageApiService } from './dm-page-api.service';
 
 export const DmPageStore = signalStore(
   withState({
     dmQuests: undefined as DmQuestsApiModel | undefined,
     dmNotes: undefined as DmNotesApiModel | undefined,
+    dmStoryTimeline: undefined as DmStoryTimelineApiModel | undefined,
     loading: false,
   }),
   withMethods((store, api = inject(DmPageApiService), snack = inject(MatSnackBar)) => {
@@ -89,7 +90,44 @@ export const DmPageStore = signalStore(
       ),
     );
 
-    return { loadDmQuests, saveDmQuests, loadDmNotes, saveDmNotes };
+    const loadDmStoryTimeline = rxMethod<string>(
+      pipe(
+        tap(() => patchState(store, { loading: true })),
+        switchMap(username =>
+          api.getDmStoryTimeline(username).pipe(
+            tapResponse(
+              res => patchState(store, { dmStoryTimeline: res, loading: false }),
+              (e: HttpErrorResponse) => {
+                snack.open('Načtení příběhové osy selhalo: ' + e.message, 'Zavřít', { verticalPosition: 'top', duration: 3000 });
+                patchState(store, { loading: false });
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+
+    const saveDmStoryTimeline = rxMethod<DmStoryTimelineApiModel>(
+      pipe(
+        tap(() => patchState(store, { loading: true })),
+        switchMap(req =>
+          api.saveDmStoryTimeline(req).pipe(
+            tapResponse(
+              () => {
+                patchState(store, { dmStoryTimeline: req, loading: false });
+                snack.open('📖 Příběhové události uloženy!', '✕', { verticalPosition: 'top', duration: 2200, panelClass: ['snackbar--save'] });
+              },
+              (e: HttpErrorResponse) => {
+                snack.open('Ukládání příběhové osy selhalo: ' + e.message, 'Zavřít', { verticalPosition: 'top', duration: 3000 });
+                patchState(store, { loading: false });
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+
+    return { loadDmQuests, saveDmQuests, loadDmNotes, saveDmNotes, loadDmStoryTimeline, saveDmStoryTimeline };
   }),
 );
 
