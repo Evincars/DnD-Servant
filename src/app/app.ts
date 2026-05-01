@@ -16,6 +16,7 @@ import { SheetThemeService } from '@dn-d-servant/character-sheet-feature';
 import { MatDialog } from '@angular/material/dialog';
 import { SettingsDialogComponent, SettingsDialogData } from './settings-dialog.component';
 import { CommandPaletteComponent } from './command-palette.component';
+import { ReleaseNotesDialogComponent } from './release-notes-dialog.component';
 import { fromEvent } from 'rxjs';
 
 @Component({
@@ -111,6 +112,15 @@ import { fromEvent } from 'rxjs';
                 aria-label="Rychlé akce"
               >
                 <mat-icon class="toolbar-icon">search</mat-icon>
+              </button>
+              <button
+                type="button"
+                class="github-link settings-btn u-ml-2"
+                (click)="openReleaseNotes()"
+                matTooltip="Co je nového"
+                aria-label="Co je nového"
+              >
+                <mat-icon class="toolbar-icon">new_releases</mat-icon>
               </button>
             </div>
             <div class="toolbar__right author-info u-flex u-align-center">
@@ -229,12 +239,12 @@ export class App implements OnInit, OnDestroy {
   mobileMenuOpen = signal(false);
   private firstLoad = true;
 
-  // ── Two-finger swipe tracking ────────────────────────────
-  private _touch2StartX = 0;
-  private _touch2StartY = 0;
-  private _touch2LastX = 0;
-  private _touch2LastY = 0;
-  private _touch2Active = false;
+  // ── Single-finger horizontal swipe tracking ──────────────
+  private _touchStartX = 0;
+  private _touchStartY = 0;
+  private _touchLastX = 0;
+  private _touchLastY = 0;
+  private _touchActive = false;
 
   readonly sidenavContent = viewChild<MatSidenavContent>('sidenavContent');
   readonly formElement = viewChild<ElementRef>('content');
@@ -308,33 +318,35 @@ export class App implements OnInit, OnDestroy {
   // ── Two-finger swipe ─────────────────────────────────────
 
   private onTouchStart(e: TouchEvent): void {
-    if (e.touches.length === 2) {
-      this._touch2StartX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-      this._touch2StartY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-      this._touch2LastX = this._touch2StartX;
-      this._touch2LastY = this._touch2StartY;
-      this._touch2Active = true;
-    } else {
-      this._touch2Active = false;
+    // Only track single-finger touches; pinch/zoom (2+ fingers) are ignored
+    if (e.touches.length !== 1) {
+      this._touchActive = false;
+      return;
     }
+    this._touchStartX = e.touches[0].clientX;
+    this._touchStartY = e.touches[0].clientY;
+    this._touchLastX = this._touchStartX;
+    this._touchLastY = this._touchStartY;
+    this._touchActive = true;
   }
 
   private onTouchMove(e: TouchEvent): void {
-    if (!this._touch2Active || e.touches.length !== 2) return;
-    this._touch2LastX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-    this._touch2LastY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+    if (!this._touchActive || e.touches.length !== 1) return;
+    this._touchLastX = e.touches[0].clientX;
+    this._touchLastY = e.touches[0].clientY;
   }
 
   private onTouchEnd(e: TouchEvent): void {
-    if (!this._touch2Active) return;
-    this._touch2Active = false;
+    if (!this._touchActive) return;
+    this._touchActive = false;
 
-    const dx = this._touch2LastX - this._touch2StartX;
-    const dy = this._touch2LastY - this._touch2StartY;
-    const minSwipe = 60;
+    const dx = this._touchLastX - this._touchStartX;
+    const dy = this._touchLastY - this._touchStartY;
+    const minSwipe = 55;
 
-    // Only trigger for predominantly horizontal movement
-    if (Math.abs(dx) >= minSwipe && Math.abs(dx) > Math.abs(dy) * 1.5) {
+    // Require clearly horizontal motion: dx must dominate dy by 2× and exceed threshold.
+    // This keeps vertical scrolling and drag-and-drop interactions untouched.
+    if (Math.abs(dx) >= minSwipe && Math.abs(dx) > Math.abs(dy) * 2) {
       this.tabNavigator.navigate(dx < 0 ? 1 : -1); // swipe left → next, swipe right → prev
     }
   }
@@ -347,6 +359,14 @@ export class App implements OnInit, OnDestroy {
       backdropClass: 'cp-dialog-backdrop',
       hasBackdrop: true,
       restoreFocus: false,
+    });
+  }
+
+  openReleaseNotes(): void {
+    this.dialog.open(ReleaseNotesDialogComponent, {
+      panelClass: 'sd-dialog-panel',
+      backdropClass: 'sd-dialog-backdrop',
+      hasBackdrop: true,
     });
   }
 
