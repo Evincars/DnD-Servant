@@ -94,7 +94,7 @@ export interface SettingsDialogData {
 
         <!-- Keyboard shortcuts section -->
         <div class="sd-section">
-          <div class="sd-section-label">Klávesové zkratky</div>
+          <div class="sd-section-label">Klávesové zkratky &amp; gesta</div>
           <div class="sd-col">
             <div class="sd-shortcut-row">
               <div class="sd-shortcut-keys">
@@ -109,6 +109,15 @@ export interface SettingsDialogData {
                 <kbd>Ctrl</kbd><span class="sd-shortcut-sep">+</span><kbd>K</kbd>
               </div>
               <span class="sd-shortcut-desc">Rychlá navigace (příkazová paleta)</span>
+            </div>
+            <div class="sd-shortcut-row">
+              <div class="sd-shortcut-keys sd-shortcut-keys--gesture">
+                <span class="sd-gesture-icon">👆</span>
+                <span class="sd-gesture-swipe">swipe ←</span>
+                <span class="sd-shortcut-slash">/</span>
+                <span class="sd-gesture-swipe">swipe →</span>
+              </div>
+              <span class="sd-shortcut-desc">Přepínání záložek (dotyková gesta)</span>
             </div>
           </div>
         </div>
@@ -365,6 +374,28 @@ export interface SettingsDialogData {
       color: rgba(180,160,130,.6);
       letter-spacing: .04em;
       line-height: 1.3;
+    }
+
+    .sd-shortcut-keys--gesture {
+      min-width: 130px;
+    }
+
+    .sd-gesture-icon {
+      font-size: 13px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .sd-gesture-swipe {
+      font-size: 10px;
+      font-family: monospace;
+      letter-spacing: .04em;
+      padding: 2px 6px;
+      border: 1px solid rgba(200,160,60,.3);
+      border-radius: 4px;
+      background: rgba(200,160,60,.07);
+      color: rgba(200,160,60,.7);
+      white-space: nowrap;
     }
 
     /* ── Version bar ───────────────────────────────────────── */
