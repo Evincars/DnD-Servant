@@ -1,11 +1,11 @@
-import { Component, ChangeDetectionStrategy, DestroyRef, ElementRef, inject, OnDestroy, OnInit, signal, viewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, DestroyRef, ElementRef, inject, DOCUMENT, OnDestroy, OnInit, signal, viewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { routes } from './app.routes';
-import { AuthService, LocalStorageService, DB_BACKUP_KEY_CHARACTER, DB_BACKUP_KEY_GROUP, DB_BACKUP_KEY_NOTES } from '@dn-d-servant/util';
+import { AuthService, LocalStorageService, DB_BACKUP_KEY_CHARACTER, DB_BACKUP_KEY_GROUP, DB_BACKUP_KEY_NOTES, TabNavigatorService } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,10 +15,15 @@ import { DiceRollerComponent } from '@dn-d-servant/ui';
 import { SheetThemeService } from '@dn-d-servant/character-sheet-feature';
 import { MatDialog } from '@angular/material/dialog';
 import { SettingsDialogComponent, SettingsDialogData } from './settings-dialog.component';
+import { CommandPaletteComponent } from './command-palette.component';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(document:keydown)': 'onGlobalKeydown($event)',
+  },
   template: `
     <mat-sidenav-container class="container">
       <mat-sidenav #sidenav mode="over" class="sidenav">
@@ -97,6 +102,15 @@ import { SettingsDialogComponent, SettingsDialogData } from './settings-dialog.c
                 matTooltip="Nastavení"
               >
                 <mat-icon class="toolbar-icon">settings</mat-icon>
+              </button>
+              <button
+                type="button"
+                class="github-link settings-btn u-ml-2 cmd-palette-btn"
+                (click)="openCommandPalette()"
+                matTooltip="Rychlé akce (Ctrl+K)"
+                aria-label="Rychlé akce"
+              >
+                <mat-icon class="toolbar-icon">search</mat-icon>
               </button>
             </div>
             <div class="toolbar__right author-info u-flex u-align-center">
@@ -206,12 +220,21 @@ export class App implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
   private readonly dialog = inject(MatDialog);
+  private readonly tabNavigator = inject(TabNavigatorService);
+  private readonly doc = inject(DOCUMENT);
 
   routes = routes;
   showBackToTop = signal(false);
   screenshotLoading = signal(false);
   mobileMenuOpen = signal(false);
   private firstLoad = true;
+
+  // ── Two-finger swipe tracking ────────────────────────────
+  private _touch2StartX = 0;
+  private _touch2StartY = 0;
+  private _touch2LastX = 0;
+  private _touch2LastY = 0;
+  private _touch2Active = false;
 
   readonly sidenavContent = viewChild<MatSidenavContent>('sidenavContent');
   readonly formElement = viewChild<ElementRef>('content');
@@ -243,6 +266,19 @@ export class App implements OnInit, OnDestroy {
     if (contentEl) {
       contentEl.addEventListener('scroll', this.onScroll);
     }
+
+    // Two-finger swipe — passive listeners for best scroll performance
+    fromEvent<TouchEvent>(this.doc, 'touchstart', { passive: true })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(e => this.onTouchStart(e));
+
+    fromEvent<TouchEvent>(this.doc, 'touchmove', { passive: true })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(e => this.onTouchMove(e));
+
+    fromEvent<TouchEvent>(this.doc, 'touchend', { passive: true })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(e => this.onTouchEnd(e));
   }
 
   ngOnDestroy(): void {
@@ -251,6 +287,70 @@ export class App implements OnInit, OnDestroy {
       contentEl.removeEventListener('scroll', this.onScroll);
     }
   }
+
+  // ── Keyboard shortcut handler (via host binding) ─────────
+
+  onGlobalKeydown(event: KeyboardEvent): void {
+    // Ctrl+K → command palette
+    if (event.ctrlKey && event.key === 'k') {
+      event.preventDefault();
+      this.openCommandPalette();
+      return;
+    }
+
+    // Alt+Left / Alt+Right → navigate tabs
+    if (event.altKey && (event.key === 'ArrowLeft' || event.key === 'ArrowRight')) {
+      event.preventDefault();
+      this.tabNavigator.navigate(event.key === 'ArrowRight' ? 1 : -1);
+    }
+  }
+
+  // ── Two-finger swipe ─────────────────────────────────────
+
+  private onTouchStart(e: TouchEvent): void {
+    if (e.touches.length === 2) {
+      this._touch2StartX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+      this._touch2StartY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+      this._touch2LastX = this._touch2StartX;
+      this._touch2LastY = this._touch2StartY;
+      this._touch2Active = true;
+    } else {
+      this._touch2Active = false;
+    }
+  }
+
+  private onTouchMove(e: TouchEvent): void {
+    if (!this._touch2Active || e.touches.length !== 2) return;
+    this._touch2LastX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+    this._touch2LastY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+  }
+
+  private onTouchEnd(e: TouchEvent): void {
+    if (!this._touch2Active) return;
+    this._touch2Active = false;
+
+    const dx = this._touch2LastX - this._touch2StartX;
+    const dy = this._touch2LastY - this._touch2StartY;
+    const minSwipe = 60;
+
+    // Only trigger for predominantly horizontal movement
+    if (Math.abs(dx) >= minSwipe && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      this.tabNavigator.navigate(dx < 0 ? 1 : -1); // swipe left → next, swipe right → prev
+    }
+  }
+
+  // ── Command palette ──────────────────────────────────────
+
+  openCommandPalette(): void {
+    this.dialog.open(CommandPaletteComponent, {
+      panelClass: 'cp-dialog-panel',
+      backdropClass: 'cp-dialog-backdrop',
+      hasBackdrop: true,
+      restoreFocus: false,
+    });
+  }
+
+  // ── Scroll handler ───────────────────────────────────────
 
   onScroll = (): void => {
     const contentEl = this.sidenavContent()?.getElementRef().nativeElement as HTMLElement | undefined;

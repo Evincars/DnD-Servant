@@ -1,11 +1,14 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { InitiativeTrackerComponent } from '@dn-d-servant/character-sheet-feature';
-import { LocalStorageService, DM_TAB_KEY } from '@dn-d-servant/util';
+import { LocalStorageService, DM_TAB_KEY, TabNavigatorService } from '@dn-d-servant/util';
 import { DmQuestsComponent } from './dm-quests/dm-quests.component';
 import { DmNotesComponent } from './dm-notes/dm-notes.component';
 import { DmGeneratorComponent } from './dm-generator/dm-generator.component';
 import { DmPageStore } from '../dm-page.store';
+
+/** Total number of tabs in the DM page tab group. Keep in sync with the template. */
+const DM_TAB_COUNT = 4;
 
 
 @Component({
@@ -203,10 +206,25 @@ import { DmPageStore } from '../dm-page.store';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatTabGroup, MatTab, InitiativeTrackerComponent, DmQuestsComponent, DmNotesComponent, DmGeneratorComponent],
 })
-export class DmPageComponent {
+export class DmPageComponent implements OnInit, OnDestroy {
   private readonly ls = inject(LocalStorageService);
+  private readonly tabNavigator = inject(TabNavigatorService);
 
   selectedTab = signal<number>(this.ls.getDataSync<number>(DM_TAB_KEY) ?? 0);
+
+  private readonly _registration = {
+    tabCount: DM_TAB_COUNT,
+    selectedTab: this.selectedTab,
+    persistTab: (i: number) => this.ls.setDataSync(DM_TAB_KEY, i),
+  };
+
+  ngOnInit(): void {
+    this.tabNavigator.register(this._registration);
+  }
+
+  ngOnDestroy(): void {
+    this.tabNavigator.unregister(this._registration);
+  }
 
   onTabChange(index: number): void {
     this.selectedTab.set(index);

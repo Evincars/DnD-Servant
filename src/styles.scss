@@ -482,3 +482,25 @@ mat-sidenav-content {
   scrollbar-width: thin;
   scrollbar-color: #c8a03c rgba(10,8,6,.95);
 }
+
+// ── Command Palette dialog wrapper ────────────────────────────────────────────
+
+.cp-dialog-panel .mat-mdc-dialog-container {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 12px !important;
+  overflow: visible !important;
+}
+
+.cp-dialog-panel .mdc-dialog__surface {
+  background: transparent !important;
+  box-shadow: 0 24px 80px rgba(0,0,0,.85), 0 0 0 1px rgba(200,160,60,.2) !important;
+  border-radius: 12px !important;
+  overflow: visible !important;
+}
+
+.cp-dialog-backdrop {
+  background: rgba(4,2,8,.72) !important;
+  backdrop-filter: blur(3px);
+}
