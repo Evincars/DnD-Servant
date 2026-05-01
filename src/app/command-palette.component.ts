@@ -25,6 +25,14 @@ export interface CommandItem {
   tabStorageKey?: string;
 }
 
+/** Strip diacritics and lowercase – makes search locale-agnostic. */
+function normalize(s: string): string {
+  return s
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+}
+
 const APP_COMMANDS: CommandItem[] = [
   // ── Pages ─────────────────────────────────────────────────
   {
@@ -442,12 +450,12 @@ export class CommandPaletteComponent implements AfterViewInit {
   readonly activeIndex = signal(0);
 
   readonly filtered = computed(() => {
-    const q = this.query().toLowerCase().trim();
+    const q = normalize(this.query().trim());
     if (!q) return APP_COMMANDS;
     return APP_COMMANDS.filter(
       cmd =>
-        cmd.label.toLowerCase().includes(q) ||
-        cmd.sublabel.toLowerCase().includes(q),
+        normalize(cmd.label).includes(q) ||
+        normalize(cmd.sublabel).includes(q),
     );
   });
 

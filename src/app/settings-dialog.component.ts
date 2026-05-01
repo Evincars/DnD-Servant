@@ -90,6 +90,29 @@ export interface SettingsDialogData {
           </div>
         </div>
 
+        <div class="sd-divider"></div>
+
+        <!-- Keyboard shortcuts section -->
+        <div class="sd-section">
+          <div class="sd-section-label">Klávesové zkratky</div>
+          <div class="sd-col">
+            <div class="sd-shortcut-row">
+              <div class="sd-shortcut-keys">
+                <kbd>Alt</kbd><span class="sd-shortcut-sep">+</span><kbd>←</kbd>
+                <span class="sd-shortcut-slash">/</span>
+                <kbd>Alt</kbd><span class="sd-shortcut-sep">+</span><kbd>→</kbd>
+              </div>
+              <span class="sd-shortcut-desc">Přepínání záložek</span>
+            </div>
+            <div class="sd-shortcut-row">
+              <div class="sd-shortcut-keys">
+                <kbd>Ctrl</kbd><span class="sd-shortcut-sep">+</span><kbd>K</kbd>
+              </div>
+              <span class="sd-shortcut-desc">Rychlá navigace (příkazová paleta)</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   `,
@@ -285,6 +308,57 @@ export interface SettingsDialogData {
     .sd-btn:hover:not(:disabled) {
       .sd-btn-label { color: #e8d5a0; }
       .sd-btn-icon { color: rgba(200,160,60,.9); }
+    }
+
+    /* ── Keyboard shortcut rows ────────────────────────────── */
+    .sd-shortcut-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 12px;
+      border: 1px solid rgba(200,160,60,.15);
+      border-radius: 7px;
+      background: rgba(200,160,60,.04);
+    }
+
+    .sd-shortcut-keys {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      flex-shrink: 0;
+      min-width: 130px;
+    }
+
+    .sd-shortcut-sep {
+      font-size: 10px;
+      color: rgba(200,160,60,.35);
+      padding: 0 1px;
+    }
+
+    .sd-shortcut-slash {
+      font-size: 12px;
+      color: rgba(200,160,60,.25);
+      padding: 0 4px;
+    }
+
+    kbd {
+      font-size: 10px;
+      padding: 2px 6px;
+      border: 1px solid rgba(200,160,60,.35);
+      border-bottom-width: 2px;
+      border-radius: 4px;
+      background: rgba(200,160,60,.08);
+      color: rgba(200,160,60,.75);
+      font-family: monospace;
+      letter-spacing: .03em;
+      white-space: nowrap;
+    }
+
+    .sd-shortcut-desc {
+      font-size: 11px;
+      color: rgba(180,160,130,.6);
+      letter-spacing: .04em;
+      line-height: 1.3;
     }
   `,
 })
