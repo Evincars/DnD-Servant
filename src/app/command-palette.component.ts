@@ -34,14 +34,7 @@ function normalize(s: string): string {
 }
 
 const APP_COMMANDS: CommandItem[] = [
-  // ── Pages ─────────────────────────────────────────────────
-  {
-    id: 'page-character-sheet',
-    label: 'Karta postavy',
-    sublabel: 'Stránka',
-    icon: 'person_edit',
-    routePath: routes.characterSheet,
-  },
+  // ── Pages (no standalone character-sheet page — use the tab entry instead) ──
   {
     id: 'page-dm-screen',
     label: 'PH zástěna',

@@ -114,6 +114,12 @@ export interface SettingsDialogData {
         </div>
 
       </div>
+
+      <!-- Version footer -->
+      <div class="sd-version-bar">
+        <span class="sd-version-label">DnD Servant</span>
+        <span class="sd-version-badge">v0.9.4</span>
+      </div>
     </div>
   `,
   styles: `
@@ -359,6 +365,36 @@ export interface SettingsDialogData {
       color: rgba(180,160,130,.6);
       letter-spacing: .04em;
       line-height: 1.3;
+    }
+
+    /* ── Version bar ───────────────────────────────────────── */
+    .sd-version-bar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 8px 16px;
+      border-top: 1px solid rgba(200,160,60,.1);
+      background: rgba(200,160,60,.02);
+    }
+
+    .sd-version-label {
+      font-family: 'Mikadan', sans-serif;
+      font-size: 10px;
+      letter-spacing: .1em;
+      color: rgba(200,160,60,.25);
+      text-transform: uppercase;
+    }
+
+    .sd-version-badge {
+      font-size: 10px;
+      font-family: monospace;
+      letter-spacing: .08em;
+      color: rgba(200,160,60,.45);
+      padding: 1px 6px;
+      border: 1px solid rgba(200,160,60,.2);
+      border-radius: 4px;
+      background: rgba(200,160,60,.05);
     }
   `,
 })

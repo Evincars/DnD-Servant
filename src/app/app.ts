@@ -18,6 +18,7 @@ import { SettingsDialogComponent, SettingsDialogData } from './settings-dialog.c
 import { CommandPaletteComponent } from './command-palette.component';
 import { ReleaseNotesDialogComponent } from './release-notes-dialog.component';
 import { fromEvent } from 'rxjs';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -353,12 +354,23 @@ export class App implements OnInit, OnDestroy {
 
   // ── Command palette ──────────────────────────────────────
 
+  private _commandPaletteRef: MatDialogRef<CommandPaletteComponent> | null = null;
+
   openCommandPalette(): void {
-    this.dialog.open(CommandPaletteComponent, {
+    // If already open, close it (Ctrl+K acts as a toggle)
+    if (this._commandPaletteRef) {
+      this._commandPaletteRef.close();
+      this._commandPaletteRef = null;
+      return;
+    }
+    this._commandPaletteRef = this.dialog.open(CommandPaletteComponent, {
       panelClass: 'cp-dialog-panel',
       backdropClass: 'cp-dialog-backdrop',
       hasBackdrop: true,
       restoreFocus: false,
+    });
+    this._commandPaletteRef.afterClosed().subscribe(() => {
+      this._commandPaletteRef = null;
     });
   }
 
