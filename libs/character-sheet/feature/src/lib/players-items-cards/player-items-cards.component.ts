@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   ElementRef,
   inject,
@@ -17,6 +18,9 @@ import { AuthService } from '@dn-d-servant/util';
 import { ItemVaultEntry } from '@dn-d-servant/character-sheet-util';
 import { SpinnerOverlayComponent } from '@dn-d-servant/ui';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'player-items-cards',
@@ -33,8 +37,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     /* ── Page header ─────────────────────────────────────── */
     .vault-header {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
       margin-bottom: 28px;
       padding-bottom: 14px;
       border-bottom: 2px solid transparent;
@@ -623,9 +629,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
         justify-content: center !important;
       }
     }
+
+    /* ── Auto-save indicator ───────────────────── */
+    .autosave-msg {
+      font-family: 'Mikadan', sans-serif;
+      font-size: 10px;
+      letter-spacing: .1em;
+      color: rgba(100,180,110,.6);
+      transition: opacity .4s;
+      &--hidden { opacity: 0; pointer-events: none; }
+    }
   `,
   template: `
-    <spinner-overlay [showSpinner]="store.loading()" [diameter]="50">
+    <spinner-overlay [showSpinner]="showSpinner()" [diameter]="50">
+
       <div class="vault-header">
         <div>
           <div class="vault-title">
@@ -637,11 +654,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
           </div>
         </div>
         <div class="vault-actions">
+          <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
           <button class="btn-dnd" (click)="addItem()" matTooltip="Přidat předmět">
             <mat-icon>add</mat-icon>
             Přidat předmět
           </button>
-          <button class="btn-dnd btn-dnd-save" (click)="save()" matTooltip="Uložit do databáze">
+          <button class="btn-dnd btn-dnd-save" (click)="save(true)" matTooltip="Uložit do databáze">
             <mat-icon>save</mat-icon>
             Uložit
           </button>
@@ -699,6 +717,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
               <input
                 class="item-name-input"
                 [(ngModel)]="items()[i].name"
+                (ngModelChange)="scheduleAutoSave()"
                 placeholder="Název předmětu"
                 [attr.aria-label]="'Název předmětu ' + (i + 1)"
               />
@@ -709,6 +728,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
             <textarea
               class="item-desc-textarea"
               [(ngModel)]="items()[i].description"
+              (ngModelChange)="scheduleAutoSave()"
               placeholder="Popis, vlastnosti, bonusy, příběh předmětu..."
               rows="3"
             ></textarea>
@@ -768,6 +788,17 @@ export class PlayerItemsCardsComponent {
   dragOverIndex = signal<number | null>(null);
   previewItem = signal<ItemVaultEntry | null>(null);
   confirmDeleteIndex = signal<number | null>(null);
+  autoSaveStatus = signal<'idle' | 'saved'>('idle');
+  private readonly _dbLoaded = signal(false);
+  private readonly _manualSaving = signal(false);
+  readonly showSpinner = computed(() => this.store.loading() && this._manualSaving());
+  private readonly _autoSave$ = new Subject<void>();
+  private readonly _hideBanner$ = new Subject<void>();
+
+  /** Call from user-driven actions to schedule a debounced auto-save. */
+  scheduleAutoSave(): void {
+    this._autoSave$.next();
+  }
 
   private readonly fileInputRefs = viewChildren<ElementRef<HTMLInputElement>>('fileInputRef');
 
@@ -777,6 +808,8 @@ export class PlayerItemsCardsComponent {
       untracked(() => {
         if (vault?.items) {
           this.items.set(vault.items.map(i => ({ ...i })));
+          this._dbLoaded.set(true);
+          this._manualSaving.set(false);
         }
       });
     });
@@ -789,6 +822,20 @@ export class PlayerItemsCardsComponent {
         }
       });
     });
+
+    // ── Auto-save 2.5 s after last user change (only after DB loaded) ────
+    this._autoSave$
+      .pipe(debounceTime(2500), takeUntilDestroyed())
+      .subscribe(() => {
+        if (!this._dbLoaded()) return;
+        this.save();
+        this.autoSaveStatus.set('saved');
+        this._hideBanner$.next();
+      });
+
+    this._hideBanner$
+      .pipe(debounceTime(3000), takeUntilDestroyed())
+      .subscribe(() => this.autoSaveStatus.set('idle'));
   }
 
   triggerFileInput(index: number): void {
@@ -806,6 +853,7 @@ export class PlayerItemsCardsComponent {
         imageBase64: null,
       },
     ]);
+    this.scheduleAutoSave();
   }
 
   askDelete(index: number): void {
@@ -821,6 +869,7 @@ export class PlayerItemsCardsComponent {
     if (idx === null) return;
     this.items.update(list => list.filter((_, i) => i !== idx));
     this.confirmDeleteIndex.set(null);
+    this.scheduleAutoSave();
   }
 
   onDragOver(event: DragEvent, index: number): void {
@@ -871,6 +920,7 @@ export class PlayerItemsCardsComponent {
         copy[index] = { ...copy[index], imageBase64: base64 };
         return copy;
       });
+      this.scheduleAutoSave();
     };
     reader.readAsDataURL(file);
   }
@@ -892,9 +942,10 @@ export class PlayerItemsCardsComponent {
     if (this.confirmDeleteIndex() !== null) this.cancelDelete();
   }
 
-  save(): void {
+  save(manual = false): void {
     const username = this.authService.currentUser()?.username;
     if (!username) return;
+    if (manual) this._manualSaving.set(true);
     this.store.saveItemVault({ username, items: this.items() });
   }
 }

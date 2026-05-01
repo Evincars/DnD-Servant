@@ -29,59 +29,72 @@ import { SheetThemeService } from './sheet-theme.service';
 
     <input
       [formControl]="controls.headerInfo.controls.jmenoPostavy"
-      class="field"
+      class="field cs-sp-name-hide"
       style="top:83px; left:79px; width:347px; text-align: center"
       placeholder="Jméno postavy"
     />
-    <input
-      [formControl]="controls.headerInfo.controls.titulyAHodnosti"
-      class="field"
-      style="top:83px; left:867px; width:342px; text-align: center"
-      placeholder="Tituly, hodnosti, řády, ..."
-    />
 
-    <input
-      [formControl]="controls.lookAndFeelForm.controls.vek"
-      class="field"
-      style="top:297px; left:74px; width:171px"
-      placeholder="Věk"
-    />
-    <input
-      [formControl]="controls.lookAndFeelForm.controls.plet"
-      class="field"
-      style="top:297px; left:261px; width:171px"
-      placeholder="Pleť"
-    />
-    <input
-      [formControl]="controls.lookAndFeelForm.controls.vyska"
-      class="field"
-      style="top:372px; left:74px; width:171px"
-      placeholder="Výška"
-    />
-    <input
-      [formControl]="controls.lookAndFeelForm.controls.vlasy"
-      class="field"
-      style="top:372px; left:261px; width:171px"
-      placeholder="Vlasy"
-    />
-    <input
-      [formControl]="controls.lookAndFeelForm.controls.vaha"
-      class="field"
-      style="top:451px; left:74px; width:171px"
-      placeholder="Váha"
-    />
-    <input
-      [formControl]="controls.lookAndFeelForm.controls.oci"
-      class="field"
-      style="top:451px; left:261px; width:171px"
-      placeholder="Oči"
-    />
-    <input
-      [formControl]="controls.lookAndFeelForm.controls.postava"
-      class="field"
-      style="top:530px; left:74px; width:359px"
-      placeholder="Postava"
-    />
+    <div class="cs-sp-appearance-grid">
+      <input
+        [formControl]="controls.headerInfo.controls.titulyAHodnosti"
+        class="field"
+        data-label="Tituly a hodnosti"
+        style="top:83px; left:867px; width:342px; text-align: center"
+        placeholder="Tituly, hodnosti, řády, ..."
+      />
+      <input
+        [formControl]="controls.lookAndFeelForm.controls.vek"
+        class="field"
+        data-label="Věk"
+        style="top:297px; left:74px; width:171px"
+        placeholder="Věk"
+      />
+      <input
+        [formControl]="controls.lookAndFeelForm.controls.plet"
+        class="field"
+        data-label="Pleť"
+        style="top:297px; left:261px; width:171px"
+        placeholder="Pleť"
+      />
+      <input
+        [formControl]="controls.lookAndFeelForm.controls.vyska"
+        class="field"
+        data-label="Výška"
+        style="top:372px; left:74px; width:171px"
+        placeholder="Výška"
+      />
+      <input
+        [formControl]="controls.lookAndFeelForm.controls.vlasy"
+        class="field"
+        data-label="Vlasy"
+        style="top:372px; left:261px; width:171px"
+        placeholder="Vlasy"
+      />
+      <input
+        [formControl]="controls.lookAndFeelForm.controls.vaha"
+        class="field"
+        data-label="Váha"
+        style="top:451px; left:74px; width:171px"
+        placeholder="Váha"
+      />
+      <input
+        [formControl]="controls.lookAndFeelForm.controls.oci"
+        class="field"
+        data-label="Oči"
+        style="top:451px; left:261px; width:171px"
+        placeholder="Oči"
+      />
+      <input
+        [formControl]="controls.lookAndFeelForm.controls.postava"
+        class="field"
+        data-label="Postava"
+        style="top:530px; left:74px; width:359px"
+        placeholder="Postava"
+      />
+    </div>
+    <div class="cs-spells-field-wrap cs-spells-field-wrap--textarea cs-responsive-only" data-label="O postavě">
+      <rich-textarea [formControl]="infoAboutCharacterControl()" class="field textarea" style="top:545.1px; left:834.47px; width:349.77px; height:432px;"></rich-textarea>
+    </div>
     <rich-textarea
       [formControl]="controls.lookAndFeelForm.controls.obleceniAVzezreni"
       class="field textarea"
@@ -166,6 +179,7 @@ export class CharacterSheetSecondPageComponent {
   readonly sheetTheme = inject(SheetThemeService);
 
   form = input.required<FormGroup<SecondPageForm>>();
+  infoAboutCharacterControl = input.required<any>();
 
   base64Image = signal<string | null>(null);
   showPreview = signal(false);

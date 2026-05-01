@@ -1,4 +1,4 @@
-﻿import { ChangeDetectionStrategy, Component, computed, inject, input, signal, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, signal, Signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -9,6 +9,8 @@ import { ProfessionForm, SpellsForm, ThirdPageForm, TopInfoForSpellSheetForm } f
 import { JadSpellsService } from './jad-spells.service';
 import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detail-dialog.component';
 import { SheetThemeService } from './sheet-theme.service';
+import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.component';
+import { CdkDropList } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'third-page',
@@ -17,172 +19,206 @@ import { SheetThemeService } from './sheet-theme.service';
 
     <h3 class="cs-section-title">Kouzla</h3>
 
-    <input
-      [formControl]="controls.topInfoForSpellSheet.controls.jmenoPostavy"
-      class="field"
-      style="top:179px; left:472px; width:347px; text-align: center"
-      placeholder="Jméno postavy"
-    />
-    <input
-      [formControl]="controls.topInfoForSpellSheet.controls.stupenPozic"
-      class="field"
-      style="top:121px; left:960px; width:82px;"
-      placeholder="Stupeň"
-    />
-    <input
-      [formControl]="controls.topInfoForSpellSheet.controls.checkbox1"
-      type="checkbox"
-      class="field checkbox third-page-checkbox"
-      style="top:122px; left:1061px;"
-    />
-    <input
-      [formControl]="controls.topInfoForSpellSheet.controls.checkbox2"
-      type="checkbox"
-      class="field checkbox third-page-checkbox"
-      style="top:122px; left:1102px;"
-    />
-    <input
-      [formControl]="controls.topInfoForSpellSheet.controls.checkbox3"
-      type="checkbox"
-      class="field checkbox third-page-checkbox"
-      style="top:122px; left:1144px;"
-    />
-    <input
-      [formControl]="controls.topInfoForSpellSheet.controls.checkbox4"
-      type="checkbox"
-      class="field checkbox third-page-checkbox"
-      style="top:122px; left:1185px;"
-    />
+    <!-- ══ Informace o sesilateli sub-collapsible (transparent on desktop, collapsed on mobile) ══ -->
+    <!--
+      The cdkDropList wrapper below is an ISOLATION BOUNDARY.
+      cs-collapsible carries CdkDrag via hostDirectives and would otherwise register as
+      a spurious 12th drag item in the parent character-sheet drop-list, corrupting all
+      drop indices. Wrapping it in its own cdkDropList makes CdkDrag register here instead.
+      [draggable]="false" additionally disables the drag gesture on mobile so there is no
+      misleading drag handle on a section that cannot be independently reordered.
+    -->
+    <div cdkDropList>
+      <cs-collapsible title="Informace o sesilateli" storageKey="kouzla-caster-info" [defaultOpen]="false" icon="person_search" [draggable]="false">
 
-    <input
-      [formControl]="controls.topInfoForSpellSheet.controls.mystickyTaj"
-      class="field"
-      style="top:181px; left:960px; width:82px;"
-      placeholder="Mystický taj"
-    />
-    <input
-      [formControl]="controls.topInfoForSpellSheet.controls.mystickyTajCheckbox1"
-      type="checkbox"
-      class="field checkbox third-page-checkbox"
-      style="top:216px; left:1061px;"
-    />
-    <input
-      [formControl]="controls.topInfoForSpellSheet.controls.mystickyTajCheckbox2"
-      type="checkbox"
-      class="field checkbox third-page-checkbox"
-      style="top:216px; left:1103px;"
-    />
-    <input
-      [formControl]="controls.topInfoForSpellSheet.controls.mystickyTajCheckbox3"
-      type="checkbox"
-      class="field checkbox third-page-checkbox"
-      style="top:216px; left:1144px;"
-    />
-    <input
-      [formControl]="controls.topInfoForSpellSheet.controls.mystickyTajCheckbox4"
-      type="checkbox"
-      class="field checkbox third-page-checkbox"
-      style="top:216px; left:1185px;"
-    />
+      <!-- Character name on spell sheet (hidden on mobile/tablet via CSS) -->
+      <input
+        [formControl]="controls.topInfoForSpellSheet.controls.jmenoPostavy"
+        class="field cs-caster-name-field"
+        style="top:179px; left:472px; width:347px; text-align: center"
+        placeholder="Jméno postavy"
+      />
 
-    <input
-      [formControl]="controls.professionForm.controls.prvniPovolaniSesilatelskePovolani"
-      class="field"
-      style="top:346px; left:219px; width:189px;"
-      placeholder="*"
-    />
-    <input
-      [formControl]="controls.professionForm.controls.prvniPovolaniUroven"
-      class="field"
-      style="top:346px; left:419px; width:70px;"
-      placeholder="*"
-    />
-    <input
-      [formControl]="controls.professionForm.controls.prvniPovolaniMaxStupenKouzel"
-      class="field"
-      style="top:346px; left:500px; width:179px;"
-      placeholder="*"
-    />
-    <input
-      [formControl]="controls.professionForm.controls.prvniPovolaniSesilaciVlastnost"
-      class="field"
-      style="top:346px; left:689px; width:179px;"
-      placeholder="*"
-    />
-    <input
-      [formControl]="controls.professionForm.controls.prvniPovolaniSOZachrany"
-      class="field"
-      style="top:346px; left:878px; width:179px;"
-      placeholder="*"
-    />
-    <input
-      [formControl]="controls.professionForm.controls.prvniPovolaniUtocnyBonus"
-      class="field"
-      style="top:346px; left:1068px; width:149px;"
-      placeholder="*"
-    />
+      <!-- ── Magie paktu area ── -->
+      <div class="cs-pact-magic-area">
+        <!-- Row 1: Stupeň pozic -->
+        <div class="cs-pact-row">
+          <span class="cs-pact-row-label">Stupeň pozic</span>
+          <input
+            [formControl]="controls.topInfoForSpellSheet.controls.stupenPozic"
+            class="field cs-pact-field"
+            style="top:121px; left:960px; width:82px;"
+            placeholder="Stupeň pozic paktu"
+          />
+          <input
+            [formControl]="controls.topInfoForSpellSheet.controls.checkbox1"
+            type="checkbox"
+            class="field checkbox third-page-checkbox cs-pact-checkbox"
+            style="top:122px; left:1061px;"
+          />
+          <input
+            [formControl]="controls.topInfoForSpellSheet.controls.checkbox2"
+            type="checkbox"
+            class="field checkbox third-page-checkbox cs-pact-checkbox"
+            style="top:122px; left:1102px;"
+          />
+          <input
+            [formControl]="controls.topInfoForSpellSheet.controls.checkbox3"
+            type="checkbox"
+            class="field checkbox third-page-checkbox cs-pact-checkbox"
+            style="top:122px; left:1144px;"
+          />
+          <input
+            [formControl]="controls.topInfoForSpellSheet.controls.checkbox4"
+            type="checkbox"
+            class="field checkbox third-page-checkbox cs-pact-checkbox"
+            style="top:122px; left:1185px;"
+          />
+        </div>
 
-    <input
-      [formControl]="controls.professionForm.controls.druhePovolaniSesilatelskePovolani"
-      class="field"
-      style="top:385px; left:219px; width:189px;"
-      placeholder="*"
-    />
-    <input
-      [formControl]="controls.professionForm.controls.druhePovolaniUroven"
-      class="field"
-      style="top:385px; left:419px; width:70px;"
-      placeholder="*"
-    />
-    <input
-      [formControl]="controls.professionForm.controls.druhePovolaniMaxStupenKouzel"
-      class="field"
-      style="top:385px; left:500px; width:179px;"
-      placeholder="*"
-    />
-    <input
-      [formControl]="controls.professionForm.controls.druhePovolaniSesilaciVlastnost"
-      class="field"
-      style="top:385px; left:689px; width:179px;"
-      placeholder="*"
-    />
-    <input
-      [formControl]="controls.professionForm.controls.druhePovolaniSOZachrany"
-      class="field"
-      style="top:385px; left:878px; width:179px;"
-      placeholder="*"
-    />
-    <input
-      [formControl]="controls.professionForm.controls.druhePovolaniUtocnyBonus"
-      class="field"
-      style="top:385px; left:1068px; width:149px;"
-      placeholder="*"
-    />
+        <!-- Row 2: Mystický taj -->
+        <div class="cs-pact-row">
+          <span class="cs-pact-row-label">Mystický taj</span>
+          <input
+            [formControl]="controls.topInfoForSpellSheet.controls.mystickyTaj"
+            class="field cs-pact-field"
+            style="top:181px; left:960px; width:82px;"
+            placeholder="Mystický taj"
+          />
+          <input
+            [formControl]="controls.topInfoForSpellSheet.controls.mystickyTajCheckbox1"
+            type="checkbox"
+            class="field checkbox third-page-checkbox cs-pact-checkbox"
+            style="top:216px; left:1061px;"
+          />
+          <input
+            [formControl]="controls.topInfoForSpellSheet.controls.mystickyTajCheckbox2"
+            type="checkbox"
+            class="field checkbox third-page-checkbox cs-pact-checkbox"
+            style="top:216px; left:1103px;"
+          />
+          <input
+            [formControl]="controls.topInfoForSpellSheet.controls.mystickyTajCheckbox3"
+            type="checkbox"
+            class="field checkbox third-page-checkbox cs-pact-checkbox"
+            style="top:216px; left:1144px;"
+          />
+          <input
+            [formControl]="controls.topInfoForSpellSheet.controls.mystickyTajCheckbox4"
+            type="checkbox"
+            class="field checkbox third-page-checkbox cs-pact-checkbox"
+            style="top:216px; left:1185px;"
+          />
+        </div>
+      </div><!-- /cs-pact-magic-area -->
+
+      <!-- ── Profession rows grid ── -->
+      <div class="cs-profession-grid">
+        <span class="cs-prof-label">1. Povolání</span>
+        <input
+          [formControl]="controls.professionForm.controls.prvniPovolaniSesilatelskePovolani"
+          class="field cs-prof-field"
+          style="top:346px; left:219px; width:189px;"
+          placeholder="Sesilatelsé povolání"
+        />
+        <input
+          [formControl]="controls.professionForm.controls.prvniPovolaniUroven"
+          class="field cs-prof-field"
+          style="top:346px; left:419px; width:70px;"
+          placeholder="Úroveň"
+        />
+        <input
+          [formControl]="controls.professionForm.controls.prvniPovolaniMaxStupenKouzel"
+          class="field cs-prof-field"
+          style="top:346px; left:500px; width:179px;"
+          placeholder="Max. st. kouzel"
+        />
+        <input
+          [formControl]="controls.professionForm.controls.prvniPovolaniSesilaciVlastnost"
+          class="field cs-prof-field"
+          style="top:346px; left:689px; width:179px;"
+          placeholder="Sesilatelsá vlast."
+        />
+        <input
+          [formControl]="controls.professionForm.controls.prvniPovolaniSOZachrany"
+          class="field cs-prof-field"
+          style="top:346px; left:878px; width:179px;"
+          placeholder="SO záchranných hod."
+        />
+        <input
+          [formControl]="controls.professionForm.controls.prvniPovolaniUtocnyBonus"
+          class="field cs-prof-field"
+          style="top:346px; left:1068px; width:149px;"
+          placeholder="Útočný bonus"
+        />
+
+        <span class="cs-prof-label">2. Povolání</span>
+        <input
+          [formControl]="controls.professionForm.controls.druhePovolaniSesilatelskePovolani"
+          class="field cs-prof-field"
+          style="top:385px; left:219px; width:189px;"
+          placeholder="Sesilatelsé povolání"
+        />
+        <input
+          [formControl]="controls.professionForm.controls.druhePovolaniUroven"
+          class="field cs-prof-field"
+          style="top:385px; left:419px; width:70px;"
+          placeholder="Úroveň"
+        />
+        <input
+          [formControl]="controls.professionForm.controls.druhePovolaniMaxStupenKouzel"
+          class="field cs-prof-field"
+          style="top:385px; left:500px; width:179px;"
+          placeholder="Max. st. kouzel"
+        />
+        <input
+          [formControl]="controls.professionForm.controls.druhePovolaniSesilaciVlastnost"
+          class="field cs-prof-field"
+          style="top:385px; left:689px; width:179px;"
+          placeholder="Sesilatelsá vlast."
+        />
+        <input
+          [formControl]="controls.professionForm.controls.druhePovolaniSOZachrany"
+          class="field cs-prof-field"
+          style="top:385px; left:878px; width:179px;"
+          placeholder="SO záchranných hod."
+        />
+        <input
+          [formControl]="controls.professionForm.controls.druhePovolaniUtocnyBonus"
+          class="field cs-prof-field"
+          style="top:385px; left:1068px; width:149px;"
+          placeholder="Útočný bonus"
+        />
+      </div><!-- /cs-profession-grid -->
+
+    </cs-collapsible><!-- /Informace o sesilateli -->
+    </div><!-- /isolation cdkDropList -->
     <!--    ===================================================================================-->
 
     <!--    ROW 1-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r1P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:512px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r1S"
       class="field spell-row"
       style="top:511px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r1Nazev"
       (focus)="openDropdown($event, 1)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row"
       style="top:511px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:516px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r1Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -193,69 +229,71 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r1Utok"
       class="field spell-row"
       style="top:511px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r1DobaSesilani"
       class="field spell-row"
       style="top:511px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r1Slozky"
       class="field spell-row"
       style="top:511px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r1Dosah"
       class="field spell-row"
       style="top:511px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r1Trvani"
       class="field spell-row"
       style="top:511px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r1Poznamka"
       class="field spell-row"
       style="top:511px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(1)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r1Str"
       class="field spell-row"
       style="top:511px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 2-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r2P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:548px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r2S"
       class="field spell-row"
       style="top:546px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r2Nazev"
       (focus)="openDropdown($event, 2)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row"
       style="top:546px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:551px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r2Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -266,69 +304,71 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r2Utok"
       class="field spell-row"
       style="top:546px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r2DobaSesilani"
       class="field spell-row"
       style="top:546px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r2Slozky"
       class="field spell-row"
       style="top:546px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r2Dosah"
       class="field spell-row"
       style="top:546px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r2Trvani"
       class="field spell-row"
       style="top:546px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r2Poznamka"
       class="field spell-row"
       style="top:546px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(2)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r2Str"
       class="field spell-row"
       style="top:546px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 3-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r3P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:583px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r3S"
       class="field spell-row"
       style="top:582px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r3Nazev"
       (focus)="openDropdown($event, 3)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:582px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:587px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r3Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -339,69 +379,71 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r3Utok"
       class="field spell-row"
       style="top:582px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r3DobaSesilani"
       class="field spell-row"
       style="top:582px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r3Slozky"
       class="field spell-row"
       style="top:582px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r3Dosah"
       class="field spell-row"
       style="top:582px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r3Trvani"
       class="field spell-row"
       style="top:582px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r3Poznamka"
       class="field spell-row"
       style="top:582px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(3)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r3Str"
       class="field spell-row"
       style="top:582px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 4-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r4P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:619px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r4S"
       class="field spell-row"
       style="top:618px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r4Nazev"
       (focus)="openDropdown($event, 4)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:618px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:623px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r4Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -412,69 +454,71 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r4Utok"
       class="field spell-row"
       style="top:618px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r4DobaSesilani"
       class="field spell-row"
       style="top:618px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r4Slozky"
       class="field spell-row"
       style="top:618px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r4Dosah"
       class="field spell-row"
       style="top:618px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r4Trvani"
       class="field spell-row"
       style="top:618px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r4Poznamka"
       class="field spell-row"
       style="top:618px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(4)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r4Str"
       class="field spell-row"
       style="top:618px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 5-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r5P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:654px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r5S"
       class="field spell-row"
       style="top:653px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r5Nazev"
       (focus)="openDropdown($event, 5)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:653px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:658px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r5Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -485,69 +529,71 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r5Utok"
       class="field spell-row"
       style="top:653px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r5DobaSesilani"
       class="field spell-row"
       style="top:653px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r5Slozky"
       class="field spell-row"
       style="top:653px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r5Dosah"
       class="field spell-row"
       style="top:653px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r5Trvani"
       class="field spell-row"
       style="top:653px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r5Poznamka"
       class="field spell-row"
       style="top:653px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(5)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r5Str"
       class="field spell-row"
       style="top:653px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 6-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r6P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:690px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r6S"
       class="field spell-row"
       style="top:689px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r6Nazev"
       (focus)="openDropdown($event, 6)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:689px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:694px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r6Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -558,69 +604,71 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r6Utok"
       class="field spell-row"
       style="top:689px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r6DobaSesilani"
       class="field spell-row"
       style="top:689px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r6Slozky"
       class="field spell-row"
       style="top:689px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r6Dosah"
       class="field spell-row"
       style="top:689px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r6Trvani"
       class="field spell-row"
       style="top:689px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r6Poznamka"
       class="field spell-row"
       style="top:689px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(6)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r6Str"
       class="field spell-row"
       style="top:689px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 7-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r7P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:726px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r7S"
       class="field spell-row"
       style="top:725px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r7Nazev"
       (focus)="openDropdown($event, 7)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:725px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:730px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r7Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -631,69 +679,71 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r7Utok"
       class="field spell-row"
       style="top:725px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r7DobaSesilani"
       class="field spell-row"
       style="top:725px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r7Slozky"
       class="field spell-row"
       style="top:725px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r7Dosah"
       class="field spell-row"
       style="top:725px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r7Trvani"
       class="field spell-row"
       style="top:725px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r7Poznamka"
       class="field spell-row"
       style="top:725px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(7)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r7Str"
       class="field spell-row"
       style="top:725px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 8-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r8P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:761px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r8S"
       class="field spell-row"
       style="top:760px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r8Nazev"
       (focus)="openDropdown($event, 8)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:760px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:765px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r8Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -704,69 +754,71 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r8Utok"
       class="field spell-row"
       style="top:760px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r8DobaSesilani"
       class="field spell-row"
       style="top:760px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r8Slozky"
       class="field spell-row"
       style="top:760px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r8Dosah"
       class="field spell-row"
       style="top:760px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r8Trvani"
       class="field spell-row"
       style="top:760px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r8Poznamka"
       class="field spell-row"
       style="top:760px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(8)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r8Str"
       class="field spell-row"
       style="top:760px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 9-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r9P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:797px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r9S"
       class="field spell-row"
       style="top:796px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r9Nazev"
       (focus)="openDropdown($event, 9)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:796px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:801px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r9Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -777,69 +829,71 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r9Utok"
       class="field spell-row"
       style="top:796px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r9DobaSesilani"
       class="field spell-row"
       style="top:796px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r9Slozky"
       class="field spell-row"
       style="top:796px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r9Dosah"
       class="field spell-row"
       style="top:796px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r9Trvani"
       class="field spell-row"
       style="top:796px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r9Poznamka"
       class="field spell-row"
       style="top:796px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(9)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r9Str"
       class="field spell-row"
       style="top:796px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 10-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r10P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:832px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r10S"
       class="field spell-row"
       style="top:831px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r10Nazev"
       (focus)="openDropdown($event, 10)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:831px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:836px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r10Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -850,68 +904,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r10Utok"
       class="field spell-row"
       style="top:831px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r10DobaSesilani"
       class="field spell-row"
       style="top:831px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r10Slozky"
       class="field spell-row"
       style="top:831px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r10Dosah"
       class="field spell-row"
       style="top:831px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r10Trvani"
       class="field spell-row"
       style="top:831px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r10Poznamka"
       class="field spell-row"
       style="top:831px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(10)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r10Str"
       class="field spell-row"
       style="top:831px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 11-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r11P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:868px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r11S"
       class="field spell-row"
       style="top:867px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r11Nazev"
       (focus)="openDropdown($event, 11)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:867px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:872px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r11Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -922,68 +978,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r11Utok"
       class="field spell-row"
       style="top:867px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r11DobaSesilani"
       class="field spell-row"
       style="top:867px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r11Slozky"
       class="field spell-row"
       style="top:867px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r11Dosah"
       class="field spell-row"
       style="top:867px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r11Trvani"
       class="field spell-row"
       style="top:867px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r11Poznamka"
       class="field spell-row"
       style="top:867px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(11)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r11Str"
       class="field spell-row"
       style="top:867px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 12-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r12P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:904px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r12S"
       class="field spell-row"
       style="top:903px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r12Nazev"
       (focus)="openDropdown($event, 12)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:903px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:908px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r12Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -994,68 +1052,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r12Utok"
       class="field spell-row"
       style="top:903px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r12DobaSesilani"
       class="field spell-row"
       style="top:903px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r12Slozky"
       class="field spell-row"
       style="top:903px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r12Dosah"
       class="field spell-row"
       style="top:903px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r12Trvani"
       class="field spell-row"
       style="top:903px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r12Poznamka"
       class="field spell-row"
       style="top:903px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(12)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r12Str"
       class="field spell-row"
       style="top:903px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 13-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r13P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:940px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r13S"
       class="field spell-row"
       style="top:939px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r13Nazev"
       (focus)="openDropdown($event, 13)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:939px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:944px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r13Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1066,68 +1126,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r13Utok"
       class="field spell-row"
       style="top:939px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r13DobaSesilani"
       class="field spell-row"
       style="top:939px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r13Slozky"
       class="field spell-row"
       style="top:939px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r13Dosah"
       class="field spell-row"
       style="top:939px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r13Trvani"
       class="field spell-row"
       style="top:939px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r13Poznamka"
       class="field spell-row"
       style="top:939px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(13)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r13Str"
       class="field spell-row"
       style="top:939px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 14-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r14P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:976px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r14S"
       class="field spell-row"
       style="top:975px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r14Nazev"
       (focus)="openDropdown($event, 14)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:975px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:980px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r14Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1138,68 +1200,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r14Utok"
       class="field spell-row"
       style="top:975px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r14DobaSesilani"
       class="field spell-row"
       style="top:975px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r14Slozky"
       class="field spell-row"
       style="top:975px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r14Dosah"
       class="field spell-row"
       style="top:975px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r14Trvani"
       class="field spell-row"
       style="top:975px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r14Poznamka"
       class="field spell-row"
       style="top:975px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(14)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r14Str"
       class="field spell-row"
       style="top:975px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 15-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r15P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1012px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r15S"
       class="field spell-row"
       style="top:1011px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r15Nazev"
       (focus)="openDropdown($event, 15)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1011px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1016px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r15Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1210,68 +1274,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r15Utok"
       class="field spell-row"
       style="top:1011px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r15DobaSesilani"
       class="field spell-row"
       style="top:1011px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r15Slozky"
       class="field spell-row"
       style="top:1011px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r15Dosah"
       class="field spell-row"
       style="top:1011px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r15Trvani"
       class="field spell-row"
       style="top:1011px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r15Poznamka"
       class="field spell-row"
       style="top:1011px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(15)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r15Str"
       class="field spell-row"
       style="top:1011px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 16-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r16P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1048px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r16S"
       class="field spell-row"
       style="top:1047px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r16Nazev"
       (focus)="openDropdown($event, 16)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1047px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1052px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r16Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1282,68 +1348,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r16Utok"
       class="field spell-row"
       style="top:1047px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r16DobaSesilani"
       class="field spell-row"
       style="top:1047px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r16Slozky"
       class="field spell-row"
       style="top:1047px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r16Dosah"
       class="field spell-row"
       style="top:1047px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r16Trvani"
       class="field spell-row"
       style="top:1047px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r16Poznamka"
       class="field spell-row"
       style="top:1047px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(16)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r16Str"
       class="field spell-row"
       style="top:1047px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 17-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r17P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1084px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r17S"
       class="field spell-row"
       style="top:1083px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r17Nazev"
       (focus)="openDropdown($event, 17)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1083px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1088px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r17Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1354,68 +1422,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r17Utok"
       class="field spell-row"
       style="top:1083px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r17DobaSesilani"
       class="field spell-row"
       style="top:1083px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r17Slozky"
       class="field spell-row"
       style="top:1083px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r17Dosah"
       class="field spell-row"
       style="top:1083px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r17Trvani"
       class="field spell-row"
       style="top:1083px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r17Poznamka"
       class="field spell-row"
       style="top:1083px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(17)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r17Str"
       class="field spell-row"
       style="top:1083px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 18-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r18P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1120px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r18S"
       class="field spell-row"
       style="top:1119px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r18Nazev"
       (focus)="openDropdown($event, 18)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1119px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1124px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r18Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1426,68 +1496,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r18Utok"
       class="field spell-row"
       style="top:1119px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r18DobaSesilani"
       class="field spell-row"
       style="top:1119px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r18Slozky"
       class="field spell-row"
       style="top:1119px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r18Dosah"
       class="field spell-row"
       style="top:1119px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r18Trvani"
       class="field spell-row"
       style="top:1119px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r18Poznamka"
       class="field spell-row"
       style="top:1119px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(18)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r18Str"
       class="field spell-row"
       style="top:1119px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 19-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r19P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1156px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r19S"
       class="field spell-row"
       style="top:1155px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r19Nazev"
       (focus)="openDropdown($event, 19)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1155px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1160px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r19Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1498,68 +1570,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r19Utok"
       class="field spell-row"
       style="top:1155px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r19DobaSesilani"
       class="field spell-row"
       style="top:1155px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r19Slozky"
       class="field spell-row"
       style="top:1155px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r19Dosah"
       class="field spell-row"
       style="top:1155px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r19Trvani"
       class="field spell-row"
       style="top:1155px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r19Poznamka"
       class="field spell-row"
       style="top:1155px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(19)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r19Str"
       class="field spell-row"
       style="top:1155px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 20-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r20P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1190px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r20S"
       class="field spell-row"
       style="top:1189px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Nazev"
       (focus)="openDropdown($event, 20)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1189px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1194px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r20Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1570,68 +1644,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r20Utok"
       class="field spell-row"
       style="top:1189px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20DobaSesilani"
       class="field spell-row"
       style="top:1189px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Slozky"
       class="field spell-row"
       style="top:1189px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Dosah"
       class="field spell-row"
       style="top:1189px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Trvani"
       class="field spell-row"
       style="top:1189px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Poznamka"
       class="field spell-row"
       style="top:1189px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(20)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Str"
       class="field spell-row"
       style="top:1189px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 21-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r21P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1226px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r21S"
       class="field spell-row"
       style="top:1225px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Nazev"
       (focus)="openDropdown($event, 21)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1225px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1230px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r21Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1642,68 +1718,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r21Utok"
       class="field spell-row"
       style="top:1225px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21DobaSesilani"
       class="field spell-row"
       style="top:1225px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Slozky"
       class="field spell-row"
       style="top:1225px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Dosah"
       class="field spell-row"
       style="top:1225px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Trvani"
       class="field spell-row"
       style="top:1225px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Poznamka"
       class="field spell-row"
       style="top:1225px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(21)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Str"
       class="field spell-row"
       style="top:1225px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 22-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r22P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1262px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r22S"
       class="field spell-row"
       style="top:1261px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Nazev"
       (focus)="openDropdown($event, 22)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1261px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1266px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r22Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1714,68 +1792,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r22Utok"
       class="field spell-row"
       style="top:1261px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22DobaSesilani"
       class="field spell-row"
       style="top:1261px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Slozky"
       class="field spell-row"
       style="top:1261px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Dosah"
       class="field spell-row"
       style="top:1261px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Trvani"
       class="field spell-row"
       style="top:1261px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Poznamka"
       class="field spell-row"
       style="top:1261px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(22)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Str"
       class="field spell-row"
       style="top:1261px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 23-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r23P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1298px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r23S"
       class="field spell-row"
       style="top:1297px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Nazev"
       (focus)="openDropdown($event, 23)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1297px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1302px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r23Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1786,68 +1866,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r23Utok"
       class="field spell-row"
       style="top:1297px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23DobaSesilani"
       class="field spell-row"
       style="top:1297px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Slozky"
       class="field spell-row"
       style="top:1297px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Dosah"
       class="field spell-row"
       style="top:1297px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Trvani"
       class="field spell-row"
       style="top:1297px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Poznamka"
       class="field spell-row"
       style="top:1297px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(23)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Str"
       class="field spell-row"
       style="top:1297px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 24-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r24P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1331px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r24S"
       class="field spell-row"
       style="top:1330px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Nazev"
       (focus)="openDropdown($event, 24)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1330px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1335px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r24Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1858,68 +1940,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r24Utok"
       class="field spell-row"
       style="top:1330px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24DobaSesilani"
       class="field spell-row"
       style="top:1330px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Slozky"
       class="field spell-row"
       style="top:1330px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Dosah"
       class="field spell-row"
       style="top:1330px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Trvani"
       class="field spell-row"
       style="top:1330px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Poznamka"
       class="field spell-row"
       style="top:1330px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(24)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Str"
       class="field spell-row"
       style="top:1330px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 25-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r25P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1367px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r25S"
       class="field spell-row"
       style="top:1366px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Nazev"
       (focus)="openDropdown($event, 25)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1366px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1371px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r25Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -1930,68 +2014,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r25Utok"
       class="field spell-row"
       style="top:1366px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25DobaSesilani"
       class="field spell-row"
       style="top:1366px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Slozky"
       class="field spell-row"
       style="top:1366px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Dosah"
       class="field spell-row"
       style="top:1366px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Trvani"
       class="field spell-row"
       style="top:1366px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Poznamka"
       class="field spell-row"
       style="top:1366px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(25)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Str"
       class="field spell-row"
       style="top:1366px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 26-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r26P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1403px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r26S"
       class="field spell-row"
       style="top:1402px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Nazev"
       (focus)="openDropdown($event, 26)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1402px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1407px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r26Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2002,68 +2088,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r26Utok"
       class="field spell-row"
       style="top:1402px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26DobaSesilani"
       class="field spell-row"
       style="top:1402px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Slozky"
       class="field spell-row"
       style="top:1402px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Dosah"
       class="field spell-row"
       style="top:1402px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Trvani"
       class="field spell-row"
       style="top:1402px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Poznamka"
       class="field spell-row"
       style="top:1402px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(26)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Str"
       class="field spell-row"
       style="top:1402px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 27-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r27P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1439px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r27S"
       class="field spell-row"
       style="top:1438px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Nazev"
       (focus)="openDropdown($event, 27)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1438px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1443px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r27Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2074,69 +2162,71 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r27Utok"
       class="field spell-row"
       style="top:1438px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27DobaSesilani"
       class="field spell-row"
       style="top:1438px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Slozky"
       class="field spell-row"
       style="top:1438px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Dosah"
       class="field spell-row"
       style="top:1438px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Trvani"
       class="field spell-row"
       style="top:1438px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Poznamka"
       class="field spell-row"
       style="top:1438px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(27)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Str"
       class="field spell-row"
       style="top:1438px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 28-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r28P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1475px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r28S"
       class="field spell-row"
       style="top:1474px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Nazev"
       (focus)="openDropdown($event, 28)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1474px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1479px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r28Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2147,69 +2237,71 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r28Utok"
       class="field spell-row"
       style="top:1474px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28DobaSesilani"
       class="field spell-row"
       style="top:1474px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Slozky"
       class="field spell-row"
       style="top:1474px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Dosah"
       class="field spell-row"
       style="top:1474px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Trvani"
       class="field spell-row"
       style="top:1474px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Poznamka"
       class="field spell-row"
       style="top:1474px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(28)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Str"
       class="field spell-row"
       style="top:1474px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 29-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r29P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1508px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r29S"
       class="field spell-row"
       style="top:1507px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Nazev"
       (focus)="openDropdown($event, 29)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1507px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1512px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r29Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2220,69 +2312,71 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r29Utok"
       class="field spell-row"
       style="top:1507px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29DobaSesilani"
       class="field spell-row"
       style="top:1507px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Slozky"
       class="field spell-row"
       style="top:1507px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Dosah"
       class="field spell-row"
       style="top:1507px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Trvani"
       class="field spell-row"
       style="top:1507px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Poznamka"
       class="field spell-row"
       style="top:1507px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(29)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Str"
       class="field spell-row"
       style="top:1507px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 30-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r30P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1544px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r30S"
       class="field spell-row"
       style="top:1543px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Nazev"
       (focus)="openDropdown($event, 30)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1543px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1548px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r30Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2293,69 +2387,71 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r30Utok"
       class="field spell-row"
       style="top:1543px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30DobaSesilani"
       class="field spell-row"
       style="top:1543px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Slozky"
       class="field spell-row"
       style="top:1543px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Dosah"
       class="field spell-row"
       style="top:1543px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Trvani"
       class="field spell-row"
       style="top:1543px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Poznamka"
       class="field spell-row"
       style="top:1543px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(30)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Str"
       class="field spell-row"
       style="top:1543px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 31-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r31P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1580px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r31S"
       class="field spell-row"
       style="top:1579px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Nazev"
       (focus)="openDropdown($event, 31)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1579px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1584px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r31Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2366,69 +2462,71 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r31Utok"
       class="field spell-row"
       style="top:1579px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31DobaSesilani"
       class="field spell-row"
       style="top:1579px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Slozky"
       class="field spell-row"
       style="top:1579px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Dosah"
       class="field spell-row"
       style="top:1579px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Trvani"
       class="field spell-row"
       style="top:1579px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Poznamka"
       class="field spell-row"
       style="top:1579px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(31)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Str"
       class="field spell-row"
       style="top:1579px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 32-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r32P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1616px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r32S"
       class="field spell-row"
       style="top:1615px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Nazev"
       (focus)="openDropdown($event, 32)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1615px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1620px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r32Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2439,69 +2537,71 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r32Utok"
       class="field spell-row"
       style="top:1615px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32DobaSesilani"
       class="field spell-row"
       style="top:1615px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Slozky"
       class="field spell-row"
       style="top:1615px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Dosah"
       class="field spell-row"
       style="top:1615px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Trvani"
       class="field spell-row"
       style="top:1615px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Poznamka"
       class="field spell-row"
       style="top:1615px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(32)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Str"
       class="field spell-row"
       style="top:1615px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 33-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r33P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1652px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r33S"
       class="field spell-row"
       style="top:1651px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Nazev"
       (focus)="openDropdown($event, 33)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1651px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1656px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r33Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2512,69 +2612,71 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r33Utok"
       class="field spell-row"
       style="top:1651px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33DobaSesilani"
       class="field spell-row"
       style="top:1651px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Slozky"
       class="field spell-row"
       style="top:1651px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Dosah"
       class="field spell-row"
       style="top:1651px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Trvani"
       class="field spell-row"
       style="top:1651px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Poznamka"
       class="field spell-row"
       style="top:1651px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(33)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Str"
       class="field spell-row"
       style="top:1651px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 34-->
     <!--    ###################################################################################-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r34P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1688px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r34S"
       class="field spell-row"
       style="top:1687px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Nazev"
       (focus)="openDropdown($event, 34)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1687px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1692px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r34Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2585,68 +2687,70 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r34Utok"
       class="field spell-row"
       style="top:1687px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34DobaSesilani"
       class="field spell-row"
       style="top:1687px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Slozky"
       class="field spell-row"
       style="top:1687px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Dosah"
       class="field spell-row"
       style="top:1687px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Trvani"
       class="field spell-row"
       style="top:1687px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Poznamka"
       class="field spell-row"
       style="top:1687px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(34)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Str"
       class="field spell-row"
       style="top:1687px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
     <!--    ROW 35-->
-    <input
+    <div class="spell-row-grid">
+    <span class="spell-prep-wrap"><input
       [formControl]="controls.spellsForm.controls.r35P"
       type="checkbox"
       class="field checkbox red-checkbox"
       style="top:1729px; left:69px;"
-    />
+    /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r35S"
       class="field spell-row"
       style="top:1728px; left:102px; width:41px;"
-      placeholder="*"
+      placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Nazev"
       (focus)="openDropdown($event, 35)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
       style="top:1728px; left:152px; width:176px;"
-      placeholder="*"
+      placeholder="Název"
     />
     <button
-      class="field spell-detail-btn"
+      type="button" class="field spell-detail-btn"
       style="top:1733px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r35Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
@@ -2657,45 +2761,46 @@ import { SheetThemeService } from './sheet-theme.service';
       [formControl]="controls.spellsForm.controls.r35Utok"
       class="field spell-row"
       style="top:1728px; left:353px; width:78px;"
-      placeholder="*"
+      placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35DobaSesilani"
       class="field spell-row"
       style="top:1728px; left:439px; width:58px;"
-      placeholder="*"
+      placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Slozky"
       class="field spell-row"
       style="top:1728px; left:506px; width:58px;"
-      placeholder="*"
+      placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Dosah"
       class="field spell-row"
       style="top:1728px; left:572px; width:77px;"
-      placeholder="*"
+      placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Trvani"
       class="field spell-row"
       style="top:1728px; left:658px; width:77px;"
-      placeholder="*"
+      placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Poznamka"
       class="field spell-row"
       style="top:1728px; left:744px; width:408px;"
-      placeholder="*"
+      placeholder="Poznámka"
       [matTooltip]="poz(35)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Str"
       class="field spell-row"
       style="top:1728px; left:1160px; width:60px;"
-      placeholder="*"
+      placeholder="Str."
     />
+    </div>
 
         @if (dropdownOpen() && filteredSpells().length > 0) {
       <div class="spell-dropdown" [style]="dropdownStyle()" (mousedown)="$event.preventDefault()">
@@ -2712,7 +2817,7 @@ import { SheetThemeService } from './sheet-theme.service';
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '[class.theme-dark]': 'sheetTheme.darkMode()' },
-  imports: [ReactiveFormsModule, MatTooltip, MatIcon],
+  imports: [ReactiveFormsModule, MatTooltip, MatIcon, CsCollapsibleComponent, CdkDropList],
 })
 export class CharacterSheetThirdPageComponent {
   form = input.required<FormGroup<ThirdPageForm>>();
@@ -2762,9 +2867,12 @@ export class CharacterSheetThirdPageComponent {
     this._blurSub?.unsubscribe();
     this.activeRow.set(row);
     const el = event.target as HTMLInputElement;
-    const top = parseFloat(el.style.top) + 22;
-    const left = parseFloat(el.style.left);
-    const width = Math.max(parseFloat(el.style.width), 200);
+    const rect = el.getBoundingClientRect();
+    const parent = el.offsetParent as HTMLElement | null;
+    const parentRect = parent?.getBoundingClientRect() ?? { top: 0, left: 0 };
+    const top = rect.bottom - parentRect.top;
+    const left = rect.left - parentRect.left;
+    const width = Math.max(rect.width, 200);
     this._dropdownPos.set({ top, left, width });
     this.dropdownOpen.set(true);
   }
@@ -2832,7 +2940,7 @@ export class CharacterSheetThirdPageComponent {
     this.dialog.open(SpellDetailDialogComponent, {
       data: { spellName: name } satisfies SpellDetailDialogData,
       panelClass: 'spell-detail-panel',
-      minWidth: '750px',
+      maxWidth: '95vw',
     });
   }
 

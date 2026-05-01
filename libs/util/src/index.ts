@@ -24,3 +24,5 @@ export * from './lib/dnd5e-api-models/dnd5e-magic-items-api.models';
 export * from './lib/dnd5e-api-models/dnd5e-backgrounds-api.models';
 export * from './lib/dnd-translator.service';
 export * from './lib/dnd-translate.pipe';
+export * from './lib/tab-navigator.service';
+

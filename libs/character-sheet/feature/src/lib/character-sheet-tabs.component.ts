@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { CharacterSheetComponent } from './character-sheet.component';
 import { GroupSheetComponent } from './group-sheet.component';
@@ -7,13 +7,15 @@ import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { InitiativeTrackerComponent } from './initiative-tracker/initiative-tracker.component';
 import { PlayerItemsCardsComponent } from './players-items-cards/player-items-cards.component';
 import { QuestsTabComponent } from './quests/quests.component';
-import { LocalStorageService, ACTIVE_TAB_INDEX_KEY, AUTOFILL_DIALOG_HIDDEN_KEY } from '@dn-d-servant/util';
+import { LocalStorageService, ACTIVE_TAB_INDEX_KEY, AUTOFILL_DIALOG_HIDDEN_KEY, TabNavigatorService } from '@dn-d-servant/util';
 import { MatDialog } from '@angular/material/dialog';
 import { openAutofillAbilitiesDialog } from './help-dialogs/autofill-abilities-dialog.component';
 import { ImageConverterComponent } from './image-converter/image-converter.component';
 import { WikiTabComponent } from './wiki/wiki-tab.component';
 
 const TAB_INDEX_KEY = ACTIVE_TAB_INDEX_KEY;
+/** Total number of tabs in the character-sheet tab group. Keep in sync with the template. */
+const TAB_COUNT = 8;
 
 @Component({
   selector: 'character-sheet-tabs',
@@ -224,18 +226,31 @@ const TAB_INDEX_KEY = ACTIVE_TAB_INDEX_KEY;
     WikiTabComponent,
   ],
 })
-export class CharacterSheetTabsComponent implements OnInit {
+export class CharacterSheetTabsComponent implements OnInit, OnDestroy {
   private readonly ls = inject(LocalStorageService);
   private readonly dialog = inject(MatDialog);
+  private readonly tabNavigator = inject(TabNavigatorService);
 
   selectedTab = signal<number>(this.ls.getDataSync<number>(TAB_INDEX_KEY) ?? 0);
 
+  private readonly _registration = {
+    tabCount: TAB_COUNT,
+    selectedTab: this.selectedTab,
+    persistTab: (i: number) => this.ls.setDataSync(TAB_INDEX_KEY, i),
+  };
+
   ngOnInit(): void {
+    this.tabNavigator.register(this._registration);
+
     const hidden = this.ls.getDataSync<boolean>(AUTOFILL_DIALOG_HIDDEN_KEY);
     if (!hidden) {
       // Small delay so the app renders first
       setTimeout(() => openAutofillAbilitiesDialog(this.dialog).subscribe(), 600);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.tabNavigator.unregister(this._registration);
   }
 
   onTabChange(index: number): void {

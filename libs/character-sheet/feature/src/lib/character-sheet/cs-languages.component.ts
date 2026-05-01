@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
+import { SheetThemeService } from '../sheet-theme.service';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LanguagesForm } from '@dn-d-servant/character-sheet-util';
 import { MatIcon } from '@angular/material/icon';
@@ -12,7 +13,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'cs-languages',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
+  host: { style: 'display: contents', '[class.theme-dark]': 'sheetTheme.darkMode()' },
   imports: [ReactiveFormsModule, MatIcon, MatTooltip, RichTextareaComponent],
   styleUrl: '../character-sheet.component.scss',
   template: `
@@ -58,6 +59,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   `,
 })
 export class CsLanguagesComponent {
+  readonly sheetTheme = inject(SheetThemeService);
   form = input.required<FormGroup<LanguagesForm>>();
   private dialog = inject(MatDialog);
   private destroyRef = inject(DestroyRef);

@@ -1,12 +1,12 @@
 import {
   ApplicationConfig,
-  importProvidersFrom,
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { MAT_ICON_DEFAULT_OPTIONS, MatIconDefaultOptions } from '@angular/material/icon';
+import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions } from '@angular/material/tooltip';
 import { appInitializer } from '@dn-d-servant/data-access';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideHttpClient } from '@angular/common/http';
@@ -27,6 +27,15 @@ export const appConfig: ApplicationConfig = {
     {
       provide: MAT_ICON_DEFAULT_OPTIONS,
       useValue: { fontSet: 'material-symbols-outlined' } satisfies MatIconDefaultOptions,
+    },
+    {
+      provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
+      useValue: {
+        showDelay: 0,
+        hideDelay: 0,
+        touchendHideDelay: 0,
+        touchGestures: 'auto',
+      } satisfies MatTooltipDefaultOptions,
     },
     {
       provide: REALTIME_DB_URL_TOKEN,

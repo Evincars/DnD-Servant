@@ -24,8 +24,7 @@ export interface SpellDetailDialogData {
       display: flex;
       flex-direction: column;
       max-height: 80vh;
-      min-width: 750px;
-      max-width: 820px;
+      width: min(820px, 95vw);
       background: #0d0b1a;
       color: #d4c9a0;
       overflow: hidden;

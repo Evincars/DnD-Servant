@@ -1,11 +1,11 @@
-import { Component, ChangeDetectionStrategy, DestroyRef, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, DestroyRef, ElementRef, inject, DOCUMENT, OnDestroy, OnInit, signal, viewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { routes } from './app.routes';
-import { AuthService, LocalStorageService, DB_BACKUP_KEY_CHARACTER, DB_BACKUP_KEY_GROUP, DB_BACKUP_KEY_NOTES } from '@dn-d-servant/util';
+import { AuthService, LocalStorageService, DB_BACKUP_KEY_CHARACTER, DB_BACKUP_KEY_GROUP, DB_BACKUP_KEY_NOTES, TabNavigatorService } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,10 +13,19 @@ import html2canvas from 'html2canvas';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { DiceRollerComponent } from '@dn-d-servant/ui';
 import { SheetThemeService } from '@dn-d-servant/character-sheet-feature';
+import { MatDialog } from '@angular/material/dialog';
+import { SettingsDialogComponent, SettingsDialogData } from './settings-dialog.component';
+import { CommandPaletteComponent } from './command-palette.component';
+import { ReleaseNotesDialogComponent } from './release-notes-dialog.component';
+import { fromEvent } from 'rxjs';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(document:keydown)': 'onGlobalKeydown($event)',
+  },
   template: `
     <mat-sidenav-container class="container">
       <mat-sidenav #sidenav mode="over" class="sidenav">
@@ -79,43 +88,40 @@ import { SheetThemeService } from '@dn-d-servant/character-sheet-feature';
         </div>
       </mat-sidenav>
 
-      <mat-sidenav-content>
+      <mat-sidenav-content #sidenavContent>
         <mat-toolbar class="toolbar">
           <div class="toolbar__inner">
             <div class="toolbar__left u-flex u-align-center">
-              <button matIconButton (click)="sidenav.toggle()" class="menu-btn u-mr-3" aria-label="Toggle menu">
+              <button matIconButton (click)="sidenav.toggle()" class="menu-btn u-mr-3" aria-label="Otevřít menu" matTooltip="Navigace">
                 <mat-icon>menu</mat-icon>
               </button>
               <img src="JaD-logo.png" alt="Dungeons & Dragons Logo" class="logo u-mr-3" />
-              <span>Servant</span>
+              <span class="toolbar-servant-text">Servant</span>
               <button
-                (click)="onScreenshotBackupClick()"
-                [disabled]="screenshotLoading()"
-                class="github-link backup-btn u-ml-3"
-                matTooltip="Stáhnout zálohu jako obrázky (PNG)"
+                type="button"
+                class="github-link settings-btn u-ml-2"
+                (click)="openSettings()"
+                matTooltip="Nastavení"
               >
-                @if (screenshotLoading()) {
-                <mat-icon class="backup-button-icon">hourglass_empty</mat-icon>
-                } @else {
-                <mat-icon class="backup-button-icon">photo_camera</mat-icon>
-                }
-                <span class="backup-btn__label">Záloha</span>
+                <mat-icon class="toolbar-icon">settings</mat-icon>
               </button>
               <button
-                (click)="onJsonBackupClick()"
-                class="github-link backup-btn u-ml-2"
-                matTooltip="Stáhnout zálohu databáze jako JSON soubor"
+                type="button"
+                class="github-link settings-btn u-ml-2 cmd-palette-btn"
+                (click)="openCommandPalette()"
+                matTooltip="Rychlé akce (Ctrl+K)"
+                aria-label="Rychlé akce"
               >
-                <mat-icon class="backup-button-icon">download</mat-icon>
-                <span class="backup-btn__label">JSON</span>
+                <mat-icon class="toolbar-icon">search</mat-icon>
               </button>
               <button
-                (click)="sheetTheme.toggle()"
-                class="github-link backup-btn u-ml-2"
-                [matTooltip]="sheetTheme.darkMode() ? 'Přepnout na světlé pozadí karet' : 'Přepnout na tmavé pozadí karet'"
+                type="button"
+                class="github-link settings-btn u-ml-2"
+                (click)="openReleaseNotes()"
+                matTooltip="Co je nového"
+                aria-label="Co je nového"
               >
-                <mat-icon class="backup-button-icon">{{ sheetTheme.darkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
-                <span class="backup-btn__label">{{ sheetTheme.darkMode() ? 'Světlé' : 'Tmavé' }}</span>
+                <mat-icon class="toolbar-icon">new_releases</mat-icon>
               </button>
             </div>
             <div class="toolbar__right author-info u-flex u-align-center">
@@ -224,6 +230,9 @@ export class App implements OnInit, OnDestroy {
   private readonly characterSheetStore = inject(CharacterSheetStore);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly dialog = inject(MatDialog);
+  private readonly tabNavigator = inject(TabNavigatorService);
+  private readonly doc = inject(DOCUMENT);
 
   routes = routes;
   showBackToTop = signal(false);
@@ -231,7 +240,15 @@ export class App implements OnInit, OnDestroy {
   mobileMenuOpen = signal(false);
   private firstLoad = true;
 
-  @ViewChild('content') formElement: ElementRef | undefined;
+  // ── Single-finger horizontal swipe tracking ──────────────
+  private _touchStartX = 0;
+  private _touchStartY = 0;
+  private _touchLastX = 0;
+  private _touchLastY = 0;
+  private _touchActive = false;
+
+  readonly sidenavContent = viewChild<MatSidenavContent>('sidenavContent');
+  readonly formElement = viewChild<ElementRef>('content');
 
   ngOnInit(): void {
     this.authService.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
@@ -254,19 +271,127 @@ export class App implements OnInit, OnDestroy {
       }
       this.firstLoad = false;
     });
-    window.addEventListener('scroll', this.onScroll, true);
+
+    // Listen to the mat-sidenav-content scroll, not window
+    const contentEl = this.sidenavContent()?.getElementRef().nativeElement as HTMLElement | undefined;
+    if (contentEl) {
+      contentEl.addEventListener('scroll', this.onScroll);
+    }
+
+    // Two-finger swipe — passive listeners for best scroll performance
+    fromEvent<TouchEvent>(this.doc, 'touchstart', { passive: true })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(e => this.onTouchStart(e));
+
+    fromEvent<TouchEvent>(this.doc, 'touchmove', { passive: true })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(e => this.onTouchMove(e));
+
+    fromEvent<TouchEvent>(this.doc, 'touchend', { passive: true })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(e => this.onTouchEnd(e));
   }
 
   ngOnDestroy(): void {
-    window.removeEventListener('scroll', this.onScroll, true);
+    const contentEl = this.sidenavContent()?.getElementRef().nativeElement as HTMLElement | undefined;
+    if (contentEl) {
+      contentEl.removeEventListener('scroll', this.onScroll);
+    }
   }
 
+  // ── Keyboard shortcut handler (via host binding) ─────────
+
+  onGlobalKeydown(event: KeyboardEvent): void {
+    // Ctrl+K → command palette
+    if (event.ctrlKey && event.key === 'k') {
+      event.preventDefault();
+      this.openCommandPalette();
+      return;
+    }
+
+    // Alt+Left / Alt+Right → navigate tabs
+    if (event.altKey && (event.key === 'ArrowLeft' || event.key === 'ArrowRight')) {
+      event.preventDefault();
+      this.tabNavigator.navigate(event.key === 'ArrowRight' ? 1 : -1);
+    }
+  }
+
+  // ── Two-finger swipe ─────────────────────────────────────
+
+  private onTouchStart(e: TouchEvent): void {
+    // Only track single-finger touches; pinch/zoom (2+ fingers) are ignored
+    if (e.touches.length !== 1) {
+      this._touchActive = false;
+      return;
+    }
+    this._touchStartX = e.touches[0].clientX;
+    this._touchStartY = e.touches[0].clientY;
+    this._touchLastX = this._touchStartX;
+    this._touchLastY = this._touchStartY;
+    this._touchActive = true;
+  }
+
+  private onTouchMove(e: TouchEvent): void {
+    if (!this._touchActive || e.touches.length !== 1) return;
+    this._touchLastX = e.touches[0].clientX;
+    this._touchLastY = e.touches[0].clientY;
+  }
+
+  private onTouchEnd(_e: TouchEvent): void {
+    if (!this._touchActive) return;
+    this._touchActive = false;
+
+    const dx = this._touchLastX - this._touchStartX;
+    const dy = this._touchLastY - this._touchStartY;
+    const minSwipe = 55;
+
+    // Require clearly horizontal motion: dx must dominate dy by 2× and exceed threshold.
+    // This keeps vertical scrolling and drag-and-drop interactions untouched.
+    if (Math.abs(dx) >= minSwipe && Math.abs(dx) > Math.abs(dy) * 2) {
+      this.tabNavigator.navigate(dx < 0 ? 1 : -1); // swipe left → next, swipe right → prev
+    }
+  }
+
+  // ── Command palette ──────────────────────────────────────
+
+  private _commandPaletteRef: MatDialogRef<CommandPaletteComponent> | null = null;
+
+  openCommandPalette(): void {
+    // If already open, close it (Ctrl+K acts as a toggle)
+    if (this._commandPaletteRef) {
+      this._commandPaletteRef.close();
+      this._commandPaletteRef = null;
+      return;
+    }
+    this._commandPaletteRef = this.dialog.open(CommandPaletteComponent, {
+      panelClass: 'cp-dialog-panel',
+      backdropClass: 'cp-dialog-backdrop',
+      hasBackdrop: true,
+      restoreFocus: false,
+    });
+    this._commandPaletteRef.afterClosed().subscribe(() => {
+      this._commandPaletteRef = null;
+    });
+  }
+
+  openReleaseNotes(): void {
+    this.dialog.open(ReleaseNotesDialogComponent, {
+      panelClass: 'sd-dialog-panel',
+      backdropClass: 'sd-dialog-backdrop',
+      hasBackdrop: true,
+    });
+  }
+
+  // ── Scroll handler ───────────────────────────────────────
+
   onScroll = (): void => {
-    this.showBackToTop.set(window.scrollY > 200);
+    const contentEl = this.sidenavContent()?.getElementRef().nativeElement as HTMLElement | undefined;
+    this.showBackToTop.set((contentEl?.scrollTop ?? 0) > 200);
   };
 
   scrollToTop(): void {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const contentEl = this.sidenavContent()?.getElementRef().nativeElement as HTMLElement | undefined;
+    contentEl?.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   logout(): void {
@@ -281,6 +406,24 @@ export class App implements OnInit, OnDestroy {
         });
         this.router.navigateByUrl('/login');
       });
+  }
+
+  openSettings(): void {
+    const ref = this.dialog.open<SettingsDialogComponent, SettingsDialogData>(SettingsDialogComponent, {
+      panelClass: 'sd-dialog-panel',
+      backdropClass: 'sd-dialog-backdrop',
+      hasBackdrop: true,
+      data: { screenshotLoading: this.screenshotLoading },
+    });
+
+    ref.componentInstance.screenshotClick.subscribe(() => {
+      ref.close();
+      this.onScreenshotBackupClick();
+    });
+    ref.componentInstance.jsonClick.subscribe(() => {
+      ref.close();
+      this.onJsonBackupClick();
+    });
   }
 
   onJsonBackupClick(): void {
@@ -315,7 +458,7 @@ export class App implements OnInit, OnDestroy {
       const activeTabBody =
         (document.querySelector('.mat-mdc-tab-body-active .mat-mdc-tab-body-content') as HTMLElement) ??
         (document.querySelector('.mat-mdc-tab-body-active') as HTMLElement) ??
-        (this.formElement?.nativeElement as HTMLElement);
+        (this.formElement()?.nativeElement as HTMLElement);
 
       if (!activeTabBody) return;
 

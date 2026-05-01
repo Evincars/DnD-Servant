@@ -3,6 +3,36 @@
   display: block;
 }
 
+// ── Responsive visibility utility classes ─────────────────────────────────────
+// Hidden on desktop (>1359px), visible on responsive (≤1359px)
+.cs-responsive-only {
+  display: none !important;
+}
+// Hidden on responsive (≤1359px), visible on desktop — handled in @media below
+
+// Desktop: spell-row-grid / spell-prep-wrap are transparent, label hidden
+.spell-row-grid {
+  display: contents;
+}
+.spell-prep-wrap {
+  display: contents;
+}
+.spell-prep-label {
+  display: none;
+}
+
+// Desktop: pact-magic-area and profession-grid are transparent (children all position:absolute)
+.cs-pact-magic-area,
+.cs-profession-grid,
+.cs-pact-row {
+  display: contents;
+}
+// Responsive-only labels are hidden on desktop
+.cs-prof-label,
+.cs-pact-row-label {
+  display: none;
+}
+
 .field {
   font-family: Arial, serif;
   position: absolute;
@@ -33,6 +63,28 @@
     color: rgba(255, 255, 255, 0.92);
   }
 
+  // Weight highlights must override the dark .field background
+  .field.soft-weight,
+  .soft-weight {
+    background: rgba(80, 200, 80, 0.22) !important;
+    border-color: rgba(60, 170, 60, 0.4) !important;
+    color: rgba(140, 240, 140, 0.9) !important;
+  }
+
+  .field.medium-weight,
+  .medium-weight {
+    background: rgba(210, 150, 30, 0.22) !important;
+    border-color: rgba(190, 130, 20, 0.4) !important;
+    color: rgba(230, 185, 80, 0.9) !important;
+  }
+
+  .field.heavy-weight,
+  .heavy-weight {
+    background: rgba(210, 60, 60, 0.22) !important;
+    border-color: rgba(190, 40, 40, 0.4) !important;
+    color: rgba(240, 120, 120, 0.9) !important;
+  }
+
   .field::placeholder {
     color: rgba(255, 255, 255, 0.3);
   }
@@ -54,6 +106,28 @@
   .textarea {
     --rt-text-color: rgba(255, 255, 255, 0.9);
     --rt-caret-color: rgba(180, 210, 255, 0.9);
+  }
+
+  // Speed highlight (encumbrance) overrides for dark theme
+  .speed-highlight-light {
+    background: rgba(60, 180, 60, 0.3) !important;
+    border-color: rgba(80, 200, 80, 0.7) !important;
+    box-shadow: 0 0 0 2px rgba(60, 180, 60, 0.35) !important;
+    color: rgba(140, 240, 140, 0.95) !important;
+  }
+
+  .speed-highlight-medium {
+    background: rgba(200, 150, 30, 0.3) !important;
+    border-color: rgba(220, 170, 50, 0.7) !important;
+    box-shadow: 0 0 0 2px rgba(200, 150, 30, 0.35) !important;
+    color: rgba(240, 200, 80, 0.95) !important;
+  }
+
+  .speed-highlight-heavy {
+    background: rgba(200, 60, 60, 0.3) !important;
+    border-color: rgba(220, 80, 80, 0.7) !important;
+    box-shadow: 0 0 0 2px rgba(200, 60, 60, 0.35) !important;
+    color: rgba(240, 130, 130, 0.95) !important;
   }
 }
 
@@ -464,7 +538,8 @@ input[type='checkbox'][disabled] {
 .char-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center center;
   display: block;
 }
 
@@ -748,6 +823,11 @@ input[type='checkbox'][disabled] {
   display: contents;
 }
 
+// Named areas (transparent on desktop, bordered card on responsive)
+.cs-named-area {
+  display: contents;
+}
+
 // ── Spell-slots new wrappers (transparent on desktop) ─────────────────
 .cs-spell-levels-row,
 .cs-spell-level-wrap,
@@ -756,6 +836,17 @@ input[type='checkbox'][disabled] {
 .cs-alch-chest-grid,
 .cs-alch-chest-row {
   display: contents;
+}
+
+// ── second-page: appearance grid — transparent on desktop ────────────────────
+// On desktop all fields are position:absolute over the bg image; wrapper must
+// be invisible so children still participate in the normal absolute layout.
+.cs-sp-appearance-grid {
+  display: contents;
+}
+// Jméno postavy visible on desktop
+.cs-sp-name-hide {
+  // visible on desktop; hidden on responsive via media query below
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -779,6 +870,32 @@ input[type='checkbox'][disabled] {
 // ── RESPONSIVE LAYOUT — all responsive screens  (≤1359px) ────────────────────
 // ══════════════════════════════════════════════════════════════════════════════
 @media (max-width: 1359px) {
+  // ── Visibility utility overrides ─────────────────────────────────────────
+  .cs-responsive-only {
+    display: block !important;
+  }
+  .cs-desktop-only {
+    display: none !important;
+  }
+
+  // ── Collapsible layout wrapper ───────────────────────────────────────────
+  character-sheet form {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 8px 80px 8px; // bottom padding for FAB
+    padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  }
+
+  group-sheet form {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 8px 80px 8px;
+    padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  }
+
+
   // ── Hide background images ───────────────────────────────────────────────
   .cs-bg-img {
     display: none !important;
@@ -821,6 +938,47 @@ input[type='checkbox'][disabled] {
     border-bottom: 3px solid rgba(200, 160, 60, 0.5);
     padding: 8px 0 10px;
     margin: 0 12px 4px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cs-collapse-all-wrap {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 2px;
+  }
+
+  .cs-collapse-all-btn {
+    background: none;
+    border: 1px solid rgba(200, 160, 60, 0.3);
+    border-radius: 4px;
+    color: rgba(200, 160, 60, 0.7);
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.15s;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+    }
+
+    &:hover {
+      border-color: rgba(200, 160, 60, 0.7);
+      color: #e8c96a;
+      background: rgba(200, 160, 60, 0.12);
+    }
   }
 
   .cs-sub-title {
@@ -838,8 +996,8 @@ input[type='checkbox'][disabled] {
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
-    // allow horizontal scrolling only as last resort; no clipping of inputs
-    overflow-x: clip;
+    // no overflow clipping — fixed-position dropdowns must escape to viewport
+    overflow: visible;
   }
 
   // ── Form: flex column ─────────────────────────────────────────────────
@@ -1218,6 +1376,45 @@ input[type='checkbox'][disabled] {
 
   .cs-stp-section { margin-bottom: 4px; }
 
+  // Named areas — bordered card with pseudo-element label
+  .cs-named-area {
+    display: block !important;
+    border: 1px solid rgba(180, 130, 50, 0.35);
+    border-radius: 6px;
+    padding: 16px 10px 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: rgba(200, 160, 60, 0.05);
+    position: relative;
+
+    &::before {
+      content: attr(data-area-label);
+      font-family: 'Mikadan', sans-serif;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(120, 80, 20, 0.8);
+      position: absolute;
+      top: -8px;
+      left: 10px;
+      background: rgba(245, 235, 220, 0.97);
+      padding: 0 5px;
+    }
+
+    // Hide the inner h4 sub-title since the area label already shows it
+    .cs-sub-title { display: none !important; }
+  }
+
+  :host.theme-dark .cs-named-area {
+    border-color: rgba(200, 160, 60, 0.25);
+    background: rgba(200, 160, 60, 0.03);
+
+    &::before {
+      color: rgba(200, 160, 60, 0.8);
+      background: rgba(16, 10, 4, 0.97);
+    }
+  }
+
   .cs-saving-row {
     display: flex !important;
     align-items: center;
@@ -1472,15 +1669,23 @@ input[type='checkbox'][disabled] {
   }
 
   // INNER: top-level so Angular compiles them for second-page's own scope
-  // Character image: own line, full width, generous height
+  // Character image: own line, full width, contained
   .char-img-wrap {
-    position: static !important;
+    position: relative !important;
     top: auto !important;
     left: auto !important;
     width: 100% !important;
-    height: 320px !important;
+    height: 280px !important;
     flex-shrink: 0;
     order: 0;
+    overflow: hidden !important;
+  }
+
+  .char-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
   }
 
   // Full-scale preview overlay stays fixed (no layout impact)
@@ -1488,17 +1693,269 @@ input[type='checkbox'][disabled] {
     position: fixed !important;
   }
 
+  // ── "Vzhled a povaha" — hide Jméno postavy, grid remaining 8 inputs ─
+  .cs-sp-name-hide {
+    display: none !important;
+  }
+
+  .cs-sp-appearance-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+
+    .field {
+      width: 100% !important;
+      margin-bottom: 0 !important;
+    }
+
+    // data-label pseudo-labels above each cell
+    .field[data-label] {
+      position: relative !important;
+      &::before {
+        @include responsive-label(10px, rgba(60, 50, 40, 0.75));
+        margin-bottom: 2px;
+      }
+    }
+  }
+
   // ════════════════════════════════════════════════════════════════════════
-  // ── third-page ──────────────────────────────────────────────────────────
+  // ── third-page HOST only ─────────────────────────────────────────────────
+  // Inner element rules MUST be top-level so Angular compiles them against
+  // CharacterSheetThirdPageComponent's own _ngcontent attribute.
   // ════════════════════════════════════════════════════════════════════════
   third-page {
     overflow: visible;
+    position: relative;
+  }
 
-    .spell-row { display: inline-block !important; margin-bottom: 1px; font-size: 12px !important; }
-    .spell-detail-btn { position: static !important; top: auto !important; left: auto !important; display: inline-flex !important; width: 20px !important; margin-bottom: 1px; }
-    .checkbox { position: static !important; top: auto !important; left: auto !important; display: inline-block !important; vertical-align: middle; margin: 0 4px 2px 0; }
-    .red-checkbox { border-top: 1px solid rgba(36, 12, 5, 0.12) !important; padding-top: 4px; margin-top: 4px; }
-    .spell-dropdown { position: fixed !important; left: 12px !important; right: 12px !important; width: auto !important; max-height: 200px; }
+  // INNER: top-level so Angular compiles them for third-page's own scope
+  // ── spell row 12-col grid wrapper ────────────────────────────────────
+  .spell-row-grid {
+    display: grid !important;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 4px;
+    align-items: center;
+    border-top: 1px solid rgba(36, 12, 5, 0.12);
+    padding-top: 6px;
+    margin-top: 4px;
+  }
+
+  // "Připraveno" checkbox wrapper: spans full row
+  .spell-prep-wrap {
+    grid-column: 1 / -1 !important;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 4px;
+  }
+
+  // "Připraveno" label text — shown on responsive
+  .spell-prep-label {
+    display: inline !important;
+    font-size: 9px;
+    font-family: Arial, sans-serif;
+    color: rgba(180, 100, 50, 0.7);
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
+  // Prep checkbox (red-checkbox) resets to static for grid flow
+  .red-checkbox {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    display: inline-block !important;
+    vertical-align: middle;
+  }
+
+  // All spell row inputs reset to static for grid participation
+  .spell-row {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    margin-bottom: 0;
+    font-size: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  // Spell detail button (book icon)
+  .spell-detail-btn {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    display: inline-flex !important;
+    width: 100% !important;
+    height: 100%;
+    margin-bottom: 0;
+    justify-content: center;
+    align-items: center;
+    background: rgba(200, 160, 60, 0.18) !important;
+    border-color: rgba(200, 160, 60, 0.5) !important;
+    border-left: none !important;
+  }
+
+  // auto_stories icon inside spell-detail-btn: bigger + highlighted on mobile/tablet
+  .spell-detail-btn mat-icon,
+  .spell-detail-btn .small-info-icon {
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    line-height: 18px !important;
+    color: rgba(200, 160, 60, 0.9) !important;
+  }
+
+  // ── Grid column assignments — lg default (>=576px): 3-per-row ────────
+  .spell-row[placeholder='St.']       { grid-column: span 2; }
+  .spell-row[placeholder='Název']     { grid-column: span 9; min-width: 0 !important; }
+  .spell-detail-btn                   { grid-column: span 1; }
+  .spell-row[placeholder='Útok']      { grid-column: span 4; }
+  .spell-row[placeholder='Doba']      { grid-column: span 4; }
+  .spell-row[placeholder='Složky']    { grid-column: span 4; }
+  .spell-row[placeholder='Dosah']     { grid-column: span 4; }
+  .spell-row[placeholder='Trvání']    { grid-column: span 4; }
+  .spell-row[placeholder='Str.']      { grid-column: span 4; }
+  .spell-row[placeholder='Poznámka'] { grid-column: 1 / -1; }
+
+  // Spell dropdown: sticky bottom sheet on mobile
+  .spell-dropdown {
+    position: fixed !important;
+    left: 8px !important;
+    right: 8px !important;
+    bottom: 0 !important;
+    top: auto !important;
+    width: auto !important;
+    max-height: 40vh;
+    overflow-y: auto !important;
+    z-index: 99999 !important;
+    border-radius: 8px 8px 0 0 !important;
+    box-shadow: 0 -4px 20px rgba(0,0,0,.6) !important;
+    inset: auto 8px 0 8px !important;
+  }
+
+  // ── Hide "Jméno postavy" inside caster-info collapsible on responsive ──
+  .cs-caster-name-field {
+    display: none !important;
+  }
+
+  // ── "Magie paktu" labeled box ─────────────────────────────────────────────
+  // Top-level so Angular compiles it for third-page's own _ngcontent scope.
+  .cs-pact-magic-area {
+    display: block !important;
+    border: 1px solid rgba(180, 130, 50, 0.35);
+    border-radius: 6px;
+    padding: 14px 10px 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: rgba(200, 160, 60, 0.05);
+    position: relative;
+
+    &::before {
+      content: 'Magie paktu';
+      font-family: 'Mikadan', sans-serif;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(120, 80, 20, 0.8);
+      position: absolute;
+      top: -8px;
+      left: 10px;
+      background: rgba(245, 235, 220, 0.97);
+      padding: 0 5px;
+    }
+  }
+
+  // Each pact row: label + input + checkboxes as a flex row
+  .cs-pact-row {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 6px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Row label (e.g. "Stupeň pozic", "Mystický taj")
+  .cs-pact-row-label {
+    display: block !important;
+    width: 100%;
+    font-size: 10px;
+    font-family: 'Mikadan', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(120, 80, 20, 0.7);
+    margin-bottom: 2px;
+  }
+
+  // Pact text inputs grow to fill available space
+  .cs-pact-field {
+    width: auto !important;
+    flex: 1 1 120px !important;
+    margin-bottom: 0 !important;
+  }
+
+  // Pact slot checkboxes: static/inline in flex row
+  .cs-pact-checkbox {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    display: inline-block !important;
+    width: 22px !important;
+    height: 22px !important;
+    flex-shrink: 0;
+    margin: 0;
+  }
+
+  // ── Profession rows grid ─────────────────────────────────────────────────
+  .cs-profession-grid {
+    display: grid !important;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+
+  .cs-prof-label {
+    display: block !important;
+    grid-column: 1 / -1;
+    font-size: 10px;
+    font-family: 'Mikadan', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(120, 80, 20, 0.75);
+    padding: 2px 0 1px;
+    border-bottom: 1px solid rgba(180, 130, 50, 0.2);
+    margin-bottom: 2px;
+  }
+
+  // Column assignments for profession fields
+  .cs-prof-field[placeholder='Sesilatelsé povolání'] { grid-column: span 6; }
+  .cs-prof-field[placeholder='Úroveň']               { grid-column: span 2; }
+  .cs-prof-field[placeholder='Max. st. kouzel']       { grid-column: span 4; }
+  .cs-prof-field[placeholder='Sesilatelsá vlast.']    { grid-column: span 4; }
+  .cs-prof-field[placeholder='SO záchranných hod.']   { grid-column: span 4; }
+  .cs-prof-field[placeholder='Útočný bonus']          { grid-column: span 4; }
+
+  // ── Dark theme overrides for pact area ────────────────────────────────────
+  :host.theme-dark .cs-pact-magic-area {
+    background: rgba(200, 160, 60, 0.04);
+    border-color: rgba(200, 160, 60, 0.2);
+
+    &::before {
+      background: rgba(16, 10, 4, 0.97);
+      color: rgba(200, 160, 60, 0.75);
+    }
+  }
+
+  :host.theme-dark .cs-pact-row-label {
+    color: rgba(200, 160, 60, 0.6);
+  }
+
+  :host.theme-dark .cs-prof_label {
+    color: rgba(200, 160, 60, 0.65);
+    border-bottom-color: rgba(200, 160, 60, 0.18);
   }
 }
 
@@ -1531,6 +1988,11 @@ input[type='checkbox'][disabled] {
   .cs-combat-healing-row .cs-combat-field-wrap { grid-column: span 6 !important; }
   .cs-combat-ac-row .cs-combat-field-wrap { grid-column: span 6 !important; }
 
+  // second-page: appearance grid → 2 columns on ≤767px
+  .cs-sp-appearance-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
   // second-page is flex-column, so no grid overrides needed
 
   .cs-weapon-row {
@@ -1540,6 +2002,17 @@ input[type='checkbox'][disabled] {
     .field-sm[placeholder='Dosah'],
     .field-sm[placeholder='OČ'] { width: calc(33% - 4px) !important; }
   }
+
+  // Spells sm: 2-per-row (span 6) — top-level for third-page scope
+  .spell-row[placeholder='St.']    { grid-column: span 3 !important; }
+  .spell-row[placeholder='Název']  { grid-column: span 8 !important; }
+  .spell-detail-btn                { grid-column: span 1 !important; }
+  .spell-row[placeholder='Útok'],
+  .spell-row[placeholder='Doba'],
+  .spell-row[placeholder='Složky'],
+  .spell-row[placeholder='Dosah'],
+  .spell-row[placeholder='Trvání'],
+  .spell-row[placeholder='Str.']  { grid-column: span 6 !important; }
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -1562,6 +2035,61 @@ input[type='checkbox'][disabled] {
     .field-sm[placeholder='Typ'],
     .field-sm[placeholder='Dosah'],
     .field-sm[placeholder='OČ'] { width: calc(50% - 4px) !important; }
+  }
+
+  // Spells xs: 2-per-row — top-level for third-page scope
+  .spell-row[placeholder='St.']    { grid-column: span 4 !important; }
+  .spell-row[placeholder='Název']  { grid-column: span 7 !important; }
+  .spell-detail-btn                { grid-column: span 1 !important; }
+  .spell-row[placeholder='Útok'],
+  .spell-row[placeholder='Doba'],
+  .spell-row[placeholder='Složky'],
+  .spell-row[placeholder='Dosah'],
+  .spell-row[placeholder='Trvání'],
+  .spell-row[placeholder='Str.']  { grid-column: span 6 !important; }
+}
+
+// ── Responsive + light theme: dark grey labels ──────────────────────────────
+@media (max-width: 1359px) {
+  :host:not(.theme-dark) {
+    [data-label]::before {
+      color: rgba(60, 50, 40, 0.75) !important;
+    }
+
+    .cs-section-title {
+      color: #5a3a10;
+    }
+
+    .cs-slot-level-label {
+      color: rgba(80, 55, 20, 0.85) !important;
+    }
+
+    .cs-spell-level-wrap .label {
+      color: rgba(80, 55, 20, 0.85) !important;
+    }
+
+    .cs-spell-level-wrap[data-label]::before {
+      color: rgba(80, 55, 20, 0.85) !important;
+    }
+
+    .cs-ability-label {
+      color: rgba(80, 55, 20, 0.85) !important;
+    }
+
+    .cs-combat-prof-label {
+      color: rgba(80, 55, 20, 0.8) !important;
+    }
+
+    // auto_stories icon: warm amber accent on light theme
+    .spell-detail-btn {
+      background: rgba(160, 100, 20, 0.1) !important;
+      border-color: rgba(160, 100, 20, 0.4) !important;
+    }
+
+    .spell-detail-btn mat-icon,
+    .spell-detail-btn .small-info-icon {
+      color: rgba(140, 80, 10, 0.85) !important;
+    }
   }
 }
 
@@ -1600,61 +2128,40 @@ input[type='checkbox'][disabled] {
       border-bottom-color: rgba(200, 160, 60, 0.1);
     }
 
-    .roll-d20-wrap[data-label]::before {
-      color: rgba(255, 250, 240, 0.75);
-    }
-
-    .cs-top-field-wrap[data-label]::before {
-      color: rgba(200, 160, 60, 0.65) !important;
+    // Blanket: all data-label pseudo-labels fully WHITE on dark bg
+    [data-label]::before {
+      color: #ffffff !important;
     }
 
     .cs-ability-label {
-      color: rgba(200, 160, 60, 0.8) !important;
-    }
-
-    .cs-ability-bonus-item[data-label]::before {
-      color: rgba(200, 160, 60, 0.65) !important;
-    }
-
-    .cs-combat-field-wrap[data-label]::before {
-      color: rgba(200, 160, 60, 0.6) !important;
+      color: rgba(255, 255, 255, 0.95) !important;
     }
 
     .cs-combat-prof-label {
-      color: rgba(200, 160, 60, 0.6) !important;
-    }
-
-    .cs-passive-field-wrap[data-label]::before {
-      color: rgba(255, 250, 240, 0.75) !important;
-    }
-
-    .cs-spells-field-wrap[data-label]::before {
-      color: rgba(200, 160, 60, 0.6) !important;
-    }
-
-    .cs-lang-field-wrap[data-label]::before {
-      color: rgba(200, 160, 60, 0.6) !important;
-    }
-
-    .cs-inventory-field-wrap[data-label]::before {
-      color: rgba(200, 160, 60, 0.6) !important;
-    }
-
-    .cs-weapon-extra-wrap[data-label]::before {
-      color: rgba(200, 160, 60, 0.6) !important;
+      color: rgba(255, 255, 255, 0.95) !important;
     }
 
     .cs-slot-level-label {
-      color: rgba(200, 160, 60, 0.8) !important;
+      color: #ffffff !important;
     }
 
     .cs-spell-level-wrap .label {
-      color: rgba(200, 160, 60, 0.8) !important;
+      color: #ffffff !important;
     }
 
-    // Full label via data-label in dark mode
     .cs-spell-level-wrap[data-label]::before {
-      color: rgba(200, 160, 60, 0.9) !important;
+      color: #ffffff !important;
+    }
+
+    // Lighter border for ability score inputs (Síla, Obratnost, Odolnost, etc.)
+    .cs-ability-group .field {
+      border-color: rgba(200, 160, 60, 0.5) !important;
+    }
+    .cs-ability-group .field.main-skill {
+      border-color: rgba(200, 160, 60, 0.6) !important;
+    }
+    .cs-ability-bonus-item .field {
+      border-color: rgba(200, 160, 60, 0.45) !important;
     }
 
     // Inactive spell-slot-cb: white ghost style on dark background
@@ -1690,8 +2197,128 @@ input[type='checkbox'][disabled] {
       border-bottom-color: rgba(200, 160, 60, 0.15) !important;
     }
 
-    third-page .red-checkbox {
+    .red-checkbox {
+      &::after {
+        color: rgba(200, 160, 60, 0.6) !important;
+      }
+    }
+
+    .spell-row-grid {
       border-top-color: rgba(200, 160, 60, 0.12) !important;
     }
+
+    .spell-prep-label {
+      color: rgba(200, 160, 60, 0.6) !important;
+    }
+
+    // auto_stories icon: golden glow on dark theme
+    .spell-detail-btn {
+      background: rgba(200, 160, 60, 0.14) !important;
+      border-color: rgba(200, 160, 60, 0.4) !important;
+    }
+
+    .spell-detail-btn mat-icon,
+    .spell-detail-btn .small-info-icon {
+      color: rgba(220, 180, 70, 0.95) !important;
+    }
+
+    // second-page appearance grid: golden labels on dark
+    .cs-sp-appearance-grid .field[data-label]::before {
+      color: rgba(200, 160, 60, 0.85) !important;
+    }
   }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ── GROUP SHEET — desktop transparent wrappers ───────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+// On desktop these wrappers must be invisible so the absolute-positioned
+// fields inside them still overlay the background image correctly.
+.gs-row,
+.gs-field-wrap {
+  display: contents;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ── GROUP SHEET — RESPONSIVE LAYOUT (≤1359px) ────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+@media (max-width: 1359px) {
+  // ── Section wrapper → block card ─────────────────────────────────────
+  .gs-section {
+    display: block !important;
+    background: rgba(245, 235, 220, 0.95);
+    border: 1px solid rgba(36, 12, 5, 0.25);
+    border-radius: 0;
+    padding: 12px !important;
+    border-bottom: 2px solid rgba(36, 12, 5, 0.15);
+    overflow: visible;
+    box-sizing: border-box;
+  }
+
+  // ── Row: flex container (inputs side by side) ─────────────────────────
+  .gs-row {
+    display: flex !important;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  // ── Field wrap: label above + field below, each flex child ────────────
+  .gs-field-wrap {
+    display: flex !important;
+    flex-direction: column;
+    flex: 1 1 0;
+    min-width: 0;
+
+    &::before {
+      @include responsive-label(10px, rgba(60, 50, 40, 0.75));
+      margin-bottom: 2px;
+    }
+
+    .field {
+      width: 100% !important;
+      margin-bottom: 0 !important;
+    }
+  }
+
+  // ── Inventory: single column stack ────────────────────────────────────
+  .gs-inventory-section {
+    .inventory-item {
+      font-size: 14px !important;
+      padding: 8px 10px !important;
+      margin-bottom: 4px;
+    }
+  }
+}
+
+// ── Group sheet: responsive + light theme ────────────────────────────────────
+@media (max-width: 1359px) {
+  :host:not(.theme-dark) {
+    .gs-section {
+      background: rgba(245, 235, 220, 0.95);
+    }
+
+    .gs-field-wrap::before {
+      color: rgba(60, 50, 40, 0.75) !important;
+    }
+  }
+}
+
+// ── Group sheet: responsive + dark theme ─────────────────────────────────────
+@media (max-width: 1359px) {
+  :host.theme-dark {
+    .gs-section {
+      background: rgba(18, 12, 8, 0.95);
+      border-color: rgba(200, 160, 60, 0.15);
+      border-bottom-color: rgba(200, 160, 60, 0.1);
+    }
+
+    .gs-field-wrap::before {
+      color: rgba(200, 160, 60, 0.85) !important;
+    }
+  }
+}
+
+// ── CDK Drag-and-Drop for collapsible reordering ─────────────────────────────
+.cs-drop-list.cdk-drop-list-dragging cs-collapsible:not(.cdk-drag-placeholder) {
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
 }

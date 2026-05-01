@@ -18,9 +18,16 @@ import { AuthService } from '@dn-d-servant/util';
 import { QuestEntry, QuestPriority, QuestStatus } from '@dn-d-servant/character-sheet-util';
 import { SpinnerOverlayComponent, RichTextareaComponent } from '@dn-d-servant/ui';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DOCUMENT } from '@angular/common';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 type FilterStatus = 'all' | QuestStatus;
 type SortMode = 'priority' | 'date';
+
+const LS_QUESTS_KEY = 'dnd_quests_draft';
+const LS_EXPANDED_KEY = 'dnd_quests_expanded';
 
 @Component({
   selector: 'quests-tab',
@@ -223,7 +230,7 @@ type SortMode = 'priority' | 'date';
       border-left: 3px solid transparent;
       box-shadow: 0 4px 20px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,220,100,.04);
       transition: border-color .2s, box-shadow .2s;
-      overflow: hidden;
+      overflow: visible;
 
       &::before {
         content: '◆';
@@ -264,6 +271,9 @@ type SortMode = 'priority' | 'date';
       align-items: center;
       gap: 6px;
       padding: 8px 10px 6px;
+      cursor: pointer;
+      transition: background .15s;
+      &:hover { background: rgba(200,160,60,.04); }
     }
 
     .status-badge {
@@ -500,7 +510,37 @@ type SortMode = 'priority' | 'date';
       border: 1px solid rgba(200,160,60,.1);
       border-radius: 2px;
       background: rgba(0,0,0,.2);
-      overflow: hidden;
+      overflow: visible;
+    }
+
+    /* Dark theme styles for rich-textarea inside quest cards */
+    :host ::ng-deep .quest-desc-wrap {
+      rich-textarea {
+        .rt-toolbar {
+          background: rgba(20,14,4,.92) !important;
+          border-color: rgba(200,160,60,.2) !important;
+          box-shadow: 0 2px 8px rgba(0,0,0,.5) !important;
+          button {
+            color: rgba(200,160,60,.6);
+            &:hover { color: #e8c96a !important; background: rgba(200,160,60,.12) !important; border-color: rgba(200,160,60,.3) !important; }
+          }
+          /* Preserve inline [style.color] on color buttons (A) */
+          button[style*="color"] {
+            filter: brightness(1.3) saturate(1.2);
+          }
+        }
+        .rt-editor {
+          color: #d4c9a0 !important;
+          background: transparent !important;
+          &::placeholder { color: rgba(200,160,60,.25) !important; }
+        }
+        .rt-preview {
+          color: #d4c9a0 !important;
+        }
+        .rt-preview--empty {
+          color: rgba(200,160,60,.25) !important;
+        }
+      }
     }
 
     /* ── Confirm delete dialog ─────────────────── */
@@ -582,11 +622,22 @@ type SortMode = 'priority' | 'date';
     }
     .img-preview-hint { margin-top: 10px; font-size: 10px; color: rgba(200,160,60,.3); letter-spacing: .1em; }
 
+    /* ── Auto-save indicator ─────────────────── */
+    .autosave-msg {
+      font-family: 'Mikadan', sans-serif;
+      font-size: 10px;
+      letter-spacing: .1em;
+      color: rgba(100,180,110,.6);
+      transition: opacity .4s;
+      &--hidden { opacity: 0; pointer-events: none; }
+    }
+
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes scaleIn { from { transform: scale(.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
   `,
   template: `
-    <spinner-overlay [showSpinner]="store.loading()" [diameter]="50">
+    <spinner-overlay [showSpinner]="showSpinner()" [diameter]="50">
+
       <!-- ── Header ──────────────────────────────────── -->
       <div class="quests-header">
         <div>
@@ -599,6 +650,7 @@ type SortMode = 'priority' | 'date';
           </div>
         </div>
         <div class="quests-header-actions">
+          <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
           <button class="btn-dnd btn-dnd-icon" type="button" (click)="expandAll()" matTooltip="Rozbalit vše">
             <mat-icon>unfold_more</mat-icon>
           </button>
@@ -609,7 +661,7 @@ type SortMode = 'priority' | 'date';
             <mat-icon>add</mat-icon>
             Přidat quest
           </button>
-          <button class="btn-dnd btn-dnd-save" type="button" (click)="save()" matTooltip="Uložit questy do databáze">
+          <button class="btn-dnd btn-dnd-save" type="button" (click)="save(true)" matTooltip="Uložit questy do databáze">
             <mat-icon>save</mat-icon>
             Uložit
           </button>
@@ -660,16 +712,16 @@ type SortMode = 'priority' | 'date';
             <div class="quest-card-rule"></div>
 
             <!-- Header row -->
-            <div class="quest-card-header">
+            <div class="quest-card-header" (click)="toggleExpand(item.quest.id)">
               <button
                 class="status-badge status-badge--{{ item.quest.status }}"
                 type="button"
-                (click)="cycleStatus(item.idx)"
+                (click)="cycleStatus(item.idx); $event.stopPropagation()"
                 matTooltip="Klikni pro změnu stavu"
               >{{ statusLabel(item.quest.status) }}</button>
               <span
                 class="priority-dot priority-dot--{{ item.quest.priority }}"
-                (click)="cyclePriority(item.idx)"
+                (click)="cyclePriority(item.idx); $event.stopPropagation()"
                 [matTooltip]="'Priorita: ' + priorityLabel(item.quest.priority) + ' — klikni pro změnu'"
               ></span>
               <span class="quest-date">{{ item.quest.dateAdded }}</span>
@@ -678,12 +730,12 @@ type SortMode = 'priority' | 'date';
                   mat-icon-button
                   class="quest-expand-btn"
                   type="button"
-                  (click)="toggleExpand(item.quest.id)"
+                  (click)="toggleExpand(item.quest.id); $event.stopPropagation()"
                   [matTooltip]="expandedIds().has(item.quest.id) ? 'Sbalit' : 'Rozbalit'"
                 >
                   <mat-icon>{{ expandedIds().has(item.quest.id) ? 'expand_less' : 'expand_more' }}</mat-icon>
                 </button>
-                <button mat-icon-button class="quest-delete-btn" type="button" (click)="askDelete(item.idx)" matTooltip="Smazat quest">
+                <button mat-icon-button class="quest-delete-btn" type="button" (click)="askDelete(item.idx); $event.stopPropagation()" matTooltip="Smazat quest">
                   <mat-icon>delete_outline</mat-icon>
                 </button>
               </div>
@@ -694,6 +746,7 @@ type SortMode = 'priority' | 'date';
               <input
                 class="quest-title-input"
                 [(ngModel)]="quests()[item.idx].title"
+                (ngModelChange)="scheduleAutoSave()"
                 placeholder="Název questu..."
               />
             </div>
@@ -738,15 +791,15 @@ type SortMode = 'priority' | 'date';
                 <div class="quest-meta-row">
                   <div class="quest-meta-field">
                     <mat-icon class="quest-meta-icon">person</mat-icon>
-                    <input class="quest-meta-input" [(ngModel)]="quests()[item.idx].npcName" placeholder="NPC / Zadavatel" />
+                    <input class="quest-meta-input" [(ngModel)]="quests()[item.idx].npcName" (ngModelChange)="scheduleAutoSave()" placeholder="NPC / Zadavatel" />
                   </div>
                   <div class="quest-meta-field">
                     <mat-icon class="quest-meta-icon">place</mat-icon>
-                    <input class="quest-meta-input" [(ngModel)]="quests()[item.idx].location" placeholder="Lokalita / Oblast" />
+                    <input class="quest-meta-input" [(ngModel)]="quests()[item.idx].location" (ngModelChange)="scheduleAutoSave()" placeholder="Lokalita / Oblast" />
                   </div>
                   <div class="quest-meta-field">
                     <mat-icon class="quest-meta-icon" style="color:rgba(200,160,60,.55)">payments</mat-icon>
-                    <input class="quest-meta-input quest-meta-input--gold" [(ngModel)]="quests()[item.idx].rewards" placeholder="Odměna, zkušenosti, předměty..." />
+                    <input class="quest-meta-input quest-meta-input--gold" [(ngModel)]="quests()[item.idx].rewards" (ngModelChange)="scheduleAutoSave()" placeholder="Odměna, zkušenosti, předměty..." />
                   </div>
                 </div>
 
@@ -758,6 +811,7 @@ type SortMode = 'priority' | 'date';
                 <div class="quest-desc-wrap">
                   <rich-textarea
                     [(ngModel)]="quests()[item.idx].description"
+                    (ngModelChange)="scheduleAutoSave()"
                     style="top:0; left:0; width:100%; height:100%;"
                   ></rich-textarea>
                 </div>
@@ -817,11 +871,12 @@ export class QuestsTabComponent {
   readonly store = inject(CharacterSheetStore);
   private readonly authService = inject(AuthService);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly _doc = inject(DOCUMENT);
 
   quests = signal<QuestEntry[]>([]);
   filterStatus = signal<FilterStatus>('all');
   sortMode = signal<SortMode>('priority');
-  expandedIds = signal<Set<string>>(new Set());
+  expandedIds = signal<Set<string>>(new Set(this._loadExpandedIds()));
   confirmDeleteIndex = signal<number | null>(null);
   dragOverIndex = signal<number | null>(null);
   previewQuest = signal<QuestEntry | null>(null);
@@ -868,11 +923,21 @@ export class QuestsTabComponent {
   });
 
   constructor() {
+    // ── Restore local draft first (fast, no network) ─────────────────────
+    const localDraft = this._loadLocalDraft();
+    if (localDraft.length > 0) {
+      this.quests.set(localDraft);
+    }
+
+    // ── When DB data arrives, merge: DB is source-of-truth for content,
+    //    but keep any local status/priority changes that are newer ─────────
     effect(() => {
       const data = this.store.quests();
       untracked(() => {
         if (data?.quests) {
           this.quests.set(data.quests.map(q => ({ ...q })));
+          this._dbLoaded.set(true);
+          this._manualSaving.set(false);
         }
       });
     });
@@ -885,6 +950,53 @@ export class QuestsTabComponent {
         }
       });
     });
+
+    // ── Auto-persist quests to localStorage on every change ───────────────
+    effect(() => {
+      const list = this.quests();
+      untracked(() => {
+        try {
+          this._doc.defaultView?.localStorage.setItem(LS_QUESTS_KEY, JSON.stringify(list));
+        } catch { /* quota exceeded — ignore */ }
+      });
+    });
+
+    // ── Auto-persist expanded IDs to localStorage on every change ─────────
+    effect(() => {
+      const ids = this.expandedIds();
+      untracked(() => {
+        try {
+          this._doc.defaultView?.localStorage.setItem(LS_EXPANDED_KEY, JSON.stringify([...ids]));
+        } catch { /* quota exceeded — ignore */ }
+      });
+    });
+
+    // ── Auto-save quests with debounce (2.5 s after last user change) ────
+    this._autoSave$
+      .pipe(debounceTime(2500), takeUntilDestroyed())
+      .subscribe(() => {
+        if (!this._dbLoaded()) return;
+        this.save();
+        this.autoSaveStatus.set('saved');
+        this._hideBanner$.next();
+      });
+
+    this._hideBanner$
+      .pipe(debounceTime(3000), takeUntilDestroyed())
+      .subscribe(() => this.autoSaveStatus.set('idle'));
+  }
+
+  readonly autoSaveStatus = signal<'idle' | 'saved'>('idle');
+  /** True once the DB response has arrived at least once. Prevents auto-save on initial population. */
+  private readonly _dbLoaded = signal(false);
+  private readonly _manualSaving = signal(false);
+  readonly showSpinner = computed(() => this.store.loading() && this._manualSaving());
+  private readonly _autoSave$ = new Subject<void>();
+  private readonly _hideBanner$ = new Subject<void>();
+
+  /** Call from user-driven actions to schedule a debounced auto-save. */
+  scheduleAutoSave(): void {
+    this._autoSave$.next();
   }
 
   // ── Quest management ─────────────────────────────────────────────────────
@@ -905,6 +1017,7 @@ export class QuestsTabComponent {
     };
     this.quests.update(list => [...list, newQuest]);
     this.expandedIds.update(s => new Set([...s, id]));
+    this.scheduleAutoSave();
   }
 
   toggleExpand(id: string): void {
@@ -933,6 +1046,7 @@ export class QuestsTabComponent {
         return { ...q, status: next };
       }),
     );
+    this.scheduleAutoSave();
   }
 
   cyclePriority(idx: number): void {
@@ -944,6 +1058,7 @@ export class QuestsTabComponent {
         return { ...q, priority: next };
       }),
     );
+    this.scheduleAutoSave();
   }
 
   askDelete(idx: number): void {
@@ -958,18 +1073,34 @@ export class QuestsTabComponent {
     const idx = this.confirmDeleteIndex();
     if (idx === null) return;
     const id = this.quests()[idx]?.id;
-    if (id) this.expandedIds.update(s => { const n = new Set(s); n.delete(id); return n; });
+    if (id) {
+      this.expandedIds.update(s => {
+        const next = new Set(s);
+        next.delete(id);
+        return next;
+      });
+    }
     this.quests.update(list => list.filter((_, i) => i !== idx));
     this.confirmDeleteIndex.set(null);
+    this.scheduleAutoSave();
   }
 
-  save(): void {
+  save(manual = false): void {
     const username = this.authService.currentUser()?.username;
     if (!username) return;
+    if (manual) this._manualSaving.set(true);
     this.store.saveQuests({ username, quests: this.quests() });
   }
 
-  // ── Image handling ───────────────────────────────────────────────────────
+  onEscape(): void {
+    if (this.previewQuest()) {
+      this.closePreview();
+    } else if (this.confirmDeleteIndex() !== null) {
+      this.cancelDelete();
+    }
+  }
+
+  // ── Image handling ────────────────────────────────────────────────────────
 
   selectImage(idx: number): void {
     this.pendingFileIdx.set(idx);
@@ -979,7 +1110,6 @@ export class QuestsTabComponent {
   onDragOver(event: DragEvent, idx: number): void {
     event.preventDefault();
     event.stopPropagation();
-    if (event.dataTransfer) event.dataTransfer.dropEffect = 'copy';
     this.dragOverIndex.set(idx);
   }
 
@@ -991,42 +1121,35 @@ export class QuestsTabComponent {
     event.preventDefault();
     event.stopPropagation();
     this.dragOverIndex.set(null);
-    const file = event.dataTransfer?.files?.[0];
-    if (file) this.processFile(file, idx);
+    const file = event.dataTransfer?.files[0];
+    if (file) this._processImageFile(file, idx);
   }
 
   onImageSelected(event: Event): void {
     const idx = this.pendingFileIdx();
     if (idx === null) return;
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-    if (!file) return;
-    this.processFile(file, idx);
-    input.value = '';
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) this._processImageFile(file, idx);
+    (event.target as HTMLInputElement).value = '';
     this.pendingFileIdx.set(null);
   }
 
-  private processFile(file: File, idx: number): void {
-    if (!file.type.startsWith('image/')) {
-      this.snackBar.open('Soubor není obrázek.', 'Zavřít', { verticalPosition: 'top', duration: 3000 });
-      return;
-    }
-    const maxBytes = 200 * 1024;
-    if (file.size > maxBytes) {
-      this.snackBar.open(`Obrázek je příliš velký (${(file.size / 1024).toFixed(0)} KB). Maximum je 200 KB.`, 'Zavřít', {
+  private _processImageFile(file: File, idx: number): void {
+    if (file.size > 200 * 1024) {
+      this.snackBar.open('Obrázek je příliš velký (max 200 KB)', 'Zavřít', {
         verticalPosition: 'top',
-        duration: 5000,
+        duration: 3000,
       });
       return;
     }
     const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = (reader.result as string).split(',')[1];
-      this.quests.update(list => {
-        const copy = list.map(q => ({ ...q }));
-        copy[idx] = { ...copy[idx], imageBase64: base64 };
-        return copy;
-      });
+    reader.onload = (e) => {
+      const result = e.target?.result as string;
+      const base64 = result.split(',')[1] ?? result;
+      this.quests.update(list =>
+        list.map((q, i) => (i === idx ? { ...q, imageBase64: base64 } : q)),
+      );
+      this.scheduleAutoSave();
     };
     reader.readAsDataURL(file);
   }
@@ -1040,33 +1163,55 @@ export class QuestsTabComponent {
     this.previewQuest.set(null);
   }
 
-  onEscape(): void {
-    if (this.previewQuest()) { this.closePreview(); return; }
-    if (this.confirmDeleteIndex() !== null) this.cancelDelete();
-  }
-
-  // ── Labels / colours ─────────────────────────────────────────────────────
-
-  statusLabel(status: QuestStatus): string {
-    const map: Record<QuestStatus, string> = { active: 'Aktivní', completed: 'Splněn', failed: 'Neúspěšný', inactive: 'Neaktivní' };
-    return map[status];
-  }
-
-  priorityLabel(priority: QuestPriority): string {
-    const map: Record<QuestPriority, string> = { critical: 'Kritická', high: 'Vysoká', medium: 'Střední', low: 'Nízká' };
-    return map[priority];
-  }
+  // ── Display helpers ───────────────────────────────────────────────────────
 
   priorityColor(priority: QuestPriority): string {
     const map: Record<QuestPriority, string> = {
       critical: 'rgba(180,30,30,.9)',
       high: 'rgba(200,100,30,.9)',
-      medium: 'rgba(200,160,60,.85)',
-      low: 'rgba(80,120,180,.8)',
+      medium: 'rgba(200,160,60,.9)',
+      low: 'rgba(80,120,180,.85)',
     };
     return map[priority];
   }
+
+  statusLabel(status: QuestStatus): string {
+    const map: Record<QuestStatus, string> = {
+      active: 'Aktivní',
+      completed: 'Splněno',
+      failed: 'Neúspěch',
+      inactive: 'Neaktivní',
+    };
+    return map[status];
+  }
+
+  priorityLabel(priority: QuestPriority): string {
+    const map: Record<QuestPriority, string> = {
+      critical: 'Kritická',
+      high: 'Vysoká',
+      medium: 'Střední',
+      low: 'Nízká',
+    };
+    return map[priority];
+  }
+
+  // ── LocalStorage helpers ──────────────────────────────────────────────────
+
+  private _loadLocalDraft(): QuestEntry[] {
+    try {
+      const raw = this._doc.defaultView?.localStorage.getItem(LS_QUESTS_KEY);
+      return raw ? (JSON.parse(raw) as QuestEntry[]) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  private _loadExpandedIds(): string[] {
+    try {
+      const raw = this._doc.defaultView?.localStorage.getItem(LS_EXPANDED_KEY);
+      return raw ? (JSON.parse(raw) as string[]) : [];
+    } catch {
+      return [];
+    }
+  }
 }
-
-
-

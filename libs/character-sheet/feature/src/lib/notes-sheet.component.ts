@@ -8,7 +8,8 @@ import { AuthService, FormUtil } from '@dn-d-servant/util';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotesFormModelMappers } from './api-mappers/notes-form-model-mappers';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { interval } from 'rxjs';
+import { interval, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'notes-sheet',
@@ -41,6 +42,16 @@ import { interval } from 'rxjs';
       &--hidden { opacity: 0; pointer-events: none; }
     }
 
+    .autosave-msg {
+      font-family: 'Mikadan', sans-serif;
+      font-size: 10px;
+      letter-spacing: .1em;
+      color: rgba(100,180,110,.6);
+      transition: opacity .4s;
+      &--hidden { opacity: 0; pointer-events: none; }
+    }
+    @keyframes fadeBanner { from { opacity: 0; } to { opacity: 1; } }
+
     .btn-save {
       font-family: 'Mikadan', sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
       border: 1px solid rgba(80,160,80,.35); border-radius: 3px; background: rgba(60,120,60,.08);
@@ -58,9 +69,25 @@ import { interval } from 'rxjs';
       gap: 18px;
     }
 
+    @media (max-width: 700px) {
+      :host { padding: 16px 12px 40px; }
+
+      .notes-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* expedition panel spans only 1 row on single-column layout */
+      .panel--expedition {
+        grid-row: auto !important;
+        .rt-wrap { min-height: 260px !important; }
+      }
+
+      .rt-wrap { height: 260px; }
+    }
+
     /* ── Single note panel ───────────────────────── */
     .note-panel {
-      border-radius: 3px; overflow: hidden;
+      border-radius: 3px; overflow: visible;
       background: linear-gradient(160deg, rgba(42,32,14,.97) 0%, rgba(28,20,8,.99) 100%);
       border: 1px solid rgba(200,160,60,.15);
       box-shadow: 0 4px 20px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,220,100,.04);
@@ -100,7 +127,37 @@ import { interval } from 'rxjs';
       .panel-header { background: rgba(220,120,60,.06); } .panel-icon { color: rgba(230,140,80,.65); } .panel-title { color: rgba(240,160,90,.85); } }
 
     /* ── Rich-textarea wrapper ───────────────────── */
-    .rt-wrap { position: relative; height: 380px; background: rgba(0,0,0,.15); }
+    .rt-wrap { position: relative; height: 380px; background: rgba(0,0,0,.15); overflow: visible; }
+
+    /* Dark theme for rich-textarea inside note panels */
+    :host ::ng-deep .rt-wrap {
+      rich-textarea {
+        .rt-toolbar {
+          background: rgba(20,14,4,.92) !important;
+          border-color: rgba(200,160,60,.2) !important;
+          box-shadow: 0 2px 8px rgba(0,0,0,.5) !important;
+          button {
+            color: rgba(200,160,60,.6);
+            &:hover { color: #e8c96a !important; background: rgba(200,160,60,.12) !important; border-color: rgba(200,160,60,.3) !important; }
+          }
+          /* Preserve inline [style.color] on color buttons (A) */
+          button[style*="color"] {
+            filter: brightness(1.3) saturate(1.2);
+          }
+        }
+        .rt-editor {
+          color: #d4c9a0 !important;
+          background: transparent !important;
+          &::placeholder { color: rgba(200,160,60,.25) !important; }
+        }
+        .rt-preview {
+          color: #d4c9a0 !important;
+        }
+        .rt-preview--empty {
+          color: rgba(200,160,60,.25) !important;
+        }
+      }
+    }
   `,
   template: `
     <form [formGroup]="form">
@@ -110,6 +167,7 @@ import { interval } from 'rxjs';
           <div class="header-subtitle">Osobní zápisky, mapy a cíle tvojí postavy</div>
         </div>
         <div class="header-actions">
+          <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
           <span class="autosave-indicator" [class.autosave-indicator--hidden]="!autoSaved()">
             <mat-icon>check_circle</mat-icon> Automaticky uloženo
           </span>
@@ -168,6 +226,10 @@ export class NotesSheetComponent {
   destroyRef = inject(DestroyRef);
   snackBar = inject(MatSnackBar);
   autoSaved = signal(false);
+  autoSaveStatus = signal<'idle' | 'saved'>('idle');
+  private readonly _dbLoaded = signal(false);
+  private readonly _hideBanner$ = new Subject<void>();
+  private readonly _hideAutoSaved$ = new Subject<void>();
 
   private readonly documentName = '_notes';
 
@@ -195,7 +257,8 @@ export class NotesSheetComponent {
       untracked(() => {
         if (notesPage) {
           const formValue = FormUtil.convertModelToForm(notesPage, NotesFormModelMappers.notesFormToApiMapper);
-          this.form.patchValue(formValue);
+          this.form.patchValue(formValue, { emitEvent: false });
+          this._dbLoaded.set(true);
         }
       });
     });
@@ -210,8 +273,31 @@ export class NotesSheetComponent {
         model.username = `${username}${this.documentName}`;
         this.characterSheetStore.saveDraftToLocalStorage({ type: 'notes', model });
         this.autoSaved.set(true);
-        setTimeout(() => this.autoSaved.set(false), 3000);
+        this._hideAutoSaved$.next();
       });
+
+    this._hideAutoSaved$
+      .pipe(debounceTime(3000), takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.autoSaved.set(false));
+
+    // ── Auto-save 2.5 s after any form change (only after DB loaded) ───────
+    {
+      const autoSave$ = new Subject<void>();
+      autoSave$.pipe(debounceTime(2500), takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+        if (!this._dbLoaded()) return;
+        this.onSaveClick();
+        this.autoSaveStatus.set('saved');
+        this._hideBanner$.next();
+      });
+
+      this._hideBanner$
+        .pipe(debounceTime(3000), takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => this.autoSaveStatus.set('idle'));
+
+      this.form.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+        if (this._dbLoaded()) autoSave$.next();
+      });
+    }
   }
 
   onSaveClick(): void {

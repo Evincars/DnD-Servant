@@ -11,6 +11,10 @@
   min-width: 100vw;
   // Ensure the dark wallpaper covers everything even when content is short
   background-color: #0a0710;
+  // Override Bootstrap's .container padding so the toolbar fills full width
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  max-width: 100% !important;
 }
 
 // Make mat-sidenav-content scroll naturally via the browser — no inner scrollbar
@@ -281,6 +285,7 @@
   align-items: center !important;
   padding: 0 !important;
   gap: 0 !important;
+  overflow: visible !important;
 
   &::after {
     content: '';
@@ -312,17 +317,17 @@
 }
 
 .toolbar__inner {
-  width: 1310px;
-  max-width: calc(100vw - 32px);
-  margin: 0 auto;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   height: 100%;
-  padding: 0;
+  padding: 0 12px;
+  box-sizing: border-box;
+  overflow: visible;
 }
 
-.toolbar__left { flex: 0 0 auto; }
+.toolbar__left { flex: 0 0 auto; overflow: visible; }
 
 .toolbar__right {
   margin-left: auto;
@@ -405,6 +410,27 @@
   width: 16px !important;
   height: 16px !important;
   color: #a08060;
+}
+
+.settings-btn {
+  width: 34px;
+  height: 34px;
+  overflow: visible;
+  flex-shrink: 0;
+
+  .toolbar-icon {
+    font-size: 22px !important;
+    width: 22px !important;
+    height: 22px !important;
+    overflow: visible !important;
+    transition: transform .35s ease, color .15s !important;
+  }
+
+  &:hover .toolbar-icon {
+    transform: rotate(55deg);
+    color: #e8c96a !important;
+    filter: drop-shadow(0 0 6px rgba(200,160,60,.6));
+  }
 }
 
 @keyframes menu-pulse {
@@ -575,7 +601,7 @@
 @media (max-width: 900px) {
   .toolbar__inner {
     flex-wrap: nowrap;
-    overflow: hidden;
+    overflow: visible;
     gap: 0;
     padding: 0 4px;
   }
@@ -604,6 +630,15 @@
 
   .toolbar span {
     font-size: 14px !important;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// SMALL MOBILE  (≤480px) — hide 'Servant' label to keep auth btn visible
+// ═══════════════════════════════════════════════════════════════════
+@media (max-width: 480px) {
+  .toolbar-servant-text {
+    display: none;
   }
 }
 

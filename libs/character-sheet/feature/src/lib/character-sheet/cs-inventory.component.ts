@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
+import { SheetThemeService } from '../sheet-theme.service';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InventoryForm, Main6SkillsForm } from '@dn-d-servant/character-sheet-util';
 import { NgClass } from '@angular/common';
@@ -12,7 +13,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'cs-inventory',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
+  host: { style: 'display: contents', '[class.theme-dark]': 'sheetTheme.darkMode()' },
   imports: [ReactiveFormsModule, NgClass, MatIcon, MatTooltip],
   styleUrl: '../character-sheet.component.scss',
   template: `
@@ -215,6 +216,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   `,
 })
 export class CsInventoryComponent {
+  readonly sheetTheme = inject(SheetThemeService);
   form = input.required<FormGroup<InventoryForm>>();
   inventoryClasses = input.required<string[]>();
   main6Form = input<FormGroup<Main6SkillsForm> | null>(null);

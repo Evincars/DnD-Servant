@@ -7,7 +7,9 @@ const STORAGE_KEY = 'sheet-theme-dark';
 export class SheetThemeService {
   private readonly ls = inject(LocalStorageService);
 
-  readonly darkMode = signal<boolean>(this.ls.getDataSync<boolean>(STORAGE_KEY) ?? false);
+  readonly darkMode = signal<boolean>(
+    this.ls.getDataSync<boolean>(STORAGE_KEY) ?? window.matchMedia('(prefers-color-scheme: dark)').matches,
+  );
 
   toggle(): void {
     const next = !this.darkMode();

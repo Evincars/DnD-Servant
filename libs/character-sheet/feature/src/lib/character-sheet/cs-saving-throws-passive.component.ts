@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
+import { SheetThemeService } from '../sheet-theme.service';
 import { AbstractControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PassiveSkillsForm, SavingThrowsForm, SpellsAndAlchemistChestForm } from '@dn-d-servant/character-sheet-util';
 import { NgClass } from '@angular/common';
@@ -14,7 +15,7 @@ import { merge } from 'rxjs';
 @Component({
   selector: 'cs-saving-throws-passive',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
+  host: { style: 'display: contents', '[class.theme-dark]': 'sheetTheme.darkMode()' },
   imports: [ReactiveFormsModule, NgClass, MatIcon, MatTooltip, RichTextareaComponent],
   styleUrl: '../character-sheet.component.scss',
   template: `
@@ -22,6 +23,7 @@ import { merge } from 'rxjs';
     @if (_tick()) {
       <div class="cs-stp-container">
         <!-- ═══ Záchranné hody ═══ -->
+        <div class="cs-named-area" data-area-label="Záchranné hody">
         <div class="cs-stp-section" [formGroup]="savingThrowsForm()">
           <h4 class="cs-section-title cs-sub-title">Záchranné hody</h4>
           <div class="row g-1">
@@ -111,8 +113,10 @@ import { merge } from 'rxjs';
             </div>
           </div>
         </div>
+        </div><!-- /cs-named-area Záchranné hody -->
 
         <!-- ═══ Pasivní dovednosti ═══ -->
+        <div class="cs-named-area" data-area-label="Pasivní dovednosti">
         <div class="cs-stp-section" [formGroup]="passiveSkillsForm()">
           <h4 class="cs-section-title cs-sub-title">Pasivní dovednosti</h4>
           <div class="row g-1">
@@ -167,9 +171,10 @@ import { merge } from 'rxjs';
             </div>
           </div>
         </div>
+        </div><!-- /cs-named-area Pasivní dovednosti -->
 
-        <!-- ═══ Sesílání kouzel ═══ -->
-        <div class="cs-stp-section" [formGroup]="spellsAndAlchForm()">
+        <!-- ═══ Sesílání kouzel (desktop only — on responsive these move to spell-slots collapsible) ═══ -->
+        <div class="cs-stp-section cs-desktop-only" [formGroup]="spellsAndAlchForm()">
           <h4 class="cs-section-title cs-sub-title">Sesílání kouzel</h4>
           <button (click)="onOpenSpellsDialog()" type="button" matTooltip="Seznam kouzel" style="top:764px; left:452px;" class="field button small-info-button-icon">
             <mat-icon class="small-info-icon">info</mat-icon>
@@ -196,8 +201,8 @@ import { merge } from 'rxjs';
           </div>
         </div>
 
-        <!-- ═══ O postavě ═══ -->
-        <div class="cs-stp-section">
+        <!-- ═══ O postavě (desktop only — on responsive moves to Vzhled a povaha collapsible) ═══ -->
+        <div class="cs-stp-section cs-desktop-only">
           <div class="cs-spells-field-wrap cs-spells-field-wrap--textarea" data-label="O postavě">
             <rich-textarea [formControl]="infoAboutCharacterControl()" class="field textarea" style="top:545.1px; left:834.47px; width:349.77px; height:432px;"></rich-textarea>
           </div>
@@ -207,6 +212,7 @@ import { merge } from 'rxjs';
   `,
 })
 export class CsSavingThrowsPassiveComponent {
+  readonly sheetTheme = inject(SheetThemeService);
   savingThrowsForm = input.required<FormGroup<SavingThrowsForm>>();
   passiveSkillsForm = input.required<FormGroup<PassiveSkillsForm>>();
   spellsAndAlchForm = input.required<FormGroup<SpellsAndAlchemistChestForm>>();
@@ -268,5 +274,4 @@ export class CsSavingThrowsPassiveComponent {
     };
   }
 }
-
 
