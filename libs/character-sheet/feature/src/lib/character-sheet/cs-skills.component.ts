@@ -28,9 +28,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.atletikaZdatnost)"
             (click)="cycleAbilityZdatnost(c.atletikaZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:418px; left:186.09px;"
+            style="top:408px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Atletika (SIL)" style="top:403.38px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Atletika (SIL)" style="top:396.38px; left:348.46px; width:70.74px;">
             <input [formControl]="c.atletika" id="atletika" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.atletika.value, 'Atletika')">🎲</button>
           </span>
@@ -40,9 +40,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.akrobacieZdatnost)"
             (click)="cycleAbilityZdatnost(c.akrobacieZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:476px; left:186.09px;"
+            style="top:467px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Akrobacie (OBR)" style="top:461.52px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Akrobacie (OBR)" style="top:454.52px; left:348.46px; width:70.74px;">
             <input [formControl]="c.akrobacie" id="akrobacie" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.akrobacie.value, 'Akrobacie')">🎲</button>
           </span>
@@ -52,9 +52,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.cachryZdatnost)"
             (click)="cycleAbilityZdatnost(c.cachryZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:504px; left:186.09px;"
+            style="top:495px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Čachry (OBR)" style="top:490.59px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Čachry (OBR)" style="top:483.59px; left:348.46px; width:70.74px;">
             <input [formControl]="c.cachry" id="cachry" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.cachry.value, 'Čachry')">🎲</button>
           </span>
@@ -64,9 +64,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.nenapadnostZdatnost)"
             (click)="cycleAbilityZdatnost(c.nenapadnostZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:532px; left:186.09px;"
+            style="top:525px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Nenápadnost (OBR)" style="top:519.66px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Nenápadnost (OBR)" style="top:512.66px; left:348.46px; width:70.74px;">
             <input [formControl]="c.nenapadnost" id="nenapadnost" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.nenapadnost.value, 'Nenápadnost')">🎲</button>
           </span>
@@ -76,9 +76,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.historieZdatnost)"
             (click)="cycleAbilityZdatnost(c.historieZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:595px; left:186.09px;"
+            style="top:589px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Historie (INT)" style="top:581.44px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Historie (INT)" style="top:574.44px; left:348.46px; width:70.74px;">
             <input [formControl]="c.historie" id="historie" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.historie.value, 'Historie')">🎲</button>
           </span>
@@ -88,9 +88,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.mystikaZdatnost)"
             (click)="cycleAbilityZdatnost(c.mystikaZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:624px; left:186.09px;"
+            style="top:617px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Mystika (INT)" style="top:610.51px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Mystika (INT)" style="top:603.51px; left:348.46px; width:70.74px;">
             <input [formControl]="c.mystika" id="mystika" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.mystika.value, 'Mystika')">🎲</button>
           </span>
@@ -100,9 +100,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.nabozenstviZdatnost)"
             (click)="cycleAbilityZdatnost(c.nabozenstviZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:653px; left:186.09px;"
+            style="top:647px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Náboženství (INT)" style="top:639.59px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Náboženství (INT)" style="top:632.59px; left:348.46px; width:70.74px;">
             <input [formControl]="c.nabozenstvi" id="nabozenstvi" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.nabozenstvi.value, 'Náboženství')">🎲</button>
           </span>
@@ -112,9 +112,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.patraniZdatnost)"
             (click)="cycleAbilityZdatnost(c.patraniZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:681px; left:186.09px;"
+            style="top:676px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Pátrání (INT)" style="top:666.84px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Pátrání (INT)" style="top:659.84px; left:348.46px; width:70.74px;">
             <input [formControl]="c.patrani" id="patrani" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.patrani.value, 'Pátrání')">🎲</button>
           </span>
@@ -124,9 +124,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.prirodaZdatnost)"
             (click)="cycleAbilityZdatnost(c.prirodaZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:709px; left:186.09px;"
+            style="top:705px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Příroda (INT)" style="top:695.89px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Příroda (INT)" style="top:688.89px; left:348.46px; width:70.74px;">
             <input [formControl]="c.priroda" id="priroda" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.priroda.value, 'Příroda')">🎲</button>
           </span>
@@ -136,9 +136,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.lekarstviZdatnost)"
             (click)="cycleAbilityZdatnost(c.lekarstviZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:771px; left:186.09px;"
+            style="top:768px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Lékařství (MDR)" style="top:757.69px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Lékařství (MDR)" style="top:750.69px; left:348.46px; width:70.74px;">
             <input [formControl]="c.lekarstvi" id="lekarstvi" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.lekarstvi.value, 'Lékařství')">🎲</button>
           </span>
@@ -148,9 +148,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.ovladaniZviratZdatnost)"
             (click)="cycleAbilityZdatnost(c.ovladaniZviratZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:800px; left:186.09px;"
+            style="top:796px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Ovl. zvířat (MDR)" style="top:787.76px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Ovl. zvířat (MDR)" style="top:780.76px; left:348.46px; width:70.74px;">
             <input [formControl]="c.ovladaniZvirat" id="ovladaniZvirat" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.ovladaniZvirat.value, 'Ovládání zvířat')">🎲</button>
           </span>
@@ -160,9 +160,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.prezitiZdatnost)"
             (click)="cycleAbilityZdatnost(c.prezitiZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:829px; left:186.09px;"
+            style="top:826px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Přežití (MDR)" style="top:814.42px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Přežití (MDR)" style="top:807.42px; left:348.46px; width:70.74px;">
             <input [formControl]="c.preziti" id="preziti" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.preziti.value, 'Přežití')">🎲</button>
           </span>
@@ -172,9 +172,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.vhledZdatnost)"
             (click)="cycleAbilityZdatnost(c.vhledZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:857px; left:186.09px;"
+            style="top:855px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Vhled (MDR)" style="top:844.49px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Vhled (MDR)" style="top:837.49px; left:348.46px; width:70.74px;">
             <input [formControl]="c.vhled" id="vhled" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.vhled.value, 'Vhled')">🎲</button>
           </span>
@@ -184,9 +184,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.vnimaniZdatnost)"
             (click)="cycleAbilityZdatnost(c.vnimaniZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:885px; left:186.09px;"
+            style="top:884px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Vnímání (MDR)" style="top:871.16px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Vnímání (MDR)" style="top:864.16px; left:348.46px; width:70.74px;">
             <input [formControl]="c.vnimani" id="vnimani" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.vnimani.value, 'Vnímání')">🎲</button>
           </span>
@@ -196,9 +196,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.klamaniZdatnost)"
             (click)="cycleAbilityZdatnost(c.klamaniZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:948px; left:186.09px;"
+            style="top:948px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Klamání (CHA)" style="top:934.75px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Klamání (CHA)" style="top:927.75px; left:348.46px; width:70.74px;">
             <input [formControl]="c.klamani" id="klamani" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.klamani.value, 'Klamání')">🎲</button>
           </span>
@@ -208,9 +208,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.presvedcovaniZdatnost)"
             (click)="cycleAbilityZdatnost(c.presvedcovaniZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:977px; left:186.09px;"
+            style="top:977px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Přesvědčování (CHA)" style="top:963.01px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Přesvědčování (CHA)" style="top:956.01px; left:348.46px; width:70.74px;">
             <input [formControl]="c.presvedcovani" id="presvedcovani" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.presvedcovani.value, 'Přesvědčování')">🎲</button>
           </span>
@@ -220,9 +220,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.vystupovaniZdatnost)"
             (click)="cycleAbilityZdatnost(c.vystupovaniZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:1005px; left:186.09px;"
+            style="top:1006px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Vystupování (CHA)" style="top:992.48px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Vystupování (CHA)" style="top:985.48px; left:348.46px; width:70.74px;">
             <input [formControl]="c.vystupovani" id="vystupovani" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.vystupovani.value, 'Vystupování')">🎲</button>
           </span>
@@ -232,9 +232,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [ngClass]="abilityCheckboxClass(c.zastrasovaniZdatnost)"
             (click)="cycleAbilityZdatnost(c.zastrasovaniZdatnost)"
             class="field ability-zdatnost-checkbox"
-            style="top:1035px; left:186.09px;"
+            style="top:1035px; left:175px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Zastrašování (CHA)" style="top:1019.80px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Zastrašování (CHA)" style="top:1012.80px; left:348.46px; width:70.74px;">
             <input [formControl]="c.zastrasovani" id="zastrasovani" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.zastrasovani.value, 'Zastrašování')">🎲</button>
           </span>
@@ -308,3 +308,5 @@ export class CsSkillsComponent {
     };
   }
 }
+
+

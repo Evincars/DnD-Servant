@@ -33,9 +33,9 @@ import { merge } from 'rxjs';
                   [ngClass]="abilityCheckboxClass(st.silaZdatnost)"
                   (click)="cycleAbilityZdatnost(st.silaZdatnost)"
                   class="field ability-zdatnost-checkbox"
-                  style="top:575.36px; left:445.78px;"
+                  style="top:567px; left:441px;"
                 ></div>
-                <span class="roll-d20-wrap" data-label="Síla" style="top:559.64px; left:554.13px; width:61.57px;">
+                <span class="roll-d20-wrap" data-label="Síla" style="top:552.64px; left:554.13px; width:61.57px;">
                   <input [formControl]="st.sila" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="SIL" />
                   <button class="roll-d20-btn" type="button" (click)="rollD20(st.sila.value, 'Záchranný hod Síla')">🎲</button>
                 </span>
@@ -47,9 +47,9 @@ import { merge } from 'rxjs';
                   [ngClass]="abilityCheckboxClass(st.obratnostZdatnost)"
                   (click)="cycleAbilityZdatnost(st.obratnostZdatnost)"
                   class="field ability-zdatnost-checkbox"
-                  style="top:602.61px; left:445.78px;"
+                  style="top:596px; left:441px;"
                 ></div>
-                <span class="roll-d20-wrap" data-label="Obratnost" style="top:588.71px; left:554.13px; width:61.57px;">
+                <span class="roll-d20-wrap" data-label="Obratnost" style="top:581.71px; left:554.13px; width:61.57px;">
                   <input [formControl]="st.obratnost" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="OBR" />
                   <button class="roll-d20-btn" type="button" (click)="rollD20(st.obratnost.value, 'Záchranný hod Obratnost')">🎲</button>
                 </span>
@@ -61,9 +61,9 @@ import { merge } from 'rxjs';
                   [ngClass]="abilityCheckboxClass(st.odolnostZdatnost)"
                   (click)="cycleAbilityZdatnost(st.odolnostZdatnost)"
                   class="field ability-zdatnost-checkbox"
-                  style="top:631.68px; left:445.78px;"
+                  style="top:625px; left:441px;"
                 ></div>
-                <span class="roll-d20-wrap" data-label="Odolnost" style="top:617.78px; left:554.13px; width:61.57px;">
+                <span class="roll-d20-wrap" data-label="Odolnost" style="top:610.78px; left:554.13px; width:61.57px;">
                   <input [formControl]="st.odolnost" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="ODL" />
                   <button class="roll-d20-btn" type="button" (click)="rollD20(st.odolnost.value, 'Záchranný hod Odolnost')">🎲</button>
                 </span>
@@ -75,9 +75,9 @@ import { merge } from 'rxjs';
                   [ngClass]="abilityCheckboxClass(st.inteligenceZdatnost)"
                   (click)="cycleAbilityZdatnost(st.inteligenceZdatnost)"
                   class="field ability-zdatnost-checkbox"
-                  style="top:660.75px; left:445.78px;"
+                  style="top:654px; left:441px;"
                 ></div>
-                <span class="roll-d20-wrap" data-label="Inteligence" style="top:646.85px; left:554.13px; width:61.57px;">
+                <span class="roll-d20-wrap" data-label="Inteligence" style="top:639.85px; left:554.13px; width:61.57px;">
                   <input [formControl]="st.inteligence" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="INT" />
                   <button class="roll-d20-btn" type="button" (click)="rollD20(st.inteligence.value, 'Záchranný hod Inteligence')">🎲</button>
                 </span>
@@ -89,9 +89,9 @@ import { merge } from 'rxjs';
                   [ngClass]="abilityCheckboxClass(st.moudrostZdatnost)"
                   (click)="cycleAbilityZdatnost(st.moudrostZdatnost)"
                   class="field ability-zdatnost-checkbox"
-                  style="top:688.01px; left:445.78px;"
+                  style="top:684px; left:441px;"
                 ></div>
-                <span class="roll-d20-wrap" data-label="Moudrost" style="top:675.92px; left:554.13px; width:61.57px;">
+                <span class="roll-d20-wrap" data-label="Moudrost" style="top:668.92px; left:554.13px; width:61.57px;">
                   <input [formControl]="st.moudrost" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="MDR" />
                   <button class="roll-d20-btn" type="button" (click)="rollD20(st.moudrost.value, 'Záchranný hod Moudrost')">🎲</button>
                 </span>
@@ -103,9 +103,9 @@ import { merge } from 'rxjs';
                   [ngClass]="abilityCheckboxClass(st.charismaZdatnost)"
                   (click)="cycleAbilityZdatnost(st.charismaZdatnost)"
                   class="field ability-zdatnost-checkbox"
-                  style="top:717.08px; left:445.78px;"
+                  style="top:713px; left:441px;"
                 ></div>
-                <span class="roll-d20-wrap" data-label="Charisma" style="top:703.18px; left:554.13px; width:61.57px;">
+                <span class="roll-d20-wrap" data-label="Charisma" style="top:696.18px; left:554.13px; width:61.57px;">
                   <input [formControl]="st.charisma" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="CHA" />
                   <button class="roll-d20-btn" type="button" (click)="rollD20(st.charisma.value, 'Záchranný hod Charisma')">🎲</button>
                 </span>
@@ -122,50 +122,50 @@ import { merge } from 'rxjs';
           <div class="row g-1">
             <div class="col-lg-4 col-md-6 col-12">
               <div class="cs-saving-row">
-                <div [ngClass]="abilityCheckboxClass(ps.atletikaZdatnost)" (click)="cycleAbilityZdatnost(ps.atletikaZdatnost)" class="field ability-zdatnost-checkbox" style="top:575.36px; left:634.11px;"></div>
+                <div [ngClass]="abilityCheckboxClass(ps.atletikaZdatnost)" (click)="cycleAbilityZdatnost(ps.atletikaZdatnost)" class="field ability-zdatnost-checkbox" style="top:567px; left:633px;"></div>
                 <div class="cs-passive-field-wrap" data-label="Atletika">
-                  <input [formControl]="ps.atletika" class="field no-pb" style="top:559.64px; left:743.77px; width:61.57px; text-align: right;" placeholder="ATL" />
+                  <input [formControl]="ps.atletika" class="field no-pb" style="top:552.64px; left:743.77px; width:61.57px; text-align: right;" placeholder="ATL" />
                 </div>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
               <div class="cs-saving-row">
-                <div [ngClass]="abilityCheckboxClass(ps.akrobacieZdatnost)" (click)="cycleAbilityZdatnost(ps.akrobacieZdatnost)" class="field ability-zdatnost-checkbox" style="top:602.61px; left:634.11px;"></div>
+                <div [ngClass]="abilityCheckboxClass(ps.akrobacieZdatnost)" (click)="cycleAbilityZdatnost(ps.akrobacieZdatnost)" class="field ability-zdatnost-checkbox" style="top:596px; left:633px;"></div>
                 <div class="cs-passive-field-wrap" data-label="Akrobacie">
-                  <input [formControl]="ps.akrobacie" class="field no-pb" style="top:588.71px; left:743.77px; width:61.57px; text-align: right;" placeholder="AKR" />
+                  <input [formControl]="ps.akrobacie" class="field no-pb" style="top:581.71px; left:743.77px; width:61.57px; text-align: right;" placeholder="AKR" />
                 </div>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
               <div class="cs-saving-row">
-                <div [ngClass]="abilityCheckboxClass(ps.nenapadnostZdatnost)" (click)="cycleAbilityZdatnost(ps.nenapadnostZdatnost)" class="field ability-zdatnost-checkbox" style="top:631.68px; left:634.11px;"></div>
+                <div [ngClass]="abilityCheckboxClass(ps.nenapadnostZdatnost)" (click)="cycleAbilityZdatnost(ps.nenapadnostZdatnost)" class="field ability-zdatnost-checkbox" style="top:625px; left:633px;"></div>
                 <div class="cs-passive-field-wrap" data-label="Nenápadnost">
-                  <input [formControl]="ps.nenapadnost" class="field no-pb" style="top:617.78px; left:743.77px; width:61.57px; text-align: right;" placeholder="NEN" />
+                  <input [formControl]="ps.nenapadnost" class="field no-pb" style="top:610.78px; left:743.77px; width:61.57px; text-align: right;" placeholder="NEN" />
                 </div>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
               <div class="cs-saving-row">
-                <div [ngClass]="abilityCheckboxClass(ps.vhledZdatnost)" (click)="cycleAbilityZdatnost(ps.vhledZdatnost)" class="field ability-zdatnost-checkbox" style="top:660.75px; left:634.11px;"></div>
+                <div [ngClass]="abilityCheckboxClass(ps.vhledZdatnost)" (click)="cycleAbilityZdatnost(ps.vhledZdatnost)" class="field ability-zdatnost-checkbox" style="top:654px; left:633px;"></div>
                 <div class="cs-passive-field-wrap" data-label="Vhled">
-                  <input [formControl]="ps.vhled" class="field no-pb" style="top:646.85px; left:743.77px; width:61.57px; text-align: right;" placeholder="VHL" />
+                  <input [formControl]="ps.vhled" class="field no-pb" style="top:639.85px; left:743.77px; width:61.57px; text-align: right;" placeholder="VHL" />
                 </div>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
               <div class="cs-saving-row">
-                <div [ngClass]="abilityCheckboxClass(ps.vnimaniZdatnost)" (click)="cycleAbilityZdatnost(ps.vnimaniZdatnost)" class="field ability-zdatnost-checkbox" style="top:688.01px; left:634.11px;"></div>
+                <div [ngClass]="abilityCheckboxClass(ps.vnimaniZdatnost)" (click)="cycleAbilityZdatnost(ps.vnimaniZdatnost)" class="field ability-zdatnost-checkbox" style="top:684px; left:633px;"></div>
                 <div class="cs-passive-field-wrap" data-label="Vnímání">
-                  <input [formControl]="ps.vnimani" class="field no-pb" style="top:675.92px; left:743.77px; width:61.57px; text-align: right;" placeholder="VNI" />
+                  <input [formControl]="ps.vnimani" class="field no-pb" style="top:668.92px; left:743.77px; width:61.57px; text-align: right;" placeholder="VNI" />
                 </div>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
               <div class="cs-saving-row">
-                <div [ngClass]="abilityCheckboxClass(ps.jineZdatnost)" (click)="cycleAbilityZdatnost(ps.jineZdatnost)" class="field ability-zdatnost-checkbox" style="top:717.08px; left:634.11px;"></div>
+                <div [ngClass]="abilityCheckboxClass(ps.jineZdatnost)" (click)="cycleAbilityZdatnost(ps.jineZdatnost)" class="field ability-zdatnost-checkbox" style="top:713px; left:633px;"></div>
                 <div class="cs-passive-field-wrap cs-passive-field-wrap--custom" data-label="Jiné">
-                  <input [formControl]="ps.jineNazev" class="field no-pb" style="top:703.18px; left:655px; width:82.53px; text-align: left;" placeholder="-" />
-                  <input [formControl]="ps.jine" class="field no-pb" style="top:703.18px; left:743.77px; width:61.57px; text-align: right;" placeholder="-" />
+                  <input [formControl]="ps.jineNazev" class="field no-pb" style="top:696.18px; left:655px; width:82.53px; text-align: left;" placeholder="-" />
+                  <input [formControl]="ps.jine" class="field no-pb" style="top:696.18px; left:743.77px; width:61.57px; text-align: right;" placeholder="-" />
                 </div>
               </div>
             </div>

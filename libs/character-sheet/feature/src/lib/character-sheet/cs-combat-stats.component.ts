@@ -92,7 +92,7 @@ import { merge } from 'rxjs';
           class="field death-save-icon death-save-heart"
           [class.death-save-icon--active]="sc.smrtUspech1.value"
           (click)="toggleDeathSave(sc.smrtUspech1)"
-          style="top:424px; left:1091px;"
+          style="top:410px; left:1094px;"
         >
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -104,7 +104,7 @@ import { merge } from 'rxjs';
           class="field death-save-icon death-save-heart"
           [class.death-save-icon--active]="sc.smrtUspech2.value"
           (click)="toggleDeathSave(sc.smrtUspech2)"
-          style="top:424px; left:1122px;"
+          style="top:410px; left:1126px;"
         >
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -116,7 +116,7 @@ import { merge } from 'rxjs';
           class="field death-save-icon death-save-heart"
           [class.death-save-icon--active]="sc.smrtUspech3.value"
           (click)="toggleDeathSave(sc.smrtUspech3)"
-          style="top:424px; left:1153px;"
+          style="top:410px; left:1158px;"
         >
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -130,7 +130,7 @@ import { merge } from 'rxjs';
           class="field death-save-icon death-save-skull"
           [class.death-save-icon--active]="sc.smrtNeuspech1.value"
           (click)="toggleDeathSave(sc.smrtNeuspech1)"
-          style="top:455px; left:1092px;"
+          style="top:430px; left:1090px;"
         >
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -142,7 +142,7 @@ import { merge } from 'rxjs';
           class="field death-save-icon death-save-skull"
           [class.death-save-icon--active]="sc.smrtNeuspech2.value"
           (click)="toggleDeathSave(sc.smrtNeuspech2)"
-          style="top:455px; left:1124px;"
+          style="top:430px; left:1122px;"
         >
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -154,7 +154,7 @@ import { merge } from 'rxjs';
           class="field death-save-icon death-save-skull"
           [class.death-save-icon--active]="sc.smrtNeuspech3.value"
           (click)="toggleDeathSave(sc.smrtNeuspech3)"
-          style="top:455px; left:1155px;"
+          style="top:430px; left:1154px;"
         >
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -212,7 +212,7 @@ import { merge } from 'rxjs';
               [ngClass]="abilityCheckboxClass(ac.zdatnostLehke)"
               (click)="cycleAbilityZdatnost(ac.zdatnostLehke)"
               class="field ability-zdatnost-checkbox"
-              style="top:484.51px; left:453.33px;"
+              style="top:475px; left:448px;"
             ></div>
             <span class="cs-combat-prof-label">Lehké</span>
           </div>
@@ -221,7 +221,7 @@ import { merge } from 'rxjs';
               [ngClass]="abilityCheckboxClass(ac.zdatnostStredni)"
               (click)="cycleAbilityZdatnost(ac.zdatnostStredni)"
               class="field ability-zdatnost-checkbox"
-              style="top:484.51px; left:545.03px;"
+              style="top:475px; left:542px;"
             ></div>
             <span class="cs-combat-prof-label">Střední</span>
           </div>
@@ -230,7 +230,7 @@ import { merge } from 'rxjs';
               [ngClass]="abilityCheckboxClass(ac.zdatnostTezke)"
               (click)="cycleAbilityZdatnost(ac.zdatnostTezke)"
               class="field ability-zdatnost-checkbox"
-              style="top:484.51px; left:647.52px;"
+              style="top:475px; left:647px;"
             ></div>
             <span class="cs-combat-prof-label">Těžké</span>
           </div>
@@ -239,7 +239,7 @@ import { merge } from 'rxjs';
               [ngClass]="abilityCheckboxClass(ac.zdatnostStity)"
               (click)="cycleAbilityZdatnost(ac.zdatnostStity)"
               class="field ability-zdatnost-checkbox"
-              style="top:484.51px; left:737.91px;"
+              style="top:475px; left:740px;"
             ></div>
             <span class="cs-combat-prof-label">Štíty</span>
           </div>
