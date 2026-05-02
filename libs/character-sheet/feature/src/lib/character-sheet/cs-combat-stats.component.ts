@@ -64,7 +64,7 @@ import { merge } from 'rxjs';
             (click)="onOpenDamagesDialog()"
             type="button"
             matTooltip="Bojové a přetrvávající zranění"
-            style="top:424px; left:842px;"
+            style="top:448px; left:842px;"
             class="field button small-info-button-icon"
           >
             <mat-icon class="small-info-icon">info</mat-icon>
@@ -73,7 +73,7 @@ import { merge } from 'rxjs';
             <input
               [formControl]="sc.pouzitiKostek"
               class="field"
-              style="top:420.74px; left:880.32px; width:182.09px;"
+              style="top:448px; left:884px; width:188px;"
               placeholder="Použití kostek"
             />
           </div>
@@ -81,7 +81,7 @@ import { merge } from 'rxjs';
             <input
               [formControl]="sc.maxPouzitiKostek"
               class="field"
-              style="top:454.25px; left:880.32px; width:182.09px;"
+              style="top:481px; left:884px; width:188px;"
               placeholder="Max"
             />
           </div>

@@ -22,59 +22,59 @@ import { SheetThemeService } from '@dn-d-servant/character-sheet-feature';
     @if (_tick()) {
       <ng-container [formGroup]="form()">
         <div class="cs-top-field-wrap" data-label="Rasa">
-          <input [formControl]="c.rasa" class="field" style="top:92.21px; left:58.95px; width:183.4px" placeholder="Rasa" />
+          <input [formControl]="c.rasa" class="field" style="top:78px; left:47px; width:189px" placeholder="Rasa" />
         </div>
         <div class="cs-top-field-wrap" data-label="Povolání">
-          <input [formControl]="c.povolani" class="field" style="top:92.21px; left:255.45px; width:183.4px;" placeholder="Povolání" />
+          <input [formControl]="c.povolani" class="field" style="top:78px; left:248px; width:188px;" placeholder="Povolání" />
         </div>
 
         <button
           (click)="onOpenBackgroundDialog()"
           type="button"
           matTooltip="Zázemí postavy"
-          style="top: 161px; left: 35px;"
+          style="top: 145px; left: 25px;"
           class="field button small-info-button-icon"
         >
           <mat-icon class="small-info-icon">info</mat-icon>
         </button>
         <div class="cs-top-field-wrap" data-label="Zázemí">
-          <input [formControl]="c.zazemi" class="field" style="top: 158px; left: 58px; width: 183px;" placeholder="Zázemí" />
+          <input [formControl]="c.zazemi" class="field" style="top: 145px; left: 48px; width: 188px;" placeholder="Zázemí" />
         </div>
 
         <button
           (click)="onOpenConvictionDialog()"
           type="button"
           matTooltip="Přesvědčení postavy"
-          style="top:161px; left:442px;"
+          style="top:145px; left:440px;"
           class="field button small-info-button-icon"
         >
           <mat-icon class="small-info-icon">info</mat-icon>
         </button>
         <div class="cs-top-field-wrap" data-label="Přesvědčení">
-          <input [formControl]="c.presvedceni" class="field" style="top:158px; left:255px; width:183px;" placeholder="Přesvědčení" />
+          <input [formControl]="c.presvedceni" class="field" style="top:145px; left:248px; width:188px;" placeholder="Přesvědčení" />
         </div>
 
         <div class="cs-top-field-wrap cs-top-field-wrap--jmeno" data-label="Jméno postavy">
-          <input [formControl]="c.jmenoPostavy" class="field" style="top:145.36px; left:550.2px; width:196.5px; text-align: center; font-weight: bold" placeholder="Jméno postavy" />
+          <input [formControl]="c.jmenoPostavy" class="field" style="top:136px; left:466px; width:362px; text-align: center; font-weight: bold" placeholder="Jméno postavy" />
         </div>
 
         <button
           (click)="onOpenLevelsDialog()"
           type="button"
           matTooltip="Úroveň postavy"
-          style="top:95px; left:835px;"
+          style="top:78px; left:835px;"
           class="field button small-info-button-icon"
         >
           <mat-icon class="small-info-icon">info</mat-icon>
         </button>
         <div class="cs-top-field-wrap" data-label="Úroveň">
-          <input [formControl]="c.uroven" id="uroven-input" class="field" style="top:92px; left:858px; width:183px;" placeholder="Úroveň" />
+          <input [formControl]="c.uroven" id="uroven-input" class="field" style="top:78px; left:860px; width:188px;" placeholder="Úroveň" />
         </div>
         <div class="cs-top-field-wrap" data-label="Zkušenosti">
-          <input [formControl]="c.zkusenosti" class="field" style="top:92.67px; left:1051.93px; width:183.4px;" placeholder="Zkušenost" />
+          <input [formControl]="c.zkusenosti" class="field" style="top:78px; left:1058px; width:188px;" placeholder="Zkušenost" />
         </div>
         <div class="cs-top-field-wrap" data-label="Hráč">
-          <input [formControl]="c.hrac" class="field" style="top:158.08px; left:858.05px; width:183.4px;" placeholder="Hráč" />
+          <input [formControl]="c.hrac" class="field" style="top:145px; left:860px; width:386px;" placeholder="Hráč" />
         </div>
       </ng-container>
     }
