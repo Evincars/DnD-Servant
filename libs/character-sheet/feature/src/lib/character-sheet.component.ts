@@ -55,6 +55,7 @@ import { ConditionsButtonComponent } from './conditions/conditions-button.compon
 import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.component';
 import { CsFloatingActionsComponent } from './character-sheet/cs-floating-actions.component';
 import { CsSectionOrderService } from './character-sheet/cs-section-order.service';
+import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
 
 interface SectionConfig {
   readonly key: string;
@@ -83,7 +84,7 @@ const CS_DEFAULT_SECTIONS: readonly SectionConfig[] = [
   selector: 'character-sheet',
   template: `
     <spinner-overlay [diameter]="70" [showSpinner]="characterSheetStore.loading()">
-      <img class="cs-bg-img" [src]="sheetTheme.darkMode() ? 'character-sheet-1-copy-dark.webp' : 'character-sheet-1-copy.webp'" alt="Character Sheet" height="1817" width="1293" />
+      <cs-svg-sheet src="character-sheets/character-sheet-1.svg" />
 
       <h2 class="cs-section-title cs-main-title">
         Karta Postavy
@@ -194,6 +195,7 @@ const CS_DEFAULT_SECTIONS: readonly SectionConfig[] = [
     CdkDropList,
     MatIcon,
     MatTooltip,
+    CsSvgSheetComponent,
   ],
 })
 export class CharacterSheetComponent {

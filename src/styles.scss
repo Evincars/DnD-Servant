@@ -8,6 +8,13 @@
 @import 'material-symbols/outlined.css';
 @import 'bootstrap/dist/css/bootstrap-grid.min.css';
 
+/* ── Alegreya font family (used in character-sheet SVGs) ─── */
+@import '@fontsource/alegreya/index.css';
+@import '@fontsource/alegreya-sc/index.css';
+@import '@fontsource/alegreya-sans/index.css';
+@import '@fontsource/barlow/900.css';
+@import '@fontsource/barlow/900-italic.css';
+
 body {
   margin: 0;
   background-color: #0a0710;

@@ -11,11 +11,12 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
 import { SheetThemeService } from './sheet-theme.service';
 import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.component';
 import { CdkDropList } from '@angular/cdk/drag-drop';
+import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
 
 @Component({
   selector: 'third-page',
   template: `
-    <img class="cs-bg-img" [src]="sheetTheme.darkMode() ? 'character-sheet-3-dark.webp' : 'character-sheet-3.webp'" alt="Character Sheet" height="1817" width="1293" />
+    <cs-svg-sheet src="character-sheets/character-sheet-3.svg" />
 
     <h3 class="cs-section-title">Kouzla</h3>
 
@@ -2817,7 +2818,7 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '[class.theme-dark]': 'sheetTheme.darkMode()' },
-  imports: [ReactiveFormsModule, MatTooltip, MatIcon, CsCollapsibleComponent, CdkDropList],
+  imports: [ReactiveFormsModule, MatTooltip, MatIcon, CsCollapsibleComponent, CdkDropList, CsSvgSheetComponent],
 })
 export class CharacterSheetThirdPageComponent {
   form = input.required<FormGroup<ThirdPageForm>>();

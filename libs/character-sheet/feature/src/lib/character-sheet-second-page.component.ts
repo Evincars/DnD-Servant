@@ -19,11 +19,12 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { SheetThemeService } from './sheet-theme.service';
+import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
 
 @Component({
   selector: 'second-page',
   template: `
-    <img class="cs-bg-img" [src]="sheetTheme.darkMode() ? 'character-sheet-2-copy-dark.webp' : 'character-sheet-2-copy.webp'" alt="Character Sheet" height="1817" width="1293" />
+    <cs-svg-sheet src="character-sheets/character-sheet-2.svg" />
 
     <h3 class="cs-section-title">Vzhled a povaha</h3>
 
@@ -170,7 +171,7 @@ import { SheetThemeService } from './sheet-theme.service';
   `,
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, MatTooltip, RichTextareaComponent, MatIconButton, MatIcon],
+  imports: [ReactiveFormsModule, MatTooltip, RichTextareaComponent, MatIconButton, MatIcon, CsSvgSheetComponent],
   host: { '(document:keydown.escape)': 'onEscape()', '[class.theme-dark]': 'sheetTheme.darkMode()' },
 })
 export class CharacterSheetSecondPageComponent {
