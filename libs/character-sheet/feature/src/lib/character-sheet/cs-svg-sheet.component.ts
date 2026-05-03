@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { map, switchMap } from 'rxjs';
+import { SheetThemeService } from '../sheet-theme.service';
 
 /** Monotonically-increasing counter to give each SVG instance a unique namespace. */
 let _svgInstanceCounter = 0;
@@ -58,7 +59,12 @@ function prepareSvg(svgText: string, ns: string): string {
   selector: 'cs-svg-sheet',
   changeDetection: ChangeDetectionStrategy.OnPush,
   // class cs-bg-img — the responsive @media rule hides .cs-bg-img on mobile
-  host: { class: 'cs-bg-img' },
+  host: {
+    class: 'cs-bg-img',
+    '[class.theme-dark]':   'sheetTheme.darkMode()',
+    '[class.theme-sirien]': 'sheetTheme.theme() === "sirien"',
+    '[class.theme-night]':  'sheetTheme.theme() === "night"',
+  },
   template: `
     @if (safeHtml()) {
       <div [innerHTML]="safeHtml()!" class="cs-svg-wrap"></div>
@@ -74,12 +80,28 @@ function prepareSvg(svgText: string, ns: string): string {
       line-height: 0;
     }
 
-    /* Parchment fallback background:
-       If the SVG's own gradient fills somehow don't render (e.g. missing defs),
-       this ensures dark text (#1d1d1b) is still readable against a light surface. */
+    /* Parchment fallback background (light theme) */
     :host ::ng-deep svg {
       display: block;
       background: #f6f0e8;
+    }
+
+    /* ── Dark theme: warm amber / sepia ─────────────────────────────── */
+    :host.theme-dark ::ng-deep svg {
+      background: #1a1208;
+      filter: invert(1) sepia(0.35) hue-rotate(10deg) brightness(0.85) contrast(1.05);
+    }
+
+    /* ── Sirien theme: arcane purple ────────────────────────────────── */
+    :host.theme-sirien ::ng-deep svg {
+      background: #100818;
+      filter: invert(1) hue-rotate(80deg) saturate(1.3) brightness(0.82) contrast(1.08);
+    }
+
+    /* ── Noční theme: cold night blue ───────────────────────────────── */
+    :host.theme-night ::ng-deep svg {
+      background: #080d18;
+      filter: invert(1) hue-rotate(20deg) saturate(1.1) brightness(0.80) contrast(1.08);
     }
   `,
 })
@@ -87,6 +109,7 @@ export class CsSvgSheetComponent {
   /** Path to the SVG, relative to the app root (e.g. "character-sheets/character-sheet-1.svg"). */
   readonly src = input.required<string>();
 
+  readonly sheetTheme = inject(SheetThemeService);
   private readonly http = inject(HttpClient);
   private readonly sanitizer = inject(DomSanitizer);
 

@@ -34,24 +34,42 @@ export interface SettingsDialogData {
         <!-- Theme section -->
         <div class="sd-section">
           <div class="sd-section-label">Téma karet</div>
-          <div class="sd-row">
+          <div class="sd-theme-grid">
             <button
               type="button"
-              class="sd-btn"
-              [class.sd-btn--active]="!sheetTheme.darkMode()"
-              (click)="setTheme(false)"
+              class="sd-btn sd-btn--theme"
+              [class.sd-btn--active]="sheetTheme.theme() === 'light'"
+              (click)="sheetTheme.setTheme('light')"
             >
-              <mat-icon class="sd-btn-icon">light_mode</mat-icon>
+              <mat-icon class="sd-btn-icon sd-icon--light">light_mode</mat-icon>
               <span class="sd-btn-label">Světlé</span>
             </button>
             <button
               type="button"
-              class="sd-btn"
-              [class.sd-btn--active]="sheetTheme.darkMode()"
-              (click)="setTheme(true)"
+              class="sd-btn sd-btn--theme"
+              [class.sd-btn--active]="sheetTheme.theme() === 'dark'"
+              (click)="sheetTheme.setTheme('dark')"
             >
-              <mat-icon class="sd-btn-icon">dark_mode</mat-icon>
+              <mat-icon class="sd-btn-icon sd-icon--dark">dark_mode</mat-icon>
               <span class="sd-btn-label">Tmavé</span>
+            </button>
+            <button
+              type="button"
+              class="sd-btn sd-btn--theme"
+              [class.sd-btn--active]="sheetTheme.theme() === 'sirien'"
+              (click)="sheetTheme.setTheme('sirien')"
+            >
+              <mat-icon class="sd-btn-icon sd-icon--sirien">auto_awesome</mat-icon>
+              <span class="sd-btn-label">Sirien</span>
+            </button>
+            <button
+              type="button"
+              class="sd-btn sd-btn--theme"
+              [class.sd-btn--active]="sheetTheme.theme() === 'night'"
+              (click)="sheetTheme.setTheme('night')"
+            >
+              <mat-icon class="sd-btn-icon sd-icon--night">nights_stay</mat-icon>
+              <span class="sd-btn-label">Noční</span>
             </button>
           </div>
         </div>
@@ -245,6 +263,13 @@ export interface SettingsDialogData {
       gap: 8px;
     }
 
+    /* ── Theme 2×2 grid ────────────────────────────────────── */
+    .sd-theme-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
     /* ── Individual button ─────────────────────────────────── */
     .sd-btn {
       display: flex;
@@ -294,6 +319,31 @@ export interface SettingsDialogData {
       color: rgba(200,160,60,.6);
       flex-shrink: 0;
       transition: color .15s;
+    }
+
+    /* ── Theme button icon colours ─────────────────────────── */
+    .sd-icon--light  { color: rgba(240, 190, 60, .7); }
+    .sd-icon--dark   { color: rgba(180, 140, 60, .6); }
+    .sd-icon--sirien { color: rgba(180, 100, 255, .75); }
+    .sd-icon--night  { color: rgba(80,  150, 255, .75); }
+
+    .sd-btn--active .sd-icon--sirien { color: #c87aff !important; }
+    .sd-btn--active .sd-icon--night  { color: #7ab8ff !important; }
+
+    /* Sirien active accent */
+    .sd-btn.sd-btn--theme:nth-child(3).sd-btn--active {
+      background: rgba(100,20,160,.25) !important;
+      border-color: rgba(170,80,255,.7) !important;
+      box-shadow: 0 0 14px rgba(140,60,255,.3) !important;
+      .sd-btn-label { color: #d9a0ff !important; }
+    }
+
+    /* Noční active accent */
+    .sd-btn.sd-btn--theme:nth-child(4).sd-btn--active {
+      background: rgba(10,30,100,.25) !important;
+      border-color: rgba(60,120,255,.7) !important;
+      box-shadow: 0 0 14px rgba(40,100,255,.3) !important;
+      .sd-btn-label { color: #90bfff !important; }
     }
 
     .sd-btn-text {
@@ -437,11 +487,6 @@ export class SettingsDialogComponent {
   readonly data: SettingsDialogData = inject(MAT_DIALOG_DATA);
   private readonly dialogRef = inject(MatDialogRef<SettingsDialogComponent>);
 
-  setTheme(dark: boolean): void {
-    if (this.sheetTheme.darkMode() !== dark) {
-      this.sheetTheme.toggle();
-    }
-  }
 
   close(): void {
     this.dialogRef.close();
