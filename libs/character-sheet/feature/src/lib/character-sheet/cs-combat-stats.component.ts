@@ -27,7 +27,7 @@ import { merge } from 'rxjs';
               [formControl]="sc.lehke"
               [ngClass]="{ 'speed-highlight-light': speedHighlight() === 'light' }"
               class="field"
-              style="top:308.89px; left:829.23px; width:110.04px;"
+              style="top:300.89px; left:831.23px; width:110.04px;"
               placeholder="Lehké"
             />
           </div>
@@ -36,7 +36,7 @@ import { merge } from 'rxjs';
               [formControl]="sc.stredni"
               [ngClass]="{ 'speed-highlight-medium': speedHighlight() === 'medium' }"
               class="field"
-              style="top:308.89px; left:952.37px; width:110.04px;"
+              style="top:300.89px; left:954.37px; width:110.04px;"
               placeholder="Střední"
             />
           </div>
