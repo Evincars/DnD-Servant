@@ -14,12 +14,13 @@ let _svgInstanceCounter = 0;
  * All SVG text is forced to a warm off-white via an injected !important rule.
  */
 function _applySirienColors(svgText: string): string {
-  // ── Upgrade gradient stop-colors to vivid crimson (rgb(140,15,15) family) ──
-  // The original ornamental gradients are very dark brown; lift them to true red.
-  svgText = svgText.replace(/stop-color="#5b1c11"/gi, 'stop-color="#8c0f0f"');
-  svgText = svgText.replace(/stop-color="#4f1b0e"/gi, 'stop-color="#780d0d"');
-  svgText = svgText.replace(/stop-color="#361909"/gi, 'stop-color="#540909"');
-  svgText = svgText.replace(/stop-color="#2e1908"/gi, 'stop-color="#3c0707"');
+  // ── Upgrade gradient stop-colors to brighter crimson (rgb(196,24,24) family) ──
+  // Lifted further from deep brown to vivid-but-not-garish crimson so the
+  // coat-of-arms borders and ability-score shields stand out on the dark bg.
+  svgText = svgText.replace(/stop-color="#5b1c11"/gi, 'stop-color="#c41818"');
+  svgText = svgText.replace(/stop-color="#4f1b0e"/gi, 'stop-color="#a81414"');
+  svgText = svgText.replace(/stop-color="#361909"/gi, 'stop-color="#8a1010"');
+  svgText = svgText.replace(/stop-color="#2e1908"/gi, 'stop-color="#6a0c0c"');
 
   // ── Recolour fills / strokes inside the <style> block ───────────────────
   svgText = svgText.replace(
@@ -33,17 +34,17 @@ function _applySirienColors(svgText: string): string {
       c = c.replace(/fill:\s*#f6f6f6/gi, 'fill: #141414');
       // White areas → near-black
       c = c.replace(/fill:\s*#fff(?=[;\s}])/gi, 'fill: #0f0f0f');
-      // Strokes → dark crimson lines — visible on charcoal, in theme
-      c = c.replace(/stroke:\s*#1d1d1b/gi, 'stroke: #5c0a0a');
-      c = c.replace(/stroke:\s*#000(?=[;\s}])/gi,  'stroke: #430808');
-      c = c.replace(/stroke:\s*#8f8f8f/gi, 'stroke: #5a1515');
-      c = c.replace(/stroke:\s*#b2b2b2/gi, 'stroke: #702020');
-      c = c.replace(/stroke:\s*#fcf9f1/gi, 'stroke: #4a0a0a');
+      // Strokes → brighter crimson lines — better visible on charcoal background
+      c = c.replace(/stroke:\s*#1d1d1b/gi, 'stroke: #9a1818');
+      c = c.replace(/stroke:\s*#000(?=[;\s}])/gi,  'stroke: #7a1010');
+      c = c.replace(/stroke:\s*#8f8f8f/gi, 'stroke: #8c2020');
+      c = c.replace(/stroke:\s*#b2b2b2/gi, 'stroke: #aa3030');
+      c = c.replace(/stroke:\s*#fcf9f1/gi, 'stroke: #8a1414');
       // All text → warm off-white / parchment tone — highly legible on dark bg
       c += '\n      text, tspan { fill: #e8dcd0 !important; }';
-      // Noise/grain texture image sits on top layer — darken it so it doesn't
-      // read as white speckle against the dark background
-      c += '\n      image { opacity: 0.06 !important; filter: invert(1) brightness(0.3); }';
+      // Noise/grain texture — make subtly visible as fine dot-grain on dark bg
+      // (no invert so natural grain dots appear as light speckles on #191919)
+      c += '\n      image { opacity: 0.14 !important; filter: brightness(0.7) contrast(1.4); }';
       return open + c + close;
     },
   );

@@ -64,10 +64,10 @@
   border-color: red;
 }
 
-// ── Dark-theme overrides ──────────────────────────────────────────────────────
+// ── Dark-theme overrides (applies to dark, sirien, night — all dark modes) ───
 :host.theme-dark {
   .field {
-    background: rgba(0, 0, 0, 0.52);
+    background: transparent;
     border-color: rgba(255, 255, 255, 0.18);
     color: rgba(255, 255, 255, 0.92);
   }
@@ -110,6 +110,23 @@
   .checkbox {
     border-color: rgba(255, 255, 255, 0.25);
     filter: invert(1);
+  }
+
+  // ── Stars checkboxes — no fill background for unchecked state ─────────────
+  .ability-zdatnost-checkbox::before {
+    background: transparent;
+  }
+  .ability-zdatnost--checked::before {
+    background: #af5555;
+  }
+  .ability-zdatnost--expertise::before {
+    background: #af5555;
+  }
+
+  // ── Death-save heart / skull buttons — transparent container bg ───────────
+  .death-save-heart,
+  .death-save-skull {
+    background: transparent !important;
   }
 
   .textarea {

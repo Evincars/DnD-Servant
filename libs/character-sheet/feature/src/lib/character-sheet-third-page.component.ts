@@ -16,7 +16,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
 @Component({
   selector: 'third-page',
   template: `
-    <cs-svg-sheet src="character-sheets/character-sheet-3.svg" />
+    <cs-svg-sheet src="character-sheets/character-sheet-2.svg" />
 
     <h3 class="cs-section-title">Kouzla</h3>
 
