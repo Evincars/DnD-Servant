@@ -140,6 +140,45 @@ export interface SettingsDialogData {
           </div>
         </div>
 
+        <div class="sd-divider"></div>
+
+        <!-- Credits section -->
+        <div class="sd-section">
+          <div class="sd-section-label">Poděkování</div>
+          <div class="sd-col">
+            <div class="sd-credits-row">
+              <mat-icon class="sd-credits-icon">auto_awesome</mat-icon>
+              <span class="sd-credits-text">
+                Speciální poděkování
+                <span class="sd-credit-name">&#64;Sirien</span>
+                a
+                <span class="sd-credit-name">&#64;Dukolm</span>
+                za jejich příspěvky a podporu projektu. A spoustě dalších z J&D komunity.
+              </span>
+            </div>
+            <div class="sd-credits-links">
+              <a
+                href="https://www.jeskyneadraci.cz/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="sd-credits-link"
+              >
+                <mat-icon class="sd-credits-link-icon">menu_book</mat-icon>
+                <span>Jeskyně a Draci</span>
+              </a>
+              <a
+                href="https://discord.com/invite/5uVhJh2"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="sd-credits-link"
+              >
+                <mat-icon class="sd-credits-link-icon">forum</mat-icon>
+                <span>Discord Mytago</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- Version footer -->
@@ -322,28 +361,37 @@ export interface SettingsDialogData {
     }
 
     /* ── Theme button icon colours ─────────────────────────── */
-    .sd-icon--light  { color: rgba(240, 190, 60, .7); }
-    .sd-icon--dark   { color: rgba(180, 140, 60, .6); }
-    .sd-icon--sirien { color: rgba(180, 100, 255, .75); }
-    .sd-icon--night  { color: rgba(80,  150, 255, .75); }
+    .sd-icon--light  { color: rgba(240, 200, 80, .75); }
+    .sd-icon--dark   { color: rgba(210, 150, 40, .7);  }
+    .sd-icon--sirien { color: rgba(140, 15,  15, .9);  }
+    .sd-icon--night  { color: rgba(80,  130, 210, .8); }
 
-    .sd-btn--active .sd-icon--sirien { color: #c87aff !important; }
-    .sd-btn--active .sd-icon--night  { color: #7ab8ff !important; }
+    .sd-btn--active .sd-icon--dark   { color: #f0c060 !important; }
+    .sd-btn--active .sd-icon--sirien { color: #c02020 !important; }
+    .sd-btn--active .sd-icon--night  { color: #7ab0f0 !important; }
 
-    /* Sirien active accent */
-    .sd-btn.sd-btn--theme:nth-child(3).sd-btn--active {
-      background: rgba(100,20,160,.25) !important;
-      border-color: rgba(170,80,255,.7) !important;
-      box-shadow: 0 0 14px rgba(140,60,255,.3) !important;
-      .sd-btn-label { color: #d9a0ff !important; }
+    /* Tmavé active accent — warm amber */
+    .sd-btn.sd-btn--theme:nth-child(2).sd-btn--active {
+      background: rgba(160, 100, 10, .28) !important;
+      border-color: rgba(220, 150, 40, .75) !important;
+      box-shadow: 0 0 14px rgba(200, 130, 20, .3) !important;
+      .sd-btn-label { color: #f5cc70 !important; }
     }
 
-    /* Noční active accent */
+    /* Sirien active accent — blood red on charcoal */
+    .sd-btn.sd-btn--theme:nth-child(3).sd-btn--active {
+      background: rgba(40, 40, 40, .92) !important;
+      border-color: rgba(140, 15,  15, .8) !important;
+      box-shadow: 0 0 16px rgba(140, 15,  15, .45), inset 0 0 8px rgba(100, 8, 8, .25) !important;
+      .sd-btn-label { color: #c84040 !important; }
+    }
+
+    /* Noční active accent — steel blue */
     .sd-btn.sd-btn--theme:nth-child(4).sd-btn--active {
-      background: rgba(10,30,100,.25) !important;
-      border-color: rgba(60,120,255,.7) !important;
-      box-shadow: 0 0 14px rgba(40,100,255,.3) !important;
-      .sd-btn-label { color: #90bfff !important; }
+      background: rgba(15,  50,  130, .32) !important;
+      border-color: rgba(70,  130, 220, .75) !important;
+      box-shadow: 0 0 14px rgba(50,  110, 200, .35) !important;
+      .sd-btn-label { color: #90c0f8 !important; }
     }
 
     .sd-btn-text {
@@ -446,6 +494,78 @@ export interface SettingsDialogData {
       background: rgba(200,160,60,.07);
       color: rgba(200,160,60,.7);
       white-space: nowrap;
+    }
+
+    /* ── Credits section ───────────────────────────────────── */
+    .sd-credits-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1px solid rgba(140, 15, 15, .25);
+      border-radius: 7px;
+      background: rgba(40, 40, 40, .55);
+    }
+
+    .sd-credits-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+      color: rgba(140, 15, 15, .8);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .sd-credits-text {
+      font-size: 11px;
+      color: rgba(180, 155, 130, .65);
+      letter-spacing: .03em;
+      line-height: 1.5;
+    }
+
+    .sd-credit-name {
+      font-family: 'Mikadan', sans-serif;
+      font-size: 11px;
+      letter-spacing: .06em;
+      color: rgba(200, 50, 50, .85);
+      padding: 0 2px;
+    }
+
+    .sd-credits-links {
+      display: flex;
+      gap: 8px;
+    }
+
+    .sd-credits-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid rgba(140, 15, 15, .2);
+      border-radius: 7px;
+      background: rgba(40, 40, 40, .4);
+      color: rgba(180, 60, 60, .8);
+      text-decoration: none;
+      font-size: 11px;
+      font-family: 'Mikadan', sans-serif;
+      letter-spacing: .06em;
+      transition: background .15s, border-color .15s, color .15s, box-shadow .15s;
+
+      &:hover {
+        background: rgba(40, 40, 40, .8);
+        border-color: rgba(140, 15, 15, .6);
+        color: rgba(200, 80, 80, 1);
+        box-shadow: 0 0 10px rgba(140, 15, 15, .25);
+      }
+    }
+
+    .sd-credits-link-icon {
+      font-size: 15px;
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      color: inherit;
     }
 
     /* ── Version bar ───────────────────────────────────────── */
