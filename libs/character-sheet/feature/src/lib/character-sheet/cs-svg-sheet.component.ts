@@ -26,27 +26,30 @@ function _applySirienColors(svgText: string): string {
     /(<style[^>]*>)([\s\S]*?)(<\/style>)/i,
     (_m, open: string, content: string, close: string) => {
       let c = content;
-      // Parchment → rgb(40,40,40) = #282828 dark charcoal
-      c = c.replace(/fill:\s*#fbf8f0/gi, 'fill: #282828');
-      c = c.replace(/fill:\s*#fcf9f1/gi, 'fill: #282828');
+      // Parchment → rgb(25,25,25) = #191919 deep charcoal
+      c = c.replace(/fill:\s*#fbf8f0/gi, 'fill: #191919');
+      c = c.replace(/fill:\s*#fcf9f1/gi, 'fill: #191919');
       // Light-grey panels → slightly deeper charcoal
-      c = c.replace(/fill:\s*#f6f6f6/gi, 'fill: #222222');
+      c = c.replace(/fill:\s*#f6f6f6/gi, 'fill: #141414');
       // White areas → near-black
-      c = c.replace(/fill:\s*#fff(?=[;\s}])/gi, 'fill: #1a1a1a');
+      c = c.replace(/fill:\s*#fff(?=[;\s}])/gi, 'fill: #0f0f0f');
       // Strokes → dark crimson lines — visible on charcoal, in theme
       c = c.replace(/stroke:\s*#1d1d1b/gi, 'stroke: #5c0a0a');
       c = c.replace(/stroke:\s*#000(?=[;\s}])/gi,  'stroke: #430808');
       c = c.replace(/stroke:\s*#8f8f8f/gi, 'stroke: #5a1515');
       c = c.replace(/stroke:\s*#b2b2b2/gi, 'stroke: #702020');
       c = c.replace(/stroke:\s*#fcf9f1/gi, 'stroke: #4a0a0a');
-      // All text → warm off-white / parchment tone
+      // All text → warm off-white / parchment tone — highly legible on dark bg
       c += '\n      text, tspan { fill: #e8dcd0 !important; }';
+      // Noise/grain texture image sits on top layer — darken it so it doesn't
+      // read as white speckle against the dark background
+      c += '\n      image { opacity: 0.06 !important; filter: invert(1) brightness(0.3); }';
       return open + c + close;
     },
   );
   // Inline fill attributes not covered by the <style> block
-  svgText = svgText.replace(/\bfill="#fbf8f0"/gi, 'fill="#282828"');
-  svgText = svgText.replace(/\bfill="#f6f6f6"/gi, 'fill="#222222"');
+  svgText = svgText.replace(/\bfill="#fbf8f0"/gi, 'fill="#191919"');
+  svgText = svgText.replace(/\bfill="#f6f6f6"/gi, 'fill="#141414"');
   return svgText;
 }
 
@@ -104,11 +107,11 @@ function prepareSvg(svgText: string, ns: string, theme: Theme = 'light'): string
       filter: invert(1) hue-rotate(195deg) saturate(1.0) brightness(0.76) contrast(1.1);
     }
 
-    /* ── Sirien: charcoal (#282828) bg, vivid crimson ornaments, warm text ── */
+    /* ── Sirien: rgb(25,25,25) bg, vivid crimson ornaments, warm text ──── */
     /* Gradient stops upgraded to rgb(140,15,15) family by _applySirienColors  */
     /* filter:none overrides the invert() inherited from .theme-dark           */
     :host.theme-sirien ::ng-deep svg {
-      background: #282828;
+      background: #191919;
       filter: none;
     }
 
