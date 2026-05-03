@@ -45,7 +45,7 @@ import { merge } from 'rxjs';
               [formControl]="sc.tezke"
               [ngClass]="{ 'speed-highlight-heavy': speedHighlight() === 'heavy' }"
               class="field"
-              style="top:308.89px; left:1073.89px; width:110.04px;"
+              style="top:300.89px; left:1075.89px; width:110.04px;"
               placeholder="Těžké"
             />
           </div>
@@ -212,7 +212,7 @@ import { merge } from 'rxjs';
               [ngClass]="abilityCheckboxClass(ac.zdatnostLehke)"
               (click)="cycleAbilityZdatnost(ac.zdatnostLehke)"
               class="field ability-zdatnost-checkbox"
-              style="top:475px; left:448px;"
+              style="top:475px; left:449px;"
             ></div>
             <span class="cs-combat-prof-label">Lehké</span>
           </div>
@@ -221,7 +221,7 @@ import { merge } from 'rxjs';
               [ngClass]="abilityCheckboxClass(ac.zdatnostStredni)"
               (click)="cycleAbilityZdatnost(ac.zdatnostStredni)"
               class="field ability-zdatnost-checkbox"
-              style="top:475px; left:542px;"
+              style="top:475px; left:543px;"
             ></div>
             <span class="cs-combat-prof-label">Střední</span>
           </div>
@@ -230,7 +230,7 @@ import { merge } from 'rxjs';
               [ngClass]="abilityCheckboxClass(ac.zdatnostTezke)"
               (click)="cycleAbilityZdatnost(ac.zdatnostTezke)"
               class="field ability-zdatnost-checkbox"
-              style="top:475px; left:647px;"
+              style="top:475px; left:648px;"
             ></div>
             <span class="cs-combat-prof-label">Těžké</span>
           </div>
@@ -239,7 +239,7 @@ import { merge } from 'rxjs';
               [ngClass]="abilityCheckboxClass(ac.zdatnostStity)"
               (click)="cycleAbilityZdatnost(ac.zdatnostStity)"
               class="field ability-zdatnost-checkbox"
-              style="top:475px; left:740px;"
+              style="top:475px; left:741px;"
             ></div>
             <span class="cs-combat-prof-label">Štíty</span>
           </div>

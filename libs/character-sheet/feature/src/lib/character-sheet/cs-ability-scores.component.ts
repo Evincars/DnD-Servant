@@ -24,7 +24,7 @@ import { merge } from 'rxjs';
               matTooltip="Ke každé Dovednosti se kterou máš zdatnost připočítej tento bonus"
               class="field readonly-field"
               readonly
-              style="top:265.37px; left:178.4px; width:44.54px; text-align: center"
+              style="top:263.37px; left:178.4px; width:44.54px; text-align: center"
               placeholder="ZB"
             />
           </div>
@@ -33,7 +33,7 @@ import { merge } from 'rxjs';
               [formControl]="abilityBonusControls.inspirace"
               matTooltip="Utrať jednu inspiraci abys měl VÝHODU na ověření schopnosti, záchranný hod nebo útočný hod"
               class="field"
-              style="top:265.37px; left:440.4px; width:44.54px; text-align: center"
+              style="top:263.37px; left:442.4px; width:44.54px; text-align: center"
               placeholder="*"
             />
           </div>
@@ -42,7 +42,7 @@ import { merge } from 'rxjs';
               [formControl]="abilityBonusControls.iniciativa"
               matTooltip="stejné jako oprava Obratnosti"
               class="field"
-              style="top:265.37px; left:622.49px; width:44.54px; text-align: center"
+              style="top:263.37px; left:627.49px; width:44.54px; text-align: center"
               placeholder="In."
             />
           </div>

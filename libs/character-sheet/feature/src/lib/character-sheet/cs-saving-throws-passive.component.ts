@@ -33,7 +33,7 @@ import { merge } from 'rxjs';
                   [ngClass]="abilityCheckboxClass(st.silaZdatnost)"
                   (click)="cycleAbilityZdatnost(st.silaZdatnost)"
                   class="field ability-zdatnost-checkbox"
-                  style="top:567px; left:441px;"
+                  style="top:567px; left:442px;"
                 ></div>
                 <span class="roll-d20-wrap" data-label="Síla" style="top:552.64px; left:554.13px; width:61.57px;">
                   <input [formControl]="st.sila" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="SIL" />
@@ -47,7 +47,7 @@ import { merge } from 'rxjs';
                   [ngClass]="abilityCheckboxClass(st.obratnostZdatnost)"
                   (click)="cycleAbilityZdatnost(st.obratnostZdatnost)"
                   class="field ability-zdatnost-checkbox"
-                  style="top:596px; left:441px;"
+                  style="top:596px; left:442px;"
                 ></div>
                 <span class="roll-d20-wrap" data-label="Obratnost" style="top:581.71px; left:554.13px; width:61.57px;">
                   <input [formControl]="st.obratnost" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="OBR" />
@@ -61,7 +61,7 @@ import { merge } from 'rxjs';
                   [ngClass]="abilityCheckboxClass(st.odolnostZdatnost)"
                   (click)="cycleAbilityZdatnost(st.odolnostZdatnost)"
                   class="field ability-zdatnost-checkbox"
-                  style="top:625px; left:441px;"
+                  style="top:625px; left:442px;"
                 ></div>
                 <span class="roll-d20-wrap" data-label="Odolnost" style="top:610.78px; left:554.13px; width:61.57px;">
                   <input [formControl]="st.odolnost" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="ODL" />
@@ -75,7 +75,7 @@ import { merge } from 'rxjs';
                   [ngClass]="abilityCheckboxClass(st.inteligenceZdatnost)"
                   (click)="cycleAbilityZdatnost(st.inteligenceZdatnost)"
                   class="field ability-zdatnost-checkbox"
-                  style="top:654px; left:441px;"
+                  style="top:654px; left:442px;"
                 ></div>
                 <span class="roll-d20-wrap" data-label="Inteligence" style="top:639.85px; left:554.13px; width:61.57px;">
                   <input [formControl]="st.inteligence" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="INT" />
@@ -89,7 +89,7 @@ import { merge } from 'rxjs';
                   [ngClass]="abilityCheckboxClass(st.moudrostZdatnost)"
                   (click)="cycleAbilityZdatnost(st.moudrostZdatnost)"
                   class="field ability-zdatnost-checkbox"
-                  style="top:684px; left:441px;"
+                  style="top:684px; left:442px;"
                 ></div>
                 <span class="roll-d20-wrap" data-label="Moudrost" style="top:668.92px; left:554.13px; width:61.57px;">
                   <input [formControl]="st.moudrost" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="MDR" />
@@ -103,7 +103,7 @@ import { merge } from 'rxjs';
                   [ngClass]="abilityCheckboxClass(st.charismaZdatnost)"
                   (click)="cycleAbilityZdatnost(st.charismaZdatnost)"
                   class="field ability-zdatnost-checkbox"
-                  style="top:713px; left:441px;"
+                  style="top:713px; left:442px;"
                 ></div>
                 <span class="roll-d20-wrap" data-label="Charisma" style="top:696.18px; left:554.13px; width:61.57px;">
                   <input [formControl]="st.charisma" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="CHA" />
@@ -122,7 +122,7 @@ import { merge } from 'rxjs';
           <div class="row g-1">
             <div class="col-lg-4 col-md-6 col-12">
               <div class="cs-saving-row">
-                <div [ngClass]="abilityCheckboxClass(ps.atletikaZdatnost)" (click)="cycleAbilityZdatnost(ps.atletikaZdatnost)" class="field ability-zdatnost-checkbox" style="top:567px; left:633px;"></div>
+                <div [ngClass]="abilityCheckboxClass(ps.atletikaZdatnost)" (click)="cycleAbilityZdatnost(ps.atletikaZdatnost)" class="field ability-zdatnost-checkbox" style="top:567px; left:634px;"></div>
                 <div class="cs-passive-field-wrap" data-label="Atletika">
                   <input [formControl]="ps.atletika" class="field no-pb" style="top:552.64px; left:743.77px; width:61.57px; text-align: right;" placeholder="ATL" />
                 </div>
@@ -130,7 +130,7 @@ import { merge } from 'rxjs';
             </div>
             <div class="col-lg-4 col-md-6 col-12">
               <div class="cs-saving-row">
-                <div [ngClass]="abilityCheckboxClass(ps.akrobacieZdatnost)" (click)="cycleAbilityZdatnost(ps.akrobacieZdatnost)" class="field ability-zdatnost-checkbox" style="top:596px; left:633px;"></div>
+                <div [ngClass]="abilityCheckboxClass(ps.akrobacieZdatnost)" (click)="cycleAbilityZdatnost(ps.akrobacieZdatnost)" class="field ability-zdatnost-checkbox" style="top:596px; left:634px;"></div>
                 <div class="cs-passive-field-wrap" data-label="Akrobacie">
                   <input [formControl]="ps.akrobacie" class="field no-pb" style="top:581.71px; left:743.77px; width:61.57px; text-align: right;" placeholder="AKR" />
                 </div>
@@ -138,7 +138,7 @@ import { merge } from 'rxjs';
             </div>
             <div class="col-lg-4 col-md-6 col-12">
               <div class="cs-saving-row">
-                <div [ngClass]="abilityCheckboxClass(ps.nenapadnostZdatnost)" (click)="cycleAbilityZdatnost(ps.nenapadnostZdatnost)" class="field ability-zdatnost-checkbox" style="top:625px; left:633px;"></div>
+                <div [ngClass]="abilityCheckboxClass(ps.nenapadnostZdatnost)" (click)="cycleAbilityZdatnost(ps.nenapadnostZdatnost)" class="field ability-zdatnost-checkbox" style="top:625px; left:634px;"></div>
                 <div class="cs-passive-field-wrap" data-label="Nenápadnost">
                   <input [formControl]="ps.nenapadnost" class="field no-pb" style="top:610.78px; left:743.77px; width:61.57px; text-align: right;" placeholder="NEN" />
                 </div>
@@ -146,7 +146,7 @@ import { merge } from 'rxjs';
             </div>
             <div class="col-lg-4 col-md-6 col-12">
               <div class="cs-saving-row">
-                <div [ngClass]="abilityCheckboxClass(ps.vhledZdatnost)" (click)="cycleAbilityZdatnost(ps.vhledZdatnost)" class="field ability-zdatnost-checkbox" style="top:654px; left:633px;"></div>
+                <div [ngClass]="abilityCheckboxClass(ps.vhledZdatnost)" (click)="cycleAbilityZdatnost(ps.vhledZdatnost)" class="field ability-zdatnost-checkbox" style="top:654px; left:634px;"></div>
                 <div class="cs-passive-field-wrap" data-label="Vhled">
                   <input [formControl]="ps.vhled" class="field no-pb" style="top:639.85px; left:743.77px; width:61.57px; text-align: right;" placeholder="VHL" />
                 </div>
@@ -154,7 +154,7 @@ import { merge } from 'rxjs';
             </div>
             <div class="col-lg-4 col-md-6 col-12">
               <div class="cs-saving-row">
-                <div [ngClass]="abilityCheckboxClass(ps.vnimaniZdatnost)" (click)="cycleAbilityZdatnost(ps.vnimaniZdatnost)" class="field ability-zdatnost-checkbox" style="top:684px; left:633px;"></div>
+                <div [ngClass]="abilityCheckboxClass(ps.vnimaniZdatnost)" (click)="cycleAbilityZdatnost(ps.vnimaniZdatnost)" class="field ability-zdatnost-checkbox" style="top:684px; left:634px;"></div>
                 <div class="cs-passive-field-wrap" data-label="Vnímání">
                   <input [formControl]="ps.vnimani" class="field no-pb" style="top:668.92px; left:743.77px; width:61.57px; text-align: right;" placeholder="VNI" />
                 </div>
@@ -162,7 +162,7 @@ import { merge } from 'rxjs';
             </div>
             <div class="col-lg-4 col-md-6 col-12">
               <div class="cs-saving-row">
-                <div [ngClass]="abilityCheckboxClass(ps.jineZdatnost)" (click)="cycleAbilityZdatnost(ps.jineZdatnost)" class="field ability-zdatnost-checkbox" style="top:713px; left:633px;"></div>
+                <div [ngClass]="abilityCheckboxClass(ps.jineZdatnost)" (click)="cycleAbilityZdatnost(ps.jineZdatnost)" class="field ability-zdatnost-checkbox" style="top:713px; left:634px;"></div>
                 <div class="cs-passive-field-wrap cs-passive-field-wrap--custom" data-label="Jiné">
                   <input [formControl]="ps.jineNazev" class="field no-pb" style="top:696.18px; left:655px; width:82.53px; text-align: left;" placeholder="-" />
                   <input [formControl]="ps.jine" class="field no-pb" style="top:696.18px; left:743.77px; width:61.57px; text-align: right;" placeholder="-" />

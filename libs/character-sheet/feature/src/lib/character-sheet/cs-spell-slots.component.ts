@@ -73,64 +73,64 @@ import { openAlchemistDialog } from '../help-dialogs/alchemist-dialog.component'
         <!-- Level 1 -->
         <div class="cs-spell-level-col">
           <span class="cs-slot-level-label">1.</span>
-          <div class="spell-slot-cb" [class.disabled]="ss.level1Slot1.disabled" [attr.data-state]="ss.level1Slot1.value" (click)="cycleSlot(ss.level1Slot1)" style="top:893px; left:439px;"></div>
-          <div class="spell-slot-cb" [class.disabled]="ss.level1Slot2.disabled" [attr.data-state]="ss.level1Slot2.value" (click)="cycleSlot(ss.level1Slot2)" style="top:914px; left:439px;"></div>
-          <div class="spell-slot-cb" [class.disabled]="ss.level1Slot3.disabled" [attr.data-state]="ss.level1Slot3.value" (click)="cycleSlot(ss.level1Slot3)" style="top:935px; left:439px;"></div>
-          <div class="spell-slot-cb" [class.disabled]="ss.level1Slot4.disabled" [attr.data-state]="ss.level1Slot4.value" (click)="cycleSlot(ss.level1Slot4)" style="top:956px; left:439px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level1Slot1.disabled" [attr.data-state]="ss.level1Slot1.value" (click)="cycleSlot(ss.level1Slot1)" style="top:893px; left:440px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level1Slot2.disabled" [attr.data-state]="ss.level1Slot2.value" (click)="cycleSlot(ss.level1Slot2)" style="top:914px; left:440px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level1Slot3.disabled" [attr.data-state]="ss.level1Slot3.value" (click)="cycleSlot(ss.level1Slot3)" style="top:935px; left:440px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level1Slot4.disabled" [attr.data-state]="ss.level1Slot4.value" (click)="cycleSlot(ss.level1Slot4)" style="top:956px; left:440px;"></div>
         </div>
         <!-- Level 2 -->
         <div class="cs-spell-level-col">
           <span class="cs-slot-level-label">2.</span>
-          <div class="spell-slot-cb" [class.disabled]="ss.level2Slot1.disabled" [attr.data-state]="ss.level2Slot1.value" (click)="cycleSlot(ss.level2Slot1)" style="top:893px; left:466px;"></div>
-          <div class="spell-slot-cb" [class.disabled]="ss.level2Slot2.disabled" [attr.data-state]="ss.level2Slot2.value" (click)="cycleSlot(ss.level2Slot2)" style="top:914px; left:466px;"></div>
-          <div class="spell-slot-cb" [class.disabled]="ss.level2Slot3.disabled" [attr.data-state]="ss.level2Slot3.value" (click)="cycleSlot(ss.level2Slot3)" style="top:935px; left:466px;"></div>
-          <div class="spell-slot-cb spell-slot-cb--black-priest" [class.disabled]="ss.level2Slot4.disabled" [attr.data-state]="ss.level2Slot4.value" (click)="cycleSlot(ss.level2Slot4)" style="top:956px; left:466px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level2Slot1.disabled" [attr.data-state]="ss.level2Slot1.value" (click)="cycleSlot(ss.level2Slot1)" style="top:893px; left:467px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level2Slot2.disabled" [attr.data-state]="ss.level2Slot2.value" (click)="cycleSlot(ss.level2Slot2)" style="top:914px; left:467px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level2Slot3.disabled" [attr.data-state]="ss.level2Slot3.value" (click)="cycleSlot(ss.level2Slot3)" style="top:935px; left:467px;"></div>
+          <div class="spell-slot-cb spell-slot-cb--black-priest" [class.disabled]="ss.level2Slot4.disabled" [attr.data-state]="ss.level2Slot4.value" (click)="cycleSlot(ss.level2Slot4)" style="top:956px; left:467px;"></div>
         </div>
         <!-- Level 3 -->
         <div class="cs-spell-level-col">
           <span class="cs-slot-level-label">3.</span>
-          <div class="spell-slot-cb" [class.disabled]="ss.level3Slot1.disabled" [attr.data-state]="ss.level3Slot1.value" (click)="cycleSlot(ss.level3Slot1)" style="top:893px; left:494px;"></div>
-          <div class="spell-slot-cb" [class.disabled]="ss.level3Slot2.disabled" [attr.data-state]="ss.level3Slot2.value" (click)="cycleSlot(ss.level3Slot2)" style="top:914px; left:494px;"></div>
-          <div class="spell-slot-cb" [class.disabled]="ss.level3Slot3.disabled" [attr.data-state]="ss.level3Slot3.value" (click)="cycleSlot(ss.level3Slot3)" style="top:935px; left:494px;"></div>
-          <div class="spell-slot-cb spell-slot-cb--black-priest" [class.disabled]="ss.level3Slot4.disabled" [attr.data-state]="ss.level3Slot4.value" (click)="cycleSlot(ss.level3Slot4)" style="top:956px; left:494px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level3Slot1.disabled" [attr.data-state]="ss.level3Slot1.value" (click)="cycleSlot(ss.level3Slot1)" style="top:893px; left:495px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level3Slot2.disabled" [attr.data-state]="ss.level3Slot2.value" (click)="cycleSlot(ss.level3Slot2)" style="top:914px; left:495px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level3Slot3.disabled" [attr.data-state]="ss.level3Slot3.value" (click)="cycleSlot(ss.level3Slot3)" style="top:935px; left:495px;"></div>
+          <div class="spell-slot-cb spell-slot-cb--black-priest" [class.disabled]="ss.level3Slot4.disabled" [attr.data-state]="ss.level3Slot4.value" (click)="cycleSlot(ss.level3Slot4)" style="top:956px; left:495px;"></div>
         </div>
         <!-- Level 4 -->
         <div class="cs-spell-level-col">
           <span class="cs-slot-level-label">4.</span>
-          <div class="spell-slot-cb" [class.disabled]="ss.level4Slot1.disabled" [attr.data-state]="ss.level4Slot1.value" (click)="cycleSlot(ss.level4Slot1)" style="top:893px; left:521px;"></div>
-          <div class="spell-slot-cb" [class.disabled]="ss.level4Slot2.disabled" [attr.data-state]="ss.level4Slot2.value" (click)="cycleSlot(ss.level4Slot2)" style="top:914px; left:521px;"></div>
-          <div class="spell-slot-cb" [class.disabled]="ss.level4Slot3.disabled" [attr.data-state]="ss.level4Slot3.value" (click)="cycleSlot(ss.level4Slot3)" style="top:935px; left:521px;"></div>
-          <div class="spell-slot-cb spell-slot-cb--black-priest" [class.disabled]="ss.level4Slot4.disabled" [attr.data-state]="ss.level4Slot4.value" (click)="cycleSlot(ss.level4Slot4)" style="top:956px; left:521px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level4Slot1.disabled" [attr.data-state]="ss.level4Slot1.value" (click)="cycleSlot(ss.level4Slot1)" style="top:893px; left:522px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level4Slot2.disabled" [attr.data-state]="ss.level4Slot2.value" (click)="cycleSlot(ss.level4Slot2)" style="top:914px; left:522px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level4Slot3.disabled" [attr.data-state]="ss.level4Slot3.value" (click)="cycleSlot(ss.level4Slot3)" style="top:935px; left:522px;"></div>
+          <div class="spell-slot-cb spell-slot-cb--black-priest" [class.disabled]="ss.level4Slot4.disabled" [attr.data-state]="ss.level4Slot4.value" (click)="cycleSlot(ss.level4Slot4)" style="top:956px; left:522px;"></div>
         </div>
         <!-- Level 5 -->
         <div class="cs-spell-level-col">
           <span class="cs-slot-level-label">5.</span>
-          <div class="spell-slot-cb" [class.disabled]="ss.level5Slot1.disabled" [attr.data-state]="ss.level5Slot1.value" (click)="cycleSlot(ss.level5Slot1)" style="top:893px; left:549px;"></div>
-          <div class="spell-slot-cb" [class.disabled]="ss.level5Slot2.disabled" [attr.data-state]="ss.level5Slot2.value" (click)="cycleSlot(ss.level5Slot2)" style="top:914px; left:549px;"></div>
-          <div class="spell-slot-cb" [class.disabled]="ss.level5Slot3.disabled" [attr.data-state]="ss.level5Slot3.value" (click)="cycleSlot(ss.level5Slot3)" style="top:935px; left:549px;"></div>
-          <div class="spell-slot-cb spell-slot-cb--black-priest" [class.disabled]="ss.level5Slot4.disabled" [attr.data-state]="ss.level5Slot4.value" (click)="cycleSlot(ss.level5Slot4)" style="top:956px; left:549px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level5Slot1.disabled" [attr.data-state]="ss.level5Slot1.value" (click)="cycleSlot(ss.level5Slot1)" style="top:893px; left:550px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level5Slot2.disabled" [attr.data-state]="ss.level5Slot2.value" (click)="cycleSlot(ss.level5Slot2)" style="top:914px; left:550px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level5Slot3.disabled" [attr.data-state]="ss.level5Slot3.value" (click)="cycleSlot(ss.level5Slot3)" style="top:935px; left:550px;"></div>
+          <div class="spell-slot-cb spell-slot-cb--black-priest" [class.disabled]="ss.level5Slot4.disabled" [attr.data-state]="ss.level5Slot4.value" (click)="cycleSlot(ss.level5Slot4)" style="top:956px; left:550px;"></div>
         </div>
         <!-- Level 6 -->
         <div class="cs-spell-level-col">
           <span class="cs-slot-level-label">6.</span>
-          <div class="spell-slot-cb" [class.disabled]="ss.level6Slot1.disabled" [attr.data-state]="ss.level6Slot1.value" (click)="cycleSlot(ss.level6Slot1)" style="top:893px; left:577px;"></div>
-          <div class="spell-slot-cb" [class.disabled]="ss.level6Slot2.disabled" [attr.data-state]="ss.level6Slot2.value" (click)="cycleSlot(ss.level6Slot2)" style="top:914px; left:577px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level6Slot1.disabled" [attr.data-state]="ss.level6Slot1.value" (click)="cycleSlot(ss.level6Slot1)" style="top:893px; left:578px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level6Slot2.disabled" [attr.data-state]="ss.level6Slot2.value" (click)="cycleSlot(ss.level6Slot2)" style="top:914px; left:578px;"></div>
         </div>
         <!-- Level 7 -->
         <div class="cs-spell-level-col">
           <span class="cs-slot-level-label">7.</span>
-          <div class="spell-slot-cb" [class.disabled]="ss.level7Slot1.disabled" [attr.data-state]="ss.level7Slot1.value" (click)="cycleSlot(ss.level7Slot1)" style="top:893px; left:604px;"></div>
-          <div class="spell-slot-cb" [class.disabled]="ss.level7Slot2.disabled" [attr.data-state]="ss.level7Slot2.value" (click)="cycleSlot(ss.level7Slot2)" style="top:914px; left:604px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level7Slot1.disabled" [attr.data-state]="ss.level7Slot1.value" (click)="cycleSlot(ss.level7Slot1)" style="top:893px; left:605px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level7Slot2.disabled" [attr.data-state]="ss.level7Slot2.value" (click)="cycleSlot(ss.level7Slot2)" style="top:914px; left:605px;"></div>
         </div>
         <!-- Level 8 -->
         <div class="cs-spell-level-col">
           <span class="cs-slot-level-label">8.</span>
-          <div class="spell-slot-cb" [class.disabled]="ss.level8Slot1.disabled" [attr.data-state]="ss.level8Slot1.value" (click)="cycleSlot(ss.level8Slot1)" style="top:893px; left:632px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level8Slot1.disabled" [attr.data-state]="ss.level8Slot1.value" (click)="cycleSlot(ss.level8Slot1)" style="top:893px; left:633px;"></div>
         </div>
         <!-- Level 9 -->
         <div class="cs-spell-level-col">
           <span class="cs-slot-level-label">9.</span>
-          <div class="spell-slot-cb" [class.disabled]="ss.level9Slot1.disabled" [attr.data-state]="ss.level9Slot1.value" (click)="cycleSlot(ss.level9Slot1)" style="top:893px; left:659px;"></div>
+          <div class="spell-slot-cb" [class.disabled]="ss.level9Slot1.disabled" [attr.data-state]="ss.level9Slot1.value" (click)="cycleSlot(ss.level9Slot1)" style="top:893px; left:660px;"></div>
         </div>
       </div>
 
