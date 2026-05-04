@@ -37,7 +37,9 @@ function _applySirienColors(svgText: string): string {
       // Strokes → brighter crimson lines — better visible on charcoal background
       c = c.replace(/stroke:\s*#1d1d1b/gi, 'stroke: #9a1818');
       c = c.replace(/stroke:\s*#000(?=[;\s}])/gi,  'stroke: #7a1010');
-      c = c.replace(/stroke:\s*#8f8f8f/gi, 'stroke: #8c2020');
+      // #828282 is the updated ability-border stroke (was #8f8f8f before the source edit)
+      c = c.replace(/stroke:\s*#828282/gi, 'stroke: #8c2020');
+      c = c.replace(/stroke:\s*#8f8f8f/gi, 'stroke: #8c2020'); // fallback for any missed files
       c = c.replace(/stroke:\s*#b2b2b2/gi, 'stroke: #aa3030');
       c = c.replace(/stroke:\s*#fcf9f1/gi, 'stroke: #8a1414');
       // All text → warm off-white / parchment tone — highly legible on dark bg

@@ -162,7 +162,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             class="field ability-zdatnost-checkbox"
             style="top:826px; left:178px;"
           ></div>
-          <span class="roll-d20-wrap" data-label="Přežití (MDR)" style="top:807.42px; left:348.46px; width:70.74px;">
+          <span class="roll-d20-wrap" data-label="Přežití (MDR)" style="top:812.42px; left:348.46px; width:70.74px;">
             <input [formControl]="c.preziti" id="preziti" class="field no-pb" style="top:0;left:0;width:100%;position:relative;text-align:right;" placeholder="*" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.preziti.value, 'Přežití')">🎲</button>
           </span>

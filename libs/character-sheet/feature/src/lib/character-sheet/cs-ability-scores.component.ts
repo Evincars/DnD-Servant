@@ -54,7 +54,7 @@ import { merge } from 'rxjs';
             <input [formControl]="c.silaOprava" class="field main-skill" style="top:0;left:0;width:100%;position:relative;" placeholder="SIL" (click)="rollD20(c.silaOprava.value, 'Síla')" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.silaOprava.value, 'Síla')">🎲</button>
           </span>
-          <input [formControl]="c.sila" id="sila-input" class="field" style="top:378.94px; left:78.60px; width:49.78px; text-align: center" placeholder="SIL" />
+          <input [formControl]="c.sila" id="sila-input" class="field" style="top:368.94px; left:68.60px; width:49.78px; text-align: center" placeholder="SIL" />
         </div>
 
         <div class="cs-ability-group" data-ability="Obratnost">
