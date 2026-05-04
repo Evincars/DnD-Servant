@@ -120,7 +120,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
           [formControl]="controls.professionForm.controls.prvniPovolaniSesilatelskePovolani"
           class="field cs-prof-field"
           style="top:346px; left:219px; width:189px;"
-          placeholder="Sesilatelsé povolání"
+          placeholder="Sesilatelské povolání"
         />
         <input
           [formControl]="controls.professionForm.controls.prvniPovolaniUroven"
@@ -158,7 +158,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
           [formControl]="controls.professionForm.controls.druhePovolaniSesilatelskePovolani"
           class="field cs-prof-field"
           style="top:385px; left:219px; width:189px;"
-          placeholder="Sesilatelsé povolání"
+          placeholder="Sesilatelské povolání"
         />
         <input
           [formControl]="controls.professionForm.controls.druhePovolaniUroven"

@@ -119,7 +119,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
               (click)="cycleAbilityZdatnost(c.zdatnostJednoduche)"
               id="zdatnostSJednoduchymaZbranema"
               class="field ability-zdatnost-checkbox"
-              style="top:1255px; left:446.78px;"
+              style="top:1260px; left:443px;"
             ></div>
             <span class="cs-combat-prof-label">Jednoduché</span>
           </div>
@@ -129,7 +129,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
               (click)="cycleAbilityZdatnost(c.zdatnostValecne)"
               id="zdatnostSValecnymaZbranema"
               class="field ability-zdatnost-checkbox"
-              style="top:1255px; left:572.54px;"
+              style="top:1260px; left:571px;"
             ></div>
             <span class="cs-combat-prof-label">Válečné</span>
           </div>
@@ -138,7 +138,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
               [formControl]="c.dalsiZdatnosti"
               id="dalsiZdatnostSeZbrani"
               class="field"
-              style="top:1248px; left:666.79px; width:514.83px"
+              style="top:1254px; left:666.79px; width:514.83px"
               placeholder="Další zdatnosti..."
             />
           </div>
