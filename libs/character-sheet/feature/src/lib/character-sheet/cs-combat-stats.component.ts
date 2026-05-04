@@ -53,7 +53,7 @@ import { merge } from 'rxjs';
             <input
               [formControl]="sc.maxBoduVydrze"
               class="field"
-              style="top:283px; left:1193.41px; width:68.12px; text-align: center; font-size: 18px; color: red;"
+              style="top:276px; left:1202px; width:68px; text-align: center; font-size: 18px; color: red;"
               placeholder="20 / 20"
             />
           </div>
@@ -64,7 +64,7 @@ import { merge } from 'rxjs';
             (click)="onOpenDamagesDialog()"
             type="button"
             matTooltip="Bojové a přetrvávající zranění"
-            style="top:448px; left:842px;"
+            style="top:414px; left:842px;"
             class="field button small-info-button-icon"
           >
             <mat-icon class="small-info-icon">info</mat-icon>
@@ -73,7 +73,7 @@ import { merge } from 'rxjs';
             <input
               [formControl]="sc.pouzitiKostek"
               class="field"
-              style="top:448px; left:884px; width:188px;"
+              style="top:410px; left:884px; width:188px;"
               placeholder="Použití kostek"
             />
           </div>
@@ -81,7 +81,7 @@ import { merge } from 'rxjs';
             <input
               [formControl]="sc.maxPouzitiKostek"
               class="field"
-              style="top:481px; left:884px; width:188px;"
+              style="top:447px; left:884px; width:188px;"
               placeholder="Max"
             />
           </div>
@@ -170,7 +170,7 @@ import { merge } from 'rxjs';
           (click)="onOpenArmorClassDialog()"
           type="button"
           matTooltip="Zbroje a obranné číslo"
-          style="top:345px; left:700px;"
+          style="top:335px; left:700px;"
           class="field button small-info-button-icon"
         >
           <mat-icon class="small-info-icon">info</mat-icon>
@@ -181,7 +181,7 @@ import { merge } from 'rxjs';
               [formControl]="ac.zbroj"
               matTooltip="Podívej se do tabulky Zbrojí kolik ti dává OČ"
               class="field"
-              style="top:416px; left:478px; width:61px; text-align: center; font-size: 22px;"
+              style="top:411px; left:475px; width:61px; text-align: center; font-size: 22px;"
               placeholder="Zbroj"
             />
           </div>
@@ -190,7 +190,7 @@ import { merge } from 'rxjs';
               [formControl]="ac.bezeZbroje"
               matTooltip="10 + oprava Obratnosti"
               class="field"
-              style="top:416.09px; left:582.95px; width:61.57px; text-align: center; font-size: 22px;"
+              style="top:410.09px; left:582.95px; width:61.57px; text-align: center; font-size: 22px;"
               placeholder="Bez"
             />
           </div>
@@ -199,7 +199,7 @@ import { merge } from 'rxjs';
               [formControl]="ac.jine"
               matTooltip="Kolik Ti přičítá štít nebo jiná ochrana (např. magická)"
               class="field"
-              style="top:416.09px; left:692.99px; width:61.57px; text-align: center; font-size: 22px;"
+              style="top:410.09px; left:692.99px; width:61.57px; text-align: center; font-size: 22px;"
               placeholder="Jiné"
             />
           </div>

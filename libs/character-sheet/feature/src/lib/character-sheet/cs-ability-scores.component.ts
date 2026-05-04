@@ -24,7 +24,7 @@ import { merge } from 'rxjs';
               matTooltip="Ke každé Dovednosti se kterou máš zdatnost připočítej tento bonus"
               class="field readonly-field"
               readonly
-              style="top:263.37px; left:178.4px; width:44.54px; text-align: center"
+              style="top:263.37px; left:175.4px; width:44.54px; text-align: center"
               placeholder="ZB"
             />
           </div>
