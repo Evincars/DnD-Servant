@@ -54,7 +54,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[0]"
           id="inventoryItemRow1"
           class="field inventory-item"
-          style="top:1390.19px; left:68.12px; width:254.14px"
+          style="top:1398.19px; left:68.12px; width:249px"
           placeholder="*"
         />
         <input
@@ -62,7 +62,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[1]"
           id="inventoryItemRow2"
           class="field inventory-item"
-          style="top:1427.53px; left:68.12px; width:254.14px"
+          style="top:1435.53px; left:68.12px; width:249px"
           placeholder="*"
         />
         <input
@@ -70,7 +70,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[2]"
           id="inventoryItemRow3"
           class="field inventory-item"
-          style="top:1465.69px; left:68.12px; width:254.14px"
+          style="top:1473.69px; left:68.12px; width:249px"
           placeholder="*"
         />
         <input
@@ -78,7 +78,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[3]"
           id="inventoryItemRow4"
           class="field inventory-item"
-          style="top:1503.85px; left:68.12px; width:254.14px"
+          style="top:1511.85px; left:68.12px; width:249px"
           placeholder="*"
         />
         <input
@@ -86,7 +86,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[4]"
           id="inventoryItemRow5"
           class="field inventory-item"
-          style="top:1542.01px; left:68.12px; width:254.14px"
+          style="top:1550.01px; left:68.12px; width:249px"
           placeholder="*"
         />
         <input
@@ -94,7 +94,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[5]"
           id="inventoryItemRow6"
           class="field inventory-item"
-          style="top:1580.17px; left:68.12px; width:254.14px"
+          style="top:1588.17px; left:68.12px; width:249px"
           placeholder="*"
         />
         <input
@@ -102,7 +102,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[6]"
           id="inventoryItemRow7"
           class="field inventory-item"
-          style="top:1618.33px; left:68.12px; width:254.14px"
+          style="top:1626.33px; left:68.12px; width:249px"
           placeholder="*"
         />
         <input
@@ -110,7 +110,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[7]"
           id="inventoryItemRow8"
           class="field inventory-item"
-          style="top:1656.49px; left:68.12px; width:254.14px"
+          style="top:1664.49px; left:68.12px; width:249px"
           placeholder="*"
         />
         <input
@@ -118,7 +118,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[8]"
           id="inventoryItemRow9"
           class="field inventory-item"
-          style="top:1694.65px; left:68.12px; width:254.14px"
+          style="top:1702.65px; left:68.12px; width:249px"
           placeholder="*"
         />
         <input
@@ -126,7 +126,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[9]"
           id="inventoryItemRow10"
           class="field inventory-item"
-          style="top:1732.81px; left:68.12px; width:254.14px"
+          style="top:1740.81px; left:68.12px; width:249px"
           placeholder="*"
         />
 
@@ -136,7 +136,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[10]"
           id="inventoryItemRow11"
           class="field inventory-item"
-          style="top:1390.19px; left:352.39px; width:254.14px"
+          style="top:1398.19px; left:352.39px; width:254.14px"
           placeholder="*"
         />
         <input
@@ -144,7 +144,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[11]"
           id="inventoryItemRow12"
           class="field inventory-item"
-          style="top:1427.53px; left:352.39px; width:254.14px"
+          style="top:1435.53px; left:352.39px; width:254.14px"
           placeholder="*"
         />
         <input
@@ -152,7 +152,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[12]"
           id="inventoryItemRow13"
           class="field inventory-item"
-          style="top:1465.69px; left:352.39px; width:254.14px"
+          style="top:1473.69px; left:352.39px; width:254.14px"
           placeholder="*"
         />
         <input
@@ -160,7 +160,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[13]"
           id="inventoryItemRow14"
           class="field inventory-item"
-          style="top:1503.85px; left:352.39px; width:254.14px"
+          style="top:1511.85px; left:352.39px; width:254.14px"
           placeholder="*"
         />
         <input
@@ -168,7 +168,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[14]"
           id="inventoryItemRow15"
           class="field inventory-item"
-          style="top:1542.01px; left:352.39px; width:254.14px"
+          style="top:1550.01px; left:352.39px; width:254.14px"
           placeholder="*"
         />
         <input
@@ -176,7 +176,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[15]"
           id="inventoryItemRow16"
           class="field inventory-item"
-          style="top:1580.17px; left:352.39px; width:254.14px"
+          style="top:1588.17px; left:352.39px; width:254.14px"
           placeholder="*"
         />
         <input
@@ -184,7 +184,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[16]"
           id="inventoryItemRow17"
           class="field inventory-item"
-          style="top:1618.33px; left:352.39px; width:254.14px"
+          style="top:1626.33px; left:352.39px; width:254.14px"
           placeholder="*"
         />
         <input
@@ -192,7 +192,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[17]"
           id="inventoryItemRow18"
           class="field inventory-item"
-          style="top:1656.49px; left:352.39px; width:254.14px"
+          style="top:1664.49px; left:352.39px; width:254.14px"
           placeholder="*"
         />
         <input
@@ -200,7 +200,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[18]"
           id="inventoryItemRow19"
           class="field inventory-item"
-          style="top:1694.65px; left:352.39px; width:254.14px"
+          style="top:1702.65px; left:352.39px; width:254.14px"
           placeholder="*"
         />
         <input
@@ -208,7 +208,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [ngClass]="inventoryClasses()[19]"
           id="inventoryItemRow20"
           class="field inventory-item"
-          style="top:1732.81px; left:352.39px; width:254.14px"
+          style="top:1740.81px; left:352.39px; width:254.14px"
           placeholder="*"
         />
       </ng-container>
