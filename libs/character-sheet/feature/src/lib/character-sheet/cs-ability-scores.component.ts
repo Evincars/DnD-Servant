@@ -50,7 +50,7 @@ import { merge } from 'rxjs';
 
         <div class="cs-ability-group" data-ability="Síla">
           <label class="cs-ability-label">Síla</label>
-          <span class="roll-d20-wrap roll-d20-center" style="top:326.51px; left:72.60px; width:59.78px;">
+          <span class="roll-d20-wrap roll-d20-center" style="top:323.51px; left:70.60px; width:59.78px;">
             <input [formControl]="c.silaOprava" class="field main-skill" style="top:0;left:0;width:100%;position:relative;" placeholder="SIL" (click)="rollD20(c.silaOprava.value, 'Síla')" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.silaOprava.value, 'Síla')">🎲</button>
           </span>
@@ -59,47 +59,47 @@ import { merge } from 'rxjs';
 
         <div class="cs-ability-group" data-ability="Obratnost">
           <label class="cs-ability-label">Obratnost</label>
-          <span class="roll-d20-wrap roll-d20-center" style="top:491.86px; left:72.60px; width:59.78px;">
+          <span class="roll-d20-wrap roll-d20-center" style="top:491.86px; left:70.60px; width:59.78px;">
             <input [formControl]="c.obratnostOprava" class="field main-skill" style="top:0;left:0;width:100%;position:relative;" placeholder="OBR" (click)="rollD20(c.obratnostOprava.value, 'Obratnost')" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.obratnostOprava.value, 'Obratnost')">🎲</button>
           </span>
-          <input [formControl]="c.obratnost" id="obratnost-input" class="field" style="top:545.10px; left:78.60px; width:49.78px; text-align: center" placeholder="OBR" />
+          <input [formControl]="c.obratnost" id="obratnost-input" class="field" style="top:539.10px; left:69.60px; width:49.78px; text-align: center" placeholder="OBR" />
         </div>
 
         <div class="cs-ability-group" data-ability="Odolnost">
           <label class="cs-ability-label">Odolnost</label>
-          <span class="roll-d20-wrap roll-d20-center" style="top:666.29px; left:72.60px; width:59.78px;">
+          <span class="roll-d20-wrap roll-d20-center" style="top:669.29px; left:70.60px; width:59.78px;">
             <input [formControl]="c.odolnostOprava" class="field main-skill" style="top:0;left:0;width:100%;position:relative;" placeholder="ODL" (click)="rollD20(c.odolnostOprava.value, 'Odolnost')" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.odolnostOprava.value, 'Odolnost')">🎲</button>
           </span>
-          <input [formControl]="c.odolnost" id="odolnost-input" class="field" style="top:720.53px; left:78.60px; width:49.78px; text-align: center" placeholder="ODL" />
+          <input [formControl]="c.odolnost" id="odolnost-input" class="field" style="top:717.53px; left:69.60px; width:49.78px; text-align: center" placeholder="ODL" />
         </div>
 
         <div class="cs-ability-group" data-ability="Inteligence">
           <label class="cs-ability-label">Inteligence</label>
-          <span class="roll-d20-wrap roll-d20-center" style="top:841.72px; left:72.60px; width:59.78px;">
+          <span class="roll-d20-wrap roll-d20-center" style="top:846.72px; left:72.60px; width:59.78px;">
             <input [formControl]="c.inteligenceOprava" class="field main-skill" style="top:0;left:0;width:100%;position:relative;" placeholder="INT" (click)="rollD20(c.inteligenceOprava.value, 'Inteligence')" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.inteligenceOprava.value, 'Inteligence')">🎲</button>
           </span>
-          <input [formControl]="c.inteligence" id="inteligence-input" class="field" style="top:894.15px; left:78.60px; width:49.78px; text-align: center" placeholder="INT" />
+          <input [formControl]="c.inteligence" id="inteligence-input" class="field" style="top:894.15px; left:69.60px; width:49.78px; text-align: center" placeholder="INT" />
         </div>
 
         <div class="cs-ability-group" data-ability="Moudrost">
           <label class="cs-ability-label">Moudrost</label>
-          <span class="roll-d20-wrap roll-d20-center" style="top:1009.30px; left:72.60px; width:59.78px;">
+          <span class="roll-d20-wrap roll-d20-center" style="top:1017.30px; left:72.60px; width:59.78px;">
             <input [formControl]="c.moudrostOprava" class="field main-skill" style="top:0;left:0;width:100%;position:relative;" placeholder="MDR" (click)="rollD20(c.moudrostOprava.value, 'Moudrost')" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.moudrostOprava.value, 'Moudrost')">🎲</button>
           </span>
-          <input [formControl]="c.moudrost" id="moudrost-input" class="field" style="top:1061.73px; left:78.60px; width:49.78px; text-align: center" placeholder="MDR" />
+          <input [formControl]="c.moudrost" id="moudrost-input" class="field" style="top:1065.73px; left:69.60px; width:49.78px; text-align: center" placeholder="MDR" />
         </div>
 
         <div class="cs-ability-group" data-ability="Charisma">
           <label class="cs-ability-label">Charisma</label>
-          <span class="roll-d20-wrap roll-d20-center" style="top:1183.92px; left:72.60px; width:59.78px;">
+          <span class="roll-d20-wrap roll-d20-center" style="top:1193.92px; left:71.60px; width:59.78px;">
             <input [formControl]="c.charismaOprava" class="field main-skill" style="top:0;left:0;width:100%;position:relative;" placeholder="CHA" (click)="rollD20(c.charismaOprava.value, 'Charisma')" />
             <button class="roll-d20-btn" type="button" (click)="rollD20(c.charismaOprava.value, 'Charisma')">🎲</button>
           </span>
-          <input [formControl]="c.charisma" id="charisma-input" class="field" style="top:1236.36px; left:78.60px; width:49.78px; text-align: center" placeholder="CHA" />
+          <input [formControl]="c.charisma" id="charisma-input" class="field" style="top:1244.36px; left:69.60px; width:49.78px; text-align: center" placeholder="CHA" />
         </div>
       </ng-container>
     }
