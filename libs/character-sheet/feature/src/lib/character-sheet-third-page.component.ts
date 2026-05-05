@@ -203,7 +203,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r1P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:505px; left:57px;"
+      style="top:505px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r1S"
@@ -278,7 +278,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r2P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:541px; left:57px;"
+      style="top:541px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r2S"
@@ -353,7 +353,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r3P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:577px; left:57px;"
+      style="top:577px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r3S"
@@ -428,7 +428,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r4P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:613px; left:57px;"
+      style="top:613px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r4S"
@@ -503,7 +503,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r5P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:650px; left:57px;"
+      style="top:650px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r5S"
@@ -578,7 +578,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r6P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:686px; left:57px;"
+      style="top:686px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r6S"
@@ -653,7 +653,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r7P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:722px; left:57px;"
+      style="top:722px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r7S"
@@ -728,7 +728,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r8P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:758px; left:57px;"
+      style="top:758px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r8S"
@@ -803,7 +803,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r9P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:794px; left:57px;"
+      style="top:794px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r9S"
@@ -878,7 +878,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r10P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:831px; left:57px;"
+      style="top:831px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r10S"
@@ -952,7 +952,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r11P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:867px; left:57px;"
+      style="top:867px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r11S"
@@ -1026,7 +1026,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r12P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:903px; left:57px;"
+      style="top:903px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r12S"
@@ -1100,7 +1100,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r13P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:939px; left:57px;"
+      style="top:939px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r13S"
@@ -1174,7 +1174,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r14P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:976px; left:57px;"
+      style="top:976px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r14S"
@@ -1248,7 +1248,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r15P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1012px; left:57px;"
+      style="top:1012px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r15S"
@@ -1322,7 +1322,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r16P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1048px; left:57px;"
+      style="top:1048px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r16S"
@@ -1396,7 +1396,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r17P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1084px; left:57px;"
+      style="top:1084px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r17S"
@@ -1470,7 +1470,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r18P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1120px; left:57px;"
+      style="top:1120px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r18S"
@@ -1544,7 +1544,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r19P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1157px; left:57px;"
+      style="top:1157px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r19S"
@@ -1618,7 +1618,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r20P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1193px; left:57px;"
+      style="top:1193px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r20S"
@@ -1692,7 +1692,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r21P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1229px; left:57px;"
+      style="top:1229px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r21S"
@@ -1766,7 +1766,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r22P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1265px; left:57px;"
+      style="top:1265px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r22S"
@@ -1840,7 +1840,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r23P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1301px; left:57px;"
+      style="top:1301px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r23S"
@@ -1914,7 +1914,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r24P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1338px; left:57px;"
+      style="top:1338px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r24S"
@@ -1988,7 +1988,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r25P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1374px; left:57px;"
+      style="top:1374px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r25S"
@@ -2062,7 +2062,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r26P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1410px; left:57px;"
+      style="top:1410px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r26S"
@@ -2136,7 +2136,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r27P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1446px; left:57px;"
+      style="top:1446px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r27S"
@@ -2211,7 +2211,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r28P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1482px; left:57px;"
+      style="top:1482px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r28S"
@@ -2286,7 +2286,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r29P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1518px; left:57px;"
+      style="top:1518px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r29S"
@@ -2361,7 +2361,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r30P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1554px; left:57px;"
+      style="top:1554px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r30S"
@@ -2436,7 +2436,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r31P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1590px; left:57px;"
+      style="top:1590px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r31S"
@@ -2511,7 +2511,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r32P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1626px; left:57px;"
+      style="top:1626px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r32S"
@@ -2586,7 +2586,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r33P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1662px; left:57px;"
+      style="top:1662px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r33S"
@@ -2661,7 +2661,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r34P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1698px; left:57px;"
+      style="top:1698px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r34S"
@@ -2735,24 +2735,24 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       [formControl]="controls.spellsForm.controls.r35P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1734px; left:57px;"
+      style="top:1742px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r35S"
       class="field spell-row"
-      style="top:1734px; left:90px; width:41px;"
+      style="top:1742px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Nazev"
       (focus)="openDropdown($event, 35)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1734px; left:140px; width:176px;"
+      style="top:1742px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1734px; left:329px;"
+      style="top:1742px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r35Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -2761,44 +2761,44 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
     <input
       [formControl]="controls.spellsForm.controls.r35Utok"
       class="field spell-row"
-      style="top:1734px; left:353px; width:78px;"
+      style="top:1742px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35DobaSesilani"
       class="field spell-row"
-      style="top:1734px; left:439px; width:58px;"
+      style="top:1742px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Slozky"
       class="field spell-row"
-      style="top:1734px; left:506px; width:58px;"
+      style="top:1742px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Dosah"
       class="field spell-row"
-      style="top:1734px; left:572px; width:77px;"
+      style="top:1742px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Trvani"
       class="field spell-row"
-      style="top:1734px; left:658px; width:77px;"
+      style="top:1742px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Poznamka"
       class="field spell-row"
-      style="top:1734px; left:744px; width:408px;"
+      style="top:1742px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(35)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Str"
       class="field spell-row"
-      style="top:1734px; left:1160px; width:60px;"
+      style="top:1742px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
