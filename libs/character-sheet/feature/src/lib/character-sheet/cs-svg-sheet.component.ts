@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { combineLatest, map, switchMap } from 'rxjs';
+import { combineLatest, map, of, switchMap } from 'rxjs';
 import { SheetThemeService, Theme } from '../sheet-theme.service';
 
 /** Monotonically-increasing counter to give each SVG instance a unique namespace. */
@@ -89,40 +89,64 @@ function prepareSvg(svgText: string, ns: string, theme: Theme = 'light'): string
     '[class.theme-night]':  'sheetTheme.theme() === "night"',
   },
   template: `
-    @if (safeHtml()) {
-      <div [innerHTML]="safeHtml()!" class="cs-svg-wrap"></div>
+    @if (sheetTheme.theme() === 'sirien') {
+      @if (sirienHtml()) {
+        <!-- Sirien theme: inline SVG required for direct colour substitution -->
+        <div [innerHTML]="sirienHtml()!" class="cs-svg-wrap"></div>
+      }
+    } @else {
+      <!--
+        Light / dark / night: load SVG as an external <img>.
+        The browser rasterises it once and caches as a GPU bitmap texture.
+        CSS filter on <img> is a single GPU shader pass — zero CPU cost.
+        This avoids having hundreds of inline SVG elements in the DOM that
+        force the CPU to repaint on every change-detection cycle.
+      -->
+      <img
+        [src]="src()"
+        class="cs-svg-img"
+        alt=""
+        width="1293"
+        height="1817"
+        loading="eager"
+      />
     }
   `,
   styles: `
     :host { display: block; line-height: 0; }
-    .cs-svg-wrap { line-height: 0; }
 
-    :host ::ng-deep svg {
+    /* ── External-image path (light / dark / night) ─────────────────────── */
+    .cs-svg-img {
       display: block;
       background: #f6f0e8;
+      width: 1293px;
+      height: 1817px;
     }
 
-    /* ── Tmavé: rich warm amber/gold ornaments, very dark warm-brown bg ─ */
-    /* invert: parchment→near-black, text→near-white                       */
-    /* hue-rotate(195°): inverted cyan ornaments → H=25° = amber/gold      */
-    :host.theme-dark ::ng-deep svg {
+    /* ── Tmavé: rich warm amber/gold ornaments, very dark warm-brown bg ─── */
+    /* invert: parchment→near-black, text→near-white                         */
+    /* hue-rotate(195°): inverted cyan ornaments → H=25° = amber/gold        */
+    /* GPU-accelerated filter on a bitmap — replaces old filter on inline SVG */
+    :host.theme-dark .cs-svg-img {
       background: #141008;
       filter: invert(1) hue-rotate(195deg) saturate(1.0) brightness(0.76) contrast(1.1);
     }
 
-    /* ── Sirien: rgb(25,25,25) bg, vivid crimson ornaments, warm text ──── */
-    /* Gradient stops upgraded to rgb(140,15,15) family by _applySirienColors  */
-    /* filter:none overrides the invert() inherited from .theme-dark           */
-    :host.theme-sirien ::ng-deep svg {
-      background: #191919;
-      filter: none;
-    }
-
     /* ── Noční: deep indigo-blue ornaments, dark navy bg, cool white text ── */
-    /* hue-rotate(50°): inverted cyan ornaments → H=240° = vivid blue        */
-    :host.theme-night ::ng-deep svg {
+    /* hue-rotate(50°): inverted cyan ornaments → H=240° = vivid blue         */
+    :host.theme-night .cs-svg-img {
       background: #060810;
       filter: invert(1) hue-rotate(50deg) saturate(1.3) brightness(0.76) contrast(1.1);
+    }
+
+    /* ── Sirien: inline SVG path ─────────────────────────────────────────── */
+    .cs-svg-wrap { line-height: 0; }
+
+    :host.theme-sirien ::ng-deep svg {
+      display: block;
+      background: #191919;
+      /* No CSS filter — colours are substituted directly in the SVG source. */
+      filter: none;
     }
   `,
 })
@@ -135,23 +159,25 @@ export class CsSvgSheetComponent {
   private readonly sanitizer = inject(DomSanitizer);
   private readonly _ns = `svgcs${++_svgInstanceCounter}`;
 
-  // toObservable MUST be called in the injection context (field initializer), not
-  // inside a switchMap callback.  Store it here so it can be safely referenced later.
-  private readonly _theme$ = toObservable(this.sheetTheme.theme);
-
-  /** Re-processes the SVG on theme change without re-fetching. */
-  readonly safeHtml = toSignal<SafeHtml>(
-    toObservable(this.src).pipe(
-      switchMap(src =>
-        combineLatest([
-          this.http.get(src, { responseType: 'text' }),
-          this._theme$,
-        ]).pipe(
-          map(([svgText, theme]) =>
-            this.sanitizer.bypassSecurityTrustHtml(prepareSvg(svgText, this._ns, theme)),
+  /**
+   * For the Sirien theme only: fetch + colour-substitute the SVG and inject it
+   * inline.  For all other themes the SVG is loaded as a plain <img> so the
+   * browser can rasterise it once and composite it on the GPU.
+   */
+  readonly sirienHtml = toSignal<SafeHtml | null>(
+    combineLatest([
+      toObservable(this.src),
+      toObservable(this.sheetTheme.theme),
+    ]).pipe(
+      switchMap(([src, theme]) => {
+        if (theme !== 'sirien') return of(null);
+        return this.http.get(src, { responseType: 'text' }).pipe(
+          map(svgText =>
+            this.sanitizer.bypassSecurityTrustHtml(prepareSvg(svgText, this._ns, 'sirien')),
           ),
-        ),
-      ),
+        );
+      }),
     ),
+    { initialValue: null },
   );
 }
