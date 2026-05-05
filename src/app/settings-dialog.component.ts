@@ -31,6 +31,9 @@ export interface SettingsDialogData {
       <!-- Body -->
       <div class="sd-body">
 
+        <!-- LEFT column -->
+        <div class="sd-col-panel">
+
         <!-- Theme section -->
         <div class="sd-section">
           <div class="sd-section-label">Téma karet</div>
@@ -75,6 +78,45 @@ export interface SettingsDialogData {
         </div>
 
         <div class="sd-divider"></div>
+
+        <!-- Page layout section -->
+        <div class="sd-section">
+          <div class="sd-section-label">Rozvržení stránek karty</div>
+          <div class="sd-col">
+            <button
+              type="button"
+              class="sd-btn sd-btn--wide"
+              [class.sd-btn--active]="!sheetTheme.spellsFirst()"
+              (click)="sheetTheme.spellsFirst() && sheetTheme.toggleSpellsFirst()"
+            >
+              <mat-icon class="sd-btn-icon">format_list_numbered</mat-icon>
+              <div class="sd-btn-text">
+                <span class="sd-btn-label">Výchozí pořadí</span>
+                <span class="sd-btn-sub">Str. 2 – Vzhled &amp; popis · str. 3 – Kouzla</span>
+              </div>
+            </button>
+            <button
+              type="button"
+              class="sd-btn sd-btn--wide"
+              [class.sd-btn--active]="sheetTheme.spellsFirst()"
+              (click)="!sheetTheme.spellsFirst() && sheetTheme.toggleSpellsFirst()"
+            >
+              <mat-icon class="sd-btn-icon">auto_fix_high</mat-icon>
+              <div class="sd-btn-text">
+                <span class="sd-btn-label">Kouzla napřed</span>
+                <span class="sd-btn-sub">Str. 2 – Kouzla · str. 3 – Vzhled &amp; popis</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        </div><!-- /sd-col-panel LEFT -->
+
+        <!-- vertical separator -->
+        <div class="sd-col-sep"></div>
+
+        <!-- RIGHT column -->
+        <div class="sd-col-panel">
 
         <!-- Export section -->
         <div class="sd-section">
@@ -177,7 +219,7 @@ export interface SettingsDialogData {
               </a>
             </div>
           </div>
-        </div>
+        </div><!-- /sd-col-panel RIGHT -->
 
       </div>
 
@@ -197,7 +239,7 @@ export interface SettingsDialogData {
       border-radius: 10px;
       overflow: hidden;
       min-width: 320px;
-      max-width: 420px;
+      max-width: 760px;
 
       &::before {
         content: '◆';
@@ -265,9 +307,26 @@ export interface SettingsDialogData {
     /* ── Body ──────────────────────────────────────────────── */
     .sd-body {
       padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 0;
+      align-items: start;
+    }
+
+    /* ── Two-column panels ─────────────────────────────────── */
+    .sd-col-panel {
       display: flex;
       flex-direction: column;
       gap: 0;
+      padding: 4px 0;
+    }
+
+    /* ── Vertical separator ────────────────────────────────── */
+    .sd-col-sep {
+      width: 1px;
+      align-self: stretch;
+      margin: 0 20px;
+      background: linear-gradient(180deg, transparent, rgba(200,160,60,.25), transparent);
     }
 
     .sd-section {

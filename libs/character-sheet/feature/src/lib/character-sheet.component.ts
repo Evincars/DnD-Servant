@@ -572,6 +572,22 @@ export class CharacterSheetComponent {
       });
     });
 
+    // ── Sync spells-first page-order preference ─────────────────────────────
+    effect(() => {
+      const spellsFirst = this.sheetTheme.spellsFirst();
+      untracked(() => {
+        const sections = [...this.orderedSections()];
+        const i2 = sections.findIndex(s => s.key === 'second-page');
+        const i3 = sections.findIndex(s => s.key === 'third-page');
+        if (i2 === -1 || i3 === -1) return;
+        const isSpellsFirst = i3 < i2;
+        if (spellsFirst === isSpellsFirst) return; // already in correct order
+        [sections[i2], sections[i3]] = [sections[i3], sections[i2]];
+        this.orderedSections.set(sections);
+        this.sectionOrderService.setOrder(CharacterSheetComponent.PAGE_KEY, sections.map(s => s.key));
+      });
+    });
+
     const fetchedCharacterSheet = effect(() => {
       const characterSheet = this.characterSheetStore.characterSheet();
       untracked(() => {

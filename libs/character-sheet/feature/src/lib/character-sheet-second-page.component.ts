@@ -31,7 +31,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
     <input
       [formControl]="controls.headerInfo.controls.jmenoPostavy"
       class="field cs-sp-name-hide"
-      style="top:83px; left:79px; width:347px; text-align: center"
+      style="top:63px; left:79px; width:347px; text-align: center"
       placeholder="Jméno postavy"
     />
 
@@ -40,56 +40,56 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
         [formControl]="controls.headerInfo.controls.titulyAHodnosti"
         class="field"
         data-label="Tituly a hodnosti"
-        style="top:83px; left:867px; width:342px; text-align: center"
+        style="top:63px; left:867px; width:342px; text-align: center"
         placeholder="Tituly, hodnosti, řády, ..."
       />
       <input
         [formControl]="controls.lookAndFeelForm.controls.vek"
         class="field"
         data-label="Věk"
-        style="top:297px; left:74px; width:171px"
+        style="top:283px; left:67px; width:171px"
         placeholder="Věk"
       />
       <input
         [formControl]="controls.lookAndFeelForm.controls.plet"
         class="field"
         data-label="Pleť"
-        style="top:297px; left:261px; width:171px"
+        style="top:283px; left:254px; width:171px"
         placeholder="Pleť"
       />
       <input
         [formControl]="controls.lookAndFeelForm.controls.vyska"
         class="field"
         data-label="Výška"
-        style="top:372px; left:74px; width:171px"
+        style="top:358px; left:67px; width:171px"
         placeholder="Výška"
       />
       <input
         [formControl]="controls.lookAndFeelForm.controls.vlasy"
         class="field"
         data-label="Vlasy"
-        style="top:372px; left:261px; width:171px"
+        style="top:358px; left:254px; width:171px"
         placeholder="Vlasy"
       />
       <input
         [formControl]="controls.lookAndFeelForm.controls.vaha"
         class="field"
         data-label="Váha"
-        style="top:451px; left:74px; width:171px"
+        style="top:437px; left:67px; width:171px"
         placeholder="Váha"
       />
       <input
         [formControl]="controls.lookAndFeelForm.controls.oci"
         class="field"
         data-label="Oči"
-        style="top:451px; left:261px; width:171px"
+        style="top:437px; left:254px; width:171px"
         placeholder="Oči"
       />
       <input
         [formControl]="controls.lookAndFeelForm.controls.postava"
         class="field"
         data-label="Postava"
-        style="top:530px; left:74px; width:359px"
+        style="top:516px; left:67px; width:359px"
         placeholder="Postava"
       />
     </div>
@@ -109,7 +109,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
     <!-- ── Character portrait — click to upload, button to full-screen ── -->
     <div
       class="field char-img-wrap"
-      style="top:835px; left:74px; width:359px; height:403px;"
+      style="top:835px; left:64px; width:369px; height:403px;"
       (click)="triggerFileInput()"
       matTooltip="Klikni pro nahrání nebo změnu obrázku (max 500 KB, GIF) - poslední záložka Konvertor Obrázků"
     >
