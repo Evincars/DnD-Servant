@@ -36,7 +36,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       <input
         [formControl]="controls.topInfoForSpellSheet.controls.jmenoPostavy"
         class="field cs-caster-name-field"
-        style="top:179px; left:472px; width:347px; text-align: center"
+        style="top:167px; left:472px; width:347px; text-align: center"
         placeholder="Jméno postavy"
       />
 
@@ -48,32 +48,32 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.stupenPozic"
             class="field cs-pact-field"
-            style="top:121px; left:960px; width:82px;"
+            style="top:109px; left:968px; width:82px;"
             placeholder="Stupeň pozic paktu"
           />
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.checkbox1"
             type="checkbox"
             class="field checkbox third-page-checkbox cs-pact-checkbox"
-            style="top:122px; left:1061px;"
+            style="top:110px; left:1069px;"
           />
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.checkbox2"
             type="checkbox"
             class="field checkbox third-page-checkbox cs-pact-checkbox"
-            style="top:122px; left:1102px;"
+            style="top:110px; left:1110px;"
           />
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.checkbox3"
             type="checkbox"
             class="field checkbox third-page-checkbox cs-pact-checkbox"
-            style="top:122px; left:1144px;"
+            style="top:110px; left:1152px;"
           />
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.checkbox4"
             type="checkbox"
             class="field checkbox third-page-checkbox cs-pact-checkbox"
-            style="top:122px; left:1185px;"
+            style="top:110px; left:1193px;"
           />
         </div>
 
@@ -83,32 +83,32 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.mystickyTaj"
             class="field cs-pact-field"
-            style="top:181px; left:960px; width:82px;"
+            style="top:169px; left:968px; width:82px;"
             placeholder="Mystický taj"
           />
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.mystickyTajCheckbox1"
             type="checkbox"
             class="field checkbox third-page-checkbox cs-pact-checkbox"
-            style="top:216px; left:1061px;"
+            style="top:204px; left:1069px;"
           />
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.mystickyTajCheckbox2"
             type="checkbox"
             class="field checkbox third-page-checkbox cs-pact-checkbox"
-            style="top:216px; left:1103px;"
+            style="top:204px; left:1111px;"
           />
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.mystickyTajCheckbox3"
             type="checkbox"
             class="field checkbox third-page-checkbox cs-pact-checkbox"
-            style="top:216px; left:1144px;"
+            style="top:204px; left:1152px;"
           />
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.mystickyTajCheckbox4"
             type="checkbox"
             class="field checkbox third-page-checkbox cs-pact-checkbox"
-            style="top:216px; left:1185px;"
+            style="top:204px; left:1193px;"
           />
         </div>
       </div><!-- /cs-pact-magic-area -->
@@ -119,37 +119,37 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
         <input
           [formControl]="controls.professionForm.controls.prvniPovolaniSesilatelskePovolani"
           class="field cs-prof-field"
-          style="top:346px; left:219px; width:189px;"
+          style="top:335px; left:219px; width:189px;"
           placeholder="Sesilatelské povolání"
         />
         <input
           [formControl]="controls.professionForm.controls.prvniPovolaniUroven"
           class="field cs-prof-field"
-          style="top:346px; left:419px; width:70px;"
+          style="top:335px; left:419px; width:70px;"
           placeholder="Úroveň"
         />
         <input
           [formControl]="controls.professionForm.controls.prvniPovolaniMaxStupenKouzel"
           class="field cs-prof-field"
-          style="top:346px; left:500px; width:179px;"
+          style="top:335px; left:500px; width:179px;"
           placeholder="Max. st. kouzel"
         />
         <input
           [formControl]="controls.professionForm.controls.prvniPovolaniSesilaciVlastnost"
           class="field cs-prof-field"
-          style="top:346px; left:689px; width:179px;"
+          style="top:335px; left:689px; width:179px;"
           placeholder="Sesilatelsá vlast."
         />
         <input
           [formControl]="controls.professionForm.controls.prvniPovolaniSOZachrany"
           class="field cs-prof-field"
-          style="top:346px; left:878px; width:179px;"
+          style="top:335px; left:878px; width:179px;"
           placeholder="SO záchranných hod."
         />
         <input
           [formControl]="controls.professionForm.controls.prvniPovolaniUtocnyBonus"
           class="field cs-prof-field"
-          style="top:346px; left:1068px; width:149px;"
+          style="top:335px; left:1068px; width:149px;"
           placeholder="Útočný bonus"
         />
 
@@ -157,37 +157,37 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
         <input
           [formControl]="controls.professionForm.controls.druhePovolaniSesilatelskePovolani"
           class="field cs-prof-field"
-          style="top:385px; left:219px; width:189px;"
+          style="top:374px; left:219px; width:189px;"
           placeholder="Sesilatelské povolání"
         />
         <input
           [formControl]="controls.professionForm.controls.druhePovolaniUroven"
           class="field cs-prof-field"
-          style="top:385px; left:419px; width:70px;"
+          style="top:374px; left:419px; width:70px;"
           placeholder="Úroveň"
         />
         <input
           [formControl]="controls.professionForm.controls.druhePovolaniMaxStupenKouzel"
           class="field cs-prof-field"
-          style="top:385px; left:500px; width:179px;"
+          style="top:374px; left:500px; width:179px;"
           placeholder="Max. st. kouzel"
         />
         <input
           [formControl]="controls.professionForm.controls.druhePovolaniSesilaciVlastnost"
           class="field cs-prof-field"
-          style="top:385px; left:689px; width:179px;"
+          style="top:374px; left:689px; width:179px;"
           placeholder="Sesilatelsá vlast."
         />
         <input
           [formControl]="controls.professionForm.controls.druhePovolaniSOZachrany"
           class="field cs-prof-field"
-          style="top:385px; left:878px; width:179px;"
+          style="top:374px; left:878px; width:179px;"
           placeholder="SO záchranných hod."
         />
         <input
           [formControl]="controls.professionForm.controls.druhePovolaniUtocnyBonus"
           class="field cs-prof-field"
-          style="top:385px; left:1068px; width:149px;"
+          style="top:374px; left:1068px; width:149px;"
           placeholder="Útočný bonus"
         />
       </div><!-- /cs-profession-grid -->
