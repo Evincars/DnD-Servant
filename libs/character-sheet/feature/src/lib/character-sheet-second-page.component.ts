@@ -1,4 +1,4 @@
-import {
+﻿import {
   ChangeDetectionStrategy,
   Component,
   effect,
@@ -47,7 +47,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
         [formControl]="controls.lookAndFeelForm.controls.vek"
         class="field"
         data-label="Věk"
-        style="top:283px; left:67px; width:171px"
+        style="top:285px; left:67px; width:171px"
         placeholder="Věk"
       />
       <input
@@ -68,28 +68,28 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
         [formControl]="controls.lookAndFeelForm.controls.vlasy"
         class="field"
         data-label="Vlasy"
-        style="top:358px; left:254px; width:171px"
+        style="top:360px; left:254px; width:171px"
         placeholder="Vlasy"
       />
       <input
         [formControl]="controls.lookAndFeelForm.controls.vaha"
         class="field"
         data-label="Váha"
-        style="top:437px; left:67px; width:171px"
+        style="top:441px; left:67px; width:171px"
         placeholder="Váha"
       />
       <input
         [formControl]="controls.lookAndFeelForm.controls.oci"
         class="field"
         data-label="Oči"
-        style="top:437px; left:254px; width:171px"
+        style="top:441px; left:254px; width:171px"
         placeholder="Oči"
       />
       <input
         [formControl]="controls.lookAndFeelForm.controls.postava"
         class="field"
         data-label="Postava"
-        style="top:516px; left:67px; width:359px"
+        style="top:521px; left:67px; width:359px"
         placeholder="Postava"
       />
     </div>
@@ -99,12 +99,12 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
     <rich-textarea
       [formControl]="controls.lookAndFeelForm.controls.obleceniAVzezreni"
       class="field textarea"
-      style="top:603px; left:74px; width:359px; height:82px;"
+      style="top:597px; left:64px; width:359px; height:82px;"
     ></rich-textarea>
     <rich-textarea
       [formControl]="controls.lookAndFeelForm.controls.dojemAVystupovani"
       class="field textarea"
-      style="top:725px; left:74px; width:359px; height:82px;"
+      style="top:719px; left:64px; width:364px; height:82px;"
     ></rich-textarea>
     <!-- ── Character portrait — click to upload, button to full-screen ── -->
     <div
@@ -154,7 +154,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
     <rich-textarea
       [formControl]="controls.vztahy"
       class="field textarea"
-      style="top:315px; left:464px; width:754px; height:912px;"
+      style="top:296px; left:464px; width:761px; height:912px;"
     ></rich-textarea>
 
     <h4 class="cs-section-title cs-sub-title">Další poznámky</h4>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
+﻿import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
 import { SheetThemeService } from '../sheet-theme.service';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LanguagesForm } from '@dn-d-servant/character-sheet-util';
@@ -43,7 +43,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             [formControl]="c.jazyky"
             id="jazyky"
             class="field"
-            style="top:1349px; left:687px; width:492px"
+            style="top:1356px; left:687px; width:492px"
             placeholder="Jazyky..."
           />
         </div>
@@ -51,7 +51,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           <rich-textarea
             [formControl]="c.schopnosti"
             class="field textarea"
-            style="top:1382px; left:634.04px; width:550.20px; height:381px;"
+            style="top:1389px; left:634.04px; width:556.20px; height:381px;"
           ></rich-textarea>
         </div>
       </ng-container>
