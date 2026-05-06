@@ -69,6 +69,7 @@ function prepareSvg(svgText: string, ns: string, theme: Theme = 'light'): string
   svgText = svgText.replace(/url\(#([^)]+)\)/g, `url(#${ns}-$1)`);
   svgText = svgText.replace(/(xlink:href|href)="#([^"]+)"/g, `$1="#${ns}-$2"`);
   svgText = svgText.replace(/\bcls-(\w+)/g, `${ns}-cls-$1`);
+  svgText = svgText.replace(/\bBarlow-Black\b/g, 'Barlow');
   svgText = svgText.replace(/'Barlow Black'/g, "'Barlow'");
   if (!/\bwidth="1293"/.test(svgText)) {
     svgText = svgText.replace(/(<svg\b[^>]*?)(\/?>)/, '$1 width="1293" height="1817"$2');

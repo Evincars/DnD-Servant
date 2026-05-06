@@ -73,7 +73,7 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
                 <input
                   [formControl]="controls.jmenoSkupinovehoZazemi"
                   class="field"
-                  style="top:82px; left:76px; width:355px; text-align: center"
+                  style="top:64px; left:71px; width:355px; text-align: center"
                   placeholder="*"
                 />
               </div>
@@ -81,7 +81,7 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
                 <input
                   [formControl]="controls.typSkupinovehoZazemi"
                   class="field"
-                  style="top:82px; left:862px; width:354px; text-align: center"
+                  style="top:64px; left:867px; width:354px; text-align: center"
                   placeholder="*"
                 />
               </div>
@@ -119,7 +119,7 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
                 <input
                   [formControl]="controls.jmenoSkupiny"
                   class="field"
-                  style="top:300px; left:76px; width:353px; text-align: center"
+                  style="top:290px; left:71px; width:353px; text-align: center"
                   placeholder="Jméno skupiny"
                 />
               </div>
@@ -127,7 +127,7 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
                 <input
                   [formControl]="controls.zdatnostPriSkupinovemOvereni"
                   class="field"
-                  style="top:417px; left:76px; width:353px; text-align: center"
+                  style="top:407px; left:71px; width:353px; text-align: center"
                   placeholder="Zdatnost při skupinovém ověření"
                 />
               </div>
@@ -511,7 +511,7 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
                 <input
                   [formControl]="controls.jmenoSkupiny2"
                   class="field"
-                  style="top:2000px; left:76px; width:357px; text-align: center"
+                  style="top:1984px; left:69px; width:357px; text-align: center"
                   placeholder="Jméno skupiny"
                 />
               </div>
@@ -519,7 +519,7 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
                 <input
                   [formControl]="controls.reputace"
                   class="field"
-                  style="top:2000px; left:467px; width:751px; text-align: center"
+                  style="top:1984px; left:471px; width:751px; text-align: center"
                   placeholder="Reputace"
                 />
               </div>
