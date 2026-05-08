@@ -3,6 +3,15 @@
   display: block;
 }
 
+// ── Save button: absolute top-right corner on desktop ─────────────────────────
+// Hidden on tablet/mobile via the @media (max-width: 1359px) block below.
+.cs-save-btn {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  z-index: 10;
+}
+
 // ── Responsive visibility utility classes ─────────────────────────────────────
 // Hidden on desktop (>1359px), visible on responsive (≤1359px)
 .cs-responsive-only {
@@ -55,10 +64,10 @@
   border-color: red;
 }
 
-// ── Dark-theme overrides ──────────────────────────────────────────────────────
+// ── Dark-theme overrides (applies to dark, sirien, night — all dark modes) ───
 :host.theme-dark {
   .field {
-    background: rgba(0, 0, 0, 0.52);
+    background: transparent;
     border-color: rgba(255, 255, 255, 0.18);
     color: rgba(255, 255, 255, 0.92);
   }
@@ -101,6 +110,23 @@
   .checkbox {
     border-color: rgba(255, 255, 255, 0.25);
     filter: invert(1);
+  }
+
+  // ── Stars checkboxes — no fill background for unchecked state ─────────────
+  .ability-zdatnost-checkbox::before {
+    background: transparent;
+  }
+  .ability-zdatnost--checked::before {
+    background: #af5555;
+  }
+  .ability-zdatnost--expertise::before {
+    background: #af5555;
+  }
+
+  // ── Death-save heart / skull buttons — transparent container bg ───────────
+  .death-save-heart,
+  .death-save-skull {
+    background: transparent !important;
   }
 
   .textarea {
@@ -324,7 +350,7 @@ input[type='checkbox'][disabled] {
 
 .death-save-heart {
   border: none;
-  svg { width: 26px; height: 26px; position: relative; top: 10px; left: 8px; }
+  svg { width: 26px; height: 26px; position: relative; top: 15px; left: 12px; }
 
   &.death-save-icon--active svg {
     fill: #2e9e3e;
@@ -334,7 +360,7 @@ input[type='checkbox'][disabled] {
 
 .death-save-skull {
   border: none;
-  svg { width: 36px; height: 36px; position: relative; top: 12px; left: 7px; }
+  svg { width: 36px; height: 36px; position: relative; top: 30px; left: 16px; }
 
   &.death-save-icon--active svg {
     fill: #c0392b;
@@ -1009,17 +1035,9 @@ input[type='checkbox'][disabled] {
     position: static !important;
   }
 
-  // ── Save button: sticky top ───────────────────────────────────────────
+  // ── Save button: hidden on tablet/mobile, shown on desktop ──────────────
   .cs-save-btn {
-    position: sticky !important;
-    top: 0 !important;
-    left: auto !important;
-    width: 100% !important;
-    z-index: 100;
-    font-size: 16px !important;
-    padding: 10px !important;
-    border-radius: 0 !important;
-    text-align: center;
+    display: none !important;
   }
 
   // ── Child component hosts → block cards ───────────────────────────────
@@ -1931,7 +1949,7 @@ input[type='checkbox'][disabled] {
   }
 
   // Column assignments for profession fields
-  .cs-prof-field[placeholder='Sesilatelsé povolání'] { grid-column: span 6; }
+  .cs-prof-field[placeholder='Sesilatelské povolání'] { grid-column: span 6; }
   .cs-prof-field[placeholder='Úroveň']               { grid-column: span 2; }
   .cs-prof-field[placeholder='Max. st. kouzel']       { grid-column: span 4; }
   .cs-prof-field[placeholder='Sesilatelsá vlast.']    { grid-column: span 4; }

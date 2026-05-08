@@ -1,7 +1,7 @@
 import { inject, Injectable, Injector, runInInjectionContext } from '@angular/core';
 import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
 import { from, map, Observable } from 'rxjs';
-import { DmNotesApiModel, DmQuestsApiModel } from './dm-page-models';
+import { DmNotesApiModel, DmQuestsApiModel, DmStoryTimelineApiModel } from './dm-page-models';
 
 @Injectable({ providedIn: 'root' })
 export class DmPageApiService {
@@ -36,6 +36,22 @@ export class DmPageApiService {
   saveDmNotes(model: DmNotesApiModel): Observable<void> {
     return from(runInInjectionContext(this.injector, () => {
       const ref = doc(this.firestore, `dm-notes/${model.username}`);
+      return setDoc(ref, model);
+    }));
+  }
+
+  // ── Story Timeline ────────────────────────────────────────────────────────
+
+  getDmStoryTimeline(username: string): Observable<DmStoryTimelineApiModel | undefined> {
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `dm-story-timeline/${username}`);
+      return getDoc(ref);
+    })).pipe(map(s => (s.exists() ? (s.data() as DmStoryTimelineApiModel) : undefined)));
+  }
+
+  saveDmStoryTimeline(model: DmStoryTimelineApiModel): Observable<void> {
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `dm-story-timeline/${model.username}`);
       return setDoc(ref, model);
     }));
   }

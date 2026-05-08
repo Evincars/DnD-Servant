@@ -42,6 +42,11 @@ export class CsSectionOrderService {
     return next;
   }
 
+  /** Directly set and persist an explicit order. */
+  setOrder(pageKey: string, order: string[]): void {
+    this.persist(pageKey, order);
+  }
+
   /** Reset to default order and clear storage. */
   reset(pageKey: string, defaultOrder: readonly string[]): string[] {
     try {

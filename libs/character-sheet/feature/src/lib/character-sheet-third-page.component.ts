@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, signal, Signal } from '@angular/core';
+﻿import { ChangeDetectionStrategy, Component, computed, inject, input, signal, Signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -11,11 +11,12 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from './spell-detai
 import { SheetThemeService } from './sheet-theme.service';
 import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.component';
 import { CdkDropList } from '@angular/cdk/drag-drop';
+import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
 
 @Component({
   selector: 'third-page',
   template: `
-    <img class="cs-bg-img" [src]="sheetTheme.darkMode() ? 'character-sheet-3-dark.webp' : 'character-sheet-3.webp'" alt="Character Sheet" height="1817" width="1293" />
+    <cs-svg-sheet src="character-sheets/character-sheet-3.svg" />
 
     <h3 class="cs-section-title">Kouzla</h3>
 
@@ -35,7 +36,7 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       <input
         [formControl]="controls.topInfoForSpellSheet.controls.jmenoPostavy"
         class="field cs-caster-name-field"
-        style="top:179px; left:472px; width:347px; text-align: center"
+        style="top:167px; left:472px; width:347px; text-align: center"
         placeholder="Jméno postavy"
       />
 
@@ -47,32 +48,32 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.stupenPozic"
             class="field cs-pact-field"
-            style="top:121px; left:960px; width:82px;"
+            style="top:109px; left:968px; width:82px;"
             placeholder="Stupeň pozic paktu"
           />
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.checkbox1"
             type="checkbox"
             class="field checkbox third-page-checkbox cs-pact-checkbox"
-            style="top:122px; left:1061px;"
+            style="top:110px; left:1069px;"
           />
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.checkbox2"
             type="checkbox"
             class="field checkbox third-page-checkbox cs-pact-checkbox"
-            style="top:122px; left:1102px;"
+            style="top:110px; left:1110px;"
           />
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.checkbox3"
             type="checkbox"
             class="field checkbox third-page-checkbox cs-pact-checkbox"
-            style="top:122px; left:1144px;"
+            style="top:110px; left:1152px;"
           />
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.checkbox4"
             type="checkbox"
             class="field checkbox third-page-checkbox cs-pact-checkbox"
-            style="top:122px; left:1185px;"
+            style="top:110px; left:1193px;"
           />
         </div>
 
@@ -82,32 +83,32 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.mystickyTaj"
             class="field cs-pact-field"
-            style="top:181px; left:960px; width:82px;"
+            style="top:169px; left:968px; width:82px;"
             placeholder="Mystický taj"
           />
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.mystickyTajCheckbox1"
             type="checkbox"
             class="field checkbox third-page-checkbox cs-pact-checkbox"
-            style="top:216px; left:1061px;"
+            style="top:204px; left:1069px;"
           />
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.mystickyTajCheckbox2"
             type="checkbox"
             class="field checkbox third-page-checkbox cs-pact-checkbox"
-            style="top:216px; left:1103px;"
+            style="top:204px; left:1111px;"
           />
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.mystickyTajCheckbox3"
             type="checkbox"
             class="field checkbox third-page-checkbox cs-pact-checkbox"
-            style="top:216px; left:1144px;"
+            style="top:204px; left:1152px;"
           />
           <input
             [formControl]="controls.topInfoForSpellSheet.controls.mystickyTajCheckbox4"
             type="checkbox"
             class="field checkbox third-page-checkbox cs-pact-checkbox"
-            style="top:216px; left:1185px;"
+            style="top:204px; left:1193px;"
           />
         </div>
       </div><!-- /cs-pact-magic-area -->
@@ -118,37 +119,37 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
         <input
           [formControl]="controls.professionForm.controls.prvniPovolaniSesilatelskePovolani"
           class="field cs-prof-field"
-          style="top:346px; left:219px; width:189px;"
-          placeholder="Sesilatelsé povolání"
+          style="top:335px; left:219px; width:189px;"
+          placeholder="Sesilatelské povolání"
         />
         <input
           [formControl]="controls.professionForm.controls.prvniPovolaniUroven"
           class="field cs-prof-field"
-          style="top:346px; left:419px; width:70px;"
+          style="top:335px; left:419px; width:70px;"
           placeholder="Úroveň"
         />
         <input
           [formControl]="controls.professionForm.controls.prvniPovolaniMaxStupenKouzel"
           class="field cs-prof-field"
-          style="top:346px; left:500px; width:179px;"
+          style="top:335px; left:500px; width:179px;"
           placeholder="Max. st. kouzel"
         />
         <input
           [formControl]="controls.professionForm.controls.prvniPovolaniSesilaciVlastnost"
           class="field cs-prof-field"
-          style="top:346px; left:689px; width:179px;"
+          style="top:335px; left:689px; width:179px;"
           placeholder="Sesilatelsá vlast."
         />
         <input
           [formControl]="controls.professionForm.controls.prvniPovolaniSOZachrany"
           class="field cs-prof-field"
-          style="top:346px; left:878px; width:179px;"
+          style="top:335px; left:878px; width:179px;"
           placeholder="SO záchranných hod."
         />
         <input
           [formControl]="controls.professionForm.controls.prvniPovolaniUtocnyBonus"
           class="field cs-prof-field"
-          style="top:346px; left:1068px; width:149px;"
+          style="top:335px; left:1068px; width:149px;"
           placeholder="Útočný bonus"
         />
 
@@ -156,37 +157,37 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
         <input
           [formControl]="controls.professionForm.controls.druhePovolaniSesilatelskePovolani"
           class="field cs-prof-field"
-          style="top:385px; left:219px; width:189px;"
-          placeholder="Sesilatelsé povolání"
+          style="top:374px; left:219px; width:189px;"
+          placeholder="Sesilatelské povolání"
         />
         <input
           [formControl]="controls.professionForm.controls.druhePovolaniUroven"
           class="field cs-prof-field"
-          style="top:385px; left:419px; width:70px;"
+          style="top:374px; left:419px; width:70px;"
           placeholder="Úroveň"
         />
         <input
           [formControl]="controls.professionForm.controls.druhePovolaniMaxStupenKouzel"
           class="field cs-prof-field"
-          style="top:385px; left:500px; width:179px;"
+          style="top:374px; left:500px; width:179px;"
           placeholder="Max. st. kouzel"
         />
         <input
           [formControl]="controls.professionForm.controls.druhePovolaniSesilaciVlastnost"
           class="field cs-prof-field"
-          style="top:385px; left:689px; width:179px;"
+          style="top:374px; left:689px; width:179px;"
           placeholder="Sesilatelsá vlast."
         />
         <input
           [formControl]="controls.professionForm.controls.druhePovolaniSOZachrany"
           class="field cs-prof-field"
-          style="top:385px; left:878px; width:179px;"
+          style="top:374px; left:878px; width:179px;"
           placeholder="SO záchranných hod."
         />
         <input
           [formControl]="controls.professionForm.controls.druhePovolaniUtocnyBonus"
           class="field cs-prof-field"
-          style="top:385px; left:1068px; width:149px;"
+          style="top:374px; left:1068px; width:149px;"
           placeholder="Útočný bonus"
         />
       </div><!-- /cs-profession-grid -->
@@ -202,24 +203,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r1P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:512px; left:69px;"
+      style="top:505px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r1S"
       class="field spell-row"
-      style="top:511px; left:102px; width:41px;"
+      style="top:505px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r1Nazev"
       (focus)="openDropdown($event, 1)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row"
-      style="top:511px; left:152px; width:176px;"
+      style="top:505px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:516px; left:329px;"
+      style="top:505px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r1Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -228,44 +229,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r1Utok"
       class="field spell-row"
-      style="top:511px; left:353px; width:78px;"
+      style="top:505px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r1DobaSesilani"
       class="field spell-row"
-      style="top:511px; left:439px; width:58px;"
+      style="top:505px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r1Slozky"
       class="field spell-row"
-      style="top:511px; left:506px; width:58px;"
+      style="top:505px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r1Dosah"
       class="field spell-row"
-      style="top:511px; left:572px; width:77px;"
+      style="top:505px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r1Trvani"
       class="field spell-row"
-      style="top:511px; left:658px; width:77px;"
+      style="top:505px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r1Poznamka"
       class="field spell-row"
-      style="top:511px; left:744px; width:408px;"
+      style="top:505px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(1)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r1Str"
       class="field spell-row"
-      style="top:511px; left:1160px; width:60px;"
+      style="top:505px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -277,24 +278,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r2P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:548px; left:69px;"
+      style="top:541px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r2S"
       class="field spell-row"
-      style="top:546px; left:102px; width:41px;"
+      style="top:541px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r2Nazev"
       (focus)="openDropdown($event, 2)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row"
-      style="top:546px; left:152px; width:176px;"
+      style="top:541px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:551px; left:329px;"
+      style="top:541px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r2Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -303,44 +304,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r2Utok"
       class="field spell-row"
-      style="top:546px; left:353px; width:78px;"
+      style="top:541px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r2DobaSesilani"
       class="field spell-row"
-      style="top:546px; left:439px; width:58px;"
+      style="top:541px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r2Slozky"
       class="field spell-row"
-      style="top:546px; left:506px; width:58px;"
+      style="top:541px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r2Dosah"
       class="field spell-row"
-      style="top:546px; left:572px; width:77px;"
+      style="top:541px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r2Trvani"
       class="field spell-row"
-      style="top:546px; left:658px; width:77px;"
+      style="top:541px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r2Poznamka"
       class="field spell-row"
-      style="top:546px; left:744px; width:408px;"
+      style="top:541px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(2)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r2Str"
       class="field spell-row"
-      style="top:546px; left:1160px; width:60px;"
+      style="top:541px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -352,24 +353,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r3P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:583px; left:69px;"
+      style="top:577px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r3S"
       class="field spell-row"
-      style="top:582px; left:102px; width:41px;"
+      style="top:577px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r3Nazev"
       (focus)="openDropdown($event, 3)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:582px; left:152px; width:176px;"
+      style="top:577px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:587px; left:329px;"
+      style="top:577px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r3Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -378,44 +379,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r3Utok"
       class="field spell-row"
-      style="top:582px; left:353px; width:78px;"
+      style="top:577px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r3DobaSesilani"
       class="field spell-row"
-      style="top:582px; left:439px; width:58px;"
+      style="top:577px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r3Slozky"
       class="field spell-row"
-      style="top:582px; left:506px; width:58px;"
+      style="top:577px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r3Dosah"
       class="field spell-row"
-      style="top:582px; left:572px; width:77px;"
+      style="top:577px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r3Trvani"
       class="field spell-row"
-      style="top:582px; left:658px; width:77px;"
+      style="top:577px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r3Poznamka"
       class="field spell-row"
-      style="top:582px; left:744px; width:408px;"
+      style="top:577px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(3)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r3Str"
       class="field spell-row"
-      style="top:582px; left:1160px; width:60px;"
+      style="top:577px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -427,24 +428,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r4P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:619px; left:69px;"
+      style="top:613px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r4S"
       class="field spell-row"
-      style="top:618px; left:102px; width:41px;"
+      style="top:613px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r4Nazev"
       (focus)="openDropdown($event, 4)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:618px; left:152px; width:176px;"
+      style="top:613px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:623px; left:329px;"
+      style="top:613px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r4Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -453,44 +454,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r4Utok"
       class="field spell-row"
-      style="top:618px; left:353px; width:78px;"
+      style="top:613px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r4DobaSesilani"
       class="field spell-row"
-      style="top:618px; left:439px; width:58px;"
+      style="top:613px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r4Slozky"
       class="field spell-row"
-      style="top:618px; left:506px; width:58px;"
+      style="top:613px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r4Dosah"
       class="field spell-row"
-      style="top:618px; left:572px; width:77px;"
+      style="top:613px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r4Trvani"
       class="field spell-row"
-      style="top:618px; left:658px; width:77px;"
+      style="top:613px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r4Poznamka"
       class="field spell-row"
-      style="top:618px; left:744px; width:408px;"
+      style="top:613px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(4)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r4Str"
       class="field spell-row"
-      style="top:618px; left:1160px; width:60px;"
+      style="top:613px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -502,24 +503,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r5P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:654px; left:69px;"
+      style="top:650px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r5S"
       class="field spell-row"
-      style="top:653px; left:102px; width:41px;"
+      style="top:650px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r5Nazev"
       (focus)="openDropdown($event, 5)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:653px; left:152px; width:176px;"
+      style="top:650px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:658px; left:329px;"
+      style="top:650px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r5Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -528,44 +529,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r5Utok"
       class="field spell-row"
-      style="top:653px; left:353px; width:78px;"
+      style="top:650px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r5DobaSesilani"
       class="field spell-row"
-      style="top:653px; left:439px; width:58px;"
+      style="top:650px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r5Slozky"
       class="field spell-row"
-      style="top:653px; left:506px; width:58px;"
+      style="top:650px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r5Dosah"
       class="field spell-row"
-      style="top:653px; left:572px; width:77px;"
+      style="top:650px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r5Trvani"
       class="field spell-row"
-      style="top:653px; left:658px; width:77px;"
+      style="top:650px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r5Poznamka"
       class="field spell-row"
-      style="top:653px; left:744px; width:408px;"
+      style="top:650px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(5)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r5Str"
       class="field spell-row"
-      style="top:653px; left:1160px; width:60px;"
+      style="top:650px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -577,24 +578,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r6P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:690px; left:69px;"
+      style="top:686px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r6S"
       class="field spell-row"
-      style="top:689px; left:102px; width:41px;"
+      style="top:686px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r6Nazev"
       (focus)="openDropdown($event, 6)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:689px; left:152px; width:176px;"
+      style="top:686px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:694px; left:329px;"
+      style="top:686px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r6Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -603,44 +604,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r6Utok"
       class="field spell-row"
-      style="top:689px; left:353px; width:78px;"
+      style="top:686px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r6DobaSesilani"
       class="field spell-row"
-      style="top:689px; left:439px; width:58px;"
+      style="top:686px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r6Slozky"
       class="field spell-row"
-      style="top:689px; left:506px; width:58px;"
+      style="top:686px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r6Dosah"
       class="field spell-row"
-      style="top:689px; left:572px; width:77px;"
+      style="top:686px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r6Trvani"
       class="field spell-row"
-      style="top:689px; left:658px; width:77px;"
+      style="top:686px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r6Poznamka"
       class="field spell-row"
-      style="top:689px; left:744px; width:408px;"
+      style="top:686px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(6)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r6Str"
       class="field spell-row"
-      style="top:689px; left:1160px; width:60px;"
+      style="top:686px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -652,24 +653,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r7P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:726px; left:69px;"
+      style="top:722px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r7S"
       class="field spell-row"
-      style="top:725px; left:102px; width:41px;"
+      style="top:722px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r7Nazev"
       (focus)="openDropdown($event, 7)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:725px; left:152px; width:176px;"
+      style="top:722px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:730px; left:329px;"
+      style="top:722px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r7Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -678,44 +679,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r7Utok"
       class="field spell-row"
-      style="top:725px; left:353px; width:78px;"
+      style="top:722px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r7DobaSesilani"
       class="field spell-row"
-      style="top:725px; left:439px; width:58px;"
+      style="top:722px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r7Slozky"
       class="field spell-row"
-      style="top:725px; left:506px; width:58px;"
+      style="top:722px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r7Dosah"
       class="field spell-row"
-      style="top:725px; left:572px; width:77px;"
+      style="top:722px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r7Trvani"
       class="field spell-row"
-      style="top:725px; left:658px; width:77px;"
+      style="top:722px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r7Poznamka"
       class="field spell-row"
-      style="top:725px; left:744px; width:408px;"
+      style="top:722px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(7)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r7Str"
       class="field spell-row"
-      style="top:725px; left:1160px; width:60px;"
+      style="top:722px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -727,24 +728,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r8P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:761px; left:69px;"
+      style="top:758px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r8S"
       class="field spell-row"
-      style="top:760px; left:102px; width:41px;"
+      style="top:758px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r8Nazev"
       (focus)="openDropdown($event, 8)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:760px; left:152px; width:176px;"
+      style="top:758px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:765px; left:329px;"
+      style="top:758px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r8Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -753,44 +754,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r8Utok"
       class="field spell-row"
-      style="top:760px; left:353px; width:78px;"
+      style="top:758px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r8DobaSesilani"
       class="field spell-row"
-      style="top:760px; left:439px; width:58px;"
+      style="top:758px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r8Slozky"
       class="field spell-row"
-      style="top:760px; left:506px; width:58px;"
+      style="top:758px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r8Dosah"
       class="field spell-row"
-      style="top:760px; left:572px; width:77px;"
+      style="top:758px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r8Trvani"
       class="field spell-row"
-      style="top:760px; left:658px; width:77px;"
+      style="top:758px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r8Poznamka"
       class="field spell-row"
-      style="top:760px; left:744px; width:408px;"
+      style="top:758px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(8)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r8Str"
       class="field spell-row"
-      style="top:760px; left:1160px; width:60px;"
+      style="top:758px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -802,24 +803,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r9P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:797px; left:69px;"
+      style="top:794px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r9S"
       class="field spell-row"
-      style="top:796px; left:102px; width:41px;"
+      style="top:794px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r9Nazev"
       (focus)="openDropdown($event, 9)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:796px; left:152px; width:176px;"
+      style="top:794px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:801px; left:329px;"
+      style="top:794px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r9Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -828,44 +829,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r9Utok"
       class="field spell-row"
-      style="top:796px; left:353px; width:78px;"
+      style="top:794px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r9DobaSesilani"
       class="field spell-row"
-      style="top:796px; left:439px; width:58px;"
+      style="top:794px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r9Slozky"
       class="field spell-row"
-      style="top:796px; left:506px; width:58px;"
+      style="top:794px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r9Dosah"
       class="field spell-row"
-      style="top:796px; left:572px; width:77px;"
+      style="top:794px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r9Trvani"
       class="field spell-row"
-      style="top:796px; left:658px; width:77px;"
+      style="top:794px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r9Poznamka"
       class="field spell-row"
-      style="top:796px; left:744px; width:408px;"
+      style="top:794px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(9)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r9Str"
       class="field spell-row"
-      style="top:796px; left:1160px; width:60px;"
+      style="top:794px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -877,24 +878,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r10P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:832px; left:69px;"
+      style="top:831px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r10S"
       class="field spell-row"
-      style="top:831px; left:102px; width:41px;"
+      style="top:831px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r10Nazev"
       (focus)="openDropdown($event, 10)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:831px; left:152px; width:176px;"
+      style="top:831px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:836px; left:329px;"
+      style="top:831px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r10Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -951,24 +952,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r11P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:868px; left:69px;"
+      style="top:867px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r11S"
       class="field spell-row"
-      style="top:867px; left:102px; width:41px;"
+      style="top:867px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r11Nazev"
       (focus)="openDropdown($event, 11)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:867px; left:152px; width:176px;"
+      style="top:867px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:872px; left:329px;"
+      style="top:867px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r11Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -1025,24 +1026,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r12P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:904px; left:69px;"
+      style="top:903px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r12S"
       class="field spell-row"
-      style="top:903px; left:102px; width:41px;"
+      style="top:903px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r12Nazev"
       (focus)="openDropdown($event, 12)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:903px; left:152px; width:176px;"
+      style="top:903px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:908px; left:329px;"
+      style="top:903px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r12Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -1099,24 +1100,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r13P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:940px; left:69px;"
+      style="top:939px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r13S"
       class="field spell-row"
-      style="top:939px; left:102px; width:41px;"
+      style="top:939px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r13Nazev"
       (focus)="openDropdown($event, 13)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:939px; left:152px; width:176px;"
+      style="top:939px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:944px; left:329px;"
+      style="top:939px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r13Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -1173,24 +1174,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r14P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:976px; left:69px;"
+      style="top:976px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r14S"
       class="field spell-row"
-      style="top:975px; left:102px; width:41px;"
+      style="top:976px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r14Nazev"
       (focus)="openDropdown($event, 14)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:975px; left:152px; width:176px;"
+      style="top:976px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:980px; left:329px;"
+      style="top:976px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r14Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -1199,44 +1200,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r14Utok"
       class="field spell-row"
-      style="top:975px; left:353px; width:78px;"
+      style="top:976px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r14DobaSesilani"
       class="field spell-row"
-      style="top:975px; left:439px; width:58px;"
+      style="top:976px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r14Slozky"
       class="field spell-row"
-      style="top:975px; left:506px; width:58px;"
+      style="top:976px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r14Dosah"
       class="field spell-row"
-      style="top:975px; left:572px; width:77px;"
+      style="top:976px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r14Trvani"
       class="field spell-row"
-      style="top:975px; left:658px; width:77px;"
+      style="top:976px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r14Poznamka"
       class="field spell-row"
-      style="top:975px; left:744px; width:408px;"
+      style="top:976px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(14)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r14Str"
       class="field spell-row"
-      style="top:975px; left:1160px; width:60px;"
+      style="top:976px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -1247,24 +1248,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r15P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1012px; left:69px;"
+      style="top:1012px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r15S"
       class="field spell-row"
-      style="top:1011px; left:102px; width:41px;"
+      style="top:1012px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r15Nazev"
       (focus)="openDropdown($event, 15)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1011px; left:152px; width:176px;"
+      style="top:1012px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1016px; left:329px;"
+      style="top:1012px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r15Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -1273,44 +1274,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r15Utok"
       class="field spell-row"
-      style="top:1011px; left:353px; width:78px;"
+      style="top:1012px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r15DobaSesilani"
       class="field spell-row"
-      style="top:1011px; left:439px; width:58px;"
+      style="top:1012px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r15Slozky"
       class="field spell-row"
-      style="top:1011px; left:506px; width:58px;"
+      style="top:1012px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r15Dosah"
       class="field spell-row"
-      style="top:1011px; left:572px; width:77px;"
+      style="top:1012px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r15Trvani"
       class="field spell-row"
-      style="top:1011px; left:658px; width:77px;"
+      style="top:1012px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r15Poznamka"
       class="field spell-row"
-      style="top:1011px; left:744px; width:408px;"
+      style="top:1012px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(15)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r15Str"
       class="field spell-row"
-      style="top:1011px; left:1160px; width:60px;"
+      style="top:1012px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -1321,24 +1322,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r16P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1048px; left:69px;"
+      style="top:1048px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r16S"
       class="field spell-row"
-      style="top:1047px; left:102px; width:41px;"
+      style="top:1048px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r16Nazev"
       (focus)="openDropdown($event, 16)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1047px; left:152px; width:176px;"
+      style="top:1048px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1052px; left:329px;"
+      style="top:1048px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r16Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -1347,44 +1348,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r16Utok"
       class="field spell-row"
-      style="top:1047px; left:353px; width:78px;"
+      style="top:1048px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r16DobaSesilani"
       class="field spell-row"
-      style="top:1047px; left:439px; width:58px;"
+      style="top:1048px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r16Slozky"
       class="field spell-row"
-      style="top:1047px; left:506px; width:58px;"
+      style="top:1048px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r16Dosah"
       class="field spell-row"
-      style="top:1047px; left:572px; width:77px;"
+      style="top:1048px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r16Trvani"
       class="field spell-row"
-      style="top:1047px; left:658px; width:77px;"
+      style="top:1048px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r16Poznamka"
       class="field spell-row"
-      style="top:1047px; left:744px; width:408px;"
+      style="top:1048px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(16)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r16Str"
       class="field spell-row"
-      style="top:1047px; left:1160px; width:60px;"
+      style="top:1048px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -1395,24 +1396,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r17P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1084px; left:69px;"
+      style="top:1084px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r17S"
       class="field spell-row"
-      style="top:1083px; left:102px; width:41px;"
+      style="top:1084px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r17Nazev"
       (focus)="openDropdown($event, 17)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1083px; left:152px; width:176px;"
+      style="top:1084px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1088px; left:329px;"
+      style="top:1084px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r17Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -1421,44 +1422,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r17Utok"
       class="field spell-row"
-      style="top:1083px; left:353px; width:78px;"
+      style="top:1084px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r17DobaSesilani"
       class="field spell-row"
-      style="top:1083px; left:439px; width:58px;"
+      style="top:1084px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r17Slozky"
       class="field spell-row"
-      style="top:1083px; left:506px; width:58px;"
+      style="top:1084px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r17Dosah"
       class="field spell-row"
-      style="top:1083px; left:572px; width:77px;"
+      style="top:1084px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r17Trvani"
       class="field spell-row"
-      style="top:1083px; left:658px; width:77px;"
+      style="top:1084px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r17Poznamka"
       class="field spell-row"
-      style="top:1083px; left:744px; width:408px;"
+      style="top:1084px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(17)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r17Str"
       class="field spell-row"
-      style="top:1083px; left:1160px; width:60px;"
+      style="top:1084px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -1469,24 +1470,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r18P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1120px; left:69px;"
+      style="top:1120px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r18S"
       class="field spell-row"
-      style="top:1119px; left:102px; width:41px;"
+      style="top:1120px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r18Nazev"
       (focus)="openDropdown($event, 18)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1119px; left:152px; width:176px;"
+      style="top:1120px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1124px; left:329px;"
+      style="top:1120px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r18Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -1495,44 +1496,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r18Utok"
       class="field spell-row"
-      style="top:1119px; left:353px; width:78px;"
+      style="top:1120px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r18DobaSesilani"
       class="field spell-row"
-      style="top:1119px; left:439px; width:58px;"
+      style="top:1120px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r18Slozky"
       class="field spell-row"
-      style="top:1119px; left:506px; width:58px;"
+      style="top:1120px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r18Dosah"
       class="field spell-row"
-      style="top:1119px; left:572px; width:77px;"
+      style="top:1120px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r18Trvani"
       class="field spell-row"
-      style="top:1119px; left:658px; width:77px;"
+      style="top:1120px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r18Poznamka"
       class="field spell-row"
-      style="top:1119px; left:744px; width:408px;"
+      style="top:1120px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(18)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r18Str"
       class="field spell-row"
-      style="top:1119px; left:1160px; width:60px;"
+      style="top:1120px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -1543,24 +1544,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r19P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1156px; left:69px;"
+      style="top:1157px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r19S"
       class="field spell-row"
-      style="top:1155px; left:102px; width:41px;"
+      style="top:1157px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r19Nazev"
       (focus)="openDropdown($event, 19)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1155px; left:152px; width:176px;"
+      style="top:1157px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1160px; left:329px;"
+      style="top:1157px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r19Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -1569,44 +1570,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r19Utok"
       class="field spell-row"
-      style="top:1155px; left:353px; width:78px;"
+      style="top:1157px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r19DobaSesilani"
       class="field spell-row"
-      style="top:1155px; left:439px; width:58px;"
+      style="top:1157px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r19Slozky"
       class="field spell-row"
-      style="top:1155px; left:506px; width:58px;"
+      style="top:1157px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r19Dosah"
       class="field spell-row"
-      style="top:1155px; left:572px; width:77px;"
+      style="top:1157px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r19Trvani"
       class="field spell-row"
-      style="top:1155px; left:658px; width:77px;"
+      style="top:1157px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r19Poznamka"
       class="field spell-row"
-      style="top:1155px; left:744px; width:408px;"
+      style="top:1157px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(19)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r19Str"
       class="field spell-row"
-      style="top:1155px; left:1160px; width:60px;"
+      style="top:1157px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -1617,24 +1618,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r20P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1190px; left:69px;"
+      style="top:1193px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r20S"
       class="field spell-row"
-      style="top:1189px; left:102px; width:41px;"
+      style="top:1193px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Nazev"
       (focus)="openDropdown($event, 20)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1189px; left:152px; width:176px;"
+      style="top:1193px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1194px; left:329px;"
+      style="top:1193px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r20Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -1643,44 +1644,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r20Utok"
       class="field spell-row"
-      style="top:1189px; left:353px; width:78px;"
+      style="top:1193px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20DobaSesilani"
       class="field spell-row"
-      style="top:1189px; left:439px; width:58px;"
+      style="top:1193px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Slozky"
       class="field spell-row"
-      style="top:1189px; left:506px; width:58px;"
+      style="top:1193px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Dosah"
       class="field spell-row"
-      style="top:1189px; left:572px; width:77px;"
+      style="top:1193px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Trvani"
       class="field spell-row"
-      style="top:1189px; left:658px; width:77px;"
+      style="top:1193px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Poznamka"
       class="field spell-row"
-      style="top:1189px; left:744px; width:408px;"
+      style="top:1193px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(20)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r20Str"
       class="field spell-row"
-      style="top:1189px; left:1160px; width:60px;"
+      style="top:1193px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -1691,24 +1692,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r21P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1226px; left:69px;"
+      style="top:1229px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r21S"
       class="field spell-row"
-      style="top:1225px; left:102px; width:41px;"
+      style="top:1229px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Nazev"
       (focus)="openDropdown($event, 21)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1225px; left:152px; width:176px;"
+      style="top:1229px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1230px; left:329px;"
+      style="top:1229px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r21Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -1717,44 +1718,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r21Utok"
       class="field spell-row"
-      style="top:1225px; left:353px; width:78px;"
+      style="top:1229px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21DobaSesilani"
       class="field spell-row"
-      style="top:1225px; left:439px; width:58px;"
+      style="top:1229px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Slozky"
       class="field spell-row"
-      style="top:1225px; left:506px; width:58px;"
+      style="top:1229px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Dosah"
       class="field spell-row"
-      style="top:1225px; left:572px; width:77px;"
+      style="top:1229px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Trvani"
       class="field spell-row"
-      style="top:1225px; left:658px; width:77px;"
+      style="top:1229px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Poznamka"
       class="field spell-row"
-      style="top:1225px; left:744px; width:408px;"
+      style="top:1229px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(21)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r21Str"
       class="field spell-row"
-      style="top:1225px; left:1160px; width:60px;"
+      style="top:1229px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -1765,24 +1766,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r22P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1262px; left:69px;"
+      style="top:1265px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r22S"
       class="field spell-row"
-      style="top:1261px; left:102px; width:41px;"
+      style="top:1265px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Nazev"
       (focus)="openDropdown($event, 22)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1261px; left:152px; width:176px;"
+      style="top:1265px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1266px; left:329px;"
+      style="top:1265px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r22Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -1791,44 +1792,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r22Utok"
       class="field spell-row"
-      style="top:1261px; left:353px; width:78px;"
+      style="top:1265px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22DobaSesilani"
       class="field spell-row"
-      style="top:1261px; left:439px; width:58px;"
+      style="top:1265px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Slozky"
       class="field spell-row"
-      style="top:1261px; left:506px; width:58px;"
+      style="top:1265px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Dosah"
       class="field spell-row"
-      style="top:1261px; left:572px; width:77px;"
+      style="top:1265px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Trvani"
       class="field spell-row"
-      style="top:1261px; left:658px; width:77px;"
+      style="top:1265px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Poznamka"
       class="field spell-row"
-      style="top:1261px; left:744px; width:408px;"
+      style="top:1265px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(22)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r22Str"
       class="field spell-row"
-      style="top:1261px; left:1160px; width:60px;"
+      style="top:1265px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -1839,24 +1840,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r23P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1298px; left:69px;"
+      style="top:1301px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r23S"
       class="field spell-row"
-      style="top:1297px; left:102px; width:41px;"
+      style="top:1301px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Nazev"
       (focus)="openDropdown($event, 23)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1297px; left:152px; width:176px;"
+      style="top:1301px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1302px; left:329px;"
+      style="top:1301px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r23Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -1865,44 +1866,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r23Utok"
       class="field spell-row"
-      style="top:1297px; left:353px; width:78px;"
+      style="top:1301px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23DobaSesilani"
       class="field spell-row"
-      style="top:1297px; left:439px; width:58px;"
+      style="top:1301px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Slozky"
       class="field spell-row"
-      style="top:1297px; left:506px; width:58px;"
+      style="top:1301px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Dosah"
       class="field spell-row"
-      style="top:1297px; left:572px; width:77px;"
+      style="top:1301px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Trvani"
       class="field spell-row"
-      style="top:1297px; left:658px; width:77px;"
+      style="top:1301px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Poznamka"
       class="field spell-row"
-      style="top:1297px; left:744px; width:408px;"
+      style="top:1301px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(23)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r23Str"
       class="field spell-row"
-      style="top:1297px; left:1160px; width:60px;"
+      style="top:1301px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -1913,24 +1914,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r24P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1331px; left:69px;"
+      style="top:1338px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r24S"
       class="field spell-row"
-      style="top:1330px; left:102px; width:41px;"
+      style="top:1338px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Nazev"
       (focus)="openDropdown($event, 24)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1330px; left:152px; width:176px;"
+      style="top:1338px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1335px; left:329px;"
+      style="top:1338px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r24Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -1939,44 +1940,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r24Utok"
       class="field spell-row"
-      style="top:1330px; left:353px; width:78px;"
+      style="top:1338px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24DobaSesilani"
       class="field spell-row"
-      style="top:1330px; left:439px; width:58px;"
+      style="top:1338px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Slozky"
       class="field spell-row"
-      style="top:1330px; left:506px; width:58px;"
+      style="top:1338px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Dosah"
       class="field spell-row"
-      style="top:1330px; left:572px; width:77px;"
+      style="top:1338px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Trvani"
       class="field spell-row"
-      style="top:1330px; left:658px; width:77px;"
+      style="top:1338px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Poznamka"
       class="field spell-row"
-      style="top:1330px; left:744px; width:408px;"
+      style="top:1338px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(24)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r24Str"
       class="field spell-row"
-      style="top:1330px; left:1160px; width:60px;"
+      style="top:1338px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -1987,24 +1988,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r25P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1367px; left:69px;"
+      style="top:1374px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r25S"
       class="field spell-row"
-      style="top:1366px; left:102px; width:41px;"
+      style="top:1374px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Nazev"
       (focus)="openDropdown($event, 25)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1366px; left:152px; width:176px;"
+      style="top:1374px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1371px; left:329px;"
+      style="top:1374px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r25Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -2013,44 +2014,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r25Utok"
       class="field spell-row"
-      style="top:1366px; left:353px; width:78px;"
+      style="top:1374px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25DobaSesilani"
       class="field spell-row"
-      style="top:1366px; left:439px; width:58px;"
+      style="top:1374px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Slozky"
       class="field spell-row"
-      style="top:1366px; left:506px; width:58px;"
+      style="top:1374px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Dosah"
       class="field spell-row"
-      style="top:1366px; left:572px; width:77px;"
+      style="top:1374px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Trvani"
       class="field spell-row"
-      style="top:1366px; left:658px; width:77px;"
+      style="top:1374px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Poznamka"
       class="field spell-row"
-      style="top:1366px; left:744px; width:408px;"
+      style="top:1374px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(25)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r25Str"
       class="field spell-row"
-      style="top:1366px; left:1160px; width:60px;"
+      style="top:1374px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -2061,24 +2062,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r26P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1403px; left:69px;"
+      style="top:1410px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r26S"
       class="field spell-row"
-      style="top:1402px; left:102px; width:41px;"
+      style="top:1410px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Nazev"
       (focus)="openDropdown($event, 26)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1402px; left:152px; width:176px;"
+      style="top:1410px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1407px; left:329px;"
+      style="top:1410px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r26Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -2087,44 +2088,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r26Utok"
       class="field spell-row"
-      style="top:1402px; left:353px; width:78px;"
+      style="top:1410px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26DobaSesilani"
       class="field spell-row"
-      style="top:1402px; left:439px; width:58px;"
+      style="top:1410px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Slozky"
       class="field spell-row"
-      style="top:1402px; left:506px; width:58px;"
+      style="top:1410px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Dosah"
       class="field spell-row"
-      style="top:1402px; left:572px; width:77px;"
+      style="top:1410px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Trvani"
       class="field spell-row"
-      style="top:1402px; left:658px; width:77px;"
+      style="top:1410px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Poznamka"
       class="field spell-row"
-      style="top:1402px; left:744px; width:408px;"
+      style="top:1410px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(26)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r26Str"
       class="field spell-row"
-      style="top:1402px; left:1160px; width:60px;"
+      style="top:1410px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -2135,24 +2136,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r27P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1439px; left:69px;"
+      style="top:1446px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r27S"
       class="field spell-row"
-      style="top:1438px; left:102px; width:41px;"
+      style="top:1446px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Nazev"
       (focus)="openDropdown($event, 27)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1438px; left:152px; width:176px;"
+      style="top:1446px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1443px; left:329px;"
+      style="top:1446px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r27Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -2161,44 +2162,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r27Utok"
       class="field spell-row"
-      style="top:1438px; left:353px; width:78px;"
+      style="top:1446px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27DobaSesilani"
       class="field spell-row"
-      style="top:1438px; left:439px; width:58px;"
+      style="top:1446px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Slozky"
       class="field spell-row"
-      style="top:1438px; left:506px; width:58px;"
+      style="top:1446px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Dosah"
       class="field spell-row"
-      style="top:1438px; left:572px; width:77px;"
+      style="top:1446px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Trvani"
       class="field spell-row"
-      style="top:1438px; left:658px; width:77px;"
+      style="top:1446px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Poznamka"
       class="field spell-row"
-      style="top:1438px; left:744px; width:408px;"
+      style="top:1446px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(27)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r27Str"
       class="field spell-row"
-      style="top:1438px; left:1160px; width:60px;"
+      style="top:1446px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -2210,24 +2211,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r28P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1475px; left:69px;"
+      style="top:1482px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r28S"
       class="field spell-row"
-      style="top:1474px; left:102px; width:41px;"
+      style="top:1482px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Nazev"
       (focus)="openDropdown($event, 28)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1474px; left:152px; width:176px;"
+      style="top:1482px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1479px; left:329px;"
+      style="top:1482px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r28Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -2236,44 +2237,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r28Utok"
       class="field spell-row"
-      style="top:1474px; left:353px; width:78px;"
+      style="top:1482px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28DobaSesilani"
       class="field spell-row"
-      style="top:1474px; left:439px; width:58px;"
+      style="top:1482px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Slozky"
       class="field spell-row"
-      style="top:1474px; left:506px; width:58px;"
+      style="top:1482px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Dosah"
       class="field spell-row"
-      style="top:1474px; left:572px; width:77px;"
+      style="top:1482px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Trvani"
       class="field spell-row"
-      style="top:1474px; left:658px; width:77px;"
+      style="top:1482px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Poznamka"
       class="field spell-row"
-      style="top:1474px; left:744px; width:408px;"
+      style="top:1482px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(28)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r28Str"
       class="field spell-row"
-      style="top:1474px; left:1160px; width:60px;"
+      style="top:1482px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -2285,24 +2286,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r29P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1508px; left:69px;"
+      style="top:1518px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r29S"
       class="field spell-row"
-      style="top:1507px; left:102px; width:41px;"
+      style="top:1518px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Nazev"
       (focus)="openDropdown($event, 29)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1507px; left:152px; width:176px;"
+      style="top:1518px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1512px; left:329px;"
+      style="top:1518px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r29Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -2311,44 +2312,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r29Utok"
       class="field spell-row"
-      style="top:1507px; left:353px; width:78px;"
+      style="top:1518px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29DobaSesilani"
       class="field spell-row"
-      style="top:1507px; left:439px; width:58px;"
+      style="top:1518px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Slozky"
       class="field spell-row"
-      style="top:1507px; left:506px; width:58px;"
+      style="top:1518px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Dosah"
       class="field spell-row"
-      style="top:1507px; left:572px; width:77px;"
+      style="top:1518px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Trvani"
       class="field spell-row"
-      style="top:1507px; left:658px; width:77px;"
+      style="top:1518px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Poznamka"
       class="field spell-row"
-      style="top:1507px; left:744px; width:408px;"
+      style="top:1518px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(29)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r29Str"
       class="field spell-row"
-      style="top:1507px; left:1160px; width:60px;"
+      style="top:1518px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -2360,24 +2361,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r30P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1544px; left:69px;"
+      style="top:1554px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r30S"
       class="field spell-row"
-      style="top:1543px; left:102px; width:41px;"
+      style="top:1554px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Nazev"
       (focus)="openDropdown($event, 30)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1543px; left:152px; width:176px;"
+      style="top:1554px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1548px; left:329px;"
+      style="top:1554px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r30Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -2386,44 +2387,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r30Utok"
       class="field spell-row"
-      style="top:1543px; left:353px; width:78px;"
+      style="top:1554px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30DobaSesilani"
       class="field spell-row"
-      style="top:1543px; left:439px; width:58px;"
+      style="top:1554px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Slozky"
       class="field spell-row"
-      style="top:1543px; left:506px; width:58px;"
+      style="top:1554px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Dosah"
       class="field spell-row"
-      style="top:1543px; left:572px; width:77px;"
+      style="top:1554px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Trvani"
       class="field spell-row"
-      style="top:1543px; left:658px; width:77px;"
+      style="top:1554px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Poznamka"
       class="field spell-row"
-      style="top:1543px; left:744px; width:408px;"
+      style="top:1554px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(30)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r30Str"
       class="field spell-row"
-      style="top:1543px; left:1160px; width:60px;"
+      style="top:1554px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -2435,24 +2436,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r31P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1580px; left:69px;"
+      style="top:1590px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r31S"
       class="field spell-row"
-      style="top:1579px; left:102px; width:41px;"
+      style="top:1590px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Nazev"
       (focus)="openDropdown($event, 31)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1579px; left:152px; width:176px;"
+      style="top:1590px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1584px; left:329px;"
+      style="top:1590px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r31Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -2461,44 +2462,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r31Utok"
       class="field spell-row"
-      style="top:1579px; left:353px; width:78px;"
+      style="top:1590px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31DobaSesilani"
       class="field spell-row"
-      style="top:1579px; left:439px; width:58px;"
+      style="top:1590px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Slozky"
       class="field spell-row"
-      style="top:1579px; left:506px; width:58px;"
+      style="top:1590px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Dosah"
       class="field spell-row"
-      style="top:1579px; left:572px; width:77px;"
+      style="top:1590px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Trvani"
       class="field spell-row"
-      style="top:1579px; left:658px; width:77px;"
+      style="top:1590px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Poznamka"
       class="field spell-row"
-      style="top:1579px; left:744px; width:408px;"
+      style="top:1590px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(31)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r31Str"
       class="field spell-row"
-      style="top:1579px; left:1160px; width:60px;"
+      style="top:1590px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -2510,24 +2511,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r32P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1616px; left:69px;"
+      style="top:1626px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r32S"
       class="field spell-row"
-      style="top:1615px; left:102px; width:41px;"
+      style="top:1626px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Nazev"
       (focus)="openDropdown($event, 32)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1615px; left:152px; width:176px;"
+      style="top:1626px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1620px; left:329px;"
+      style="top:1626px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r32Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -2536,44 +2537,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r32Utok"
       class="field spell-row"
-      style="top:1615px; left:353px; width:78px;"
+      style="top:1626px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32DobaSesilani"
       class="field spell-row"
-      style="top:1615px; left:439px; width:58px;"
+      style="top:1626px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Slozky"
       class="field spell-row"
-      style="top:1615px; left:506px; width:58px;"
+      style="top:1626px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Dosah"
       class="field spell-row"
-      style="top:1615px; left:572px; width:77px;"
+      style="top:1626px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Trvani"
       class="field spell-row"
-      style="top:1615px; left:658px; width:77px;"
+      style="top:1626px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Poznamka"
       class="field spell-row"
-      style="top:1615px; left:744px; width:408px;"
+      style="top:1626px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(32)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r32Str"
       class="field spell-row"
-      style="top:1615px; left:1160px; width:60px;"
+      style="top:1626px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -2585,24 +2586,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r33P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1652px; left:69px;"
+      style="top:1662px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r33S"
       class="field spell-row"
-      style="top:1651px; left:102px; width:41px;"
+      style="top:1662px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Nazev"
       (focus)="openDropdown($event, 33)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1651px; left:152px; width:176px;"
+      style="top:1662px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1656px; left:329px;"
+      style="top:1662px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r33Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -2611,44 +2612,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r33Utok"
       class="field spell-row"
-      style="top:1651px; left:353px; width:78px;"
+      style="top:1662px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33DobaSesilani"
       class="field spell-row"
-      style="top:1651px; left:439px; width:58px;"
+      style="top:1662px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Slozky"
       class="field spell-row"
-      style="top:1651px; left:506px; width:58px;"
+      style="top:1662px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Dosah"
       class="field spell-row"
-      style="top:1651px; left:572px; width:77px;"
+      style="top:1662px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Trvani"
       class="field spell-row"
-      style="top:1651px; left:658px; width:77px;"
+      style="top:1662px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Poznamka"
       class="field spell-row"
-      style="top:1651px; left:744px; width:408px;"
+      style="top:1662px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(33)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r33Str"
       class="field spell-row"
-      style="top:1651px; left:1160px; width:60px;"
+      style="top:1662px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -2660,24 +2661,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r34P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1688px; left:69px;"
+      style="top:1698px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r34S"
       class="field spell-row"
-      style="top:1687px; left:102px; width:41px;"
+      style="top:1698px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Nazev"
       (focus)="openDropdown($event, 34)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1687px; left:152px; width:176px;"
+      style="top:1698px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1692px; left:329px;"
+      style="top:1698px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r34Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -2686,44 +2687,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r34Utok"
       class="field spell-row"
-      style="top:1687px; left:353px; width:78px;"
+      style="top:1698px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34DobaSesilani"
       class="field spell-row"
-      style="top:1687px; left:439px; width:58px;"
+      style="top:1698px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Slozky"
       class="field spell-row"
-      style="top:1687px; left:506px; width:58px;"
+      style="top:1698px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Dosah"
       class="field spell-row"
-      style="top:1687px; left:572px; width:77px;"
+      style="top:1698px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Trvani"
       class="field spell-row"
-      style="top:1687px; left:658px; width:77px;"
+      style="top:1698px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Poznamka"
       class="field spell-row"
-      style="top:1687px; left:744px; width:408px;"
+      style="top:1698px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(34)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r34Str"
       class="field spell-row"
-      style="top:1687px; left:1160px; width:60px;"
+      style="top:1698px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -2734,24 +2735,24 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
       [formControl]="controls.spellsForm.controls.r35P"
       type="checkbox"
       class="field checkbox red-checkbox"
-      style="top:1729px; left:69px;"
+      style="top:1742px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
     <input
       [formControl]="controls.spellsForm.controls.r35S"
       class="field spell-row"
-      style="top:1728px; left:102px; width:41px;"
+      style="top:1742px; left:90px; width:41px;"
       placeholder="St."
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Nazev"
       (focus)="openDropdown($event, 35)" (blur)="closeDropdown()" (input)="onSpellInput()" (keydown)="onKeydown($event)"
       class="field spell-row "
-      style="top:1728px; left:152px; width:176px;"
+      style="top:1742px; left:140px; width:176px;"
       placeholder="Název"
     />
     <button
       type="button" class="field spell-detail-btn"
-      style="top:1733px; left:329px;"
+      style="top:1742px; left:329px;"
       (click)="openSpellDetail(controls.spellsForm.controls.r35Nazev.value)"
       [matTooltip]="'Zobrazit detail kouzla'"
     >
@@ -2760,44 +2761,44 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
     <input
       [formControl]="controls.spellsForm.controls.r35Utok"
       class="field spell-row"
-      style="top:1728px; left:353px; width:78px;"
+      style="top:1742px; left:353px; width:78px;"
       placeholder="Útok"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35DobaSesilani"
       class="field spell-row"
-      style="top:1728px; left:439px; width:58px;"
+      style="top:1742px; left:439px; width:58px;"
       placeholder="Doba"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Slozky"
       class="field spell-row"
-      style="top:1728px; left:506px; width:58px;"
+      style="top:1742px; left:506px; width:58px;"
       placeholder="Složky"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Dosah"
       class="field spell-row"
-      style="top:1728px; left:572px; width:77px;"
+      style="top:1742px; left:572px; width:77px;"
       placeholder="Dosah"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Trvani"
       class="field spell-row"
-      style="top:1728px; left:658px; width:77px;"
+      style="top:1742px; left:658px; width:77px;"
       placeholder="Trvání"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Poznamka"
       class="field spell-row"
-      style="top:1728px; left:744px; width:408px;"
+      style="top:1742px; left:744px; width:408px;"
       placeholder="Poznámka"
       [matTooltip]="poz(35)()"
     />
     <input
       [formControl]="controls.spellsForm.controls.r35Str"
       class="field spell-row"
-      style="top:1728px; left:1160px; width:60px;"
+      style="top:1742px; left:1160px; width:60px;"
       placeholder="Str."
     />
     </div>
@@ -2817,7 +2818,7 @@ import { CdkDropList } from '@angular/cdk/drag-drop';
   styleUrl: './character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '[class.theme-dark]': 'sheetTheme.darkMode()' },
-  imports: [ReactiveFormsModule, MatTooltip, MatIcon, CsCollapsibleComponent, CdkDropList],
+  imports: [ReactiveFormsModule, MatTooltip, MatIcon, CsCollapsibleComponent, CdkDropList, CsSvgSheetComponent],
 })
 export class CharacterSheetThirdPageComponent {
   form = input.required<FormGroup<ThirdPageForm>>();

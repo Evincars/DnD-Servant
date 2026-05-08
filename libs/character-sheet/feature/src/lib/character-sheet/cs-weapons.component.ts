@@ -119,7 +119,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
               (click)="cycleAbilityZdatnost(c.zdatnostJednoduche)"
               id="zdatnostSJednoduchymaZbranema"
               class="field ability-zdatnost-checkbox"
-              style="top:1255px; left:446.78px;"
+              style="top:1260px; left:443px;"
             ></div>
             <span class="cs-combat-prof-label">Jednoduché</span>
           </div>
@@ -129,7 +129,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
               (click)="cycleAbilityZdatnost(c.zdatnostValecne)"
               id="zdatnostSValecnymaZbranema"
               class="field ability-zdatnost-checkbox"
-              style="top:1255px; left:572.54px;"
+              style="top:1260px; left:571px;"
             ></div>
             <span class="cs-combat-prof-label">Válečné</span>
           </div>
@@ -138,7 +138,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
               [formControl]="c.dalsiZdatnosti"
               id="dalsiZdatnostSeZbrani"
               class="field"
-              style="top:1248px; left:666.79px; width:514.83px"
+              style="top:1254px; left:666.79px; width:514.83px"
               placeholder="Další zdatnosti..."
             />
           </div>
@@ -178,10 +178,10 @@ export class CsWeaponsComponent {
       ocKey: 'zbran1Oc',
       zbranStyle: 'top:1067px; left:444px; width:266px',
       bonusStyle: 'top:1067.38px; left:714.95px; width:78.6px',
-      zasahStyle: 'top:1067.38px; left:797.79px; width:78.6px',
-      typStyle: 'top:1067.38px; left:883.94px; width:95.63px',
-      dosahStyle: 'top:1067.38px; left:983.81px; width:95.63px',
-      ocStyle: 'top:1067.38px; left:1086.99px; width:95.63px',
+      zasahStyle: 'top:1067.38px; left:800px; width:78.6px',
+      typStyle: 'top:1067.38px; left:886px; width:95px',
+      dosahStyle: 'top:1067.38px; left:990px; width:95px',
+      ocStyle: 'top:1067.38px; left:1093px; width:95px',
     },
     {
       num: 2,
@@ -191,12 +191,12 @@ export class CsWeaponsComponent {
       typKey: 'zbran2Typ',
       dosahKey: 'zbran2Dosah',
       ocKey: 'zbran2Oc',
-      zbranStyle: 'top:1101.10px; left:444.09px; width:266.93px',
+      zbranStyle: 'top:1101.10px; left:444.09px; width:265px',
       bonusStyle: 'top:1101.10px; left:714.95px; width:78.6px',
-      zasahStyle: 'top:1101.10px; left:797.79px; width:78.6px',
-      typStyle: 'top:1101.10px; left:883.94px; width:95.63px',
-      dosahStyle: 'top:1101.10px; left:983.81px; width:95.63px',
-      ocStyle: 'top:1101.10px; left:1086.99px; width:95.63px',
+      zasahStyle: 'top:1101.10px; left:800px; width:78.6px',
+      typStyle: 'top:1101.10px; left:886px; width:95px',
+      dosahStyle: 'top:1101.10px; left:990px; width:95px',
+      ocStyle: 'top:1101.10px; left:1093px; width:95px',
     },
     {
       num: 3,
@@ -206,12 +206,12 @@ export class CsWeaponsComponent {
       typKey: 'zbran3Typ',
       dosahKey: 'zbran3Dosah',
       ocKey: 'zbran3Oc',
-      zbranStyle: 'top:1135.63px; left:444.09px; width:266.93px',
+      zbranStyle: 'top:1135.63px; left:444.09px; width:265px',
       bonusStyle: 'top:1135.63px; left:714.95px; width:78.6px',
-      zasahStyle: 'top:1135.63px; left:797.79px; width:78.6px',
-      typStyle: 'top:1135.63px; left:883.94px; width:95.63px',
-      dosahStyle: 'top:1135.63px; left:983.81px; width:95.63px',
-      ocStyle: 'top:1135.63px; left:1086.99px; width:95.63px',
+      zasahStyle: 'top:1135.63px; left:800px; width:78.6px',
+      typStyle: 'top:1135.63px; left:886px; width:95px',
+      dosahStyle: 'top:1135.63px; left:990px; width:95px',
+      ocStyle: 'top:1135.63px; left:1093px; width:95px',
     },
     {
       num: 4,
@@ -221,12 +221,12 @@ export class CsWeaponsComponent {
       typKey: 'zbran4Typ',
       dosahKey: 'zbran4Dosah',
       ocKey: 'zbran4Oc',
-      zbranStyle: 'top:1170.15px; left:444.09px; width:266.93px',
+      zbranStyle: 'top:1170.15px; left:444.09px; width:265px',
       bonusStyle: 'top:1170.15px; left:714.95px; width:78.6px',
-      zasahStyle: 'top:1170.15px; left:797.79px; width:78.6px',
-      typStyle: 'top:1170.15px; left:883.94px; width:95.63px',
-      dosahStyle: 'top:1170.15px; left:983.81px; width:95.63px',
-      ocStyle: 'top:1170.15px; left:1086.99px; width:95.63px',
+      zasahStyle: 'top:1170.15px; left:800px; width:78.6px',
+      typStyle: 'top:1170.15px; left:886px; width:95px',
+      dosahStyle: 'top:1170.15px; left:990px; width:95px',
+      ocStyle: 'top:1170.15px; left:1093px; width:95px',
     },
     {
       num: 5,
@@ -236,12 +236,12 @@ export class CsWeaponsComponent {
       typKey: 'zbran5Typ',
       dosahKey: 'zbran5Dosah',
       ocKey: 'zbran5Oc',
-      zbranStyle: 'top:1205.67px; left:444.09px; width:266.93px',
+      zbranStyle: 'top:1205.67px; left:444.09px; width:265px',
       bonusStyle: 'top:1205.67px; left:714.95px; width:78.6px',
-      zasahStyle: 'top:1205.67px; left:797.79px; width:78.6px',
-      typStyle: 'top:1205.67px; left:883.94px; width:95.63px',
-      dosahStyle: 'top:1205.67px; left:983.81px; width:95.63px',
-      ocStyle: 'top:1205.67px; left:1086.99px; width:95.63px',
+      zasahStyle: 'top:1205.67px; left:800px; width:78.6px',
+      typStyle: 'top:1205.67px; left:886px; width:95px',
+      dosahStyle: 'top:1205.67px; left:990px; width:95px',
+      ocStyle: 'top:1205.67px; left:1093px; width:95px',
     },
   ] as const;
 

@@ -27,7 +27,7 @@ import { merge } from 'rxjs';
               [formControl]="sc.lehke"
               [ngClass]="{ 'speed-highlight-light': speedHighlight() === 'light' }"
               class="field"
-              style="top:308.89px; left:829.23px; width:110.04px;"
+              style="top:300.89px; left:831.23px; width:110.04px;"
               placeholder="Lehké"
             />
           </div>
@@ -36,7 +36,7 @@ import { merge } from 'rxjs';
               [formControl]="sc.stredni"
               [ngClass]="{ 'speed-highlight-medium': speedHighlight() === 'medium' }"
               class="field"
-              style="top:308.89px; left:952.37px; width:110.04px;"
+              style="top:300.89px; left:957.37px; width:110.04px;"
               placeholder="Střední"
             />
           </div>
@@ -45,7 +45,7 @@ import { merge } from 'rxjs';
               [formControl]="sc.tezke"
               [ngClass]="{ 'speed-highlight-heavy': speedHighlight() === 'heavy' }"
               class="field"
-              style="top:308.89px; left:1073.89px; width:110.04px;"
+              style="top:300.89px; left:1079.89px; width:110.04px;"
               placeholder="Těžké"
             />
           </div>
@@ -53,7 +53,7 @@ import { merge } from 'rxjs';
             <input
               [formControl]="sc.maxBoduVydrze"
               class="field"
-              style="top:283px; left:1193.41px; width:68.12px; text-align: center; font-size: 18px; color: red;"
+              style="top:276px; left:1202px; width:68px; text-align: center; font-size: 18px; color: red;"
               placeholder="20 / 20"
             />
           </div>
@@ -64,7 +64,7 @@ import { merge } from 'rxjs';
             (click)="onOpenDamagesDialog()"
             type="button"
             matTooltip="Bojové a přetrvávající zranění"
-            style="top:424px; left:842px;"
+            style="top:414px; left:842px;"
             class="field button small-info-button-icon"
           >
             <mat-icon class="small-info-icon">info</mat-icon>
@@ -73,7 +73,7 @@ import { merge } from 'rxjs';
             <input
               [formControl]="sc.pouzitiKostek"
               class="field"
-              style="top:420.74px; left:880.32px; width:182.09px;"
+              style="top:410px; left:884px; width:188px;"
               placeholder="Použití kostek"
             />
           </div>
@@ -81,7 +81,7 @@ import { merge } from 'rxjs';
             <input
               [formControl]="sc.maxPouzitiKostek"
               class="field"
-              style="top:454.25px; left:880.32px; width:182.09px;"
+              style="top:447px; left:884px; width:188px;"
               placeholder="Max"
             />
           </div>
@@ -92,7 +92,7 @@ import { merge } from 'rxjs';
           class="field death-save-icon death-save-heart"
           [class.death-save-icon--active]="sc.smrtUspech1.value"
           (click)="toggleDeathSave(sc.smrtUspech1)"
-          style="top:424px; left:1091px;"
+          style="top:410px; left:1094px;"
         >
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -104,7 +104,7 @@ import { merge } from 'rxjs';
           class="field death-save-icon death-save-heart"
           [class.death-save-icon--active]="sc.smrtUspech2.value"
           (click)="toggleDeathSave(sc.smrtUspech2)"
-          style="top:424px; left:1122px;"
+          style="top:410px; left:1126px;"
         >
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -116,7 +116,7 @@ import { merge } from 'rxjs';
           class="field death-save-icon death-save-heart"
           [class.death-save-icon--active]="sc.smrtUspech3.value"
           (click)="toggleDeathSave(sc.smrtUspech3)"
-          style="top:424px; left:1153px;"
+          style="top:410px; left:1158px;"
         >
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -130,7 +130,7 @@ import { merge } from 'rxjs';
           class="field death-save-icon death-save-skull"
           [class.death-save-icon--active]="sc.smrtNeuspech1.value"
           (click)="toggleDeathSave(sc.smrtNeuspech1)"
-          style="top:455px; left:1092px;"
+          style="top:430px; left:1090px;"
         >
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -142,7 +142,7 @@ import { merge } from 'rxjs';
           class="field death-save-icon death-save-skull"
           [class.death-save-icon--active]="sc.smrtNeuspech2.value"
           (click)="toggleDeathSave(sc.smrtNeuspech2)"
-          style="top:455px; left:1124px;"
+          style="top:430px; left:1122px;"
         >
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -154,7 +154,7 @@ import { merge } from 'rxjs';
           class="field death-save-icon death-save-skull"
           [class.death-save-icon--active]="sc.smrtNeuspech3.value"
           (click)="toggleDeathSave(sc.smrtNeuspech3)"
-          style="top:455px; left:1155px;"
+          style="top:430px; left:1154px;"
         >
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -170,7 +170,7 @@ import { merge } from 'rxjs';
           (click)="onOpenArmorClassDialog()"
           type="button"
           matTooltip="Zbroje a obranné číslo"
-          style="top:345px; left:700px;"
+          style="top:335px; left:700px;"
           class="field button small-info-button-icon"
         >
           <mat-icon class="small-info-icon">info</mat-icon>
@@ -181,7 +181,7 @@ import { merge } from 'rxjs';
               [formControl]="ac.zbroj"
               matTooltip="Podívej se do tabulky Zbrojí kolik ti dává OČ"
               class="field"
-              style="top:416px; left:478px; width:61px; text-align: center; font-size: 22px;"
+              style="top:411px; left:475px; width:61px; text-align: center; font-size: 22px;"
               placeholder="Zbroj"
             />
           </div>
@@ -190,7 +190,7 @@ import { merge } from 'rxjs';
               [formControl]="ac.bezeZbroje"
               matTooltip="10 + oprava Obratnosti"
               class="field"
-              style="top:416.09px; left:582.95px; width:61.57px; text-align: center; font-size: 22px;"
+              style="top:410.09px; left:582.95px; width:61.57px; text-align: center; font-size: 22px;"
               placeholder="Bez"
             />
           </div>
@@ -199,7 +199,7 @@ import { merge } from 'rxjs';
               [formControl]="ac.jine"
               matTooltip="Kolik Ti přičítá štít nebo jiná ochrana (např. magická)"
               class="field"
-              style="top:416.09px; left:692.99px; width:61.57px; text-align: center; font-size: 22px;"
+              style="top:410.09px; left:692.99px; width:61.57px; text-align: center; font-size: 22px;"
               placeholder="Jiné"
             />
           </div>
@@ -212,7 +212,7 @@ import { merge } from 'rxjs';
               [ngClass]="abilityCheckboxClass(ac.zdatnostLehke)"
               (click)="cycleAbilityZdatnost(ac.zdatnostLehke)"
               class="field ability-zdatnost-checkbox"
-              style="top:484.51px; left:453.33px;"
+              style="top:475px; left:449px;"
             ></div>
             <span class="cs-combat-prof-label">Lehké</span>
           </div>
@@ -221,7 +221,7 @@ import { merge } from 'rxjs';
               [ngClass]="abilityCheckboxClass(ac.zdatnostStredni)"
               (click)="cycleAbilityZdatnost(ac.zdatnostStredni)"
               class="field ability-zdatnost-checkbox"
-              style="top:484.51px; left:545.03px;"
+              style="top:475px; left:543px;"
             ></div>
             <span class="cs-combat-prof-label">Střední</span>
           </div>
@@ -230,7 +230,7 @@ import { merge } from 'rxjs';
               [ngClass]="abilityCheckboxClass(ac.zdatnostTezke)"
               (click)="cycleAbilityZdatnost(ac.zdatnostTezke)"
               class="field ability-zdatnost-checkbox"
-              style="top:484.51px; left:647.52px;"
+              style="top:475px; left:648px;"
             ></div>
             <span class="cs-combat-prof-label">Těžké</span>
           </div>
@@ -239,7 +239,7 @@ import { merge } from 'rxjs';
               [ngClass]="abilityCheckboxClass(ac.zdatnostStity)"
               (click)="cycleAbilityZdatnost(ac.zdatnostStity)"
               class="field ability-zdatnost-checkbox"
-              style="top:484.51px; left:737.91px;"
+              style="top:475px; left:741px;"
             ></div>
             <span class="cs-combat-prof-label">Štíty</span>
           </div>

@@ -43,3 +43,35 @@ export interface DmNotesApiModel {
   rewards: string;
 }
 
+// ── Story Timeline ─────────────────────────────────────────────────────────
+
+export type StoryEventType = 'battle' | 'discovery' | 'npc_met' | 'milestone' | 'loss' | 'other';
+export type StoryEventImportance = 'minor' | 'major' | 'epic';
+
+export interface StoryEvent {
+  id: string;
+  /** Short headline shown on the timeline card */
+  title: string;
+  /** In-game calendar date (free text, e.g. "15. Flamerule 1492 DR") */
+  inGameDate: string;
+  /** ISO date string — used for chronological ordering */
+  realDate: string;
+  type: StoryEventType;
+  importance: StoryEventImportance;
+  /** Rich-text — public event summary */
+  summary: string;
+  /** Rich-text — DM-only notes / secrets */
+  dmNotes: string;
+  /** Base64 image (max 200 KB), null when absent */
+  imageBase64: string | null;
+  /** Free-text location label */
+  location: string;
+  /** Comma-separated tag labels */
+  tags: string;
+}
+
+export interface DmStoryTimelineApiModel {
+  username: string;
+  events: StoryEvent[];
+}
+

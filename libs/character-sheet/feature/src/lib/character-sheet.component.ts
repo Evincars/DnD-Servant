@@ -55,6 +55,7 @@ import { ConditionsButtonComponent } from './conditions/conditions-button.compon
 import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.component';
 import { CsFloatingActionsComponent } from './character-sheet/cs-floating-actions.component';
 import { CsSectionOrderService } from './character-sheet/cs-section-order.service';
+import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
 
 interface SectionConfig {
   readonly key: string;
@@ -83,7 +84,7 @@ const CS_DEFAULT_SECTIONS: readonly SectionConfig[] = [
   selector: 'character-sheet',
   template: `
     <spinner-overlay [diameter]="70" [showSpinner]="characterSheetStore.loading()">
-      <img class="cs-bg-img" [src]="sheetTheme.darkMode() ? 'character-sheet-1-copy-dark.webp' : 'character-sheet-1-copy.webp'" alt="Character Sheet" height="1817" width="1293" />
+      <cs-svg-sheet src="character-sheets/character-sheet-1.svg" />
 
       <h2 class="cs-section-title cs-main-title">
         Karta Postavy
@@ -162,8 +163,8 @@ const CS_DEFAULT_SECTIONS: readonly SectionConfig[] = [
           }
         </div>
 
-        <!-- Save button hidden — use floating action button instead -->
-        <button (click)="onSaveClick()" type="submit" class="field button cs-save-btn" style="display:none;">
+        <!-- Save button: visible on desktop, hidden on tablet/mobile (≤1359 px) -->
+        <button (click)="onSaveClick()" type="submit" class="field button cs-save-btn">
           Uložit [enter]
         </button>
       </form>
@@ -194,6 +195,7 @@ const CS_DEFAULT_SECTIONS: readonly SectionConfig[] = [
     CdkDropList,
     MatIcon,
     MatTooltip,
+    CsSvgSheetComponent,
   ],
 })
 export class CharacterSheetComponent {
@@ -567,6 +569,22 @@ export class CharacterSheetComponent {
         if (username) {
           this.characterSheetStore.getCharacterSheetByUsername(username);
         }
+      });
+    });
+
+    // ── Sync spells-first page-order preference ─────────────────────────────
+    effect(() => {
+      const spellsFirst = this.sheetTheme.spellsFirst();
+      untracked(() => {
+        const sections = [...this.orderedSections()];
+        const i2 = sections.findIndex(s => s.key === 'second-page');
+        const i3 = sections.findIndex(s => s.key === 'third-page');
+        if (i2 === -1 || i3 === -1) return;
+        const isSpellsFirst = i3 < i2;
+        if (spellsFirst === isSpellsFirst) return; // already in correct order
+        [sections[i2], sections[i3]] = [sections[i3], sections[i2]];
+        this.orderedSections.set(sections);
+        this.sectionOrderService.setOrder(CharacterSheetComponent.PAGE_KEY, sections.map(s => s.key));
       });
     });
 

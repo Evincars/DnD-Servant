@@ -173,6 +173,15 @@ const APP_COMMANDS: CommandItem[] = [
     tabIndex: 3,
     tabStorageKey: DM_TAB_KEY,
   },
+  {
+    id: 'dm-tab-4',
+    label: 'Příběhové události',
+    sublabel: 'PH nástroje › záložka',
+    icon: 'auto_stories',
+    routePath: routes.dmPage,
+    tabIndex: 4,
+    tabStorageKey: DM_TAB_KEY,
+  },
 ];
 
 @Component({

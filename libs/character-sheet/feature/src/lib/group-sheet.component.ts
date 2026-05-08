@@ -20,6 +20,7 @@ import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.compone
 import { CsFloatingActionsComponent } from './character-sheet/cs-floating-actions.component';
 import { CdkDropList, moveItemInArray, type CdkDragDrop } from '@angular/cdk/drag-drop';
 import { CsSectionOrderService } from './character-sheet/cs-section-order.service';
+import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
 
 interface GsSectionConfig {
   readonly key: string;
@@ -40,8 +41,8 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
   selector: 'group-sheet',
   template: `
     <spinner-overlay [diameter]="70" [showSpinner]="characterSheetStore.loading()">
-      <img class="cs-bg-img" [src]="sheetTheme.darkMode() ? 'group-sheet-1-dark.webp' : 'group-sheet-1.webp'" alt="Group Sheet" height="1817" width="1293" />
-      <img class="cs-bg-img" [src]="sheetTheme.darkMode() ? 'group-sheet-2-dark.webp' : 'group-sheet-2.webp'" alt="Group Sheet" height="1817" width="1293" />
+      <cs-svg-sheet src="character-sheets/group-sheet-1.svg" />
+      <cs-svg-sheet src="character-sheets/group-sheet-2.svg" />
 
       <h2 class="cs-section-title cs-main-title">
         Karta Družiny
@@ -72,7 +73,7 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
                 <input
                   [formControl]="controls.jmenoSkupinovehoZazemi"
                   class="field"
-                  style="top:82px; left:76px; width:355px; text-align: center"
+                  style="top:64px; left:71px; width:355px; text-align: center"
                   placeholder="*"
                 />
               </div>
@@ -80,7 +81,7 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
                 <input
                   [formControl]="controls.typSkupinovehoZazemi"
                   class="field"
-                  style="top:82px; left:862px; width:354px; text-align: center"
+                  style="top:64px; left:867px; width:354px; text-align: center"
                   placeholder="*"
                 />
               </div>
@@ -118,7 +119,7 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
                 <input
                   [formControl]="controls.jmenoSkupiny"
                   class="field"
-                  style="top:300px; left:76px; width:353px; text-align: center"
+                  style="top:290px; left:71px; width:353px; text-align: center"
                   placeholder="Jméno skupiny"
                 />
               </div>
@@ -126,7 +127,7 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
                 <input
                   [formControl]="controls.zdatnostPriSkupinovemOvereni"
                   class="field"
-                  style="top:417px; left:76px; width:353px; text-align: center"
+                  style="top:407px; left:71px; width:353px; text-align: center"
                   placeholder="Zdatnost při skupinovém ověření"
                 />
               </div>
@@ -510,7 +511,7 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
                 <input
                   [formControl]="controls.jmenoSkupiny2"
                   class="field"
-                  style="top:2000px; left:76px; width:357px; text-align: center"
+                  style="top:1984px; left:69px; width:357px; text-align: center"
                   placeholder="Jméno skupiny"
                 />
               </div>
@@ -518,7 +519,7 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
                 <input
                   [formControl]="controls.reputace"
                   class="field"
-                  style="top:2000px; left:467px; width:751px; text-align: center"
+                  style="top:1984px; left:471px; width:751px; text-align: center"
                   placeholder="Reputace"
                 />
               </div>
@@ -544,8 +545,8 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
           }
         </div>
 
-        <!-- Save button hidden — use floating action button instead -->
-        <button (click)="onSaveClick()" type="submit" class="field button cs-save-btn" style="display:none;">
+        <!-- Save button: visible on desktop, hidden on tablet/mobile (≤1359 px) -->
+        <button (click)="onSaveClick()" type="submit" class="field button cs-save-btn">
           Uložit [enter]
         </button>
       </form>
@@ -556,7 +557,7 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
   styleUrl: 'character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '[class.theme-dark]': 'sheetTheme.darkMode()' },
-  imports: [ReactiveFormsModule, SpinnerOverlayComponent, MatIcon, MatTooltip, NgClass, RichTextareaComponent, CsCollapsibleComponent, CsFloatingActionsComponent, CdkDropList],
+  imports: [ReactiveFormsModule, SpinnerOverlayComponent, MatIcon, MatTooltip, NgClass, RichTextareaComponent, CsCollapsibleComponent, CsFloatingActionsComponent, CdkDropList, CsSvgSheetComponent],
 })
 export class GroupSheetComponent {
   characterSheetStore = inject(CharacterSheetStore);
