@@ -3,6 +3,33 @@
 
     <!-- ── Initiative table card ────────────────────────────── -->
     <div class="it-card">
+
+      <!-- Init dialog overlay -->
+      @if (initDialogOpen()) {
+        <div class="it-init-overlay">
+          <div class="it-init-dialog">
+            <h3 class="it-init-dialog__title">Inicializovat encounter</h3>
+            <p class="it-init-dialog__desc">
+              Jak nastavit životy příšer?
+            </p>
+            <div class="it-init-dialog__hp-hint">
+              <span class="it-init-dialog__formula-eg">Příklad: Goblin má <strong>7 (2k6)</strong> — 7 je průměr, 2k6 jsou 2 kostky šestky.</span>
+            </div>
+            <div class="it-init-dialog__actions">
+              <button type="button" class="it-btn it-btn--avg" (click)="runInit('average')">
+                <mat-icon>calculate</mat-icon> Průměr
+              </button>
+              <button type="button" class="it-btn it-btn--dice" (click)="runInit('dice')">
+                <mat-icon>casino</mat-icon> Hodit kostky
+              </button>
+              <button type="button" class="it-btn it-btn--cancel" (click)="initDialogOpen.set(false)">
+                Zrušit
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+
       <div class="it-header">
         <mat-icon class="it-header__icon">shield</mat-icon>
         <h2 class="it-header__title">Sledování iniciativy</h2>
@@ -20,7 +47,7 @@
         <span class="it-col-header it-col-header--sm">⚔ Init.</span>
         <span class="it-col-header it-col-header--name">👤 Jméno</span>
         <span class="it-col-header it-col-header--sm">🛡 OČ</span>
-        <span class="it-col-header it-col-header--sm">❤ HP</span>
+        <span class="it-col-header it-col-header--hp">❤ HP</span>
         <span class="it-col-header it-col-header--hp-adj">± HP</span>
         <span class="it-col-header it-col-header--icon"></span>
         <span class="it-col-header it-col-header--icon"></span>
@@ -28,12 +55,12 @@
       </div>
 
       <div class="it-rows">
-        @for (row of rows(); track $index) {
+        @for (row of rows(); track row.id) {
           <div
             class="it-row"
             [class.it-row--odd]="$index % 2 === 1"
             [class.it-row--active]="$index === activeIndex()"
-            [class.it-row--selected]="selectedRowIndex() === $index"
+            [class.it-row--card-open]="openCardByRowId().has(row.id)"
           >
             <span class="it-turn-indicator">{{ $index === activeIndex() ? '▶' : '' }}</span>
             <input [(ngModel)]="row.initiative" type="number" class="it-input it-input--sm" placeholder="—" />
@@ -44,7 +71,22 @@
               inputClass="it-input it-input--name"
             />
             <input [(ngModel)]="row.ac" type="number" class="it-input it-input--sm" placeholder="—" />
-            <input [(ngModel)]="row.hp" type="number" class="it-input it-input--sm" placeholder="—" />
+
+            <!-- HP input + bar -->
+            <div class="it-hp-col">
+              <input [(ngModel)]="row.hp" type="number" class="it-input it-input--sm" placeholder="—" />
+              @if (row.maxHp !== null && row.maxHp > 0) {
+                <div class="it-hp-bar">
+                  <div
+                    class="it-hp-bar__fill"
+                    [style.width.%]="hpPercent(row)"
+                    [class.it-hp-bar__fill--high]="hpPercent(row) > 66"
+                    [class.it-hp-bar__fill--med]="hpPercent(row) <= 66 && hpPercent(row) > 33"
+                    [class.it-hp-bar__fill--low]="hpPercent(row) <= 33"
+                  ></div>
+                </div>
+              }
+            </div>
 
             <!-- ± HP adjuster -->
             <div class="it-hp-adj">
@@ -72,14 +114,14 @@
               mat-icon-button
               type="button"
               class="it-lookup-btn"
-              [class.it-lookup-btn--active]="selectedRowIndex() === $index"
-              [class.it-lookup-btn--loading]="loadingIndex() === $index"
+              [class.it-lookup-btn--active]="openCardByRowId().has(row.id)"
+              [class.it-lookup-btn--loading]="openCardByRowId().get(row.id)?.loading"
               [class.it-lookup-btn--disabled]="disableMonsterSearch()"
               [disabled]="disableMonsterSearch() || undefined"
-              [matTooltip]="disableMonsterSearch() ? 'Vyhledávání příšer je dostupné na stránce PH nástroje' : 'Vyhledat příšeru'"
-              (click)="!disableMonsterSearch() && lookupMonster(row.name, $index)"
+              [matTooltip]="disableMonsterSearch() ? 'Vyhledávání příšer je dostupné na stránce PH nástroje' : (openCardByRowId().has(row.id) ? 'Karta je již otevřena (zvýraznit)' : 'Vyhledat příšeru')"
+              (click)="!disableMonsterSearch() && lookupMonster(row.name, row.id)"
             >
-              <mat-icon>{{ loadingIndex() === $index ? 'hourglass_empty' : 'search' }}</mat-icon>
+              <mat-icon>{{ openCardByRowId().get(row.id)?.loading ? 'hourglass_empty' : 'search' }}</mat-icon>
             </button>
             <button mat-icon-button type="button" class="it-remove-btn" title="Odstranit řádek" (click)="removeRow($index)">
               <mat-icon>close</mat-icon>
@@ -98,6 +140,10 @@
         <button type="button" class="it-btn it-btn--sort" (click)="sortRows()">
           <mat-icon>sort</mat-icon> Seřadit
         </button>
+        <button type="button" class="it-btn it-btn--init" [disabled]="initRunning() || undefined" (click)="startInitDialog()">
+          <mat-icon>{{ initRunning() ? 'hourglass_empty' : 'play_arrow' }}</mat-icon>
+          Inicializovat
+        </button>
         <button type="button" class="it-btn it-btn--save" (click)="save()">
           <mat-icon>save</mat-icon> Uložit
         </button>
@@ -108,23 +154,37 @@
       }
     </div>
 
-    <!-- ── Monster detail card ───────────────────────────────── -->
-    @if (isJadLookup()) {
-      <!-- JaD wiki monster (Czech) -->
-      <jad-monster-card
-        [html]="jadMonsterHtml()"
-        [loading]="loadingIndex() !== null && !jadMonsterHtml() && !monsterError()"
-        [error]="monsterError()"
-        (close)="closeMonster()"
-      />
-    } @else if (monsterData() || monsterError() || loadingIndex() !== null) {
-      <!-- D&D 5e API monster (English) -->
-      <monster-card
-        [monster]="monsterData()"
-        [loading]="loadingIndex() !== null && !monsterData() && !monsterError()"
-        [error]="monsterError()"
-        (close)="closeMonster()"
-      />
+    <!-- ── Monster cards queue ───────────────────────────────── -->
+    @if (openCards().length > 0) {
+      <div class="it-cards-area">
+        @for (card of openCards(); track card.rowId) {
+          <div
+            class="it-card-slot"
+            [class.it-card-slot--highlight]="card.highlightAnim"
+            (animationend)="clearHighlight(card.rowId)"
+          >
+            <div class="it-card-slot__label">
+              <mat-icon class="it-card-slot__label-icon">person_pin</mat-icon>
+              <span>{{ card.rowName }}</span>
+            </div>
+            @if (card.isJad) {
+              <jad-monster-card
+                [html]="card.jadMonsterHtml"
+                [loading]="card.loading"
+                [error]="card.error"
+                (close)="closeCard(card.rowId)"
+              />
+            } @else {
+              <monster-card
+                [monster]="card.monster"
+                [loading]="card.loading"
+                [error]="card.error"
+                (close)="closeCard(card.rowId)"
+              />
+            }
+          </div>
+        }
+      </div>
     }
 
   </div>

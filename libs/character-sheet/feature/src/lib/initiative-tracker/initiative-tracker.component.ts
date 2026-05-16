@@ -1,6 +1,12 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy, Component, computed, DestroyRef,
+  ElementRef, inject, input, signal,
+} from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
-import { debounceTime, fromEvent, merge, skip } from 'rxjs';
+import {
+  catchError, debounceTime, fromEvent, map, merge,
+  Observable, of, skip, Subject, switchMap, timer,
+} from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import {
   LocalStorageService, Monster, INITIATIVE_TRACKER_KEY,
@@ -14,6 +20,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MonsterCardComponent, JadMonsterCardComponent } from '@dn-d-servant/dnd-rules-database-feature';
 
 interface InitiativeRow {
+  id: number;
   initiative: number | null;
   name: string;
   ac: number | null;
@@ -21,6 +28,30 @@ interface InitiativeRow {
   hp: number | null;
   maxHp: number | null;
   hpDelta: number;
+}
+
+interface MonsterLookupResult {
+  isJad: boolean;
+  monster: Monster | null;
+  jadMonsterHtml: string | null;
+  hitPoints: number | null;
+  hitPointsRoll: string | null;
+  armorClass: number | null;
+  error: string | null;
+}
+
+interface MonsterCardEntry {
+  rowId: number;
+  rowName: string;
+  isJad: boolean;
+  monster: Monster | null;
+  jadMonsterHtml: string | null;
+  hitPointsRoll: string | null;
+  hitPointsAverage: number | null;
+  armorClass: number | null;
+  error: string | null;
+  loading: boolean;
+  highlightAnim: boolean;
 }
 
 const STORAGE_KEY = INITIATIVE_TRACKER_KEY;
@@ -44,47 +75,57 @@ export class InitiativeTrackerComponent {
 
   readonly monsterNames = COMBINED_MONSTER_NAMES as string[];
 
+  private _nextId = 1;
+
   rows = signal<InitiativeRow[]>(this._load());
   activeIndex = signal(0);
   savedMessage = signal(false);
-  loadingIndex = signal<number | null>(null);
-  selectedRowIndex = signal<number | null>(null);
-  monsterData = signal<Monster | null>(null);
-  monsterError = signal<string | null>(null);
-  /** Pre-rendered HTML for a JaD wiki monster (mutually exclusive with monsterData). */
-  jadMonsterHtml = signal<string | null>(null);
-  /** Tracks whether the current lookup is a JaD wiki lookup (true) or API lookup (false/null). */
-  isJadLookup = signal(false);
+  openCards = signal<MonsterCardEntry[]>([]);
+  initDialogOpen = signal(false);
+  private readonly _initPending = signal(0);
+  readonly initRunning = computed(() => this._initPending() > 0);
 
-  private _savedMessageTimer: ReturnType<typeof setTimeout> | null = null;
+  /** Fast O(1) card lookup by rowId, derived from openCards signal. */
+  readonly openCardByRowId = computed(() =>
+    new Map(this.openCards().map(c => [c.rowId, c]))
+  );
+
+  private readonly _saveMsg$ = new Subject<void>();
 
   constructor() {
-    // ① native input events – fires when the user types in any input inside
-    //   this component (ngModel mutates objects in-place without touching the signal)
+    // ① native input events – fires when the user types in any input inside this component
     const inputEvents$ = fromEvent(this.elRef.nativeElement, 'input');
-
     // ② structural changes – fires when rows are added, removed, sorted, copied
-    //   (these call signal.update() so the signal emits a new reference)
     const structuralChanges$ = toObservable(this.rows).pipe(skip(1));
 
     merge(inputEvents$, structuralChanges$)
-      .pipe(
-        debounceTime(1500),
-        takeUntilDestroyed(this.destroyRef),
-      )
+      .pipe(debounceTime(1500), takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.localStorageService.setDataSync(STORAGE_KEY, this.rows());
-        this._showSavedMessage();
+        this._saveMsg$.next();
       });
+
+    // Replace setTimeout saved-message timer with RxJS
+    this._saveMsg$.pipe(
+      switchMap(() => merge(of(true), timer(2000).pipe(map(() => false)))),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe(v => this.savedMessage.set(v));
   }
 
   private _load(): InitiativeRow[] {
     const saved = this.localStorageService.getDataSync<InitiativeRow[]>(STORAGE_KEY);
-    return saved?.map(r => ({ ...r, hpDelta: r.hpDelta ?? 1, maxHp: r.maxHp ?? null, baseAc: r.baseAc ?? null })) ?? [this._emptyRow()];
+    if (!saved) return [this._emptyRow()];
+    return saved.map(r => ({
+      ...r,
+      id: r.id ?? this._nextId++,
+      hpDelta: r.hpDelta ?? 1,
+      maxHp: r.maxHp ?? null,
+      baseAc: r.baseAc ?? null,
+    }));
   }
 
   private _emptyRow(): InitiativeRow {
-    return { initiative: null, name: '', ac: null, baseAc: null, hp: null, maxHp: null, hpDelta: 1 };
+    return { id: this._nextId++, initiative: null, name: '', ac: null, baseAc: null, hp: null, maxHp: null, hpDelta: 1 };
   }
 
   addRow() {
@@ -106,7 +147,7 @@ export class InitiativeTrackerComponent {
     }
     if (!nextLetter) return;
 
-    const newRow: InitiativeRow = { ...row, name: `${baseName} ${nextLetter}` };
+    const newRow: InitiativeRow = { ...row, id: this._nextId++, name: `${baseName} ${nextLetter}` };
     this.rows.update(rows => [
       ...rows.slice(0, index + 1),
       newRow,
@@ -131,9 +172,12 @@ export class InitiativeTrackerComponent {
   }
 
   removeRow(index: number) {
+    const row = this.rows()[index];
     this.rows.update(r => r.filter((_, i) => i !== index));
     this.activeIndex.update(i => Math.min(i, Math.max(0, this.rows().length - 1)));
-    if (this.selectedRowIndex() === index) this.closeMonster();
+    if (row) {
+      this.openCards.update(cards => cards.filter(c => c.rowId !== row.id));
+    }
   }
 
   nextRow() {
@@ -149,84 +193,172 @@ export class InitiativeTrackerComponent {
 
   save() {
     this.localStorageService.setDataSync(STORAGE_KEY, this.rows());
-    this._showSavedMessage();
+    this._saveMsg$.next();
   }
 
-  private _showSavedMessage() {
-    this.savedMessage.set(true);
-    if (this._savedMessageTimer) clearTimeout(this._savedMessageTimer);
-    this._savedMessageTimer = setTimeout(() => this.savedMessage.set(false), 2000);
+  /** Returns HP as a percentage of maxHp (0–100). */
+  hpPercent(row: InitiativeRow): number {
+    if (!row.maxHp || row.hp === null) return 100;
+    return Math.max(0, Math.min(100, (row.hp / row.maxHp) * 100));
   }
 
-  lookupMonster(name: string, rowIndex: number) {
-    if (this.selectedRowIndex() === rowIndex) {
-      this.closeMonster();
+  lookupMonster(name: string, rowId: number) {
+    const existing = this.openCardByRowId().get(rowId);
+    if (existing) {
+      // Card already open — trigger highlight animation
+      this.openCards.update(cards =>
+        cards.map(c => c.rowId === rowId ? { ...c, highlightAnim: true } : c)
+      );
       return;
     }
 
-    // Strip copy-postfix (e.g. "Goblin B" → "Goblin", "Goblin (J&D) B" → "Goblin (J&D)")
-    const displayName = this._resolveDisplayName(name.trim());
+    if (!name.trim()) return;
 
-    this.selectedRowIndex.set(rowIndex);
-    this.loadingIndex.set(rowIndex);
-    this.monsterData.set(null);
-    this.monsterError.set(null);
-    this.jadMonsterHtml.set(null);
-    this.isJadLookup.set(false);
+    // Add loading placeholder to queue
+    this.openCards.update(cards => [...cards, {
+      rowId, rowName: name, isJad: false,
+      monster: null, jadMonsterHtml: null,
+      hitPointsRoll: null, hitPointsAverage: null, armorClass: null,
+      error: null, loading: true, highlightAnim: false,
+    }]);
 
-    const entry = COMBINED_MONSTER_MAP.get(displayName.toLowerCase());
-
-    if (entry?.source === 'jad' || (!entry && this.jadBestiary.isJadMonster(displayName))) {
-      // ── JaD wiki monster ─────────────────────────────────────────────────
-      this.isJadLookup.set(true);
-      const jadName = entry?.canonicalName ?? displayName;
-      this.jadBestiary.getMonster(jadName).subscribe({
-        next: result => {
-          if (result) {
-            this.jadMonsterHtml.set(result.html);
-            this.loadingIndex.set(null);
-            this._autofillRow(rowIndex, result.hitPoints, result.armorClass);
-          } else {
-            this.monsterError.set(`Příšera „${jadName}" nebyla nalezena v JaD wiki.`);
-            this.loadingIndex.set(null);
-          }
-        },
-        error: () => {
-          this.monsterError.set(`Příšera „${jadName}" nebyla nalezena v JaD wiki.`);
-          this.loadingIndex.set(null);
-        },
+    this._monsterLookup$(name)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(result => {
+        this._applyHpAcToRow(rowId, result.hitPoints, result.armorClass);
+        this.openCards.update(cards =>
+          cards.map(c => c.rowId === rowId ? {
+            ...c,
+            isJad: result.isJad,
+            monster: result.monster,
+            jadMonsterHtml: result.jadMonsterHtml,
+            error: result.error,
+            loading: false,
+            hitPointsRoll: result.hitPointsRoll,
+            hitPointsAverage: result.hitPoints,
+            armorClass: result.armorClass,
+          } : c)
+        );
       });
+  }
 
-    } else {
-      // ── D&D 5e API monster ───────────────────────────────────────────────
-      const canonicalName = entry?.canonicalName ?? displayName;
-      const apiIndex = canonicalName
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, '-')
-        .replace(/[^a-z0-9-]/g, '');
+  closeCard(rowId: number) {
+    this.openCards.update(cards => cards.filter(c => c.rowId !== rowId));
+  }
 
-      if (!apiIndex) { this.loadingIndex.set(null); return; }
+  clearHighlight(rowId: number) {
+    this.openCards.update(cards =>
+      cards.map(c => c.rowId === rowId ? { ...c, highlightAnim: false } : c)
+    );
+  }
 
-      this.dnd5eApi.getMonster(apiIndex).subscribe({
-        next: m => {
-          this.monsterData.set(m);
-          this.loadingIndex.set(null);
-          this._autofillRow(rowIndex, m.hit_points ?? null, m.armor_class?.[0]?.value ?? null);
-        },
-        error: () => {
-          this.monsterError.set(`Příšera „${name.trim()}" nebyla nalezena.`);
-          this.loadingIndex.set(null);
-        },
-      });
+  startInitDialog() {
+    if (this.initRunning()) return;
+    this.initDialogOpen.set(true);
+  }
+
+  runInit(mode: 'average' | 'dice') {
+    this.initDialogOpen.set(false);
+    const rows = this.rows().filter(r => r.name.trim());
+    if (!rows.length) return;
+
+    // Reset cards and start fresh
+    this.openCards.set([]);
+    this._initPending.set(rows.length);
+
+    for (const row of rows) {
+      this.openCards.update(cards => [...cards, {
+        rowId: row.id, rowName: row.name, isJad: false,
+        monster: null, jadMonsterHtml: null,
+        hitPointsRoll: null, hitPointsAverage: null, armorClass: null,
+        error: null, loading: true, highlightAnim: false,
+      }]);
+
+      this._monsterLookup$(row.name)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(result => {
+          const hp = (mode === 'dice' && result.hitPointsRoll)
+            ? this._rollDiceFormula(result.hitPointsRoll)
+            : result.hitPoints;
+
+          this._applyHpAcForce(row.id, hp, result.armorClass);
+
+          this.openCards.update(cards =>
+            cards.map(c => c.rowId === row.id ? {
+              ...c,
+              isJad: result.isJad,
+              monster: result.monster,
+              jadMonsterHtml: result.jadMonsterHtml,
+              error: result.error,
+              loading: false,
+              hitPointsRoll: result.hitPointsRoll,
+              hitPointsAverage: result.hitPoints,
+              armorClass: result.armorClass,
+            } : c)
+          );
+          this._initPending.update(n => Math.max(0, n - 1));
+        });
     }
   }
 
-  /** Auto-fills HP and AC into a row only if the user hasn't already changed them. */
-  private _autofillRow(rowIndex: number, hp: number | null, ac: number | null): void {
+  // ── Shared monster fetch ──────────────────────────────────────────────────
+
+  private _monsterLookup$(name: string): Observable<MonsterLookupResult> {
+    const displayName = this._resolveDisplayName(name.trim());
+    const entry = COMBINED_MONSTER_MAP.get(displayName.toLowerCase());
+
+    if (entry?.source === 'jad' || (!entry && this.jadBestiary.isJadMonster(displayName))) {
+      const jadName = entry?.canonicalName ?? displayName;
+      return this.jadBestiary.getMonster(jadName).pipe(
+        map(result => result ? ({
+          isJad: true, monster: null,
+          jadMonsterHtml: result.html,
+          hitPoints: result.hitPoints,
+          hitPointsRoll: result.hitPointsRoll ?? null,
+          armorClass: result.armorClass,
+          error: null,
+        } as MonsterLookupResult) : ({
+          isJad: true, monster: null, jadMonsterHtml: null,
+          hitPoints: null, hitPointsRoll: null, armorClass: null,
+          error: `Příšera „${jadName}" nebyla nalezena v JaD wiki.`,
+        } as MonsterLookupResult)),
+        catchError(() => of<MonsterLookupResult>({
+          isJad: true, monster: null, jadMonsterHtml: null,
+          hitPoints: null, hitPointsRoll: null, armorClass: null,
+          error: `Příšera „${jadName}" nebyla nalezena v JaD wiki.`,
+        })),
+      );
+    }
+
+    const canonicalName = entry?.canonicalName ?? displayName;
+    const apiIndex = canonicalName.trim().toLowerCase()
+      .replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+
+    if (!apiIndex) {
+      return of({ isJad: false, monster: null, jadMonsterHtml: null, hitPoints: null, hitPointsRoll: null, armorClass: null, error: 'Neplatné jméno.' });
+    }
+
+    return this.dnd5eApi.getMonster(apiIndex).pipe(
+      map(m => ({
+        isJad: false, monster: m, jadMonsterHtml: null,
+        hitPoints: m.hit_points ?? null,
+        hitPointsRoll: m.hit_points_roll ?? null,
+        armorClass: m.armor_class?.[0]?.value ?? null,
+        error: null,
+      } as MonsterLookupResult)),
+      catchError(() => of<MonsterLookupResult>({
+        isJad: false, monster: null, jadMonsterHtml: null,
+        hitPoints: null, hitPointsRoll: null, armorClass: null,
+        error: `Příšera „${name.trim()}" nebyla nalezena.`,
+      })),
+    );
+  }
+
+  /** Auto-fills HP/AC only if the user hasn't manually changed them. */
+  private _applyHpAcToRow(rowId: number, hp: number | null, ac: number | null): void {
     this.rows.update(rows =>
-      rows.map((row, i) => {
-        if (i !== rowIndex) return row;
+      rows.map(row => {
+        if (row.id !== rowId) return row;
         const hpUnmodified = row.hp === null || row.hp === row.maxHp;
         const acUnmodified = row.ac === null || row.ac === row.baseAc;
         return {
@@ -240,31 +372,41 @@ export class InitiativeTrackerComponent {
     );
   }
 
-  /**
-   * Strips the copy-postfix (" B"…" Z") added by copyRow(), then resolves
-   * the display name by looking up the combined map (case/diacritics-insensitive).
-   */
+  /** Force-sets HP/AC (used during initialization — overwrites any user edits). */
+  private _applyHpAcForce(rowId: number, hp: number | null, ac: number | null): void {
+    this.rows.update(rows =>
+      rows.map(row => row.id !== rowId ? row : { ...row, ac, baseAc: ac, hp, maxHp: hp })
+    );
+  }
+
+  /** Rolls a dice formula like "2d6+2" or "5k8 + 10" (Czech notation supported). */
+  private _rollDiceFormula(formula: string): number {
+    const norm = formula.replace(/[kK]/g, 'd').replace(/\s+/g, '');
+    const match = norm.match(/^(\d+)d(\d+)([+-]\d+)?$/i);
+    if (!match) {
+      const n = parseInt(formula, 10);
+      return isNaN(n) ? 1 : n;
+    }
+    const count = parseInt(match[1], 10);
+    const sides = parseInt(match[2], 10);
+    const bonus = match[3] ? parseInt(match[3], 10) : 0;
+    let total = bonus;
+    for (let i = 0; i < count; i++) {
+      total += Math.floor(Math.random() * sides) + 1;
+    }
+    return Math.max(1, total);
+  }
+
   private _resolveDisplayName(raw: string): string {
     const baseName = this._extractBaseName(raw);
     const normBase = normalizeMonsterName(baseName);
-    // Find the first entry whose normalized display matches
     for (const [key, entry] of COMBINED_MONSTER_MAP) {
       if (normalizeMonsterName(key) === normBase) return entry.display;
     }
     return baseName;
   }
 
-  /** Removes a trailing " B"…" Z" postfix added by copyRow(). */
   private _extractBaseName(name: string): string {
     return name.replace(/\s+[B-Z]$/i, '').trim();
-  }
-
-  closeMonster() {
-    this.selectedRowIndex.set(null);
-    this.loadingIndex.set(null);
-    this.monsterData.set(null);
-    this.monsterError.set(null);
-    this.jadMonsterHtml.set(null);
-    this.isJadLookup.set(false);
   }
 }

@@ -14,6 +14,8 @@ export interface JadMonsterResult {
   hitPoints: number | null;
   /** Parsed numeric AC value (for auto-fill). */
   armorClass: number | null;
+  /** Dice formula extracted from the hit-points string, e.g. "2k6" or "5k8 + 10". */
+  hitPointsRoll: string | null;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -74,7 +76,8 @@ export class JadBestiaryService {
         const html = this.buildMonsterCard(attrs, bodyHtml);
         const hitPoints = this.parseHp(attrs['hit-points']);
         const armorClass = this.parseAc(attrs['armor-class']);
-        return { title: attrs['title'], html, hitPoints, armorClass };
+        const hitPointsRoll = this.parseDiceFromHp(attrs['hit-points']);
+        return { title: attrs['title'], html, hitPoints, armorClass, hitPointsRoll };
       }
     }
 
@@ -146,6 +149,13 @@ export class JadBestiaryService {
     if (!raw) return null;
     const m = raw.match(/(\d+)/);
     return m ? parseInt(m[1], 10) : null;
+  }
+
+  /** Extracts dice formula from inside parentheses, e.g. "7 (2k6)" → "2k6". */
+  private parseDiceFromHp(raw: string | undefined): string | null {
+    if (!raw) return null;
+    const m = raw.match(/\(([^)]+)\)/);
+    return m ? m[1].trim() : null;
   }
 }
 
