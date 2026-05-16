@@ -2,7 +2,10 @@ import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, inp
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { debounceTime, fromEvent, merge, skip } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { LocalStorageService, Monster, MONSTER_NAMES, JAD_MONSTER_NAMES, INITIATIVE_TRACKER_KEY } from '@dn-d-servant/util';
+import {
+  LocalStorageService, Monster, INITIATIVE_TRACKER_KEY,
+  COMBINED_MONSTER_NAMES, COMBINED_MONSTER_MAP, normalizeMonsterName,
+} from '@dn-d-servant/util';
 import { AutofillInputComponent } from '@dn-d-servant/ui';
 import { Dnd5eApiService, JadBestiaryService } from '@dn-d-servant/data-access';
 import { MatIconButton } from '@angular/material/button';
@@ -14,24 +17,13 @@ interface InitiativeRow {
   initiative: number | null;
   name: string;
   ac: number | null;
-  /** Base AC as returned by the monster lookup — used to detect whether the user
-   *  has already overridden AC so we don't overwrite it on a repeated search. */
   baseAc: number | null;
   hp: number | null;
-  /** Max HP as returned by the monster lookup — used to detect whether the user
-   *  has already decreased HP so we don't overwrite it on a repeated search. */
   maxHp: number | null;
-  /** Temporary delta used by the +/- HP adjuster — defaults to 1 */
   hpDelta: number;
 }
 
 const STORAGE_KEY = INITIATIVE_TRACKER_KEY;
-
-/** Combined autocomplete list: JaD Czech names + English API names, sorted. */
-const ALL_MONSTER_NAMES: string[] = [
-  ...JAD_MONSTER_NAMES,
-  ...MONSTER_NAMES,
-].sort((a, b) => a.localeCompare(b, 'cs'));
 
 @Component({
   selector: 'initiative-tracker',
@@ -50,7 +42,7 @@ export class InitiativeTrackerComponent {
   /** When true the monster-lookup search button is disabled (use DM tools page instead). */
   readonly disableMonsterSearch = input(false);
 
-  readonly monsterNames = ALL_MONSTER_NAMES;
+  readonly monsterNames = COMBINED_MONSTER_NAMES as string[];
 
   rows = signal<InitiativeRow[]>(this._load());
   activeIndex = signal(0);
@@ -172,8 +164,8 @@ export class InitiativeTrackerComponent {
       return;
     }
 
-    // Strip copy-postfix (e.g. "Berserker B" → "Berserker") and find canonical name
-    const canonical = this._resolveCanonicalMonsterName(name);
+    // Strip copy-postfix (e.g. "Goblin B" → "Goblin", "Goblin (J&D) B" → "Goblin (J&D)")
+    const displayName = this._resolveDisplayName(name.trim());
 
     this.selectedRowIndex.set(rowIndex);
     this.loadingIndex.set(rowIndex);
@@ -182,91 +174,84 @@ export class InitiativeTrackerComponent {
     this.jadMonsterHtml.set(null);
     this.isJadLookup.set(false);
 
-    // ── Try JaD wiki first ──────────────────────────────────────────────────
-    if (this.jadBestiary.isJadMonster(canonical)) {
+    const entry = COMBINED_MONSTER_MAP.get(displayName.toLowerCase());
+
+    if (entry?.source === 'jad' || (!entry && this.jadBestiary.isJadMonster(displayName))) {
+      // ── JaD wiki monster ─────────────────────────────────────────────────
       this.isJadLookup.set(true);
-      this.jadBestiary.getMonster(canonical).subscribe({
+      const jadName = entry?.canonicalName ?? displayName;
+      this.jadBestiary.getMonster(jadName).subscribe({
         next: result => {
           if (result) {
             this.jadMonsterHtml.set(result.html);
             this.loadingIndex.set(null);
-            // Auto-fill AC and HP from the JaD monster
-            this.rows.update(rows =>
-              rows.map((row, i) => {
-                if (i !== rowIndex) return row;
-                const monsterHp = result.hitPoints;
-                const monsterAc = result.armorClass;
-                const hpUnmodified = row.hp === null || row.hp === row.maxHp;
-                const acUnmodified = row.ac === null || row.ac === row.baseAc;
-                return {
-                  ...row,
-                  ac: acUnmodified ? monsterAc : row.ac,
-                  baseAc: monsterAc,
-                  hp: hpUnmodified ? monsterHp : row.hp,
-                  maxHp: monsterHp,
-                };
-              }),
-            );
+            this._autofillRow(rowIndex, result.hitPoints, result.armorClass);
           } else {
-            this.monsterError.set(`Příšera „${name.trim()}" nebyla nalezena v JaD wiki.`);
+            this.monsterError.set(`Příšera „${jadName}" nebyla nalezena v JaD wiki.`);
             this.loadingIndex.set(null);
           }
         },
         error: () => {
-          this.monsterError.set(`Příšera „${name.trim()}" nebyla nalezena v JaD wiki.`);
+          this.monsterError.set(`Příšera „${jadName}" nebyla nalezena v JaD wiki.`);
           this.loadingIndex.set(null);
         },
       });
-      return;
+
+    } else {
+      // ── D&D 5e API monster ───────────────────────────────────────────────
+      const canonicalName = entry?.canonicalName ?? displayName;
+      const apiIndex = canonicalName
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^a-z0-9-]/g, '');
+
+      if (!apiIndex) { this.loadingIndex.set(null); return; }
+
+      this.dnd5eApi.getMonster(apiIndex).subscribe({
+        next: m => {
+          this.monsterData.set(m);
+          this.loadingIndex.set(null);
+          this._autofillRow(rowIndex, m.hit_points ?? null, m.armor_class?.[0]?.value ?? null);
+        },
+        error: () => {
+          this.monsterError.set(`Příšera „${name.trim()}" nebyla nalezena.`);
+          this.loadingIndex.set(null);
+        },
+      });
     }
-
-    // ── Fall back to D&D 5e API ─────────────────────────────────────────────
-    const index = (canonical ?? '')
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g, '-')
-      .replace(/[^a-z0-9-]/g, '');
-
-    if (!index) return;
-
-    this.dnd5eApi.getMonster(index).subscribe({
-      next: m => {
-        this.monsterData.set(m);
-        this.loadingIndex.set(null);
-        // Auto-fill AC and HP into the row
-        this.rows.update(rows =>
-          rows.map((row, i) => {
-            if (i !== rowIndex) return row;
-            const monsterHp = m.hit_points ?? null;
-            const monsterAc = m.armor_class?.[0]?.value ?? null;
-            // Only override HP if the user hasn't changed it since the last lookup
-            const hpUnmodified = row.hp === null || row.hp === row.maxHp;
-            // Only override AC if the user hasn't changed it since the last lookup
-            const acUnmodified = row.ac === null || row.ac === row.baseAc;
-            return {
-              ...row,
-              ac: acUnmodified ? monsterAc : row.ac,
-              baseAc: monsterAc,
-              hp: hpUnmodified ? monsterHp : row.hp,
-              maxHp: monsterHp,
-            };
-          }),
-        );
-      },
-      error: () => {
-        this.monsterError.set(`Příšera „${name.trim()}" nebyla nalezena.`);
-        this.loadingIndex.set(null);
-      },
-    });
   }
 
-  /** Strips trailing single-letter copy postfix (e.g. " B", " C") then finds the
-   *  best match in ALL_MONSTER_NAMES (case-insensitive). Falls back to the raw name. */
-  private _resolveCanonicalMonsterName(name: string): string {
-    const baseName = this._extractBaseName(name.trim());
-    const lower = baseName.toLowerCase();
-    const match = ALL_MONSTER_NAMES.find(m => m.toLowerCase() === lower);
-    return match ?? baseName;
+  /** Auto-fills HP and AC into a row only if the user hasn't already changed them. */
+  private _autofillRow(rowIndex: number, hp: number | null, ac: number | null): void {
+    this.rows.update(rows =>
+      rows.map((row, i) => {
+        if (i !== rowIndex) return row;
+        const hpUnmodified = row.hp === null || row.hp === row.maxHp;
+        const acUnmodified = row.ac === null || row.ac === row.baseAc;
+        return {
+          ...row,
+          ac: acUnmodified ? ac : row.ac,
+          baseAc: ac,
+          hp: hpUnmodified ? hp : row.hp,
+          maxHp: hp,
+        };
+      }),
+    );
+  }
+
+  /**
+   * Strips the copy-postfix (" B"…" Z") added by copyRow(), then resolves
+   * the display name by looking up the combined map (case/diacritics-insensitive).
+   */
+  private _resolveDisplayName(raw: string): string {
+    const baseName = this._extractBaseName(raw);
+    const normBase = normalizeMonsterName(baseName);
+    // Find the first entry whose normalized display matches
+    for (const [key, entry] of COMBINED_MONSTER_MAP) {
+      if (normalizeMonsterName(key) === normBase) return entry.display;
+    }
+    return baseName;
   }
 
   /** Removes a trailing " B"…" Z" postfix added by copyRow(). */

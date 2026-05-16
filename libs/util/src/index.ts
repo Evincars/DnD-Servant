@@ -12,6 +12,7 @@ export * from './lib/object-util';
 export * from './lib/form-util';
 export * from './lib/monster-names';
 export * from './lib/jad-monster-names';
+export * from './lib/combined-monster-names';
 export * from './lib/dnd5e-api-models/dnd5e-monster-api.models';
 export * from './lib/dnd5e-api-models/dnd5e-spells-api.models';
 export * from './lib/dnd5e-api-models/dnd5e-races-api.models';
