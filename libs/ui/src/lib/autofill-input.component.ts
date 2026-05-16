@@ -174,6 +174,10 @@ export class AutofillInputComponent implements ControlValueAccessor {
   onValueChange(v: string): void {
     this.value.set(v);
     this.activeIdx.set(-1);
+    // Re-open (and reposition) whenever the user edits — handles the case where
+    // they selected an option and immediately start typing again without a blur.
+    this._updatePosition();
+    this.open.set(true);
     this.onChange(v);
   }
 
