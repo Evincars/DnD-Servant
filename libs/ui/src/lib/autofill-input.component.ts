@@ -1,5 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, forwardRef, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy, Component, computed, DestroyRef,
+  ElementRef, forwardRef, inject, input, signal, viewChild,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { fromEvent } from 'rxjs';
 
 let nextId = 0;
 
@@ -12,8 +17,7 @@ const MAX_VISIBLE = 80;
 
 /**
  * A plain-text input with a custom diacritics-insensitive autocomplete dropdown.
- * Filtering works even when typing without accents (e.g. "chrlic" → "Chrlič").
- * Implements ControlValueAccessor — use with [(ngModel)] or formControl.
+ * The dropdown uses `position: fixed` so it is never clipped by ancestor overflow.
  */
 @Component({
   selector: 'autofill-input',
@@ -29,13 +33,14 @@ const MAX_VISIBLE = 80;
   template: `
     <div class="afc-wrap">
       <input
+        #inputEl
         [id]="inputId"
         type="text"
         [class]="inputClass()"
         [placeholder]="placeholder()"
         [ngModel]="value()"
         (ngModelChange)="onValueChange($event)"
-        (focus)="open.set(true)"
+        (focus)="onFocus()"
         (blur)="open.set(false)"
         (keydown)="onKeydown($event)"
         autocomplete="off"
@@ -48,6 +53,9 @@ const MAX_VISIBLE = 80;
         <ul
           class="afc-dropdown"
           role="listbox"
+          [style.top]="dropTop()"
+          [style.left]="dropLeft()"
+          [style.width]="dropWidth()"
           (mousedown)="$event.preventDefault()"
         >
           @for (s of filtered(); track s; let i = $index) {
@@ -72,11 +80,9 @@ const MAX_VISIBLE = 80;
       min-width: 0;
     }
 
+    /* position: fixed — never clipped by any ancestor overflow */
     .afc-dropdown {
-      position: absolute;
-      top: calc(100% + 2px);
-      left: 0;
-      min-width: 100%;
+      position: fixed;
       max-width: 420px;
       max-height: 260px;
       overflow-y: auto;
@@ -105,6 +111,9 @@ const MAX_VISIBLE = 80;
   `,
 })
 export class AutofillInputComponent implements ControlValueAccessor {
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly inputEl = viewChild<ElementRef<HTMLInputElement>>('inputEl');
+
   suggestions = input<string[]>([]);
   placeholder = input<string>('');
   inputClass = input<string>('');
@@ -112,6 +121,11 @@ export class AutofillInputComponent implements ControlValueAccessor {
   value = signal<string>('');
   open = signal(false);
   activeIdx = signal(-1);
+
+  // Fixed dropdown coordinates (updated on focus)
+  dropTop = signal('0px');
+  dropLeft = signal('0px');
+  dropWidth = signal('200px');
 
   filtered = computed(() => {
     const q = normalize(this.value());
@@ -124,8 +138,34 @@ export class AutofillInputComponent implements ControlValueAccessor {
   readonly inputId = `autofill-input-${++nextId}`;
   readonly listId = `autofill-list-${nextId}`;
 
+  constructor() {
+    // Close on any scroll (capture phase catches scrolls inside overflow containers)
+    fromEvent(document, 'scroll', { capture: true, passive: true })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.open.set(false));
+
+    // Close on window resize
+    fromEvent(window, 'resize', { passive: true })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.open.set(false));
+  }
+
   optionId(i: number): string {
     return `${this.listId}-opt-${i}`;
+  }
+
+  onFocus(): void {
+    this._updatePosition();
+    this.open.set(true);
+  }
+
+  private _updatePosition(): void {
+    const el = this.inputEl()?.nativeElement;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    this.dropTop.set(`${rect.bottom + 2}px`);
+    this.dropLeft.set(`${rect.left}px`);
+    this.dropWidth.set(`${rect.width}px`);
   }
 
   private onChange: (v: string) => void = () => {};
@@ -169,13 +209,7 @@ export class AutofillInputComponent implements ControlValueAccessor {
     this.activeIdx.set(-1);
   }
 
-  writeValue(v: string): void {
-    this.value.set(v ?? '');
-  }
-  registerOnChange(fn: (v: string) => void): void {
-    this.onChange = fn;
-  }
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
+  writeValue(v: string): void { this.value.set(v ?? ''); }
+  registerOnChange(fn: (v: string) => void): void { this.onChange = fn; }
+  registerOnTouched(fn: () => void): void { this.onTouched = fn; }
 }
