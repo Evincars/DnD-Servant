@@ -9,9 +9,9 @@
       </div>
       <p class="it-notice">Data se ukládají pouze v tomto prohlížeči — na jiném zařízení budou řádky prázdné.</p>
       <p class="it-notice it-notice--monsters">
-        Automatické doplňování jmen vychází ze seznamu příšer <strong>D&amp;D 2014 Monster Manual</strong>. Nejsou zahrnuty příšery
-        z přídavných/doplňujících knih.
-        Celý seznam najdeš na
+        Automatické doplňování jmen vychází z <strong>JaD wiki</strong> (Bestiář v češtině) i ze seznamu příšer
+        <strong>D&amp;D 2014 Monster Manual</strong> (v angličtině).
+        Celý anglický seznam najdeš na
         <a href="https://www.aidedd.org/dnd-filters/monsters.php" target="_blank" rel="noopener">aidedd.org</a>.
       </p>
 
@@ -109,7 +109,16 @@
     </div>
 
     <!-- ── Monster detail card ───────────────────────────────── -->
-    @if (monsterData() || monsterError() || loadingIndex() !== null) {
+    @if (isJadLookup()) {
+      <!-- JaD wiki monster (Czech) -->
+      <jad-monster-card
+        [html]="jadMonsterHtml()"
+        [loading]="loadingIndex() !== null && !jadMonsterHtml() && !monsterError()"
+        [error]="monsterError()"
+        (close)="closeMonster()"
+      />
+    } @else if (monsterData() || monsterError() || loadingIndex() !== null) {
+      <!-- D&D 5e API monster (English) -->
       <monster-card
         [monster]="monsterData()"
         [loading]="loadingIndex() !== null && !monsterData() && !monsterError()"

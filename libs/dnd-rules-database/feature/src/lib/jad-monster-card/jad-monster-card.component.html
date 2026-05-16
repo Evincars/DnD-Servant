@@ -1,0 +1,19 @@
+<div class="jmc-card">
+  <button class="jmc-close" (click)="close.emit()" title="Zavřít">✕</button>
+
+  @if (loading()) {
+    <div class="jmc-loading">
+      <mat-icon class="jmc-loading__icon">hourglass_empty</mat-icon>
+      <span>Načítám příšeru z JaD wiki…</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="jmc-error">⚠ {{ error() }}</div>
+  }
+
+  @if (html(); as content) {
+    <div class="jmc-body" [innerHTML]="content"></div>
+  }
+</div>
+

@@ -2,13 +2,13 @@ import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, inp
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { debounceTime, fromEvent, merge, skip } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { LocalStorageService, Monster, MONSTER_NAMES, INITIATIVE_TRACKER_KEY } from '@dn-d-servant/util';
+import { LocalStorageService, Monster, MONSTER_NAMES, JAD_MONSTER_NAMES, INITIATIVE_TRACKER_KEY } from '@dn-d-servant/util';
 import { AutofillInputComponent } from '@dn-d-servant/ui';
-import { Dnd5eApiService } from '@dn-d-servant/data-access';
+import { Dnd5eApiService, JadBestiaryService } from '@dn-d-servant/data-access';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MonsterCardComponent } from '@dn-d-servant/dnd-rules-database-feature';
+import { MonsterCardComponent, JadMonsterCardComponent } from '@dn-d-servant/dnd-rules-database-feature';
 
 interface InitiativeRow {
   initiative: number | null;
@@ -27,23 +27,30 @@ interface InitiativeRow {
 
 const STORAGE_KEY = INITIATIVE_TRACKER_KEY;
 
+/** Combined autocomplete list: JaD Czech names + English API names, sorted. */
+const ALL_MONSTER_NAMES: string[] = [
+  ...JAD_MONSTER_NAMES,
+  ...MONSTER_NAMES,
+].sort((a, b) => a.localeCompare(b, 'cs'));
+
 @Component({
   selector: 'initiative-tracker',
   templateUrl: './initiative-tracker.component.html',
   styleUrl: './initiative-tracker.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, MatIconButton, MatIcon, MatTooltip, MonsterCardComponent, AutofillInputComponent],
+  imports: [FormsModule, MatIconButton, MatIcon, MatTooltip, MonsterCardComponent, JadMonsterCardComponent, AutofillInputComponent],
 })
 export class InitiativeTrackerComponent {
   private readonly localStorageService = inject(LocalStorageService);
   private readonly dnd5eApi = inject(Dnd5eApiService);
+  private readonly jadBestiary = inject(JadBestiaryService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly elRef = inject(ElementRef<HTMLElement>);
 
   /** When true the monster-lookup search button is disabled (use DM tools page instead). */
   readonly disableMonsterSearch = input(false);
 
-  readonly monsterNames = MONSTER_NAMES;
+  readonly monsterNames = ALL_MONSTER_NAMES;
 
   rows = signal<InitiativeRow[]>(this._load());
   activeIndex = signal(0);
@@ -52,6 +59,10 @@ export class InitiativeTrackerComponent {
   selectedRowIndex = signal<number | null>(null);
   monsterData = signal<Monster | null>(null);
   monsterError = signal<string | null>(null);
+  /** Pre-rendered HTML for a JaD wiki monster (mutually exclusive with monsterData). */
+  jadMonsterHtml = signal<string | null>(null);
+  /** Tracks whether the current lookup is a JaD wiki lookup (true) or API lookup (false/null). */
+  isJadLookup = signal(false);
 
   private _savedMessageTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -164,6 +175,52 @@ export class InitiativeTrackerComponent {
     // Strip copy-postfix (e.g. "Berserker B" → "Berserker") and find canonical name
     const canonical = this._resolveCanonicalMonsterName(name);
 
+    this.selectedRowIndex.set(rowIndex);
+    this.loadingIndex.set(rowIndex);
+    this.monsterData.set(null);
+    this.monsterError.set(null);
+    this.jadMonsterHtml.set(null);
+    this.isJadLookup.set(false);
+
+    // ── Try JaD wiki first ──────────────────────────────────────────────────
+    if (this.jadBestiary.isJadMonster(canonical)) {
+      this.isJadLookup.set(true);
+      this.jadBestiary.getMonster(canonical).subscribe({
+        next: result => {
+          if (result) {
+            this.jadMonsterHtml.set(result.html);
+            this.loadingIndex.set(null);
+            // Auto-fill AC and HP from the JaD monster
+            this.rows.update(rows =>
+              rows.map((row, i) => {
+                if (i !== rowIndex) return row;
+                const monsterHp = result.hitPoints;
+                const monsterAc = result.armorClass;
+                const hpUnmodified = row.hp === null || row.hp === row.maxHp;
+                const acUnmodified = row.ac === null || row.ac === row.baseAc;
+                return {
+                  ...row,
+                  ac: acUnmodified ? monsterAc : row.ac,
+                  baseAc: monsterAc,
+                  hp: hpUnmodified ? monsterHp : row.hp,
+                  maxHp: monsterHp,
+                };
+              }),
+            );
+          } else {
+            this.monsterError.set(`Příšera „${name.trim()}" nebyla nalezena v JaD wiki.`);
+            this.loadingIndex.set(null);
+          }
+        },
+        error: () => {
+          this.monsterError.set(`Příšera „${name.trim()}" nebyla nalezena v JaD wiki.`);
+          this.loadingIndex.set(null);
+        },
+      });
+      return;
+    }
+
+    // ── Fall back to D&D 5e API ─────────────────────────────────────────────
     const index = (canonical ?? '')
       .trim()
       .toLowerCase()
@@ -171,11 +228,6 @@ export class InitiativeTrackerComponent {
       .replace(/[^a-z0-9-]/g, '');
 
     if (!index) return;
-
-    this.selectedRowIndex.set(rowIndex);
-    this.loadingIndex.set(rowIndex);
-    this.monsterData.set(null);
-    this.monsterError.set(null);
 
     this.dnd5eApi.getMonster(index).subscribe({
       next: m => {
@@ -209,11 +261,11 @@ export class InitiativeTrackerComponent {
   }
 
   /** Strips trailing single-letter copy postfix (e.g. " B", " C") then finds the
-   *  best match in MONSTER_NAMES (case-insensitive). Falls back to the raw name. */
+   *  best match in ALL_MONSTER_NAMES (case-insensitive). Falls back to the raw name. */
   private _resolveCanonicalMonsterName(name: string): string {
     const baseName = this._extractBaseName(name.trim());
     const lower = baseName.toLowerCase();
-    const match = MONSTER_NAMES.find(m => m.toLowerCase() === lower);
+    const match = ALL_MONSTER_NAMES.find(m => m.toLowerCase() === lower);
     return match ?? baseName;
   }
 
@@ -227,5 +279,7 @@ export class InitiativeTrackerComponent {
     this.loadingIndex.set(null);
     this.monsterData.set(null);
     this.monsterError.set(null);
+    this.jadMonsterHtml.set(null);
+    this.isJadLookup.set(false);
   }
 }
