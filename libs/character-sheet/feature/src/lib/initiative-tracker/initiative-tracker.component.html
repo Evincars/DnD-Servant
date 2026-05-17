@@ -50,7 +50,9 @@
         <span class="it-col-header it-col-header--hp">❤ HP</span>
         <span class="it-col-header it-col-header--hp-adj">± HP</span>
         <span class="it-col-header it-col-header--icon"></span>
-        <span class="it-col-header it-col-header--icon"></span>
+        @if (!disableMonsterSearch()) {
+          <span class="it-col-header it-col-header--icon"></span>
+        }
         <span class="it-col-header it-col-header--icon"></span>
       </div>
 
@@ -110,19 +112,19 @@
             >
               <mat-icon>content_copy</mat-icon>
             </button>
-            <button
-              mat-icon-button
-              type="button"
-              class="it-lookup-btn"
-              [class.it-lookup-btn--active]="openCardByRowId().has(row.id)"
-              [class.it-lookup-btn--loading]="openCardByRowId().get(row.id)?.loading"
-              [class.it-lookup-btn--disabled]="disableMonsterSearch()"
-              [disabled]="disableMonsterSearch() || undefined"
-              [matTooltip]="disableMonsterSearch() ? 'Vyhledávání příšer je dostupné na stránce PH nástroje' : (openCardByRowId().has(row.id) ? 'Karta je již otevřena (zvýraznit)' : 'Vyhledat příšeru')"
-              (click)="!disableMonsterSearch() && lookupMonster(row.name, row.id)"
-            >
-              <mat-icon>{{ openCardByRowId().get(row.id)?.loading ? 'hourglass_empty' : 'search' }}</mat-icon>
-            </button>
+            @if (!disableMonsterSearch()) {
+              <button
+                mat-icon-button
+                type="button"
+                class="it-lookup-btn"
+                [class.it-lookup-btn--active]="openCardByRowId().has(row.id)"
+                [class.it-lookup-btn--loading]="openCardByRowId().get(row.id)?.loading"
+                [matTooltip]="openCardByRowId().has(row.id) ? 'Karta je již otevřena (zvýraznit)' : 'Vyhledat příšeru'"
+                (click)="lookupMonster(row.name, row.id)"
+              >
+                <mat-icon>{{ openCardByRowId().get(row.id)?.loading ? 'hourglass_empty' : 'search' }}</mat-icon>
+              </button>
+            }
             <button mat-icon-button type="button" class="it-remove-btn" title="Odstranit řádek" (click)="removeRow($index)">
               <mat-icon>close</mat-icon>
             </button>

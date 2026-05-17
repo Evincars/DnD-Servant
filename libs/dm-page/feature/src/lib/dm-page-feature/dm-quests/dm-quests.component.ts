@@ -275,8 +275,10 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
           <div class="header-subtitle">Pouze pro Pána Hry — hráči tuto stránku nevidí</div>
         </div>
         <div class="header-actions">
-          <button class="btn btn-icon" type="button" (click)="expandAll()" matTooltip="Rozbalit vše"><mat-icon>unfold_more</mat-icon></button>
-          <button class="btn btn-icon" type="button" (click)="collapseAll()" matTooltip="Sbalit vše"><mat-icon>unfold_less</mat-icon></button>
+          <button class="btn btn-icon" type="button" (click)="toggleAllExpanded()"
+            [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">
+            <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
+          </button>
           <button class="btn" type="button" (click)="addQuest()"><mat-icon>add</mat-icon>Přidat quest</button>
           <button class="btn btn-save" type="button" (click)="save()"><mat-icon>save</mat-icon>Uložit</button>
         </div>
@@ -507,6 +509,14 @@ export class DmQuestsComponent {
       stage: 1, dateAdded: new Date().toISOString().split('T')[0],
     } as DmQuestEntry]);
     this.expandedIds.update(s => new Set([...s, id]));
+  }
+
+  readonly allExpanded = computed(() =>
+    this.quests().length > 0 && this.quests().every(q => this.expandedIds().has(q.id))
+  );
+
+  toggleAllExpanded(): void {
+    if (this.allExpanded()) { this.collapseAll(); } else { this.expandAll(); }
   }
 
   toggleExpand(id: string): void {

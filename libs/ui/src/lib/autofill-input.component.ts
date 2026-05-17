@@ -72,12 +72,15 @@ const MAX_VISIBLE = 80;
     </div>
   `,
   styles: `
-    :host { display: contents; }
+    :host {
+      display: block;
+      flex: 1;
+      min-width: 0;
+    }
 
     .afc-wrap {
       position: relative;
-      flex: 1;
-      min-width: 0;
+      width: 100%;
     }
 
     /* position: fixed — never clipped by any ancestor overflow */

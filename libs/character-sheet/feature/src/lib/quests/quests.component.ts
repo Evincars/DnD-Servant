@@ -651,11 +651,9 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
         </div>
         <div class="quests-header-actions">
           <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
-          <button class="btn-dnd btn-dnd-icon" type="button" (click)="expandAll()" matTooltip="Rozbalit vše">
-            <mat-icon>unfold_more</mat-icon>
-          </button>
-          <button class="btn-dnd btn-dnd-icon" type="button" (click)="collapseAll()" matTooltip="Sbalit vše">
-            <mat-icon>unfold_less</mat-icon>
+          <button class="btn-dnd btn-dnd-icon" type="button" (click)="toggleAllExpanded()"
+            [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">
+            <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
           </button>
           <button class="btn-dnd" type="button" (click)="addQuest()" matTooltip="Přidat nový quest">
             <mat-icon>add</mat-icon>
@@ -1027,6 +1025,18 @@ export class QuestsTabComponent {
       else next.add(id);
       return next;
     });
+  }
+
+  readonly allExpanded = computed(() =>
+    this.quests().length > 0 && this.quests().every(q => this.expandedIds().has(q.id))
+  );
+
+  toggleAllExpanded(): void {
+    if (this.allExpanded()) {
+      this.collapseAll();
+    } else {
+      this.expandAll();
+    }
   }
 
   expandAll(): void {
