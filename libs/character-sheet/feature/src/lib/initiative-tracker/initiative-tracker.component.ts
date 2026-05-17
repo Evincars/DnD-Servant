@@ -101,6 +101,12 @@ export class InitiativeTrackerComponent {
     return map;
   });
 
+  /** The row-id of the currently active row (tracks both activeIndex and rows). */
+  readonly activeRowId = computed(() => {
+    const idx = this.activeIndex();
+    return this.rows()[idx]?.id ?? null;
+  });
+
   /** True when every open card is expanded (none collapsed). */
   readonly allCardsExpanded = computed(() =>
     this.openCards().length > 0 && this.openCards().every(c => !c.collapsed)
@@ -129,15 +135,11 @@ export class InitiativeTrackerComponent {
       takeUntilDestroyed(this.destroyRef),
     ).subscribe(v => this.savedMessage.set(v));
 
-    // Auto-expand the active row's card and collapse all others when turn changes.
-    // Only tracks activeIndex — rows/openCards are read without creating dependencies.
+    // Auto-expand the active row's card and collapse all others when turn changes
+    // or when rows are removed (activeRowId tracks both activeIndex and rows).
     effect(() => {
-      const idx = this.activeIndex();
-      const activeRowId = untracked(() => this.rows())[idx]?.id;
-      if (activeRowId === undefined || untracked(() => this.openCards()).length === 0) return;
-      this.openCards.update(cards =>
-        cards.map(c => ({ ...c, collapsed: !c.rowIds.includes(activeRowId) }))
-      );
+      const activeId = this.activeRowId();
+      untracked(() => this._expandActiveCard(activeId));
     });
 
     // Load saved cards from localStorage once (only for PH tools page where search is enabled).
@@ -251,6 +253,8 @@ export class InitiativeTrackerComponent {
           .map(c => ({ ...c, rowIds: c.rowIds.filter(id => id !== row.id) }))
           .filter(c => c.rowIds.length > 0)
       );
+      // Re-expand the card belonging to the now-active row after removal
+      this._expandActiveCard(this.activeRowId());
     }
   }
 
@@ -525,6 +529,17 @@ export class InitiativeTrackerComponent {
   }
 
   private _extractBaseName(name: string): string {
-    return name.replace(/\s+[B-Z]$/i, '').trim();
+    return name.replace(/\s+[A-Z]$/i, '').trim();
+  }
+
+  /**
+   * Expands the card that owns `activeId` and collapses all others.
+   * Called from the activeRowId effect and from removeRow to avoid stale expansion state.
+   */
+  private _expandActiveCard(activeId: number | null): void {
+    if (activeId === null || this.openCards().length === 0) return;
+    this.openCards.update(cards =>
+      cards.map(c => ({ ...c, collapsed: !c.rowIds.includes(activeId) }))
+    );
   }
 }
