@@ -209,7 +209,7 @@
   }
 
   &--sm   { width: 54px; text-align: center; flex-shrink: 0; }
-  &--name { flex: 1; }
+  &--name { width: 100%; }
 
   &[type='number'] {
     -moz-appearance: textfield;
@@ -530,45 +530,155 @@ datalist { display: none; }
 // ── Monster cards area ────────────────────────────────────────────────────────
 .it-cards-area {
   display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 1100px;
+}
+
+// ── Cards bar (title + expand/collapse all) ───────────────────────────────────
+.it-cards-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 2px;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'Mikadan', sans-serif;
+    font-size: 12px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.35);
+  }
+
+  &__icon {
+    font-size: 15px !important;
+    width: 15px !important;
+    height: 15px !important;
+    color: rgba(160,30,30,.6);
+  }
+
+  &__count {
+    color: rgba(255,255,255,.2);
+    font-size: 10px;
+  }
+}
+
+// ── Card row (wraps slots) ────────────────────────────────────────────────────
+.it-cards-row {
+  display: flex;
   flex-wrap: wrap;
   gap: 18px;
   align-items: flex-start;
 }
 
-// ── Individual card slot + highlight animation ────────────────────────────────
+// ── Individual card slot ──────────────────────────────────────────────────────
 @keyframes it-card-highlight {
-  0%   { box-shadow: 0 0 0 2px rgba(200,160,60,.0), 0 0 0 rgba(200,160,60,.0); }
+  0%   { box-shadow: 0 0 0 2px rgba(200,160,60,.0); }
   20%  { box-shadow: 0 0 0 3px rgba(200,160,60,.8), 0 0 20px rgba(200,160,60,.35); }
   60%  { box-shadow: 0 0 0 3px rgba(200,160,60,.6), 0 0 12px rgba(200,160,60,.2); }
-  100% { box-shadow: 0 0 0 2px rgba(200,160,60,.0), 0 0 0 rgba(200,160,60,.0); }
+  100% { box-shadow: 0 0 0 2px rgba(200,160,60,.0); }
 }
 
 .it-card-slot {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0;
+  min-width: 280px;
 
   &--highlight {
     animation: it-card-highlight .8s ease-out forwards;
     border-radius: 2px;
   }
+}
 
-  &__label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-family: 'Mikadan', sans-serif;
-    font-size: 9px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,.3);
-    padding: 0 2px;
+// ── Card slot header (clickable) ──────────────────────────────────────────────
+.it-card-slot__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 2px 2px 0 0;
+  background: rgba(255,255,255,.025);
+  border: 1px solid rgba(255,255,255,.06);
+  border-bottom: none;
+  cursor: pointer;
+  user-select: none;
+  transition: background .15s;
+
+  .it-card-slot--collapsed & {
+    border-radius: 2px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
   }
 
-  &__label-icon {
-    font-size: 12px !important;
-    width: 12px !important;
-    height: 12px !important;
-    color: rgba(160,30,30,.6);
+  &:hover {
+    background: rgba(255,255,255,.05);
+  }
+}
+
+.it-card-slot__label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Mikadan', sans-serif;
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+}
+
+.it-card-slot__label-icon {
+  font-size: 13px !important;
+  width: 13px !important;
+  height: 13px !important;
+  color: rgba(160,30,30,.6);
+}
+
+.it-card-slot__chevron {
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+  color: rgba(255,255,255,.2);
+  transition: color .15s;
+  flex-shrink: 0;
+
+  .it-card-slot__header:hover & {
+    color: rgba(255,255,255,.5);
+  }
+}
+
+// ── Animated body (grid-template-rows collapse trick) ─────────────────────────
+.it-card-body-wrapper {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows .26s ease;
+
+  > .it-card-body {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .it-card-slot--collapsed & {
+    grid-template-rows: 0fr;
+  }
+}
+
+// ── Expand-all button ─────────────────────────────────────────────────────────
+.it-btn--expand-all {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.07);
+  color: rgba(255,255,255,.28);
+  padding: 4px 10px;
+
+  mat-icon { font-size: 13px; width: 13px; height: 13px; }
+
+  &:hover {
+    background: rgba(255,255,255,.04);
+    border-color: rgba(255,255,255,.14);
+    color: rgba(255,255,255,.6);
   }
 }

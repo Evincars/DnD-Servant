@@ -157,33 +157,63 @@
     <!-- ── Monster cards queue ───────────────────────────────── -->
     @if (openCards().length > 0) {
       <div class="it-cards-area">
-        @for (card of openCards(); track card.rowId) {
-          <div
-            class="it-card-slot"
-            [class.it-card-slot--highlight]="card.highlightAnim"
-            (animationend)="clearHighlight(card.rowId)"
-          >
-            <div class="it-card-slot__label">
-              <mat-icon class="it-card-slot__label-icon">person_pin</mat-icon>
-              <span>{{ card.rowName }}</span>
-            </div>
-            @if (card.isJad) {
-              <jad-monster-card
-                [html]="card.jadMonsterHtml"
-                [loading]="card.loading"
-                [error]="card.error"
-                (close)="closeCard(card.rowId)"
-              />
-            } @else {
-              <monster-card
-                [monster]="card.monster"
-                [loading]="card.loading"
-                [error]="card.error"
-                (close)="closeCard(card.rowId)"
-              />
-            }
+
+        <!-- Cards bar: title + expand/collapse all -->
+        <div class="it-cards-bar">
+          <div class="it-cards-bar__title">
+            <mat-icon class="it-cards-bar__icon">bug_report</mat-icon>
+            <span>Příšery <span class="it-cards-bar__count">({{ openCards().length }})</span></span>
           </div>
-        }
+          <button type="button" class="it-btn it-btn--expand-all" (click)="toggleAllCards()">
+            <mat-icon>{{ allCardsExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
+            {{ allCardsExpanded() ? 'Sbalit vše' : 'Rozvinout vše' }}
+          </button>
+        </div>
+
+        <!-- Card slots -->
+        <div class="it-cards-row">
+          @for (card of openCards(); track card.rowId) {
+            <div
+              class="it-card-slot"
+              [class.it-card-slot--highlight]="card.highlightAnim"
+              [class.it-card-slot--collapsed]="card.collapsed"
+              (animationend)="clearHighlight(card.rowId)"
+            >
+              <!-- Clickable header: row label + chevron -->
+              <div class="it-card-slot__header" (click)="toggleCardCollapse(card.rowId)">
+                <div class="it-card-slot__label">
+                  <mat-icon class="it-card-slot__label-icon">person_pin</mat-icon>
+                  <span>{{ card.rowName }}</span>
+                </div>
+                <mat-icon class="it-card-slot__chevron">
+                  {{ card.collapsed ? 'expand_more' : 'expand_less' }}
+                </mat-icon>
+              </div>
+
+              <!-- Animated body wrapper -->
+              <div class="it-card-body-wrapper">
+                <div class="it-card-body">
+                  @if (card.isJad) {
+                    <jad-monster-card
+                      [html]="card.jadMonsterHtml"
+                      [loading]="card.loading"
+                      [error]="card.error"
+                      (close)="closeCard(card.rowId)"
+                    />
+                  } @else {
+                    <monster-card
+                      [monster]="card.monster"
+                      [loading]="card.loading"
+                      [error]="card.error"
+                      (close)="closeCard(card.rowId)"
+                    />
+                  }
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
       </div>
     }
 

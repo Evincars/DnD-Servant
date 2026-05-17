@@ -1,6 +1,6 @@
 import {
   ChangeDetectionStrategy, Component, computed, DestroyRef,
-  ElementRef, inject, input, signal,
+  effect, ElementRef, inject, input, signal, untracked,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import {
@@ -52,6 +52,7 @@ interface MonsterCardEntry {
   error: string | null;
   loading: boolean;
   highlightAnim: boolean;
+  collapsed: boolean;
 }
 
 const STORAGE_KEY = INITIATIVE_TRACKER_KEY;
@@ -90,6 +91,11 @@ export class InitiativeTrackerComponent {
     new Map(this.openCards().map(c => [c.rowId, c]))
   );
 
+  /** True when every open card is expanded (none collapsed). */
+  readonly allCardsExpanded = computed(() =>
+    this.openCards().length > 0 && this.openCards().every(c => !c.collapsed)
+  );
+
   private readonly _saveMsg$ = new Subject<void>();
 
   constructor() {
@@ -110,6 +116,17 @@ export class InitiativeTrackerComponent {
       switchMap(() => merge(of(true), timer(2000).pipe(map(() => false)))),
       takeUntilDestroyed(this.destroyRef),
     ).subscribe(v => this.savedMessage.set(v));
+
+    // Auto-expand the active row's card and collapse all others when turn changes.
+    // Only tracks activeIndex — rows/openCards are read without creating dependencies.
+    effect(() => {
+      const idx = this.activeIndex();
+      const activeRowId = untracked(() => this.rows())[idx]?.id;
+      if (activeRowId === undefined || untracked(() => this.openCards()).length === 0) return;
+      this.openCards.update(cards =>
+        cards.map(c => ({ ...c, collapsed: c.rowId !== activeRowId }))
+      );
+    });
   }
 
   private _load(): InitiativeRow[] {
@@ -205,9 +222,9 @@ export class InitiativeTrackerComponent {
   lookupMonster(name: string, rowId: number) {
     const existing = this.openCardByRowId().get(rowId);
     if (existing) {
-      // Card already open — trigger highlight animation
+      // Card already open — trigger highlight animation and expand it
       this.openCards.update(cards =>
-        cards.map(c => c.rowId === rowId ? { ...c, highlightAnim: true } : c)
+        cards.map(c => c.rowId === rowId ? { ...c, highlightAnim: true, collapsed: false } : c)
       );
       return;
     }
@@ -219,7 +236,7 @@ export class InitiativeTrackerComponent {
       rowId, rowName: name, isJad: false,
       monster: null, jadMonsterHtml: null,
       hitPointsRoll: null, hitPointsAverage: null, armorClass: null,
-      error: null, loading: true, highlightAnim: false,
+      error: null, loading: true, highlightAnim: false, collapsed: false,
     }]);
 
     this._monsterLookup$(name)
@@ -252,6 +269,17 @@ export class InitiativeTrackerComponent {
     );
   }
 
+  toggleCardCollapse(rowId: number) {
+    this.openCards.update(cards =>
+      cards.map(c => c.rowId === rowId ? { ...c, collapsed: !c.collapsed } : c)
+    );
+  }
+
+  toggleAllCards() {
+    const expandAll = !this.allCardsExpanded();
+    this.openCards.update(cards => cards.map(c => ({ ...c, collapsed: !expandAll })));
+  }
+
   startInitDialog() {
     if (this.initRunning()) return;
     this.initDialogOpen.set(true);
@@ -271,7 +299,7 @@ export class InitiativeTrackerComponent {
         rowId: row.id, rowName: row.name, isJad: false,
         monster: null, jadMonsterHtml: null,
         hitPointsRoll: null, hitPointsAverage: null, armorClass: null,
-        error: null, loading: true, highlightAnim: false,
+        error: null, loading: true, highlightAnim: false, collapsed: false,
       }]);
 
       this._monsterLookup$(row.name)
