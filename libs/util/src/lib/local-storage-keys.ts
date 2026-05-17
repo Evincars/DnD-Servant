@@ -39,6 +39,9 @@ export const AUTOFILL_DIALOG_HIDDEN_KEY = 'autofill-dialog-hidden';
 /** Initiative tracker rows */
 export const INITIATIVE_TRACKER_KEY = 'initiative-tracker';
 
+/** Initiative tracker open monster-card queue (DM tools page only) */
+export const INITIATIVE_TRACKER_CARDS_KEY = 'initiative-tracker-cards';
+
 // ── DM page ───────────────────────────────────────────────────────────────────
 
 /** Active DM-page tab index */

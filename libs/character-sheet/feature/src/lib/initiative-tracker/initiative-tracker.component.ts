@@ -9,7 +9,7 @@ import {
 } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import {
-  LocalStorageService, Monster, INITIATIVE_TRACKER_KEY,
+  LocalStorageService, Monster, INITIATIVE_TRACKER_KEY, INITIATIVE_TRACKER_CARDS_KEY,
   COMBINED_MONSTER_NAMES, COMBINED_MONSTER_MAP, normalizeMonsterName,
 } from '@dn-d-servant/util';
 import { AutofillInputComponent } from '@dn-d-servant/ui';
@@ -56,6 +56,7 @@ interface MonsterCardEntry {
 }
 
 const STORAGE_KEY = INITIATIVE_TRACKER_KEY;
+const CARDS_STORAGE_KEY = INITIATIVE_TRACKER_CARDS_KEY;
 
 @Component({
   selector: 'initiative-tracker',
@@ -97,6 +98,8 @@ export class InitiativeTrackerComponent {
   );
 
   private readonly _saveMsg$ = new Subject<void>();
+  /** Prevents the card-load effect from firing more than once. */
+  private _cardsLoaded = false;
 
   constructor() {
     // ① native input events – fires when the user types in any input inside this component
@@ -127,6 +130,33 @@ export class InitiativeTrackerComponent {
         cards.map(c => ({ ...c, collapsed: c.rowId !== activeRowId }))
       );
     });
+
+    // Load saved cards from localStorage once (only for PH tools page where search is enabled).
+    // The effect reads disableMonsterSearch() so it fires after inputs are bound.
+    effect(() => {
+      if (this._cardsLoaded) return;
+      const searchEnabled = !this.disableMonsterSearch();
+      this._cardsLoaded = true;
+      if (searchEnabled) {
+        untracked(() => {
+          const saved = this.localStorageService.getDataSync<MonsterCardEntry[]>(CARDS_STORAGE_KEY);
+          if (saved?.length) {
+            this.openCards.set(saved.map(c => ({
+              ...c, loading: false, highlightAnim: false, collapsed: c.collapsed ?? false,
+            })));
+          }
+        });
+      }
+    });
+
+    // Persist open cards to localStorage whenever they change (PH tools page only).
+    toObservable(this.openCards)
+      .pipe(skip(1), debounceTime(400), takeUntilDestroyed(this.destroyRef))
+      .subscribe(cards => {
+        if (!this.disableMonsterSearch()) {
+          this.localStorageService.setDataSync(CARDS_STORAGE_KEY, cards.filter(c => !c.loading));
+        }
+      });
   }
 
   private _load(): InitiativeRow[] {
@@ -261,6 +291,10 @@ export class InitiativeTrackerComponent {
 
   closeCard(rowId: number) {
     this.openCards.update(cards => cards.filter(c => c.rowId !== rowId));
+  }
+
+  closeAllCards() {
+    this.openCards.set([]);
   }
 
   clearHighlight(rowId: number) {

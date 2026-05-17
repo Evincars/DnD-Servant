@@ -424,8 +424,9 @@ const APP_COMMANDS: CommandItem[] = [
     /* Fuzzy-match highlight inside label */
     :host ::ng-deep .cp-match {
       background: transparent;
-      color: rgba(240, 200, 80, 1);
-      font-weight: 700;
+      color: rgba(210, 55, 45, 0.95);
+      font-weight: normal;
+      font-family: inherit;
     }
 
     .cp-item-sub {

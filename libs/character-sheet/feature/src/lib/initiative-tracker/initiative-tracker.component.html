@@ -142,10 +142,12 @@
         <button type="button" class="it-btn it-btn--sort" (click)="sortRows()">
           <mat-icon>sort</mat-icon> Seřadit
         </button>
-        <button type="button" class="it-btn it-btn--init" [disabled]="initRunning() || undefined" (click)="startInitDialog()">
-          <mat-icon>{{ initRunning() ? 'hourglass_empty' : 'play_arrow' }}</mat-icon>
-          Inicializovat
-        </button>
+        @if (!disableMonsterSearch()) {
+          <button type="button" class="it-btn it-btn--init" [disabled]="initRunning() || undefined" (click)="startInitDialog()">
+            <mat-icon>{{ initRunning() ? 'hourglass_empty' : 'play_arrow' }}</mat-icon>
+            Inicializovat
+          </button>
+        }
         <button type="button" class="it-btn it-btn--save" (click)="save()">
           <mat-icon>save</mat-icon> Uložit
         </button>
@@ -160,16 +162,22 @@
     @if (openCards().length > 0) {
       <div class="it-cards-area">
 
-        <!-- Cards bar: title + expand/collapse all -->
+        <!-- Cards bar: title + expand/collapse all + close all -->
         <div class="it-cards-bar">
           <div class="it-cards-bar__title">
             <mat-icon class="it-cards-bar__icon">bug_report</mat-icon>
             <span>Příšery <span class="it-cards-bar__count">({{ openCards().length }})</span></span>
           </div>
-          <button type="button" class="it-btn it-btn--expand-all" (click)="toggleAllCards()">
-            <mat-icon>{{ allCardsExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
-            {{ allCardsExpanded() ? 'Sbalit vše' : 'Rozvinout vše' }}
-          </button>
+          <div class="it-cards-bar__actions">
+            <button type="button" class="it-btn it-btn--expand-all" (click)="toggleAllCards()">
+              <mat-icon>{{ allCardsExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
+              {{ allCardsExpanded() ? 'Sbalit vše' : 'Rozvinout vše' }}
+            </button>
+            <button type="button" class="it-btn it-btn--close-all" (click)="closeAllCards()" matTooltip="Zavřít všechny karty příšer">
+              <mat-icon>clear_all</mat-icon>
+              Zavřít vše
+            </button>
+          </div>
         </div>
 
         <!-- Card slots -->
