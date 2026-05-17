@@ -81,6 +81,16 @@ const MAX_VISIBLE = 80;
     .afc-wrap {
       position: relative;
       width: 100%;
+
+      /* Ensure the inner input never exceeds the container — browsers apply
+         a user-agent minimum width to <input> that would otherwise escape the
+         flex item and push sibling columns out of place. */
+      input {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+      }
     }
 
     /* position: fixed — never clipped by any ancestor overflow */

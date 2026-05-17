@@ -321,9 +321,9 @@ const APP_COMMANDS: CommandItem[] = [
       background: transparent;
       border: none;
       outline: none;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 15px;
-      letter-spacing: .04em;
+      letter-spacing: .02em;
       color: #e8d9b0;
       caret-color: rgba(200,160,60,.8);
 
@@ -354,9 +354,9 @@ const APP_COMMANDS: CommandItem[] = [
     .cp-empty {
       padding: 28px 16px;
       text-align: center;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 12px;
-      letter-spacing: .1em;
+      letter-spacing: .04em;
       color: rgba(200,160,60,.3);
     }
 
@@ -411,9 +411,9 @@ const APP_COMMANDS: CommandItem[] = [
     }
 
     .cp-item-label {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 13px;
-      letter-spacing: .04em;
+      letter-spacing: .02em;
       color: #c8b880;
       transition: color .1s;
       white-space: nowrap;

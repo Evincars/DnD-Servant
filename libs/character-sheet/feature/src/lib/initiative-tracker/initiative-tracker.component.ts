@@ -41,7 +41,10 @@ interface MonsterLookupResult {
 }
 
 interface MonsterCardEntry {
-  rowId: number;
+  /** Deduplication key: `_extractBaseName(rawName)`, e.g. "Goblin" for "Goblin B". */
+  baseName: string;
+  /** All row IDs associated with this monster (Goblin, Goblin B, Goblin C → same card). */
+  rowIds: number[];
   rowName: string;
   isJad: boolean;
   monster: Monster | null;
@@ -87,10 +90,16 @@ export class InitiativeTrackerComponent {
   private readonly _initPending = signal(0);
   readonly initRunning = computed(() => this._initPending() > 0);
 
-  /** Fast O(1) card lookup by rowId, derived from openCards signal. */
-  readonly openCardByRowId = computed(() =>
-    new Map(this.openCards().map(c => [c.rowId, c]))
-  );
+  /** Fast O(1) card lookup by any rowId (all rowIds in a card map to it). */
+  readonly openCardByRowId = computed(() => {
+    const map = new Map<number, MonsterCardEntry>();
+    for (const card of this.openCards()) {
+      for (const id of card.rowIds) {
+        map.set(id, card);
+      }
+    }
+    return map;
+  });
 
   /** True when every open card is expanded (none collapsed). */
   readonly allCardsExpanded = computed(() =>
@@ -127,7 +136,7 @@ export class InitiativeTrackerComponent {
       const activeRowId = untracked(() => this.rows())[idx]?.id;
       if (activeRowId === undefined || untracked(() => this.openCards()).length === 0) return;
       this.openCards.update(cards =>
-        cards.map(c => ({ ...c, collapsed: c.rowId !== activeRowId }))
+        cards.map(c => ({ ...c, collapsed: !c.rowIds.includes(activeRowId) }))
       );
     });
 
@@ -139,11 +148,24 @@ export class InitiativeTrackerComponent {
       this._cardsLoaded = true;
       if (searchEnabled) {
         untracked(() => {
-          const saved = this.localStorageService.getDataSync<MonsterCardEntry[]>(CARDS_STORAGE_KEY);
+          const saved = this.localStorageService.getDataSync<any[]>(CARDS_STORAGE_KEY);
           if (saved?.length) {
             this.openCards.set(saved.map(c => ({
-              ...c, loading: false, highlightAnim: false, collapsed: c.collapsed ?? false,
-            })));
+              // Migrate old format (rowId: number) → new (rowIds: number[], baseName: string)
+              baseName: c.baseName ?? this._extractBaseName(c.rowName ?? ''),
+              rowIds: c.rowIds ?? (c.rowId !== undefined ? [c.rowId] : []),
+              rowName: c.rowName ?? '',
+              isJad: c.isJad ?? false,
+              monster: c.monster ?? null,
+              jadMonsterHtml: c.jadMonsterHtml ?? null,
+              hitPointsRoll: c.hitPointsRoll ?? null,
+              hitPointsAverage: c.hitPointsAverage ?? null,
+              armorClass: c.armorClass ?? null,
+              error: c.error ?? null,
+              loading: false,
+              highlightAnim: false,
+              collapsed: c.collapsed ?? false,
+            } as MonsterCardEntry)));
           }
         });
       }
@@ -223,7 +245,12 @@ export class InitiativeTrackerComponent {
     this.rows.update(r => r.filter((_, i) => i !== index));
     this.activeIndex.update(i => Math.min(i, Math.max(0, this.rows().length - 1)));
     if (row) {
-      this.openCards.update(cards => cards.filter(c => c.rowId !== row.id));
+      // Remove the rowId from any card that references it; remove card if it has no rowIds left
+      this.openCards.update(cards =>
+        cards
+          .map(c => ({ ...c, rowIds: c.rowIds.filter(id => id !== row.id) }))
+          .filter(c => c.rowIds.length > 0)
+      );
     }
   }
 
@@ -250,11 +277,18 @@ export class InitiativeTrackerComponent {
   }
 
   lookupMonster(name: string, rowId: number) {
-    const existing = this.openCardByRowId().get(rowId);
-    if (existing) {
-      // Card already open — trigger highlight animation and expand it
+    const baseName = this._extractBaseName(name);
+    const existingByBase = this.openCards().find(c => c.baseName === baseName);
+
+    if (existingByBase) {
+      // Card already open for this monster — add rowId if missing, highlight, expand
       this.openCards.update(cards =>
-        cards.map(c => c.rowId === rowId ? { ...c, highlightAnim: true, collapsed: false } : c)
+        cards.map(c => c.baseName === baseName ? {
+          ...c,
+          rowIds: c.rowIds.includes(rowId) ? c.rowIds : [...c.rowIds, rowId],
+          highlightAnim: true,
+          collapsed: false,
+        } : c)
       );
       return;
     }
@@ -263,7 +297,10 @@ export class InitiativeTrackerComponent {
 
     // Add loading placeholder to queue
     this.openCards.update(cards => [...cards, {
-      rowId, rowName: name, isJad: false,
+      baseName,
+      rowIds: [rowId],
+      rowName: baseName,
+      isJad: false,
       monster: null, jadMonsterHtml: null,
       hitPointsRoll: null, hitPointsAverage: null, armorClass: null,
       error: null, loading: true, highlightAnim: false, collapsed: false,
@@ -274,7 +311,7 @@ export class InitiativeTrackerComponent {
       .subscribe(result => {
         this._applyHpAcToRow(rowId, result.hitPoints, result.armorClass);
         this.openCards.update(cards =>
-          cards.map(c => c.rowId === rowId ? {
+          cards.map(c => c.baseName === baseName ? {
             ...c,
             isJad: result.isJad,
             monster: result.monster,
@@ -289,24 +326,24 @@ export class InitiativeTrackerComponent {
       });
   }
 
-  closeCard(rowId: number) {
-    this.openCards.update(cards => cards.filter(c => c.rowId !== rowId));
+  closeCard(baseName: string) {
+    this.openCards.update(cards => cards.filter(c => c.baseName !== baseName));
+  }
+
+  clearHighlight(baseName: string) {
+    this.openCards.update(cards =>
+      cards.map(c => c.baseName === baseName ? { ...c, highlightAnim: false } : c)
+    );
+  }
+
+  toggleCardCollapse(baseName: string) {
+    this.openCards.update(cards =>
+      cards.map(c => c.baseName === baseName ? { ...c, collapsed: !c.collapsed } : c)
+    );
   }
 
   closeAllCards() {
     this.openCards.set([]);
-  }
-
-  clearHighlight(rowId: number) {
-    this.openCards.update(cards =>
-      cards.map(c => c.rowId === rowId ? { ...c, highlightAnim: false } : c)
-    );
-  }
-
-  toggleCardCollapse(rowId: number) {
-    this.openCards.update(cards =>
-      cards.map(c => c.rowId === rowId ? { ...c, collapsed: !c.collapsed } : c)
-    );
   }
 
   toggleAllCards() {
@@ -324,29 +361,48 @@ export class InitiativeTrackerComponent {
     const rows = this.rows().filter(r => r.name.trim());
     if (!rows.length) return;
 
+    // Deduplicate: Goblin + Goblin B + Goblin C → one card entry
+    const dedupedEntries: { baseName: string; rowIds: number[]; name: string }[] = [];
+    const seenBaseNames = new Set<string>();
+    for (const row of rows) {
+      const baseName = this._extractBaseName(row.name);
+      if (seenBaseNames.has(baseName)) {
+        dedupedEntries.find(e => e.baseName === baseName)!.rowIds.push(row.id);
+      } else {
+        seenBaseNames.add(baseName);
+        dedupedEntries.push({ baseName, rowIds: [row.id], name: row.name });
+      }
+    }
+
     // Reset cards and start fresh
     this.openCards.set([]);
-    this._initPending.set(rows.length);
+    this._initPending.set(dedupedEntries.length);
 
-    for (const row of rows) {
+    for (const entry of dedupedEntries) {
       this.openCards.update(cards => [...cards, {
-        rowId: row.id, rowName: row.name, isJad: false,
+        baseName: entry.baseName,
+        rowIds: entry.rowIds,
+        rowName: entry.baseName,
+        isJad: false,
         monster: null, jadMonsterHtml: null,
         hitPointsRoll: null, hitPointsAverage: null, armorClass: null,
         error: null, loading: true, highlightAnim: false, collapsed: false,
       }]);
 
-      this._monsterLookup$(row.name)
+      this._monsterLookup$(entry.name)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(result => {
           const hp = (mode === 'dice' && result.hitPointsRoll)
             ? this._rollDiceFormula(result.hitPointsRoll)
             : result.hitPoints;
 
-          this._applyHpAcForce(row.id, hp, result.armorClass);
+          // Apply HP/AC to ALL rows sharing this base name
+          for (const rowId of entry.rowIds) {
+            this._applyHpAcForce(rowId, hp, result.armorClass);
+          }
 
           this.openCards.update(cards =>
-            cards.map(c => c.rowId === row.id ? {
+            cards.map(c => c.baseName === entry.baseName ? {
               ...c,
               isJad: result.isJad,
               monster: result.monster,

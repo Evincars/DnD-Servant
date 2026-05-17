@@ -182,15 +182,15 @@
 
         <!-- Card slots -->
         <div class="it-cards-row">
-          @for (card of openCards(); track card.rowId) {
+          @for (card of openCards(); track card.baseName) {
             <div
               class="it-card-slot"
               [class.it-card-slot--highlight]="card.highlightAnim"
               [class.it-card-slot--collapsed]="card.collapsed"
-              (animationend)="clearHighlight(card.rowId)"
+              (animationend)="clearHighlight(card.baseName)"
             >
               <!-- Clickable header: row label + chevron -->
-              <div class="it-card-slot__header" (click)="toggleCardCollapse(card.rowId)">
+              <div class="it-card-slot__header" (click)="toggleCardCollapse(card.baseName)">
                 <div class="it-card-slot__label">
                   <mat-icon class="it-card-slot__label-icon">person_pin</mat-icon>
                   <span>{{ card.rowName }}</span>
@@ -208,14 +208,14 @@
                       [html]="card.jadMonsterHtml"
                       [loading]="card.loading"
                       [error]="card.error"
-                      (close)="closeCard(card.rowId)"
+                      (close)="closeCard(card.baseName)"
                     />
                   } @else {
                     <monster-card
                       [monster]="card.monster"
                       [loading]="card.loading"
                       [error]="card.error"
-                      (close)="closeCard(card.rowId)"
+                      (close)="closeCard(card.baseName)"
                     />
                   }
                 </div>
