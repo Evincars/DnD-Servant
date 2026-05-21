@@ -5,13 +5,14 @@ import { GroupSheetComponent } from './group-sheet.component';
 import { NotesSheetComponent } from './notes-sheet.component';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { InitiativeTrackerComponent } from './initiative-tracker/initiative-tracker.component';
-import { PlayerItemsCardsComponent } from './players-items-cards/player-items-cards.component';
 import { QuestsTabComponent } from './quests/quests.component';
 import { LocalStorageService, ACTIVE_TAB_INDEX_KEY, AUTOFILL_DIALOG_HIDDEN_KEY, TabNavigatorService } from '@dn-d-servant/util';
 import { MatDialog } from '@angular/material/dialog';
 import { openAutofillAbilitiesDialog } from './help-dialogs/autofill-abilities-dialog.component';
 import { ImageConverterComponent } from './image-converter/image-converter.component';
 import { WikiTabComponent } from './wiki/wiki-tab.component';
+import { SpellsTabComponent } from './spells-tab/spells-tab.component';
+import { Subscription, timer } from 'rxjs';
 
 const TAB_INDEX_KEY = ACTIVE_TAB_INDEX_KEY;
 /** Total number of tabs in the character-sheet tab group. Keep in sync with the template. */
@@ -29,7 +30,7 @@ const TAB_COUNT = 8;
       <mat-tab label="Karta postavy"><character-sheet class="u-mt-2" /></mat-tab>
       <mat-tab label="Questy"><quests-tab /></mat-tab>
       <mat-tab label="Karta družiny"><group-sheet class="u-mt-2" /></mat-tab>
-      <mat-tab label="Moje předměty"><player-items-cards /></mat-tab>
+      <mat-tab label="Kouzla"><spells-tab [active]="selectedTab() === 3" /></mat-tab>
       <mat-tab label="Poznámky"><notes-sheet /></mat-tab>
       <mat-tab label="Iniciativa"><initiative-tracker [disableMonsterSearch]="true" /></mat-tab>
       <mat-tab label="Konvertor obrázků"><image-converter /></mat-tab>
@@ -210,6 +211,14 @@ const TAB_COUNT = 8;
       height: calc(100svh - 165px);
       min-height: 400px;
     }
+
+    /* Kouzla tab needs full viewport height with internal scrolling */
+    ::ng-deep spells-tab {
+      display: flex;
+      flex-direction: column;
+      height: calc(100svh - 165px);
+      min-height: 400px;
+    }
   `,
   providers: [CharacterSheetStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -220,10 +229,10 @@ const TAB_COUNT = 8;
     GroupSheetComponent,
     NotesSheetComponent,
     InitiativeTrackerComponent,
-    PlayerItemsCardsComponent,
     QuestsTabComponent,
     ImageConverterComponent,
     WikiTabComponent,
+    SpellsTabComponent,
   ],
 })
 export class CharacterSheetTabsComponent implements OnInit, OnDestroy {
@@ -239,18 +248,23 @@ export class CharacterSheetTabsComponent implements OnInit, OnDestroy {
     persistTab: (i: number) => this.ls.setDataSync(TAB_INDEX_KEY, i),
   };
 
+  private _autofillTimerSub: Subscription | undefined;
+
   ngOnInit(): void {
     this.tabNavigator.register(this._registration);
 
     const hidden = this.ls.getDataSync<boolean>(AUTOFILL_DIALOG_HIDDEN_KEY);
     if (!hidden) {
-      // Small delay so the app renders first
-      setTimeout(() => openAutofillAbilitiesDialog(this.dialog).subscribe(), 600);
+      // Delay so the app renders first before opening the dialog
+      this._autofillTimerSub = timer(600).subscribe(() =>
+        openAutofillAbilitiesDialog(this.dialog).subscribe(),
+      );
     }
   }
 
   ngOnDestroy(): void {
     this.tabNavigator.unregister(this._registration);
+    this._autofillTimerSub?.unsubscribe();
   }
 
   onTabChange(index: number): void {
