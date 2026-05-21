@@ -15,6 +15,71 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { JadSpell, JadSpellsService } from '../jad-spells.service';
 import { SpellDetailDialogComponent, SpellDetailDialogData } from '../spell-detail-dialog.component';
 
+// ── Fuzzy-search helpers ────────────────────────────────────────────────────
+
+/**
+ * Position-preserving normalization: strips diacritics and lowercases
+ * WITHOUT trimming or collapsing spaces, so char indices map 1-to-1 with
+ * the original string.
+ */
+function posNorm(s: string): string {
+  return s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+}
+
+/**
+ * Subsequence / fuzzy match.
+ * Every character of `query` must appear in `text` in order (can skip chars).
+ * Returns the matched indices inside `text`, or `null` if no match.
+ *
+ * Example: query="balu", text="bajny lucisnik" → [0,1,7,12] ✓
+ */
+function fuzzySubsequence(query: string, text: string): number[] | null {
+  const indices: number[] = [];
+  let ti = 0;
+  for (let qi = 0; qi < query.length; qi++) {
+    const ch = query[qi];
+    while (ti < text.length && text[ti] !== ch) ti++;
+    if (ti >= text.length) return null;
+    indices.push(ti);
+    ti++;
+  }
+  return indices;
+}
+
+/** Minimal HTML escaping for safe use in [innerHTML]. */
+function escHtml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/**
+ * Wraps each matched character index in a `<span class="spell-hl">` element.
+ * Consecutive matched characters are merged into a single span for cleaner HTML.
+ */
+function buildHighlightHtml(original: string, indices: number[]): string {
+  const matchSet = new Set(indices);
+  const parts: string[] = [];
+  let inSpan = false;
+  for (let i = 0; i < original.length; i++) {
+    const ch = escHtml(original[i]);
+    if (matchSet.has(i)) {
+      if (!inSpan) { parts.push('<span class="spell-hl">'); inSpan = true; }
+      parts.push(ch);
+    } else {
+      if (inSpan) { parts.push('</span>'); inSpan = false; }
+      parts.push(ch);
+    }
+  }
+  if (inSpan) parts.push('</span>');
+  return parts.join('');
+}
+
+// ── Typed item returned by filteredSpells ───────────────────────────────────
+interface SpellItem {
+  spell: JadSpell;
+  /** Safe HTML string – plain text when no query, highlighted when matched. */
+  highlightedName: string;
+}
+
 @Component({
   selector: 'spells-tab',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -78,6 +143,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from '../spell-deta
     .class-filters {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       gap: 4px;
       padding: 7px 14px;
       border-bottom: 1px solid rgba(200,160,60,.15);
@@ -97,6 +163,36 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from '../spell-deta
       white-space: nowrap;
       &:hover { border-color: rgba(200,160,60,.55); color: #d4c9a0; background: rgba(200,160,60,.07); }
       &.active { background: rgba(200,160,60,.14); border-color: #c8a03c; color: #e8c96a; box-shadow: 0 0 7px rgba(200,160,60,.18); }
+    }
+    /* ── Sort-mode toggle ── */
+    .sort-toggle {
+      margin-left: auto;
+      flex-shrink: 0;
+      display: flex;
+      border: 1px solid rgba(200,160,60,.22);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .sort-toggle-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 9px;
+      background: none;
+      border: none;
+      color: rgba(200,160,60,.4);
+      font-family: sans-serif;
+      font-size: 11px;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+      white-space: nowrap;
+      mat-icon { font-size: 13px; width: 13px; height: 13px; }
+      &:hover { background: rgba(200,160,60,.07); color: rgba(200,160,60,.75); }
+      &.active {
+        background: rgba(200,160,60,.14);
+        color: #e8c96a;
+      }
+      & + & { border-left: 1px solid rgba(200,160,60,.22); }
     }
     /* ── Scrollable spell area ── */
     .spells-scroll {
@@ -152,7 +248,14 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from '../spell-deta
         .badge { opacity: .9; }
       }
     }
-    .spell-card-name { flex: 1; line-height: 1.3; }
+    .spell-card-name {
+      flex: 1; line-height: 1.3;
+      /* highlighted chars injected via [innerHTML] */
+      ::ng-deep .spell-hl {
+        color: #f5d76e;
+        font-weight: 700;
+      }
+    }
     .badges { display: flex; gap: 2px; flex-shrink: 0; align-items: center; }
     .badge {
       min-width: 18px; height: 18px;
@@ -201,6 +304,17 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from '../spell-deta
         @for (cls of spellsService.availableClasses(); track cls) {
           <button class="class-chip" [class.active]="selectedClass() === cls" type="button" (click)="toggleClass(cls)">{{ cls }}</button>
         }
+        <!-- Sort-mode toggle -->
+        <div class="sort-toggle" role="group" aria-label="Řazení">
+          <button class="sort-toggle-btn" [class.active]="sortMode() === 'school'" type="button"
+            (click)="sortMode.set('school')" matTooltip="Řadit podle školy magie">
+            <mat-icon>auto_awesome</mat-icon>Škola
+          </button>
+          <button class="sort-toggle-btn" [class.active]="sortMode() === 'level'" type="button"
+            (click)="sortMode.set('level')" matTooltip="Řadit podle úrovně kouzla">
+            <mat-icon>filter_list</mat-icon>Úroveň
+          </button>
+        </div>
       </div>
     }
 
@@ -211,27 +325,27 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from '../spell-deta
       } @else if (filteredSpells().length === 0) {
         <div class="spells-state"><mat-icon>search_off</mat-icon>&#381;&#225;dn&#233; kouzlo neodpov&#237;d&#225;.</div>
       } @else {
-        @for (group of groupedSpells(); track group.school) {
+        @for (group of groupedSpells(); track group.label) {
           <div class="school-section">
-            <div class="school-heading">{{ group.school }}<span style="margin-left:auto;opacity:.45;font-weight:400">({{ group.spells.length }})</span></div>
+            <div class="school-heading">{{ group.label }}<span style="margin-left:auto;opacity:.45;font-weight:400">({{ group.spells.length }})</span></div>
             <div class="school-grid">
-              @for (spell of group.spells; track spell.slug) {
+              @for (item of group.spells; track item.spell.slug) {
                 <button
                   class="spell-card"
                   type="button"
-                  (click)="openSpellDetail(spell.name)"
-                  [matTooltip]="spellTooltip(spell)"
+                  (click)="openSpellDetail(item.spell.name)"
+                  [matTooltip]="spellTooltip(item.spell)"
                   matTooltipShowDelay="500"
                 >
-                  <span class="spell-card-name">{{ spell.name }}</span>
+                  <span class="spell-card-name" [innerHTML]="item.highlightedName"></span>
                   <span class="badges">
-                    @if (spell.ritual) {
+                    @if (item.spell.ritual) {
                       <span class="badge badge-ritual" matTooltip="Rit&#225;l" matTooltipShowDelay="700">R</span>
                     }
-                    @if (spell.level === 0) {
+                    @if (item.spell.level === 0) {
                       <span class="badge badge-cantrip" matTooltip="Trik" matTooltipShowDelay="700">T</span>
-                    } @else if (spell.level !== undefined) {
-                      <span class="badge badge-level" [matTooltip]="spell.level + '. &#250;rove&#328;'" matTooltipShowDelay="700">{{ spell.level }}</span>
+                    } @else if (item.spell.level !== undefined) {
+                      <span class="badge badge-level" [matTooltip]="item.spell.level + '. &#250;rove&#328;'" matTooltipShowDelay="700">{{ item.spell.level }}</span>
                     }
                   </span>
                 </button>
@@ -250,30 +364,57 @@ export class SpellsTabComponent {
 
   readonly searchQuery = signal('');
   readonly selectedClass = signal<string | null>(null);
+  readonly sortMode = signal<'school' | 'level'>('school');
   private readonly _searchRef = viewChild<ElementRef<HTMLInputElement>>('searchInput');
 
-  /** Spells after search + class filter, still sorted alphabetically. */
-  readonly filteredSpells = computed(() => {
+  /**
+   * Spells after fuzzy search + class filter.
+   * Each item carries the pre-built highlighted HTML for its name.
+   */
+  readonly filteredSpells = computed((): SpellItem[] => {
     const q = JadSpellsService.normalizeStr(this.searchQuery());
     const cls = this.selectedClass();
-    return this.spellsService.allSpells().filter(s => {
-      const matchesSearch = !q || JadSpellsService.normalizeStr(s.name).includes(q);
-      const matchesClass  = cls === null || s.classes.some(c => c === cls);
-      return matchesSearch && matchesClass;
-    });
+    const result: SpellItem[] = [];
+
+    for (const s of this.spellsService.allSpells()) {
+      if (cls !== null && !s.classes.some(c => c === cls)) continue;
+
+      if (!q) {
+        result.push({ spell: s, highlightedName: escHtml(s.name) });
+      } else {
+        const normName = posNorm(s.name);
+        const indices = fuzzySubsequence(q, normName);
+        if (indices !== null) {
+          result.push({ spell: s, highlightedName: buildHighlightHtml(s.name, indices) });
+        }
+      }
+    }
+    return result;
   });
 
-  /** Filtered spells grouped by school, sorted by school name. */
-  readonly groupedSpells = computed((): Array<{ school: string; spells: JadSpell[] }> => {
-    const groupMap = new Map<string, JadSpell[]>();
-    for (const spell of this.filteredSpells()) {
-      const school = spell.school ?? 'Ostatn\u00ED'; // Ostatní
-      if (!groupMap.has(school)) groupMap.set(school, []);
-      groupMap.get(school)!.push(spell);
+  /** Filtered items grouped by school or level, depending on sortMode. */
+  readonly groupedSpells = computed((): Array<{ label: string; spells: SpellItem[] }> => {
+    const byLevel = this.sortMode() === 'level';
+    const groupMap = new Map<string, SpellItem[]>();
+
+    for (const item of this.filteredSpells()) {
+      const key = byLevel
+        ? this._levelLabel(item.spell.level)
+        : (item.spell.school ?? 'Ostatn\u00ED');
+      if (!groupMap.has(key)) groupMap.set(key, []);
+      groupMap.get(key)!.push(item);
     }
+
+    if (byLevel) {
+      // Sort groups numerically: Triky (0), 1.kruh … 9.kruh, Ostatní
+      return [...groupMap.entries()]
+        .sort(([a], [b]) => this._levelSortKey(a) - this._levelSortKey(b))
+        .map(([label, spells]) => ({ label, spells }));
+    }
+
     return [...groupMap.entries()]
       .sort(([a], [b]) => a.localeCompare(b, 'cs'))
-      .map(([school, spells]) => ({ school, spells }));
+      .map(([label, spells]) => ({ label, spells }));
   });
 
   constructor() {
@@ -301,5 +442,17 @@ export class SpellsTabComponent {
       panelClass: 'spell-detail-panel',
       maxWidth: '95vw',
     });
+  }
+
+  private _levelLabel(level: number | undefined): string {
+    if (level === undefined) return 'Ostatn\u00ED';
+    if (level === 0) return 'Triky';
+    return `${level}.\u00A0kruh`;
+  }
+
+  private _levelSortKey(label: string): number {
+    if (label === 'Triky') return 0;
+    const m = label.match(/^(\d+)/);
+    return m ? parseInt(m[1], 10) : 99;
   }
 }
