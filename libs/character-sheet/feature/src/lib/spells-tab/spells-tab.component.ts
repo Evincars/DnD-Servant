@@ -53,7 +53,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from '../spell-deta
       border: 1px solid rgba(200,160,60,.28);
       border-radius: 4px;
       color: #d4c9a0;
-      font-family: monospace;
+      font-family: sans-serif;
       font-size: 13px;
       padding: 7px 34px;
       outline: none;
@@ -71,7 +71,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from '../spell-deta
       &:hover { color: #e8c96a; }
     }
     .spells-count {
-      font-family: monospace; font-size: 11px;
+      font-family: sans-serif; font-size: 11px;
       color: rgba(200,160,60,.35); white-space: nowrap; flex-shrink: 0;
     }
     /* ── Class filter chips ── */
@@ -90,7 +90,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from '../spell-deta
       border-radius: 12px;
       background: none;
       color: rgba(200,160,60,.5);
-      font-family: monospace;
+      font-family: sans-serif;
       font-size: 11px;
       cursor: pointer;
       transition: all .15s;
@@ -109,8 +109,8 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from '../spell-deta
     /* ── School section ── */
     .school-section { margin-bottom: 14px; }
     .school-heading {
-      font-family: monospace;
-      font-size: 10px;
+      font-family: sans-serif;
+      font-size: 12px;
       font-weight: 700;
       letter-spacing: .12em;
       text-transform: uppercase;
@@ -142,7 +142,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from '../spell-deta
       border: 1px solid rgba(200,160,60,.1);
       border-radius: 5px;
       color: #c8b896;
-      font-family: monospace; font-size: 12px;
+      font-family: sans-serif; font-size: 12px;
       cursor: pointer; text-align: left;
       transition: background .14s, color .14s, border-color .14s, box-shadow .14s;
       min-height: 38px;
@@ -157,7 +157,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from '../spell-deta
     .badge {
       min-width: 18px; height: 18px;
       border-radius: 3px;
-      font-family: monospace; font-size: 10px; font-weight: 700;
+      font-family: sans-serif; font-size: 10px; font-weight: 700;
       display: flex; align-items: center; justify-content: center;
       padding: 0 3px; opacity: .75; transition: opacity .14s;
     }
@@ -167,7 +167,7 @@ import { SpellDetailDialogComponent, SpellDetailDialogData } from '../spell-deta
     /* ── Empty / loading state ── */
     .spells-state {
       padding: 48px 24px; text-align: center;
-      font-family: monospace; font-size: 13px;
+      font-family: sans-serif; font-size: 13px;
       color: rgba(200,160,60,.3); font-style: italic;
       mat-icon { display: block; font-size: 36px; width: 36px; height: 36px; margin: 0 auto 12px; color: rgba(200,160,60,.18); }
     }
