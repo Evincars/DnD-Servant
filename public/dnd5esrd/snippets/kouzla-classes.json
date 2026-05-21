@@ -1,0 +1,2188 @@
+{
+  "abi-dalzimovo-straslive-sucho": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "aganazzaruv-zar": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "antimagicke-pole": [
+    "Klerik",
+    "kouzelník"
+  ],
+  "antipatie-nebo-sympatie": [
+    "Druid",
+    "kouzelník"
+  ],
+  "antropomancie": [
+    "Černokněžník",
+    "Klerik",
+    "Kouzelník"
+  ],
+  "astralni-projekce": [
+    "Černokněžník",
+    "druid",
+    "hraničář",
+    "klerik",
+    "kouzelník"
+  ],
+  "aura-cistoty": [
+    "Paladin"
+  ],
+  "aura-vitality": [
+    "Paladin"
+  ],
+  "aura-zivota": [
+    "Paladin"
+  ],
+  "azyl": [
+    "Klerik"
+  ],
+  "bajny-lucistnik": [
+    "Bard",
+    "Hraničář"
+  ],
+  "barevna-koule": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "barevna-sprska": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "bariera-cepeli": [
+    "Klerik"
+  ],
+  "besneni": [
+    "Bard",
+    "Čaroděj",
+    "Černokněžník",
+    "Kouzelník"
+  ],
+  "bigbyho-ruka": [
+    "Kouzelník"
+  ],
+  "blesk": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "bleskovy-sip": [
+    "Hraničář"
+  ],
+  "bludiste": [
+    "Kouzelník"
+  ],
+  "boure-odplaty": [
+    "Druid"
+  ],
+  "bourna-koule": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "bozi-chram": [
+    "Klerik"
+  ],
+  "bozi-dohled": [
+    "Druid",
+    "klerik"
+  ],
+  "bozske-slovo": [
+    "Klerik"
+  ],
+  "brana": [
+    "Čaroděj",
+    "klerik",
+    "kouzelník"
+  ],
+  "carodejnicky-blesk": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "casovana-ohniva-koule": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "cejchovaci-uder": [
+    "Paladin"
+  ],
+  "cepel-zeleneho-plamene": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "cerny-jed": [
+    "Čaroděj",
+    "Černokněžník",
+    "Kouzelník"
+  ],
+  "chaoticky-blesk": [
+    "Čaroděj"
+  ],
+  "chapadlo": [
+    "Bard",
+    "Čaroděj",
+    "Černokněžník",
+    "Kouzelník"
+  ],
+  "chuze-po-vode": [
+    "Čaroděj",
+    "druid",
+    "hraničář",
+    "klerik"
+  ],
+  "chuze-stromy": [
+    "Druid",
+    "hraničář"
+  ],
+  "dalekokrok": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "denni-svetlo": [
+    "Čaroděj",
+    "druid",
+    "hraničář",
+    "klerik",
+    "paladin"
+  ],
+  "dimenzionalni-dvere": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "divoke-roztrhani": [
+    "Druid"
+  ],
+  "divotvorstvi-jad": [
+    "Klerik"
+  ],
+  "divotvorstvi": [
+    "Klerik"
+  ],
+  "dlouhokrok": [
+    "Bard",
+    "druid",
+    "hraničář",
+    "kouzelník"
+  ],
+  "dobruvka": [
+    "Druid",
+    "hraničář"
+  ],
+  "draci-dech": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "drawmijovo-okamzite-privolani": [
+    "Kouzelník"
+  ],
+  "drobna-iluze-jad": [
+    "Bard",
+    "Čaroděj",
+    "Černokněžník",
+    "Kouzelník"
+  ],
+  "drobna-iluze": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "drobny-sluzebnik": [
+    "Kouzelník"
+  ],
+  "druidovstvi": [
+    "Druid"
+  ],
+  "druidstvi-jad": [
+    "Druid"
+  ],
+  "duchovni-zbran": [
+    "Klerik"
+  ],
+  "dunive-ostri": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "dustojny-odpocinek": [
+    "Klerik",
+    "kouzelník"
+  ],
+  "dvojnik": [
+    "Bard",
+    "kouzelník"
+  ],
+  "elementalni-erupce": [
+    "Čaroděj",
+    "Kouzelník"
+  ],
+  "etericnost": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "klerik",
+    "kouzelník"
+  ],
+  "evardova-cerna-chapadla": [
+    "Kouzelník"
+  ],
+  "falesny-zivot": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "fantom": [
+    "Kouzelník"
+  ],
+  "fascinuj": [
+    "Bard",
+    "černokněžník"
+  ],
+  "fata-morgana": [
+    "Bard",
+    "druid",
+    "kouzelník"
+  ],
+  "hadarova-touha": [
+    "Černokněžník"
+  ],
+  "hadarovy-paze": [
+    "Černokněžník"
+  ],
+  "hadi-ustknuti": [
+    "Čaroděj",
+    "Druid"
+  ],
+  "hexensus": [
+    "Černokněžník",
+    "Klerik",
+    "Kouzelník"
+  ],
+  "hlas-boure": [
+    "Čaroděj",
+    "Druid"
+  ],
+  "hlas-umiracku": [
+    "Černokněžník",
+    "klerik",
+    "kouzelník"
+  ],
+  "hlidej-a-strez": [
+    "Bard",
+    "kouzelník"
+  ],
+  "hmyzi-zhouba": [
+    "Čaroděj",
+    "druid",
+    "klerik"
+  ],
+  "hnev-prirody": [
+    "Druid",
+    "hraničář"
+  ],
+  "hnev-zivlu": [
+    "Čaroděj",
+    "Druid",
+    "Kouzelník"
+  ],
+  "hniloba": [
+    "Čaroděj",
+    "černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "horici-oblak": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "horici-ruce": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "hrdinstvi": [
+    "Bard",
+    "paladin"
+  ],
+  "hromadna-promena": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "hromadna-sugesce": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "druid",
+    "hraničář",
+    "klerik",
+    "kouzelník"
+  ],
+  "hromadne-lecive-slovo": [
+    "Klerik"
+  ],
+  "hromadne-prestrojeni": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "hromadne-uzdraveni": [
+    "Klerik"
+  ],
+  "hromadne-zhojeni-zraneni": [
+    "Bard",
+    "druid",
+    "klerik"
+  ],
+  "hromokrok": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "hromova-vlna": [
+    "Bard",
+    "čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "hromovy-uder": [
+    "Paladin"
+  ],
+  "hvezdna-koruna": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "hypnoticky-vzor": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "iluzorni-drak": [
+    "Kouzelník"
+  ],
+  "iluzorni-text": [
+    "Bard",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "iluzorni-vezeni": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "jasnozrivost": [
+    "Bard",
+    "čaroděj",
+    "klerik",
+    "kouzelník"
+  ],
+  "jazyky": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "klerik",
+    "kouzelník"
+  ],
+  "jedovata-koule": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "jedovata-sprska": [
+    "Čaroděj",
+    "černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "kamenna-kuze": [
+    "Čaroděj",
+    "druid",
+    "hraničář",
+    "kouzelník"
+  ],
+  "kamenna-zed": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "kamenny-plast": [
+    "Čaroděj",
+    "černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "katapult": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "kejkle-jad": [
+    "Bard",
+    "Čaroděj",
+    "Černokněžník",
+    "Kouzelník"
+  ],
+  "kejkle": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "klamny-prostor": [
+    "Bard",
+    "černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "kletba": [
+    "Černokněžník"
+  ],
+  "klon": [
+    "Kouzelník"
+  ],
+  "kordon-sipu": [
+    "Hraničář"
+  ],
+  "koreny-omotani": [
+    "Druid",
+    "Hraničář"
+  ],
+  "koruna-silenstvi": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "kosti-zeme": [
+    "Druid"
+  ],
+  "koule-nezranitelnosti": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "kouzelny-oblazek": [
+    "Černokněžník",
+    "druid"
+  ],
+  "krizakova-pelerina": [
+    "Paladin"
+  ],
+  "kruh-moci": [
+    "Paladin"
+  ],
+  "kruh-smrti": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "krupobiti-trnu": [
+    "Hraničář"
+  ],
+  "kurokuze": [
+    "Druid",
+    "hraničář"
+  ],
+  "kuzel-mrazu": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "kyselinova-koule": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "leciva-modlitba": [
+    "Klerik"
+  ],
+  "lecive-slovo": [
+    "Bard",
+    "druid",
+    "klerik"
+  ],
+  "lecivy-duch": [
+    "Druid",
+    "hraničář"
+  ],
+  "ledova-boure": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "ledova-zed": [
+    "Kouzelník"
+  ],
+  "ledovy-nuz": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "ledovy-plast": [
+    "Čaroděj",
+    "černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "leomunidova-chatka": [
+    "Bard",
+    "kouzelník"
+  ],
+  "leomunidova-tajna-truhla": [
+    "Kouzelník"
+  ],
+  "let": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "levitace": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "lovcova-marka": [
+    "Hraničář"
+  ],
+  "maelstrom": [
+    "Druid"
+  ],
+  "magicka-strela": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "magicka-usta": [
+    "Bard",
+    "kouzelník"
+  ],
+  "magicka-zbran": [
+    "Kouzelník",
+    "paladin"
+  ],
+  "magicky-kruh": [
+    "Černokněžník",
+    "klerik",
+    "kouzelník",
+    "paladin"
+  ],
+  "magova-ruka-jad": [
+    "Bard",
+    "Čaroděj",
+    "Černokněžník",
+    "Kouzelník"
+  ],
+  "magova-ruka": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "magova-zbroj": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "majak-nadeje": [
+    "Klerik"
+  ],
+  "maso-na-kamen": [
+    "Černokněžník",
+    "kouzelník"
+  ],
+  "maxmilianova-hlinena-ruka": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "melfovy-meteorky": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "melfuv-kyselinovy-sip": [
+    "Kouzelník"
+  ],
+  "mentalni-bodec": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "mentalni-uder": [
+    "Bard",
+    "Čaroděj",
+    "Černokněžník",
+    "Klerik",
+    "Kouzelník"
+  ],
+  "mesicni-paprsek": [
+    "Druid"
+  ],
+  "mihotani": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "mluv-s-mrtvymi": [
+    "Bard",
+    "klerik"
+  ],
+  "mluv-s-rostlinami": [
+    "Bard",
+    "druid",
+    "hraničář"
+  ],
+  "mluv-se-zviraty": [
+    "Bard",
+    "druid",
+    "hraničář"
+  ],
+  "mluva-sfer": [
+    "Černokněžník",
+    "kouzelník"
+  ],
+  "mlzna-podoba": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "mlzny-krok": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "mocna-neviditelnost": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "mocne-navraceni": [
+    "Bard",
+    "druid",
+    "klerik"
+  ],
+  "mocny-hrad": [
+    "Kouzelník"
+  ],
+  "mordenkainenova-soukroma-svatyne": [
+    "Kouzelník"
+  ],
+  "mordenkainenuv-mec": [
+    "Bard",
+    "kouzelník"
+  ],
+  "mordenkainenuv-velkolepy-dum": [
+    "Bard",
+    "kouzelník"
+  ],
+  "mordenkainenuv-verny-pes": [
+    "Kouzelník"
+  ],
+  "mrazivy-dotyk": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "mrazivy-paprsek": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "mysticka-brana": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "mysticke-oko": [
+    "Kouzelník"
+  ],
+  "mysticky-zamek": [
+    "Kouzelník"
+  ],
+  "najdi-cestu": [
+    "Bard",
+    "druid",
+    "klerik"
+  ],
+  "najdi-honosnejsiho-ore": [
+    "Paladin"
+  ],
+  "najdi-jed-a-nemoc": [
+    "Druid",
+    "hraničář",
+    "klerik",
+    "paladin"
+  ],
+  "najdi-magii": [
+    "Bard",
+    "čaroděj",
+    "druid",
+    "hraničář",
+    "klerik",
+    "kouzelník",
+    "paladin"
+  ],
+  "najdi-ore": [
+    "Paladin"
+  ],
+  "najdi-pasti": [
+    "Druid",
+    "hraničář",
+    "klerik"
+  ],
+  "najdi-predmet": [
+    "Bard",
+    "druid",
+    "hraničář",
+    "klerik",
+    "kouzelník",
+    "paladin"
+  ],
+  "najdi-pritelicka": [
+    "Kouzelník"
+  ],
+  "najdi-tvora": [
+    "Bard",
+    "druid",
+    "hraničář",
+    "klerik",
+    "kouzelník",
+    "paladin"
+  ],
+  "najdi-zlo-a-dobro": [
+    "Klerik",
+    "paladin"
+  ],
+  "najdi-zvirata-a-rostliny": [
+    "Bard",
+    "druid",
+    "hraničář"
+  ],
+  "nakaza": [
+    "Druid",
+    "klerik"
+  ],
+  "naplanovana-iluze": [
+    "Bard",
+    "kouzelník"
+  ],
+  "napodobenina": [
+    "Kouzelník"
+  ],
+  "navadeci-blesk": [
+    "Klerik"
+  ],
+  "nebepis": [
+    "Bard",
+    "druid",
+    "kouzelník"
+  ],
+  "nelibozvucny-sepot": [
+    "Bard"
+  ],
+  "nemesis": [
+    "Kouzelník"
+  ],
+  "nesnesitelna-temnota": [
+    "Černokněžník",
+    "kouzelník"
+  ],
+  "neuveritelny-puvab": [
+    "Bard",
+    "Čaroděj",
+    "Černokněžník",
+    "Kouzelník"
+  ],
+  "neviditelnost": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "neviditelny-sluzebnik": [
+    "Bard",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "nezjistitelnost": [
+    "Bard",
+    "hraničář",
+    "kouzelník"
+  ],
+  "nezranitelnost": [
+    "Kouzelník"
+  ],
+  "niciva-vlna": [
+    "Paladin"
+  ],
+  "nizsi-navraceni": [
+    "Bard",
+    "druid",
+    "hraničář",
+    "klerik",
+    "paladin"
+  ],
+  "nutkani": [
+    "Bard"
+  ],
+  "nystulova-magicka-aura": [
+    "Kouzelník"
+  ],
+  "obkliceni": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "oblak-dyk": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "oblak-mlhy": [
+    "Čaroděj",
+    "druid",
+    "hraničář",
+    "kouzelník"
+  ],
+  "oblak-smrti": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "obrad": [
+    "Klerik",
+    "paladin"
+  ],
+  "obri-hmyz": [
+    "Druid"
+  ],
+  "obrozeni": [
+    "Klerik",
+    "paladin"
+  ],
+  "ochrana-pred-energii": [
+    "Čaroděj",
+    "druid",
+    "hraničář",
+    "klerik",
+    "kouzelník"
+  ],
+  "ochrana-pred-jedem": [
+    "Druid",
+    "hraničář",
+    "klerik",
+    "paladin"
+  ],
+  "ochrana-pred-zlem-a-dobrem": [
+    "Černokněžník",
+    "klerik",
+    "kouzelník",
+    "paladin"
+  ],
+  "ochrance-prirody": [
+    "Druid",
+    "hraničář"
+  ],
+  "ocisti-jidlo-a-piti": [
+    "Druid",
+    "klerik",
+    "paladin"
+  ],
+  "odhal-myslenky": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "odolani-jad": [
+    "Druid",
+    "Klerik"
+  ],
+  "odolani": [
+    "Druid",
+    "klerik"
+  ],
+  "odolej-zivlum": [
+    "Čaroděj",
+    "druid",
+    "hraničář",
+    "kouzelník"
+  ],
+  "odpocinkova-hymna": [
+    "Bard"
+  ],
+  "odporne-zareni": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "ohniva-boure": [
+    "Čaroděj",
+    "druid",
+    "klerik"
+  ],
+  "ohniva-cepel": [
+    "Druid"
+  ],
+  "ohniva-koule": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "ohniva-strela": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "ohniva-zed": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "ohnivy-stit": [
+    "Kouzelník"
+  ],
+  "omrzliny": [
+    "Čaroděj",
+    "černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "oprava-jad": [
+    "Bard",
+    "Čaroděj",
+    "Druid",
+    "Klerik",
+    "Kouzelník"
+  ],
+  "oprava": [
+    "Bard",
+    "čaroděj",
+    "druid",
+    "klerik",
+    "kouzelník"
+  ],
+  "oslepujici-uder": [
+    "Paladin"
+  ],
+  "otilukova-mraziva-koule": [
+    "Kouzelník"
+  ],
+  "otilukova-nepoddajna-koule": [
+    "Kouzelník"
+  ],
+  "otoc-gravitaci": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "otuv-neodolatelny-tanec": [
+    "Bard",
+    "kouzelník"
+  ],
+  "ovladni-plameny": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "ovladni-pocasi": [
+    "Druid",
+    "klerik",
+    "kouzelník"
+  ],
+  "ovladni-vitr": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "ovladni-vodu": [
+    "Druid",
+    "klerik",
+    "kouzelník"
+  ],
+  "oziv-mrtveho": [
+    "Klerik",
+    "kouzelník"
+  ],
+  "ozivle-predmety": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "pachnouci-oblak": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "paprsek-otraveni": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "paprsek-slabosti": [
+    "Černokněžník",
+    "kouzelník"
+  ],
+  "pavouci-splh": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "pavucina": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "pekelne-pokarani": [
+    "Černokněžník"
+  ],
+  "pekelne-volani": [
+    "Černokněžník",
+    "kouzelník"
+  ],
+  "pisecna-zed": [
+    "Kouzelník"
+  ],
+  "plamenne-sipy": [
+    "Čaroděj",
+    "druid",
+    "hraničář",
+    "kouzelník"
+  ],
+  "plamenny-plast": [
+    "Čaroděj",
+    "černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "plamenny-uder": [
+    "Klerik"
+  ],
+  "planouci-koule": [
+    "Druid",
+    "kouzelník"
+  ],
+  "plast-zmaru": [
+    "Černokněžník"
+  ],
+  "podminecnost": [
+    "Kouzelník"
+  ],
+  "podpora": [
+    "Klerik",
+    "paladin"
+  ],
+  "podrob-nestvuru": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "podrob-osobu": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "podrob-zvire": [
+    "Čaroděj",
+    "druid"
+  ],
+  "pohled-smrti": [
+    "Černokněžník"
+  ],
+  "pohni-zemi": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "polapujici-uder": [
+    "Hraničář"
+  ],
+  "polosfera": [
+    "Černokněžník",
+    "kouzelník"
+  ],
+  "pomaly-pad": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "poplach": [
+    "Hraničář",
+    "kouzelník"
+  ],
+  "porozumeni-jazykum": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "poryv-vetru": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "poselstvi": [
+    "Bard",
+    "klerik",
+    "kouzelník"
+  ],
+  "posileni-dovednosti": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "poslys-myty": [
+    "Bard",
+    "klerik",
+    "kouzelník"
+  ],
+  "posvatna-puda": [
+    "Klerik"
+  ],
+  "posvatny-haj": [
+    "Druid"
+  ],
+  "posvatny-plamen": [
+    "Klerik"
+  ],
+  "pozehnani": [
+    "Klerik",
+    "paladin"
+  ],
+  "prani": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "prasny-vir": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "pratele": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "pratelstvi-zvirat": [
+    "Bard",
+    "druid",
+    "hraničář"
+  ],
+  "pravdive-videni": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "klerik",
+    "kouzelník"
+  ],
+  "predstirej-smrt": [
+    "Bard",
+    "druid",
+    "klerik",
+    "kouzelník"
+  ],
+  "predtucha": [
+    "Bard",
+    "černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "predvidani": [
+    "Klerik"
+  ],
+  "prelud": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "premen-kamen": [
+    "Druid",
+    "kouzelník"
+  ],
+  "presny-uder-jad": [
+    "Bard",
+    "Čaroděj",
+    "Černokněžník",
+    "Kouzelník"
+  ],
+  "presny-uder": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "prestrojeni": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "presun-rostlinami": [
+    "Druid"
+  ],
+  "presun-sferami": [
+    "Čaroděj",
+    "černokněžník",
+    "druid",
+    "hraničář",
+    "klerik",
+    "kouzelník"
+  ],
+  "presun-zivota": [
+    "Klerik",
+    "kouzelník"
+  ],
+  "prilivova-vlna": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "prizen-bohu": [
+    "Paladin"
+  ],
+  "prizracni-strazci": [
+    "Klerik"
+  ],
+  "prizracny-or": [
+    "Kouzelník"
+  ],
+  "probuzeni": [
+    "Bard",
+    "druid"
+  ],
+  "projdi-beze-stop": [
+    "Druid",
+    "hraničář"
+  ],
+  "projdi-zdi": [
+    "Kouzelník"
+  ],
+  "promen": [
+    "Bard",
+    "čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "protikouzlo": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "prst-smrti": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "prvotni-bariera": [
+    "Druid"
+  ],
+  "pyrotechnika": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "raryho-telepaticke-pouto": [
+    "Kouzelník"
+  ],
+  "regenerace": [
+    "Bard",
+    "druid",
+    "klerik"
+  ],
+  "reinkarnace": [
+    "Druid"
+  ],
+  "retezy-upoutani": [
+    "Černokněžník"
+  ],
+  "roj-meteoritu": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "roj-snehovych-kouli": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "rozkaz": [
+    "Klerik",
+    "paladin"
+  ],
+  "rozklad": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "rozmazani": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "rozpal-kov": [
+    "Bard",
+    "druid"
+  ],
+  "rozpras": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "rozptyl-magii": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "druid",
+    "hraničář",
+    "klerik",
+    "kouzelník",
+    "paladin"
+  ],
+  "rozptyl-zlo-a-dobro": [
+    "Klerik",
+    "paladin"
+  ],
+  "roztristeni": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "rozvetveny-blesk": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "rust-rostlin": [
+    "Bard",
+    "druid",
+    "hraničář"
+  ],
+  "rychlost": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "rychly-toulec": [
+    "Hraničář"
+  ],
+  "sadlo": [
+    "Kouzelník"
+  ],
+  "schranka-zivota": [
+    "Kouzelník"
+  ],
+  "sejmi-kletbu": [
+    "Černokněžník",
+    "klerik",
+    "kouzelník",
+    "paladin"
+  ],
+  "sen": [
+    "Bard",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "sezehujici-paprsek": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "sfericka-vazba": [
+    "Bard",
+    "druid",
+    "klerik",
+    "kouzelník"
+  ],
+  "sfericky-spojenec": [
+    "Klerik"
+  ],
+  "sila-fenixe": [
+    "Čaroděj",
+    "Černokněžník"
+  ],
+  "silova-klec": [
+    "Bard",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "skok": [
+    "Čaroděj",
+    "druid",
+    "hraničář",
+    "kouzelník"
+  ],
+  "skutecna-promena": [
+    "Bard",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "slabomyslnost": [
+    "Bard",
+    "černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "sledovani": [
+    "Bard",
+    "černokněžník",
+    "druid",
+    "klerik",
+    "kouzelník"
+  ],
+  "slepota-nebo-hluchota": [
+    "Bard",
+    "čaroděj",
+    "klerik",
+    "kouzelník"
+  ],
+  "slidive-oko": [
+    "Černokněžník"
+  ],
+  "slizky-uder": [
+    "Čaroděj",
+    "Černokněžník",
+    "Kouzelník"
+  ],
+  "slofik": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "slovo-moci-bolest": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "slovo-moci-ochrom": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "slovo-moci-uzdrav": [
+    "Bard"
+  ],
+  "slovo-moci-zabij": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "slovo-navratu": [
+    "Klerik"
+  ],
+  "slovo-svetla": [
+    "Klerik"
+  ],
+  "slunecni-erupce": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "slunecni-paprsek": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "smrst": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "smycka": [
+    "Druid",
+    "hraničář",
+    "kouzelník"
+  ],
+  "sokujici-sevreni": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "spalujici-uder": [
+    "Paladin"
+  ],
+  "spanek": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "spatri-neviditelne": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "spektralni-sprska": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "spektralni-zed": [
+    "Kouzelník"
+  ],
+  "spesny-ustup": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "spojeni-s-prirodou": [
+    "Druid",
+    "hraničář"
+  ],
+  "spojeni": [
+    "Klerik"
+  ],
+  "stin-moilu": [
+    "Černokněžník"
+  ],
+  "stinocepel": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "stit-proti-zivym": [
+    "Druid"
+  ],
+  "stit-viry": [
+    "Klerik",
+    "paladin"
+  ],
+  "stit": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "strach": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "strazce-viry": [
+    "Klerik"
+  ],
+  "strazne-pouto": [
+    "Klerik"
+  ],
+  "strazny-vichr": [
+    "Bard",
+    "čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "strazny-znak": [
+    "Bard",
+    "klerik",
+    "kouzelník"
+  ],
+  "stvor-homunkula": [
+    "Kouzelník"
+  ],
+  "stvor-jidlo-a-vodu": [
+    "Klerik",
+    "paladin"
+  ],
+  "stvor-nebo-znic-vodu": [
+    "Druid",
+    "klerik"
+  ],
+  "stvor-nemrtve": [
+    "Černokněžník",
+    "klerik",
+    "kouzelník"
+  ],
+  "stvor-plamen": [
+    "Druid"
+  ],
+  "stvor-taborak": [
+    "Čaroděj",
+    "černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "sugesce": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "sukovice": [
+    "Druid"
+  ],
+  "svata-aura": [
+    "Klerik"
+  ],
+  "svecena-zbran": [
+    "Klerik",
+    "Paladin"
+  ],
+  "svetelna-zed": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "svetlo-jad": [
+    "Bard",
+    "Čaroděj",
+    "Klerik",
+    "Kouzelník"
+  ],
+  "svetlo": [
+    "Bard",
+    "čaroděj",
+    "klerik",
+    "kouzelník"
+  ],
+  "svolej-blesky": [
+    "Druid"
+  ],
+  "symbol": [
+    "Bard",
+    "klerik",
+    "kouzelník"
+  ],
+  "synapticky-sum": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "tajemny-vysleh": [
+    "Černokněžník"
+  ],
+  "tancici-svetla-jad": [
+    "Bard",
+    "Čaroděj",
+    "Kouzelník"
+  ],
+  "tancici-svetla": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "tanec-mrtvych": [
+    "Černokněžník",
+    "kouzelník"
+  ],
+  "tasin-desivy-smich": [
+    "Bard",
+    "kouzelník"
+  ],
+  "telekineze": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "telepaticky-vykrik": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "telepatie": [
+    "Kouzelník"
+  ],
+  "teleport": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "teleportacni-kruh": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "tenserova-promena": [
+    "Kouzelník"
+  ],
+  "tenseruv-levitujici-disk": [
+    "Kouzelník"
+  ],
+  "ticho": [
+    "Bard",
+    "hraničář",
+    "klerik"
+  ],
+  "tichy-obraz": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "tma": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "trik-s-lanem": [
+    "Kouzelník"
+  ],
+  "trnova-zed": [
+    "Druid"
+  ],
+  "trnovy-bic": [
+    "Druid"
+  ],
+  "trny": [
+    "Druid",
+    "hraničář"
+  ],
+  "tsunami": [
+    "Druid"
+  ],
+  "tvaruj-kamen": [
+    "Druid",
+    "klerik",
+    "kouzelník"
+  ],
+  "tvaruj-vodu": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "tvaruj-zemi": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "tvorba": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "ubrousku-prostri-se": [
+    "Druid",
+    "klerik"
+  ],
+  "uchvacujici-reva": [
+    "Druid",
+    "hraničář"
+  ],
+  "uder-oceloveho-vichru": [
+    "Hraničář",
+    "Kouzelník"
+  ],
+  "uder-zloby": [
+    "Paladin"
+  ],
+  "uklidni-emoce": [
+    "Bard",
+    "klerik"
+  ],
+  "ukol": [
+    "Bard",
+    "druid",
+    "klerik",
+    "kouzelník",
+    "paladin"
+  ],
+  "ukryj-mysl": [
+    "Bard",
+    "kouzelník"
+  ],
+  "upaleni": [
+    "Čaroděj",
+    "Kouzelník"
+  ],
+  "upiri-dotyk": [
+    "Černokněžník",
+    "kouzelník"
+  ],
+  "urceni": [
+    "Bard",
+    "kouzelník"
+  ],
+  "usetri-umirajiciho-jad": [
+    "Klerik"
+  ],
+  "usetri-umirajiciho": [
+    "Klerik"
+  ],
+  "usvit": [
+    "Klerik",
+    "kouzelník"
+  ],
+  "uvezneni": [
+    "Černokněžník",
+    "kouzelník"
+  ],
+  "uvrhini-kletbu": [
+    "Bard",
+    "klerik",
+    "kouzelník"
+  ],
+  "uzdrav": [
+    "Druid",
+    "klerik"
+  ],
+  "uzemneni": [
+    "Čaroděj",
+    "černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "vabnicka-blesku": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "vecny-plamen": [
+    "Klerik",
+    "kouzelník"
+  ],
+  "vedeni-jad": [
+    "Druid",
+    "Klerik"
+  ],
+  "vedeni": [
+    "Druid",
+    "Klerik",
+    "Divutepec"
+  ],
+  "vejdi-do-kamene": [
+    "Druid",
+    "klerik"
+  ],
+  "velky-obraz": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "vesteni": [
+    "Klerik"
+  ],
+  "vetrna-chuze": [
+    "Druid"
+  ],
+  "vetrna-zed": [
+    "Druid",
+    "hraničář"
+  ],
+  "vetrny-plast": [
+    "Čaroděj",
+    "černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "vezeni-duse": [
+    "Černokněžník",
+    "kouzelník"
+  ],
+  "videni-ve-tme": [
+    "Čaroděj",
+    "druid",
+    "hraničář",
+    "kouzelník"
+  ],
+  "vili-ohen": [
+    "Bard",
+    "druid"
+  ],
+  "vlastni-obraz": [
+    "Bard",
+    "kouzelník"
+  ],
+  "vodnata-koule": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "vodni-dech": [
+    "Čaroděj",
+    "druid",
+    "hraničář",
+    "kouzelník"
+  ],
+  "vodni-zed": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "volnost": [
+    "Bard",
+    "druid",
+    "hraničář",
+    "klerik"
+  ],
+  "vybuch-mece": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "vybuchujici-zeme": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "vycerpani": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "vynuceny-duel": [
+    "Paladin"
+  ],
+  "vypuzeni": [
+    "Čaroděj",
+    "černokněžník",
+    "klerik",
+    "kouzelník",
+    "paladin"
+  ],
+  "vypuzujici-uder": [
+    "Paladin"
+  ],
+  "vyrecnosti": [
+    "Bard",
+    "černokněžník"
+  ],
+  "vystras": [
+    "Černokněžník",
+    "kouzelník"
+  ],
+  "vyvolej-elementala": [
+    "Druid",
+    "kouzelník"
+  ],
+  "vyvolej-lesni-bytosti": [
+    "Druid",
+    "hraničář"
+  ],
+  "vyvolej-mensi-demony": [
+    "Černokněžník",
+    "kouzelník"
+  ],
+  "vyvolej-mocneho-demona": [
+    "Černokněžník",
+    "kouzelník"
+  ],
+  "vyvolej-nebestana": [
+    "Klerik"
+  ],
+  "vyvolej-nizsi-elementaly": [
+    "Druid",
+    "kouzelník"
+  ],
+  "vyvolej-palbu": [
+    "Hraničář"
+  ],
+  "vyvolej-salvu": [
+    "Hraničář"
+  ],
+  "vyvolej-vilu": [
+    "Černokněžník",
+    "druid"
+  ],
+  "vyvolej-zvirata": [
+    "Druid",
+    "hraničář"
+  ],
+  "vzkriseni": [
+    "Bard",
+    "klerik",
+    "paladin"
+  ],
+  "zahaleni": [
+    "Kouzelník"
+  ],
+  "zahrmeni": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "zakaz": [
+    "Klerik"
+  ],
+  "zaklep": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "zamoreni": [
+    "Čaroděj",
+    "černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "zaplava-negativni-energie": [
+    "Černokněžník",
+    "kouzelník"
+  ],
+  "zapleteni": [
+    "Druid"
+  ],
+  "zastav-cas": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "zatres-zemi": [
+    "Bard",
+    "čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "zavan": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "zavratny-uder": [
+    "Paladin"
+  ],
+  "zbroj-agathysu": [
+    "Černokněžník"
+  ],
+  "zed-sily": [
+    "Kouzelník"
+  ],
+  "zefyruv-uder": [
+    "Hraničář"
+  ],
+  "zemetreseni": [
+    "Čaroděj",
+    "druid",
+    "klerik"
+  ],
+  "zhoj-zraneni": [
+    "Bard",
+    "druid",
+    "hraničář",
+    "klerik",
+    "paladin"
+  ],
+  "zhotov": [
+    "Kouzelník"
+  ],
+  "zhouba": [
+    "Bard",
+    "klerik"
+  ],
+  "zivelna-zbran": [
+    "Paladin"
+  ],
+  "zivelna-zkaza": [
+    "Černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "zkriveni-prostoru": [
+    "Čaroděj",
+    "Černokněžník",
+    "Kouzelník"
+  ],
+  "zle-oko": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "zlepsi-vlastnost": [
+    "Bard",
+    "čaroděj",
+    "druid",
+    "klerik"
+  ],
+  "zlomyslny-vysmech": [
+    "Bard"
+  ],
+  "zmam-obludu": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "zmam-osobu": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "druid",
+    "kouzelník"
+  ],
+  "zmatek": [
+    "Bard",
+    "čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "zmen-pamet": [
+    "Bard",
+    "kouzelník"
+  ],
+  "zmen-svuj-tvar": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "zmena-podoby": [
+    "Druid",
+    "kouzelník"
+  ],
+  "zmrtvychvstani": [
+    "Bard",
+    "klerik"
+  ],
+  "zmrzly-dest": [
+    "Čaroděj",
+    "druid",
+    "kouzelník"
+  ],
+  "znameni-proti-cepelim": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "znameni-proti-smrti": [
+    "Klerik",
+    "paladin"
+  ],
+  "znehybni-nestvuru": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "znehybni-osobu": [
+    "Bard",
+    "čaroděj",
+    "černokněžník",
+    "druid",
+    "klerik",
+    "kouzelník"
+  ],
+  "znovuzrozeni": [
+    "Druid",
+    "klerik"
+  ],
+  "zona-pravdy": [
+    "Bard",
+    "klerik",
+    "paladin"
+  ],
+  "zpomaleni": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "zprava-jad": [
+    "Bard",
+    "Čaroděj",
+    "Kouzelník"
+  ],
+  "zprava": [
+    "Bard",
+    "čaroděj",
+    "kouzelník"
+  ],
+  "zpusob-zraneni": [
+    "Klerik"
+  ],
+  "zran": [
+    "Klerik"
+  ],
+  "zrcadlovy-obraz": [
+    "Čaroděj",
+    "černokněžník",
+    "kouzelník"
+  ],
+  "zvetseni-nebo-zmenseni": [
+    "Čaroděj",
+    "kouzelník"
+  ],
+  "zvireci-podoba": [
+    "Druid"
+  ],
+  "zvireci-posel": [
+    "Bard",
+    "druid",
+    "hraničář"
+  ],
+  "zvireci-pouto": [
+    "Druid",
+    "hraničář"
+  ],
+  "zvireci-smysly": [
+    "Druid",
+    "hraničář"
+  ]
+}

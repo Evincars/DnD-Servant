@@ -1,0 +1,3673 @@
+{
+  "abi-dalzimovo-straslive-sucho": {
+    "name": "Abi-Dalzimovo strašlivé sucho",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "aganazzaruv-zar": {
+    "name": "Aganazzarův žár",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "antimagicke-pole": {
+    "name": "Antimagické pole",
+    "classes": [
+      "Klerik",
+      "kouzelník"
+    ]
+  },
+  "antipatie-nebo-sympatie": {
+    "name": "Antipatie nebo Sympatie",
+    "classes": [
+      "Druid",
+      "kouzelník"
+    ]
+  },
+  "antropomancie": {
+    "name": "Antropomancie",
+    "classes": [
+      "Černokněžník",
+      "Klerik",
+      "Kouzelník"
+    ]
+  },
+  "astralni-projekce": {
+    "name": "Astrální projekce",
+    "classes": [
+      "Černokněžník",
+      "druid",
+      "hraničář",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "aura-cistoty": {
+    "name": "Aura čistoty",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "aura-vitality": {
+    "name": "Aura vitality",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "aura-zivota": {
+    "name": "Aura života",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "azyl": {
+    "name": "Azyl",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "bajny-lucistnik": {
+    "name": "Bájný lučištník",
+    "classes": [
+      "Bard",
+      "Hraničář"
+    ]
+  },
+  "barevna-koule": {
+    "name": "Barevná koule",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "barevna-sprska": {
+    "name": "Barevná sprška",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "bariera-cepeli": {
+    "name": "Bariéra čepelí",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "besneni": {
+    "name": "Běsnění",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ]
+  },
+  "bigbyho-ruka": {
+    "name": "Bigbyho ruka",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "blesk": {
+    "name": "Blesk",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "bleskovy-sip": {
+    "name": "Bleskový šíp",
+    "classes": [
+      "Hraničář"
+    ]
+  },
+  "bludiste": {
+    "name": "Bludiště",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "boure-odplaty": {
+    "name": "Bouře odplaty",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "bourna-koule": {
+    "name": "Bouřná koule",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "bozi-chram": {
+    "name": "Boží chrám",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "bozi-dohled": {
+    "name": "Vedení",
+    "classes": [
+      "Druid",
+      "klerik"
+    ]
+  },
+  "bozske-slovo": {
+    "name": "Božské slovo",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "brana": {
+    "name": "Brána",
+    "classes": [
+      "Čaroděj",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "carodejnicky-blesk": {
+    "name": "Čarodějnický blesk",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "casovana-ohniva-koule": {
+    "name": "Časovaná ohnivá koule",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "cejchovaci-uder": {
+    "name": "Cejchovací úder",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "cepel-zeleneho-plamene": {
+    "name": "Čepel zeleného plamene",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "cerny-jed": {
+    "name": "Černý jed",
+    "classes": [
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ]
+  },
+  "chaoticky-blesk": {
+    "name": "Chaotický blesk",
+    "classes": [
+      "Čaroděj"
+    ]
+  },
+  "chapadlo": {
+    "name": "Chapadlo",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ]
+  },
+  "chuze-po-vode": {
+    "name": "Chůze po vodě",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "klerik"
+    ]
+  },
+  "chuze-stromy": {
+    "name": "Chůze stromy",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ]
+  },
+  "dalekokrok": {
+    "name": "Dalekokrok",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "denni-svetlo": {
+    "name": "Denní světlo",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "klerik",
+      "paladin"
+    ]
+  },
+  "dimenzionalni-dvere": {
+    "name": "Dimenzionální dveře",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "divoke-roztrhani": {
+    "name": "Divoké roztrhání",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "divotvorstvi-jad": {
+    "name": "Divotvorství (JaD)",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "divotvorstvi": {
+    "name": "Divotvorství",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "dlouhokrok": {
+    "name": "Dlouhokrok",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář",
+      "kouzelník"
+    ]
+  },
+  "dobruvka": {
+    "name": "Dobrůvka",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ]
+  },
+  "draci-dech": {
+    "name": "Dračí dech",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "drawmijovo-okamzite-privolani": {
+    "name": "Drawmijovo okamžité přivolaní",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "drobna-iluze-jad": {
+    "name": "Drobná iluze (JaD)",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ]
+  },
+  "drobna-iluze": {
+    "name": "Drobná iluze",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "drobny-sluzebnik": {
+    "name": "Drobný služebník",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "druidovstvi": {
+    "name": "Druidství",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "druidstvi-jad": {
+    "name": "Druidství (JaD)",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "duchovni-zbran": {
+    "name": "Duchovní zbraň",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "dunive-ostri": {
+    "name": "Dunivé ostří",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "dustojny-odpocinek": {
+    "name": "Důstojný odpočinek",
+    "classes": [
+      "Klerik",
+      "kouzelník"
+    ]
+  },
+  "dvojnik": {
+    "name": "Dvojník",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ]
+  },
+  "elementalni-erupce": {
+    "name": "Elementální erupce",
+    "classes": [
+      "Čaroděj",
+      "Kouzelník"
+    ]
+  },
+  "etericnost": {
+    "name": "Éteričnost",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "evardova-cerna-chapadla": {
+    "name": "Evardova černá chapadla",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "falesny-zivot": {
+    "name": "Falešný život",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "fantom": {
+    "name": "Fantóm",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "fascinuj": {
+    "name": "Fascinuj",
+    "classes": [
+      "Bard",
+      "černokněžník"
+    ]
+  },
+  "fata-morgana": {
+    "name": "Fata morgána",
+    "classes": [
+      "Bard",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "hadarova-touha": {
+    "name": "Hadarova touha",
+    "classes": [
+      "Černokněžník"
+    ]
+  },
+  "hadarovy-paze": {
+    "name": "Hadarovy paže",
+    "classes": [
+      "Černokněžník"
+    ]
+  },
+  "hadi-ustknuti": {
+    "name": "Hadí uštknutí",
+    "classes": [
+      "Čaroděj",
+      "Druid"
+    ]
+  },
+  "hexensus": {
+    "name": "Hexenšus",
+    "classes": [
+      "Černokněžník",
+      "Klerik",
+      "Kouzelník"
+    ]
+  },
+  "hlas-boure": {
+    "name": "Hlas bouře",
+    "classes": [
+      "Čaroděj",
+      "Druid"
+    ]
+  },
+  "hlas-umiracku": {
+    "name": "Hlas umíráčku",
+    "classes": [
+      "Černokněžník",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "hlidej-a-strez": {
+    "name": "Hlídej a střež",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ]
+  },
+  "hmyzi-zhouba": {
+    "name": "Hmyzí zhouba",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "klerik"
+    ]
+  },
+  "hnev-prirody": {
+    "name": "Hněv přírody",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ]
+  },
+  "hnev-zivlu": {
+    "name": "Hněv živlů",
+    "classes": [
+      "Čaroděj",
+      "Druid",
+      "Kouzelník"
+    ]
+  },
+  "hniloba": {
+    "name": "Hniloba",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "horici-oblak": {
+    "name": "Hořící oblak",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "horici-ruce": {
+    "name": "Hořící ruce",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "hrdinstvi": {
+    "name": "Hrdinství",
+    "classes": [
+      "Bard",
+      "paladin"
+    ]
+  },
+  "hromadna-promena": {
+    "name": "Hromadná proměna",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "hromadna-sugesce": {
+    "name": "Hromadná sugesce",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "druid",
+      "hraničář",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "hromadne-lecive-slovo": {
+    "name": "Hromadné léčivé slovo",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "hromadne-prestrojeni": {
+    "name": "Hromadné přestrojení",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "hromadne-uzdraveni": {
+    "name": "Hromadné uzdravení",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "hromadne-zhojeni-zraneni": {
+    "name": "Hromadné zhojení zranění",
+    "classes": [
+      "Bard",
+      "druid",
+      "klerik"
+    ]
+  },
+  "hromokrok": {
+    "name": "Hromokrok",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "hromova-vlna": {
+    "name": "Hromová vlna",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "hromovy-uder": {
+    "name": "Hromový úder",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "hvezdna-koruna": {
+    "name": "Hvězdná koruna",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "hypnoticky-vzor": {
+    "name": "Hypnotický vzor",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "iluzorni-drak": {
+    "name": "Iluzorní drak",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "iluzorni-text": {
+    "name": "Iluzorní text",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "iluzorni-vezeni": {
+    "name": "Iluzorní vězení",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "jasnozrivost": {
+    "name": "Jasnozřivost",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "jazyky": {
+    "name": "Jazyky",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "jedovata-koule": {
+    "name": "Jedovatá koule",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "jedovata-sprska": {
+    "name": "Jedovatá sprška",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "kamenna-kuze": {
+    "name": "Kamenná kůže",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "kouzelník"
+    ]
+  },
+  "kamenna-zed": {
+    "name": "Kamenná zeď",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "kamenny-plast": {
+    "name": "Kamenný plášť",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "katapult": {
+    "name": "Katapult",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "kejkle-jad": {
+    "name": "Kejkle (JaD)",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ]
+  },
+  "kejkle": {
+    "name": "Kejkle",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "klamny-prostor": {
+    "name": "Klamný prostor",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "kletba": {
+    "name": "Kletba",
+    "classes": [
+      "Černokněžník"
+    ]
+  },
+  "klon": {
+    "name": "Klon",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "kordon-sipu": {
+    "name": "Kordon šípů",
+    "classes": [
+      "Hraničář"
+    ]
+  },
+  "koreny-omotani": {
+    "name": "Kořeny omotání",
+    "classes": [
+      "Druid",
+      "Hraničář"
+    ]
+  },
+  "koruna-silenstvi": {
+    "name": "Koruna šílenství",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "kosti-zeme": {
+    "name": "Kosti země",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "koule-nezranitelnosti": {
+    "name": "Koule nezranitelnosti",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "kouzelny-oblazek": {
+    "name": "Kouzelný oblázek",
+    "classes": [
+      "Černokněžník",
+      "druid"
+    ]
+  },
+  "krizakova-pelerina": {
+    "name": "Křižákova pelerína",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "kruh-moci": {
+    "name": "Kruh moci",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "kruh-smrti": {
+    "name": "Kruh smrti",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "krupobiti-trnu": {
+    "name": "Krupobití trnů",
+    "classes": [
+      "Hraničář"
+    ]
+  },
+  "kurokuze": {
+    "name": "Kůrokůže",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ]
+  },
+  "kuzel-mrazu": {
+    "name": "Kužel mrazu",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "kyselinova-koule": {
+    "name": "Kyselinová koule",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "leciva-modlitba": {
+    "name": "Léčivá modlitba",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "lecive-slovo": {
+    "name": "Léčivé slovo",
+    "classes": [
+      "Bard",
+      "druid",
+      "klerik"
+    ]
+  },
+  "lecivy-duch": {
+    "name": "Léčivý duch",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ]
+  },
+  "ledova-boure": {
+    "name": "Ledová bouře",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "ledova-zed": {
+    "name": "Ledová zeď",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "ledovy-nuz": {
+    "name": "Ledový nůž",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "ledovy-plast": {
+    "name": "Ledový plášť",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "leomunidova-chatka": {
+    "name": "Leomunidova chatka",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ]
+  },
+  "leomunidova-tajna-truhla": {
+    "name": "Leomunidova tajná truhla",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "let": {
+    "name": "Leť",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "levitace": {
+    "name": "Levitace",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "lovcova-marka": {
+    "name": "Lovcova marka",
+    "classes": [
+      "Hraničář"
+    ]
+  },
+  "maelstrom": {
+    "name": "Maelström",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "magicka-strela": {
+    "name": "Magická střela",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "magicka-usta": {
+    "name": "Magická ústa",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ]
+  },
+  "magicka-zbran": {
+    "name": "Magická zbraň",
+    "classes": [
+      "Kouzelník",
+      "paladin"
+    ]
+  },
+  "magicky-kruh": {
+    "name": "Magický kruh",
+    "classes": [
+      "Černokněžník",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ]
+  },
+  "magova-ruka-jad": {
+    "name": "Mágova ruka (JaD)",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ]
+  },
+  "magova-ruka": {
+    "name": "Mágova ruka",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "magova-zbroj": {
+    "name": "Mágova zbroj",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "majak-nadeje": {
+    "name": "Maják naděje",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "maso-na-kamen": {
+    "name": "Zkamenění",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ]
+  },
+  "maxmilianova-hlinena-ruka": {
+    "name": "Maxmiliánova hliněná ruka",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "melfovy-meteorky": {
+    "name": "Melfovy meteorky",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "melfuv-kyselinovy-sip": {
+    "name": "Melfův kyselinový šíp",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "mentalni-bodec": {
+    "name": "Mentální bodec",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "mentalni-uder": {
+    "name": "Mentální úder",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Černokněžník",
+      "Klerik",
+      "Kouzelník"
+    ]
+  },
+  "mesicni-paprsek": {
+    "name": "Měsíční paprsek",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "mihotani": {
+    "name": "Mihotání",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "mluv-s-mrtvymi": {
+    "name": "Mluv s mrtvými",
+    "classes": [
+      "Bard",
+      "klerik"
+    ]
+  },
+  "mluv-s-rostlinami": {
+    "name": "Mluv s rostlinami",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář"
+    ]
+  },
+  "mluv-se-zviraty": {
+    "name": "Mluv se zvířaty",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář"
+    ]
+  },
+  "mluva-sfer": {
+    "name": "Mluva sfér",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ]
+  },
+  "mlzna-podoba": {
+    "name": "Mlžná podoba",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "mlzny-krok": {
+    "name": "Mlžný krok",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "mocna-neviditelnost": {
+    "name": "Mocná neviditelnost",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "mocne-navraceni": {
+    "name": "Mocné navrácení",
+    "classes": [
+      "Bard",
+      "druid",
+      "klerik"
+    ]
+  },
+  "mocny-hrad": {
+    "name": "Mocný hrad",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "mordenkainenova-soukroma-svatyne": {
+    "name": "Mordenkainenova soukromá svatyně",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "mordenkainenuv-mec": {
+    "name": "Mordenkainenův meč",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ]
+  },
+  "mordenkainenuv-velkolepy-dum": {
+    "name": "Mordenkainenův velkolepý dům",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ]
+  },
+  "mordenkainenuv-verny-pes": {
+    "name": "Mordenkainenův věrný pes",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "mrazivy-dotyk": {
+    "name": "Dotek smrti",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "mrazivy-paprsek": {
+    "name": "Mrazivý paprsek",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "mysticka-brana": {
+    "name": "Mystická brána",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "mysticke-oko": {
+    "name": "Mystické oko",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "mysticky-zamek": {
+    "name": "Mystický zámek",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "najdi-cestu": {
+    "name": "Najdi cestu",
+    "classes": [
+      "Bard",
+      "druid",
+      "klerik"
+    ]
+  },
+  "najdi-honosnejsiho-ore": {
+    "name": "Najdi honosnějšího oře",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "najdi-jed-a-nemoc": {
+    "name": "Najdi jed a nemoc",
+    "classes": [
+      "Druid",
+      "hraničář",
+      "klerik",
+      "paladin"
+    ]
+  },
+  "najdi-magii": {
+    "name": "Najdi magii",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "druid",
+      "hraničář",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ]
+  },
+  "najdi-ore": {
+    "name": "Najdi oře",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "najdi-pasti": {
+    "name": "Najdi pasti",
+    "classes": [
+      "Druid",
+      "hraničář",
+      "klerik"
+    ]
+  },
+  "najdi-predmet": {
+    "name": "Najdi předmět",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ]
+  },
+  "najdi-pritelicka": {
+    "name": "Najdi přítelíčka",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "najdi-tvora": {
+    "name": "Najdi tvora",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ]
+  },
+  "najdi-zlo-a-dobro": {
+    "name": "Najdi zlo a dobro",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ]
+  },
+  "najdi-zvirata-a-rostliny": {
+    "name": "Najdi zvířata a rostliny",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář"
+    ]
+  },
+  "nakaza": {
+    "name": "Nákaza",
+    "classes": [
+      "Druid",
+      "klerik"
+    ]
+  },
+  "naplanovana-iluze": {
+    "name": "Naplánovaná iluze",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ]
+  },
+  "napodobenina": {
+    "name": "Napodobenina",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "navadeci-blesk": {
+    "name": "Naváděcí blesk",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "nebepis": {
+    "name": "Nebepis",
+    "classes": [
+      "Bard",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "nelibozvucny-sepot": {
+    "name": "Nelibozvučny šepot",
+    "classes": [
+      "Bard"
+    ]
+  },
+  "nemesis": {
+    "name": "Nemesis",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "nesnesitelna-temnota": {
+    "name": "Nesnesitelná temnota",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ]
+  },
+  "neuveritelny-puvab": {
+    "name": "Neuvěřitelný půvab",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ]
+  },
+  "neviditelnost": {
+    "name": "Neviditelnost",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "neviditelny-sluzebnik": {
+    "name": "Neviditelný služebník",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "nezjistitelnost": {
+    "name": "Nezjistitelnost",
+    "classes": [
+      "Bard",
+      "hraničář",
+      "kouzelník"
+    ]
+  },
+  "nezranitelnost": {
+    "name": "Nezranitelnost",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "niciva-vlna": {
+    "name": "Ničivá vlna",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "nizsi-navraceni": {
+    "name": "Nižší navrácení",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář",
+      "klerik",
+      "paladin"
+    ]
+  },
+  "nutkani": {
+    "name": "Nutkání",
+    "classes": [
+      "Bard"
+    ]
+  },
+  "nystulova-magicka-aura": {
+    "name": "Nystulova magická aura",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "obkliceni": {
+    "name": "Obklíčení",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "oblak-dyk": {
+    "name": "Oblak dýk",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "oblak-mlhy": {
+    "name": "Oblak mlhy",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "kouzelník"
+    ]
+  },
+  "oblak-smrti": {
+    "name": "Oblak smrti",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "obrad": {
+    "name": "Obřad",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ]
+  },
+  "obri-hmyz": {
+    "name": "Obří hmyz",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "obrozeni": {
+    "name": "Obrození",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ]
+  },
+  "ochrana-pred-energii": {
+    "name": "Ochrana před energií",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "ochrana-pred-jedem": {
+    "name": "Ochrana před jedem",
+    "classes": [
+      "Druid",
+      "hraničář",
+      "klerik",
+      "paladin"
+    ]
+  },
+  "ochrana-pred-zlem-a-dobrem": {
+    "name": "Ochrana před zlem a dobrem",
+    "classes": [
+      "Černokněžník",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ]
+  },
+  "ochrance-prirody": {
+    "name": "Ochránce přírody",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ]
+  },
+  "ocisti-jidlo-a-piti": {
+    "name": "Očisti jídlo a pití",
+    "classes": [
+      "Druid",
+      "klerik",
+      "paladin"
+    ]
+  },
+  "odhal-myslenky": {
+    "name": "Odhal myšlenky",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "odolani-jad": {
+    "name": "Odolání (JaD)",
+    "classes": [
+      "Druid",
+      "Klerik"
+    ]
+  },
+  "odolani": {
+    "name": "Odolání",
+    "classes": [
+      "Druid",
+      "klerik"
+    ]
+  },
+  "odolej-zivlum": {
+    "name": "Odolej živlům",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "kouzelník"
+    ]
+  },
+  "odpocinkova-hymna": {
+    "name": "Odpočinková hymna",
+    "classes": [
+      "Bard"
+    ]
+  },
+  "odporne-zareni": {
+    "name": "Odporné záření",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "ohniva-boure": {
+    "name": "Ohnivá bouře",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "klerik"
+    ]
+  },
+  "ohniva-cepel": {
+    "name": "Ohnivá čepel",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "ohniva-koule": {
+    "name": "Ohnivá koule",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "ohniva-strela": {
+    "name": "Ohnivá střela",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "ohniva-zed": {
+    "name": "Ohnivá zeď",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "ohnivy-stit": {
+    "name": "Ohnivý štít",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "omrzliny": {
+    "name": "Omrzliny",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "oprava-jad": {
+    "name": "Oprava (JaD)",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Druid",
+      "Klerik",
+      "Kouzelník"
+    ]
+  },
+  "oprava": {
+    "name": "Oprava",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "druid",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "oslepujici-uder": {
+    "name": "Oslepující úder",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "otilukova-mraziva-koule": {
+    "name": "Otilukova mrazivá koule",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "otilukova-nepoddajna-koule": {
+    "name": "Otilukova nepoddajná koule",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "otoc-gravitaci": {
+    "name": "Otoč gravitaci",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "otuv-neodolatelny-tanec": {
+    "name": "Otův neodolatelný tanec",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ]
+  },
+  "ovladni-plameny": {
+    "name": "Ovládni plameny",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "ovladni-pocasi": {
+    "name": "Ovládni počasí",
+    "classes": [
+      "Druid",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "ovladni-vitr": {
+    "name": "Ovládni vítr",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "ovladni-vodu": {
+    "name": "Ovládni vodu",
+    "classes": [
+      "Druid",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "oziv-mrtveho": {
+    "name": "Stvoř nemrtvého",
+    "classes": [
+      "Klerik",
+      "kouzelník"
+    ]
+  },
+  "ozivle-predmety": {
+    "name": "Oživlé předměty",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "pachnouci-oblak": {
+    "name": "Páchnoucí oblak",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "paprsek-otraveni": {
+    "name": "Paprsek otrávení",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "paprsek-slabosti": {
+    "name": "Paprsek slabosti",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ]
+  },
+  "pavouci-splh": {
+    "name": "Pavoučí šplh",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "pavucina": {
+    "name": "Pavučina",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "pekelne-pokarani": {
+    "name": "Pekelné pokárání",
+    "classes": [
+      "Černokněžník"
+    ]
+  },
+  "pekelne-volani": {
+    "name": "Pekelné volání",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ]
+  },
+  "pisecna-zed": {
+    "name": "Písečná zeď",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "plamenne-sipy": {
+    "name": "Plamenné šípy",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "kouzelník"
+    ]
+  },
+  "plamenny-plast": {
+    "name": "Plamenný plášť",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "plamenny-uder": {
+    "name": "Plamenný úder",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "planouci-koule": {
+    "name": "Planoucí koule",
+    "classes": [
+      "Druid",
+      "kouzelník"
+    ]
+  },
+  "plast-zmaru": {
+    "name": "Plášť zmaru",
+    "classes": [
+      "Černokněžník"
+    ]
+  },
+  "podminecnost": {
+    "name": "Podmínečnost",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "podpora": {
+    "name": "Podpora",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ]
+  },
+  "podrob-nestvuru": {
+    "name": "Podrob nestvůru",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "podrob-osobu": {
+    "name": "Podrob osobu",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "podrob-zvire": {
+    "name": "Podrob zvíře",
+    "classes": [
+      "Čaroděj",
+      "druid"
+    ]
+  },
+  "pohled-smrti": {
+    "name": "Pohled smrti",
+    "classes": [
+      "Černokněžník"
+    ]
+  },
+  "pohni-zemi": {
+    "name": "Pohni zemí",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "polapujici-uder": {
+    "name": "Polapující úder",
+    "classes": [
+      "Hraničář"
+    ]
+  },
+  "polosfera": {
+    "name": "Polosféra",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ]
+  },
+  "pomaly-pad": {
+    "name": "Pomalý pád",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "poplach": {
+    "name": "Poplach",
+    "classes": [
+      "Hraničář",
+      "kouzelník"
+    ]
+  },
+  "porozumeni-jazykum": {
+    "name": "Porozumění jazykům",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "poryv-vetru": {
+    "name": "Poryv větru",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "poselstvi": {
+    "name": "Poselství",
+    "classes": [
+      "Bard",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "posileni-dovednosti": {
+    "name": "Posílení dovednosti",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "poslys-myty": {
+    "name": "Poslyš mýty",
+    "classes": [
+      "Bard",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "posvatna-puda": {
+    "name": "Posvátná půda",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "posvatny-haj": {
+    "name": "Posvátný háj",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "posvatny-plamen": {
+    "name": "Posvátný plamen",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "pozehnani": {
+    "name": "Požehnání",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ]
+  },
+  "prani": {
+    "name": "Přání",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "prasny-vir": {
+    "name": "Prašný vír",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "pratele": {
+    "name": "Přátelé",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "pratelstvi-zvirat": {
+    "name": "Přátelství zvířat",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář"
+    ]
+  },
+  "pravdive-videni": {
+    "name": "Pravdivé vidění",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "predstirej-smrt": {
+    "name": "Předstírej smrt",
+    "classes": [
+      "Bard",
+      "druid",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "predtucha": {
+    "name": "Předtucha",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "predvidani": {
+    "name": "Předvídání",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "prelud": {
+    "name": "Přelud",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "premen-kamen": {
+    "name": "Přeměň kámen",
+    "classes": [
+      "Druid",
+      "kouzelník"
+    ]
+  },
+  "presny-uder-jad": {
+    "name": "Přesný úder (JaD)",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ]
+  },
+  "presny-uder": {
+    "name": "Přesný úder",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "prestrojeni": {
+    "name": "Přestrojení",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "presun-rostlinami": {
+    "name": "Přesun rostlinami",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "presun-sferami": {
+    "name": "Přesun sférami",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "hraničář",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "presun-zivota": {
+    "name": "Přesun života",
+    "classes": [
+      "Klerik",
+      "kouzelník"
+    ]
+  },
+  "prilivova-vlna": {
+    "name": "Přílivová vlna",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "prizen-bohu": {
+    "name": "Přízeň bohů",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "prizracni-strazci": {
+    "name": "Přízrační strážci",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "prizracny-or": {
+    "name": "Přízračný oř",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "probuzeni": {
+    "name": "Probuzení",
+    "classes": [
+      "Bard",
+      "druid"
+    ]
+  },
+  "projdi-beze-stop": {
+    "name": "Projdi beze stop",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ]
+  },
+  "projdi-zdi": {
+    "name": "Projdi zdí",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "promen": {
+    "name": "Proměň tvora",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "protikouzlo": {
+    "name": "Protikouzlo",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "prst-smrti": {
+    "name": "Prst smrti",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "prvotni-bariera": {
+    "name": "Prvotní bariéra",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "pyrotechnika": {
+    "name": "Pyrotechnika",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "raryho-telepaticke-pouto": {
+    "name": "Raryho telepatické pouto",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "regenerace": {
+    "name": "Regenerace",
+    "classes": [
+      "Bard",
+      "druid",
+      "klerik"
+    ]
+  },
+  "reinkarnace": {
+    "name": "Reinkarnace",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "retezy-upoutani": {
+    "name": "Řetězy upoutání",
+    "classes": [
+      "Černokněžník"
+    ]
+  },
+  "roj-meteoritu": {
+    "name": "Roj meteoritů",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "roj-snehovych-kouli": {
+    "name": "Roj sněhových koulí",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "rozkaz": {
+    "name": "Rozkaz",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ]
+  },
+  "rozklad": {
+    "name": "Rozklad",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "rozmazani": {
+    "name": "Rozmazání",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "rozpal-kov": {
+    "name": "Rozpal kov",
+    "classes": [
+      "Bard",
+      "druid"
+    ]
+  },
+  "rozpras": {
+    "name": "Rozpraš",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "rozptyl-magii": {
+    "name": "Rozptyl magii",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "druid",
+      "hraničář",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ]
+  },
+  "rozptyl-zlo-a-dobro": {
+    "name": "Rozptyl zlo a dobro",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ]
+  },
+  "roztristeni": {
+    "name": "Roztříštění",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "rozvetveny-blesk": {
+    "name": "Rozvětvený blesk",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "rust-rostlin": {
+    "name": "Růst rostlin",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář"
+    ]
+  },
+  "rychlost": {
+    "name": "Rychlost",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "rychly-toulec": {
+    "name": "Rychlý toulec",
+    "classes": [
+      "Hraničář"
+    ]
+  },
+  "sadlo": {
+    "name": "Sádlo",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "schranka-zivota": {
+    "name": "Schránka života",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "sejmi-kletbu": {
+    "name": "Sejmi kletbu",
+    "classes": [
+      "Černokněžník",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ]
+  },
+  "sen": {
+    "name": "Sen",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "sezehujici-paprsek": {
+    "name": "Sežehující paprsek",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "sfericka-vazba": {
+    "name": "Sférická vazba",
+    "classes": [
+      "Bard",
+      "druid",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "sfericky-spojenec": {
+    "name": "Sférický spojenec",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "sila-fenixe": {
+    "name": "Síla fénixe",
+    "classes": [
+      "Čaroděj",
+      "Černokněžník"
+    ]
+  },
+  "silova-klec": {
+    "name": "Silová klec",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "skok": {
+    "name": "Skok",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "kouzelník"
+    ]
+  },
+  "skutecna-promena": {
+    "name": "Skutečná proměna",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "slabomyslnost": {
+    "name": "Slabomyslnost",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "sledovani": {
+    "name": "Sledování",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "druid",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "slepota-nebo-hluchota": {
+    "name": "Slepota nebo hluchota",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "slidive-oko": {
+    "name": "Slídivé oko",
+    "classes": [
+      "Černokněžník"
+    ]
+  },
+  "slizky-uder": {
+    "name": "Slizký úder",
+    "classes": [
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ]
+  },
+  "slofik": {
+    "name": "Šlofík",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "slovo-moci-bolest": {
+    "name": "Slovo moci „bolest\"",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "slovo-moci-ochrom": {
+    "name": "Slovo moci „OCHROM\"",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "slovo-moci-uzdrav": {
+    "name": "Slovo moci „UZDRAV\"",
+    "classes": [
+      "Bard"
+    ]
+  },
+  "slovo-moci-zabij": {
+    "name": "Slovo moci „ZABIJ\"",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "slovo-navratu": {
+    "name": "Slovo návratu",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "slovo-svetla": {
+    "name": "Slovo světla",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "slunecni-erupce": {
+    "name": "Sluneční záblesk",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "slunecni-paprsek": {
+    "name": "Sluneční paprsek",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "smrst": {
+    "name": "Smršť",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "smycka": {
+    "name": "Smyčka",
+    "classes": [
+      "Druid",
+      "hraničář",
+      "kouzelník"
+    ]
+  },
+  "sokujici-sevreni": {
+    "name": "Šokující sevření",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "spalujici-uder": {
+    "name": "Spalující úder",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "spanek": {
+    "name": "Spánek",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "spatri-neviditelne": {
+    "name": "Spatři neviditelné",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "spektralni-sprska": {
+    "name": "Spektrální sprška",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "spektralni-zed": {
+    "name": "Spektrální zeď",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "spesny-ustup": {
+    "name": "Spěšný ústup",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "spojeni-s-prirodou": {
+    "name": "Spojení s přírodou",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ]
+  },
+  "spojeni": {
+    "name": "Spojení",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "stin-moilu": {
+    "name": "Stín moilu",
+    "classes": [
+      "Černokněžník"
+    ]
+  },
+  "stinocepel": {
+    "name": "Stínočepel",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "stit-proti-zivym": {
+    "name": "Štít proti živým",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "stit-viry": {
+    "name": "Štít víry",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ]
+  },
+  "stit": {
+    "name": "Štít",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "strach": {
+    "name": "Strach",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "strazce-viry": {
+    "name": "Strážce víry",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "strazne-pouto": {
+    "name": "Strážné pouto",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "strazny-vichr": {
+    "name": "Strážný vichr",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "strazny-znak": {
+    "name": "Strážný znak",
+    "classes": [
+      "Bard",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "stvor-homunkula": {
+    "name": "Stvoř homunkula",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "stvor-jidlo-a-vodu": {
+    "name": "Stvoř jídlo a vodu",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ]
+  },
+  "stvor-nebo-znic-vodu": {
+    "name": "Stvoř nebo znič vodu",
+    "classes": [
+      "Druid",
+      "klerik"
+    ]
+  },
+  "stvor-nemrtve": {
+    "name": "Stvoř nemrtvé",
+    "classes": [
+      "Černokněžník",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "stvor-plamen": {
+    "name": "Stvoř plamen",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "stvor-taborak": {
+    "name": "Stvoř táborák",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "sugesce": {
+    "name": "Sugesce",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "sukovice": {
+    "name": "Sukovice",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "svata-aura": {
+    "name": "Svatá aura",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "svecena-zbran": {
+    "name": "Svěcená zbraň",
+    "classes": [
+      "Klerik",
+      "Paladin"
+    ]
+  },
+  "svetelna-zed": {
+    "name": "Světelná zeď",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "svetlo-jad": {
+    "name": "Světlo (JaD)",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Klerik",
+      "Kouzelník"
+    ]
+  },
+  "svetlo": {
+    "name": "Světlo",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "svolej-blesky": {
+    "name": "Svolej blesky",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "symbol": {
+    "name": "Symbol",
+    "classes": [
+      "Bard",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "synapticky-sum": {
+    "name": "Synaptický šum",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "tajemny-vysleh": {
+    "name": "Tajemný výšleh",
+    "classes": [
+      "Černokněžník"
+    ]
+  },
+  "tancici-svetla-jad": {
+    "name": "Tančící světla (JaD)",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Kouzelník"
+    ]
+  },
+  "tancici-svetla": {
+    "name": "Tančící světla",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "tanec-mrtvych": {
+    "name": "Tanec mrtvých",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ]
+  },
+  "tasin-desivy-smich": {
+    "name": "Tašin děsivý smích",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ]
+  },
+  "telekineze": {
+    "name": "Telekineze",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "telepaticky-vykrik": {
+    "name": "Telepatický výkřik",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "telepatie": {
+    "name": "Telepatie",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "teleport": {
+    "name": "Teleport",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "teleportacni-kruh": {
+    "name": "Teleportační kruh",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "tenserova-promena": {
+    "name": "Tenserova proměna",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "tenseruv-levitujici-disk": {
+    "name": "Tenserův levitující disk",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "ticho": {
+    "name": "Ticho",
+    "classes": [
+      "Bard",
+      "hraničář",
+      "klerik"
+    ]
+  },
+  "tichy-obraz": {
+    "name": "Tichý obraz",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "tma": {
+    "name": "Tma",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "trik-s-lanem": {
+    "name": "Trik s lanem",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "trnova-zed": {
+    "name": "Trnová zeď",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "trnovy-bic": {
+    "name": "Trnový bič",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "trny": {
+    "name": "Trny",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ]
+  },
+  "tsunami": {
+    "name": "Tsunami",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "tvaruj-kamen": {
+    "name": "Tvaruj kámen",
+    "classes": [
+      "Druid",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "tvaruj-vodu": {
+    "name": "Tvaruj vodu",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "tvaruj-zemi": {
+    "name": "Tvaruj zemi",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "tvorba": {
+    "name": "Tvorba",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "ubrousku-prostri-se": {
+    "name": "Ubrousku, PROSTŘI SE!",
+    "classes": [
+      "Druid",
+      "klerik"
+    ]
+  },
+  "uchvacujici-reva": {
+    "name": "Uchvacující réva",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ]
+  },
+  "uder-oceloveho-vichru": {
+    "name": "Úder ocelového vichru",
+    "classes": [
+      "Hraničář",
+      "Kouzelník"
+    ]
+  },
+  "uder-zloby": {
+    "name": "Úder zloby",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "uklidni-emoce": {
+    "name": "Uklidni emoce",
+    "classes": [
+      "Bard",
+      "klerik"
+    ]
+  },
+  "ukol": {
+    "name": "Úkol",
+    "classes": [
+      "Bard",
+      "druid",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ]
+  },
+  "ukryj-mysl": {
+    "name": "Ukryj mysl",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ]
+  },
+  "upaleni": {
+    "name": "Upálení",
+    "classes": [
+      "Čaroděj",
+      "Kouzelník"
+    ]
+  },
+  "upiri-dotyk": {
+    "name": "Upíří dotyk",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ]
+  },
+  "urceni": {
+    "name": "Určení",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ]
+  },
+  "usetri-umirajiciho-jad": {
+    "name": "Ušetři umírajícího (JaD)",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "usetri-umirajiciho": {
+    "name": "Ušetři umírajícího",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "usvit": {
+    "name": "Úsvit",
+    "classes": [
+      "Klerik",
+      "kouzelník"
+    ]
+  },
+  "uvezneni": {
+    "name": "Uvěznění",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ]
+  },
+  "uvrhini-kletbu": {
+    "name": "Uvrhni kletbu",
+    "classes": [
+      "Bard",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "uzdrav": {
+    "name": "Uzdrav",
+    "classes": [
+      "Druid",
+      "klerik"
+    ]
+  },
+  "uzemneni": {
+    "name": "Uzemnění",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "vabnicka-blesku": {
+    "name": "Vábnička blesků",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "vecny-plamen": {
+    "name": "Věčný plamen",
+    "classes": [
+      "Klerik",
+      "kouzelník"
+    ]
+  },
+  "vedeni-jad": {
+    "name": "Vedení (JaD)",
+    "classes": [
+      "Druid",
+      "Klerik"
+    ]
+  },
+  "vedeni": {
+    "name": "Vedení",
+    "classes": [
+      "Druid",
+      "Klerik",
+      "Divutepec"
+    ]
+  },
+  "vejdi-do-kamene": {
+    "name": "Splyň s kamenen",
+    "classes": [
+      "Druid",
+      "klerik"
+    ]
+  },
+  "velky-obraz": {
+    "name": "Velký obraz",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "vesteni": {
+    "name": "Věštění",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "vetrna-chuze": {
+    "name": "Větrná chůze",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "vetrna-zed": {
+    "name": "Větrná zeď",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ]
+  },
+  "vetrny-plast": {
+    "name": "Větrný plášť",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "vezeni-duse": {
+    "name": "Vězení duše",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ]
+  },
+  "videni-ve-tme": {
+    "name": "Vidění ve tmě",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "kouzelník"
+    ]
+  },
+  "vili-ohen": {
+    "name": "Vílí oheň",
+    "classes": [
+      "Bard",
+      "druid"
+    ]
+  },
+  "vlastni-obraz": {
+    "name": "Vlastní obraz",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ]
+  },
+  "vodnata-koule": {
+    "name": "Vodnatá koule",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "vodni-dech": {
+    "name": "Vodní dech",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "kouzelník"
+    ]
+  },
+  "vodni-zed": {
+    "name": "Vodní zeď",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "volnost": {
+    "name": "Volnost",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář",
+      "klerik"
+    ]
+  },
+  "vybuch-mece": {
+    "name": "Výbuch meče",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "vybuchujici-zeme": {
+    "name": "Vybuchující země",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "vycerpani": {
+    "name": "Vyčerpání",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "vynuceny-duel": {
+    "name": "Vynucený duel",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "vypuzeni": {
+    "name": "Vypuzení",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ]
+  },
+  "vypuzujici-uder": {
+    "name": "Vypuzující úder",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "vyrecnosti": {
+    "name": "Výřečnosti",
+    "classes": [
+      "Bard",
+      "černokněžník"
+    ]
+  },
+  "vystras": {
+    "name": "Vystraš",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ]
+  },
+  "vyvolej-elementala": {
+    "name": "Vyvolej elementála",
+    "classes": [
+      "Druid",
+      "kouzelník"
+    ]
+  },
+  "vyvolej-lesni-bytosti": {
+    "name": "Vyvolej lesní bytosti",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ]
+  },
+  "vyvolej-mensi-demony": {
+    "name": "Vyvolej menší démony",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ]
+  },
+  "vyvolej-mocneho-demona": {
+    "name": "Vyvolej mocného démona",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ]
+  },
+  "vyvolej-nebestana": {
+    "name": "Vyvolej nebešťana",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "vyvolej-nizsi-elementaly": {
+    "name": "Vyvolej nižší elementály",
+    "classes": [
+      "Druid",
+      "kouzelník"
+    ]
+  },
+  "vyvolej-palbu": {
+    "name": "Vyvolej palbu",
+    "classes": [
+      "Hraničář"
+    ]
+  },
+  "vyvolej-salvu": {
+    "name": "Vyvolej salvu",
+    "classes": [
+      "Hraničář"
+    ]
+  },
+  "vyvolej-vilu": {
+    "name": "Vyvolej vílu",
+    "classes": [
+      "Černokněžník",
+      "druid"
+    ]
+  },
+  "vyvolej-zvirata": {
+    "name": "Vyvolej zvířata",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ]
+  },
+  "vzkriseni": {
+    "name": "Vzkříšení",
+    "classes": [
+      "Bard",
+      "klerik",
+      "paladin"
+    ]
+  },
+  "zahaleni": {
+    "name": "Zahalení",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "zahrmeni": {
+    "name": "Zahřmění",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "zakaz": {
+    "name": "Zákaz",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "zaklep": {
+    "name": "Zaklep",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "zamoreni": {
+    "name": "Zamoření",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "zaplava-negativni-energie": {
+    "name": "Záplava negativní energie",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ]
+  },
+  "zapleteni": {
+    "name": "Zapletení",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "zastav-cas": {
+    "name": "Zastav čas",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "zatres-zemi": {
+    "name": "Zatřes zemí",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "zavan": {
+    "name": "Závan",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "zavratny-uder": {
+    "name": "Závratný úder",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "zbroj-agathysu": {
+    "name": "Zbroj agathysu",
+    "classes": [
+      "Černokněžník"
+    ]
+  },
+  "zed-sily": {
+    "name": "Zeď síly",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "zefyruv-uder": {
+    "name": "Zefýrův úder",
+    "classes": [
+      "Hraničář"
+    ]
+  },
+  "zemetreseni": {
+    "name": "Zemětřesení",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "klerik"
+    ]
+  },
+  "zhoj-zraneni": {
+    "name": "Zhoj zranění",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář",
+      "klerik",
+      "paladin"
+    ]
+  },
+  "zhotov": {
+    "name": "Zhotov",
+    "classes": [
+      "Kouzelník"
+    ]
+  },
+  "zhouba": {
+    "name": "Uřknutí",
+    "classes": [
+      "Bard",
+      "klerik"
+    ]
+  },
+  "zivelna-zbran": {
+    "name": "Živelná zbraň",
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "zivelna-zkaza": {
+    "name": "Živelná zkáza",
+    "classes": [
+      "Černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "zkriveni-prostoru": {
+    "name": "Zkřivení prostoru",
+    "classes": [
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ]
+  },
+  "zle-oko": {
+    "name": "Zlé oko",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "zlepsi-vlastnost": {
+    "name": "Zlepši vlastnost",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "druid",
+      "klerik"
+    ]
+  },
+  "zlomyslny-vysmech": {
+    "name": "Zlomyslný výsměch",
+    "classes": [
+      "Bard"
+    ]
+  },
+  "zmam-obludu": {
+    "name": "Zmam obludu",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "zmam-osobu": {
+    "name": "Zmam osobu",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "zmatek": {
+    "name": "Zmatek",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "zmen-pamet": {
+    "name": "Změň paměť",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ]
+  },
+  "zmen-svuj-tvar": {
+    "name": "Změň svůj tvar",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "zmena-podoby": {
+    "name": "Změna podoby",
+    "classes": [
+      "Druid",
+      "kouzelník"
+    ]
+  },
+  "zmrtvychvstani": {
+    "name": "Zmrtvýchvstání",
+    "classes": [
+      "Bard",
+      "klerik"
+    ]
+  },
+  "zmrzly-dest": {
+    "name": "Zmrzlý déšť",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ]
+  },
+  "znameni-proti-cepelim": {
+    "name": "Znamení proti čepelím",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "znameni-proti-smrti": {
+    "name": "Znamení proti smrti",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ]
+  },
+  "znehybni-nestvuru": {
+    "name": "Znehybni nestvůru",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "znehybni-osobu": {
+    "name": "Znehybni osobu",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "druid",
+      "klerik",
+      "kouzelník"
+    ]
+  },
+  "znovuzrozeni": {
+    "name": "Znovuzrození",
+    "classes": [
+      "Druid",
+      "klerik"
+    ]
+  },
+  "zona-pravdy": {
+    "name": "Zóna pravdy",
+    "classes": [
+      "Bard",
+      "klerik",
+      "paladin"
+    ]
+  },
+  "zpomaleni": {
+    "name": "Zpomalení",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "zprava-jad": {
+    "name": "Zpráva (JaD)",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Kouzelník"
+    ]
+  },
+  "zprava": {
+    "name": "Zpráva",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ]
+  },
+  "zpusob-zraneni": {
+    "name": "Způsob zranění",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "zran": {
+    "name": "Zraň",
+    "classes": [
+      "Klerik"
+    ]
+  },
+  "zrcadlovy-obraz": {
+    "name": "Zrcadlový obraz",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ]
+  },
+  "zvetseni-nebo-zmenseni": {
+    "name": "Zvětšení nebo zmenšení",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ]
+  },
+  "zvireci-podoba": {
+    "name": "Zvířecí podoba",
+    "classes": [
+      "Druid"
+    ]
+  },
+  "zvireci-posel": {
+    "name": "Zvířecí posel",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář"
+    ]
+  },
+  "zvireci-pouto": {
+    "name": "Zvířecí pouto",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ]
+  },
+  "zvireci-smysly": {
+    "name": "Zvířecí smysly",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ]
+  }
+}

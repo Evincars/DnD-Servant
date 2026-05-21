@@ -208,15 +208,24 @@ export class SpellDetailDialogComponent {
     ]).pipe(
       filter(([spells, snippets]) => spells.length > 0 && snippets !== null),
       take(1),
-      map(([spells]) => spells),
-      switchMap(spells => {
+      switchMap(([spells, snippets]) => {
         const spell = spells.find(
           s => JadSpellsService.normalizeStr(s.name) === JadSpellsService.normalizeStr(this.data.spellName),
         );
-        if (!spell) {
-          return of(`<p>Kouzlo "<strong>${this.data.spellName}</strong>" nebylo nalezeno v databázi JaD.</p>`);
+        if (spell) {
+          return this.spellsService.loadSpellContent(spell);
         }
-        return this.spellsService.loadSpellContent(spell);
+
+        // Fallback: derive slug from name and try to load snippet directly.
+        // Handles spells added manually to the character sheet that may not yet
+        // be in the fully-loaded allSpells (e.g. "Tašin děsivý smích").
+        const slug = JadSpellsService.normalizeStr(this.data.spellName).replace(/\s+/g, '-');
+        const snippetSet = snippets ?? new Set<string>();
+        if (snippetSet.has(`${slug}-jad.md`) || snippetSet.has(`${slug}.md`)) {
+          return this.spellsService.loadSpellContent({ name: this.data.spellName, slug, file: '', classes: [] });
+        }
+
+        return of(`<p>Kouzlo "<strong>${this.data.spellName}</strong>" nebylo nalezeno v databázi.</p>`);
       }),
     ),
   );
