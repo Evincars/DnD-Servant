@@ -12,6 +12,10 @@ export interface JadSpell {
   classes: string[];
   /** Spell level: 0 = cantrip (trik), 1-9 = leveled spell. Undefined if unknown. */
   level?: number;
+  /** Spell school (Nekromancie, Zaklínání, …). Undefined if unknown. */
+  school?: string;
+  /** True if the spell can be cast as a ritual. */
+  ritual?: boolean;
 }
 
 interface HeadingEntry {
@@ -25,6 +29,8 @@ interface SpellMetaEntry {
   name: string;
   classes: string[];
   level?: number;
+  school?: string;
+  ritual?: boolean;
 }
 
 type SpellMeta = Record<string, SpellMetaEntry>;
@@ -93,6 +99,8 @@ export class JadSpellsService {
         file: e.f,
         classes: (meta?.[e.s]?.classes ?? []).map(normalizeClassName),
         level: meta?.[e.s]?.level,
+        school: meta?.[e.s]?.school,
+        ritual: meta?.[e.s]?.ritual,
       }));
   });
 
@@ -117,6 +125,8 @@ export class JadSpellsService {
         file: '',
         classes: data.classes.map(normalizeClassName),
         level: data.level,
+        school: data.school,
+        ritual: data.ritual,
       }));
   });
 
@@ -134,6 +144,15 @@ export class JadSpellsService {
       }
     }
     return [...classSet].sort((a, b) => a.localeCompare(b, 'cs'));
+  });
+
+  /** Sorted unique list of spell schools across all spells. */
+  readonly availableSchools = computed((): string[] => {
+    const schoolSet = new Set<string>();
+    for (const spell of this.allSpells()) {
+      if (spell.school) schoolSet.add(spell.school);
+    }
+    return [...schoolSet].sort((a, b) => a.localeCompare(b, 'cs'));
   });
 
   findSpellByName(name: string): JadSpell | undefined {
