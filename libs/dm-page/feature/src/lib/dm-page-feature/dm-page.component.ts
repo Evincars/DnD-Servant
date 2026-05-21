@@ -122,7 +122,7 @@ const DM_TAB_COUNT = 5;
       }
 
       .mdc-tab__text-label {
-        font-family: 'Mikadan', sans-serif !important;
+        font-family: sans-serif !important;
         font-size: 11px !important;
         letter-spacing: .14em !important;
         text-transform: uppercase !important;

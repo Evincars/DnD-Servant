@@ -220,7 +220,7 @@ function rand<T>(arr: T[]): T {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatIcon, MatTooltip],
   styles: `
-    :host { display: block; height: 100%; overflow-y: auto; padding: 24px 32px 40px; box-sizing: border-box; font-family: 'Mikadan', sans-serif; }
+    :host { display: block; height: 100%; overflow-y: auto; padding: 24px 32px 40px; box-sizing: border-box; font-family: sans-serif; }
 
     /* ── Header ─────────────────────────────────── */
     .gen-header {
@@ -238,7 +238,7 @@ function rand<T>(arr: T[]): T {
     .gen-subtitle { font-size: 11px; color: rgba(60,140,200,.4); letter-spacing: .05em; margin-top: 5px; font-family: sans-serif; font-style: italic; text-transform: none; }
 
     .gen-reroll-all {
-      font-family: 'Mikadan', sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+      font-family: sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
       border: 1px solid rgba(60,140,200,.3); border-radius: 3px; background: rgba(60,140,200,.08);
       color: rgba(80,160,220,.8); padding: 6px 16px; cursor: pointer;
       display: flex; align-items: center; gap: 6px;
@@ -298,7 +298,7 @@ function rand<T>(arr: T[]): T {
     }
 
     .gen-btn {
-      font-family: 'Mikadan', sans-serif; font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+      font-family: sans-serif; font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
       border: 1px solid var(--c); border-radius: 2px;
       background: rgba(0,0,0,.2); color: var(--c);
       padding: 4px 12px; cursor: pointer;
@@ -323,7 +323,7 @@ function rand<T>(arr: T[]): T {
       display: flex; flex-direction: column; gap: 4px;
     }
     .gen-npc-name {
-      font-family: 'Mikadan', sans-serif; font-size: 15px; letter-spacing: .08em;
+      font-family: sans-serif; font-size: 15px; letter-spacing: .08em;
       color: #e8c96a; text-shadow: 0 0 8px rgba(200,160,60,.3);
     }
     .gen-npc-meta { font-family: sans-serif; font-size: 11px; color: rgba(200,180,120,.7); }

@@ -25,7 +25,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     :host {
       display: block;
       padding: 24px 32px 40px;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       overflow: visible;
       /* Pass a readable text colour into rich-textarea via the CSS custom property it supports */
       --rt-text-color: rgba(210, 195, 160, 0.92);
@@ -112,7 +112,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     }
 
     .btn-save {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 11px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
