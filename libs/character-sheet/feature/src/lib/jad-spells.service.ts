@@ -10,6 +10,8 @@ export interface JadSpell {
   slug: string;
   file: string;
   classes: string[];
+  /** Spell level: 0 = cantrip (trik), 1-9 = leveled spell. Undefined if unknown. */
+  level?: number;
 }
 
 interface HeadingEntry {
@@ -22,6 +24,7 @@ interface HeadingEntry {
 interface SpellMetaEntry {
   name: string;
   classes: string[];
+  level?: number;
 }
 
 type SpellMeta = Record<string, SpellMetaEntry>;
@@ -89,6 +92,7 @@ export class JadSpellsService {
         slug: e.s,
         file: e.f,
         classes: (meta?.[e.s]?.classes ?? []).map(normalizeClassName),
+        level: meta?.[e.s]?.level,
       }));
   });
 
@@ -112,6 +116,7 @@ export class JadSpellsService {
         slug,
         file: '',
         classes: data.classes.map(normalizeClassName),
+        level: data.level,
       }));
   });
 

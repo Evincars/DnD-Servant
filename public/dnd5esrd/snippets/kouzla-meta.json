@@ -18,14 +18,16 @@
     "classes": [
       "Klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 8
   },
   "antipatie-nebo-sympatie": {
     "name": "Antipatie nebo Sympatie",
     "classes": [
       "Druid",
       "kouzelník"
-    ]
+    ],
+    "level": 8
   },
   "antropomancie": {
     "name": "Antropomancie",
@@ -33,7 +35,8 @@
       "Černokněžník",
       "Klerik",
       "Kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "astralni-projekce": {
     "name": "Astrální projekce",
@@ -43,7 +46,8 @@
       "hraničář",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 9
   },
   "aura-cistoty": {
     "name": "Aura čistoty",
@@ -67,14 +71,16 @@
     "name": "Azyl",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 1
   },
   "bajny-lucistnik": {
     "name": "Bájný lučištník",
     "classes": [
       "Bard",
       "Hraničář"
-    ]
+    ],
+    "level": 1
   },
   "barevna-koule": {
     "name": "Barevná koule",
@@ -88,13 +94,15 @@
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "bariera-cepeli": {
     "name": "Bariéra čepelí",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 6
   },
   "besneni": {
     "name": "Běsnění",
@@ -103,7 +111,8 @@
       "Čaroděj",
       "Černokněžník",
       "Kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "bigbyho-ruka": {
     "name": "Bigbyho ruka",
@@ -116,7 +125,8 @@
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "bleskovy-sip": {
     "name": "Bleskový šíp",
@@ -128,13 +138,15 @@
     "name": "Bludiště",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 8
   },
   "boure-odplaty": {
     "name": "Bouře odplaty",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 9
   },
   "bourna-koule": {
     "name": "Bouřná koule",
@@ -154,13 +166,15 @@
     "classes": [
       "Druid",
       "klerik"
-    ]
+    ],
+    "level": 0
   },
   "bozske-slovo": {
     "name": "Božské slovo",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 7
   },
   "brana": {
     "name": "Brána",
@@ -168,7 +182,8 @@
       "Čaroděj",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 9
   },
   "carodejnicky-blesk": {
     "name": "Čarodějnický blesk",
@@ -183,13 +198,15 @@
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 7
   },
   "cejchovaci-uder": {
     "name": "Cejchovací úder",
     "classes": [
       "Paladin"
-    ]
+    ],
+    "level": 2
   },
   "cepel-zeleneho-plamene": {
     "name": "Čepel zeleného plamene",
@@ -197,7 +214,8 @@
       "Čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "cerny-jed": {
     "name": "Černý jed",
@@ -205,7 +223,8 @@
       "Čaroděj",
       "Černokněžník",
       "Kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "chaoticky-blesk": {
     "name": "Chaotický blesk",
@@ -220,7 +239,8 @@
       "Čaroděj",
       "Černokněžník",
       "Kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "chuze-po-vode": {
     "name": "Chůze po vodě",
@@ -229,14 +249,16 @@
       "druid",
       "hraničář",
       "klerik"
-    ]
+    ],
+    "level": 3
   },
   "chuze-stromy": {
     "name": "Chůze stromy",
     "classes": [
       "Druid",
       "hraničář"
-    ]
+    ],
+    "level": 5
   },
   "dalekokrok": {
     "name": "Dalekokrok",
@@ -254,7 +276,8 @@
       "hraničář",
       "klerik",
       "paladin"
-    ]
+    ],
+    "level": 3
   },
   "dimenzionalni-dvere": {
     "name": "Dimenzionální dveře",
@@ -263,25 +286,29 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 4
   },
   "divoke-roztrhani": {
     "name": "Divoké roztrhání",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 0
   },
   "divotvorstvi-jad": {
     "name": "Divotvorství (JaD)",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 0
   },
   "divotvorstvi": {
     "name": "Divotvorství",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 0
   },
   "dlouhokrok": {
     "name": "Dlouhokrok",
@@ -290,14 +317,16 @@
       "druid",
       "hraničář",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "dobruvka": {
     "name": "Dobrůvka",
     "classes": [
       "Druid",
       "hraničář"
-    ]
+    ],
+    "level": 1
   },
   "draci-dech": {
     "name": "Dračí dech",
@@ -319,7 +348,8 @@
       "Čaroděj",
       "Černokněžník",
       "Kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "drobna-iluze": {
     "name": "Drobná iluze",
@@ -328,7 +358,8 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "drobny-sluzebnik": {
     "name": "Drobný služebník",
@@ -340,19 +371,22 @@
     "name": "Druidství",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 0
   },
   "druidstvi-jad": {
     "name": "Druidství (JaD)",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 0
   },
   "duchovni-zbran": {
     "name": "Duchovní zbraň",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 2
   },
   "dunive-ostri": {
     "name": "Dunivé ostří",
@@ -360,28 +394,32 @@
       "Čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "dustojny-odpocinek": {
     "name": "Důstojný odpočinek",
     "classes": [
       "Klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "dvojnik": {
     "name": "Dvojník",
     "classes": [
       "Bard",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "elementalni-erupce": {
     "name": "Elementální erupce",
     "classes": [
       "Čaroděj",
       "Kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "etericnost": {
     "name": "Éteričnost",
@@ -391,7 +429,8 @@
       "černokněžník",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 7
   },
   "evardova-cerna-chapadla": {
     "name": "Evardova černá chapadla",
@@ -404,20 +443,23 @@
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "fantom": {
     "name": "Fantóm",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 4
   },
   "fascinuj": {
     "name": "Fascinuj",
     "classes": [
       "Bard",
       "černokněžník"
-    ]
+    ],
+    "level": 2
   },
   "fata-morgana": {
     "name": "Fata morgána",
@@ -425,7 +467,8 @@
       "Bard",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 7
   },
   "hadarova-touha": {
     "name": "Hadarova touha",
@@ -444,7 +487,8 @@
     "classes": [
       "Čaroděj",
       "Druid"
-    ]
+    ],
+    "level": 0
   },
   "hexensus": {
     "name": "Hexenšus",
@@ -452,14 +496,16 @@
       "Černokněžník",
       "Klerik",
       "Kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "hlas-boure": {
     "name": "Hlas bouře",
     "classes": [
       "Čaroděj",
       "Druid"
-    ]
+    ],
+    "level": 0
   },
   "hlas-umiracku": {
     "name": "Hlas umíráčku",
@@ -467,14 +513,16 @@
       "Černokněžník",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "hlidej-a-strez": {
     "name": "Hlídej a střež",
     "classes": [
       "Bard",
       "kouzelník"
-    ]
+    ],
+    "level": 6
   },
   "hmyzi-zhouba": {
     "name": "Hmyzí zhouba",
@@ -482,7 +530,8 @@
       "Čaroděj",
       "druid",
       "klerik"
-    ]
+    ],
+    "level": 5
   },
   "hnev-prirody": {
     "name": "Hněv přírody",
@@ -497,7 +546,8 @@
       "Čaroděj",
       "Druid",
       "Kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "hniloba": {
     "name": "Hniloba",
@@ -506,28 +556,32 @@
       "černokněžník",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 4
   },
   "horici-oblak": {
     "name": "Hořící oblak",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 8
   },
   "horici-ruce": {
     "name": "Hořící ruce",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "hrdinstvi": {
     "name": "Hrdinství",
     "classes": [
       "Bard",
       "paladin"
-    ]
+    ],
+    "level": 1
   },
   "hromadna-promena": {
     "name": "Hromadná proměna",
@@ -547,13 +601,15 @@
       "hraničář",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 6
   },
   "hromadne-lecive-slovo": {
     "name": "Hromadné léčivé slovo",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 3
   },
   "hromadne-prestrojeni": {
     "name": "Hromadné přestrojení",
@@ -561,13 +617,15 @@
       "Bard",
       "čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "hromadne-uzdraveni": {
     "name": "Hromadné uzdravení",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 9
   },
   "hromadne-zhojeni-zraneni": {
     "name": "Hromadné zhojení zranění",
@@ -575,7 +633,8 @@
       "Bard",
       "druid",
       "klerik"
-    ]
+    ],
+    "level": 5
   },
   "hromokrok": {
     "name": "Hromokrok",
@@ -592,7 +651,8 @@
       "čaroděj",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "hromovy-uder": {
     "name": "Hromový úder",
@@ -615,7 +675,8 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "iluzorni-drak": {
     "name": "Iluzorní drak",
@@ -629,7 +690,8 @@
       "Bard",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "iluzorni-vezeni": {
     "name": "Iluzorní vězení",
@@ -646,7 +708,8 @@
       "čaroděj",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "jazyky": {
     "name": "Jazyky",
@@ -656,7 +719,8 @@
       "černokněžník",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "jedovata-koule": {
     "name": "Jedovatá koule",
@@ -672,7 +736,8 @@
       "černokněžník",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "kamenna-kuze": {
     "name": "Kamenná kůže",
@@ -681,7 +746,8 @@
       "druid",
       "hraničář",
       "kouzelník"
-    ]
+    ],
+    "level": 4
   },
   "kamenna-zed": {
     "name": "Kamenná zeď",
@@ -689,7 +755,8 @@
       "Čaroděj",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "kamenny-plast": {
     "name": "Kamenný plášť",
@@ -714,7 +781,8 @@
       "Čaroděj",
       "Černokněžník",
       "Kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "kejkle": {
     "name": "Kejkle",
@@ -723,7 +791,8 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "klamny-prostor": {
     "name": "Klamný prostor",
@@ -732,7 +801,8 @@
       "černokněžník",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 4
   },
   "kletba": {
     "name": "Kletba",
@@ -744,7 +814,8 @@
     "name": "Klon",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 8
   },
   "kordon-sipu": {
     "name": "Kordon šípů",
@@ -757,7 +828,8 @@
     "classes": [
       "Druid",
       "Hraničář"
-    ]
+    ],
+    "level": 4
   },
   "koruna-silenstvi": {
     "name": "Koruna šílenství",
@@ -779,14 +851,16 @@
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 6
   },
   "kouzelny-oblazek": {
     "name": "Kouzelný oblázek",
     "classes": [
       "Černokněžník",
       "druid"
-    ]
+    ],
+    "level": 0
   },
   "krizakova-pelerina": {
     "name": "Křižákova pelerína",
@@ -806,7 +880,8 @@
       "Čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 6
   },
   "krupobiti-trnu": {
     "name": "Krupobití trnů",
@@ -819,27 +894,31 @@
     "classes": [
       "Druid",
       "hraničář"
-    ]
+    ],
+    "level": 2
   },
   "kuzel-mrazu": {
     "name": "Kužel mrazu",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "kyselinova-koule": {
     "name": "Kyselinová koule",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "leciva-modlitba": {
     "name": "Léčivá modlitba",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 2
   },
   "lecive-slovo": {
     "name": "Léčivé slovo",
@@ -847,7 +926,8 @@
       "Bard",
       "druid",
       "klerik"
-    ]
+    ],
+    "level": 1
   },
   "lecivy-duch": {
     "name": "Léčivý duch",
@@ -862,13 +942,15 @@
       "Čaroděj",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 4
   },
   "ledova-zed": {
     "name": "Ledová zeď",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 6
   },
   "ledovy-nuz": {
     "name": "Ledový nůž",
@@ -906,14 +988,16 @@
       "Čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "levitace": {
     "name": "Levitace",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "lovcova-marka": {
     "name": "Lovcova marka",
@@ -932,21 +1016,24 @@
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "magicka-usta": {
     "name": "Magická ústa",
     "classes": [
       "Bard",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "magicka-zbran": {
     "name": "Magická zbraň",
     "classes": [
       "Kouzelník",
       "paladin"
-    ]
+    ],
+    "level": 2
   },
   "magicky-kruh": {
     "name": "Magický kruh",
@@ -955,7 +1042,8 @@
       "klerik",
       "kouzelník",
       "paladin"
-    ]
+    ],
+    "level": 3
   },
   "magova-ruka-jad": {
     "name": "Mágova ruka (JaD)",
@@ -964,7 +1052,8 @@
       "Čaroděj",
       "Černokněžník",
       "Kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "magova-ruka": {
     "name": "Mágova ruka",
@@ -973,20 +1062,23 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "magova-zbroj": {
     "name": "Mágova zbroj",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "majak-nadeje": {
     "name": "Maják naděje",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 3
   },
   "maso-na-kamen": {
     "name": "Zkamenění",
@@ -1031,27 +1123,31 @@
       "Černokněžník",
       "Klerik",
       "Kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "mesicni-paprsek": {
     "name": "Měsíční paprsek",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 2
   },
   "mihotani": {
     "name": "Mihotání",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "mluv-s-mrtvymi": {
     "name": "Mluv s mrtvými",
     "classes": [
       "Bard",
       "klerik"
-    ]
+    ],
+    "level": 3
   },
   "mluv-s-rostlinami": {
     "name": "Mluv s rostlinami",
@@ -1059,7 +1155,8 @@
       "Bard",
       "druid",
       "hraničář"
-    ]
+    ],
+    "level": 3
   },
   "mluv-se-zviraty": {
     "name": "Mluv se zvířaty",
@@ -1067,14 +1164,16 @@
       "Bard",
       "druid",
       "hraničář"
-    ]
+    ],
+    "level": 1
   },
   "mluva-sfer": {
     "name": "Mluva sfér",
     "classes": [
       "Černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "mlzna-podoba": {
     "name": "Mlžná podoba",
@@ -1082,7 +1181,8 @@
       "Čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "mlzny-krok": {
     "name": "Mlžný krok",
@@ -1090,7 +1190,8 @@
       "Čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "mocna-neviditelnost": {
     "name": "Mocná neviditelnost",
@@ -1098,7 +1199,8 @@
       "Bard",
       "čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 4
   },
   "mocne-navraceni": {
     "name": "Mocné navrácení",
@@ -1106,7 +1208,8 @@
       "Bard",
       "druid",
       "klerik"
-    ]
+    ],
+    "level": 5
   },
   "mocny-hrad": {
     "name": "Mocný hrad",
@@ -1146,14 +1249,16 @@
       "Čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "mrazivy-paprsek": {
     "name": "Mrazivý paprsek",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "mysticka-brana": {
     "name": "Mystická brána",
@@ -1167,13 +1272,15 @@
     "name": "Mystické oko",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 4
   },
   "mysticky-zamek": {
     "name": "Mystický zámek",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "najdi-cestu": {
     "name": "Najdi cestu",
@@ -1181,7 +1288,8 @@
       "Bard",
       "druid",
       "klerik"
-    ]
+    ],
+    "level": 6
   },
   "najdi-honosnejsiho-ore": {
     "name": "Najdi honosnějšího oře",
@@ -1196,7 +1304,8 @@
       "hraničář",
       "klerik",
       "paladin"
-    ]
+    ],
+    "level": 1
   },
   "najdi-magii": {
     "name": "Najdi magii",
@@ -1208,13 +1317,15 @@
       "klerik",
       "kouzelník",
       "paladin"
-    ]
+    ],
+    "level": 1
   },
   "najdi-ore": {
     "name": "Najdi oře",
     "classes": [
       "Paladin"
-    ]
+    ],
+    "level": 2
   },
   "najdi-pasti": {
     "name": "Najdi pasti",
@@ -1222,7 +1333,8 @@
       "Druid",
       "hraničář",
       "klerik"
-    ]
+    ],
+    "level": 2
   },
   "najdi-predmet": {
     "name": "Najdi předmět",
@@ -1233,13 +1345,15 @@
       "klerik",
       "kouzelník",
       "paladin"
-    ]
+    ],
+    "level": 2
   },
   "najdi-pritelicka": {
     "name": "Najdi přítelíčka",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "najdi-tvora": {
     "name": "Najdi tvora",
@@ -1250,14 +1364,16 @@
       "klerik",
       "kouzelník",
       "paladin"
-    ]
+    ],
+    "level": 4
   },
   "najdi-zlo-a-dobro": {
     "name": "Najdi zlo a dobro",
     "classes": [
       "Klerik",
       "paladin"
-    ]
+    ],
+    "level": 1
   },
   "najdi-zvirata-a-rostliny": {
     "name": "Najdi zvířata a rostliny",
@@ -1265,33 +1381,38 @@
       "Bard",
       "druid",
       "hraničář"
-    ]
+    ],
+    "level": 2
   },
   "nakaza": {
     "name": "Nákaza",
     "classes": [
       "Druid",
       "klerik"
-    ]
+    ],
+    "level": 5
   },
   "naplanovana-iluze": {
     "name": "Naplánovaná iluze",
     "classes": [
       "Bard",
       "kouzelník"
-    ]
+    ],
+    "level": 6
   },
   "napodobenina": {
     "name": "Napodobenina",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 7
   },
   "navadeci-blesk": {
     "name": "Naváděcí blesk",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 1
   },
   "nebepis": {
     "name": "Nebepis",
@@ -1311,7 +1432,8 @@
     "name": "Nemesis",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 9
   },
   "nesnesitelna-temnota": {
     "name": "Nesnesitelná temnota",
@@ -1327,7 +1449,8 @@
       "Čaroděj",
       "Černokněžník",
       "Kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "neviditelnost": {
     "name": "Neviditelnost",
@@ -1336,7 +1459,8 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "neviditelny-sluzebnik": {
     "name": "Neviditelný služebník",
@@ -1344,7 +1468,8 @@
       "Bard",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "nezjistitelnost": {
     "name": "Nezjistitelnost",
@@ -1352,7 +1477,8 @@
       "Bard",
       "hraničář",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "nezranitelnost": {
     "name": "Nezranitelnost",
@@ -1374,13 +1500,15 @@
       "hraničář",
       "klerik",
       "paladin"
-    ]
+    ],
+    "level": 2
   },
   "nutkani": {
     "name": "Nutkání",
     "classes": [
       "Bard"
-    ]
+    ],
+    "level": 4
   },
   "nystulova-magicka-aura": {
     "name": "Nystulova magická aura",
@@ -1413,14 +1541,16 @@
       "druid",
       "hraničář",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "oblak-smrti": {
     "name": "Oblak smrti",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "obrad": {
     "name": "Obřad",
@@ -1433,14 +1563,16 @@
     "name": "Obří hmyz",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 4
   },
   "obrozeni": {
     "name": "Obrození",
     "classes": [
       "Klerik",
       "paladin"
-    ]
+    ],
+    "level": 3
   },
   "ochrana-pred-energii": {
     "name": "Ochrana před energií",
@@ -1450,7 +1582,8 @@
       "hraničář",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "ochrana-pred-jedem": {
     "name": "Ochrana před jedem",
@@ -1459,7 +1592,8 @@
       "hraničář",
       "klerik",
       "paladin"
-    ]
+    ],
+    "level": 2
   },
   "ochrana-pred-zlem-a-dobrem": {
     "name": "Ochrana před zlem a dobrem",
@@ -1468,7 +1602,8 @@
       "klerik",
       "kouzelník",
       "paladin"
-    ]
+    ],
+    "level": 1
   },
   "ochrance-prirody": {
     "name": "Ochránce přírody",
@@ -1483,7 +1618,8 @@
       "Druid",
       "klerik",
       "paladin"
-    ]
+    ],
+    "level": 1
   },
   "odhal-myslenky": {
     "name": "Odhal myšlenky",
@@ -1491,21 +1627,24 @@
       "Bard",
       "čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "odolani-jad": {
     "name": "Odolání (JaD)",
     "classes": [
       "Druid",
       "Klerik"
-    ]
+    ],
+    "level": 0
   },
   "odolani": {
     "name": "Odolání",
     "classes": [
       "Druid",
       "klerik"
-    ]
+    ],
+    "level": 0
   },
   "odolej-zivlum": {
     "name": "Odolej živlům",
@@ -1520,7 +1659,8 @@
     "name": "Odpočinková hymna",
     "classes": [
       "Bard"
-    ]
+    ],
+    "level": 7
   },
   "odporne-zareni": {
     "name": "Odporné záření",
@@ -1536,27 +1676,31 @@
       "Čaroděj",
       "druid",
       "klerik"
-    ]
+    ],
+    "level": 7
   },
   "ohniva-cepel": {
     "name": "Ohnivá čepel",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 2
   },
   "ohniva-koule": {
     "name": "Ohnivá koule",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "ohniva-strela": {
     "name": "Ohnivá střela",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "ohniva-zed": {
     "name": "Ohnivá zeď",
@@ -1564,13 +1708,15 @@
       "Čaroděj",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 4
   },
   "ohnivy-stit": {
     "name": "Ohnivý štít",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 4
   },
   "omrzliny": {
     "name": "Omrzliny",
@@ -1579,7 +1725,8 @@
       "černokněžník",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "oprava-jad": {
     "name": "Oprava (JaD)",
@@ -1589,7 +1736,8 @@
       "Druid",
       "Klerik",
       "Kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "oprava": {
     "name": "Oprava",
@@ -1599,7 +1747,8 @@
       "druid",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "oslepujici-uder": {
     "name": "Oslepující úder",
@@ -1625,7 +1774,8 @@
       "Čaroděj",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 7
   },
   "otuv-neodolatelny-tanec": {
     "name": "Otův neodolatelný tanec",
@@ -1640,7 +1790,8 @@
       "Čaroděj",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "ovladni-pocasi": {
     "name": "Ovládni počasí",
@@ -1648,7 +1799,8 @@
       "Druid",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 8
   },
   "ovladni-vitr": {
     "name": "Ovládni vítr",
@@ -1664,7 +1816,8 @@
       "Druid",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 4
   },
   "oziv-mrtveho": {
     "name": "Stvoř nemrtvého",
@@ -1679,7 +1832,8 @@
       "Bard",
       "čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "pachnouci-oblak": {
     "name": "Páchnoucí oblak",
@@ -1687,7 +1841,8 @@
       "Bard",
       "čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "paprsek-otraveni": {
     "name": "Paprsek otrávení",
@@ -1701,7 +1856,8 @@
     "classes": [
       "Černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "pavouci-splh": {
     "name": "Pavoučí šplh",
@@ -1709,20 +1865,23 @@
       "Čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "pavucina": {
     "name": "Pavučina",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "pekelne-pokarani": {
     "name": "Pekelné pokárání",
     "classes": [
       "Černokněžník"
-    ]
+    ],
+    "level": 1
   },
   "pekelne-volani": {
     "name": "Pekelné volání",
@@ -1759,33 +1918,38 @@
     "name": "Plamenný úder",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 5
   },
   "planouci-koule": {
     "name": "Planoucí koule",
     "classes": [
       "Druid",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "plast-zmaru": {
     "name": "Plášť zmaru",
     "classes": [
       "Černokněžník"
-    ]
+    ],
+    "level": 1
   },
   "podminecnost": {
     "name": "Podmínečnost",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 6
   },
   "podpora": {
     "name": "Podpora",
     "classes": [
       "Klerik",
       "paladin"
-    ]
+    ],
+    "level": 2
   },
   "podrob-nestvuru": {
     "name": "Podrob nestvůru",
@@ -1794,7 +1958,8 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 8
   },
   "podrob-osobu": {
     "name": "Podrob osobu",
@@ -1802,20 +1967,23 @@
       "Bard",
       "čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "podrob-zvire": {
     "name": "Podrob zvíře",
     "classes": [
       "Čaroděj",
       "druid"
-    ]
+    ],
+    "level": 4
   },
   "pohled-smrti": {
     "name": "Pohled smrti",
     "classes": [
       "Černokněžník"
-    ]
+    ],
+    "level": 1
   },
   "pohni-zemi": {
     "name": "Pohni zemí",
@@ -1823,7 +1991,8 @@
       "Čaroděj",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 6
   },
   "polapujici-uder": {
     "name": "Polapující úder",
@@ -1836,7 +2005,8 @@
     "classes": [
       "Černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 8
   },
   "pomaly-pad": {
     "name": "Pomalý pád",
@@ -1844,14 +2014,16 @@
       "Bard",
       "čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "poplach": {
     "name": "Poplach",
     "classes": [
       "Hraničář",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "porozumeni-jazykum": {
     "name": "Porozumění jazykům",
@@ -1860,7 +2032,8 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "poryv-vetru": {
     "name": "Poryv větru",
@@ -1868,7 +2041,8 @@
       "Čaroděj",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "poselstvi": {
     "name": "Poselství",
@@ -1876,7 +2050,8 @@
       "Bard",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "posileni-dovednosti": {
     "name": "Posílení dovednosti",
@@ -1892,13 +2067,15 @@
       "Bard",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "posvatna-puda": {
     "name": "Posvátná půda",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 5
   },
   "posvatny-haj": {
     "name": "Posvátný háj",
@@ -1910,21 +2087,24 @@
     "name": "Posvátný plamen",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 0
   },
   "pozehnani": {
     "name": "Požehnání",
     "classes": [
       "Klerik",
       "paladin"
-    ]
+    ],
+    "level": 1
   },
   "prani": {
     "name": "Přání",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 9
   },
   "prasny-vir": {
     "name": "Prašný vír",
@@ -1941,7 +2121,8 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "pratelstvi-zvirat": {
     "name": "Přátelství zvířat",
@@ -1949,7 +2130,8 @@
       "Bard",
       "druid",
       "hraničář"
-    ]
+    ],
+    "level": 1
   },
   "pravdive-videni": {
     "name": "Pravdivé vidění",
@@ -1959,7 +2141,8 @@
       "černokněžník",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 6
   },
   "predstirej-smrt": {
     "name": "Předstírej smrt",
@@ -1977,13 +2160,15 @@
       "černokněžník",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 9
   },
   "predvidani": {
     "name": "Předvídání",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 2
   },
   "prelud": {
     "name": "Přelud",
@@ -2007,7 +2192,8 @@
       "Čaroděj",
       "Černokněžník",
       "Kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "presny-uder": {
     "name": "Přesný úder",
@@ -2016,7 +2202,8 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "prestrojeni": {
     "name": "Přestrojení",
@@ -2024,13 +2211,15 @@
       "Bard",
       "čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "presun-rostlinami": {
     "name": "Přesun rostlinami",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 6
   },
   "presun-sferami": {
     "name": "Přesun sférami",
@@ -2041,7 +2230,8 @@
       "hraničář",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 7
   },
   "presun-zivota": {
     "name": "Přesun života",
@@ -2062,39 +2252,45 @@
     "name": "Přízeň bohů",
     "classes": [
       "Paladin"
-    ]
+    ],
+    "level": 1
   },
   "prizracni-strazci": {
     "name": "Přízrační strážci",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 3
   },
   "prizracny-or": {
     "name": "Přízračný oř",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "probuzeni": {
     "name": "Probuzení",
     "classes": [
       "Bard",
       "druid"
-    ]
+    ],
+    "level": 5
   },
   "projdi-beze-stop": {
     "name": "Projdi beze stop",
     "classes": [
       "Druid",
       "hraničář"
-    ]
+    ],
+    "level": 2
   },
   "projdi-zdi": {
     "name": "Projdi zdí",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "promen": {
     "name": "Proměň tvora",
@@ -2103,7 +2299,8 @@
       "čaroděj",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 4
   },
   "protikouzlo": {
     "name": "Protikouzlo",
@@ -2111,7 +2308,8 @@
       "Čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "prst-smrti": {
     "name": "Prst smrti",
@@ -2119,7 +2317,8 @@
       "Čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 7
   },
   "prvotni-bariera": {
     "name": "Prvotní bariéra",
@@ -2147,26 +2346,30 @@
       "Bard",
       "druid",
       "klerik"
-    ]
+    ],
+    "level": 7
   },
   "reinkarnace": {
     "name": "Reinkarnace",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 5
   },
   "retezy-upoutani": {
     "name": "Řetězy upoutání",
     "classes": [
       "Černokněžník"
-    ]
+    ],
+    "level": 1
   },
   "roj-meteoritu": {
     "name": "Roj meteoritů",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 9
   },
   "roj-snehovych-kouli": {
     "name": "Roj sněhových koulí",
@@ -2180,28 +2383,32 @@
     "classes": [
       "Klerik",
       "paladin"
-    ]
+    ],
+    "level": 1
   },
   "rozklad": {
     "name": "Rozklad",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 6
   },
   "rozmazani": {
     "name": "Rozmazání",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "rozpal-kov": {
     "name": "Rozpal kov",
     "classes": [
       "Bard",
       "druid"
-    ]
+    ],
+    "level": 2
   },
   "rozpras": {
     "name": "Rozpraš",
@@ -2222,14 +2429,16 @@
       "klerik",
       "kouzelník",
       "paladin"
-    ]
+    ],
+    "level": 3
   },
   "rozptyl-zlo-a-dobro": {
     "name": "Rozptyl zlo a dobro",
     "classes": [
       "Klerik",
       "paladin"
-    ]
+    ],
+    "level": 5
   },
   "roztristeni": {
     "name": "Roztříštění",
@@ -2238,14 +2447,16 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "rozvetveny-blesk": {
     "name": "Rozvětvený blesk",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 6
   },
   "rust-rostlin": {
     "name": "Růst rostlin",
@@ -2253,14 +2464,16 @@
       "Bard",
       "druid",
       "hraničář"
-    ]
+    ],
+    "level": 3
   },
   "rychlost": {
     "name": "Rychlost",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "rychly-toulec": {
     "name": "Rychlý toulec",
@@ -2272,13 +2485,15 @@
     "name": "Sádlo",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "schranka-zivota": {
     "name": "Schránka života",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 6
   },
   "sejmi-kletbu": {
     "name": "Sejmi kletbu",
@@ -2287,7 +2502,8 @@
       "klerik",
       "kouzelník",
       "paladin"
-    ]
+    ],
+    "level": 3
   },
   "sen": {
     "name": "Sen",
@@ -2295,14 +2511,16 @@
       "Bard",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "sezehujici-paprsek": {
     "name": "Sežehující paprsek",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "sfericka-vazba": {
     "name": "Sférická vazba",
@@ -2311,20 +2529,23 @@
       "druid",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "sfericky-spojenec": {
     "name": "Sférický spojenec",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 6
   },
   "sila-fenixe": {
     "name": "Síla fénixe",
     "classes": [
       "Čaroděj",
       "Černokněžník"
-    ]
+    ],
+    "level": 1
   },
   "silova-klec": {
     "name": "Silová klec",
@@ -2332,7 +2553,8 @@
       "Bard",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 7
   },
   "skok": {
     "name": "Skok",
@@ -2341,7 +2563,8 @@
       "druid",
       "hraničář",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "skutecna-promena": {
     "name": "Skutečná proměna",
@@ -2349,7 +2572,8 @@
       "Bard",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 9
   },
   "slabomyslnost": {
     "name": "Slabomyslnost",
@@ -2358,7 +2582,8 @@
       "černokněžník",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 8
   },
   "sledovani": {
     "name": "Sledování",
@@ -2368,7 +2593,8 @@
       "druid",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "slepota-nebo-hluchota": {
     "name": "Slepota nebo hluchota",
@@ -2377,13 +2603,15 @@
       "čaroděj",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "slidive-oko": {
     "name": "Slídivé oko",
     "classes": [
       "Černokněžník"
-    ]
+    ],
+    "level": 3
   },
   "slizky-uder": {
     "name": "Slizký úder",
@@ -2391,7 +2619,8 @@
       "Čaroděj",
       "Černokněžník",
       "Kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "slofik": {
     "name": "Šlofík",
@@ -2437,13 +2666,15 @@
     "name": "Slovo návratu",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 6
   },
   "slovo-svetla": {
     "name": "Slovo světla",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 0
   },
   "slunecni-erupce": {
     "name": "Sluneční záblesk",
@@ -2451,7 +2682,8 @@
       "Čaroděj",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 8
   },
   "slunecni-paprsek": {
     "name": "Sluneční paprsek",
@@ -2459,7 +2691,8 @@
       "Čaroděj",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 6
   },
   "smrst": {
     "name": "Smršť",
@@ -2482,7 +2715,8 @@
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "spalujici-uder": {
     "name": "Spalující úder",
@@ -2496,7 +2730,8 @@
       "Bard",
       "čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "spatri-neviditelne": {
     "name": "Spatři neviditelné",
@@ -2504,20 +2739,23 @@
       "Bard",
       "čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "spektralni-sprska": {
     "name": "Spektrální sprška",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 7
   },
   "spektralni-zed": {
     "name": "Spektrální zeď",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 9
   },
   "spesny-ustup": {
     "name": "Spěšný ústup",
@@ -2525,20 +2763,23 @@
       "Čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "spojeni-s-prirodou": {
     "name": "Spojení s přírodou",
     "classes": [
       "Druid",
       "hraničář"
-    ]
+    ],
+    "level": 5
   },
   "spojeni": {
     "name": "Spojení",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 5
   },
   "stin-moilu": {
     "name": "Stín moilu",
@@ -2558,21 +2799,24 @@
     "name": "Štít proti živým",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 5
   },
   "stit-viry": {
     "name": "Štít víry",
     "classes": [
       "Klerik",
       "paladin"
-    ]
+    ],
+    "level": 1
   },
   "stit": {
     "name": "Štít",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "strach": {
     "name": "Strach",
@@ -2581,19 +2825,22 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "strazce-viry": {
     "name": "Strážce víry",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 4
   },
   "strazne-pouto": {
     "name": "Strážné pouto",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 2
   },
   "strazny-vichr": {
     "name": "Strážný vichr",
@@ -2610,7 +2857,8 @@
       "Bard",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "stvor-homunkula": {
     "name": "Stvoř homunkula",
@@ -2623,14 +2871,16 @@
     "classes": [
       "Klerik",
       "paladin"
-    ]
+    ],
+    "level": 3
   },
   "stvor-nebo-znic-vodu": {
     "name": "Stvoř nebo znič vodu",
     "classes": [
       "Druid",
       "klerik"
-    ]
+    ],
+    "level": 1
   },
   "stvor-nemrtve": {
     "name": "Stvoř nemrtvé",
@@ -2638,13 +2888,15 @@
       "Černokněžník",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 6
   },
   "stvor-plamen": {
     "name": "Stvoř plamen",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 0
   },
   "stvor-taborak": {
     "name": "Stvoř táborák",
@@ -2653,7 +2905,8 @@
       "černokněžník",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "sugesce": {
     "name": "Sugesce",
@@ -2662,19 +2915,22 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "sukovice": {
     "name": "Sukovice",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 0
   },
   "svata-aura": {
     "name": "Svatá aura",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 8
   },
   "svecena-zbran": {
     "name": "Svěcená zbraň",
@@ -2698,7 +2954,8 @@
       "Čaroděj",
       "Klerik",
       "Kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "svetlo": {
     "name": "Světlo",
@@ -2707,13 +2964,15 @@
       "čaroděj",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "svolej-blesky": {
     "name": "Svolej blesky",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 3
   },
   "symbol": {
     "name": "Symbol",
@@ -2721,7 +2980,8 @@
       "Bard",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 7
   },
   "synapticky-sum": {
     "name": "Synaptický šum",
@@ -2736,7 +2996,8 @@
     "name": "Tajemný výšleh",
     "classes": [
       "Černokněžník"
-    ]
+    ],
+    "level": 0
   },
   "tancici-svetla-jad": {
     "name": "Tančící světla (JaD)",
@@ -2744,7 +3005,8 @@
       "Bard",
       "Čaroděj",
       "Kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "tancici-svetla": {
     "name": "Tančící světla",
@@ -2752,7 +3014,8 @@
       "Bard",
       "čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "tanec-mrtvych": {
     "name": "Tanec mrtvých",
@@ -2773,7 +3036,8 @@
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "telepaticky-vykrik": {
     "name": "Telepatický výkřik",
@@ -2796,7 +3060,8 @@
       "Bard",
       "čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 7
   },
   "teleportacni-kruh": {
     "name": "Teleportační kruh",
@@ -2804,7 +3069,8 @@
       "Bard",
       "čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "tenserova-promena": {
     "name": "Tenserova proměna",
@@ -2824,7 +3090,8 @@
       "Bard",
       "hraničář",
       "klerik"
-    ]
+    ],
+    "level": 2
   },
   "tichy-obraz": {
     "name": "Tichý obraz",
@@ -2832,7 +3099,8 @@
       "Bard",
       "čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "tma": {
     "name": "Tma",
@@ -2840,32 +3108,37 @@
       "Čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "trik-s-lanem": {
     "name": "Trik s lanem",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "trnova-zed": {
     "name": "Trnová zeď",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 6
   },
   "trnovy-bic": {
     "name": "Trnový bič",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 0
   },
   "trny": {
     "name": "Trny",
     "classes": [
       "Druid",
       "hraničář"
-    ]
+    ],
+    "level": 2
   },
   "tsunami": {
     "name": "Tsunami",
@@ -2879,7 +3152,8 @@
       "Druid",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 4
   },
   "tvaruj-vodu": {
     "name": "Tvaruj vodu",
@@ -2887,7 +3161,8 @@
       "Čaroděj",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "tvaruj-zemi": {
     "name": "Tvaruj zemi",
@@ -2895,21 +3170,24 @@
       "Čaroděj",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "tvorba": {
     "name": "Tvorba",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "ubrousku-prostri-se": {
     "name": "Ubrousku, PROSTŘI SE!",
     "classes": [
       "Druid",
       "klerik"
-    ]
+    ],
+    "level": 6
   },
   "uchvacujici-reva": {
     "name": "Uchvacující réva",
@@ -2936,7 +3214,8 @@
     "classes": [
       "Bard",
       "klerik"
-    ]
+    ],
+    "level": 2
   },
   "ukol": {
     "name": "Úkol",
@@ -2946,14 +3225,16 @@
       "klerik",
       "kouzelník",
       "paladin"
-    ]
+    ],
+    "level": 5
   },
   "ukryj-mysl": {
     "name": "Ukryj mysl",
     "classes": [
       "Bard",
       "kouzelník"
-    ]
+    ],
+    "level": 8
   },
   "upaleni": {
     "name": "Upálení",
@@ -2967,26 +3248,30 @@
     "classes": [
       "Černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "urceni": {
     "name": "Určení",
     "classes": [
       "Bard",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "usetri-umirajiciho-jad": {
     "name": "Ušetři umírajícího (JaD)",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 0
   },
   "usetri-umirajiciho": {
     "name": "Ušetři umírajícího",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 0
   },
   "usvit": {
     "name": "Úsvit",
@@ -3000,7 +3285,8 @@
     "classes": [
       "Černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 9
   },
   "uvrhini-kletbu": {
     "name": "Uvrhni kletbu",
@@ -3008,14 +3294,16 @@
       "Bard",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "uzdrav": {
     "name": "Uzdrav",
     "classes": [
       "Druid",
       "klerik"
-    ]
+    ],
+    "level": 6
   },
   "uzemneni": {
     "name": "Uzemnění",
@@ -3032,21 +3320,24 @@
       "Čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "vecny-plamen": {
     "name": "Věčný plamen",
     "classes": [
       "Klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "vedeni-jad": {
     "name": "Vedení (JaD)",
     "classes": [
       "Druid",
       "Klerik"
-    ]
+    ],
+    "level": 0
   },
   "vedeni": {
     "name": "Vedení",
@@ -3054,7 +3345,8 @@
       "Druid",
       "Klerik",
       "Divutepec"
-    ]
+    ],
+    "level": 0
   },
   "vejdi-do-kamene": {
     "name": "Splyň s kamenen",
@@ -3070,26 +3362,30 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "vesteni": {
     "name": "Věštění",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 4
   },
   "vetrna-chuze": {
     "name": "Větrná chůze",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 6
   },
   "vetrna-zed": {
     "name": "Větrná zeď",
     "classes": [
       "Druid",
       "hraničář"
-    ]
+    ],
+    "level": 3
   },
   "vetrny-plast": {
     "name": "Větrný plášť",
@@ -3114,21 +3410,24 @@
       "druid",
       "hraničář",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "vili-ohen": {
     "name": "Vílí oheň",
     "classes": [
       "Bard",
       "druid"
-    ]
+    ],
+    "level": 1
   },
   "vlastni-obraz": {
     "name": "Vlastní obraz",
     "classes": [
       "Bard",
       "kouzelník"
-    ]
+    ],
+    "level": 7
   },
   "vodnata-koule": {
     "name": "Vodnatá koule",
@@ -3145,7 +3444,8 @@
       "druid",
       "hraničář",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "vodni-zed": {
     "name": "Vodní zeď",
@@ -3162,7 +3462,8 @@
       "druid",
       "hraničář",
       "klerik"
-    ]
+    ],
+    "level": 4
   },
   "vybuch-mece": {
     "name": "Výbuch meče",
@@ -3170,7 +3471,8 @@
       "Čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "vybuchujici-zeme": {
     "name": "Vybuchující země",
@@ -3202,7 +3504,8 @@
       "klerik",
       "kouzelník",
       "paladin"
-    ]
+    ],
+    "level": 4
   },
   "vypuzujici-uder": {
     "name": "Vypuzující úder",
@@ -3229,14 +3532,16 @@
     "classes": [
       "Druid",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "vyvolej-lesni-bytosti": {
     "name": "Vyvolej lesní bytosti",
     "classes": [
       "Druid",
       "hraničář"
-    ]
+    ],
+    "level": 4
   },
   "vyvolej-mensi-demony": {
     "name": "Vyvolej menší démony",
@@ -3256,14 +3561,16 @@
     "name": "Vyvolej nebešťana",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 7
   },
   "vyvolej-nizsi-elementaly": {
     "name": "Vyvolej nižší elementály",
     "classes": [
       "Druid",
       "kouzelník"
-    ]
+    ],
+    "level": 4
   },
   "vyvolej-palbu": {
     "name": "Vyvolej palbu",
@@ -3282,14 +3589,16 @@
     "classes": [
       "Černokněžník",
       "druid"
-    ]
+    ],
+    "level": 6
   },
   "vyvolej-zvirata": {
     "name": "Vyvolej zvířata",
     "classes": [
       "Druid",
       "hraničář"
-    ]
+    ],
+    "level": 3
   },
   "vzkriseni": {
     "name": "Vzkříšení",
@@ -3297,13 +3606,15 @@
       "Bard",
       "klerik",
       "paladin"
-    ]
+    ],
+    "level": 5
   },
   "zahaleni": {
     "name": "Zahalení",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 7
   },
   "zahrmeni": {
     "name": "Zahřmění",
@@ -3313,13 +3624,15 @@
       "černokněžník",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "zakaz": {
     "name": "Zákaz",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 6
   },
   "zaklep": {
     "name": "Zaklep",
@@ -3327,7 +3640,8 @@
       "Bard",
       "čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "zamoreni": {
     "name": "Zamoření",
@@ -3336,7 +3650,8 @@
       "černokněžník",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "zaplava-negativni-energie": {
     "name": "Záplava negativní energie",
@@ -3349,14 +3664,16 @@
     "name": "Zapletení",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 1
   },
   "zastav-cas": {
     "name": "Zastav čas",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 9
   },
   "zatres-zemi": {
     "name": "Zatřes zemí",
@@ -3373,7 +3690,8 @@
       "Čaroděj",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "zavratny-uder": {
     "name": "Závratný úder",
@@ -3391,7 +3709,8 @@
     "name": "Zeď síly",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "zefyruv-uder": {
     "name": "Zefýrův úder",
@@ -3405,7 +3724,8 @@
       "Čaroděj",
       "druid",
       "klerik"
-    ]
+    ],
+    "level": 8
   },
   "zhoj-zraneni": {
     "name": "Zhoj zranění",
@@ -3415,20 +3735,23 @@
       "hraničář",
       "klerik",
       "paladin"
-    ]
+    ],
+    "level": 1
   },
   "zhotov": {
     "name": "Zhotov",
     "classes": [
       "Kouzelník"
-    ]
+    ],
+    "level": 4
   },
   "zhouba": {
     "name": "Uřknutí",
     "classes": [
       "Bard",
       "klerik"
-    ]
+    ],
+    "level": 1
   },
   "zivelna-zbran": {
     "name": "Živelná zbraň",
@@ -3450,7 +3773,8 @@
       "Čaroděj",
       "Černokněžník",
       "Kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "zle-oko": {
     "name": "Zlé oko",
@@ -3459,7 +3783,8 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 6
   },
   "zlepsi-vlastnost": {
     "name": "Zlepši vlastnost",
@@ -3468,13 +3793,15 @@
       "čaroděj",
       "druid",
       "klerik"
-    ]
+    ],
+    "level": 2
   },
   "zlomyslny-vysmech": {
     "name": "Zlomyslný výsměch",
     "classes": [
       "Bard"
-    ]
+    ],
+    "level": 0
   },
   "zmam-obludu": {
     "name": "Zmam obludu",
@@ -3494,7 +3821,8 @@
       "černokněžník",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 1
   },
   "zmatek": {
     "name": "Zmatek",
@@ -3503,35 +3831,40 @@
       "čaroděj",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 4
   },
   "zmen-pamet": {
     "name": "Změň paměť",
     "classes": [
       "Bard",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "zmen-svuj-tvar": {
     "name": "Změň svůj tvar",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "zmena-podoby": {
     "name": "Změna podoby",
     "classes": [
       "Druid",
       "kouzelník"
-    ]
+    ],
+    "level": 9
   },
   "zmrtvychvstani": {
     "name": "Zmrtvýchvstání",
     "classes": [
       "Bard",
       "klerik"
-    ]
+    ],
+    "level": 7
   },
   "zmrzly-dest": {
     "name": "Zmrzlý déšť",
@@ -3539,7 +3872,8 @@
       "Čaroděj",
       "druid",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "znameni-proti-cepelim": {
     "name": "Znamení proti čepelím",
@@ -3548,14 +3882,16 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "znameni-proti-smrti": {
     "name": "Znamení proti smrti",
     "classes": [
       "Klerik",
       "paladin"
-    ]
+    ],
+    "level": 4
   },
   "znehybni-nestvuru": {
     "name": "Znehybni nestvůru",
@@ -3564,7 +3900,8 @@
       "čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 5
   },
   "znehybni-osobu": {
     "name": "Znehybni osobu",
@@ -3575,14 +3912,16 @@
       "druid",
       "klerik",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "znovuzrozeni": {
     "name": "Znovuzrození",
     "classes": [
       "Druid",
       "klerik"
-    ]
+    ],
+    "level": 9
   },
   "zona-pravdy": {
     "name": "Zóna pravdy",
@@ -3590,14 +3929,16 @@
       "Bard",
       "klerik",
       "paladin"
-    ]
+    ],
+    "level": 2
   },
   "zpomaleni": {
     "name": "Zpomalení",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 3
   },
   "zprava-jad": {
     "name": "Zpráva (JaD)",
@@ -3605,7 +3946,8 @@
       "Bard",
       "Čaroděj",
       "Kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "zprava": {
     "name": "Zpráva",
@@ -3613,19 +3955,22 @@
       "Bard",
       "čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 0
   },
   "zpusob-zraneni": {
     "name": "Způsob zranění",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 1
   },
   "zran": {
     "name": "Zraň",
     "classes": [
       "Klerik"
-    ]
+    ],
+    "level": 6
   },
   "zrcadlovy-obraz": {
     "name": "Zrcadlový obraz",
@@ -3633,20 +3978,23 @@
       "Čaroděj",
       "černokněžník",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "zvetseni-nebo-zmenseni": {
     "name": "Zvětšení nebo zmenšení",
     "classes": [
       "Čaroděj",
       "kouzelník"
-    ]
+    ],
+    "level": 2
   },
   "zvireci-podoba": {
     "name": "Zvířecí podoba",
     "classes": [
       "Druid"
-    ]
+    ],
+    "level": 8
   },
   "zvireci-posel": {
     "name": "Zvířecí posel",
@@ -3654,7 +4002,8 @@
       "Bard",
       "druid",
       "hraničář"
-    ]
+    ],
+    "level": 2
   },
   "zvireci-pouto": {
     "name": "Zvířecí pouto",
