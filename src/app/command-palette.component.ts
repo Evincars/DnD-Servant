@@ -123,9 +123,9 @@ const APP_COMMANDS: CommandItem[] = [
   },
   {
     id: 'cs-tab-3',
-    label: 'Moje předměty',
+    label: 'Kouzla',
     sublabel: 'Karta postavy › záložka',
-    icon: 'inventory_2',
+    icon: 'auto_awesome',
     routePath: routes.characterSheet,
     tabIndex: 3,
     tabStorageKey: ACTIVE_TAB_INDEX_KEY,
