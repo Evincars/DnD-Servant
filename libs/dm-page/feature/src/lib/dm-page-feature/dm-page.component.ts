@@ -25,6 +25,9 @@ const DM_TAB_COUNT = 6;
       <mat-tab label="Iniciativa">
         <initiative-tracker />
       </mat-tab>
+      <mat-tab label="Monstra">
+        <monsters-tab [active]="selectedTab() === 1" />
+      </mat-tab>
       <mat-tab label="DM Questy">
         <dm-quests />
       </mat-tab>
@@ -36,9 +39,6 @@ const DM_TAB_COUNT = 6;
       </mat-tab>
       <mat-tab label="Příběhové události">
         <dm-story-timeline />
-      </mat-tab>
-      <mat-tab label="Netvori">
-        <monsters-tab [active]="selectedTab() === 5" />
       </mat-tab>
     </mat-tab-group>
   `,

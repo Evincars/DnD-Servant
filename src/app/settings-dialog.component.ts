@@ -277,7 +277,7 @@ export interface SettingsDialogData {
 
     .sd-title {
       flex: 1;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 14px;
       letter-spacing: .1em;
       text-transform: uppercase;
@@ -338,7 +338,7 @@ export interface SettingsDialogData {
     }
 
     .sd-section-label {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 10px;
       letter-spacing: .15em;
       text-transform: uppercase;
@@ -463,7 +463,7 @@ export interface SettingsDialogData {
     }
 
     .sd-btn-label {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 12px;
       letter-spacing: .06em;
       color: #c8bfb0;
@@ -588,7 +588,7 @@ export interface SettingsDialogData {
     }
 
     .sd-credit-name {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 11px;
       letter-spacing: .06em;
       color: rgba(200, 50, 50, .85);
@@ -612,7 +612,7 @@ export interface SettingsDialogData {
       color: rgba(180, 60, 60, .8);
       text-decoration: none;
       font-size: 11px;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       letter-spacing: .06em;
       transition: background .15s, border-color .15s, color .15s, box-shadow .15s;
 
@@ -644,7 +644,7 @@ export interface SettingsDialogData {
     }
 
     .sd-version-label {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 10px;
       letter-spacing: .1em;
       color: rgba(200,160,60,.25);

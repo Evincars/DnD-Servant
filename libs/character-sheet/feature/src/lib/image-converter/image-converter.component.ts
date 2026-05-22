@@ -30,7 +30,7 @@ const SCALE_STEPS = [1.0, 0.78, 0.6, 0.45, 0.32, 0.22, 0.15];
       overflow-y: auto;
       padding: 24px 32px 40px;
       box-sizing: border-box;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
     }
 
     /* ── Header ─────────────────────────────────── */
@@ -82,7 +82,7 @@ const SCALE_STEPS = [1.0, 0.78, 0.6, 0.45, 0.32, 0.22, 0.15];
     }
 
     .ic-reset-btn {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 10px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -159,7 +159,7 @@ const SCALE_STEPS = [1.0, 0.78, 0.6, 0.45, 0.32, 0.22, 0.15];
     }
     .ic-dropzone__btn {
       margin-top: 6px;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 10px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -306,7 +306,7 @@ const SCALE_STEPS = [1.0, 0.78, 0.6, 0.45, 0.32, 0.22, 0.15];
       margin-top: 4px;
     }
     .ic-btn {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 11px;
       letter-spacing: 0.1em;
       text-transform: uppercase;

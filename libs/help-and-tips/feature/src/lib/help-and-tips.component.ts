@@ -274,6 +274,51 @@ const SECTIONS: TipSection[] = [
     ],
   },
   {
+    id: 'dm-page',
+    title: 'PH nástroje',
+    icon: 'construction',
+    color: '#af5555',
+    tips: [
+      {
+        title: 'Záložky PH nástroje',
+        badge: 'PH',
+        description:
+          'Stránka "PH nástroje" obsahuje záložky pro Průvodce hrou: Iniciativa, Monstra, DM Questy, Poznámky PH, Generátor a Příběhové události. ' +
+          'Záložky Iniciativa a Monstra jsou vedle sebe pro snazší přístup během boje.',
+      },
+      {
+        title: 'Monstra — encyklopedie příšer',
+        badge: 'Monstra 🐉',
+        description:
+          'Záložka "Monstra" (druhá záložka, hned vedle Iniciativy) umožňuje vyhledávat příšery z D&D 5e databáze (2014). ' +
+          'Zadej anglický název příšery a zobrazí se plná karta se statistikami, schopnostmi a akcemi. ' +
+          'Vhodné pro rychlé nahlédnutí do statistik nepřátel přímo během souboje.',
+      },
+      {
+        title: 'Propojení Iniciativy a Monstrů',
+        badge: 'Tip',
+        description:
+          'Záložka Iniciativa a Monstra jsou záměrně umístěny vedle sebe. ' +
+          'Po přidání příšery do iniciativní tabulky (tlačítko 🐉) a načtení její karty ' +
+          'přejdi jedním kliknutím na záložku Monstra pro detailní přehled jejích schopností.',
+      },
+      {
+        title: 'DM Questy a Poznámky PH',
+        badge: 'PH',
+        description:
+          'DM Questy fungují stejně jako hráčské questy — lze sledovat stav mise, přidávat poznámky a označovat dokončení. ' +
+          'Poznámky PH jsou rich-text editor určený výhradně pro Průvodce hrou — hráči je nevidí.',
+      },
+      {
+        title: 'Generátor',
+        badge: 'PH',
+        description:
+          'Záložka Generátor nabízí náhodné generování jmen, setkání a dalších herních prvků. ' +
+          'Hodí se při improvizaci nebo přípravě sezení.',
+      },
+    ],
+  },
+  {
     id: 'dnd-database',
     title: 'Databáze D&D',
     icon: 'menu_book',

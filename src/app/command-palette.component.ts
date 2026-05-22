@@ -177,12 +177,21 @@ const APP_COMMANDS: CommandItem[] = [
     tabStorageKey: DM_TAB_KEY,
   },
   {
+    id: 'dm-tab-monstra',
+    label: 'Monstra',
+    sublabel: 'PH nástroje › záložka',
+    icon: 'skull',
+    routePath: routes.dmPage,
+    tabIndex: 1,
+    tabStorageKey: DM_TAB_KEY,
+  },
+  {
     id: 'dm-tab-1',
     label: 'DM Questy',
     sublabel: 'PH nástroje › záložka',
     icon: 'checklist',
     routePath: routes.dmPage,
-    tabIndex: 1,
+    tabIndex: 2,
     tabStorageKey: DM_TAB_KEY,
   },
   {
@@ -191,7 +200,7 @@ const APP_COMMANDS: CommandItem[] = [
     sublabel: 'PH nástroje › záložka',
     icon: 'notes',
     routePath: routes.dmPage,
-    tabIndex: 2,
+    tabIndex: 3,
     tabStorageKey: DM_TAB_KEY,
   },
   {
@@ -200,7 +209,7 @@ const APP_COMMANDS: CommandItem[] = [
     sublabel: 'PH nástroje › záložka',
     icon: 'casino',
     routePath: routes.dmPage,
-    tabIndex: 3,
+    tabIndex: 4,
     tabStorageKey: DM_TAB_KEY,
   },
   {
@@ -209,7 +218,7 @@ const APP_COMMANDS: CommandItem[] = [
     sublabel: 'PH nástroje › záložka',
     icon: 'auto_stories',
     routePath: routes.dmPage,
-    tabIndex: 4,
+    tabIndex: 5,
     tabStorageKey: DM_TAB_KEY,
   },
 ];

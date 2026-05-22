@@ -170,7 +170,7 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
 
     .rn-title {
       flex: 1;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 14px;
       letter-spacing: .1em;
       text-transform: uppercase;
@@ -219,7 +219,7 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
     }
 
     .rn-date {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 11px;
       letter-spacing: .18em;
       text-transform: uppercase;
@@ -262,7 +262,7 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
       align-items: center;
       justify-content: center;
       font-size: 9px;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       letter-spacing: .1em;
       text-transform: uppercase;
       padding: 2px 7px;
@@ -306,7 +306,7 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
       color: rgba(200,160,60,.4);
       text-decoration: none;
       letter-spacing: .06em;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       transition: color .15s;
       white-space: nowrap;
       margin-top: 2px;          /* align to first text line */
@@ -334,7 +334,7 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
       color: rgba(200,160,60,.4);
       font-size: 11px;
       letter-spacing: .06em;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       transition: color .15s;
 
       &:hover { color: rgba(200,160,60,.85); }
