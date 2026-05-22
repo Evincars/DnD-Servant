@@ -29,7 +29,7 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
   imports: [FormsModule, MatIcon, MatIconButton, MatTooltip, SpinnerOverlayComponent, RichTextareaComponent],
   host: { '(document:keydown.escape)': 'onEscape()' },
   styles: `
-    :host { display: block; padding: 24px 32px 40px; font-family: 'Mikadan', sans-serif; overflow: visible; }
+    :host { display: block; padding: 24px 32px 40px; font-family: sans-serif; overflow: visible; }
 
     /* ── Header ─────────────────────────────────── */
     .header {
@@ -46,7 +46,7 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
     .header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
     /* ── Buttons ─────────────────────────────────── */
-    .btn { font-family: 'Mikadan', sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    .btn { font-family: sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
       border: 1px solid rgba(200,80,60,.35); border-radius: 3px; background: rgba(200,80,60,.08); color: rgba(200,100,80,.8);
       padding: 6px 14px; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: background .18s, border-color .18s, color .18s;
       mat-icon { font-size: 15px; width: 15px; height: 15px; }
@@ -61,7 +61,7 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
     .filter-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
     .filter-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
     .filter-tab {
-      font-family: 'Mikadan', sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+      font-family: sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
       border: 1px solid rgba(255,255,255,.07); border-radius: 2px; background: transparent;
       color: rgba(255,255,255,.3); padding: 4px 12px; cursor: pointer;
       display: flex; align-items: center; gap: 6px; transition: background .15s, border-color .15s, color .15s;
@@ -93,7 +93,7 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
     /* ── Card header ─────────────────────────────── */
     .card-header { display: flex; align-items: center; gap: 6px; padding: 8px 10px 5px; flex-wrap: wrap; }
     .status-badge {
-      font-family: 'Mikadan', sans-serif; font-size: 8px; letter-spacing: .12em; text-transform: uppercase;
+      font-family: sans-serif; font-size: 8px; letter-spacing: .12em; text-transform: uppercase;
       border-radius: 10px; padding: 2px 9px; cursor: pointer; border: 1px solid currentColor;
       transition: filter .15s; white-space: nowrap; flex-shrink: 0;
       &:hover { filter: brightness(1.2); }
@@ -104,7 +104,7 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
       &--abandoned { color: rgba(120,120,120,.7); background: rgba(100,100,100,.07); }
     }
     .diff-badge {
-      font-family: 'Mikadan', sans-serif; font-size: 7px; letter-spacing: .1em; text-transform: uppercase;
+      font-family: sans-serif; font-size: 7px; letter-spacing: .1em; text-transform: uppercase;
       border-radius: 2px; padding: 2px 7px; cursor: pointer; transition: filter .15s; white-space: nowrap; flex-shrink: 0;
       &:hover { filter: brightness(1.2); }
       &--trivial  { color: rgba(120,200,120,.8); background: rgba(80,160,80,.1); border: 1px solid rgba(80,160,80,.3); }
@@ -139,7 +139,7 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
     .title-input {
       width: 100%; box-sizing: border-box; background: transparent; border: none;
       border-bottom: 1px solid rgba(200,80,60,.2); color: #e8a0a0;
-      font-family: 'Mikadan', sans-serif; font-size: 14px; letter-spacing: .07em;
+      font-family: sans-serif; font-size: 14px; letter-spacing: .07em;
       padding: 3px 2px 5px; outline: none; transition: border-color .18s;
       &::placeholder { color: rgba(200,80,60,.22); }
       &:focus { border-bottom-color: rgba(200,80,60,.55); }
@@ -228,7 +228,7 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
       flex: 1; height: 18px; cursor: pointer; border: 1px solid rgba(255,255,255,.06);
       background: rgba(255,255,255,.04); border-radius: 2px;
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Mikadan', sans-serif; font-size: 7px; letter-spacing: .06em; color: rgba(255,255,255,.2);
+      font-family: sans-serif; font-size: 7px; letter-spacing: .06em; color: rgba(255,255,255,.2);
       text-transform: uppercase; transition: background .15s, color .15s, border-color .15s;
       &:hover { background: rgba(200,80,60,.12); color: rgba(200,80,60,.8); border-color: rgba(200,80,60,.25); }
       &--active { background: rgba(200,80,60,.22); border-color: rgba(200,80,60,.5); color: rgba(220,100,80,.9); }
@@ -240,18 +240,18 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
       &::before { content: '◆'; position: absolute; top: 7px; left: 9px; font-size: 7px; color: rgba(200,80,60,.35); pointer-events: none; }
     }
     .confirm-icon { display: flex; justify-content: center; margin-bottom: 12px; mat-icon { font-size: 34px; width: 34px; height: 34px; color: rgba(200,80,60,.7); } }
-    .confirm-title { font-family: 'Mikadan', sans-serif; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: #e8a090; text-align: center; margin-bottom: 10px; }
+    .confirm-title { font-family: sans-serif; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: #e8a090; text-align: center; margin-bottom: 10px; }
     .confirm-msg { font-size: 12px; color: #a08878; text-align: center; line-height: 1.6; margin-bottom: 20px; strong { color: #d4a090; font-style: italic; } }
     .confirm-rule { height: 1px; background: linear-gradient(90deg, transparent, rgba(200,80,60,.3) 50%, transparent); margin-bottom: 16px; }
     .confirm-actions { display: flex; gap: 10px; justify-content: center; }
-    .confirm-btn { font-family: 'Mikadan', sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; border-radius: 3px; padding: 7px 20px; cursor: pointer; transition: background .18s, border-color .18s, color .18s; }
+    .confirm-btn { font-family: sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; border-radius: 3px; padding: 7px 20px; cursor: pointer; transition: background .18s, border-color .18s, color .18s; }
     .confirm-cancel { background: rgba(200,80,60,.06); border: 1px solid rgba(200,80,60,.25); color: rgba(200,80,60,.65); &:hover { background: rgba(200,80,60,.14); border-color: rgba(200,80,60,.5); color: #e8a090; } }
     .confirm-delete { background: rgba(160,40,30,.25); border: 1px solid rgba(200,60,50,.4); color: rgba(220,100,80,.85); &:hover { background: rgba(180,40,30,.45); border-color: rgba(220,80,60,.7); color: #ff9980; } }
 
     /* ── Image preview ───────────────────────────── */
     .preview-backdrop { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,.88); display: flex; align-items: center; justify-content: center; cursor: zoom-out; animation: fadeIn .18s ease; }
     .preview-container { position: relative; max-width: 90vw; max-height: 88vh; cursor: default; display: flex; flex-direction: column; align-items: center; animation: scaleIn .18s ease; }
-    .preview-title { font-family: 'Mikadan', sans-serif; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #e8a090; margin-bottom: 12px; }
+    .preview-title { font-family: sans-serif; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #e8a090; margin-bottom: 12px; }
     .preview-frame { border: 1px solid rgba(200,80,60,.35); box-shadow: 0 0 0 1px rgba(0,0,0,.8), 0 8px 40px rgba(0,0,0,.9); background: rgba(14,6,4,.95); padding: 6px; img { display: block; max-width: 88vw; max-height: 78vh; object-fit: contain; } }
     .preview-close {
       position: absolute; top: -14px; right: -14px; width: 28px !important; height: 28px !important; padding: 0 !important;
@@ -275,8 +275,10 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
           <div class="header-subtitle">Pouze pro Pána Hry — hráči tuto stránku nevidí</div>
         </div>
         <div class="header-actions">
-          <button class="btn btn-icon" type="button" (click)="expandAll()" matTooltip="Rozbalit vše"><mat-icon>unfold_more</mat-icon></button>
-          <button class="btn btn-icon" type="button" (click)="collapseAll()" matTooltip="Sbalit vše"><mat-icon>unfold_less</mat-icon></button>
+          <button class="btn btn-icon" type="button" (click)="toggleAllExpanded()"
+            [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">
+            <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
+          </button>
           <button class="btn" type="button" (click)="addQuest()"><mat-icon>add</mat-icon>Přidat quest</button>
           <button class="btn btn-save" type="button" (click)="save()"><mat-icon>save</mat-icon>Uložit</button>
         </div>
@@ -507,6 +509,14 @@ export class DmQuestsComponent {
       stage: 1, dateAdded: new Date().toISOString().split('T')[0],
     } as DmQuestEntry]);
     this.expandedIds.update(s => new Set([...s, id]));
+  }
+
+  readonly allExpanded = computed(() =>
+    this.quests().length > 0 && this.quests().every(q => this.expandedIds().has(q.id))
+  );
+
+  toggleAllExpanded(): void {
+    if (this.allExpanded()) { this.collapseAll(); } else { this.expandAll(); }
   }
 
   toggleExpand(id: string): void {

@@ -50,7 +50,7 @@ const ACL = '110,190,160'; // lighter teal
   imports: [FormsModule, MatIcon, MatIconButton, MatTooltip, SpinnerOverlayComponent, RichTextareaComponent],
   host: { '(document:keydown.escape)': 'onEscape()' },
   styles: `
-    :host { display: block; padding: 24px 32px 60px; font-family: 'Mikadan', sans-serif; overflow: visible; }
+    :host { display: block; padding: 24px 32px 60px; font-family: sans-serif; overflow: visible; }
 
     /* ── Header ───────────────────────────────────── */
     .header {
@@ -67,7 +67,7 @@ const ACL = '110,190,160'; // lighter teal
     .header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
     /* ── Buttons ─────────────────────────────────── */
-    .btn { font-family: 'Mikadan', sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    .btn { font-family: sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
       border: 1px solid rgba(155,140,115,.35); border-radius: 3px; background: rgba(140,125,100,.08); color: rgba(175,160,135,.85);
       padding: 6px 14px; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: background .18s, border-color .18s, color .18s;
       mat-icon { font-size: 15px; width: 15px; height: 15px; }
@@ -82,7 +82,7 @@ const ACL = '110,190,160'; // lighter teal
     .filter-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
     .filter-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
     .filter-tab {
-      font-family: 'Mikadan', sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+      font-family: sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
       border: 1px solid rgba(255,255,255,.07); border-radius: 2px; background: transparent;
       color: rgba(255,255,255,.3); padding: 4px 12px; cursor: pointer;
       display: flex; align-items: center; gap: 6px; transition: background .15s, border-color .15s, color .15s;
@@ -92,7 +92,7 @@ const ACL = '110,190,160'; // lighter teal
     .filter-count { background: rgba(255,255,255,.08); border-radius: 10px; padding: 0 6px; font-size: 9px; min-width: 18px; text-align: center; line-height: 16px; }
     .filter-tab--active .filter-count { background: rgba(140,125,100,.25); }
     .sort-select {
-      font-family: 'Mikadan', sans-serif; font-size: 10px; letter-spacing: .08em;
+      font-family: sans-serif; font-size: 10px; letter-spacing: .08em;
       background: rgba(140,125,100,.08); border: 1px solid rgba(155,140,115,.25); border-radius: 3px;
       color: rgba(175,160,135,.85); padding: 4px 10px; cursor: pointer;
       option { background: #141008; }
@@ -100,7 +100,7 @@ const ACL = '110,190,160'; // lighter teal
 
     /* ── Tag filter row ──────────────────────────── */
     .tag-filter-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; padding: 6px 0; }
-    .tag-filter-label { font-family: 'Mikadan', sans-serif; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(155,140,115,.4); flex-shrink: 0; }
+    .tag-filter-label { font-family: sans-serif; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(155,140,115,.4); flex-shrink: 0; }
     .tag-filter-chip {
       font-family: sans-serif; font-size: 10px; padding: 2px 8px; border-radius: 10px; cursor: pointer; border: 1px solid; transition: background .12s, color .12s;
       background: transparent; color: rgba(155,140,115,.55); border-color: rgba(155,140,115,.2);
@@ -146,13 +146,13 @@ const ACL = '110,190,160'; // lighter teal
     /* ── Card header ────────────────────────────── */
     .card-header { display: flex; align-items: center; gap: 8px; padding: 10px 12px 7px; flex-wrap: wrap; cursor: pointer; user-select: none; }
     .type-badge {
-      font-family: 'Mikadan', sans-serif; font-size: 8px; letter-spacing: .12em; text-transform: uppercase;
+      font-family: sans-serif; font-size: 8px; letter-spacing: .12em; text-transform: uppercase;
       border-radius: 10px; padding: 2px 9px; cursor: pointer; border: 1px solid currentColor;
       transition: filter .15s; white-space: nowrap; flex-shrink: 0;
       &:hover { filter: brightness(1.18); }
     }
     .importance-badge {
-      font-family: 'Mikadan', sans-serif; font-size: 7px; letter-spacing: .1em; text-transform: uppercase;
+      font-family: sans-serif; font-size: 7px; letter-spacing: .1em; text-transform: uppercase;
       border-radius: 2px; padding: 2px 7px; cursor: pointer; transition: filter .15s; white-space: nowrap; flex-shrink: 0;
       border: 1px solid currentColor;
       &:hover { filter: brightness(1.18); }
@@ -229,7 +229,7 @@ const ACL = '110,190,160'; // lighter teal
     }
 
     /* ── DM notes ────────────────────────────────── */
-    .dm-section-toggle { display: flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; padding: 4px 0; border: none; background: none; color: rgba(200,60,60,.5); font-family: 'Mikadan', sans-serif; font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+    .dm-section-toggle { display: flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; padding: 4px 0; border: none; background: none; color: rgba(200,60,60,.5); font-family: sans-serif; font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
       mat-icon { font-size: 13px; width: 13px; height: 13px; }
       &:hover { color: rgba(220,80,80,.8); }
     }
@@ -265,7 +265,7 @@ const ACL = '110,190,160'; // lighter teal
     .confirm-msg { font-size: 12px; color: rgba(220,180,180,.6); font-family: sans-serif; }
     .confirm-rule { height: 1px; background: linear-gradient(90deg,transparent,rgba(200,80,60,.3),transparent); margin: 16px 0; }
     .confirm-actions { display: flex; gap: 10px; justify-content: center; }
-    .confirm-btn { font-family: 'Mikadan', sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; padding: 7px 20px; border-radius: 3px; cursor: pointer; border: 1px solid; }
+    .confirm-btn { font-family: sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; padding: 7px 20px; border-radius: 3px; cursor: pointer; border: 1px solid; }
     .confirm-cancel { color: rgba(180,160,140,.7); border-color: rgba(180,160,140,.25); background: transparent; &:hover { background: rgba(180,160,140,.08); } }
     .confirm-delete { color: rgba(220,80,70,.85); border-color: rgba(200,60,50,.4); background: rgba(200,50,40,.1); &:hover { background: rgba(200,50,40,.2); } }
 

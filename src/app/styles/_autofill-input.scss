@@ -1,16 +1,12 @@
 // ── autofill-input component global styles ────────────────────────────────────
 // The autofill-input component uses :host { display: contents } so its inner
-// <input> renders directly in the parent's layout. Because Angular's Emulated
+// .afc-wrap renders directly in the parent's layout. Because Angular's Emulated
 // encapsulation scopes component styles to the component's own view, classes
 // passed via [inputClass] must be defined here (globally) so they can reach
 // the inner <input> element.
 
 autofill-input {
   display: contents;
-
-  datalist {
-    display: none;
-  }
 }
 
 // ── Initiative tracker input skin ─────────────────────────────────────────────
@@ -40,8 +36,8 @@ autofill-input .it-input {
     flex-shrink: 0;
   }
 
+  // .afc-wrap already has flex: 1; the input just fills it
   &.it-input--name {
-    flex: 1;
+    width: 100%;
   }
 }
-

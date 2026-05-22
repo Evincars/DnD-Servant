@@ -1,16 +1,47 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 
 // ── Random tables ─────────────────────────────────────────────────────────────
 
-const MALE_NAMES = ['Aldric', 'Torvin', 'Bregan', 'Radovan', 'Dobromir', 'Záviš', 'Vladek', 'Ctirad', 'Ratibor', 'Dragomir', 'Borek', 'Miloslav', 'Přibor', 'Svetobor', 'Kazimír', 'Ondřej', 'Vojtěch', 'Stanko', 'Vítoslav', 'Bratumil', 'Grondar', 'Silvorn', 'Eldath', 'Mirko', 'Ranulf'];
-const FEMALE_NAMES = ['Radana', 'Milena', 'Dobrava', 'Drahuše', 'Krasava', 'Slavěna', 'Světlana', 'Zora', 'Vlasta', 'Drahomíra', 'Lubomíra', 'Čestmíra', 'Bohdana', 'Přibylena', 'Radoslava', 'Bratlava', 'Serafína', 'Elowen', 'Morrigan', 'Sylvara', 'Thalindra', 'Věra', 'Dobroslava', 'Mirena', 'Liška'];
-const EPITHETS = ['ze Stříbrné Hory', 'Krvavý', 'Moudrý', 'Lstivý', 'Temný', 'Věrný', 'Zlomený', 'Slepý', 'Rudý', 'Tichý', 'Hromobití', 'Zlatý', 'Chrabrý', 'ze Smolné Vesnice', 'Kamenotváří', 'Jarní', 'Šedý', 'Dvorní', 'z Popelového Hradu', 'Bláznivý', 'Dvoulicí', 'Věčný', 'Bezejmenný', 'Prokletý', 'Osudový'];
-const RACES = ['Člověk', 'Elf', 'Trpaslík', 'Půlelf', 'Tiefling', 'Gnóm', 'Půlork', 'Drakorozený', 'Hobbit', 'Aasimar', 'Lesní elf', 'Skalní trpaslík'];
-const ROLES = ['Obchodník', 'Kovář', 'Alchymista', 'Strážný', 'Šlechtic', 'Žebrák', 'Bard', 'Kněz', 'Čaroděj', 'Lovec', 'Sedlák', 'Zloděj', 'Hospodský', 'Žoldák', 'Průzkumník', 'Mág', 'Léčitelka', 'Námořník', 'Poutník', 'Inkvizitor'];
-const MOTIVATIONS = ['hledá pomstu za smrt rodiny', 'snaží se splatit dluh', 'skrývá temné tajemství', 'touží po moci', 'chrání slabé', 'pronásleduje starou lásku', 'slouží tajné organizaci', 'přísahal věrnost zlomené přísaze', 'hledá ztracený artefakt', 'byl proklet a hledá lék', 'shromažďuje vědomosti o starobylé magii', 'je špion s dvojím životem', 'tají svůj skutečný původ', 'utekl z vězení a skrývá se', 'snaží se o vykoupení minulých zločinů'];
-const QUIRKS = ['nervózně mrkají', 'pořád pošukávají minci v prstech', 'nikdy nekouká přímo do očí', 'mluví výhradně v příslovích', 'neustále si brumlají píseň', 'mají zvláštní šrám nebo tetování', 'vždy opakují poslední slovo věty', 'nikdy nepijí alkohol', 'jsou posedlí čistotou', 'smějí se i ve vážných chvílích', 'nosí starý lék v amuletu', 'dotekem se vyhýbají všemu kovu'];
+const MALE_NAMES = [
+  'Aldric','Torvin','Bregan','Radovan','Dobromir','Záviš','Vladek','Ctirad','Ratibor','Dragomir',
+  'Borek','Miloslav','Přibor','Svetobor','Kazimír','Ondřej','Vojtěch','Stanko','Vítoslav','Bratumil',
+  'Grondar','Silvorn','Eldath','Mirko','Ranulf','Bohuslav','Ctibor','Dalibor','Radmír','Sobeslav',
+  'Wulfgar','Fenrick','Alorik','Sevar','Drakon','Vítězslav','Lubomír','Zbyněk','Jaromir','Táslav',
+];
+const FEMALE_NAMES = [
+  'Radana','Milena','Dobrava','Drahuše','Krasava','Slavěna','Světlana','Zora','Vlasta','Drahomíra',
+  'Lubomíra','Čestmíra','Bohdana','Přibylena','Radoslava','Bratlava','Serafína','Elowen','Morrigan','Sylvara',
+  'Thalindra','Věra','Dobroslava','Mirena','Liška','Kvetoslava','Bronislava','Vlastimíra','Zdislava','Chvala',
+  'Adaira','Neshara','Velenka','Zibra','Soňa','Roksolana','Dalimíra','Rúna','Tessera','Iskra',
+];
+const EPITHETS = [
+  'ze Stříbrné Hory','Krvavý','Moudrý','Lstivý','Temný','Věrný','Zlomený','Slepý','Rudý','Tichý',
+  'Hromobití','Zlatý','Chrabrý','ze Smolné Vesnice','Kamenotváří','Jarní','Šedý','Dvorní','z Popelového Hradu','Bláznivý',
+  'Dvoulicí','Věčný','Bezejmenný','Prokletý','Osudový','Šepotající','Železný','Jedovatý','Mlhavý','Bezkrevný',
+];
+const RACES = [
+  'Člověk','Elf','Trpaslík','Půlelf','Tiefling','Gnóm','Půlork','Drakorozený','Hobbit','Aasimar',
+  'Lesní elf','Skalní trpaslík','Drow','Triton','Firbolg','Goliáš','Shifter','Kalaštar','Kenku','Tabaxi',
+];
+const ROLES = [
+  'Obchodník','Kovář','Alchymista','Strážný','Šlechtic','Žebrák','Bard','Kněz','Čaroděj','Lovec',
+  'Sedlák','Zloděj','Hospodský','Žoldák','Průzkumník','Mág','Léčitelka','Námořník','Poutník','Inkvizitor',
+  'Kolportér','Šarlatán','Zahradník','Horník','Rybář','Tesař','Mnich','Věštkyně','Námezdní učitel','Žoldácký kapitán',
+];
+const MOTIVATIONS = [
+  'hledá pomstu za smrt rodiny','snaží se splatit dluh','skrývá temné tajemství','touží po moci','chrání slabé',
+  'pronásleduje starou lásku','slouží tajné organizaci','přísahal věrnost zlomené přísaze','hledá ztracený artefakt','byl proklet a hledá lék',
+  'shromažďuje vědomosti o starobylé magii','je špion s dvojím životem','tají svůj skutečný původ','utekl z vězení a skrývá se','snaží se o vykoupení minulých zločinů',
+  'hledá ztracené dítě','sbírá mapy míst, kde umíral','věří, že je posledním svého rodu','ví příliš mnoho o vládnoucí dynasti','čeká na znamení od svého mrtvého boha',
+];
+const QUIRKS = [
+  'nervózně mrkají','pořád pošukávají minci v prstech','nikdy nekouká přímo do očí','mluví výhradně v příslovích','neustále si brumlají píseň',
+  'mají zvláštní šrám nebo tetování','vždy opakují poslední slovo věty','nikdy nepijí alkohol','jsou posedlí čistotou','smějí se i ve vážných chvílích',
+  'nosí starý lék v amuletu','dotekem se vyhýbají všemu kovu','vždy sledují okna a dveře, ne mluvčího','mluví o sobě ve třetí osobě','tiše pohybují rty, jako by něco memorovali',
+  'nekdy bez varování změní hlas','při stresu přejdou do cizího jazyka','vždy mají s sebou kost nebo kámen, který mačkají','nikdy nesedají čelem ke dveřím','za nervozity si pomalují nehtů na zbrani',
+];
 
 const WEATHER = [
   '☀️ Jasná obloha, slunečný bezvětrný den. Výhled do dálky na kilometry.',
@@ -46,6 +77,21 @@ const ENCOUNTERS = [
   'Nekromantův asistent utekl s grimoárem — peníze si nese v vaku za zády.',
   'Místní farmář zoufalý: jeho dobytek byl nalezen mrtvý, vysátý. Bez ran.',
   'Skupinka 3 goblínů se hádá u rozdělané hranice. Zdá se, že mají ukradený předmět.',
+  'Skupina halflingů na průzkumu — hledají bezpečnou cestu pro karavanu domů.',
+  'Potulný rytíř na koni — v pustině sám, obviněný ze zrady. Hledá svědky, ne peníze.',
+  'Opuštěný tábor s prázdnými stany — oheň ještě hoří, jídlo na kotlíku.',
+  'Stará žena sbírá houby — nabídne vzácný lektvar výměnou za „laskavost, ne peníze".',
+  '2k4 koboldů nese překvapivě velkou truhlu. Odmítají ji pustit, i když jsou slabí.',
+  'Banda 1k6 gnollů hlídá most — chtějí poplatek: jídlo nebo krev, ne zlato.',
+  'Skupina tří ztracených dětí z vesnice vzdálené míle — všechny mají prázdné, nepřítomné oči.',
+  'Mrtvola obchodníka na okraji bažiny — srdce vyrváno, peněžní váček stále při něm nedotčen.',
+  'Dvojice goblinů se hádá o mapu — každý tvrdí, že verze toho druhého je padělek.',
+  'Lesní víla uvězněná ve zdegenerovaném stromě — potřebuje fragment prastaré magie.',
+  'Pronásledovaný vlk s šípem v boku — za ním jedou lovci s pochybnými záměry.',
+  'Hlas z jámy žádá o pomoc — v jámě je skřet s překrásnou harfou a smutnou písní.',
+  'Nekromant vede řetěz šesti znovuoživlých — poslušně, nijak neohrožujících.',
+  'Opilý průzkumník v krčmě tvrdí, že pod horou je drak ovládaný smrtelníkem.',
+  'Dragon born sám bez průvodce — nese urnu a hledá „správné místo na rozprášení popela".',
 ];
 
 const PLOT_HOOKS = [
@@ -82,6 +128,21 @@ const ROOMS = [
   'Laboratoř s klecemi. Klece jsou prázdné, ale dveře jsou zamčeny zevnitř.',
   'Svatyně s fresky zobrazující "konec světa v šesti krocích". Jsme na 4. kroku.',
   'Průsečík čtyř chodeb. Uprostřed sedí kostra v meditační poloze s mincí v ruce.',
+  'Zbrojnice s regály plnými rozbitých zbraní. Na zdi visí bitevní plán starý dvě stě let.',
+  'Kobka s dvojitou mříží — za druhou jsou čerstvé cípky látky. Vzduch páchne sírou.',
+  'Sklad s prohnitými barely. Jeden se pohybuje — zevnitř.',
+  'Místnost s hvězdnou mapou vyrytou na podlaze. Jedno souhvězdí svítí slabě modravě.',
+  'Odpočívárna obalená pavučinami. Na stolku leží hrací kostky s výsledkem "samých šestek".',
+  'Velká studna uprostřed — hluboká, temná. Z dna se ozývá rytmické klokotání.',
+  'Archiv s roztříštěnými hliněnými tabulkami. Pár je ještě čitelných — popisují útěk.',
+  'Celnice s vahami a záznamy. Poslední záznam: „zásilka č. 77 — nikdy nenalezena".',
+  'Místnost s otevřeným prázdným hrobem — čerstvě vykopaným. Hlína je stále vlhká.',
+  'Balkón nad rozvalinou níže. Zábradlí uhnilé. Výhled na zapomenutou síň.',
+  'Chodba s krásnými freskami — každá zobrazuje jinou civilizaci v okamžiku zániku.',
+  'Místnost s mechanickým orrery — planety se pohybují samy od sebe, jedno slunce chybí.',
+  'Koupelna se dvěma vany — jedna je krvavá. Druhá páchne po kyselé chemikálii.',
+  'Schodiště bez schodů — jenom prázdný šachta. Zdi mají rýhy jako od drápů.',
+  'Velká hala s trůnem otočeným čelem ke zdi. Na sedadle je vyrytá otázka: „Koho sloužíš?"',
 ];
 
 const COMPLICATIONS = [
@@ -93,15 +154,37 @@ const COMPLICATIONS = [
   'Magická past se aktivuje — válec ohně projede 3m pásmem (záchrana Obratnosti DC 14, 3k6).',
   'Podlaha je kluzká (olej, led, sliz) — pohyb stojí 2× více pohybu.',
   'Jeden spojenec je sražen blíže k okraji srázu nebo hluboké jámy.',
-  'Zbraň nebo předmět spadne do trhliny, průrvy nebo louže (Athletika DC 12 pro záchranu).',
+  'Zbraň nebo předmět spadne do trhliny, průrvy nebo louže (Atletika DC 12 pro záchranu).',
   'Kovová mříž se spouští a rozdělí bojové pole na dvě části.',
   'Magická oblast potlačí kouzla na 1 kolo (antimagické pulzování z runy na zemi).',
   'Bitevní hluk přiláká 1k3 dalších monster z okolí (přijdou na konci kola 3).',
   'Jeden nepřítel najednou použije lektvar nebo zásobu, kterou jsme netušili.',
   'Strop se začíná pomalu propadat — za 5 kol celá místnost.',
   'Hostitel situace — nevinný svědek či zajatec utíká bojovým polem v panice.',
+  'Prudká bouře vjede okny — viditelnost klesne na 3 m, verbální kouzla s obtížemi.',
+  'Nepřítel zacloní klíčového spojence — nelze ho napadnout bez průchodu přes nepřítele.',
+  'Pod podlahou se probudí pohřbená kostlivá ruka — uchopí náhodnou postavu (záchrana DC 11).',
+  'Světlo zhasne — místnost je v naprosté tmě (pokud nemáš tmavozrak).',
+  'Vzácný předmět leží na zemi mezi nepřáteli — kdo ho sebere dřív?',
+  'Jed se rozlije ze zlomené injekce — vzduch je jedovatý v 3m okruhu (záchrana DC 12, 1k6).',
+  'Nepřítel přečte z kamenné tablety kouzlo — efekt závisí na jeho záměru a výsledku hodu.',
+  'Místnost se pomalu plní vodou z rozbité nádrže — +1,5 m za každé 2 kola.',
+  'Hustý sliz teče ze stropu — zpomaluje pohyb o polovinu v 3m oblasti.',
+  'Jeden spojenec dostane záchvat slabosti — na 1 kolo mu padají věci z rukou (DC 10).',
 ];
 
+// ── Loot tables ────────────────────────────────────────────────────────────────
+
+const LOOT_WEAPONS_LOW = [
+  'Zrezivělá dýka — tupá, po nabroušení použitelná',
+  'Starý kůl s přibitým kusem kovu — improvizovaná zbraň',
+  'Vychýlený krátký luk — střelba s postihem −1, tetiva praskající',
+  '3 šípy — jeden je rovný, dva mírně zkroucené',
+  'Rezivý nůž — spíše kuchyňský než bojový',
+  'Opotřebená sekyra — zvrtí se při každém kritickém hodu',
+  'Ocelový nůž bez rukojeti — zabalen v hadru',
+  'Polámané kopí — dřevec na 60 cm, hrot pevný',
+];
 const LOOT_WEAPONS = [
   'Dýka — dobře udržovaná, kožený pochev',
   'Krátký meč — vyřezávaná rukojeť, drobné rýhy na čepeli',
@@ -113,18 +196,15 @@ const LOOT_WEAPONS = [
   'Válečné kladivo — otlučené, pevná rukojeť',
   'Kopí — dřevec prasklý, hrot neporušený (opravitelné)',
   'Palcát — ocelová hlava s malými ostny',
-  'Šestipák — vhodný pro boj zblízka',
   'Sada 3 vrhacích nožů — dobré vyvážení',
   'Dřevěný štít s kovaným okrajem — pár škrábanců',
   'Prošívaná zbroj — potřebuje vyčistit',
   'Kožená zbroj — stará, ale funkční',
   'Hůl dubová okovaná železem',
   'Šavle s ozdobnou záštitou — bojová i dekorativní',
-  'Luk lovecký střední — bez šípů, tetiva neporušena',
-  'Těžká kuše — pomalá, ale silná střela (záchrana DC 14)',
+  'Těžká kuše — pomalá, ale silná střela',
   'Trident — tříhrotová zbraň, jedna zbroušena',
 ];
-
 const LOOT_POTIONS_COMMON = [
   'Lektvar léčení 🧪 — obnoví 2k4+2 ŽB',
   'Lektvar protijed 🧪 — neutralizuje jeden jed (1 hodina)',
@@ -133,9 +213,7 @@ const LOOT_POTIONS_COMMON = [
   'Lektvar odolnosti vůči ohni 🧪 — odolnost vůči ohnivému zásahu (1 hodina)',
   'Lektvar tmavého vidění 🧪 — vidí ve tmě 18 m (8 hodin)',
   'Lektvar odolnosti vůči jedu 🧪 — výhoda na záchranné hody proti jedu (1 hodina)',
-  'Lektvar dlouhého dechu 🧪 — zadržení dechu + bonus na Atletiku pod vodou (1 hodina)',
 ];
-
 const LOOT_POTIONS_RARE = [
   'Lektvar vyššího léčení ✨ — obnoví 4k4+4 ŽB',
   'Lektvar neviditelnosti ✨ — trvá dokud nezaútočíš nebo nesešleš kouzlo',
@@ -144,10 +222,30 @@ const LOOT_POTIONS_RARE = [
   'Lektvar rychlosti ✨ — efekt Chvatu (1 minuta)',
   'Lektvar mistra léčení ✨ — obnoví 8k4+8 ŽB',
   'Lektvar nehmotnosti ✨ — procházej zdmi (1 min, záchrana Odolnosti DC 13 každé kolo)',
-  'Lektvar přátelství se zvířaty ✨ — zvířata tě považují za přítele (24 hodin)',
   'Lektvar hrdinství ✨ — 10 dočasných ŽB + efekt Požehnání (1 minuta)',
+  'Lektvar přátelství se zvířaty ✨ — zvířata tě považují za přítele (24 hodin)',
 ];
-
+const LOOT_MAGIC_ITEMS = [
+  'Kouzelný krátký meč +1 — slabá modravá záře na čepeli',
+  'Amulet odolnosti — +1 na záchranné hody Odolnosti',
+  'Prsten pomalého pádu — jednou denně, 1 min plachtění',
+  'Čarodějnická kniha se 3 kouzly 1. úrovně (neznámá témata)',
+  'Magická kuše šipka — 1 ks, vždy zasáhne (automatický zásah, 1× použitelná)',
+  'Plášť elfří výroby — +1 k Nenápadnosti jako bonus',
+  'Berla blesku — 3 náboje, bleskový paprsek (záchrana Obratnosti DC 14, 3k6)',
+  'Ocelový štít +1 — vyryté runy vybledlé, ale stále účinné',
+  'Prstenec ochrany — +1 na záchranné hody a OZ',
+  'Magický toulec — šípy v něm se obnovují (1k4 za úsvit, max 20)',
+];
+const LOOT_RARE_TREASURES = [
+  'Platinový kalich s gravírováním — hodnota ~300 zl',
+  'Diamant velký jako palcový článek — hodnota ~500 zl',
+  'Zlatý náhrdelník s runovými symboly — hodnota ~250 zl',
+  'Váza ze starého elfského skla — hodnota ~350 zl',
+  'Starý magický svitek (kouzlo 3. úrovně — Blesk nebo Leť)',
+  'Korunka padlé šlechtičny — 8 rubínů, hodnota ~600 zl',
+  'Ivorová miniatura draka — sběratelský předmět ~400 zl',
+];
 const LOOT_MISC = [
   'Starý pergamen s mapou neznámého území',
   'Polodrahokam: tyrkys nebo granát — hodnota 15–25 zl',
@@ -167,60 +265,90 @@ const LOOT_MISC = [
 ];
 
 const GEM_TABLE = [
-  'tyrkys (10 zl)', 'ametyst (20 zl)', 'granát (25 zl)',
-  'nefrit (50 zl)', 'opál (50 zl)', 'rubín (100 zl)', 'safír (100 zl)',
+  'tyrkys (10 zl)','ametyst (20 zl)','granát (25 zl)',
+  'nefrit (50 zl)','opál (50 zl)','rubín (100 zl)','safír (100 zl)',
+  'smaragd (150 zl)','topaz (80 zl)','alexandrit (200 zl)',
 ];
 
-/** Returns a Czech-language gold description with a rolled amount */
-function rollGoldEntry(): string {
-  const r = Math.random();
-  if (r < 0.35) {
-    const gp = Math.floor(Math.random() * 12) + 1;
-    const sp = Math.floor(Math.random() * 15);
-    return `💰 ${gp} zlatých${sp > 0 ? ` a ${sp} stříbrných` : ''} v roztrhaném vaku`;
-  } else if (r < 0.70) {
-    const gp = Math.floor(Math.random() * 20) + 5;
-    return `💰 ${gp} zlatých v kožené tobolce`;
-  } else if (r < 0.90) {
-    const gp = Math.floor(Math.random() * 30) + 15;
-    return `💰 ${gp} zlatých v dřevěné krabičce`;
-  } else {
-    const gp = Math.floor(Math.random() * 40) + 20;
-    return `💰 ${gp} zlatých + drahokam: ${rand(GEM_TABLE)}`;
-  }
+// ── Loot tiers ────────────────────────────────────────────────────────────────
+
+export interface LootTier {
+  label: string;
+  sublabel: string;
 }
 
-/**
- * Weighted loot roll:
- *  30 % → gold (computed amount)
- *  25 % → weapon / equipment
- *  18 % → common potion
- *  15 % → misc item / curiosity
- *  10 % → rare potion
- *   2 % → rare potion + bonus gold (jackpot)
- */
-function rollLootWeighted(): string {
+function getLootTier(budget: number): LootTier {
+  if (budget <= 25)  return { label: 'Skromná',    sublabel: 'drobný pos nebo levná zbraň' };
+  if (budget <= 150) return { label: 'Průměrná',   sublabel: 'zlaté, zbraně, běžné lektvary' };
+  if (budget <= 600) return { label: 'Bohatá',     sublabel: 'vzácné lektvary, drahokamy' };
+  return               { label: 'Pokladnice',  sublabel: 'magické předměty, velká hodnota' };
+}
+
+function rollGoldByBudget(budget: number): string {
+  const ratio = 0.35 + Math.random() * 0.55;
+  const gp = Math.max(1, Math.round(budget * ratio));
+  const sp = Math.floor(Math.random() * 10);
+  if (gp < 15) {
+    const cp = Math.floor(Math.random() * 20) + 5;
+    return `💰 ${Math.floor(gp * 10)} stříbrných${cp > 0 ? ` a ${cp} měděných` : ''} v roztrhaném váčku`;
+  }
+  if (gp < 80)  return `💰 ${gp} zlatých${sp > 0 ? ` a ${sp} stříbrných` : ''} v kožené tobolce`;
+  if (gp < 300) return `💰 ${gp} zlatých v dřevěné krabičce`;
+  return `💰 ${gp} zlatých + ${rand(GEM_TABLE)} v okovancé truhlici`;
+}
+
+function rollLootByBudget(budget: number): string {
   const r = Math.random() * 100;
-  if (r < 30)  return rollGoldEntry();
-  if (r < 55)  return `⚔️ ${rand(LOOT_WEAPONS)}`;
-  if (r < 73)  return rand(LOOT_POTIONS_COMMON);
-  if (r < 88)  return rand(LOOT_MISC);
-  if (r < 98)  return rand(LOOT_POTIONS_RARE);
-  // 2 % jackpot
-  const bonusGp = Math.floor(Math.random() * 30) + 10;
-  return `🌟 ${rand(LOOT_POTIONS_RARE)} + ${bonusGp} zlatých jako bonus`;
+
+  // Skromná (≤ 25 zl): coin, cheap weapon, junk
+  if (budget <= 25) {
+    if (r < 45) return rollGoldByBudget(budget);
+    if (r < 80) return `⚔️ ${rand(LOOT_WEAPONS_LOW)}`;
+    return rand(LOOT_MISC).replace(/\d+–\d+ zl/g, `${Math.floor(budget * 0.5)}–${budget} zl`);
+  }
+
+  // Průměrná (26–150 zl)
+  if (budget <= 150) {
+    if (r < 28) return rollGoldByBudget(budget);
+    if (r < 52) return `⚔️ ${rand(LOOT_WEAPONS)}`;
+    if (r < 68) return rand(LOOT_POTIONS_COMMON);
+    if (r < 83) return rand(LOOT_MISC);
+    if (r < 97) return rand(LOOT_POTIONS_RARE);
+    return `🌟 ${rand(LOOT_POTIONS_RARE)} + ${rollGoldByBudget(budget * 0.4)}`;
+  }
+
+  // Bohatá (151–600 zl)
+  if (budget <= 600) {
+    if (r < 20) return rollGoldByBudget(budget);
+    if (r < 35) return `⚔️ ${rand(LOOT_WEAPONS)}`;
+    if (r < 50) return rand(LOOT_POTIONS_RARE);
+    if (r < 65) return rand(LOOT_RARE_TREASURES);
+    if (r < 82) return `🔮 ${rand(LOOT_MAGIC_ITEMS)}`;
+    if (r < 96) return `🔮 ${rand(LOOT_MAGIC_ITEMS)} + ${rollGoldByBudget(budget * 0.3)}`;
+    return `🌟 ${rand(LOOT_POTIONS_RARE)} + ${rand(LOOT_RARE_TREASURES)}`;
+  }
+
+  // Pokladnice (> 600 zl)
+  if (r < 15) return rollGoldByBudget(budget);
+  if (r < 30) return `🔮 ${rand(LOOT_MAGIC_ITEMS)} + ${rand(LOOT_MAGIC_ITEMS)}`;
+  if (r < 50) return `🔮 ${rand(LOOT_MAGIC_ITEMS)} + ${rollGoldByBudget(budget * 0.5)}`;
+  if (r < 65) return `👑 ${rand(LOOT_RARE_TREASURES)} + ${rand(LOOT_RARE_TREASURES)}`;
+  if (r < 80) return `👑 ${rand(LOOT_RARE_TREASURES)} + ${rand(LOOT_POTIONS_RARE)} + ${rollGoldByBudget(budget * 0.4)}`;
+  return `🌟 ${rand(LOOT_MAGIC_ITEMS)} + ${rand(LOOT_RARE_TREASURES)} + ${rollGoldByBudget(budget * 0.6)}`;
 }
 
 function rand<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+const LOOT_PRESETS = [15, 80, 300, 1200] as const;
+
 @Component({
   selector: 'dm-generator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatIcon, MatTooltip],
   styles: `
-    :host { display: block; height: 100%; overflow-y: auto; padding: 24px 32px 40px; box-sizing: border-box; font-family: 'Mikadan', sans-serif; }
+    :host { display: block; height: 100%; overflow-y: auto; padding: 24px 32px 40px; box-sizing: border-box; font-family: sans-serif; }
 
     /* ── Header ─────────────────────────────────── */
     .gen-header {
@@ -235,10 +363,10 @@ function rand<T>(arr: T[]): T {
       display: flex; align-items: center; gap: 10px;
       mat-icon { font-size: 26px; width: 26px; height: 26px; color: #4080c0; }
     }
-    .gen-subtitle { font-size: 11px; color: rgba(60,140,200,.4); letter-spacing: .05em; margin-top: 5px; font-family: sans-serif; font-style: italic; text-transform: none; }
+    .gen-subtitle { font-size: 11px; color: rgba(60,140,200,.4); letter-spacing: .05em; margin-top: 5px; font-style: italic; text-transform: none; }
 
     .gen-reroll-all {
-      font-family: 'Mikadan', sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+      font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
       border: 1px solid rgba(60,140,200,.3); border-radius: 3px; background: rgba(60,140,200,.08);
       color: rgba(80,160,220,.8); padding: 6px 16px; cursor: pointer;
       display: flex; align-items: center; gap: 6px;
@@ -247,15 +375,16 @@ function rand<T>(arr: T[]): T {
       &:hover { background: rgba(60,140,200,.18); border-color: rgba(80,180,240,.5); color: #90d0f8; }
     }
 
-    /* ── Grid of generator cards ─────────────────── */
+    /* ── Grid ────────────────────────────────────── */
     .gen-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 16px;
     }
 
-    /* ── Single card ─────────────────────────────── */
+    /* ── Card ────────────────────────────────────── */
     .gen-card {
+      --c: rgba(160,145,110,.8);
       background: linear-gradient(160deg, rgba(28,22,14,.97) 0%, rgba(18,14,8,.99) 100%);
       border: 1px solid rgba(255,255,255,.06);
       border-radius: 3px;
@@ -265,21 +394,12 @@ function rand<T>(arr: T[]): T {
       position: relative;
       &:hover { border-color: rgba(255,255,255,.1); box-shadow: 0 6px 26px rgba(0,0,0,.6); }
       &::before { content: '◆'; position: absolute; top: 5px; left: 8px; font-size: 6px; color: rgba(255,255,255,.1); pointer-events: none; }
-
-      // Per-card accent colour set as CSS custom property via a class (not Angular binding)
-      &--npc          { --c: rgba(200,160,60,.85); }
-      &--weather      { --c: rgba(80,160,220,.85); }
-      &--encounter    { --c: rgba(200,80,60,.85);  }
-      &--plot         { --c: rgba(100,180,80,.85); }
-      &--room         { --c: rgba(160,100,200,.85);}
-      &--complication { --c: rgba(200,120,40,.85); }
-      &--loot         { --c: rgba(220,200,60,.85); }
     }
 
     .gen-card-rule {
       height: 2px;
       background: linear-gradient(90deg, transparent, var(--c) 40%, var(--c) 60%, transparent);
-      opacity: .5;
+      opacity: .45;
     }
 
     .gen-card-header {
@@ -298,7 +418,7 @@ function rand<T>(arr: T[]): T {
     }
 
     .gen-btn {
-      font-family: 'Mikadan', sans-serif; font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+      font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
       border: 1px solid var(--c); border-radius: 2px;
       background: rgba(0,0,0,.2); color: var(--c);
       padding: 4px 12px; cursor: pointer;
@@ -312,25 +432,53 @@ function rand<T>(arr: T[]): T {
     .gen-card-body { padding: 12px 14px 14px; min-height: 64px; }
 
     .gen-result {
-      font-family: sans-serif; font-size: 12px; line-height: 1.6;
+      font-size: 12px; line-height: 1.6;
       color: #c0b8a8; transition: opacity .15s;
       &--empty { color: rgba(255,255,255,.18); font-style: italic; font-size: 11px; }
       &--fresh { animation: gen-fadein .25s ease; }
     }
 
-    /* ── NPC special ─────────────────────────────── */
-    .gen-npc-result {
-      display: flex; flex-direction: column; gap: 4px;
+    /* ── NPC ─────────────────────────────────────── */
+    .gen-npc-result { display: flex; flex-direction: column; gap: 4px; }
+    .gen-npc-name { font-size: 15px; letter-spacing: .08em; color: #d4c080; text-shadow: 0 0 8px rgba(180,150,60,.2); }
+    .gen-npc-meta { font-size: 11px; color: rgba(200,180,120,.7); }
+    .gen-npc-motivation { font-size: 11px; color: rgba(180,170,140,.75); font-style: italic; line-height: 1.5; }
+    .gen-npc-quirk { font-size: 10px; color: rgba(160,160,140,.6); font-style: italic; border-top: 1px solid rgba(255,255,255,.05); margin-top: 4px; padding-top: 4px; }
+
+    /* ── Loot budget control ─────────────────────── */
+    .gen-loot-budget {
+      padding: 8px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+      background: rgba(0,0,0,.15);
+      display: flex; flex-direction: column; gap: 6px;
     }
-    .gen-npc-name {
-      font-family: 'Mikadan', sans-serif; font-size: 15px; letter-spacing: .08em;
-      color: #e8c96a; text-shadow: 0 0 8px rgba(200,160,60,.3);
+    .gen-loot-budget-row {
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
     }
-    .gen-npc-meta { font-family: sans-serif; font-size: 11px; color: rgba(200,180,120,.7); }
-    .gen-npc-motivation { font-family: sans-serif; font-size: 11px; color: rgba(180,170,140,.75); font-style: italic; line-height: 1.5; }
-    .gen-npc-quirk {
-      font-family: sans-serif; font-size: 10px; color: rgba(160,160,140,.6);
-      font-style: italic; border-top: 1px solid rgba(255,255,255,.05); margin-top: 4px; padding-top: 4px;
+    .gen-loot-budget-label {
+      font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(200,185,140,.45); white-space: nowrap;
+    }
+    .gen-loot-preset {
+      font-size: 9px; letter-spacing: .06em;
+      border: 1px solid rgba(200,180,120,.2); border-radius: 2px;
+      background: rgba(0,0,0,.2); color: rgba(200,180,120,.55);
+      padding: 2px 8px; cursor: pointer;
+      transition: background .12s, color .12s, border-color .12s;
+      &:hover, &.active { background: rgba(200,180,120,.12); border-color: rgba(200,180,120,.45); color: rgba(220,200,140,.9); }
+    }
+    .gen-loot-input {
+      font-size: 10px; background: rgba(0,0,0,.3); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 2px; color: rgba(220,200,140,.8); padding: 2px 6px;
+      width: 62px; text-align: right;
+      &:focus { outline: none; border-color: rgba(200,180,120,.4); }
+    }
+    .gen-loot-unit { font-size: 9px; color: rgba(200,180,120,.4); }
+    .gen-loot-tier {
+      font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(200,180,120,.65); border-left: 1px solid rgba(255,255,255,.08);
+      padding-left: 8px; margin-left: auto; white-space: nowrap;
+      span { color: rgba(220,205,155,.9); }
     }
 
     @keyframes gen-fadein {
@@ -352,7 +500,7 @@ function rand<T>(arr: T[]): T {
     <div class="gen-grid">
 
       <!-- NPC Card -->
-      <div class="gen-card gen-card--npc">
+      <div class="gen-card">
         <div class="gen-card-rule"></div>
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">person</mat-icon>
@@ -374,7 +522,7 @@ function rand<T>(arr: T[]): T {
       </div>
 
       <!-- Weather Card -->
-      <div class="gen-card gen-card--weather">
+      <div class="gen-card">
         <div class="gen-card-rule"></div>
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">wb_cloudy</mat-icon>
@@ -391,7 +539,7 @@ function rand<T>(arr: T[]): T {
       </div>
 
       <!-- Encounter Card -->
-      <div class="gen-card gen-card--encounter">
+      <div class="gen-card">
         <div class="gen-card-rule"></div>
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">warning</mat-icon>
@@ -408,7 +556,7 @@ function rand<T>(arr: T[]): T {
       </div>
 
       <!-- Plot Hook Card -->
-      <div class="gen-card gen-card--plot">
+      <div class="gen-card">
         <div class="gen-card-rule"></div>
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">psychology</mat-icon>
@@ -425,7 +573,7 @@ function rand<T>(arr: T[]): T {
       </div>
 
       <!-- Room Description Card -->
-      <div class="gen-card gen-card--room">
+      <div class="gen-card">
         <div class="gen-card-rule"></div>
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">door_back</mat-icon>
@@ -442,7 +590,7 @@ function rand<T>(arr: T[]): T {
       </div>
 
       <!-- Combat Complication Card -->
-      <div class="gen-card gen-card--complication">
+      <div class="gen-card">
         <div class="gen-card-rule"></div>
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">bolt</mat-icon>
@@ -459,13 +607,39 @@ function rand<T>(arr: T[]): T {
       </div>
 
       <!-- Loot Card -->
-      <div class="gen-card gen-card--loot">
+      <div class="gen-card">
         <div class="gen-card-rule"></div>
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">auto_awesome</mat-icon>
           <span class="gen-card-title">Kořist</span>
           <button class="gen-btn" type="button" (click)="rollLoot()"><mat-icon>shuffle</mat-icon>Generovat</button>
         </div>
+
+        <!-- Budget control -->
+        <div class="gen-loot-budget">
+          <div class="gen-loot-budget-row">
+            <span class="gen-loot-budget-label">Hodnota:</span>
+            @for (p of lootPresets; track p) {
+              <button
+                class="gen-loot-preset"
+                [class.active]="lootBudget() === p"
+                type="button"
+                (click)="lootBudget.set(p)"
+              >{{ p }} zl</button>
+            }
+            <input
+              class="gen-loot-input"
+              type="number"
+              min="1"
+              [value]="lootBudget()"
+              (input)="lootBudget.set(+$any($event.target).value || 1)"
+            />
+            <span class="gen-loot-unit">zl</span>
+            <div class="gen-loot-tier">Tier: <span>{{ lootTier().label }}</span></div>
+          </div>
+          <div class="gen-loot-budget-label" style="font-style:italic;opacity:.7">{{ lootTier().sublabel }}</div>
+        </div>
+
         <div class="gen-card-body">
           @if (loot()) {
             <span class="gen-result gen-result--fresh">{{ loot() }}</span>
@@ -479,21 +653,25 @@ function rand<T>(arr: T[]): T {
   `,
 })
 export class DmGeneratorComponent {
-  npc         = signal<{ name: string; race: string; role: string; motivation: string; quirk: string } | null>(null);
-  weather     = signal<string | null>(null);
-  encounter   = signal<string | null>(null);
-  plot        = signal<string | null>(null);
-  room        = signal<string | null>(null);
+  readonly lootPresets = LOOT_PRESETS;
+
+  npc          = signal<{ name: string; race: string; role: string; motivation: string; quirk: string } | null>(null);
+  weather      = signal<string | null>(null);
+  encounter    = signal<string | null>(null);
+  plot         = signal<string | null>(null);
+  room         = signal<string | null>(null);
   complication = signal<string | null>(null);
-  loot        = signal<string | null>(null);
+  loot         = signal<string | null>(null);
+  lootBudget   = signal<number>(80);
+
+  readonly lootTier = computed(() => getLootTier(this.lootBudget()));
 
   rollNpc(): void {
-    const isMale = Math.random() < .5;
+    const isMale    = Math.random() < .5;
     const firstName = rand(isMale ? MALE_NAMES : FEMALE_NAMES);
     const epithet   = rand(EPITHETS);
-    const name      = `${firstName} ${epithet}`;
     this.npc.set({
-      name,
+      name:       `${firstName} ${epithet}`,
       race:       rand(RACES),
       role:       rand(ROLES),
       motivation: rand(MOTIVATIONS),
@@ -506,7 +684,7 @@ export class DmGeneratorComponent {
   rollPlot():         void { this.plot.set(rand(PLOT_HOOKS)); }
   rollRoom():         void { this.room.set(rand(ROOMS)); }
   rollComplication(): void { this.complication.set(rand(COMPLICATIONS)); }
-  rollLoot():         void { this.loot.set(rollLootWeighted()); }
+  rollLoot():         void { this.loot.set(rollLootByBudget(this.lootBudget())); }
 
   rerollAll(): void {
     this.rollNpc();

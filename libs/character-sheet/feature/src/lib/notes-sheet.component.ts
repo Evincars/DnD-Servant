@@ -16,7 +16,7 @@ import { debounceTime } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, RichTextareaComponent, MatIcon],
   styles: `
-    :host { display: block; padding: 24px 32px 40px; font-family: 'Mikadan', sans-serif; overflow: visible; }
+    :host { display: block; padding: 24px 32px 40px; font-family: sans-serif; overflow: visible; }
 
     /* ── Header ─────────────────────────────────── */
     .header {
@@ -43,7 +43,7 @@ import { debounceTime } from 'rxjs/operators';
     }
 
     .autosave-msg {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 10px;
       letter-spacing: .1em;
       color: rgba(100,180,110,.6);
@@ -53,7 +53,7 @@ import { debounceTime } from 'rxjs/operators';
     @keyframes fadeBanner { from { opacity: 0; } to { opacity: 1; } }
 
     .btn-save {
-      font-family: 'Mikadan', sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+      font-family: sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
       border: 1px solid rgba(80,160,80,.35); border-radius: 3px; background: rgba(60,120,60,.08);
       color: rgba(100,200,100,.8); padding: 6px 16px; cursor: pointer;
       display: flex; align-items: center; gap: 6px; transition: background .18s, border-color .18s, color .18s;

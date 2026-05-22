@@ -38,7 +38,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
     :host {
       display: block;
       padding: 24px 32px 40px;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
     }
 
     /* ── Page header ───────────────────────────── */
@@ -88,7 +88,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
 
     /* ── Buttons ───────────────────────────────── */
     .btn-dnd {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 11px;
       letter-spacing: .1em;
       text-transform: uppercase;
@@ -138,7 +138,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
     }
 
     .filter-tab {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 10px;
       letter-spacing: .1em;
       text-transform: uppercase;
@@ -180,7 +180,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
     }
 
     .sort-btn {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 9px;
       letter-spacing: .1em;
       text-transform: uppercase;
@@ -277,7 +277,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
     }
 
     .status-badge {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 8px;
       letter-spacing: .12em;
       text-transform: uppercase;
@@ -364,7 +364,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
       border: none;
       border-bottom: 1px solid rgba(200,160,60,.2);
       color: #e8c96a;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 14px;
       letter-spacing: .07em;
       padding: 3px 2px 5px;
@@ -574,14 +574,14 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
     .confirm-icon { display: flex; justify-content: center; margin-bottom: 12px;
       mat-icon { font-size: 36px; width: 36px; height: 36px; color: rgba(200,80,60,.7); }
     }
-    .confirm-title { font-family: 'Mikadan', sans-serif; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: #e8c96a; text-align: center; margin-bottom: 10px; }
+    .confirm-title { font-family: sans-serif; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: #e8c96a; text-align: center; margin-bottom: 10px; }
     .confirm-message { font-size: 12px; color: #a09070; text-align: center; line-height: 1.6; margin-bottom: 22px;
       strong { color: #d4a84b; font-style: italic; }
     }
     .confirm-rule { height: 1px; background: linear-gradient(90deg, transparent, rgba(200,160,60,.3) 50%, transparent); margin-bottom: 18px; }
     .confirm-actions { display: flex; gap: 10px; justify-content: center; }
     .confirm-btn {
-      font-family: 'Mikadan', sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+      font-family: sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
       border-radius: 3px; padding: 7px 20px; cursor: pointer; transition: background .18s, border-color .18s, color .18s;
     }
     .confirm-btn-cancel { background: rgba(200,160,60,.06); border: 1px solid rgba(200,160,60,.25); color: rgba(200,160,60,.65);
@@ -603,7 +603,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
       cursor: default; display: flex; flex-direction: column; align-items: center;
       animation: scaleIn .18s ease;
     }
-    .img-preview-title { font-family: 'Mikadan', sans-serif; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #e8c96a; text-shadow: 0 0 12px rgba(200,160,60,.4); margin-bottom: 12px; }
+    .img-preview-title { font-family: sans-serif; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #e8c96a; text-shadow: 0 0 12px rgba(200,160,60,.4); margin-bottom: 12px; }
     .img-preview-frame {
       border: 1px solid rgba(200,160,60,.35);
       box-shadow: 0 0 0 1px rgba(0,0,0,.8), 0 8px 40px rgba(0,0,0,.9), 0 0 60px rgba(200,160,60,.08);
@@ -624,7 +624,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
 
     /* ── Auto-save indicator ─────────────────── */
     .autosave-msg {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 10px;
       letter-spacing: .1em;
       color: rgba(100,180,110,.6);
@@ -651,11 +651,9 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
         </div>
         <div class="quests-header-actions">
           <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
-          <button class="btn-dnd btn-dnd-icon" type="button" (click)="expandAll()" matTooltip="Rozbalit vše">
-            <mat-icon>unfold_more</mat-icon>
-          </button>
-          <button class="btn-dnd btn-dnd-icon" type="button" (click)="collapseAll()" matTooltip="Sbalit vše">
-            <mat-icon>unfold_less</mat-icon>
+          <button class="btn-dnd btn-dnd-icon" type="button" (click)="toggleAllExpanded()"
+            [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">
+            <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
           </button>
           <button class="btn-dnd" type="button" (click)="addQuest()" matTooltip="Přidat nový quest">
             <mat-icon>add</mat-icon>
@@ -1027,6 +1025,18 @@ export class QuestsTabComponent {
       else next.add(id);
       return next;
     });
+  }
+
+  readonly allExpanded = computed(() =>
+    this.quests().length > 0 && this.quests().every(q => this.expandedIds().has(q.id))
+  );
+
+  toggleAllExpanded(): void {
+    if (this.allExpanded()) {
+      this.collapseAll();
+    } else {
+      this.expandAll();
+    }
   }
 
   expandAll(): void {

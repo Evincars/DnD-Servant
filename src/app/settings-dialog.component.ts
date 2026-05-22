@@ -219,6 +219,8 @@ export interface SettingsDialogData {
               </a>
             </div>
           </div>
+        </div>
+
         </div><!-- /sd-col-panel RIGHT -->
 
       </div>
@@ -226,7 +228,7 @@ export interface SettingsDialogData {
       <!-- Version footer -->
       <div class="sd-version-bar">
         <span class="sd-version-label">DnD Servant</span>
-        <span class="sd-version-badge">v0.9.4</span>
+        <span class="sd-version-badge">v0.9.5</span>
       </div>
     </div>
   `,
@@ -275,7 +277,7 @@ export interface SettingsDialogData {
 
     .sd-title {
       flex: 1;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 14px;
       letter-spacing: .1em;
       text-transform: uppercase;
@@ -336,7 +338,7 @@ export interface SettingsDialogData {
     }
 
     .sd-section-label {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 10px;
       letter-spacing: .15em;
       text-transform: uppercase;
@@ -461,7 +463,7 @@ export interface SettingsDialogData {
     }
 
     .sd-btn-label {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 12px;
       letter-spacing: .06em;
       color: #c8bfb0;
@@ -470,6 +472,7 @@ export interface SettingsDialogData {
     }
 
     .sd-btn-sub {
+      font-family: sans-serif;
       font-size: 10px;
       color: rgba(180,160,130,.45);
       letter-spacing: .04em;
@@ -527,6 +530,7 @@ export interface SettingsDialogData {
     }
 
     .sd-shortcut-desc {
+      font-family: sans-serif;
       font-size: 11px;
       color: rgba(180,160,130,.6);
       letter-spacing: .04em;
@@ -576,6 +580,7 @@ export interface SettingsDialogData {
     }
 
     .sd-credits-text {
+      font-family: sans-serif;
       font-size: 11px;
       color: rgba(180, 155, 130, .65);
       letter-spacing: .03em;
@@ -583,7 +588,7 @@ export interface SettingsDialogData {
     }
 
     .sd-credit-name {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 11px;
       letter-spacing: .06em;
       color: rgba(200, 50, 50, .85);
@@ -607,7 +612,7 @@ export interface SettingsDialogData {
       color: rgba(180, 60, 60, .8);
       text-decoration: none;
       font-size: 11px;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       letter-spacing: .06em;
       transition: background .15s, border-color .15s, color .15s, box-shadow .15s;
 
@@ -639,7 +644,7 @@ export interface SettingsDialogData {
     }
 
     .sd-version-label {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 10px;
       letter-spacing: .1em;
       color: rgba(200,160,60,.25);

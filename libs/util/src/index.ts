@@ -11,6 +11,8 @@ export * from './lib/auth.service';
 export * from './lib/object-util';
 export * from './lib/form-util';
 export * from './lib/monster-names';
+export * from './lib/jad-monster-names';
+export * from './lib/combined-monster-names';
 export * from './lib/dnd5e-api-models/dnd5e-monster-api.models';
 export * from './lib/dnd5e-api-models/dnd5e-spells-api.models';
 export * from './lib/dnd5e-api-models/dnd5e-races-api.models';
@@ -25,4 +27,5 @@ export * from './lib/dnd5e-api-models/dnd5e-backgrounds-api.models';
 export * from './lib/dnd-translator.service';
 export * from './lib/dnd-translate.pipe';
 export * from './lib/tab-navigator.service';
+export * from './lib/initiative-bridge.service';
 

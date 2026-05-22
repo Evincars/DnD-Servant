@@ -9,6 +9,13 @@ export interface JadSpell {
   name: string;
   slug: string;
   file: string;
+  classes: string[];
+  /** Spell level: 0 = cantrip (trik), 1-9 = leveled spell. Undefined if unknown. */
+  level?: number;
+  /** Spell school (Nekromancie, Zaklínání, …). Undefined if unknown. */
+  school?: string;
+  /** True if the spell can be cast as a ritual. */
+  ritual?: boolean;
 }
 
 interface HeadingEntry {
@@ -17,6 +24,16 @@ interface HeadingEntry {
   h: string;
   s: string;
 }
+
+interface SpellMetaEntry {
+  name: string;
+  classes: string[];
+  level?: number;
+  school?: string;
+  ritual?: boolean;
+}
+
+type SpellMeta = Record<string, SpellMetaEntry>;
 
 const JAD_SPELL_FILES = new Set([
   '10c-magie-kouzla-0-3.md',
@@ -32,6 +49,11 @@ const EXCLUDED_SLUGS = new Set([
 
 const EXCLUDED_SLUG_PATTERN = /^\d+-stupen$/;
 
+function normalizeClassName(cls: string): string {
+  if (!cls) return cls;
+  return cls.charAt(0).toUpperCase() + cls.slice(1);
+}
+
 @Injectable({ providedIn: 'root' })
 export class JadSpellsService {
   private readonly http = inject(HttpClient);
@@ -44,6 +66,13 @@ export class JadSpellsService {
     { initialValue: [] as HeadingEntry[] },
   );
 
+  private readonly _spellMeta = toSignal(
+    this.http.get<SpellMeta>('/dnd5esrd/snippets/kouzla-meta.json').pipe(
+      catchError(() => of({} as SpellMeta)),
+    ),
+    { initialValue: null as SpellMeta | null },
+  );
+
   /** Set of filenames available under /dnd5esrd/snippets/kouzla/. Null until loaded. */
   readonly snippetFiles = toSignal(
     this.http.get<string[]>('/dnd5esrd/snippets/kouzla-index.json').pipe(
@@ -53,8 +82,10 @@ export class JadSpellsService {
     ),
   );
 
-  readonly allSpells = computed((): JadSpell[] =>
-    this._headings()
+  /** Spells found in the JAD heading index (with class info from meta). */
+  private readonly _jadSpells = computed((): JadSpell[] => {
+    const meta = this._spellMeta();
+    return this._headings()
       .filter(
         e =>
           e.b === 'jeskyne-a-draci' &&
@@ -62,8 +93,67 @@ export class JadSpellsService {
           !EXCLUDED_SLUGS.has(e.s) &&
           !EXCLUDED_SLUG_PATTERN.test(e.s),
       )
-      .map(e => ({ name: e.h, slug: e.s, file: e.f })),
+      .map(e => ({
+        name: e.h,
+        slug: e.s,
+        file: e.f,
+        classes: (meta?.[e.s]?.classes ?? []).map(normalizeClassName),
+        level: meta?.[e.s]?.level,
+        school: meta?.[e.s]?.school,
+        ritual: meta?.[e.s]?.ritual,
+      }));
+  });
+
+  /** Slugs of all JAD-indexed spells for deduplication. */
+  private readonly _jadSlugSet = computed(
+    () => new Set(this._jadSpells().map(s => s.slug)),
   );
+
+  /**
+   * Spells present only in the snippet folder (PHB, Tasha's, etc.) but
+   * NOT in the JAD heading index – e.g. "Tašin děsivý smích".
+   */
+  private readonly _snippetOnlySpells = computed((): JadSpell[] => {
+    const meta = this._spellMeta();
+    if (!meta) return [];
+    const jadSlugs = this._jadSlugSet();
+    return Object.entries(meta)
+      .filter(([slug]) => !jadSlugs.has(slug))
+      .map(([slug, data]) => ({
+        name: data.name,
+        slug,
+        file: '',
+        classes: data.classes.map(normalizeClassName),
+        level: data.level,
+        school: data.school,
+        ritual: data.ritual,
+      }));
+  });
+
+  readonly allSpells = computed((): JadSpell[] => {
+    const all = [...this._jadSpells(), ...this._snippetOnlySpells()];
+    return all.sort((a, b) => a.name.localeCompare(b.name, 'cs'));
+  });
+
+  /** Sorted unique list of class names across all spells. */
+  readonly availableClasses = computed((): string[] => {
+    const classSet = new Set<string>();
+    for (const spell of this.allSpells()) {
+      for (const cls of spell.classes) {
+        if (cls) classSet.add(cls);
+      }
+    }
+    return [...classSet].sort((a, b) => a.localeCompare(b, 'cs'));
+  });
+
+  /** Sorted unique list of spell schools across all spells. */
+  readonly availableSchools = computed((): string[] => {
+    const schoolSet = new Set<string>();
+    for (const spell of this.allSpells()) {
+      if (spell.school) schoolSet.add(spell.school);
+    }
+    return [...schoolSet].sort((a, b) => a.localeCompare(b, 'cs'));
+  });
 
   findSpellByName(name: string): JadSpell | undefined {
     const norm = JadSpellsService.normalizeStr(name);
@@ -99,6 +189,9 @@ export class JadSpellsService {
 
   /** Extract a spell section from the big markdown article by heading name. */
   private extractSpellFromArticle(spell: JadSpell) {
+    if (!spell.file) {
+      return of(`<p>Obsah kouzla nenalezen pro: <strong>${spell.slug}</strong></p>`);
+    }
     return this.http
       .get(`/dnd5esrd/jeskyne-a-draci/${spell.file}`, { responseType: 'text' })
       .pipe(
@@ -147,4 +240,3 @@ export class JadSpellsService {
     return startIdx !== -1 ? lines.slice(startIdx).join('\n').trim() : null;
   }
 }
-

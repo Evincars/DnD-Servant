@@ -33,6 +33,36 @@ function normalize(s: string): string {
     .toLowerCase();
 }
 
+/**
+ * Fuzzy subsequence match. Returns the set of character positions in `label`
+ * that correspond to the matched query characters, or null if no match.
+ * Works on the original (un-normalised) string so positions are valid for
+ * building highlighted HTML.
+ */
+function fuzzyMatchPositions(label: string, normQuery: string): Set<number> | null {
+  if (!normQuery) return null;
+  const positions = new Set<number>();
+  let qi = 0;
+  for (let li = 0; li < label.length && qi < normQuery.length; li++) {
+    const nc = label[li].normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    if (nc === normQuery[qi]) {
+      positions.add(li);
+      qi++;
+    }
+  }
+  return qi === normQuery.length ? positions : null;
+}
+
+function escapeHtml(s: string): string {
+  return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] ?? c));
+}
+
+interface FilteredItem {
+  item: CommandItem;
+  /** Positions in item.label to highlight; null = show all (empty query). */
+  labelPositions: Set<number> | null;
+}
+
 const APP_COMMANDS: CommandItem[] = [
   // ── Pages (no standalone character-sheet page — use the tab entry instead) ──
   {
@@ -93,9 +123,9 @@ const APP_COMMANDS: CommandItem[] = [
   },
   {
     id: 'cs-tab-3',
-    label: 'Moje předměty',
+    label: 'Kouzla',
     sublabel: 'Karta postavy › záložka',
-    icon: 'inventory_2',
+    icon: 'auto_awesome',
     routePath: routes.characterSheet,
     tabIndex: 3,
     tabStorageKey: ACTIVE_TAB_INDEX_KEY,
@@ -147,12 +177,21 @@ const APP_COMMANDS: CommandItem[] = [
     tabStorageKey: DM_TAB_KEY,
   },
   {
+    id: 'dm-tab-monstra',
+    label: 'Monstra',
+    sublabel: 'PH nástroje › záložka',
+    icon: 'skull',
+    routePath: routes.dmPage,
+    tabIndex: 1,
+    tabStorageKey: DM_TAB_KEY,
+  },
+  {
     id: 'dm-tab-1',
     label: 'DM Questy',
     sublabel: 'PH nástroje › záložka',
     icon: 'checklist',
     routePath: routes.dmPage,
-    tabIndex: 1,
+    tabIndex: 2,
     tabStorageKey: DM_TAB_KEY,
   },
   {
@@ -161,7 +200,7 @@ const APP_COMMANDS: CommandItem[] = [
     sublabel: 'PH nástroje › záložka',
     icon: 'notes',
     routePath: routes.dmPage,
-    tabIndex: 2,
+    tabIndex: 3,
     tabStorageKey: DM_TAB_KEY,
   },
   {
@@ -170,7 +209,7 @@ const APP_COMMANDS: CommandItem[] = [
     sublabel: 'PH nástroje › záložka',
     icon: 'casino',
     routePath: routes.dmPage,
-    tabIndex: 3,
+    tabIndex: 4,
     tabStorageKey: DM_TAB_KEY,
   },
   {
@@ -179,7 +218,7 @@ const APP_COMMANDS: CommandItem[] = [
     sublabel: 'PH nástroje › záložka',
     icon: 'auto_stories',
     routePath: routes.dmPage,
-    tabIndex: 4,
+    tabIndex: 5,
     tabStorageKey: DM_TAB_KEY,
   },
 ];
@@ -212,24 +251,24 @@ const APP_COMMANDS: CommandItem[] = [
 
       <!-- Results -->
       <div class="cp-list" #listEl>
-        @if (filtered().length === 0) {
+        @if (filteredItems().length === 0) {
           <div class="cp-empty">Žádné výsledky</div>
         }
-        @for (item of filtered(); track item.id; let i = $index) {
+        @for (fi of filteredItems(); track fi.item.id; let i = $index) {
           <button
             type="button"
             class="cp-item"
             [class.cp-item--active]="activeIndex() === i"
-            (click)="selectItem(item)"
+            (click)="selectItem(fi.item)"
             (mouseenter)="activeIndex.set(i)"
           >
-            <mat-icon class="cp-item-icon">{{ item.icon }}</mat-icon>
+            <mat-icon class="cp-item-icon">{{ fi.item.icon }}</mat-icon>
             <span class="cp-item-text">
-              <span class="cp-item-label">{{ item.label }}</span>
-              <span class="cp-item-sub">{{ item.sublabel }}</span>
+              <span class="cp-item-label" [innerHTML]="getHighlightedHtml(fi.item.label, fi.labelPositions)"></span>
+              <span class="cp-item-sub">{{ fi.item.sublabel }}</span>
             </span>
-            @if (item.tabIndex !== undefined) {
-              <span class="cp-item-badge">záložka {{ item.tabIndex + 1 }}</span>
+            @if (fi.item.tabIndex !== undefined) {
+              <span class="cp-item-badge">záložka {{ fi.item.tabIndex + 1 }}</span>
             }
           </button>
         }
@@ -291,9 +330,9 @@ const APP_COMMANDS: CommandItem[] = [
       background: transparent;
       border: none;
       outline: none;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 15px;
-      letter-spacing: .04em;
+      letter-spacing: .02em;
       color: #e8d9b0;
       caret-color: rgba(200,160,60,.8);
 
@@ -324,9 +363,9 @@ const APP_COMMANDS: CommandItem[] = [
     .cp-empty {
       padding: 28px 16px;
       text-align: center;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 12px;
-      letter-spacing: .1em;
+      letter-spacing: .04em;
       color: rgba(200,160,60,.3);
     }
 
@@ -381,14 +420,22 @@ const APP_COMMANDS: CommandItem[] = [
     }
 
     .cp-item-label {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 13px;
-      letter-spacing: .04em;
+      letter-spacing: .02em;
       color: #c8b880;
       transition: color .1s;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    /* Fuzzy-match highlight inside label */
+    :host ::ng-deep .cp-match {
+      background: transparent;
+      color: rgba(210, 55, 45, 0.95);
+      font-weight: normal;
+      font-family: inherit;
     }
 
     .cp-item-sub {
@@ -452,15 +499,31 @@ export class CommandPaletteComponent implements AfterViewInit {
   readonly query = signal('');
   readonly activeIndex = signal(0);
 
-  readonly filtered = computed(() => {
+  readonly filteredItems = computed((): FilteredItem[] => {
     const q = normalize(this.query().trim());
-    if (!q) return APP_COMMANDS;
-    return APP_COMMANDS.filter(
-      cmd =>
-        normalize(cmd.label).includes(q) ||
-        normalize(cmd.sublabel).includes(q),
-    );
+    if (!q) return APP_COMMANDS.map(item => ({ item, labelPositions: null }));
+    return APP_COMMANDS
+      .map(item => {
+        const labelPos = fuzzyMatchPositions(item.label, q);
+        const sublabelMatch = normalize(item.sublabel).includes(q);
+        if (!labelPos && !sublabelMatch) return null;
+        return { item, labelPositions: labelPos };
+      })
+      .filter((x): x is FilteredItem => x !== null);
   });
+
+  /** Legacy alias used only by keyboard nav length guard. */
+  get filteredCount(): number { return this.filteredItems().length; }
+
+  getHighlightedHtml(label: string, positions: Set<number> | null): string {
+    if (!positions) return escapeHtml(label);
+    return [...label]
+      .map((char, i) => {
+        const esc = escapeHtml(char);
+        return positions.has(i) ? `<mark class="cp-match">${esc}</mark>` : esc;
+      })
+      .join('');
+  }
 
   ngAfterViewInit(): void {
     this.searchInputEl().nativeElement.focus();
@@ -472,7 +535,7 @@ export class CommandPaletteComponent implements AfterViewInit {
   }
 
   onKeyDown(event: KeyboardEvent): void {
-    const items = this.filtered();
+    const items = this.filteredItems();
 
     switch (event.key) {
       case 'ArrowDown':
@@ -490,7 +553,7 @@ export class CommandPaletteComponent implements AfterViewInit {
       case 'Enter':
         event.preventDefault();
         const selected = items[this.activeIndex()];
-        if (selected) this.selectItem(selected);
+        if (selected) this.selectItem(selected.item);
         break;
 
       case 'Escape':

@@ -25,9 +25,21 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     :host {
       display: block;
       padding: 24px 32px 40px;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       overflow: visible;
+      /* Pass a readable text colour into rich-textarea via the CSS custom property it supports */
+      --rt-text-color: rgba(210, 195, 160, 0.92);
+      --rt-caret-color: rgba(100, 150, 220, 0.8);
     }
+
+    /* Override the default light toolbar since panels are dark */
+    :host ::ng-deep rich-textarea .rt-toolbar {
+      background: rgba(22, 14, 6, 0.97) !important;
+      border-color: rgba(200, 160, 60, 0.3) !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7) !important;
+      button { color: rgba(220, 195, 130, 0.85); &:hover { background: rgba(200,160,60,.14) !important; border-color: rgba(200,160,60,.4) !important; color: #e8c96a; } }
+    }
+    :host ::ng-deep rich-textarea .rt-separator { background: rgba(200, 160, 60, 0.25); }
 
     /* ── Header ─────────────────────────────────── */
     .header {
@@ -100,7 +112,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     }
 
     .btn-save {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 11px;
       letter-spacing: 0.1em;
       text-transform: uppercase;

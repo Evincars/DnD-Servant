@@ -15,16 +15,15 @@
 
 .it-layout {
   display: flex;
-  align-items: flex-start;
-  gap: 18px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 24px;
   min-width: 0;
 }
 
 // ── Card ─────────────────────────────────────────────────────────────────────
 .it-card {
-  flex: 1 1 480px;
-  max-width: 800px;
+  width: 100%;
+  max-width: 1100px;
   min-width: 0;
   position: relative;
   background: #0e0e12;
@@ -68,7 +67,7 @@
 
 .it-header__title {
   margin: 0;
-  font-family: 'Mikadan', sans-serif;
+  font-family: sans-serif;
   font-size: 20px;
   font-weight: normal;
   letter-spacing: .14em;
@@ -111,9 +110,9 @@
 }
 
 .it-col-header {
-  font-family: 'Mikadan', sans-serif;
+  font-family: sans-serif;
   font-size: 9px;
-  letter-spacing: .12em;
+  letter-spacing: .06em;
   text-transform: uppercase;
   color: rgba(255,255,255,.22);
   user-select: none;
@@ -123,6 +122,7 @@
   &--name      { flex: 1; padding-left: 4px; }
   &--icon      { width: 26px; flex-shrink: 0; text-align: center; }
   &--hp-adj    { width: 82px; text-align: center; flex-shrink: 0; }
+  &--hp        { width: 54px; text-align: center; flex-shrink: 0; }
 }
 
 // ── Rows ──────────────────────────────────────────────────────────────────────
@@ -149,7 +149,7 @@
     border-color: rgba(160,30,30,.15) !important;
     border-left-color: rgba(160,30,30,.7) !important;
   }
-  &--selected { background: rgba(80,120,180,.08) !important; border-color: rgba(80,120,180,.2) !important; }
+  &--card-open { border-left-color: rgba(80,120,180,.5) !important; }
   &:hover     { background: rgba(255,255,255,.03); }
 }
 
@@ -159,6 +159,33 @@
   color: rgba(160,30,30,.8);
   font-size: 10px;
   text-align: center;
+}
+
+// ── HP column (input + bar) ───────────────────────────────────────────────────
+.it-hp-col {
+  width: 54px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.it-hp-bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(255,255,255,.07);
+  border-radius: 2px;
+  overflow: hidden;
+
+  &__fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width .4s ease, background-color .4s ease;
+
+    &--high { background: rgba(70,190,90,.75); }
+    &--med  { background: rgba(210,170,40,.75); }
+    &--low  { background: rgba(210,55,45,.85); }
+  }
 }
 
 // ── Inputs ────────────────────────────────────────────────────────────────────
@@ -182,7 +209,7 @@
   }
 
   &--sm   { width: 54px; text-align: center; flex-shrink: 0; }
-  &--name { flex: 1; }
+  &--name { width: 100%; }
 
   &[type='number'] {
     -moz-appearance: textfield;
@@ -197,8 +224,6 @@ datalist { display: none; }
 @keyframes it-spin { to { transform: rotate(360deg); } }
 
 // ── Shared touch-target clamp for all icon buttons in the tracker ─────────────
-// Material's touch-target is 48×48 px by default and bleeds out of the
-// 26×26 px button into neighbouring inputs. Constrain it to the button bounds.
 .it-lookup-btn, .it-remove-btn, .it-copy-btn,
 .it-hp-adj__btn {
   overflow: hidden !important;
@@ -281,13 +306,11 @@ datalist { display: none; }
   box-sizing: border-box;
   margin-left: 2px;
 
-  // Dim the buttons by default so they don't invite accidental clicks
   &__btn {
     opacity: 0.3;
     transition: opacity .15s, color .15s, background .15s !important;
   }
 
-  // Reveal on explicit hover of the widget
   &:hover &__btn {
     opacity: 1;
   }
@@ -370,7 +393,7 @@ datalist { display: none; }
 }
 
 .it-btn {
-  font-family: 'Mikadan', sans-serif;
+  font-family: sans-serif;
   font-size: 10px;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -408,12 +431,281 @@ datalist { display: none; }
     color: rgba(255,255,255,.3);
     &:hover { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.16); color: #c0bcb4; }
   }
+  &--init {
+    background: rgba(200,160,60,.08);
+    border: 1px solid rgba(200,160,60,.3);
+    color: rgba(200,160,60,.8);
+    &:hover:not([disabled]) { background: rgba(200,160,60,.16); border-color: rgba(200,160,60,.55); color: #c8a03c; }
+    &[disabled] { opacity: 0.45; cursor: not-allowed; }
+  }
+  &--avg {
+    background: rgba(70,120,200,.1);
+    border: 1px solid rgba(70,120,200,.35);
+    color: rgba(120,170,240,.9);
+    &:hover { background: rgba(70,120,200,.2); border-color: rgba(70,120,200,.6); color: #88b8ff; }
+  }
+  &--dice {
+    background: rgba(200,160,60,.08);
+    border: 1px solid rgba(200,160,60,.35);
+    color: rgba(200,160,60,.9);
+    &:hover { background: rgba(200,160,60,.18); border-color: rgba(200,160,60,.6); color: #d4a840; }
+  }
+  &--cancel {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,.08);
+    color: rgba(255,255,255,.3);
+    &:hover { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.16); color: #aaa; }
+  }
 }
 
 .it-saved-msg {
   margin: 10px 0 0;
-  font-family: 'Mikadan', sans-serif;
+  font-family: sans-serif;
   font-size: 10px;
   letter-spacing: .1em;
   color: rgba(100,180,110,.6);
 }
+
+// ── Init dialog overlay ───────────────────────────────────────────────────────
+.it-init-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.7);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  border-radius: 2px;
+}
+
+.it-init-dialog {
+  background: #0d0d11;
+  border: 1px solid rgba(200,160,60,.3);
+  border-left: 3px solid rgba(200,160,60,.7);
+  border-radius: 2px;
+  padding: 22px 26px 18px;
+  min-width: 300px;
+  box-shadow: 0 16px 48px rgba(0,0,0,.95);
+
+  &__title {
+    margin: 0 0 6px;
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: #d8c88a;
+  }
+
+  &__desc {
+    margin: 0 0 8px;
+    font-size: 12px;
+    color: rgba(255,255,255,.45);
+    letter-spacing: .03em;
+  }
+
+  &__hp-hint {
+    margin-bottom: 16px;
+  }
+
+  &__formula-eg {
+    font-size: 11px;
+    color: rgba(255,255,255,.28);
+    font-style: italic;
+
+    strong {
+      color: rgba(200,160,60,.8);
+      font-style: normal;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+}
+
+// ── Monster cards area ────────────────────────────────────────────────────────
+.it-cards-area {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 1100px;
+}
+
+// ── Cards bar (title + expand/collapse all) ───────────────────────────────────
+.it-cards-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 2px;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: sans-serif;
+    font-size: 12px;
+    letter-spacing: .04em;
+    color: rgba(255,255,255,.38);
+  }
+
+  &__icon {
+    font-size: 15px !important;
+    width: 15px !important;
+    height: 15px !important;
+    color: rgba(160,30,30,.6);
+  }
+
+  &__count {
+    color: rgba(255,255,255,.2);
+    font-size: 10px;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+}
+
+// ── Card row (wraps slots) ────────────────────────────────────────────────────
+.it-cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+// ── Individual card slot ──────────────────────────────────────────────────────
+@keyframes it-card-highlight {
+  0%   { box-shadow: 0 0 0 2px rgba(200,160,60,.0); }
+  20%  { box-shadow: 0 0 0 3px rgba(200,160,60,.8), 0 0 20px rgba(200,160,60,.35); }
+  60%  { box-shadow: 0 0 0 3px rgba(200,160,60,.6), 0 0 12px rgba(200,160,60,.2); }
+  100% { box-shadow: 0 0 0 2px rgba(200,160,60,.0); }
+}
+
+.it-card-slot {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 0 0 calc(50% - 9px);
+  min-width: 280px;
+  max-width: calc(50% - 9px);
+
+  &--highlight {
+    animation: it-card-highlight .8s ease-out forwards;
+    border-radius: 2px;
+  }
+}
+
+// ── Card slot header (clickable) ──────────────────────────────────────────────
+.it-card-slot__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 2px 2px 0 0;
+  background: rgba(255,255,255,.025);
+  border: 1px solid rgba(255,255,255,.06);
+  border-bottom: none;
+  cursor: pointer;
+  user-select: none;
+  transition: background .15s;
+
+  .it-card-slot--collapsed & {
+    border-radius: 2px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+
+  &:hover {
+    background: rgba(255,255,255,.05);
+  }
+}
+
+.it-card-slot__label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: sans-serif;
+  font-size: 11px;
+  letter-spacing: .02em;
+  color: rgba(255,255,255,.45);
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.it-card-slot__label-icon {
+  font-size: 13px !important;
+  width: 13px !important;
+  height: 13px !important;
+  color: rgba(160,30,30,.6);
+}
+
+.it-card-slot__chevron {
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+  color: rgba(255,255,255,.2);
+  transition: color .15s;
+  flex-shrink: 0;
+
+  .it-card-slot__header:hover & {
+    color: rgba(255,255,255,.5);
+  }
+}
+
+// ── Animated body (grid-template-rows collapse trick) ─────────────────────────
+.it-card-body-wrapper {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows .26s ease;
+
+  > .it-card-body {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .it-card-slot--collapsed & {
+    grid-template-rows: 0fr;
+  }
+}
+
+// ── Expand-all button ─────────────────────────────────────────────────────────
+.it-btn--expand-all {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.07);
+  color: rgba(255,255,255,.28);
+  padding: 4px 10px;
+
+  mat-icon { font-size: 13px; width: 13px; height: 13px; }
+
+  &:hover {
+    background: rgba(255,255,255,.04);
+    border-color: rgba(255,255,255,.14);
+    color: rgba(255,255,255,.6);
+  }
+}
+
+// ── Close-all button ──────────────────────────────────────────────────────────
+.it-btn--close-all {
+  background: transparent;
+  border: 1px solid rgba(180,50,40,.25);
+  color: rgba(200,80,70,.55);
+  padding: 4px 10px;
+
+  mat-icon { font-size: 13px; width: 13px; height: 13px; }
+
+  &:hover {
+    background: rgba(180,40,30,.1);
+    border-color: rgba(200,60,50,.5);
+    color: rgba(220,90,80,.85);
+  }
+}
+

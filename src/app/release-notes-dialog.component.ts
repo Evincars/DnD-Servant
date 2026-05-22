@@ -22,8 +22,10 @@ const RELEASE_NOTES: ReleaseGroup[] = [
       { type: 'feature', text: 'Příběhové události — kronika kampaně s časovou osou, typy, důležitostí, štítky, obrázky a PH poznámkami' },
       { type: 'feature', text: 'Dialog „Co je nového" dostupný z horní lišty' },
       { type: 'feature', text: 'Klávesové zkratky a gesta zobrazeny v dialogu Nastavení' },
+      { type: 'fix', text: 'Záložka Kouzla — 30 chybějících kouzel (Mystická čepel, Černá chapadla, Věrný pes, aj.) nyní správně řazeno podle úrovně a školy místo skupiny „Ostatní"' },
       { type: 'fix', text: 'Vyhledávání v příkazové paletě ignoruje diakritiku' },
       { type: 'fix', text: 'Přímé přepnutí záložky z příkazové palety bez znovunačtení stránky' },
+      { type: 'improvement', text: 'Čitelnější písmo (sans-serif) v dialogu Nastavení a Co je nového' },
     ],
   },
   {
@@ -168,7 +170,7 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
 
     .rn-title {
       flex: 1;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 14px;
       letter-spacing: .1em;
       text-transform: uppercase;
@@ -217,7 +219,7 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
     }
 
     .rn-date {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 11px;
       letter-spacing: .18em;
       text-transform: uppercase;
@@ -260,7 +262,7 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
       align-items: center;
       justify-content: center;
       font-size: 9px;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       letter-spacing: .1em;
       text-transform: uppercase;
       padding: 2px 7px;
@@ -291,6 +293,7 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
 
     .rn-entry-text {
       flex: 1;
+      font-family: sans-serif;
       font-size: 12px;
       color: rgba(200,185,155,.75);
       letter-spacing: .03em;
@@ -303,7 +306,7 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
       color: rgba(200,160,60,.4);
       text-decoration: none;
       letter-spacing: .06em;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       transition: color .15s;
       white-space: nowrap;
       margin-top: 2px;          /* align to first text line */
@@ -331,7 +334,7 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
       color: rgba(200,160,60,.4);
       font-size: 11px;
       letter-spacing: .06em;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       transition: color .15s;
 
       &:hover { color: rgba(200,160,60,.85); }

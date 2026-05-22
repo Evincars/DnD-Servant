@@ -1,0 +1,4961 @@
+{
+  "abi-dalzimovo-straslive-sucho": {
+    "name": "Abi-Dalzimovo strašlivé sucho",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 8,
+    "school": "Nekromancie"
+  },
+  "aganazzaruv-zar": {
+    "name": "Aganazzarův žár",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Zaklínání"
+  },
+  "antimagicke-pole": {
+    "name": "Antimagické pole",
+    "classes": [
+      "Klerik",
+      "kouzelník"
+    ],
+    "level": 8,
+    "school": "Vymítání"
+  },
+  "antipatie-nebo-sympatie": {
+    "name": "Antipatie nebo Sympatie",
+    "classes": [
+      "Druid",
+      "kouzelník"
+    ],
+    "level": 8,
+    "school": "Očarování"
+  },
+  "antropomancie": {
+    "name": "Antropomancie",
+    "classes": [
+      "Černokněžník",
+      "Klerik",
+      "Kouzelník"
+    ],
+    "level": 2,
+    "school": "Nekromancie",
+    "ritual": true
+  },
+  "astralni-projekce": {
+    "name": "Astrální projekce",
+    "classes": [
+      "Černokněžník",
+      "druid",
+      "hraničář",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 9,
+    "school": "Nekromancie"
+  },
+  "aura-cistoty": {
+    "name": "Aura čistoty",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 4,
+    "school": "Vymítání"
+  },
+  "aura-vitality": {
+    "name": "Aura vitality",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 3,
+    "school": "Zaklínání"
+  },
+  "aura-zivota": {
+    "name": "Aura života",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 4,
+    "school": "Vymítání"
+  },
+  "azyl": {
+    "name": "Azyl",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 1,
+    "school": "Vymítání"
+  },
+  "bajny-lucistnik": {
+    "name": "Bájný lučištník",
+    "classes": [
+      "Bard",
+      "Hraničář"
+    ],
+    "level": 1,
+    "school": "Iluze"
+  },
+  "barevna-koule": {
+    "name": "Barevná koule",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "barevna-sprska": {
+    "name": "Barevná sprška",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Iluze"
+  },
+  "bariera-cepeli": {
+    "name": "Bariéra čepelí",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 6,
+    "school": "Zaklínání"
+  },
+  "besneni": {
+    "name": "Běsnění",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ],
+    "level": 2,
+    "school": "Očarování"
+  },
+  "bigbyho-ruka": {
+    "name": "Bigbyho ruka",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 5,
+    "school": "Zaklínání"
+  },
+  "blesk": {
+    "name": "Blesk",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Zaklínání"
+  },
+  "bleskovy-sip": {
+    "name": "Bleskový šíp",
+    "classes": [
+      "Hraničář"
+    ],
+    "level": 3,
+    "school": "Transmutace"
+  },
+  "bludiste": {
+    "name": "Bludiště",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 8,
+    "school": "Vyvolávání"
+  },
+  "boure-odplaty": {
+    "name": "Bouře odplaty",
+    "classes": [
+      "Druid"
+    ],
+    "level": 9,
+    "school": "Vyvolávání"
+  },
+  "bourna-koule": {
+    "name": "Bouřná koule",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Zaklínání"
+  },
+  "bozi-chram": {
+    "name": "Boží chrám",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 7,
+    "school": "Vyvolávání"
+  },
+  "bozi-dohled": {
+    "name": "Vedení",
+    "classes": [
+      "Druid",
+      "klerik"
+    ],
+    "level": 0,
+    "school": "Věštectví"
+  },
+  "bozske-slovo": {
+    "name": "Božské slovo",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 7,
+    "school": "Zaklínání"
+  },
+  "brana": {
+    "name": "Brána",
+    "classes": [
+      "Čaroděj",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 9,
+    "school": "Vyvolávání"
+  },
+  "carodejnicky-blesk": {
+    "name": "Čarodějnický blesk",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "casovana-ohniva-koule": {
+    "name": "Časovaná ohnivá koule",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 7,
+    "school": "Zaklínání"
+  },
+  "cejchovaci-uder": {
+    "name": "Cejchovací úder",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 2,
+    "school": "Zaklínání"
+  },
+  "cepel-zeleneho-plamene": {
+    "name": "Čepel zeleného plamene",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Zaklínání"
+  },
+  "cerna-chapadla": {
+    "name": "Černá chapadla",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 4,
+    "school": "Vyvolávání"
+  },
+  "cerny-jed": {
+    "name": "Černý jed",
+    "classes": [
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ],
+    "level": 1,
+    "school": "Nekromancie"
+  },
+  "chaoticky-blesk": {
+    "name": "Chaotický blesk",
+    "classes": [
+      "Čaroděj"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "chapadlo": {
+    "name": "Chapadlo",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ],
+    "level": 2,
+    "school": "Vyvolávání"
+  },
+  "chuze-po-vode": {
+    "name": "Chůze po vodě",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "klerik"
+    ],
+    "level": 3,
+    "school": "Transmutace",
+    "ritual": true
+  },
+  "chuze-stromy": {
+    "name": "Chůze stromy",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ],
+    "level": 5,
+    "school": "Vyvolávání"
+  },
+  "dalekokrok": {
+    "name": "Dalekokrok",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Vyvolávání"
+  },
+  "denni-svetlo": {
+    "name": "Denní světlo",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "klerik",
+      "paladin"
+    ],
+    "level": 3,
+    "school": "Zaklínání"
+  },
+  "desivy-smich": {
+    "name": "Děsivý smích",
+    "classes": [
+      "Bard",
+      "Kouzelník"
+    ],
+    "level": 1,
+    "school": "Očarování"
+  },
+  "dimenzionalni-dvere": {
+    "name": "Dimenzionální dveře",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Vyvolávání"
+  },
+  "divoke-roztrhani": {
+    "name": "Divoké roztrhání",
+    "classes": [
+      "Druid"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "divotvorstvi": {
+    "name": "Divotvorství",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "divotvorstvi-jad": {
+    "name": "Divotvorství (JaD)",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "dlouhokrok": {
+    "name": "Dlouhokrok",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Transmutace"
+  },
+  "dobruvka": {
+    "name": "Dobrůvka",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ],
+    "level": 1,
+    "school": "Transmutace"
+  },
+  "dotek-smrti": {
+    "name": "Dotek smrti",
+    "classes": [
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ],
+    "level": 0,
+    "school": "Nekromancie"
+  },
+  "draci-dech": {
+    "name": "Dračí dech",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "drawmijovo-okamzite-privolani": {
+    "name": "Drawmijovo okamžité přivolaní",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 6,
+    "school": "Vyvolávání",
+    "ritual": true
+  },
+  "drobna-iluze": {
+    "name": "Drobná iluze",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Iluze"
+  },
+  "drobna-iluze-jad": {
+    "name": "Drobná iluze (JaD)",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ],
+    "level": 0,
+    "school": "Iluze"
+  },
+  "drobny-sluzebnik": {
+    "name": "Drobný služebník",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 3,
+    "school": "Transmutace"
+  },
+  "drtive-uponky": {
+    "name": "Drtivé úponky",
+    "classes": [
+      "Druid"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "druidovstvi": {
+    "name": "Druidství",
+    "classes": [
+      "Druid"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "druidstvi": {
+    "name": "Druidství",
+    "classes": [
+      "Druid"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "druidstvi-jad": {
+    "name": "Druidství (JaD)",
+    "classes": [
+      "Druid"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "duchovni-zbran": {
+    "name": "Duchovní zbraň",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 2,
+    "school": "Zaklínání"
+  },
+  "dunive-ostri": {
+    "name": "Dunivé ostří",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Zaklínání"
+  },
+  "dustojny-odpocinek": {
+    "name": "Důstojný odpočinek",
+    "classes": [
+      "Klerik",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Nekromancie",
+    "ritual": true
+  },
+  "dvojnik": {
+    "name": "Dvojník",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Iluze"
+  },
+  "elementalni-erupce": {
+    "name": "Elementální erupce",
+    "classes": [
+      "Čaroděj",
+      "Kouzelník"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "etericnost": {
+    "name": "Éteričnost",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 7,
+    "school": "Transmutace"
+  },
+  "evardova-cerna-chapadla": {
+    "name": "Evardova černá chapadla",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 4,
+    "school": "Vyvolávání"
+  },
+  "falesny-zivot": {
+    "name": "Falešný život",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Nekromancie"
+  },
+  "fantom": {
+    "name": "Fantóm",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 4,
+    "school": "Iluze"
+  },
+  "fascinuj": {
+    "name": "Fascinuj",
+    "classes": [
+      "Bard",
+      "černokněžník"
+    ],
+    "level": 2,
+    "school": "Očarování"
+  },
+  "fata-morgana": {
+    "name": "Fata morgána",
+    "classes": [
+      "Bard",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 7,
+    "school": "Iluze"
+  },
+  "hadarova-touha": {
+    "name": "Hadarova touha",
+    "classes": [
+      "Černokněžník"
+    ],
+    "level": 3,
+    "school": "Vyvolávání"
+  },
+  "hadarovy-paze": {
+    "name": "Hadarovy paže",
+    "classes": [
+      "Černokněžník"
+    ],
+    "level": 1,
+    "school": "Vyvolávání"
+  },
+  "hadi-ustknuti": {
+    "name": "Hadí uštknutí",
+    "classes": [
+      "Čaroděj",
+      "Druid"
+    ],
+    "level": 0,
+    "school": "Vyvolávání"
+  },
+  "hexensus": {
+    "name": "Hexenšus",
+    "classes": [
+      "Černokněžník",
+      "Klerik",
+      "Kouzelník"
+    ],
+    "level": 1,
+    "school": "Nekromancie"
+  },
+  "hlas-boure": {
+    "name": "Hlas bouře",
+    "classes": [
+      "Čaroděj",
+      "Druid"
+    ],
+    "level": 0,
+    "school": "Zaklínání"
+  },
+  "hlas-umiracku": {
+    "name": "Hlas umíráčku",
+    "classes": [
+      "Černokněžník",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Nekromancie"
+  },
+  "hlidej-a-strez": {
+    "name": "Hlídej a střež",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Vymítání"
+  },
+  "hmyzi-zhouba": {
+    "name": "Hmyzí zhouba",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "klerik"
+    ],
+    "level": 5,
+    "school": "Vyvolávání"
+  },
+  "hnev-prirody": {
+    "name": "Hněv přírody",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ],
+    "level": 5,
+    "school": "Zaklínání"
+  },
+  "hnev-zivlu": {
+    "name": "Hněv živlů",
+    "classes": [
+      "Čaroděj",
+      "Druid",
+      "Kouzelník"
+    ],
+    "level": 1,
+    "school": "Transmutace"
+  },
+  "hniloba": {
+    "name": "Hniloba",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Nekromancie"
+  },
+  "horici-oblak": {
+    "name": "Hořící oblak",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 8,
+    "school": "Vyvolávání"
+  },
+  "horici-ruce": {
+    "name": "Hořící ruce",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "hrdinstvi": {
+    "name": "Hrdinství",
+    "classes": [
+      "Bard",
+      "paladin"
+    ],
+    "level": 1,
+    "school": "Očarování"
+  },
+  "hromadna-promena": {
+    "name": "Hromadná proměna",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 9,
+    "school": "Transmutace"
+  },
+  "hromadna-sugesce": {
+    "name": "Hromadná sugesce",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "druid",
+      "hraničář",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Očarování"
+  },
+  "hromadne-lecive-slovo": {
+    "name": "Hromadné léčivé slovo",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 3,
+    "school": "Zaklínání"
+  },
+  "hromadne-prestrojeni": {
+    "name": "Hromadné přestrojení",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Iluze"
+  },
+  "hromadne-uzdraveni": {
+    "name": "Hromadné uzdravení",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 9,
+    "school": "Zaklínání"
+  },
+  "hromadne-zhojeni-zraneni": {
+    "name": "Hromadné zhojení zranění",
+    "classes": [
+      "Bard",
+      "druid",
+      "klerik"
+    ],
+    "level": 5,
+    "school": "Zaklínání"
+  },
+  "hromokrok": {
+    "name": "Hromokrok",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Vyvolávání"
+  },
+  "hromova-vlna": {
+    "name": "Hromová vlna",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "hromovy-uder": {
+    "name": "Hromový úder",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "hvezdna-koruna": {
+    "name": "Hvězdná koruna",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 7,
+    "school": "Zaklínání"
+  },
+  "hypnoticky-vzor": {
+    "name": "Hypnotický vzor",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Iluze"
+  },
+  "iluzorni-drak": {
+    "name": "Iluzorní drak",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 8,
+    "school": "Iluze"
+  },
+  "iluzorni-text": {
+    "name": "Iluzorní text",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Iluze",
+    "ritual": true
+  },
+  "iluzorni-vezeni": {
+    "name": "Iluzorní vězení",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Iluze"
+  },
+  "jasnozrivost": {
+    "name": "Jasnozřivost",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Věštectví"
+  },
+  "jazyky": {
+    "name": "Jazyky",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Věštectví"
+  },
+  "jedovata-koule": {
+    "name": "Jedovatá koule",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Zaklínání"
+  },
+  "jedovata-sprska": {
+    "name": "Jedovatá sprška",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Vyvolávání"
+  },
+  "kamenna-kuze": {
+    "name": "Kamenná kůže",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Vymítání"
+  },
+  "kamenna-zed": {
+    "name": "Kamenná zeď",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Zaklínání"
+  },
+  "kamenny-plast": {
+    "name": "Kamenný plášť",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Transmutace"
+  },
+  "katapult": {
+    "name": "Katapult",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Transmutace"
+  },
+  "kejkle": {
+    "name": "Kejkle",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "kejkle-jad": {
+    "name": "Kejkle (JaD)",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "klamny-prostor": {
+    "name": "Klamný prostor",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Iluze"
+  },
+  "kletba": {
+    "name": "Kletba",
+    "classes": [
+      "Černokněžník"
+    ],
+    "level": 1,
+    "school": "Očarování"
+  },
+  "klon": {
+    "name": "Klon",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 8,
+    "school": "Nekromancie"
+  },
+  "kordon-sipu": {
+    "name": "Kordon šípů",
+    "classes": [
+      "Hraničář"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "koreny-omotani": {
+    "name": "Kořeny omotání",
+    "classes": [
+      "Druid",
+      "Hraničář"
+    ],
+    "level": 4,
+    "school": "Transmutace"
+  },
+  "koruna-silenstvi": {
+    "name": "Koruna šílenství",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Očarování"
+  },
+  "kosti-zeme": {
+    "name": "Kosti země",
+    "classes": [
+      "Druid"
+    ],
+    "level": 6,
+    "school": "Transmutace"
+  },
+  "koule-nezranitelnosti": {
+    "name": "Koule nezranitelnosti",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Vymítání"
+  },
+  "kouzelny-oblazek": {
+    "name": "Kouzelný oblázek",
+    "classes": [
+      "Černokněžník",
+      "druid"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "krizakova-pelerina": {
+    "name": "Křižákova pelerína",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 3,
+    "school": "Zaklínání"
+  },
+  "kruh-moci": {
+    "name": "Kruh moci",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 5,
+    "school": "Vymítání"
+  },
+  "kruh-smrti": {
+    "name": "Kruh smrti",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Nekromancie"
+  },
+  "krupobiti-trnu": {
+    "name": "Krupobití trnů",
+    "classes": [
+      "Hraničář"
+    ],
+    "level": 1,
+    "school": "Vyvolávání"
+  },
+  "kurokuze": {
+    "name": "Kůrokůže",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "kuzel-mrazu": {
+    "name": "Kužel mrazu",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Zaklínání"
+  },
+  "kyselinova-koule": {
+    "name": "Kyselinová koule",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Vyvolávání"
+  },
+  "kyselinovy-sip": {
+    "name": "Kyselinový šíp",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 2,
+    "school": "Zaklínání"
+  },
+  "leciva-modlitba": {
+    "name": "Léčivá modlitba",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 2,
+    "school": "Zaklínání"
+  },
+  "lecive-slovo": {
+    "name": "Léčivé slovo",
+    "classes": [
+      "Bard",
+      "druid",
+      "klerik"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "lecivy-duch": {
+    "name": "Léčivý duch",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ],
+    "level": 2,
+    "school": "Vyvolávání"
+  },
+  "ledova-boure": {
+    "name": "Ledová bouře",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Zaklínání"
+  },
+  "ledova-zed": {
+    "name": "Ledová zeď",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 6,
+    "school": "Zaklínání"
+  },
+  "ledovy-nuz": {
+    "name": "Ledový nůž",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Vyvolávání"
+  },
+  "ledovy-plast": {
+    "name": "Ledový plášť",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Transmutace"
+  },
+  "leomunidova-chatka": {
+    "name": "Leomunidova chatka",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Zaklínání",
+    "ritual": true
+  },
+  "leomunidova-tajna-truhla": {
+    "name": "Leomunidova tajná truhla",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 4,
+    "school": "Vyvolávání"
+  },
+  "let": {
+    "name": "Leť",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Transmutace"
+  },
+  "levitace": {
+    "name": "Levitace",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "levitujici-disk": {
+    "name": "Levitující disk",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 1,
+    "school": "Vyvolávání",
+    "ritual": true
+  },
+  "lovcova-korist": {
+    "name": "Lovcova kořist",
+    "classes": [
+      "Hraničář"
+    ],
+    "level": 1,
+    "school": "Věštectví"
+  },
+  "lovcova-marka": {
+    "name": "Lovcova marka",
+    "classes": [
+      "Hraničář"
+    ],
+    "level": 1,
+    "school": "Věštectví"
+  },
+  "maelstrom": {
+    "name": "Maelström",
+    "classes": [
+      "Druid"
+    ],
+    "level": 5,
+    "school": "Zaklínání"
+  },
+  "magicka-strela": {
+    "name": "Magická střela",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "magicka-usta": {
+    "name": "Magická ústa",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Iluze",
+    "ritual": true
+  },
+  "magicka-zbran": {
+    "name": "Magická zbraň",
+    "classes": [
+      "Kouzelník",
+      "paladin"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "magicky-kruh": {
+    "name": "Magický kruh",
+    "classes": [
+      "Černokněžník",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ],
+    "level": 3,
+    "school": "Vymítání"
+  },
+  "magova-ruka": {
+    "name": "Mágova ruka",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Vyvolávání"
+  },
+  "magova-ruka-jad": {
+    "name": "Mágova ruka (JaD)",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ],
+    "level": 0,
+    "school": "Vyvolávání"
+  },
+  "magova-zbroj": {
+    "name": "Mágova zbroj",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Vymítání"
+  },
+  "majak-nadeje": {
+    "name": "Maják naděje",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 3,
+    "school": "Vymítání"
+  },
+  "maso-na-kamen": {
+    "name": "Zkamenění",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Transmutace"
+  },
+  "maxmilianova-hlinena-ruka": {
+    "name": "Maxmiliánova hliněná ruka",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "melfovy-meteorky": {
+    "name": "Melfovy meteorky",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Zaklínání"
+  },
+  "melfuv-kyselinovy-sip": {
+    "name": "Melfův kyselinový šíp",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 2,
+    "school": "Zaklínání"
+  },
+  "mentalni-bodec": {
+    "name": "Mentální bodec",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Věštectví"
+  },
+  "mentalni-uder": {
+    "name": "Mentální úder",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Černokněžník",
+      "Klerik",
+      "Kouzelník"
+    ],
+    "level": 0,
+    "school": "Očarování"
+  },
+  "mesicni-paprsek": {
+    "name": "Měsíční paprsek",
+    "classes": [
+      "Druid"
+    ],
+    "level": 2,
+    "school": "Zaklínání"
+  },
+  "mihotani": {
+    "name": "Mihotání",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Transmutace"
+  },
+  "mluv-s-mrtvymi": {
+    "name": "Mluv s mrtvými",
+    "classes": [
+      "Bard",
+      "klerik"
+    ],
+    "level": 3,
+    "school": "Nekromancie"
+  },
+  "mluv-s-rostlinami": {
+    "name": "Mluv s rostlinami",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář"
+    ],
+    "level": 3,
+    "school": "Transmutace"
+  },
+  "mluv-se-zviraty": {
+    "name": "Mluv se zvířaty",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář"
+    ],
+    "level": 1,
+    "school": "Věštectví",
+    "ritual": true
+  },
+  "mluva-sfer": {
+    "name": "Mluva sfér",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Věštectví",
+    "ritual": true
+  },
+  "mlzna-podoba": {
+    "name": "Mlžná podoba",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Transmutace"
+  },
+  "mlzny-krok": {
+    "name": "Mlžný krok",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Vyvolávání"
+  },
+  "mocna-neviditelnost": {
+    "name": "Mocná neviditelnost",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Iluze"
+  },
+  "mocne-navraceni": {
+    "name": "Mocné navrácení",
+    "classes": [
+      "Bard",
+      "druid",
+      "klerik"
+    ],
+    "level": 5,
+    "school": "Vymítání"
+  },
+  "mocny-hrad": {
+    "name": "Mocný hrad",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 8,
+    "school": "Vyvolávání"
+  },
+  "mordenkainenova-soukroma-svatyne": {
+    "name": "Mordenkainenova soukromá svatyně",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 4,
+    "school": "Vymítání"
+  },
+  "mordenkainenuv-mec": {
+    "name": "Mordenkainenův meč",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ],
+    "level": 7,
+    "school": "Zaklínání"
+  },
+  "mordenkainenuv-velkolepy-dum": {
+    "name": "Mordenkainenův velkolepý dům",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ],
+    "level": 7,
+    "school": "Vyvolávání"
+  },
+  "mordenkainenuv-verny-pes": {
+    "name": "Mordenkainenův věrný pes",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 4,
+    "school": "Vyvolávání"
+  },
+  "mraziva-koule": {
+    "name": "Mrazivá koule",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 6,
+    "school": "Zaklínání"
+  },
+  "mrazivy-dotyk": {
+    "name": "Dotek smrti",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Nekromancie"
+  },
+  "mrazivy-paprsek": {
+    "name": "Mrazivý paprsek",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Zaklínání"
+  },
+  "mysticka-brana": {
+    "name": "Mystická brána",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Vyvolávání"
+  },
+  "mysticka-cepel": {
+    "name": "Mystická čepel",
+    "classes": [
+      "Bard",
+      "Kouzelník"
+    ],
+    "level": 7,
+    "school": "Zaklínání"
+  },
+  "mysticka-ruka": {
+    "name": "Mystická ruka",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 5,
+    "school": "Zaklínání"
+  },
+  "mysticke-oko": {
+    "name": "Mystické oko",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 4,
+    "school": "Věštectví"
+  },
+  "mysticky-zamek": {
+    "name": "Mystický zámek",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 2,
+    "school": "Vymítání"
+  },
+  "najdi-cestu": {
+    "name": "Najdi cestu",
+    "classes": [
+      "Bard",
+      "druid",
+      "klerik"
+    ],
+    "level": 6,
+    "school": "Věštectví"
+  },
+  "najdi-honosnejsiho-ore": {
+    "name": "Najdi honosnějšího oře",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 4,
+    "school": "Vyvolávání"
+  },
+  "najdi-jed-a-nemoc": {
+    "name": "Najdi jed a nemoc",
+    "classes": [
+      "Druid",
+      "hraničář",
+      "klerik",
+      "paladin"
+    ],
+    "level": 1,
+    "school": "Věštectví",
+    "ritual": true
+  },
+  "najdi-magii": {
+    "name": "Najdi magii",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "druid",
+      "hraničář",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ],
+    "level": 1,
+    "school": "Věštectví",
+    "ritual": true
+  },
+  "najdi-ore": {
+    "name": "Najdi oře",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 2,
+    "school": "Vyvolávání"
+  },
+  "najdi-pasti": {
+    "name": "Najdi pasti",
+    "classes": [
+      "Druid",
+      "hraničář",
+      "klerik"
+    ],
+    "level": 2,
+    "school": "Věštectví"
+  },
+  "najdi-predmet": {
+    "name": "Najdi předmět",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ],
+    "level": 2,
+    "school": "Věštectví"
+  },
+  "najdi-pritelicka": {
+    "name": "Najdi přítelíčka",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 1,
+    "school": "Vyvolávání",
+    "ritual": true
+  },
+  "najdi-tvora": {
+    "name": "Najdi tvora",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ],
+    "level": 4,
+    "school": "Věštectví"
+  },
+  "najdi-zlo-a-dobro": {
+    "name": "Najdi zlo a dobro",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ],
+    "level": 1,
+    "school": "Věštectví"
+  },
+  "najdi-zvirata-a-rostliny": {
+    "name": "Najdi zvířata a rostliny",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář"
+    ],
+    "level": 2,
+    "school": "Věštectví",
+    "ritual": true
+  },
+  "nakaza": {
+    "name": "Nákaza",
+    "classes": [
+      "Druid",
+      "klerik"
+    ],
+    "level": 5,
+    "school": "Nekromancie"
+  },
+  "naplanovana-iluze": {
+    "name": "Naplánovaná iluze",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Iluze"
+  },
+  "napodobenina": {
+    "name": "Napodobenina",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 7,
+    "school": "Iluze"
+  },
+  "navadeci-blesk": {
+    "name": "Naváděcí blesk",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "nebepis": {
+    "name": "Nebepis",
+    "classes": [
+      "Bard",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Transmutace",
+    "ritual": true
+  },
+  "nelibozvucny-sepot": {
+    "name": "Nelibozvučny šepot",
+    "classes": [
+      "Bard"
+    ],
+    "level": 1,
+    "school": "Očarování"
+  },
+  "nemesis": {
+    "name": "Nemesis",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 9,
+    "school": "Iluze"
+  },
+  "neodolatelny-tanec": {
+    "name": "Neodolatelný tanec",
+    "classes": [
+      "Bard",
+      "Kouzelník"
+    ],
+    "level": 6,
+    "school": "Očarování"
+  },
+  "nepoddajna-koule": {
+    "name": "Nepoddajná koule",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 4,
+    "school": "Zaklínání"
+  },
+  "nesnesitelna-temnota": {
+    "name": "Nesnesitelná temnota",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ],
+    "level": 8,
+    "school": "Zaklínání"
+  },
+  "neuveritelny-puvab": {
+    "name": "Neuvěřitelný půvab",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ],
+    "level": 0,
+    "school": "Iluze"
+  },
+  "neviditelnost": {
+    "name": "Neviditelnost",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Iluze"
+  },
+  "neviditelny-sluzebnik": {
+    "name": "Neviditelný služebník",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Vyvolávání",
+    "ritual": true
+  },
+  "nezjistitelnost": {
+    "name": "Nezjistitelnost",
+    "classes": [
+      "Bard",
+      "hraničář",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Vymítání"
+  },
+  "nezranitelnost": {
+    "name": "Nezranitelnost",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 9,
+    "school": "Vymítání"
+  },
+  "niciva-vlna": {
+    "name": "Ničivá vlna",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 5,
+    "school": "Zaklínání"
+  },
+  "nizsi-navraceni": {
+    "name": "Nižší navrácení",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář",
+      "klerik",
+      "paladin"
+    ],
+    "level": 2,
+    "school": "Vymítání"
+  },
+  "nutkani": {
+    "name": "Nutkání",
+    "classes": [
+      "Bard"
+    ],
+    "level": 4,
+    "school": "Očarování"
+  },
+  "nystulova-magicka-aura": {
+    "name": "Nystulova magická aura",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 2,
+    "school": "Iluze"
+  },
+  "obkliceni": {
+    "name": "Obklíčení",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Očarování"
+  },
+  "oblak-dyk": {
+    "name": "Oblak dýk",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Vyvolávání"
+  },
+  "oblak-mlhy": {
+    "name": "Oblak mlhy",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Vyvolávání"
+  },
+  "oblak-smrti": {
+    "name": "Oblak smrti",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Vyvolávání"
+  },
+  "obrad": {
+    "name": "Obřad",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ],
+    "level": 1,
+    "school": "Vymítání",
+    "ritual": true
+  },
+  "obri-hmyz": {
+    "name": "Obří hmyz",
+    "classes": [
+      "Druid"
+    ],
+    "level": 4,
+    "school": "Transmutace"
+  },
+  "obrozeni": {
+    "name": "Obrození",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ],
+    "level": 3,
+    "school": "Nekromancie"
+  },
+  "ochrana-pred-energii": {
+    "name": "Ochrana před energií",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Vymítání"
+  },
+  "ochrana-pred-jedem": {
+    "name": "Ochrana před jedem",
+    "classes": [
+      "Druid",
+      "hraničář",
+      "klerik",
+      "paladin"
+    ],
+    "level": 2,
+    "school": "Vymítání"
+  },
+  "ochrana-pred-zlem-a-dobrem": {
+    "name": "Ochrana před zlem a dobrem",
+    "classes": [
+      "Černokněžník",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ],
+    "level": 1,
+    "school": "Vymítání"
+  },
+  "ochrance-prirody": {
+    "name": "Ochránce přírody",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ],
+    "level": 4,
+    "school": "Transmutace"
+  },
+  "ocisti-jidlo-a-piti": {
+    "name": "Očisti jídlo a pití",
+    "classes": [
+      "Druid",
+      "klerik",
+      "paladin"
+    ],
+    "level": 1,
+    "school": "Transmutace",
+    "ritual": true
+  },
+  "odhal-myslenky": {
+    "name": "Odhal myšlenky",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Věštectví"
+  },
+  "odolani": {
+    "name": "Odolání",
+    "classes": [
+      "Druid",
+      "klerik"
+    ],
+    "level": 0,
+    "school": "Vymítání"
+  },
+  "odolani-jad": {
+    "name": "Odolání (JaD)",
+    "classes": [
+      "Druid",
+      "Klerik"
+    ],
+    "level": 0,
+    "school": "Vymítání"
+  },
+  "odolej-zivlum": {
+    "name": "Odolej živlům",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Vymítání"
+  },
+  "odpocinkova-hymna": {
+    "name": "Odpočinková hymna",
+    "classes": [
+      "Bard"
+    ],
+    "level": 7,
+    "school": "Očarování"
+  },
+  "odporne-zareni": {
+    "name": "Odporné záření",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Zaklínání"
+  },
+  "ohniva-boure": {
+    "name": "Ohnivá bouře",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "klerik"
+    ],
+    "level": 7,
+    "school": "Zaklínání"
+  },
+  "ohniva-cepel": {
+    "name": "Ohnivá čepel",
+    "classes": [
+      "Druid"
+    ],
+    "level": 2,
+    "school": "Zaklínání"
+  },
+  "ohniva-koule": {
+    "name": "Ohnivá koule",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Zaklínání"
+  },
+  "ohniva-strela": {
+    "name": "Ohnivá střela",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Zaklínání"
+  },
+  "ohniva-zed": {
+    "name": "Ohnivá zeď",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Zaklínání"
+  },
+  "ohnivy-stit": {
+    "name": "Ohnivý štít",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 4,
+    "school": "Zaklínání"
+  },
+  "okamzite-privolani": {
+    "name": "Okamžité přivolání",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 6,
+    "school": "Vyvolávání",
+    "ritual": true
+  },
+  "omrzliny": {
+    "name": "Omrzliny",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Zaklínání"
+  },
+  "oprava": {
+    "name": "Oprava",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "druid",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "oprava-jad": {
+    "name": "Oprava (JaD)",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Druid",
+      "Klerik",
+      "Kouzelník"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "oslepujici-uder": {
+    "name": "Oslepující úder",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 3,
+    "school": "Zaklínání"
+  },
+  "otilukova-mraziva-koule": {
+    "name": "Otilukova mrazivá koule",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 6,
+    "school": "Zaklínání"
+  },
+  "otilukova-nepoddajna-koule": {
+    "name": "Otilukova nepoddajná koule",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 4,
+    "school": "Zaklínání"
+  },
+  "otoc-gravitaci": {
+    "name": "Otoč gravitaci",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 7,
+    "school": "Transmutace"
+  },
+  "otuv-neodolatelny-tanec": {
+    "name": "Otův neodolatelný tanec",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Očarování"
+  },
+  "ovladni-plameny": {
+    "name": "Ovládni plameny",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "ovladni-pocasi": {
+    "name": "Ovládni počasí",
+    "classes": [
+      "Druid",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 8,
+    "school": "Transmutace"
+  },
+  "ovladni-vitr": {
+    "name": "Ovládni vítr",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Transmutace"
+  },
+  "ovladni-vodu": {
+    "name": "Ovládni vodu",
+    "classes": [
+      "Druid",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Transmutace"
+  },
+  "oziv-mrtveho": {
+    "name": "Stvoř nemrtvého",
+    "classes": [
+      "Klerik",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Nekromancie"
+  },
+  "ozivle-predmety": {
+    "name": "Oživlé předměty",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Transmutace"
+  },
+  "pachnouci-oblak": {
+    "name": "Páchnoucí oblak",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Vyvolávání"
+  },
+  "paprsek-otraveni": {
+    "name": "Paprsek otrávení",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Nekromancie"
+  },
+  "paprsek-slabosti": {
+    "name": "Paprsek slabosti",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Nekromancie"
+  },
+  "pavouci-splh": {
+    "name": "Pavoučí šplh",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "pavucina": {
+    "name": "Pavučina",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Vyvolávání"
+  },
+  "pekelne-pokarani": {
+    "name": "Pekelné pokárání",
+    "classes": [
+      "Černokněžník"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "pekelne-volani": {
+    "name": "Pekelné volání",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Vyvolávání"
+  },
+  "pisecna-zed": {
+    "name": "Písečná zeď",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 3,
+    "school": "Zaklínání"
+  },
+  "plamenne-sipy": {
+    "name": "Plamenné šípy",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Transmutace"
+  },
+  "plamenny-plast": {
+    "name": "Plamenný plášť",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Transmutace"
+  },
+  "plamenny-uder": {
+    "name": "Plamenný úder",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 5,
+    "school": "Zaklínání"
+  },
+  "planouci-koule": {
+    "name": "Planoucí koule",
+    "classes": [
+      "Druid",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Vyvolávání"
+  },
+  "plast-zmaru": {
+    "name": "Plášť zmaru",
+    "classes": [
+      "Černokněžník"
+    ],
+    "level": 1,
+    "school": "Nekromancie"
+  },
+  "podminecnost": {
+    "name": "Podmínečnost",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 6,
+    "school": "Zaklínání"
+  },
+  "podpora": {
+    "name": "Podpora",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ],
+    "level": 2,
+    "school": "Vymítání"
+  },
+  "podrob-nestvuru": {
+    "name": "Podrob nestvůru",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 8,
+    "school": "Očarování"
+  },
+  "podrob-osobu": {
+    "name": "Podrob osobu",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Očarování"
+  },
+  "podrob-zvire": {
+    "name": "Podrob zvíře",
+    "classes": [
+      "Čaroděj",
+      "druid"
+    ],
+    "level": 4,
+    "school": "Očarování"
+  },
+  "pohled-smrti": {
+    "name": "Pohled smrti",
+    "classes": [
+      "Černokněžník"
+    ],
+    "level": 1,
+    "school": "Nekromancie"
+  },
+  "pohni-zemi": {
+    "name": "Pohni zemí",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Transmutace"
+  },
+  "polapujici-uder": {
+    "name": "Polapující úder",
+    "classes": [
+      "Hraničář"
+    ],
+    "level": 1,
+    "school": "Vyvolávání"
+  },
+  "polosfera": {
+    "name": "Polosféra",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ],
+    "level": 8,
+    "school": "Vyvolávání"
+  },
+  "pomaly-pad": {
+    "name": "Pomalý pád",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Transmutace"
+  },
+  "poplach": {
+    "name": "Poplach",
+    "classes": [
+      "Hraničář",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Vymítání",
+    "ritual": true
+  },
+  "porozumeni-jazykum": {
+    "name": "Porozumění jazykům",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Věštectví",
+    "ritual": true
+  },
+  "poryv-vetru": {
+    "name": "Poryv větru",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Zaklínání"
+  },
+  "poselstvi": {
+    "name": "Poselství",
+    "classes": [
+      "Bard",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Zaklínání"
+  },
+  "posileni-dovednosti": {
+    "name": "Posílení dovednosti",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Transmutace"
+  },
+  "poslys-myty": {
+    "name": "Poslyš mýty",
+    "classes": [
+      "Bard",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Věštectví"
+  },
+  "posvatna-puda": {
+    "name": "Posvátná půda",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 5,
+    "school": "Zaklínání"
+  },
+  "posvatny-haj": {
+    "name": "Posvátný háj",
+    "classes": [
+      "Druid"
+    ],
+    "level": 6,
+    "school": "Vymítání"
+  },
+  "posvatny-plamen": {
+    "name": "Posvátný plamen",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 0,
+    "school": "Zaklínání"
+  },
+  "pozehnani": {
+    "name": "Požehnání",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ],
+    "level": 1,
+    "school": "Očarování"
+  },
+  "prani": {
+    "name": "Přání",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 9,
+    "school": "Vyvolávání"
+  },
+  "prasny-vir": {
+    "name": "Prašný vír",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Vyvolávání"
+  },
+  "pratele": {
+    "name": "Přátelé",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Očarování"
+  },
+  "pratelstvi-zvirat": {
+    "name": "Přátelství zvířat",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář"
+    ],
+    "level": 1,
+    "school": "Očarování"
+  },
+  "pravdive-videni": {
+    "name": "Pravdivé vidění",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Věštectví"
+  },
+  "predstirej-smrt": {
+    "name": "Předstírej smrt",
+    "classes": [
+      "Bard",
+      "druid",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Nekromancie",
+    "ritual": true
+  },
+  "predtucha": {
+    "name": "Předtucha",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 9,
+    "school": "Věštectví"
+  },
+  "predvidani": {
+    "name": "Předvídání",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 2,
+    "school": "Věštectví",
+    "ritual": true
+  },
+  "prelud": {
+    "name": "Přelud",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Iluze"
+  },
+  "premen-kamen": {
+    "name": "Přeměň kámen",
+    "classes": [
+      "Druid",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Transmutace"
+  },
+  "presny-uder": {
+    "name": "Přesný úder",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Věštectví"
+  },
+  "presny-uder-jad": {
+    "name": "Přesný úder (JaD)",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ],
+    "level": 0,
+    "school": "Věštectví"
+  },
+  "prestrojeni": {
+    "name": "Přestrojení",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Iluze"
+  },
+  "presun-rostlinami": {
+    "name": "Přesun rostlinami",
+    "classes": [
+      "Druid"
+    ],
+    "level": 6,
+    "school": "Vyvolávání"
+  },
+  "presun-sferami": {
+    "name": "Přesun sférami",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "hraničář",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 7,
+    "school": "Vyvolávání"
+  },
+  "presun-zivota": {
+    "name": "Přesun života",
+    "classes": [
+      "Klerik",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Nekromancie"
+  },
+  "prilivova-vlna": {
+    "name": "Přílivová vlna",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Vyvolávání"
+  },
+  "pristresek": {
+    "name": "Přístřešek",
+    "classes": [
+      "Bard",
+      "Kouzelník"
+    ],
+    "level": 3,
+    "school": "Zaklínání",
+    "ritual": true
+  },
+  "prizen-bohu": {
+    "name": "Přízeň bohů",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "prizracni-strazci": {
+    "name": "Přízrační strážci",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 3,
+    "school": "Vyvolávání"
+  },
+  "prizracny-or": {
+    "name": "Přízračný oř",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 3,
+    "school": "Iluze",
+    "ritual": true
+  },
+  "probuzeni": {
+    "name": "Probuzení",
+    "classes": [
+      "Bard",
+      "druid"
+    ],
+    "level": 5,
+    "school": "Transmutace"
+  },
+  "projdi-beze-stop": {
+    "name": "Projdi beze stop",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ],
+    "level": 2,
+    "school": "Vymítání"
+  },
+  "projdi-zdi": {
+    "name": "Projdi zdí",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 5,
+    "school": "Transmutace"
+  },
+  "promen": {
+    "name": "Proměň tvora",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Transmutace"
+  },
+  "promen-tvora": {
+    "name": "Proměň tvora",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Druid",
+      "Kouzelník"
+    ],
+    "level": 4,
+    "school": "Transmutace"
+  },
+  "protikouzlo": {
+    "name": "Protikouzlo",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Vymítání"
+  },
+  "prst-smrti": {
+    "name": "Prst smrti",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 7,
+    "school": "Nekromancie"
+  },
+  "prvotni-bariera": {
+    "name": "Prvotní bariéra",
+    "classes": [
+      "Druid"
+    ],
+    "level": 6,
+    "school": "Vymítání"
+  },
+  "pyrotechnika": {
+    "name": "Pyrotechnika",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "raryho-telepaticke-pouto": {
+    "name": "Raryho telepatické pouto",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 5,
+    "school": "Věštectví",
+    "ritual": true
+  },
+  "regenerace": {
+    "name": "Regenerace",
+    "classes": [
+      "Bard",
+      "druid",
+      "klerik"
+    ],
+    "level": 7,
+    "school": "Transmutace"
+  },
+  "reinkarnace": {
+    "name": "Reinkarnace",
+    "classes": [
+      "Druid"
+    ],
+    "level": 5,
+    "school": "Transmutace"
+  },
+  "retezy-upoutani": {
+    "name": "Řetězy upoutání",
+    "classes": [
+      "Černokněžník"
+    ],
+    "level": 1,
+    "school": "Vyvolávání"
+  },
+  "roj-meteoritu": {
+    "name": "Roj meteoritů",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 9,
+    "school": "Zaklínání"
+  },
+  "roj-snehovych-kouli": {
+    "name": "Roj sněhových koulí",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Zaklínání"
+  },
+  "rozkaz": {
+    "name": "Rozkaz",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ],
+    "level": 1,
+    "school": "Očarování"
+  },
+  "rozklad": {
+    "name": "Rozklad",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Transmutace"
+  },
+  "rozmazani": {
+    "name": "Rozmazání",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Iluze"
+  },
+  "rozpal-kov": {
+    "name": "Rozpal kov",
+    "classes": [
+      "Bard",
+      "druid"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "rozpras": {
+    "name": "Rozpraš",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Vyvolávání"
+  },
+  "rozptyl-magii": {
+    "name": "Rozptyl magii",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "druid",
+      "hraničář",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ],
+    "level": 3,
+    "school": "Vymítání"
+  },
+  "rozptyl-zlo-a-dobro": {
+    "name": "Rozptyl zlo a dobro",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ],
+    "level": 5,
+    "school": "Vymítání"
+  },
+  "roztristeni": {
+    "name": "Roztříštění",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Zaklínání"
+  },
+  "rozvetveny-blesk": {
+    "name": "Rozvětvený blesk",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Zaklínání"
+  },
+  "rust-rostlin": {
+    "name": "Růst rostlin",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář"
+    ],
+    "level": 3,
+    "school": "Transmutace"
+  },
+  "rychlost": {
+    "name": "Rychlost",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Transmutace"
+  },
+  "rychly-toulec": {
+    "name": "Rychlý toulec",
+    "classes": [
+      "Hraničář"
+    ],
+    "level": 5,
+    "school": "Transmutace"
+  },
+  "sadlo": {
+    "name": "Sádlo",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 1,
+    "school": "Vyvolávání"
+  },
+  "schranka-zivota": {
+    "name": "Schránka života",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 6,
+    "school": "Nekromancie"
+  },
+  "sejmi-kletbu": {
+    "name": "Sejmi kletbu",
+    "classes": [
+      "Černokněžník",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ],
+    "level": 3,
+    "school": "Vymítání"
+  },
+  "sen": {
+    "name": "Sen",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Iluze"
+  },
+  "sezehujici-paprsek": {
+    "name": "Sežehující paprsek",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Zaklínání"
+  },
+  "sfericka-vazba": {
+    "name": "Sférická vazba",
+    "classes": [
+      "Bard",
+      "druid",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Vymítání"
+  },
+  "sfericky-spojenec": {
+    "name": "Sférický spojenec",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 6,
+    "school": "Vyvolávání"
+  },
+  "sila-fenixe": {
+    "name": "Síla fénixe",
+    "classes": [
+      "Čaroděj",
+      "Černokněžník"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "silova-klec": {
+    "name": "Silová klec",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 7,
+    "school": "Zaklínání"
+  },
+  "skok": {
+    "name": "Skok",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Transmutace"
+  },
+  "skutecna-promena": {
+    "name": "Skutečná proměna",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 9,
+    "school": "Transmutace"
+  },
+  "slabomyslnost": {
+    "name": "Slabomyslnost",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 8,
+    "school": "Očarování"
+  },
+  "sledovani": {
+    "name": "Sledování",
+    "classes": [
+      "Bard",
+      "černokněžník",
+      "druid",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Věštectví"
+  },
+  "slepota-nebo-hluchota": {
+    "name": "Slepota nebo hluchota",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Nekromancie"
+  },
+  "slidive-oko": {
+    "name": "Slídivé oko",
+    "classes": [
+      "Černokněžník"
+    ],
+    "level": 3,
+    "school": "Vyvolávání"
+  },
+  "slizky-uder": {
+    "name": "Slizký úder",
+    "classes": [
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "slofik": {
+    "name": "Šlofík",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Očarování"
+  },
+  "slovo-moci-bolest": {
+    "name": "Slovo moci „bolest\"",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 7,
+    "school": "Očarování"
+  },
+  "slovo-moci-ochrom": {
+    "name": "Slovo moci „OCHROM\"",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 8,
+    "school": "Očarování"
+  },
+  "slovo-moci-uzdrav": {
+    "name": "Slovo moci „UZDRAV\"",
+    "classes": [
+      "Bard"
+    ],
+    "level": 9,
+    "school": "Zaklínání"
+  },
+  "slovo-moci-zabij": {
+    "name": "Slovo moci „ZABIJ\"",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 9,
+    "school": "Očarování"
+  },
+  "slovo-moci-zij": {
+    "name": "Slovo moci „žij\"",
+    "classes": [
+      "Bard"
+    ],
+    "level": 9,
+    "school": "Očarování"
+  },
+  "slovo-navratu": {
+    "name": "Slovo návratu",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 6,
+    "school": "Vyvolávání"
+  },
+  "slovo-svetla": {
+    "name": "Slovo světla",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 0,
+    "school": "Zaklínání"
+  },
+  "slunecni-erupce": {
+    "name": "Sluneční záblesk",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 8,
+    "school": "Zaklínání"
+  },
+  "slunecni-paprsek": {
+    "name": "Sluneční paprsek",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Zaklínání"
+  },
+  "slunecni-zablesk": {
+    "name": "Sluneční záblesk",
+    "classes": [
+      "Čaroděj",
+      "Druid",
+      "Kouzelník"
+    ],
+    "level": 8,
+    "school": "Zaklínání"
+  },
+  "smrst": {
+    "name": "Smršť",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 7,
+    "school": "Zaklínání"
+  },
+  "smycka": {
+    "name": "Smyčka",
+    "classes": [
+      "Druid",
+      "hraničář",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Vymítání"
+  },
+  "sokujici-sevreni": {
+    "name": "Šokující sevření",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Zaklínání"
+  },
+  "soukroma-svatyne": {
+    "name": "Soukromá svatyně",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 4,
+    "school": "Vymítání"
+  },
+  "spalujici-uder": {
+    "name": "Spalující úder",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "spanek": {
+    "name": "Spánek",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Očarování"
+  },
+  "spatri-neviditelne": {
+    "name": "Spatři neviditelné",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Věštectví"
+  },
+  "spektralni-sprska": {
+    "name": "Spektrální sprška",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 7,
+    "school": "Zaklínání"
+  },
+  "spektralni-zed": {
+    "name": "Spektrální zeď",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 9,
+    "school": "Vymítání"
+  },
+  "spesny-ustup": {
+    "name": "Spěšný ústup",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Transmutace"
+  },
+  "splyn-s-kamenem": {
+    "name": "Splyň s kamenem",
+    "classes": [
+      "Druid",
+      "Klerik"
+    ],
+    "level": 3,
+    "school": "Transmutace",
+    "ritual": true
+  },
+  "spojeni": {
+    "name": "Spojení",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 5,
+    "school": "Věštectví",
+    "ritual": true
+  },
+  "spojeni-s-prirodou": {
+    "name": "Spojení s přírodou",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ],
+    "level": 5,
+    "school": "Věštectví",
+    "ritual": true
+  },
+  "stin-moilu": {
+    "name": "Stín moilu",
+    "classes": [
+      "Černokněžník"
+    ],
+    "level": 4,
+    "school": "Nekromancie"
+  },
+  "stinocepel": {
+    "name": "Stínočepel",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Iluze"
+  },
+  "stit": {
+    "name": "Štít",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Vymítání"
+  },
+  "stit-proti-zivym": {
+    "name": "Štít proti živým",
+    "classes": [
+      "Druid"
+    ],
+    "level": 5,
+    "school": "Vymítání"
+  },
+  "stit-viry": {
+    "name": "Štít víry",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ],
+    "level": 1,
+    "school": "Vymítání"
+  },
+  "strach": {
+    "name": "Strach",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Iluze"
+  },
+  "strazce-viry": {
+    "name": "Strážce víry",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 4,
+    "school": "Vyvolávání"
+  },
+  "strazne-pouto": {
+    "name": "Strážné pouto",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 2,
+    "school": "Vymítání"
+  },
+  "strazny-vichr": {
+    "name": "Strážný vichr",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Zaklínání"
+  },
+  "strazny-znak": {
+    "name": "Strážný znak",
+    "classes": [
+      "Bard",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Vymítání"
+  },
+  "stvor-homunkula": {
+    "name": "Stvoř homunkula",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 6,
+    "school": "Transmutace"
+  },
+  "stvor-jidlo-a-vodu": {
+    "name": "Stvoř jídlo a vodu",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ],
+    "level": 3,
+    "school": "Vyvolávání"
+  },
+  "stvor-nebo-znic-vodu": {
+    "name": "Stvoř nebo znič vodu",
+    "classes": [
+      "Druid",
+      "klerik"
+    ],
+    "level": 1,
+    "school": "Transmutace"
+  },
+  "stvor-nemrtve": {
+    "name": "Stvoř nemrtvé",
+    "classes": [
+      "Černokněžník",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Nekromancie"
+  },
+  "stvor-nemrtveho": {
+    "name": "Stvoř Nemrtvého",
+    "classes": [
+      "Klerik",
+      "Kouzelník"
+    ],
+    "level": 3,
+    "school": "Nekromancie"
+  },
+  "stvor-plamen": {
+    "name": "Stvoř plamen",
+    "classes": [
+      "Druid"
+    ],
+    "level": 0,
+    "school": "Vyvolávání"
+  },
+  "stvor-taborak": {
+    "name": "Stvoř táborák",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Vyvolávání"
+  },
+  "sugesce": {
+    "name": "Sugesce",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Očarování"
+  },
+  "sukovice": {
+    "name": "Sukovice",
+    "classes": [
+      "Druid"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "svata-aura": {
+    "name": "Svatá aura",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 8,
+    "school": "Vymítání"
+  },
+  "svecena-zbran": {
+    "name": "Svěcená zbraň",
+    "classes": [
+      "Klerik",
+      "Paladin"
+    ],
+    "level": 5,
+    "school": "Zaklínání"
+  },
+  "svetelna-zed": {
+    "name": "Světelná zeď",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Zaklínání"
+  },
+  "svetlo": {
+    "name": "Světlo",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Zaklínání"
+  },
+  "svetlo-jad": {
+    "name": "Světlo (JaD)",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Klerik",
+      "Kouzelník"
+    ],
+    "level": 0,
+    "school": "Zaklínání"
+  },
+  "svolej-blesky": {
+    "name": "Svolej blesky",
+    "classes": [
+      "Druid"
+    ],
+    "level": 3,
+    "school": "Vyvolávání"
+  },
+  "symbol": {
+    "name": "Symbol",
+    "classes": [
+      "Bard",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 7,
+    "school": "Vymítání"
+  },
+  "synapticky-sum": {
+    "name": "Synaptický šum",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Očarování"
+  },
+  "tajemna-magicka-aura": {
+    "name": "Tajemná magická aura",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 2,
+    "school": "Iluze"
+  },
+  "tajemny-vysleh": {
+    "name": "Tajemný výšleh",
+    "classes": [
+      "Černokněžník"
+    ],
+    "level": 0,
+    "school": "Zaklínání"
+  },
+  "tajna-truhla": {
+    "name": "Tajná truhla",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 4,
+    "school": "Vyvolávání"
+  },
+  "tancici-svetla": {
+    "name": "Tančící světla",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Zaklínání"
+  },
+  "tancici-svetla-jad": {
+    "name": "Tančící světla (JaD)",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Kouzelník"
+    ],
+    "level": 0,
+    "school": "Zaklínání"
+  },
+  "tanec-mrtvych": {
+    "name": "Tanec mrtvých",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Nekromancie"
+  },
+  "tasin-desivy-smich": {
+    "name": "Tašin děsivý smích",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Očarování"
+  },
+  "telekineze": {
+    "name": "Telekineze",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Transmutace"
+  },
+  "telepaticke-pouto": {
+    "name": "Telepatické pouto",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 5,
+    "school": "Věštectví",
+    "ritual": true
+  },
+  "telepaticky-vykrik": {
+    "name": "Telepatický výkřik",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 9,
+    "school": "Očarování"
+  },
+  "telepatie": {
+    "name": "Telepatie",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 8,
+    "school": "Zaklínání"
+  },
+  "teleport": {
+    "name": "Teleport",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 7,
+    "school": "Vyvolávání"
+  },
+  "teleportacni-kruh": {
+    "name": "Teleportační kruh",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Vyvolávání"
+  },
+  "tenserova-promena": {
+    "name": "Tenserova proměna",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 6,
+    "school": "Transmutace"
+  },
+  "tenseruv-levitujici-disk": {
+    "name": "Tenserův levitující disk",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 1,
+    "school": "Vyvolávání",
+    "ritual": true
+  },
+  "ticho": {
+    "name": "Ticho",
+    "classes": [
+      "Bard",
+      "hraničář",
+      "klerik"
+    ],
+    "level": 2,
+    "school": "Iluze",
+    "ritual": true
+  },
+  "tichy-obraz": {
+    "name": "Tichý obraz",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Iluze"
+  },
+  "tma": {
+    "name": "Tma",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Zaklínání"
+  },
+  "trik-s-lanem": {
+    "name": "Trik s lanem",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "trnova-zed": {
+    "name": "Trnová zeď",
+    "classes": [
+      "Druid"
+    ],
+    "level": 6,
+    "school": "Vyvolávání"
+  },
+  "trnovy-bic": {
+    "name": "Trnový bič",
+    "classes": [
+      "Druid"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "trny": {
+    "name": "Trny",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "tsunami": {
+    "name": "Tsunami",
+    "classes": [
+      "Druid"
+    ],
+    "level": 8,
+    "school": "Vyvolávání"
+  },
+  "tvaruj-kamen": {
+    "name": "Tvaruj kámen",
+    "classes": [
+      "Druid",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Transmutace"
+  },
+  "tvaruj-vodu": {
+    "name": "Tvaruj vodu",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "tvaruj-zemi": {
+    "name": "Tvaruj zemi",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "tvorba": {
+    "name": "Tvorba",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Iluze"
+  },
+  "ubrousku-prostri-se": {
+    "name": "Ubrousku, PROSTŘI SE!",
+    "classes": [
+      "Druid",
+      "klerik"
+    ],
+    "level": 6,
+    "school": "Vyvolávání"
+  },
+  "uchvacujici-reva": {
+    "name": "Uchvacující réva",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ],
+    "level": 4,
+    "school": "Vyvolávání"
+  },
+  "uder-oceloveho-vichru": {
+    "name": "Úder ocelového vichru",
+    "classes": [
+      "Hraničář",
+      "Kouzelník"
+    ],
+    "level": 5,
+    "school": "Vyvolávání"
+  },
+  "uder-zloby": {
+    "name": "Úder zloby",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "uklidni-emoce": {
+    "name": "Uklidni emoce",
+    "classes": [
+      "Bard",
+      "klerik"
+    ],
+    "level": 2,
+    "school": "Zaklínání"
+  },
+  "ukol": {
+    "name": "Úkol",
+    "classes": [
+      "Bard",
+      "druid",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ],
+    "level": 5,
+    "school": "Očarování"
+  },
+  "ukryj-mysl": {
+    "name": "Ukryj mysl",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ],
+    "level": 8,
+    "school": "Vymítání"
+  },
+  "upaleni": {
+    "name": "Upálení",
+    "classes": [
+      "Čaroděj",
+      "Kouzelník"
+    ],
+    "level": 5,
+    "school": "Zaklínání"
+  },
+  "upiri-dotyk": {
+    "name": "Upíří dotyk",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Nekromancie"
+  },
+  "urceni": {
+    "name": "Určení",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Věštectví",
+    "ritual": true
+  },
+  "urknuti": {
+    "name": "Uřknutí",
+    "classes": [
+      "Bard",
+      "Klerik"
+    ],
+    "level": 1,
+    "school": "Očarování"
+  },
+  "usetri-umirajiciho": {
+    "name": "Ušetři umírajícího",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 0,
+    "school": "Nekromancie"
+  },
+  "usetri-umirajiciho-jad": {
+    "name": "Ušetři umírajícího (JaD)",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 0,
+    "school": "Nekromancie"
+  },
+  "usvit": {
+    "name": "Úsvit",
+    "classes": [
+      "Klerik",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Zaklínání"
+  },
+  "uvezneni": {
+    "name": "Uvěznění",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ],
+    "level": 9,
+    "school": "Vymítání"
+  },
+  "uvrhini-kletbu": {
+    "name": "Uvrhni kletbu",
+    "classes": [
+      "Bard",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Nekromancie"
+  },
+  "uvrhni-kletbu": {
+    "name": "Uvrhni Kletbu",
+    "classes": [
+      "Bard",
+      "Klerik",
+      "Kouzelník"
+    ],
+    "level": 3,
+    "school": "Nekromancie"
+  },
+  "uzdrav": {
+    "name": "Uzdrav",
+    "classes": [
+      "Druid",
+      "klerik"
+    ],
+    "level": 6,
+    "school": "Zaklínání"
+  },
+  "uzemneni": {
+    "name": "Uzemnění",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "vabnicka-blesku": {
+    "name": "Vábnička blesků",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Zaklínání"
+  },
+  "vecny-plamen": {
+    "name": "Věčný plamen",
+    "classes": [
+      "Klerik",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Zaklínání"
+  },
+  "vedeni": {
+    "name": "Vedení",
+    "classes": [
+      "Druid",
+      "Klerik",
+      "Divutepec"
+    ],
+    "level": 0,
+    "school": "Věštectví"
+  },
+  "vedeni-jad": {
+    "name": "Vedení (JaD)",
+    "classes": [
+      "Druid",
+      "Klerik"
+    ],
+    "level": 0,
+    "school": "Věštectví"
+  },
+  "vejdi-do-kamene": {
+    "name": "Splyň s kamenen",
+    "classes": [
+      "Druid",
+      "klerik"
+    ],
+    "level": 3,
+    "school": "Transmutace",
+    "ritual": true
+  },
+  "velkolepy-dum": {
+    "name": "Velkolepý dům",
+    "classes": [
+      "Bard",
+      "Kouzelník"
+    ],
+    "level": 7,
+    "school": "Vyvolávání"
+  },
+  "velky-obraz": {
+    "name": "Velký obraz",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Iluze"
+  },
+  "verny-pes": {
+    "name": "Věrný pes",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 4,
+    "school": "Vyvolávání"
+  },
+  "vesteni": {
+    "name": "Věštění",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 4,
+    "school": "Věštectví",
+    "ritual": true
+  },
+  "vetrna-chuze": {
+    "name": "Větrná chůze",
+    "classes": [
+      "Druid"
+    ],
+    "level": 6,
+    "school": "Transmutace"
+  },
+  "vetrna-zed": {
+    "name": "Větrná zeď",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ],
+    "level": 3,
+    "school": "Zaklínání"
+  },
+  "vetrny-plast": {
+    "name": "Větrný plášť",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Transmutace"
+  },
+  "vezeni-duse": {
+    "name": "Vězení duše",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Nekromancie"
+  },
+  "videni-ve-tme": {
+    "name": "Vidění ve tmě",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "vili-ohen": {
+    "name": "Vílí oheň",
+    "classes": [
+      "Bard",
+      "druid"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "vlastni-obraz": {
+    "name": "Vlastní obraz",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ],
+    "level": 7,
+    "school": "Iluze"
+  },
+  "vodnata-koule": {
+    "name": "Vodnatá koule",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Vyvolávání"
+  },
+  "vodni-dech": {
+    "name": "Vodní dech",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "hraničář",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Transmutace",
+    "ritual": true
+  },
+  "vodni-zed": {
+    "name": "Vodní zeď",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Zaklínání"
+  },
+  "volnost": {
+    "name": "Volnost",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář",
+      "klerik"
+    ],
+    "level": 4,
+    "school": "Vymítání"
+  },
+  "vybuch-mece": {
+    "name": "Výbuch meče",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Vyvolávání"
+  },
+  "vybuchujici-zeme": {
+    "name": "Vybuchující země",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Transmutace"
+  },
+  "vycerpani": {
+    "name": "Vyčerpání",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Nekromancie"
+  },
+  "vynuceny-duel": {
+    "name": "Vynucený duel",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 1,
+    "school": "Očarování"
+  },
+  "vypuzeni": {
+    "name": "Vypuzení",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "klerik",
+      "kouzelník",
+      "paladin"
+    ],
+    "level": 4,
+    "school": "Vymítání"
+  },
+  "vypuzujici-uder": {
+    "name": "Vypuzující úder",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 5,
+    "school": "Vymítání"
+  },
+  "vyrecnost": {
+    "name": "Výřečnost",
+    "classes": [
+      "Bard",
+      "Černokněžník"
+    ],
+    "level": 8,
+    "school": "Transmutace"
+  },
+  "vyrecnosti": {
+    "name": "Výřečnosti",
+    "classes": [
+      "Bard",
+      "černokněžník"
+    ],
+    "level": 8,
+    "school": "Transmutace"
+  },
+  "vystras": {
+    "name": "Vystraš",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Nekromancie"
+  },
+  "vyvolej-elementala": {
+    "name": "Vyvolej elementála",
+    "classes": [
+      "Druid",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Vyvolávání"
+  },
+  "vyvolej-lesni-bytosti": {
+    "name": "Vyvolej lesní bytosti",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ],
+    "level": 4,
+    "school": "Vyvolávání"
+  },
+  "vyvolej-mensi-demony": {
+    "name": "Vyvolej menší démony",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Vyvolávání"
+  },
+  "vyvolej-mocneho-demona": {
+    "name": "Vyvolej mocného démona",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Vyvolávání"
+  },
+  "vyvolej-nebestana": {
+    "name": "Vyvolej nebešťana",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 7,
+    "school": "Vyvolávání"
+  },
+  "vyvolej-nizsi-elementaly": {
+    "name": "Vyvolej nižší elementály",
+    "classes": [
+      "Druid",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Vyvolávání"
+  },
+  "vyvolej-palbu": {
+    "name": "Vyvolej palbu",
+    "classes": [
+      "Hraničář"
+    ],
+    "level": 3,
+    "school": "Vyvolávání"
+  },
+  "vyvolej-salvu": {
+    "name": "Vyvolej salvu",
+    "classes": [
+      "Hraničář"
+    ],
+    "level": 5,
+    "school": "Vyvolávání"
+  },
+  "vyvolej-vilu": {
+    "name": "Vyvolej vílu",
+    "classes": [
+      "Černokněžník",
+      "druid"
+    ],
+    "level": 6,
+    "school": "Vyvolávání"
+  },
+  "vyvolej-zvirata": {
+    "name": "Vyvolej zvířata",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ],
+    "level": 3,
+    "school": "Vyvolávání"
+  },
+  "vzkriseni": {
+    "name": "Vzkříšení",
+    "classes": [
+      "Bard",
+      "klerik",
+      "paladin"
+    ],
+    "level": 5,
+    "school": "Nekromancie"
+  },
+  "zahaleni": {
+    "name": "Zahalení",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 7,
+    "school": "Transmutace"
+  },
+  "zahrmeni": {
+    "name": "Zahřmění",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Zaklínání"
+  },
+  "zakaz": {
+    "name": "Zákaz",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 6,
+    "school": "Vymítání",
+    "ritual": true
+  },
+  "zaklep": {
+    "name": "Zaklep",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "zamoreni": {
+    "name": "Zamoření",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Vyvolávání"
+  },
+  "zaplava-negativni-energie": {
+    "name": "Záplava negativní energie",
+    "classes": [
+      "Černokněžník",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Nekromancie"
+  },
+  "zapleteni": {
+    "name": "Zapletení",
+    "classes": [
+      "Druid"
+    ],
+    "level": 1,
+    "school": "Vyvolávání"
+  },
+  "zastav-cas": {
+    "name": "Zastav čas",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 9,
+    "school": "Transmutace"
+  },
+  "zatres-zemi": {
+    "name": "Zatřes zemí",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "zavan": {
+    "name": "Závan",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "zavratny-uder": {
+    "name": "Závratný úder",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 4,
+    "school": "Zaklínání"
+  },
+  "zbroj-agathysu": {
+    "name": "Zbroj agathysu",
+    "classes": [
+      "Černokněžník"
+    ],
+    "level": 1,
+    "school": "Vymítání"
+  },
+  "zed-sily": {
+    "name": "Zeď síly",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 5,
+    "school": "Zaklínání"
+  },
+  "zefyruv-uder": {
+    "name": "Zefýrův úder",
+    "classes": [
+      "Hraničář"
+    ],
+    "level": 1,
+    "school": "Transmutace"
+  },
+  "zemetreseni": {
+    "name": "Zemětřesení",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "klerik"
+    ],
+    "level": 8,
+    "school": "Zaklínání"
+  },
+  "zhoj-zraneni": {
+    "name": "Zhoj zranění",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář",
+      "klerik",
+      "paladin"
+    ],
+    "level": 1,
+    "school": "Zaklínání"
+  },
+  "zhotov": {
+    "name": "Zhotov",
+    "classes": [
+      "Kouzelník"
+    ],
+    "level": 4,
+    "school": "Transmutace"
+  },
+  "zhouba": {
+    "name": "Uřknutí",
+    "classes": [
+      "Bard",
+      "klerik"
+    ],
+    "level": 1,
+    "school": "Očarování"
+  },
+  "zivelna-zbran": {
+    "name": "Živelná zbraň",
+    "classes": [
+      "Paladin"
+    ],
+    "level": 3,
+    "school": "Transmutace"
+  },
+  "zivelna-zkaza": {
+    "name": "Živelná zkáza",
+    "classes": [
+      "Černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Transmutace"
+  },
+  "zkameneni": {
+    "name": "Zkamenění",
+    "classes": [
+      "Černokněžník",
+      "Kouzelník"
+    ],
+    "level": 6,
+    "school": "Transmutace"
+  },
+  "zkriveni-prostoru": {
+    "name": "Zkřivení prostoru",
+    "classes": [
+      "Čaroděj",
+      "Černokněžník",
+      "Kouzelník"
+    ],
+    "level": 3,
+    "school": "Transmutace"
+  },
+  "zle-oko": {
+    "name": "Zlé oko",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 6,
+    "school": "Nekromancie"
+  },
+  "zlepsi-vlastnost": {
+    "name": "Zlepši vlastnost",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "druid",
+      "klerik"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "zlomyslny-vysmech": {
+    "name": "Zlomyslný výsměch",
+    "classes": [
+      "Bard"
+    ],
+    "level": 0,
+    "school": "Očarování"
+  },
+  "zmam-obludu": {
+    "name": "Zmam obludu",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Očarování"
+  },
+  "zmam-osobu": {
+    "name": "Zmam osobu",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 1,
+    "school": "Očarování"
+  },
+  "zmatek": {
+    "name": "Zmatek",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 4,
+    "school": "Očarování"
+  },
+  "zmen-pamet": {
+    "name": "Změň paměť",
+    "classes": [
+      "Bard",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Očarování"
+  },
+  "zmen-svuj-tvar": {
+    "name": "Změň svůj tvar",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "zmena-podoby": {
+    "name": "Změna podoby",
+    "classes": [
+      "Druid",
+      "kouzelník"
+    ],
+    "level": 9,
+    "school": "Transmutace"
+  },
+  "zmrtvychvstani": {
+    "name": "Zmrtvýchvstání",
+    "classes": [
+      "Bard",
+      "klerik"
+    ],
+    "level": 7,
+    "school": "Nekromancie"
+  },
+  "zmrzly-dest": {
+    "name": "Zmrzlý déšť",
+    "classes": [
+      "Čaroděj",
+      "druid",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Vyvolávání"
+  },
+  "znameni-proti-cepelim": {
+    "name": "Znamení proti čepelím",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Vymítání"
+  },
+  "znameni-proti-smrti": {
+    "name": "Znamení proti smrti",
+    "classes": [
+      "Klerik",
+      "paladin"
+    ],
+    "level": 4,
+    "school": "Vymítání"
+  },
+  "znehybni-nestvuru": {
+    "name": "Znehybni nestvůru",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 5,
+    "school": "Očarování"
+  },
+  "znehybni-osobu": {
+    "name": "Znehybni osobu",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "černokněžník",
+      "druid",
+      "klerik",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Očarování"
+  },
+  "znovuzrozeni": {
+    "name": "Znovuzrození",
+    "classes": [
+      "Druid",
+      "klerik"
+    ],
+    "level": 9,
+    "school": "Nekromancie"
+  },
+  "zona-pravdy": {
+    "name": "Zóna pravdy",
+    "classes": [
+      "Bard",
+      "klerik",
+      "paladin"
+    ],
+    "level": 2,
+    "school": "Očarování"
+  },
+  "zpomaleni": {
+    "name": "Zpomalení",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 3,
+    "school": "Transmutace"
+  },
+  "zprava": {
+    "name": "Zpráva",
+    "classes": [
+      "Bard",
+      "čaroděj",
+      "kouzelník"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "zprava-jad": {
+    "name": "Zpráva (JaD)",
+    "classes": [
+      "Bard",
+      "Čaroděj",
+      "Kouzelník"
+    ],
+    "level": 0,
+    "school": "Transmutace"
+  },
+  "zpusob-zraneni": {
+    "name": "Způsob zranění",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 1,
+    "school": "Nekromancie"
+  },
+  "zran": {
+    "name": "Zraň",
+    "classes": [
+      "Klerik"
+    ],
+    "level": 6,
+    "school": "Nekromancie"
+  },
+  "zrcadlovy-obraz": {
+    "name": "Zrcadlový obraz",
+    "classes": [
+      "Čaroděj",
+      "černokněžník",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Iluze"
+  },
+  "zvetseni-nebo-zmenseni": {
+    "name": "Zvětšení nebo zmenšení",
+    "classes": [
+      "Čaroděj",
+      "kouzelník"
+    ],
+    "level": 2,
+    "school": "Transmutace"
+  },
+  "zvireci-podoba": {
+    "name": "Zvířecí podoba",
+    "classes": [
+      "Druid"
+    ],
+    "level": 8,
+    "school": "Transmutace"
+  },
+  "zvireci-posel": {
+    "name": "Zvířecí posel",
+    "classes": [
+      "Bard",
+      "druid",
+      "hraničář"
+    ],
+    "level": 2,
+    "school": "Očarování",
+    "ritual": true
+  },
+  "zvireci-pouto": {
+    "name": "Zvířecí pouto",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ],
+    "level": 1,
+    "school": "Věštectví"
+  },
+  "zvireci-smysly": {
+    "name": "Zvířecí smysly",
+    "classes": [
+      "Druid",
+      "hraničář"
+    ],
+    "level": 2,
+    "school": "Věštectví",
+    "ritual": true
+  }
+}

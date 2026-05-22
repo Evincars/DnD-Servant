@@ -133,7 +133,7 @@ import { WikiBook, WikiChapter, WikiSelection, WIKI_CATALOG } from './wiki-catal
     }
 
     .sidebar__heading {
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 13px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
@@ -180,7 +180,7 @@ import { WikiBook, WikiChapter, WikiSelection, WIKI_CATALOG } from './wiki-catal
 
     .book__label {
       flex: 1;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 11.5px;
       letter-spacing: 0.08em;
       white-space: nowrap;
@@ -206,7 +206,7 @@ import { WikiBook, WikiChapter, WikiSelection, WIKI_CATALOG } from './wiki-catal
 
     .chapter {
       padding: 7px 16px 7px 36px;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
       font-size: 11px;
       letter-spacing: 0.05em;
       color: #5e5448;
