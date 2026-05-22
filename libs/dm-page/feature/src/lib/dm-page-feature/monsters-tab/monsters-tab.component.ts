@@ -3,15 +3,19 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   ElementRef,
   inject,
   input,
   signal,
   viewChild,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { map, merge, of, Subject, switchMap, timer } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { InitiativeBridgeService } from '@dn-d-servant/util';
 import { JadMonster, JadMonstersService } from './jad-monsters.service';
 import {
   MonsterDetailDialogComponent,
@@ -65,14 +69,6 @@ interface MonsterItem {
 }
 
 // ── CR display helpers ─────────────────────────────────────────────────────
-
-const CR_ORDER: Record<string, number> = {
-  '0': 0, '1/8': 0.125, '1/4': 0.25, '1/2': 0.5,
-};
-
-function crSortKey(cr: number | undefined): number {
-  return cr ?? 999;
-}
 
 /** Label used when grouping by CR. */
 function crGroupLabel(cr: number | undefined): string {
@@ -178,6 +174,7 @@ function crGroupLabel(cr: number | undefined): string {
         background: rgba(200,160,60,.09); color: #e8c96a;
         border-color: rgba(200,160,60,.26); box-shadow: 0 2px 8px rgba(200,160,60,.09);
         .cr-badge { opacity: .9; }
+        .init-btn { opacity: 1; }
       }
     }
     .card-name {
@@ -190,6 +187,14 @@ function crGroupLabel(cr: number | undefined): string {
       display: flex; align-items: center; justify-content: center;
       padding: 0 3px; opacity: .75; transition: opacity .14s;
       border: 1px solid rgba(200,80,60,.35); background: rgba(200,80,60,.1); color: rgba(220,120,80,.8);
+    }
+    .init-btn {
+      flex-shrink: 0; border: none; background: none; cursor: pointer; padding: 1px 2px;
+      opacity: 0; transition: opacity .14s, color .14s;
+      color: rgba(80,160,220,.55); border-radius: 3px;
+      mat-icon { font-size: 14px; width: 14px; height: 14px; }
+      &:hover { color: #60c8f8; background: rgba(60,130,200,.12); }
+      &.added { opacity: 1; color: #60ee88; }
     }
 
     /* ── States ── */
@@ -265,6 +270,14 @@ function crGroupLabel(cr: number | undefined): string {
                       {{ item.monster.crDisplay }}
                     </span>
                   }
+                  <button
+                    class="init-btn"
+                    [class.added]="justAdded() === item.monster.slug"
+                    type="button"
+                    (click)="addToInitiative($event, item.monster)"
+                    matTooltip="Přidat do iniciativy"
+                    matTooltipShowDelay="400"
+                  ><mat-icon>bolt</mat-icon></button>
                 </button>
               }
             </div>
@@ -278,20 +291,22 @@ export class MonstersTabComponent {
   readonly active = input<boolean>(false);
   readonly monstersService = inject(JadMonstersService);
   private readonly dialog = inject(MatDialog);
+  private readonly bridge = inject(InitiativeBridgeService);
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly searchQuery = signal('');
   readonly selectedType = signal<string | null>(null);
   readonly sortMode = signal<'type' | 'cr'>('type');
+  readonly justAdded = signal<string | null>(null);
+  private readonly _addedSlug$ = new Subject<string | null>();
   private readonly _searchRef = viewChild<ElementRef<HTMLInputElement>>('searchInput');
 
   readonly filtered = computed((): MonsterItem[] => {
     const q = JadMonstersService.normalizeStr(this.searchQuery());
     const type = this.selectedType();
     const result: MonsterItem[] = [];
-
     for (const m of this.monstersService.allMonsters()) {
       if (type !== null && m.type !== type) continue;
-
       if (!q) {
         result.push({ monster: m, highlightedName: escHtml(m.name) });
       } else {
@@ -308,25 +323,16 @@ export class MonstersTabComponent {
   readonly grouped = computed((): Array<{ label: string; monsters: MonsterItem[] }> => {
     const byCr = this.sortMode() === 'cr';
     const groupMap = new Map<string, MonsterItem[]>();
-
     for (const item of this.filtered()) {
-      const key = byCr
-        ? crGroupLabel(item.monster.cr)
-        : (item.monster.type || 'Ostatní');
+      const key = byCr ? crGroupLabel(item.monster.cr) : (item.monster.type || 'Ostatní');
       if (!groupMap.has(key)) groupMap.set(key, []);
       groupMap.get(key)!.push(item);
     }
-
     if (byCr) {
       return [...groupMap.entries()]
-        .sort(([a], [b]) => {
-          const aVal = this._crLabelToNum(a);
-          const bVal = this._crLabelToNum(b);
-          return aVal - bVal;
-        })
+        .sort(([a], [b]) => this._crLabelToNum(a) - this._crLabelToNum(b))
         .map(([label, monsters]) => ({ label, monsters }));
     }
-
     return [...groupMap.entries()]
       .sort(([a], [b]) => a.localeCompare(b, 'cs'))
       .map(([label, monsters]) => ({ label, monsters }));
@@ -336,6 +342,12 @@ export class MonstersTabComponent {
     afterRenderEffect(() => {
       if (this.active()) this._searchRef()?.nativeElement.focus();
     });
+
+    // Flash "added" indicator for 1.2 s after each addition
+    this._addedSlug$.pipe(
+      switchMap(slug => merge(of(slug), timer(1200).pipe(map(() => null)))),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe(v => this.justAdded.set(v));
   }
 
   toggleType(type: string): void {
@@ -358,6 +370,12 @@ export class MonstersTabComponent {
       panelClass: 'monster-detail-panel',
       maxWidth: '96vw',
     });
+  }
+
+  addToInitiative(event: MouseEvent, monster: JadMonster): void {
+    event.stopPropagation();
+    this.bridge.addMonster(monster.name);
+    this._addedSlug$.next(monster.slug);
   }
 
   private _crLabelToNum(label: string): number {

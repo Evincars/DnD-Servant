@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import {
   LocalStorageService, Monster, INITIATIVE_TRACKER_KEY, INITIATIVE_TRACKER_CARDS_KEY,
   COMBINED_MONSTER_NAMES, COMBINED_MONSTER_MAP, normalizeMonsterName,
+  InitiativeBridgeService,
 } from '@dn-d-servant/util';
 import { AutofillInputComponent } from '@dn-d-servant/ui';
 import { Dnd5eApiService, JadBestiaryService } from '@dn-d-servant/data-access';
@@ -74,6 +75,7 @@ export class InitiativeTrackerComponent {
   private readonly jadBestiary = inject(JadBestiaryService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly elRef = inject(ElementRef<HTMLElement>);
+  private readonly bridge = inject(InitiativeBridgeService);
 
   /** When true the monster-lookup search button is disabled (use DM tools page instead). */
   readonly disableMonsterSearch = input(false);
@@ -117,6 +119,19 @@ export class InitiativeTrackerComponent {
   private _cardsLoaded = false;
 
   constructor() {
+    // ── Bridge: consume monsters added from the Monsters tab ─────────────────
+    effect(() => {
+      const pending = this.bridge.queue();
+      if (!pending.length) return;
+      untracked(() => {
+        const drained = this.bridge.drain();
+        this.rows.update(r => [
+          ...r,
+          ...drained.map(e => ({ ...this._emptyRow(), name: e.name })),
+        ]);
+      });
+    });
+
     // ① native input events – fires when the user types in any input inside this component
     const inputEvents$ = fromEvent(this.elRef.nativeElement, 'input');
     // ② structural changes – fires when rows are added, removed, sorted, copied
