@@ -98,6 +98,46 @@ const SECTIONS: Section[] = [
 </table>`,
   },
   {
+    id: 'ability-scores',
+    category: 'Hody kostkami',
+    title: 'Opravy vlastností',
+    search: 'vlastnost oprava hodnota H O sila obratnost odolnost inteligence moudrost charisma',
+    html: `
+<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start">
+<table class="sc-table" style="width:auto">
+  <thead><tr><th>Hodnota (H)</th><th>Oprava (O)</th></tr></thead>
+  <tbody>
+    <tr><td>0–1</td><td>−5</td></tr>
+    <tr><td>2–3</td><td>−4</td></tr>
+    <tr><td>4–5</td><td>−3</td></tr>
+    <tr><td>6–7</td><td>−2</td></tr>
+    <tr><td>8–9</td><td>−1</td></tr>
+    <tr><td>10–11</td><td class="sc-accent">0</td></tr>
+    <tr><td>12–13</td><td>+1</td></tr>
+    <tr><td>14–15</td><td>+2</td></tr>
+    <tr><td>16–17</td><td>+3</td></tr>
+    <tr><td>18–19</td><td>+4</td></tr>
+    <tr><td>20–21</td><td>+5</td></tr>
+    <tr><td>22–23</td><td>+6</td></tr>
+    <tr><td>24–25</td><td>+7</td></tr>
+    <tr><td>26–27</td><td>+8</td></tr>
+    <tr><td>28–29</td><td>+9</td></tr>
+    <tr><td>30</td><td>+10</td></tr>
+  </tbody>
+</table>
+<table class="sc-table" style="width:auto">
+  <thead><tr><th>Úroveň</th><th>Zdatnostní b.</th></tr></thead>
+  <tbody>
+    <tr><td>1–4</td><td>+2</td></tr>
+    <tr><td>5–8</td><td>+3</td></tr>
+    <tr><td>9–12</td><td>+4</td></tr>
+    <tr><td>13–16</td><td>+5</td></tr>
+    <tr><td>17–20</td><td>+6</td></tr>
+  </tbody>
+</table>
+</div>`,
+  },
+  {
     id: 'passive-check',
     category: 'Hody kostkami',
     title: 'Pasivní ověření',
@@ -231,11 +271,170 @@ const SECTIONS: Section[] = [
   },
   // ──────────────────────────────── PODMÍNKY
   {
+    id: 'conditions-overview',
+    category: 'Podmínky',
+    title: 'Přehled stavů — tabulka',
+    search: 'prehled stavu tabulka otreseny omraceny paralyzovany bezvedomi lezici srazeny chyceny zadrzeny zakleknuhy ohluseny oslepeny otraveny neviditelny zkamenely zmameny vystrašeny akce reakce rychlost utok zachrana',
+    html: `
+<div class="sc-table-wrap">
+<table class="sc-table sc-table--conditions">
+  <thead>
+    <tr>
+      <th>Stav</th>
+      <th title="Akce">A</th>
+      <th title="Bonusová akce">BA</th>
+      <th title="Reakce">Re</th>
+      <th title="Rychlost">R</th>
+      <th>Další efekty</th>
+      <th title="Útok tvora">Ú</th>
+      <th>Záchranné hody</th>
+      <th title="Útoky proti tvoru">Ú proti</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Otřesený</strong></td>
+      <td class="sc-cond-x">✕</td><td class="sc-cond-x">✕</td><td class="sc-cond-x">✕</td><td class="sc-cond-x">✕</td>
+      <td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td><strong>Omráčený</strong></td>
+      <td class="sc-cond-x">✕</td><td class="sc-cond-x">✕</td><td class="sc-cond-x">✕</td><td class="sc-cond-x">✕</td>
+      <td></td>
+      <td class="sc-cond-x">✕</td>
+      <td class="sc-cond-note">SIL, OBR<br>vždy selžou</td>
+      <td class="sc-cond-v">V</td>
+    </tr>
+    <tr>
+      <td><strong>Paralyzovaný</strong></td>
+      <td class="sc-cond-x">✕</td><td class="sc-cond-x">✕</td><td class="sc-cond-x">✕</td><td class="sc-cond-x">✕</td>
+      <td>Nemůže mluvit.</td>
+      <td class="sc-cond-x">✕</td>
+      <td class="sc-cond-note">SIL, OBR<br>vždy selžou</td>
+      <td class="sc-cond-note">Z 1 sáhu<br>vždy krit</td>
+    </tr>
+    <tr>
+      <td><strong>Bezvědomý</strong></td>
+      <td class="sc-cond-x">✕</td><td class="sc-cond-x">✕</td><td class="sc-cond-x">✕</td><td class="sc-cond-x">✕</td>
+      <td>Vyřazený (str 289)</td>
+      <td class="sc-cond-x">✕</td>
+      <td class="sc-cond-note">SIL, OBR<br>vždy selžou</td>
+      <td class="sc-cond-note">Z 1 sáhu<br>vždy krit</td>
+    </tr>
+    <tr>
+      <td><strong>Ležící</strong> (Sražený)</td>
+      <td></td><td></td><td></td>
+      <td class="sc-cond-note">plazení, +1 sáh Rychlosti za 1 sáh pohybu</td>
+      <td></td>
+      <td class="sc-cond-n">N</td>
+      <td></td>
+      <td class="sc-cond-note">z 1&nbsp;sh.&nbsp;<span class="sc-cond-v">V</span><br>z 2+sh.&nbsp;<span class="sc-cond-n">N</span></td>
+    </tr>
+    <tr>
+      <td><strong>Chycený</strong></td>
+      <td></td><td></td><td></td>
+      <td class="sc-cond-note">= 0</td>
+      <td>Umožňuje Hození, Odzbrojení bez Nevýhody</td>
+      <td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td><strong>Zadržený</strong></td>
+      <td></td><td></td><td></td>
+      <td class="sc-cond-note">= 0</td>
+      <td></td>
+      <td class="sc-cond-n">N</td>
+      <td class="sc-cond-note">N k OBR</td>
+      <td class="sc-cond-note">z 1&nbsp;sh.&nbsp;<span class="sc-cond-v">V</span><br>z 2+sh.&nbsp;<span class="sc-cond-n">N</span></td>
+    </tr>
+    <tr>
+      <td><strong>Zakleknutý</strong></td>
+      <td></td><td></td><td></td>
+      <td class="sc-cond-note">= 0</td>
+      <td></td>
+      <td class="sc-cond-n">N</td>
+      <td class="sc-cond-note">N k OBR</td>
+      <td class="sc-cond-note">z 1&nbsp;sh.&nbsp;<span class="sc-cond-v">V</span><br>z 2+sh.&nbsp;<span class="sc-cond-n">N</span></td>
+    </tr>
+    <tr>
+      <td><strong>Ohlušený</strong></td>
+      <td></td><td></td><td></td><td></td>
+      <td>Akce vyžadující sluch automaticky selžou.</td>
+      <td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td><strong>Oslepený</strong></td>
+      <td></td><td></td><td></td><td></td>
+      <td>Akce vyžadující zrak automaticky selžou.</td>
+      <td class="sc-cond-n">N</td>
+      <td></td>
+      <td class="sc-cond-v">V</td>
+    </tr>
+    <tr>
+      <td><strong>Otrávený</strong></td>
+      <td></td><td></td><td></td><td></td>
+      <td>N ke všem Ověřením vlastností a dovedností.</td>
+      <td class="sc-cond-n">N</td>
+      <td></td><td></td>
+    </tr>
+    <tr>
+      <td><strong>Neviditelný</strong></td>
+      <td></td><td></td><td></td><td></td>
+      <td>Pro vypátrání je Hustě zahalený.</td>
+      <td class="sc-cond-v">V</td>
+      <td></td>
+      <td class="sc-cond-n">N</td>
+    </tr>
+    <tr>
+      <td><strong>Zkamenělý</strong></td>
+      <td class="sc-cond-x">✕</td><td class="sc-cond-x">✕</td><td class="sc-cond-x">✕</td><td class="sc-cond-x">✕</td>
+      <td><span class="sc-cond-ok">OD</span> vůči všem Z,<br><span class="sc-cond-ok">IM</span> na Jedy a Nemoci, váha × 10</td>
+      <td></td><td></td>
+      <td class="sc-cond-v">V</td>
+    </tr>
+    <tr>
+      <td><strong>Zmámený</strong></td>
+      <td></td><td></td><td></td><td></td>
+      <td>Původce Zmámení nemůže být Cílem Útoku nebo Zasahujícího efektu. Původce Zmámení má Výhodu na sociální dovednosti.</td>
+      <td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td><strong>Vystrašený</strong></td>
+      <td></td><td></td><td></td><td></td>
+      <td>N ke všem Ověřením. Nesmí se dobrovolně pohybovat ke zdroji Vystrašení.</td>
+      <td class="sc-cond-n">N</td>
+      <td></td><td></td>
+    </tr>
+  </tbody>
+</table>
+</div>`,
+  },
+  {
     id: 'condition-blinded',
     category: 'Podmínky',
     title: 'Oslepení',
     search: 'oslepeni nevyhoda utok nemuze videt',
     html: `<ul class="sc-list"><li>Nemůže vidět; automaticky neúspěšné ověření vyžadující zrak.</li><li>Nevýhoda k hodům na útok; útočníci mají výhodu.</li></ul>`,
+  },
+  {
+    id: 'condition-otreseny',
+    category: 'Podmínky',
+    title: 'Otřesení',
+    search: 'otreseny otreseni akce bonusova reakce rychlost blokovana',
+    html: `<ul class="sc-list"><li>Nemůže provádět akce, bonusové akce ani reakce.</li><li>Rychlost je 0 (nelze ji žádným způsobem zvýšit).</li></ul>`,
+  },
+  {
+    id: 'condition-ohluseny',
+    category: 'Podmínky',
+    title: 'Ohlušení',
+    search: 'ohluseny ohluseni sluch akce vyžadujici automaticky selzou',
+    html: `<ul class="sc-list"><li>Akce vyžadující sluch automaticky selžou.</li></ul>`,
+  },
+  {
+    id: 'condition-zakleknuly',
+    category: 'Podmínky',
+    title: 'Zakleknutí',
+    search: 'zakleknuty zakleknutí rychlost 0 nevyhoda utok zachrana obratnost',
+    html: `<ul class="sc-list"><li>Rychlost 0 (nelze ji zvýšit).</li><li>Nevýhoda k hodům na útok.</li><li>Útočníci mají výhodu při útoku na blízko; útok na dálku má nevýhodu.</li><li>Nevýhoda k záchranným hodům na Obratnost.</li></ul>`,
   },
   {
     id: 'condition-charmed',
@@ -510,6 +709,50 @@ const SECTIONS: Section[] = [
   </tbody>
 </table>`,
   },
+  // ──────────────────────────────── SKUPINY
+  {
+    id: 'skupiny-rules',
+    category: 'Skupiny',
+    title: 'Skupiny — pravidla',
+    search: 'skupiny mala velka skupina statistiky hody boj akce vlastnosti utoky oc obnova schopnosti obkliceni',
+    html: `
+<div class="sc-box" style="margin-bottom:8px">
+  <p><strong>Statistiky a hody:</strong></p>
+  <ul class="sc-list">
+    <li>Vlastnosti, Útoky a OČ jsou stejné jako u jednotlivců.</li>
+    <li>V Ověřeních a Záchranách Skupina uspěje/selže jako celek.</li>
+    <li>Skupina může mít Výhodu k Ověření ze vzájemné pomoci.</li>
+    <li>Výdrž skupiny je součtem Výdrže členů.</li>
+    <li>U plošných Zásahů rozhodní, zda je zasažen jednotlivec, polovina Skupiny nebo celá Skupina a Zásah vynásob.</li>
+  </ul>
+  <p><strong>Boj a Akce:</strong></p>
+  <ul class="sc-list">
+    <li>Manévry může provést jen na Cíle, které ji ve svém posledním Tahu nezasáhly. K Manévru má Výhodu, ale na Cíl v daném Tahu nemůže Útočit.</li>
+    <li>Pokud mají tvorové více Útoků, vynásob Hodnoty zásahu.</li>
+    <li>Skupina má dvojnásobné Obnovení schopností.</li>
+    <li>Při svém obklíčení Útočí na všechny tvory, ale bez Výhody.</li>
+  </ul>
+</div>`,
+  },
+  {
+    id: 'skupiny-table',
+    category: 'Skupiny',
+    title: 'Skupiny — srovnávací tabulka',
+    search: 'skupiny mala velka tvorov utoky zasahy plosne vydrze rozpad zmena',
+    html: `
+<table class="sc-table">
+  <thead>
+    <tr><th></th><th>Malá skupina</th><th>Velká skupina</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Tvorů</strong></td><td>4–6</td><td>7–10</td></tr>
+    <tr><td><strong>Útoky</strong></td><td>až 2 ve stejném směru</td><td>až 4 ve stejném směru, max. 2 na Cíl</td></tr>
+    <tr><td><strong>Zásahy</strong></td><td>běžné</td><td>dvojnásobné</td></tr>
+    <tr><td><strong>Plošné Útoky</strong></td><td>až dvojnásobná plocha</td><td>až trojnásobná plocha, dvojnásobný Zásah</td></tr>
+    <tr><td><strong>½ Výdrže</strong></td><td>rozpad na 2 členy</td><td>změna na Malou</td></tr>
+  </tbody>
+</table>`,
+  },
 ];
 
 // ── Helper: flatten sections into searchable chunks (one per section) ─────────
@@ -663,7 +906,23 @@ function matchesQuery(s: Section, q: string): boolean {
     ::ng-deep .sc-typ.plny   { background: rgba(200,120,40,.15); color: rgba(230,150,70,.9); }
     ::ng-deep .sc-typ.utocny { background: rgba(200,80,60,.15);  color: rgba(230,110,90,.85); }
 
-    /* ── Wide card (combat table spans full grid width) ── */
+    /* ── Conditions overview table ── */
+    ::ng-deep .sc-table--conditions { min-width: 680px; }
+    ::ng-deep .sc-table--conditions th,
+    ::ng-deep .sc-table--conditions td { text-align: center; }
+    ::ng-deep .sc-table--conditions th:first-child,
+    ::ng-deep .sc-table--conditions td:first-child,
+    ::ng-deep .sc-table--conditions th:nth-child(6),
+    ::ng-deep .sc-table--conditions td:nth-child(6),
+    ::ng-deep .sc-table--conditions th:nth-child(8),
+    ::ng-deep .sc-table--conditions td:nth-child(8) { text-align: left; }
+    ::ng-deep .sc-cond-x { color: #e86060; font-weight: 700; font-size: 13px; }
+    ::ng-deep .sc-cond-n { color: #e8a060; font-weight: 700; }
+    ::ng-deep .sc-cond-v { color: #60e880; font-weight: 700; }
+    ::ng-deep .sc-cond-ok { color: #60a8e8; font-weight: 700; }
+    ::ng-deep .sc-cond-note { font-size: 11px; color: rgba(200,185,140,.7); }
+
+    /* ── Wide card (combat / conditions table spans full grid width) ── */
     .ds-section--wide { grid-column: 1 / -1; }
 
     /* ── Empty state ── */
@@ -711,7 +970,7 @@ function matchesQuery(s: Section, q: string): boolean {
             <div class="ds-group-title">{{ g.category }}</div>
             <div class="ds-sections">
               @for (s of g.sections; track s.id) {
-                <div class="ds-section" [class.ds-section--wide]="s.id === 'combat-actions'">
+                <div class="ds-section" [class.ds-section--wide]="s.id === 'combat-actions' || s.id === 'conditions-overview'">
                   <div class="ds-section-title">{{ s.title }}</div>
                   <div class="ds-section-body" [innerHTML]="s.displayHtml"></div>
                 </div>
