@@ -7,6 +7,37 @@ function normSearch(s: string): string {
   return s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().replace(/\s+/g, ' ').trim();
 }
 
+/**
+ * Wraps matched text fragments within HTML string with <span class="search-hl">.
+ * Works only on text nodes (outside of tags). For Czech NFC text, the normalized
+ * string length equals the original string length (1:1 diacritic mapping).
+ */
+function highlightHtml(html: string, normQuery: string): string {
+  if (!normQuery || normQuery.length < 2) return html;
+  return html.replace(/(<[^>]*>)|([^<]+)/g, (_, tag, textNode: string) => {
+    if (tag) return tag;
+    if (!textNode || !textNode.trim()) return textNode ?? '';
+    const norm = normSearch(textNode);
+    if (!norm.includes(normQuery)) return textNode;
+
+    const qLen = normQuery.length;
+    let out = '';
+    let i = 0;
+    while (i < norm.length) {
+      if (norm.startsWith(normQuery, i)) {
+        const end = Math.min(i + qLen, textNode.length);
+        out += `<span class="search-hl">${textNode.slice(i, end)}</span>`;
+        i = end;
+      } else {
+        out += textNode[i] ?? '';
+        i++;
+      }
+    }
+    if (i < textNode.length) out += textNode.slice(i);
+    return out;
+  });
+}
+
 // ── Reference data ─────────────────────────────────────────────────────────────
 
 interface Section {
@@ -81,61 +112,40 @@ const SECTIONS: Section[] = [
   {
     id: 'combat-actions',
     category: 'Akce v boji',
-    title: 'Přehled akcí',
-    search: 'akce utok kouzlit sprint huybani pomoc schovat priprva',
+    title: 'Akce v boji',
+    search: 'akce utok kouzlit sprint uhybani pomoc schovat priprava hledani bonusova reakce prilezitostny uchopeni strceni dalku tesnoboj zbran lehka odtrzeni rozhozen vylakani chyceni hozeni odstrceni srazeni odzbrojeni prorazeni prosmyknut lezeni prprava improvizovana prvni pomoc',
     html: `
-<table class="sc-table">
-  <thead><tr><th>Akce</th><th>Popis</th></tr></thead>
+<div class="sc-table-wrap">
+<table class="sc-table sc-table--combat">
+  <thead><tr><th>Akce</th><th>Typ</th><th>Automatický efekt</th><th>Hod</th><th>SO</th><th>Při úspěchu</th></tr></thead>
   <tbody>
-    <tr><td><strong>Útok</strong></td><td>Jeden nebo více útoků zbraní (dle schopnosti Útok navíc).</td></tr>
-    <tr><td><strong>Sesílání kouzla</strong></td><td>Sesli kouzlo s dobou seslání 1 Akce.</td></tr>
-    <tr><td><strong>Sprint</strong></td><td>Pohyb se zdvojnásobí do konce kola.</td></tr>
-    <tr><td><strong>Uhýbání</strong></td><td>Všechny útoky na tebe mají nevýhodu; záchranné hody na Obratnost se zdarem.</td></tr>
-    <tr><td><strong>Pomoc</strong></td><td>Cíl získá Výhodu k dalšímu ověření dovednosti nebo útoku.</td></tr>
-    <tr><td><strong>Skrytí</strong></td><td>Ověření Nenápadnosti — při úspěchu jsi Skrytý.</td></tr>
-    <tr><td><strong>Příprava</strong></td><td>Urči reakci + spouštěcí podmínku; provedení jako Reakce.</td></tr>
-    <tr><td><strong>Hledání</strong></td><td>Ověření Vnímání nebo Pátrání.</td></tr>
-    <tr><td><strong>Použití předmětu</strong></td><td>Interakce s předmětem nebo prostředím (nad rámec volné interakce).</td></tr>
-    <tr><td><strong>Pomocník</strong></td><td>Přivolání nebo řízení pomocníka/jezdce.</td></tr>
+    <tr><td><strong>Útok</strong></td><td><span class="sc-typ akce">Akce</span></td><td></td><td>Útok zbraní</td><td>OČ</td><td>Zásah</td></tr>
+    <tr><td><strong>Uhýbání</strong></td><td><span class="sc-typ zakl">Zákl.</span></td><td>Nevýhoda k Útokům, Výhoda k ZH</td><td></td><td></td><td></td></tr>
+    <tr><td><strong>Odpoutání</strong></td><td><span class="sc-typ zakl">Zákl.</span></td><td>Ruší Příležitostné útoky</td><td></td><td></td><td></td></tr>
+    <tr><td><strong>Odtržení</strong></td><td><span class="sc-typ plny">Plný</span></td><td>Ruší Příležitostné útoky</td><td>Útok Improv. zbraní</td><td>P At/Ak/Vn</td><td>Akce Běh zdarma.</td></tr>
+    <tr><td><strong>Rozhozen</strong></td><td><span class="sc-typ plny">Plný</span></td><td>Výhoda k 1. dalšímu Útoku</td><td>Útok Improv. zbraní</td><td>P At/Ak/Vn</td><td>+2 rozsah kritu 1. dalšího Útoku.</td></tr>
+    <tr><td><strong>Vylákání</strong></td><td><span class="sc-typ plny">Plný</span></td><td>Když tě protivník 1× mine, Výhoda k 1. dalšímu Útoku</td><td>CHA (Klamání)</td><td>P Vnímání</td><td>+2 rozsah kritu 1. dalšího Útoku.</td></tr>
+    <tr><td><strong>Chycení</strong></td><td><span class="sc-typ utocny">Útočný</span></td><td></td><td>SIL (Atletika)</td><td>P At/Ak</td><td>Cíl je Chycený. Únik: At/Ak proti P Atletice.</td></tr>
+    <tr><td><strong>Hození</strong></td><td><span class="sc-typ utocny">Útočný</span></td><td>Odhodíš o ½ R + Sražení</td><td>Cíl ZH OBR</td><td>P Atletika</td><td>Možný Zásah za 1k4+SIL BV.</td></tr>
+    <tr><td><strong>Odstrčení</strong></td><td><span class="sc-typ utocny">Útočný</span></td><td></td><td>SIL (Atletika)</td><td>P At/Ak</td><td>Posun Cíle o 1 sáh.</td></tr>
+    <tr><td><strong>Sražení</strong></td><td><span class="sc-typ utocny">Útočný</span></td><td></td><td>SIL (Atletika)</td><td>P At/Ak</td><td>Cíl se stane Ležícím.</td></tr>
+    <tr><td><strong>Odzbrojení</strong></td><td><span class="sc-typ utocny">Útočný</span></td><td></td><td>Útok s N</td><td>P At/Ak (+5 dvouruč)</td><td>Předmět spadne. Pokud Cíl Drží, předmět převezmeš.</td></tr>
+    <tr><td><strong>Prorážení</strong></td><td><span class="sc-typ utocny">Útočný</span></td><td></td><td>SIL (Atletika)</td><td>P Atletika</td><td>Projdeš, ruší Příl. útoky.</td></tr>
+    <tr><td><strong>Prosmýknutí</strong></td><td><span class="sc-typ utocny">Útočný</span></td><td></td><td>OBR (Akrobacie)</td><td>P Akrobacie</td><td>Projdeš, ruší Příl. útoky.</td></tr>
+    <tr><td><strong>Lezení na tvor</strong></td><td><span class="sc-typ plny">Plný</span></td><td></td><td>SIL (At) / OBR (Ak)</td><td>P Akrobacie</td><td>Vylezeš na tvora. Viz str. 288.</td></tr>
+    <tr class="sc-row-sep"><td colspan="6"></td></tr>
+    <tr><td><strong>Seslání kouzla</strong></td><td><span class="sc-typ akce">Akce</span></td><td>Seslání kouzla</td><td></td><td></td><td>Viz popis kouzla.</td></tr>
+    <tr><td><strong>Běh</strong></td><td><span class="sc-typ akce">Akce</span></td><td>Pohyb + Rychlost</td><td colspan="3">(Efekty ovlivňující Rychlost ovlivní i + Rychlost u Běhu.)</td></tr>
+    <tr><td><strong>Schování se</strong></td><td><span class="sc-typ akce">Akce</span></td><td></td><td>OBR (Nenápadnost)</td><td>P Vnímání</td><td></td></tr>
+    <tr><td><strong>Pomoc</strong></td><td><span class="sc-typ akce">Akce</span></td><td>Cíl získá Výhodu</td><td colspan="3">V boji Plný manévr, Cíl do 1 sáhu získá Výhodu k dalšímu Útoku.</td></tr>
+    <tr><td><strong>Použití předmětu</strong></td><td><span class="sc-typ akce">Akce</span></td><td>Použití předmětu</td><td colspan="3">Jedna jednoduchá interakce s jedním předmětem v Tahu je zdarma.</td></tr>
+    <tr><td><strong>Hledání</strong></td><td><span class="sc-typ akce">Akce</span></td><td></td><td>MDR (Vnímání) / INT (Pátrání)</td><td></td><td></td></tr>
+    <tr><td><strong>První pomoc</strong></td><td><span class="sc-typ akce">Akce</span></td><td></td><td>MDR (Lékařství)</td><td>10</td><td>Stabilizace Cíle</td></tr>
+    <tr><td><strong>Odložení / Příprava</strong></td><td><span class="sc-typ akce">Akce</span></td><td colspan="4">Jmenuj spouštěč odložené Akce. Kdy nastane, použij Reakci a proveď svou Akci. Odložení Kouzla vyžaduje Soustředění a stojí Pozici i pokud ho nesešleš.</td></tr>
+    <tr><td><strong>Improvizovaná akce</strong></td><td><span class="sc-typ akce">Akce</span></td><td colspan="4">Vyhodnoť odhadem, rovnocenně běžným Akcím (vč. běžného Útoku) …nebo i o něco lépe! Podporuj hráčskou kreativitu!</td></tr>
   </tbody>
-</table>`,
-  },
-  {
-    id: 'bonus-action',
-    category: 'Akce v boji',
-    title: 'Bonusová akce a reakce',
-    search: 'bonusova akce reakce prikouzelni prisliba',
-    html: `
-<div class="sc-box">
-  <p><strong>Bonusová akce:</strong> Pouze pokud ji uděluje konkrétní schopnost, kouzlo nebo pravidlo. Každé kolo max 1 bonusová akce.</p>
-  <p><strong>Reakce:</strong> Max 1 za kolo. Příklady: Příležitostný útok, Zachycení kouzla, Připravená akce.</p>
+</table>
 </div>`,
-  },
-  {
-    id: 'opportunity-attack',
-    category: 'Akce v boji',
-    title: 'Příležitostný útok',
-    search: 'prilezitostny utok reakece opustit dosah',
-    html: `
-<div class="sc-box">
-  <p>Spustí se, když nepřítel <strong>dobrovolně opustí tvůj dosah</strong>.</p>
-  <p>Utracena Reakce. Jeden útok na útěkající cíl.</p>
-  <p class="sc-note">Výjimky: teleportace, unošení, Sprint při ústupu se Sprintem.</p>
-</div>`,
-  },
-  {
-    id: 'grapple-shove',
-    category: 'Akce v boji',
-    title: 'Uchopení a strčení',
-    search: 'uchopeni strceni graple shove akrobacie atletika',
-    html: `
-<table class="sc-table">
-  <thead><tr><th>Manévr</th><th>Útočník</th><th>Obránce</th><th>Efekt při úspěchu</th></tr></thead>
-  <tbody>
-    <tr><td><strong>Uchopení</strong></td><td>Atletika</td><td>Atletika nebo Akrobacie</td><td>Rychlost cíle 0</td></tr>
-    <tr><td><strong>Strčení</strong></td><td>Atletika</td><td>Atletika nebo Akrobacie</td><td>Sražen nebo odtlačen 1,5 m</td></tr>
-  </tbody>
-</table>`,
   },
   // ──────────────────────────────── POHYB
   {
@@ -219,107 +229,97 @@ const SECTIONS: Section[] = [
   <p class="sc-note">K zásahu druhé zbraně se <strong>nepřičítá</strong> oprava vlastnosti (pokud není záporná).</p>
 </div>`,
   },
-  {
-    id: 'ranged-in-melee',
-    category: 'Útok',
-    title: 'Útok na dálku v těsném boji',
-    search: 'utoky dalku tesnoboj nevyhoda luk kuše hod',
-    html: `
-<div class="sc-box">
-  <p>Útok na dálku nebo hozenou zbraní <strong>v dosahu nepřítele</strong> má nevýhodu.</p>
-</div>`,
-  },
   // ──────────────────────────────── PODMÍNKY
   {
     id: 'condition-blinded',
     category: 'Podmínky',
     title: 'Oslepení',
     search: 'oslepeni nevyhoda utok nemuze videt',
-    html: `<div class="sc-card"><div class="sc-card-header">Oslepení</div><ul class="sc-list"><li>Nemůže vidět; automaticky neúspěšné ověření vyžadující zrak.</li><li>Nevýhoda k hodům na útok; útočníci mají výhodu.</li></ul></div>`,
+    html: `<ul class="sc-list"><li>Nemůže vidět; automaticky neúspěšné ověření vyžadující zrak.</li><li>Nevýhoda k hodům na útok; útočníci mají výhodu.</li></ul>`,
   },
   {
     id: 'condition-charmed',
     category: 'Podmínky',
     title: 'Zmámení',
     search: 'zmameni charmed nemuze utocit vyhoda interakce',
-    html: `<div class="sc-card"><div class="sc-card-header">Zmámení</div><ul class="sc-list"><li>Zmámený tvor nemůže útočit na zmámatele ani ho vybírat jako cíl kouzla.</li><li>Zmamatel má výhodu k ověření dovedností v sociálních interakcích s tvorem.</li></ul></div>`,
+    html: `<ul class="sc-list"><li>Zmámený tvor nemůže útočit na zmámatele ani ho vybírat jako cíl kouzla.</li><li>Zmamatel má výhodu k ověření dovedností v sociálních interakcích s tvorem.</li></ul>`,
   },
   {
     id: 'condition-frightened',
     category: 'Podmínky',
     title: 'Vystrašení',
     search: 'vystrašeny strach nevyhoda blizkoste zdroje',
-    html: `<div class="sc-card"><div class="sc-card-header">Vystrašení</div><ul class="sc-list"><li>Nevýhoda k hodům na schopnosti a útokům, pokud je zdroj strachu v dohledu.</li><li>Tvor se nesmí dobrovolně blížit ke zdroji strachu.</li></ul></div>`,
+    html: `<ul class="sc-list"><li>Nevýhoda k hodům na schopnosti a útokům, pokud je zdroj strachu v dohledu.</li><li>Tvor se nesmí dobrovolně blížit ke zdroji strachu.</li></ul>`,
   },
   {
     id: 'condition-grappled',
     category: 'Podmínky',
     title: 'Uchopení',
     search: 'uchopeni rychlost 0 eliminace',
-    html: `<div class="sc-card"><div class="sc-card-header">Uchopení</div><ul class="sc-list"><li>Rychlost tvora je 0 (nelze ji žádným způsobem zvýšit).</li><li>Stav skončí, pokud uchopitel vyřazen nebo tvor vymanění (Atletika / Akrobacie).</li></ul></div>`,
+    html: `<ul class="sc-list"><li>Rychlost tvora je 0 (nelze ji žádným způsobem zvýšit).</li><li>Stav skončí, pokud uchopitel vyřazen nebo tvor vymanění (Atletika / Akrobacie).</li></ul>`,
   },
   {
     id: 'condition-incapacitated',
     category: 'Podmínky',
     title: 'Neschopný',
     search: 'neschopny akce bonusova akce nemuze provest',
-    html: `<div class="sc-card"><div class="sc-card-header">Neschopný</div><ul class="sc-list"><li>Nemůže provádět akce ani bonusové akce.</li></ul></div>`,
+    html: `<ul class="sc-list"><li>Nemůže provádět akce ani bonusové akce.</li></ul>`,
   },
   {
     id: 'condition-invisible',
     category: 'Podmínky',
     title: 'Neviditelný',
     search: 'neviditelny skryty vyhoda utok skrytí',
-    html: `<div class="sc-card"><div class="sc-card-header">Neviditelný</div><ul class="sc-list"><li>Nelze ho spatřit bez speciálních smyslů; pozice lze odhalit hlukem nebo stopami.</li><li>Výhoda k útoku; útočníci mají nevýhodu.</li></ul></div>`,
+    html: `<ul class="sc-list"><li>Nelze ho spatřit bez speciálních smyslů; pozice lze odhalit hlukem nebo stopami.</li><li>Výhoda k útoku; útočníci mají nevýhodu.</li></ul>`,
   },
   {
     id: 'condition-paralyzed',
     category: 'Podmínky',
     title: 'Paralýza',
     search: 'paralyzovany neschopny nemuze pohybovat automaticky kriticke zasahy',
-    html: `<div class="sc-card"><div class="sc-card-header">Paralýza</div><ul class="sc-list"><li>Je Neschopný a nemůže se pohybovat ani mluvit.</li><li>Automaticky neúspěšné záchranné hody na Sílu a Obratnost.</li><li>Útočníci mají výhodu; zásahy na dosah do 1,5 m jsou automaticky kritické.</li></ul></div>`,
+    html: `<ul class="sc-list"><li>Je Neschopný a nemůže se pohybovat ani mluvit.</li><li>Automaticky neúspěšné záchranné hody na Sílu a Obratnost.</li><li>Útočníci mají výhodu; zásahy na dosah do 1,5 m jsou automaticky kritické.</li></ul>`,
   },
   {
     id: 'condition-petrified',
     category: 'Podmínky',
     title: 'Zkamenění',
     search: 'zkamenely zkameneni transformace neorganicka nemuze pohybovat',
-    html: `<div class="sc-card"><div class="sc-card-header">Zkamenění</div><ul class="sc-list"><li>Proměněn v tuhý neorganický materiál; je Neschopný, nemůže se pohybovat ani mluvit.</li><li>Imunní vůči jedu a nemoci; odolný vůči všem poškozením; nemůže hromadit nemoci ani jed.</li><li>Automaticky neúspěšné záchranné hody na Sílu a Obratnost; útočníci mají výhodu.</li></ul></div>`,
+    html: `<ul class="sc-list"><li>Proměněn v tuhý neorganický materiál; je Neschopný, nemůže se pohybovat ani mluvit.</li><li>Imunní vůči jedu a nemoci; odolný vůči všem poškozením; nemůže hromadit nemoci ani jed.</li><li>Automaticky neúspěšné záchranné hody na Sílu a Obratnost; útočníci mají výhodu.</li></ul>`,
   },
   {
     id: 'condition-poisoned',
     category: 'Podmínky',
     title: 'Otravení',
     search: 'otraveny nevyhoda utoky overeni vlastnosti',
-    html: `<div class="sc-card"><div class="sc-card-header">Otravení</div><ul class="sc-list"><li>Nevýhoda k hodům na útok a ověřením vlastností.</li></ul></div>`,
+    html: `<ul class="sc-list"><li>Nevýhoda k hodům na útok a ověřením vlastností.</li></ul>`,
   },
   {
     id: 'condition-prone',
     category: 'Podmínky',
     title: 'Sražení / Ležící',
     search: 'sraze lezel prone vzprimat nevyhoda utok dosah dalku',
-    html: `<div class="sc-card"><div class="sc-card-header">Sražení / Ležící</div><ul class="sc-list"><li>Nevýhoda k hodům na útok.</li><li>Útočník na dosah má výhodu; útok na dálku má nevýhodu.</li><li>Vzpřímení stojí polovinu pohybu kola.</li></ul></div>`,
+    html: `<ul class="sc-list"><li>Nevýhoda k hodům na útok.</li><li>Útočník na dosah má výhodu; útok na dálku má nevýhodu.</li><li>Vzpřímení stojí polovinu pohybu kola.</li></ul>`,
   },
   {
     id: 'condition-restrained',
     category: 'Podmínky',
     title: 'Zadržení',
     search: 'zadrzeny rychlost 0 nevyhoda utok zachrana obratnost',
-    html: `<div class="sc-card"><div class="sc-card-header">Zadržení</div><ul class="sc-list"><li>Rychlost 0 (nelze ji zvýšit).</li><li>Nevýhoda k hodům na útok; útočníci mají výhodu.</li><li>Nevýhoda k záchranným hodům na Obratnost.</li></ul></div>`,
+    html: `<ul class="sc-list"><li>Rychlost 0 (nelze ji zvýšit).</li><li>Nevýhoda k hodům na útok; útočníci mají výhodu.</li><li>Nevýhoda k záchranným hodům na Obratnost.</li></ul>`,
   },
   {
     id: 'condition-stunned',
     category: 'Podmínky',
     title: 'Omráčení',
     search: 'omraceny neschopny nemuze pohybovat automaticky neuspesne sila obratnost',
-    html: `<div class="sc-card"><div class="sc-card-header">Omráčení</div><ul class="sc-list"><li>Je Neschopný a nemůže se pohybovat; může jen slabě mluvit.</li><li>Automaticky neúspěšné záchranné hody na Sílu a Obratnost.</li><li>Útočníci mají výhodu.</li></ul></div>`,
+    html: `<ul class="sc-list"><li>Je Neschopný a nemůže se pohybovat; může jen slabě mluvit.</li><li>Automaticky neúspěšné záchranné hody na Sílu a Obratnost.</li><li>Útočníci mají výhodu.</li></ul>`,
   },
   {
     id: 'condition-unconscious',
     category: 'Podmínky',
     title: 'Bezvědomí',
     search: 'bezvedomi neschopny sraze automaticky kriticke zasahy',
-    html: `<div class="sc-card"><div class="sc-card-header">Bezvědomí</div><ul class="sc-list"><li>Je Neschopný, nemůže se pohybovat ani mluvit; neví o svém okolí.</li><li>Upustí vše, co drží; je Sražený.</li><li>Automaticky neúspěšné záchranné hody na Sílu a Obratnost.</li><li>Zásahy z dosahu do 1,5 m jsou automaticky kritické.</li></ul></div>`,
+    html: `<ul class="sc-list"><li>Je Neschopný, nemůže se pohybovat ani mluvit; neví o svém okolí.</li><li>Upustí vše, co drží; je Sražený.</li><li>Automaticky neúspěšné záchranné hody na Sílu a Obratnost.</li><li>Zásahy z dosahu do 1,5 m jsou automaticky kritické.</li></ul>`,
   },
   // ──────────────────────────────── ŽIVOTY & LÉČENÍ
   {
@@ -627,12 +627,12 @@ function matchesQuery(s: Section, q: string): boolean {
     ::ng-deep .sc-table tbody tr:last-child td { border-bottom: none; }
     ::ng-deep .sc-table .sc-accent { color: #e8c96a; font-weight: 700; }
     ::ng-deep .sc-box {
-      background: rgba(5,3,12,.4); border-left: 2px solid rgba(200,160,60,.3);
-      padding: 6px 10px; border-radius: 0 3px 3px 0; margin: 2px 0;
+      background: rgba(5,3,12,.35);
+      padding: 6px 10px; border-radius: 3px; margin: 2px 0;
     }
     ::ng-deep .sc-box p { margin: 3px 0; font-size: 12px; line-height: 1.55; color: #c8b896; }
     ::ng-deep .sc-box strong { color: #e0cfa0; }
-    ::ng-deep .sc-box.sc-box--formula { border-color: rgba(80,160,220,.35); background: rgba(4,8,18,.5); }
+    ::ng-deep .sc-box.sc-box--formula { border-left: 2px solid rgba(80,160,220,.45); background: rgba(4,8,18,.5); padding-left: 10px; }
     ::ng-deep .sc-box.sc-box--formula p { color: #b8c8e8; }
     ::ng-deep .sc-box.sc-box--formula strong { color: #90c0f0; }
     ::ng-deep .sc-note { color: rgba(200,185,140,.55) !important; font-size: 11px !important; font-style: italic; }
@@ -651,6 +651,20 @@ function matchesQuery(s: Section, q: string): boolean {
       li { font-size: 12px; line-height: 1.55; color: #c8b896; margin-bottom: 2px; }
       strong { color: #e0cfa0; }
     }
+    ::ng-deep .sc-row-sep td { height: 1px; padding: 0 !important; background: rgba(200,160,60,.12); border: none !important; }
+    ::ng-deep .search-hl { color: #ff6060; font-weight: 700; background: rgba(255,60,60,.1); border-radius: 2px; padding: 0 1px; }
+    ::ng-deep .sc-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    ::ng-deep .sc-table--combat { min-width: 640px; }
+    ::ng-deep .sc-table--combat td:first-child { white-space: nowrap; min-width: 100px; }
+    ::ng-deep .sc-table--combat td:nth-child(2) { white-space: nowrap; }
+    ::ng-deep .sc-typ { display: inline-block; font-size: 9px; letter-spacing: .06em; text-transform: uppercase; padding: 1px 5px; border-radius: 2px; font-weight: 600; white-space: nowrap; }
+    ::ng-deep .sc-typ.akce   { background: rgba(200,160,60,.15); color: rgba(230,190,90,.9); }
+    ::ng-deep .sc-typ.zakl   { background: rgba(80,200,120,.1);  color: rgba(100,210,140,.85); }
+    ::ng-deep .sc-typ.plny   { background: rgba(200,120,40,.15); color: rgba(230,150,70,.9); }
+    ::ng-deep .sc-typ.utocny { background: rgba(200,80,60,.15);  color: rgba(230,110,90,.85); }
+
+    /* ── Wide card (combat table spans full grid width) ── */
+    .ds-section--wide { grid-column: 1 / -1; }
 
     /* ── Empty state ── */
     .ds-empty {
@@ -692,14 +706,14 @@ function matchesQuery(s: Section, q: string): boolean {
       @if (grouped().length === 0) {
         <div class="ds-empty"><mat-icon>search_off</mat-icon>Nic neodpovídá hledanému výrazu.</div>
       } @else {
-        @for (g of grouped(); track g.category) {
+        @for (g of highlightedGrouped(); track g.category) {
           <div class="ds-group">
             <div class="ds-group-title">{{ g.category }}</div>
             <div class="ds-sections">
               @for (s of g.sections; track s.id) {
-                <div class="ds-section">
+                <div class="ds-section" [class.ds-section--wide]="s.id === 'combat-actions'">
                   <div class="ds-section-title">{{ s.title }}</div>
-                  <div class="ds-section-body" [innerHTML]="s.html"></div>
+                  <div class="ds-section-body" [innerHTML]="s.displayHtml"></div>
                 </div>
               }
             </div>
@@ -729,6 +743,17 @@ export class DmScreenComponent {
     }
 
     return [...map.entries()].map(([category, sections]) => ({ category, sections }));
+  });
+
+  readonly highlightedGrouped = computed(() => {
+    const q = normSearch(this.searchQuery());
+    return this.grouped().map(g => ({
+      ...g,
+      sections: g.sections.map(s => ({
+        ...s,
+        displayHtml: q.length >= 2 ? highlightHtml(s.html, q) : s.html,
+      })),
+    }));
   });
 
   readonly visibleCount = computed(() => this.grouped().reduce((n, g) => n + g.sections.length, 0));
