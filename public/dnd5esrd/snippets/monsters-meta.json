@@ -1,0 +1,4351 @@
+{
+  "abolet": {
+    "name": "Abolet",
+    "type": "Zrůda",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 10,
+    "crDisplay": "10",
+    "book": "bestiar",
+    "file": "abolet.md"
+  },
+  "adept-bojovych-umeni": {
+    "name": "Adept bojových umění",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "alfagryk": {
+    "name": "Alfagryk",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "neutrální",
+    "cr": 7,
+    "crDisplay": "7",
+    "book": "bestiar",
+    "file": "gryk.md"
+  },
+  "alhun": {
+    "name": "Alhún",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "jakékoli zlé přesvědčení",
+    "cr": 10,
+    "crDisplay": "10",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Mozkozrouti.md"
+  },
+  "allosaurus": {
+    "name": "Allosaurus",
+    "type": "Zvíře",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "dinosauri.md"
+  },
+  "androsfinga": {
+    "name": "Androsfinga",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "zákonně neutrální",
+    "cr": 17,
+    "crDisplay": "17",
+    "book": "bestiar",
+    "file": "sfingy.md"
+  },
+  "anisova-jezibaba": {
+    "name": "Anisová ježibaba",
+    "type": "Víla",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Jezibaby.md"
+  },
+  "ankheg": {
+    "name": "Ankheg",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "ankheg.md"
+  },
+  "ankylosaurus": {
+    "name": "Ankylosaurus",
+    "type": "Zvíře",
+    "size": "Obrovský",
+    "alignment": "bez přesvědčení",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "dinosauri.md"
+  },
+  "arakokra": {
+    "name": "Árakokra",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální dobro",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "arakokra.md"
+  },
+  "arcidruid": {
+    "name": "Arcidruid",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 12,
+    "crDisplay": "12",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "azer": {
+    "name": "Azer",
+    "type": "Elementál",
+    "size": "Střední",
+    "alignment": "zákonně neutrální",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "azer.md"
+  },
+  "babau": {
+    "name": "Babau",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Demoni.md"
+  },
+  "bahenni-mefit": {
+    "name": "Bahenní mefit",
+    "type": "Elementál",
+    "size": "Malý",
+    "alignment": "neutrální zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "mefiti.md"
+  },
+  "balor": {
+    "name": "Balor",
+    "type": "Běs",
+    "size": "Obrovský",
+    "alignment": "chaotické zlo",
+    "cr": 19,
+    "crDisplay": "19",
+    "book": "bestiar",
+    "file": "demoni.md"
+  },
+  "bandrhob": {
+    "name": "Bandrhob",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "neutrální zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Bandrhob.md"
+  },
+  "bard": {
+    "name": "Bard",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "bargest": {
+    "name": "Bargest",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "neutrální zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Bargest.md"
+  },
+  "barlgura": {
+    "name": "Barlgura",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "demoni.md"
+  },
+  "bazilisek": {
+    "name": "Bazilišek",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "bez přesvědčení",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "bazilisek.md"
+  },
+  "behir": {
+    "name": "Behir",
+    "type": "Obluda",
+    "size": "Obrovský",
+    "alignment": "neutrální zlo",
+    "cr": 11,
+    "crDisplay": "11",
+    "book": "bestiar",
+    "file": "behir.md"
+  },
+  "bheurska-jezibaba": {
+    "name": "Bheurská ježibaba",
+    "type": "Víla",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 7,
+    "crDisplay": "7",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Jezibaby.md"
+  },
+  "bile-drace": {
+    "name": "Bílé dráče",
+    "type": "Drak",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "blekotajici-tlamac": {
+    "name": "Blekotající tlamáč",
+    "type": "Zrůda",
+    "size": "Střední",
+    "alignment": "neutrální",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "blekotajici-tlamac.md"
+  },
+  "bludicka": {
+    "name": "Bludička",
+    "type": "Nemrtvý",
+    "size": "Drobný",
+    "alignment": "chaotické zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "bludicka.md"
+  },
+  "bodak": {
+    "name": "Bodak",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Bodak.md"
+  },
+  "bourny-obr": {
+    "name": "Bouřný obr",
+    "type": "Obr",
+    "size": "Obrovský",
+    "alignment": "chaotické dobro",
+    "cr": 13,
+    "crDisplay": "13",
+    "book": "bestiar",
+    "file": "obri.md"
+  },
+  "bourny-obr-kvintesent": {
+    "name": "Bouřný obr kvintesent",
+    "type": "Obr",
+    "size": "Obrovský",
+    "alignment": "chaotické dobro",
+    "cr": 16,
+    "crDisplay": "16",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Obri.md"
+  },
+  "brontosaurus": {
+    "name": "Brontosaurus",
+    "type": "Zvíře",
+    "size": "Gigantický",
+    "alignment": "bez přesvědčení",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dinosauri.md"
+  },
+  "bronzove-drace": {
+    "name": "Bronzové dráče",
+    "type": "Drak",
+    "size": "Střední",
+    "alignment": "zákonné dobro",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "bulta": {
+    "name": "Bulta",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "bulta.md"
+  },
+  "cerne-drace": {
+    "name": "Černé dráče",
+    "type": "Drak",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "cernokneznik-arcivily": {
+    "name": "Černokněžník arcivíly",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "cernokneznik-besa": {
+    "name": "Černokněžník běsa",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 7,
+    "crDisplay": "7",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "cernokneznik-prastareho": {
+    "name": "Černokněžník Prastarého",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "cerny-pudink": {
+    "name": "Černý pudink",
+    "type": "Sliz",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "slizy.md"
+  },
+  "cistokrevny-yuan-ti": {
+    "name": "Čistokrevný yuan-ti",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "yuan-tiove.md"
+  },
+  "cumil": {
+    "name": "Čumil",
+    "type": "Zrůda",
+    "size": "Drobný",
+    "alignment": "neutrální zlo",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Zrici.md"
+  },
+  "dablik": {
+    "name": "Ďáblík",
+    "type": "Běs",
+    "size": "Drobný",
+    "alignment": "tvaroměnec), zákonné zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "dablove.md"
+  },
+  "dao": {
+    "name": "Dao",
+    "type": "Elementál",
+    "size": "Velký",
+    "alignment": "neutrální zlo",
+    "cr": 11,
+    "crDisplay": "11",
+    "book": "bestiar",
+    "file": "geniove.md"
+  },
+  "deinonychus": {
+    "name": "Deinonychus",
+    "type": "Zvíře",
+    "size": "Střední",
+    "alignment": "bez přesvědčení",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dinosauri.md"
+  },
+  "delfin": {
+    "name": "Delfín",
+    "type": "Zvíře",
+    "size": "Střední",
+    "alignment": "bez přesvědčení",
+    "cr": 0.125,
+    "crDisplay": "1/8",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-A.md"
+  },
+  "deva": {
+    "name": "Déva",
+    "type": "Nebešťan",
+    "size": "Střední",
+    "alignment": "zákonné dobro",
+    "cr": 10,
+    "crDisplay": "10",
+    "book": "bestiar",
+    "file": "andele.md"
+  },
+  "diblik": {
+    "name": "Diblík",
+    "type": "Víla",
+    "size": "Drobný",
+    "alignment": "neutrální dobro",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "diblik.md"
+  },
+  "dimetrodon": {
+    "name": "Dimetrodon",
+    "type": "Zvíře",
+    "size": "Střední",
+    "alignment": "bez přesvědčení",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dinosauri.md"
+  },
+  "divous": {
+    "name": "Divous",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "divous.md"
+  },
+  "dohlizec": {
+    "name": "Dohlížeč",
+    "type": "Zrůda",
+    "size": "Střední",
+    "alignment": "zákonně neutrální",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "zrici.md"
+  },
+  "dospely-bily-drak": {
+    "name": "Dospělý bílý drak",
+    "type": "Drak",
+    "size": "Obrovský",
+    "alignment": "chaotické zlo",
+    "cr": 13,
+    "crDisplay": "13",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "dospely-bronzovy-drak": {
+    "name": "Dospělý bronzový drak",
+    "type": "Drak",
+    "size": "Obrovský",
+    "alignment": "zákonné dobro",
+    "cr": 15,
+    "crDisplay": "15",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "dospely-cerny-drak": {
+    "name": "Dospělý černý drak",
+    "type": "Drak",
+    "size": "Obrovský",
+    "alignment": "chaotické zlo",
+    "cr": 14,
+    "crDisplay": "14",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "dospely-medeny-drak": {
+    "name": "Dospělý měděný drak",
+    "type": "Drak",
+    "size": "Obrovský",
+    "alignment": "chaotické dobro",
+    "cr": 14,
+    "crDisplay": "14",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "dospely-modry-drak": {
+    "name": "Dospělý modrý drak",
+    "type": "Drak",
+    "size": "Obrovský",
+    "alignment": "zákonné zlo",
+    "cr": 16,
+    "crDisplay": "16",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "dospely-modry-drakostej": {
+    "name": "Dospělý modrý drakostěj",
+    "type": "Nemrtvý",
+    "size": "Obrovský",
+    "alignment": "zákonné zlo",
+    "cr": 17,
+    "crDisplay": "17",
+    "book": "bestiar",
+    "file": "drakostej.md"
+  },
+  "dospely-mosazny-drak": {
+    "name": "Dospělý mosazný drak",
+    "type": "Drak",
+    "size": "Obrovský",
+    "alignment": "chaotické dobro",
+    "cr": 13,
+    "crDisplay": "13",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "dospely-rudy-drak": {
+    "name": "Dospělý rudý drak",
+    "type": "Drak",
+    "size": "Obrovský",
+    "alignment": "chaotické zlo",
+    "cr": 17,
+    "crDisplay": "17",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "dospely-stribrny-drak": {
+    "name": "Dospělý stříbrný drak",
+    "type": "Drak",
+    "size": "Obrovský",
+    "alignment": "zákonné dobro",
+    "cr": 16,
+    "crDisplay": "16",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "dospely-zeleny-drak": {
+    "name": "Dospělý zelený drak",
+    "type": "Drak",
+    "size": "Obrovský",
+    "alignment": "zákonné zlo",
+    "cr": 15,
+    "crDisplay": "15",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "dospely-zlaty-drak": {
+    "name": "Dospělý zlatý drak",
+    "type": "Drak",
+    "size": "Obrovský",
+    "alignment": "zákonné dobro",
+    "cr": 17,
+    "crDisplay": "17",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "drac": {
+    "name": "Dráč",
+    "type": "Běs",
+    "size": "Malý",
+    "alignment": "chaotické zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "demoni.md"
+  },
+  "draci-zelva": {
+    "name": "Dračí želva",
+    "type": "Drak",
+    "size": "Gigantický",
+    "alignment": "neutrální",
+    "cr": 17,
+    "crDisplay": "17",
+    "book": "bestiar",
+    "file": "draci-zelva.md"
+  },
+  "draeglot": {
+    "name": "Draeglot",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 7,
+    "crDisplay": "7",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Draeglot.md"
+  },
+  "dravouk": {
+    "name": "Dravouk",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "bestiar",
+    "file": "dravouk.md"
+  },
+  "drow": {
+    "name": "Drow",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "elfove-drowove.md"
+  },
+  "drowi-elitni-valecnik": {
+    "name": "Drowí elitní válečník",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "elfove-drowove.md"
+  },
+  "drowi-lolthina-knezka": {
+    "name": "Drowí Lolthina kněžka",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 8,
+    "crDisplay": "8",
+    "book": "bestiar",
+    "file": "elfove-drowove.md"
+  },
+  "drowi-mag": {
+    "name": "Drowí mág",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 7,
+    "crDisplay": "7",
+    "book": "bestiar",
+    "file": "elfove-drowove.md"
+  },
+  "dryada": {
+    "name": "Dryáda",
+    "type": "Víla",
+    "size": "Střední",
+    "alignment": "neutrální",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "dryada.md"
+  },
+  "duergar": {
+    "name": "Duergar",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "zákonně zlý",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "duergar.md"
+  },
+  "duch": {
+    "name": "Duch",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "duch.md"
+  },
+  "duodron": {
+    "name": "Duodron",
+    "type": "Výtvor",
+    "size": "Střední",
+    "alignment": "zákonně neutrální",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "modroni.md"
+  },
+  "dusici-behoun": {
+    "name": "Dusící běhoun",
+    "type": "Výtvor",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "ozivle-predmety.md"
+  },
+  "dvojnik": {
+    "name": "Dvojník",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "neutrální",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "dvojnik.md"
+  },
+  "dzin": {
+    "name": "Džin",
+    "type": "Elementál",
+    "size": "Velký",
+    "alignment": "chaotické dobro",
+    "cr": 11,
+    "crDisplay": "11",
+    "book": "bestiar",
+    "file": "geniove.md"
+  },
+  "empyrean": {
+    "name": "Empyrean",
+    "type": "Nebešťan",
+    "size": "Obrovský",
+    "alignment": "chaotické dobro (75%) nebo neutrální zlo (25%)",
+    "cr": 23,
+    "crDisplay": "23",
+    "book": "bestiar",
+    "file": "empyrean.md"
+  },
+  "ent": {
+    "name": "Ent",
+    "type": "Rostlina",
+    "size": "Obrovský",
+    "alignment": "chaotické dobro",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "bestiar",
+    "file": "ent.md"
+  },
+  "erinyje": {
+    "name": "Erínyje",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 12,
+    "crDisplay": "12",
+    "book": "bestiar",
+    "file": "dablove.md"
+  },
+  "etin": {
+    "name": "Etin",
+    "type": "Obr",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "etin.md"
+  },
+  "fext": {
+    "name": "Fext",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "fext.md"
+  },
+  "fialova-houba": {
+    "name": "Fialová houba",
+    "type": "Rostlina",
+    "size": "Střední",
+    "alignment": "bez přesvědčení",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "houby.md"
+  },
+  "flamp": {
+    "name": "Flamp",
+    "type": "Zrůda",
+    "size": "Malý",
+    "alignment": "zákonné dobro",
+    "cr": 0.125,
+    "crDisplay": "1/8",
+    "book": "bestiar",
+    "file": "flamp.md"
+  },
+  "flind": {
+    "name": "Flind",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Gnolove.md"
+  },
+  "fomorian": {
+    "name": "Fomorian",
+    "type": "Obr",
+    "size": "Obrovský",
+    "alignment": "chaotické zlo",
+    "cr": 8,
+    "crDisplay": "8",
+    "book": "bestiar",
+    "file": "fomorian.md"
+  },
+  "galeb-dur": {
+    "name": "Galeb dur",
+    "type": "Elementál",
+    "size": "Střední",
+    "alignment": "neutrální",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "bestiar",
+    "file": "galeb-dur.md"
+  },
+  "gaut": {
+    "name": "Gaut",
+    "type": "Zrůda",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Zrici.md"
+  },
+  "ghast": {
+    "name": "Ghast",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "ghulove.md"
+  },
+  "ghul": {
+    "name": "Ghúl",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "ghulove.md"
+  },
+  "giralon": {
+    "name": "Giralón",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Giralon.md"
+  },
+  "githyanksky-rytir": {
+    "name": "Githyankský rytíř",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "zákonně zlý",
+    "cr": 8,
+    "crDisplay": "8",
+    "book": "bestiar",
+    "file": "githove.md"
+  },
+  "githyanksky-valecnik": {
+    "name": "Githyankský válečník",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "zákonně zlý",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "githove.md"
+  },
+  "githzerajsky-mnich": {
+    "name": "Githzerajský mnich",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "zákonně neutrální",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "githove.md"
+  },
+  "githzerajsky-zerth": {
+    "name": "Githzerajský zerth",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "zákonně neutrální",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "bestiar",
+    "file": "githove.md"
+  },
+  "glabrezu": {
+    "name": "Glabrezu",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "bestiar",
+    "file": "demoni.md"
+  },
+  "gnol": {
+    "name": "Gnol",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "gnolove.md"
+  },
+  "gnoli-lovec": {
+    "name": "Gnolí lovec",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Gnolove.md"
+  },
+  "gnoli-masodravec": {
+    "name": "Gnolí masodravec",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Gnolove.md"
+  },
+  "gnoli-vyslouzilec": {
+    "name": "Gnolí vysloužilec",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Gnolove.md"
+  },
+  "gnoli-yeenoghuuv-tesak": {
+    "name": "Gnolí Yeenoghuův tesák",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "gnolove.md"
+  },
+  "gnom-hlubinny-permonik": {
+    "name": "Gnóm, hlubinný (permoník)",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální dobro",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "gnom-hlubinny.md"
+  },
+  "goblin": {
+    "name": "Goblin",
+    "type": "Humanoid",
+    "size": "Malý",
+    "alignment": "neutrální zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "goblini.md"
+  },
+  "goblini-vudce": {
+    "name": "Gobliní vůdce",
+    "type": "Humanoid",
+    "size": "Malý",
+    "alignment": "neutrální zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "goblini.md"
+  },
+  "gobr": {
+    "name": "Gobr",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "gobri.md"
+  },
+  "gobri-vudce": {
+    "name": "Gobří vůdce",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "gobri.md"
+  },
+  "gorgon": {
+    "name": "Gorgon",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "gorgon.md"
+  },
+  "goristro": {
+    "name": "Goristro",
+    "type": "Běs",
+    "size": "Obrovský",
+    "alignment": "chaotické zlo",
+    "cr": 17,
+    "crDisplay": "17",
+    "book": "bestiar",
+    "file": "demoni.md"
+  },
+  "grel": {
+    "name": "Grel",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "grel.md"
+  },
+  "grung": {
+    "name": "Grung",
+    "type": "Humanoid",
+    "size": "Malý",
+    "alignment": "zákonné zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Grungove.md"
+  },
+  "grungsky-divoch": {
+    "name": "Grungský divoch",
+    "type": "Humanoid",
+    "size": "Malý",
+    "alignment": "zákonné zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Grungove.md"
+  },
+  "grungsky-elitni-valecnik": {
+    "name": "Grungský elitní válečník",
+    "type": "Humanoid",
+    "size": "Malý",
+    "alignment": "zákonné zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Grungove.md"
+  },
+  "gryf": {
+    "name": "Gryf",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "gryf.md"
+  },
+  "gryk": {
+    "name": "Gryk",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "neutrální",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "gryk.md"
+  },
+  "gynosfinga": {
+    "name": "Gynosfinga",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "zákonně neutrální",
+    "cr": 11,
+    "crDisplay": "11",
+    "book": "bestiar",
+    "file": "sfingy.md"
+  },
+  "hadrosaurus": {
+    "name": "Hadrosaurus",
+    "type": "Zvíře",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dinosauri.md"
+  },
+  "hakovec": {
+    "name": "Hákovec",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "neutrální",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "hakovec.md"
+  },
+  "harpyje": {
+    "name": "Harpyje",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "harpyje.md"
+  },
+  "hejno-hnilobnych-cervu": {
+    "name": "Hejno hnilobných červů",
+    "type": "Hejno",
+    "size": "Střední",
+    "alignment": "bez přesvědčení",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-A.md"
+  },
+  "hejno-kraniokrys": {
+    "name": "Hejno kraniokrys",
+    "type": "Hejno",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Kraniokrysy.md"
+  },
+  "hezr": {
+    "name": "Hezr",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 8,
+    "crDisplay": "8",
+    "book": "bestiar",
+    "file": "demoni.md"
+  },
+  "hipogryf": {
+    "name": "Hipogryf",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "hipogryf.md"
+  },
+  "hlineny-golem": {
+    "name": "Hliněný golem",
+    "type": "Výtvor",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "bestiar",
+    "file": "golemove.md"
+  },
+  "hlubinny-dedic": {
+    "name": "Hlubinný dědic",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Hlubinny-dedic.md"
+  },
+  "homunkulus": {
+    "name": "Homunkulus",
+    "type": "Výtvor",
+    "size": "Drobný",
+    "alignment": "neutrální",
+    "cr": 0,
+    "crDisplay": "0",
+    "book": "bestiar",
+    "file": "homunkulus.md"
+  },
+  "hrotoun": {
+    "name": "Hrotoun",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "bez přesvědčení",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "hrotoun.md"
+  },
+  "hydra": {
+    "name": "Hydra",
+    "type": "Obluda",
+    "size": "Obrovský",
+    "alignment": "bez přesvědčení",
+    "cr": 8,
+    "crDisplay": "8",
+    "book": "bestiar",
+    "file": "hydra.md"
+  },
+  "chazma": {
+    "name": "Chazma",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "bestiar",
+    "file": "demoni.md"
+  },
+  "chimera": {
+    "name": "Chiméra",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "bestiar",
+    "file": "chimera.md"
+  },
+  "chitin": {
+    "name": "Chitin",
+    "type": "Obluda",
+    "size": "Malý",
+    "alignment": "chaotické zlo",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Chitinove.md"
+  },
+  "choldryt": {
+    "name": "Choldryt",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Chitinove.md"
+  },
+  "chrlic": {
+    "name": "Chrlič",
+    "type": "Elementál",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "chrlic.md"
+  },
+  "chrtanovy-demon": {
+    "name": "Chřtánový démon",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Demoni.md"
+  },
+  "chuul": {
+    "name": "Chuul",
+    "type": "Zrůda",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "chuul.md"
+  },
+  "ifrit": {
+    "name": "Ifrít",
+    "type": "Elementál",
+    "size": "Velký",
+    "alignment": "neutrální zlo",
+    "cr": 11,
+    "crDisplay": "11",
+    "book": "bestiar",
+    "file": "geniove.md"
+  },
+  "iluzionista": {
+    "name": "Iluzionista",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "jednorozec": {
+    "name": "Jednorožec",
+    "type": "Nebešťan",
+    "size": "Velký",
+    "alignment": "zákonné dobro",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "jednorozec.md"
+  },
+  "jehlicnata-snet": {
+    "name": "Jehličnatá sněť",
+    "type": "Rostlina",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "sneti.md"
+  },
+  "jeskynni-rybar": {
+    "name": "Jeskynní rybář",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "bez přesvědčení",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Jeskynni-rybar.md"
+  },
+  "jesterec": {
+    "name": "Ještěrec",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "jesterci.md"
+  },
+  "jesterecky-kral-kralovna": {
+    "name": "Ještěrecký král/královna",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "jesterci.md"
+  },
+  "jesterecky-saman": {
+    "name": "Ještěrecký šaman",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "jesterci.md"
+  },
+  "jochlola": {
+    "name": "Jochlola",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "tvaroměnec), chaotické zlo",
+    "cr": 10,
+    "crDisplay": "10",
+    "book": "bestiar",
+    "file": "demoni.md"
+  },
+  "kambion": {
+    "name": "Kambion",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "jakékoliv zlé přesvědčení",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "kambion.md"
+  },
+  "kamenny-golem": {
+    "name": "Kamenný golem",
+    "type": "Výtvor",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 10,
+    "crDisplay": "10",
+    "book": "bestiar",
+    "file": "golemove.md"
+  },
+  "kamenny-obr": {
+    "name": "Kamenný obr",
+    "type": "Obr",
+    "size": "Obrovský",
+    "alignment": "neutrální",
+    "cr": 7,
+    "crDisplay": "7",
+    "book": "bestiar",
+    "file": "obri.md"
+  },
+  "kamenny-obr-snovy-chodec": {
+    "name": "Kamenný obr snový chodec",
+    "type": "Obr",
+    "size": "Obrovský",
+    "alignment": "chaoticky neutrální",
+    "cr": 10,
+    "crDisplay": "10",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Obri.md"
+  },
+  "kancodlak": {
+    "name": "Kancodlak",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "tvaroměnec), neutrální zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "lykantropove.md"
+  },
+  "katoblepas": {
+    "name": "Katoblepas",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Katoblepas.md"
+  },
+  "kenku": {
+    "name": "Kenku",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaoticky neutrální",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "kenku.md"
+  },
+  "kentaur": {
+    "name": "Kentaur",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "neutrální dobro",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "kentaur.md"
+  },
+  "ki-rin": {
+    "name": "Ki-rin",
+    "type": "Nebešťan",
+    "size": "Obrovský",
+    "alignment": "zákonné dobro",
+    "cr": 12,
+    "crDisplay": "12",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Ki-rin.md"
+  },
+  "klamopard": {
+    "name": "Klamopard",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "klamopard.md"
+  },
+  "klepetnatec": {
+    "name": "Klepetnatec",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "klepetnatec.md"
+  },
+  "klouzavy-stopar": {
+    "name": "Klouzavý stopař",
+    "type": "Sliz",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Klouzavy-stopar.md"
+  },
+  "kobold": {
+    "name": "Kobold",
+    "type": "Humanoid",
+    "size": "Malý",
+    "alignment": "zákonné zlo",
+    "cr": 0.125,
+    "crDisplay": "1/8",
+    "book": "bestiar",
+    "file": "koboldi.md"
+  },
+  "koboldi-drakostit": {
+    "name": "Koboldí drakoštít",
+    "type": "Humanoid",
+    "size": "Malý",
+    "alignment": "zákonné zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Koboldi.md"
+  },
+  "koboldi-supinovy-carodej": {
+    "name": "Koboldí šupinový čaroděj",
+    "type": "Humanoid",
+    "size": "Malý",
+    "alignment": "zákonné zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Koboldi.md"
+  },
+  "koboldi-vynalezce": {
+    "name": "Koboldí vynálezce",
+    "type": "Humanoid",
+    "size": "Malý",
+    "alignment": "zákonné zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Koboldi.md"
+  },
+  "kokatrice": {
+    "name": "Kokatrice",
+    "type": "Obluda",
+    "size": "Malý",
+    "alignment": "bez přesvědčení",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "kokatrice.md"
+  },
+  "kopcovy-obr": {
+    "name": "Kopcový obr",
+    "type": "Obr",
+    "size": "Obrovský",
+    "alignment": "chaotické zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "obri.md"
+  },
+  "kored": {
+    "name": "Kored",
+    "type": "Víl",
+    "size": "Malý",
+    "alignment": "chaoticky neutrální",
+    "cr": 7,
+    "crDisplay": "7",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Kored.md"
+  },
+  "kostej": {
+    "name": "Kostěj",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "jakékoliv zlé přesvědčení",
+    "cr": 21,
+    "crDisplay": "21",
+    "book": "bestiar",
+    "file": "kostej.md"
+  },
+  "kostena-naga": {
+    "name": "Kostěná nága",
+    "type": "Nemrtvý",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "nagy.md"
+  },
+  "kosteny-dabel": {
+    "name": "Kostěný ďábel",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "bestiar",
+    "file": "dablove.md"
+  },
+  "kostlivec": {
+    "name": "Kostlivec",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "kostlivci.md"
+  },
+  "kostlivec-valecneho-kone": {
+    "name": "Kostlivec válečného koně",
+    "type": "Nemrtvý",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "kostlivci.md"
+  },
+  "kourovy-mefit": {
+    "name": "Kouřový mefit",
+    "type": "Elementál",
+    "size": "Malý",
+    "alignment": "neutrální zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "mefiti.md"
+  },
+  "kouzelnicky-ucen": {
+    "name": "Kouzelnický učeň",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "kovatl": {
+    "name": "Kovatl",
+    "type": "Nebešťan",
+    "size": "Střední",
+    "alignment": "zákonné dobro",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "kovatl.md"
+  },
+  "kraken": {
+    "name": "Kraken",
+    "type": "Obluda",
+    "size": "Gigantický",
+    "alignment": "chaotické zlo",
+    "cr": 23,
+    "crDisplay": "23",
+    "book": "bestiar",
+    "file": "kraken.md"
+  },
+  "krakensky-knez": {
+    "name": "Krakenský kněz",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli zlé přesvědčení",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "kraniokrysa": {
+    "name": "Kraniokrysa",
+    "type": "Zvíře",
+    "size": "Drobný",
+    "alignment": "zákonné zlo",
+    "cr": 0,
+    "crDisplay": "0",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Kraniokrysy.md"
+  },
+  "krapnitec": {
+    "name": "Krápnitec",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "neutrální zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "krapnitec.md"
+  },
+  "krava": {
+    "name": "Kráva",
+    "type": "Zvíře",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-A.md"
+  },
+  "krvokap": {
+    "name": "Krvokáp",
+    "type": "Víl",
+    "size": "Malý",
+    "alignment": "chaotické zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Krvokap.md"
+  },
+  "krysodlak": {
+    "name": "Krysodlak",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "tvaroměnec), zákonné zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "lykantropove.md"
+  },
+  "kuo-toa": {
+    "name": "Kuo-toa",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "kuo-toove.md"
+  },
+  "kuo-toovsky-arciknez": {
+    "name": "Kuo-toovský arcikněz",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "bestiar",
+    "file": "kuo-toove.md"
+  },
+  "kuo-toovsky-praskac": {
+    "name": "Kuo-toovský práskač",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "kuo-toove.md"
+  },
+  "kvadron": {
+    "name": "Kvadron",
+    "type": "Výtvor",
+    "size": "Střední",
+    "alignment": "zákonně neutrální",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "modroni.md"
+  },
+  "kyjuv-zplozenec": {
+    "name": "Kyjův zplozenec",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Kyjuv-zplozenec.md"
+  },
+  "kyklop": {
+    "name": "Kyklop",
+    "type": "Obr",
+    "size": "Obrovský",
+    "alignment": "chaoticky neutrální",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "bestiar",
+    "file": "kyklop.md"
+  },
+  "lamie": {
+    "name": "Lamie",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "lamie.md"
+  },
+  "ledovy-dabel": {
+    "name": "Ledový ďábel",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 14,
+    "crDisplay": "14",
+    "book": "bestiar",
+    "file": "dablove.md"
+  },
+  "ledovy-mefit": {
+    "name": "Ledový mefit",
+    "type": "Elementál",
+    "size": "Malý",
+    "alignment": "neutrální zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "mefiti.md"
+  },
+  "lesni-kostal": {
+    "name": "Lesní košťál",
+    "type": "Rostlina",
+    "size": "Střední",
+    "alignment": "zákonně neutrální",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Lesni-kostal.md"
+  },
+  "letajici-mec": {
+    "name": "Létající meč",
+    "type": "Výtvor",
+    "size": "Malý",
+    "alignment": "bez přesvědčení",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "ozivle-predmety.md"
+  },
+  "leukrota": {
+    "name": "Leukróta",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 7,
+    "crDisplay": "7",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Leukrota.md"
+  },
+  "litice": {
+    "name": "Lítice",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "litice.md"
+  },
+  "lucistnik": {
+    "name": "Lučištník",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "magmar": {
+    "name": "Magmar",
+    "type": "Elementál",
+    "size": "Malý",
+    "alignment": "chaoticky neutrální",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "magmar.md"
+  },
+  "magmaticky-mefit": {
+    "name": "Magmatický mefit",
+    "type": "Elementál",
+    "size": "Malý",
+    "alignment": "neutrální zlo",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "mefiti.md"
+  },
+  "mantikora": {
+    "name": "Mantikora",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "mantikora.md"
+  },
+  "marid": {
+    "name": "Marid",
+    "type": "Elementál",
+    "size": "Velký",
+    "alignment": "chaoticky neutrální",
+    "cr": 11,
+    "crDisplay": "11",
+    "book": "bestiar",
+    "file": "geniove.md"
+  },
+  "marilita": {
+    "name": "Marilita",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 16,
+    "crDisplay": "16",
+    "book": "bestiar",
+    "file": "demoni.md"
+  },
+  "masny-golem": {
+    "name": "Masný golem",
+    "type": "Výtvor",
+    "size": "Střední",
+    "alignment": "neutrální",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "golemove.md"
+  },
+  "matoha": {
+    "name": "Mátoha",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 0,
+    "crDisplay": "0",
+    "book": "bestiar",
+    "file": "dablove.md"
+  },
+  "matucha": {
+    "name": "Matucha",
+    "type": "Víl",
+    "size": "Malý",
+    "alignment": "chaoticky neutrální",
+    "cr": 0.125,
+    "crDisplay": "1/8",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Matucha.md"
+  },
+  "medene-drace": {
+    "name": "Měděné dráče",
+    "type": "Drak",
+    "size": "Střední",
+    "alignment": "chaotické dobro",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "meduza": {
+    "name": "Medúza",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "bestiar",
+    "file": "meduza.md"
+  },
+  "medvedodlak": {
+    "name": "Medvědodlak",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "tvaroměnec), neutrální dobro",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "lykantropove.md"
+  },
+  "mentalni-svedek": {
+    "name": "Mentální svědek",
+    "type": "Zrůda",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Mentalni-svedek.md"
+  },
+  "mezzolot": {
+    "name": "Mezzolot",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "yugoloti.md"
+  },
+  "mimik": {
+    "name": "Mimik",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "neutrální",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "mimik.md"
+  },
+  "minlok": {
+    "name": "Minlok",
+    "type": "Víl",
+    "size": "Malý",
+    "alignment": "neutrální zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Minlok.md"
+  },
+  "minotaurus": {
+    "name": "Minotaurus",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "minotaurus.md"
+  },
+  "minotauri-kostlivec": {
+    "name": "Minotauří kostlivec",
+    "type": "Nemrtvý",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "kostlivci.md"
+  },
+  "mistrovsky-zlodej": {
+    "name": "Mistrovský zloděj",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "mlady-bily-drak": {
+    "name": "Mladý bílý drak",
+    "type": "Drak",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "mlady-bronzovy-drak": {
+    "name": "Mladý bronzový drak",
+    "type": "Drak",
+    "size": "Velký",
+    "alignment": "zákonné dobro",
+    "cr": 8,
+    "crDisplay": "8",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "mlady-cerny-drak": {
+    "name": "Mladý černý drak",
+    "type": "Drak",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 7,
+    "crDisplay": "7",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "mlady-medeny-drak": {
+    "name": "Mladý měděný drak",
+    "type": "Drak",
+    "size": "Velký",
+    "alignment": "chaotické dobro",
+    "cr": 7,
+    "crDisplay": "7",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "mlady-modry-drak": {
+    "name": "Mladý modrý drak",
+    "type": "Drak",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "mlady-mosazny-drak": {
+    "name": "Mladý mosazný drak",
+    "type": "Drak",
+    "size": "Velký",
+    "alignment": "chaotické dobro",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "mlady-remoraz": {
+    "name": "Mladý remoráz",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "remorazove.md"
+  },
+  "mlady-rudy-drak": {
+    "name": "Mladý rudý drak",
+    "type": "Drak",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 10,
+    "crDisplay": "10",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "mlady-rudy-stinovy-drak": {
+    "name": "Mladý rudý stínový drak",
+    "type": "Drak",
+    "size": "Velký",
+    "alignment": "chaoticky zlý",
+    "cr": 13,
+    "crDisplay": "13",
+    "book": "bestiar",
+    "file": "drak-stinovy.md"
+  },
+  "mlady-stribrny-drak": {
+    "name": "Mladý stříbrný drak",
+    "type": "Drak",
+    "size": "Velký",
+    "alignment": "zákonné dobro",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "mlady-zeleny-drak": {
+    "name": "Mladý zelený drak",
+    "type": "Drak",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 8,
+    "crDisplay": "8",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "mlady-zlaty-drak": {
+    "name": "Mladý zlatý drak",
+    "type": "Drak",
+    "size": "Velký",
+    "alignment": "zákonné dobro",
+    "cr": 10,
+    "crDisplay": "10",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "modre-drace": {
+    "name": "Modré dráče",
+    "type": "Drak",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "modry-slad": {
+    "name": "Modrý slád",
+    "type": "Zrůda",
+    "size": "Velký",
+    "alignment": "chaoticky neutrální",
+    "cr": 7,
+    "crDisplay": "7",
+    "book": "bestiar",
+    "file": "sladi.md"
+  },
+  "monodron": {
+    "name": "Monodron",
+    "type": "Výtvor",
+    "size": "Střední",
+    "alignment": "zákonně neutrální",
+    "cr": 0.125,
+    "crDisplay": "1/8",
+    "book": "bestiar",
+    "file": "modroni.md"
+  },
+  "morian": {
+    "name": "Morian",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "morian.md"
+  },
+  "morkot": {
+    "name": "Morkot",
+    "type": "Zrůda",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 11,
+    "crDisplay": "11",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Morkot.md"
+  },
+  "moran": {
+    "name": "Mořan",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální",
+    "cr": 0.125,
+    "crDisplay": "1/8",
+    "book": "bestiar",
+    "file": "moran.md"
+  },
+  "morska-jezibaba": {
+    "name": "Mořská ježibaba",
+    "type": "Víla",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "jezibaby.md"
+  },
+  "morsky-zplozenec": {
+    "name": "Mořský zplozenec",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Morsky-zplozenec.md"
+  },
+  "mosazne-drace": {
+    "name": "Mosazné dráče",
+    "type": "Drak",
+    "size": "Střední",
+    "alignment": "chaotické dobro",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "mozkozrout": {
+    "name": "Mozkožrout",
+    "type": "Zrůda",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 7,
+    "crDisplay": "7",
+    "book": "bestiar",
+    "file": "mozkozrout.md"
+  },
+  "mrazivy-obr": {
+    "name": "Mrazivý obr",
+    "type": "Obr",
+    "size": "Obrovský",
+    "alignment": "neutrální zlo",
+    "cr": 8,
+    "crDisplay": "8",
+    "book": "bestiar",
+    "file": "obri.md"
+  },
+  "mrazivy-obr-vecny": {
+    "name": "Mrazivý obr věčný",
+    "type": "Obr",
+    "size": "Obrovský",
+    "alignment": "chaotické zlo",
+    "cr": 12,
+    "crDisplay": "12",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Obri.md"
+  },
+  "mrchodravec": {
+    "name": "Mrchodravec",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "mrchodravec.md"
+  },
+  "mrtvolny-tyran": {
+    "name": "Mrtvolný tyran",
+    "type": "Zrůda",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 14,
+    "crDisplay": "14",
+    "book": "bestiar",
+    "file": "zrici.md"
+  },
+  "mstitel": {
+    "name": "Mstitel",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "neutrální",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "mstitel.md"
+  },
+  "mumie": {
+    "name": "Mumie",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "mumie.md"
+  },
+  "mykonidi-dospely": {
+    "name": "Mykonidí dospělý",
+    "type": "Rostlina",
+    "size": "Střední",
+    "alignment": "zákonně neutrální",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "mykonidi.md"
+  },
+  "mykonidi-mladik": {
+    "name": "Mykonidí mladík",
+    "type": "Rostlina",
+    "size": "Malý",
+    "alignment": "zákonně neutrální",
+    "cr": 0,
+    "crDisplay": "0",
+    "book": "bestiar",
+    "file": "mykonidi.md"
+  },
+  "mykonidi-panovnik": {
+    "name": "Mykonidí panovník",
+    "type": "Rostlina",
+    "size": "Velký",
+    "alignment": "zákonně neutrální",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "mykonidi.md"
+  },
+  "mystikolot": {
+    "name": "Mystikolot",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 12,
+    "crDisplay": "12",
+    "book": "bestiar",
+    "file": "yugoloti.md"
+  },
+  "nalfesny": {
+    "name": "Nalfešný",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 13,
+    "crDisplay": "13",
+    "book": "bestiar",
+    "file": "demoni.md"
+  },
+  "nekromant": {
+    "name": "Nekromant",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "neogi": {
+    "name": "Neogi",
+    "type": "Zrůda",
+    "size": "Malý",
+    "alignment": "zákonné zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Neogi.md"
+  },
+  "neogske-mlade": {
+    "name": "Neogské mládě",
+    "type": "Zrůda",
+    "size": "Drobný",
+    "alignment": "zákonné zlo",
+    "cr": 0.125,
+    "crDisplay": "1/8",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Neogi.md"
+  },
+  "neogsky-mistr": {
+    "name": "Neogský mistr",
+    "type": "Zrůda",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Neogi.md"
+  },
+  "neothelid": {
+    "name": "Neothelid",
+    "type": "Zrůda",
+    "size": "Gigantický",
+    "alignment": "chaotické zlo",
+    "cr": 13,
+    "crDisplay": "13",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Neothelid.md"
+  },
+  "neviditelny-stopar": {
+    "name": "Neviditelný stopař",
+    "type": "Elementál",
+    "size": "Střední",
+    "alignment": "neutrální",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "bestiar",
+    "file": "neviditelny-stopar.md"
+  },
+  "nilbog": {
+    "name": "Nilbog",
+    "type": "Humanoid",
+    "size": "Malý",
+    "alignment": "chaotické zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Nilbog.md"
+  },
+  "nocni-jezibaba": {
+    "name": "Noční ježibaba",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "jezibaby.md"
+  },
+  "nocni-mura": {
+    "name": "Noční můra",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "neutrální zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "nocni-mura.md"
+  },
+  "noh": {
+    "name": "Noh",
+    "type": "Obluda",
+    "size": "Gigantický",
+    "alignment": "bez přesvědčení",
+    "cr": 11,
+    "crDisplay": "11",
+    "book": "bestiar",
+    "file": "noh.md"
+  },
+  "notik": {
+    "name": "Notik",
+    "type": "Zrůda",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "notik.md"
+  },
+  "nykalot": {
+    "name": "Nykalot",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "neutrální zlo",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "bestiar",
+    "file": "yugoloti.md"
+  },
+  "oblacny-obr": {
+    "name": "Oblačný obr",
+    "type": "Obr",
+    "size": "Obrovský",
+    "alignment": "neutrální dobro (50%) či neutrální zlo (50%)",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "bestiar",
+    "file": "obri.md"
+  },
+  "oblacny-obr-usmivac": {
+    "name": "Oblačný obr usmívač",
+    "type": "Obr",
+    "size": "Obrovský",
+    "alignment": "chaoticky neutrální",
+    "cr": 11,
+    "crDisplay": "11",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Obri.md"
+  },
+  "obrneny-des": {
+    "name": "Obrněný děs",
+    "type": "Výtvor",
+    "size": "Střední",
+    "alignment": "neutrální",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "obrneny-des.md"
+  },
+  "obri-kracel": {
+    "name": "Obří kráčel",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "neutrální zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Ohnemloci.md"
+  },
+  "ocarovavac": {
+    "name": "Očarovávač",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "crDisplay": "",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "odporny-yetti": {
+    "name": "Odporný yetti",
+    "type": "Obluda",
+    "size": "Obrovský",
+    "alignment": "chaotické zlo",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "bestiar",
+    "file": "yettiove.md"
+  },
+  "ohavny-yuan-ti": {
+    "name": "Ohavný yuan-ti",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "yuan-ti), neutrální zlo",
+    "cr": 7,
+    "crDisplay": "7",
+    "book": "bestiar",
+    "file": "yuan-tiove.md"
+  },
+  "ohnemloci-imixuv-cernokneznik": {
+    "name": "Ohněmločí Imixův černokněžník",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Ohnemloci.md"
+  },
+  "ohnemloci-valecnik": {
+    "name": "Ohněmločí válečník",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Ohnemloci.md"
+  },
+  "ohniva-lebka": {
+    "name": "Ohnivá lebka",
+    "type": "Nemrtvý",
+    "size": "Drobný",
+    "alignment": "neutrální zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "ohniva-lebka.md"
+  },
+  "ohnivy-elemental": {
+    "name": "Ohnivý elementál",
+    "type": "Elementál",
+    "size": "Velký",
+    "alignment": "neutrální",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "elementalove.md"
+  },
+  "ohnivy-had": {
+    "name": "Ohnivý had",
+    "type": "Elementál",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "salamandri.md"
+  },
+  "ohnivy-obr": {
+    "name": "Ohnivý obr",
+    "type": "Obr",
+    "size": "Obrovský",
+    "alignment": "zákonné zlo",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "bestiar",
+    "file": "obri.md"
+  },
+  "ohnivy-obr-desotepec": {
+    "name": "Ohnivý obr děsotepec",
+    "type": "Obr",
+    "size": "Obrovský",
+    "alignment": "zákonně zlý",
+    "cr": 14,
+    "crDisplay": "14",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Obri.md"
+  },
+  "okrovy-rosol": {
+    "name": "Okrový rosol",
+    "type": "Sliz",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "slizy.md"
+  },
+  "okridleny-kobold": {
+    "name": "Okřídlený kobold",
+    "type": "Humanoid",
+    "size": "Malý",
+    "alignment": "zákonné zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "koboldi.md"
+  },
+  "on": {
+    "name": "Ón",
+    "type": "Obr",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 7,
+    "crDisplay": "7",
+    "book": "bestiar",
+    "file": "on.md"
+  },
+  "orci-grumsovo-oko": {
+    "name": "Orčí Grúmšovo oko",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "orkove.md"
+  },
+  "orci-ilnevalova-cepel": {
+    "name": "Orčí Ilnevalova čepel",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Orci.md"
+  },
+  "orci-jurtusova-ruka": {
+    "name": "Orčí Jurtušova ruka",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Orci.md"
+  },
+  "orci-jurtusuv-vyzivovac": {
+    "name": "Orčí Jurtušův vyživovač",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Orci.md"
+  },
+  "orci-lutycin-drap": {
+    "name": "Orčí Lutyčin dráp",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Orci.md"
+  },
+  "orci-nacelnik": {
+    "name": "Orčí náčelník",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "orkove.md"
+  },
+  "orci-sagrazuv-rudy-tesak": {
+    "name": "Orčí Šagrázův Rudý tesák",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Orci.md"
+  },
+  "ork": {
+    "name": "Ork",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "orkove.md"
+  },
+  "orog": {
+    "name": "Orog",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "orkove.md"
+  },
+  "ostnaty-dabel": {
+    "name": "Ostnatý ďábel",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "dablove.md"
+  },
+  "otyugh": {
+    "name": "Otyugh",
+    "type": "Zrůda",
+    "size": "Velký",
+    "alignment": "neutrální",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "otyugh.md"
+  },
+  "ozivla-zbroj": {
+    "name": "Oživlá zbroj",
+    "type": "Výtvor",
+    "size": "Střední",
+    "alignment": "bez přesvědčení",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "ozivle-predmety.md"
+  },
+  "parni-mefit": {
+    "name": "Parní mefit",
+    "type": "Elementál",
+    "size": "Malý",
+    "alignment": "neutrální zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "mefiti.md"
+  },
+  "pastivec": {
+    "name": "Pastivec",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Pastivec.md"
+  },
+  "pavoucnatec": {
+    "name": "Pavoučnatec",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "pavoucnatec.md"
+  },
+  "pegas": {
+    "name": "Pegas",
+    "type": "Nebešťan",
+    "size": "Velký",
+    "alignment": "chaotické dobro",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "pegas.md"
+  },
+  "pekelny-ohar": {
+    "name": "Pekelný ohař",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "pekelny-ohar.md"
+  },
+  "pentadron": {
+    "name": "Pentadron",
+    "type": "Výtvor",
+    "size": "Střední",
+    "alignment": "zákonně neutrální",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "modroni.md"
+  },
+  "peryton": {
+    "name": "Peryton",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "peryton.md"
+  },
+  "planetar": {
+    "name": "Planetár",
+    "type": "Nebešťan",
+    "size": "Velký",
+    "alignment": "zákonné dobro",
+    "cr": 16,
+    "crDisplay": "16",
+    "book": "bestiar",
+    "file": "andele.md"
+  },
+  "plastnik": {
+    "name": "Pláštník",
+    "type": "Zrůda",
+    "size": "Velký",
+    "alignment": "chaoticky neutrální",
+    "cr": 8,
+    "crDisplay": "8",
+    "book": "bestiar",
+    "file": "plastnik.md"
+  },
+  "plazivy-parat": {
+    "name": "Plazivý pařát",
+    "type": "Nemrtvý",
+    "size": "Drobný",
+    "alignment": "neutrální zlo",
+    "cr": 0,
+    "crDisplay": "0",
+    "book": "bestiar",
+    "file": "plazivy-parat.md"
+  },
+  "plesiosaurus": {
+    "name": "Plesiosaurus",
+    "type": "Zvíře",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "dinosauri.md"
+  },
+  "poletucha": {
+    "name": "Poletucha",
+    "type": "Víla",
+    "size": "Drobný",
+    "alignment": "neutrální dobro",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "poletucha.md"
+  },
+  "polokostej": {
+    "name": "Polokostěj",
+    "type": "Nemrtvý",
+    "size": "Drobný",
+    "alignment": "neutrální zlo",
+    "cr": 18,
+    "crDisplay": "18",
+    "book": "bestiar",
+    "file": "polokostej.md"
+  },
+  "polozlobr": {
+    "name": "Polozlobr",
+    "type": "Obr",
+    "size": "Velký",
+    "alignment": "jakékoli chaotické přesvědčení",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "zlobri.md"
+  },
+  "pozirac": {
+    "name": "Požírač",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 13,
+    "crDisplay": "13",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Pozirac.md"
+  },
+  "prastary-bily-drak": {
+    "name": "Prastarý bílý drak",
+    "type": "Drak",
+    "size": "Gigantický",
+    "alignment": "chaotické zlo",
+    "cr": 20,
+    "crDisplay": "20",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "prastary-bronzovy-drak": {
+    "name": "Prastarý bronzový drak",
+    "type": "Drak",
+    "size": "Gigantický",
+    "alignment": "zákonné dobro",
+    "cr": 22,
+    "crDisplay": "22",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "prastary-cerny-drak": {
+    "name": "Prastarý černý drak",
+    "type": "Drak",
+    "size": "Gigantický",
+    "alignment": "chaotické zlo",
+    "cr": 21,
+    "crDisplay": "21",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "prastary-medeny-drak": {
+    "name": "Prastarý měděný drak",
+    "type": "Drak",
+    "size": "Gigantický",
+    "alignment": "chaotické dobro",
+    "cr": 21,
+    "crDisplay": "21",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "prastary-modry-drak": {
+    "name": "Prastarý modrý drak",
+    "type": "Drak",
+    "size": "Gigantický",
+    "alignment": "zákonné zlo",
+    "cr": 23,
+    "crDisplay": "23",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "prastary-mosazny-drak": {
+    "name": "Prastarý mosazný drak",
+    "type": "Drak",
+    "size": "Gigantický",
+    "alignment": "chaotické dobro",
+    "cr": 20,
+    "crDisplay": "20",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "prastary-rudy-drak": {
+    "name": "Prastarý rudý drak",
+    "type": "Drak",
+    "size": "Gigantický",
+    "alignment": "chaotické zlo",
+    "cr": 24,
+    "crDisplay": "24",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "prastary-stribrny-drak": {
+    "name": "Prastarý stříbrný drak",
+    "type": "Drak",
+    "size": "Gigantický",
+    "alignment": "zákonné dobro",
+    "cr": 23,
+    "crDisplay": "23",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "prastary-zeleny-drak": {
+    "name": "Prastarý zelený drak",
+    "type": "Drak",
+    "size": "Gigantický",
+    "alignment": "zákonné zlo",
+    "cr": 22,
+    "crDisplay": "22",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "prastary-zlaty-drak": {
+    "name": "Prastarý zlatý drak",
+    "type": "Drak",
+    "size": "Gigantický",
+    "alignment": "zákonné dobro",
+    "cr": 24,
+    "crDisplay": "24",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "prasny-mefit": {
+    "name": "Prašný mefit",
+    "type": "Elementál",
+    "size": "Malý",
+    "alignment": "neutrální zlo",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "mefiti.md"
+  },
+  "prchlik": {
+    "name": "Prchlík",
+    "type": "Víl",
+    "size": "Drobný",
+    "alignment": "chaotické zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Prchlik.md"
+  },
+  "proklaty-yuan-ti": {
+    "name": "Proklatý yuan-ti",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "yuan-ti), neutrální zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "yuan-tiove.md"
+  },
+  "proklety-ohar": {
+    "name": "Prokletý ohař",
+    "type": "Víl",
+    "size": "Velký",
+    "alignment": "neutrální zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Proklety-ohar.md"
+  },
+  "promenar": {
+    "name": "Proměnář",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "prizracna-naga": {
+    "name": "Přízračná nága",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 8,
+    "crDisplay": "8",
+    "book": "bestiar",
+    "file": "nagy.md"
+  },
+  "prizrak": {
+    "name": "Přízrak",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "prizrak.md"
+  },
+  "pseudodrak": {
+    "name": "Pseudodrak",
+    "type": "Drak",
+    "size": "Drobný",
+    "alignment": "neutrální dobro",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "pseudodrak.md"
+  },
+  "pteranodon": {
+    "name": "Pteranodon",
+    "type": "Zvíře",
+    "size": "Střední",
+    "alignment": "bez přesvědčení",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "dinosauri.md"
+  },
+  "purpurovy-cerv": {
+    "name": "Purpurový červ",
+    "type": "Obluda",
+    "size": "Gigantický",
+    "alignment": "bez přesvědčení",
+    "cr": 15,
+    "crDisplay": "15",
+    "book": "bestiar",
+    "file": "purpurovy-cerv.md"
+  },
+  "quagot": {
+    "name": "Quagot",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaoticky neutrální",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "quagot.md"
+  },
+  "quagoti-sporovy-sluzebnik": {
+    "name": "Quagotí sporový služebník",
+    "type": "Rostlina",
+    "size": "Střední",
+    "alignment": "bez přesvědčení",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "mykonidi.md"
+  },
+  "quetzalcoatlus": {
+    "name": "Quetzalcoatlus",
+    "type": "Zvíře",
+    "size": "Obrovský",
+    "alignment": "bez přesvědčení",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dinosauri.md"
+  },
+  "raksaza": {
+    "name": "Rakšáza",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 13,
+    "crDisplay": "13",
+    "book": "bestiar",
+    "file": "raksaza.md"
+  },
+  "rarach": {
+    "name": "Rarach",
+    "type": "Běs",
+    "size": "Drobný",
+    "alignment": "tvaroměnec), chaotické zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "demoni.md"
+  },
+  "remoraz": {
+    "name": "Remoráz",
+    "type": "Obluda",
+    "size": "Obrovský",
+    "alignment": "bez přesvědčení",
+    "cr": 11,
+    "crDisplay": "11",
+    "book": "bestiar",
+    "file": "remorazove.md"
+  },
+  "revova-snet": {
+    "name": "Révová sněť",
+    "type": "Rostlina",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "sneti.md"
+  },
+  "rohaty-dabel": {
+    "name": "Rohatý ďábel",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 11,
+    "crDisplay": "11",
+    "book": "bestiar",
+    "file": "dablove.md"
+  },
+  "ropusak": {
+    "name": "Ropušák",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "ropusak.md"
+  },
+  "rosolova-krychle": {
+    "name": "Rosolová krychle",
+    "type": "Sliz",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "slizy.md"
+  },
+  "rozumhlt": {
+    "name": "Rozumhlt",
+    "type": "Zrůda",
+    "size": "Drobný",
+    "alignment": "zákonné zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "rozumhlt.md"
+  },
+  "rude-drace": {
+    "name": "Rudé dráče",
+    "type": "Drak",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "rudy-polodraci-veteran": {
+    "name": "Rudý polodračí veterán",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "polodrak.md"
+  },
+  "rudy-slad": {
+    "name": "Rudý slád",
+    "type": "Zrůda",
+    "size": "Velký",
+    "alignment": "chaoticky neutrální",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "sladi.md"
+  },
+  "rytir-smrti": {
+    "name": "Rytíř smrti",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 17,
+    "crDisplay": "17",
+    "book": "bestiar",
+    "file": "rytir-smrti.md"
+  },
+  "rzivy-netvor": {
+    "name": "Rzivý netvor",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "bez přesvědčení",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "rzivy-netvor.md"
+  },
+  "remdisnek": {
+    "name": "Řemdišnek",
+    "type": "Elementál",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Remdisnek.md"
+  },
+  "retezovy-dabel": {
+    "name": "Řetězový ďábel",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 8,
+    "crDisplay": "8",
+    "book": "bestiar",
+    "file": "dablove.md"
+  },
+  "sahuagin": {
+    "name": "Sahuagin",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "sahuagini.md"
+  },
+  "sahuaginska-knezka": {
+    "name": "Sahuaginská kněžka",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "sahuagini.md"
+  },
+  "sahuaginsky-baron": {
+    "name": "Sahuaginský baron",
+    "type": "Humanoid",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "sahuagini.md"
+  },
+  "salamandr": {
+    "name": "Salamandr",
+    "type": "Elementál",
+    "size": "Velký",
+    "alignment": "neutrální zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "salamandri.md"
+  },
+  "satyr": {
+    "name": "Satyr",
+    "type": "Víla",
+    "size": "Střední",
+    "alignment": "neutrální",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "satyr.md"
+  },
+  "skurut": {
+    "name": "Skurut",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "skuruti.md"
+  },
+  "skuruti-kapitan": {
+    "name": "Skurutí kapitán",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "skuruti.md"
+  },
+  "skuruti-pustositel": {
+    "name": "Skurutí pustošitel",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Skuruti.md"
+  },
+  "skuruti-vojvoda": {
+    "name": "Skurutí vojvoda",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "bestiar",
+    "file": "skuruti.md"
+  },
+  "skuruti-zelezny-stin": {
+    "name": "Skurutí Železný stín",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Skuruti.md"
+  },
+  "sladovy-pulec": {
+    "name": "Sládový pulec",
+    "type": "Zrůda",
+    "size": "Drobný",
+    "alignment": "chaoticky neutrální",
+    "cr": 0.125,
+    "crDisplay": "1/8",
+    "book": "bestiar",
+    "file": "sladi.md"
+  },
+  "smrtici-polibek": {
+    "name": "Smrtící polibek",
+    "type": "Zrůda",
+    "size": "Velký",
+    "alignment": "neutrální zlo",
+    "cr": 10,
+    "crDisplay": "10",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Zrici.md"
+  },
+  "smrtici-slad": {
+    "name": "Smrtící slád",
+    "type": "Zrůda",
+    "size": "Střední",
+    "alignment": "chaoticky zlý",
+    "cr": 10,
+    "crDisplay": "10",
+    "book": "bestiar",
+    "file": "sladi.md"
+  },
+  "smrtihlav": {
+    "name": "Smrtihlav",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli nedobré přesvědčení",
+    "cr": 8,
+    "crDisplay": "8",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "solar": {
+    "name": "Solár",
+    "type": "Nebešťan",
+    "size": "Velký",
+    "alignment": "zákonné dobro",
+    "cr": 21,
+    "crDisplay": "21",
+    "book": "bestiar",
+    "file": "andele.md"
+  },
+  "sovodved": {
+    "name": "Sovodvěd",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "sovodved.md"
+  },
+  "spektra": {
+    "name": "Spektra",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "spektra.md"
+  },
+  "stal": {
+    "name": "Stal",
+    "type": "Běs",
+    "size": "Malý",
+    "alignment": "chaotické zlo",
+    "cr": 0.125,
+    "crDisplay": "1/8",
+    "book": "bestiar",
+    "file": "demoni.md"
+  },
+  "stary-mozek": {
+    "name": "Starý mozek",
+    "type": "Zrůda",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 14,
+    "crDisplay": "14",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Mozkozrouti.md"
+  },
+  "stegosaurus": {
+    "name": "Stegosaurus",
+    "type": "Zvíře",
+    "size": "Obrovský",
+    "alignment": "bez přesvědčení",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dinosauri.md"
+  },
+  "stin": {
+    "name": "Stín",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "stin.md"
+  },
+  "stinovy-demon": {
+    "name": "Stínový démon",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "demoni.md"
+  },
+  "stinovy-mastif": {
+    "name": "Stínový mastif",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Stinovy-mastif.md"
+  },
+  "strasak": {
+    "name": "Strašák",
+    "type": "Výtvor",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "strasak.md"
+  },
+  "strazna-naga": {
+    "name": "Strážná nága",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "zákonné dobro",
+    "cr": 10,
+    "crDisplay": "10",
+    "book": "bestiar",
+    "file": "nagy.md"
+  },
+  "strazny-jester": {
+    "name": "Strážný ještěr",
+    "type": "Drak",
+    "size": "Střední",
+    "alignment": "bez přesvědčení",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Strazny-jester.md"
+  },
+  "striga": {
+    "name": "Striga",
+    "type": "Zvíře",
+    "size": "Drobný",
+    "alignment": "bez přesvědčení",
+    "cr": 0.125,
+    "crDisplay": "1/8",
+    "book": "bestiar",
+    "file": "striga.md"
+  },
+  "stribrne-drace": {
+    "name": "Stříbrné dráče",
+    "type": "Drak",
+    "size": "Střední",
+    "alignment": "zákonné dobro",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "sukuba-nebo-inkubus": {
+    "name": "Sukuba nebo inkubus",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "sukuba-nebo-inkubus.md"
+  },
+  "sakalodlak": {
+    "name": "Šakalodlak",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "sakalodlak.md"
+  },
+  "sampion": {
+    "name": "Šampion",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "sedy-slad": {
+    "name": "Šedý slád",
+    "type": "Zrůda",
+    "size": "Střední",
+    "alignment": "chaoticky neutrální",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "bestiar",
+    "file": "sladi.md"
+  },
+  "sedy-sliz": {
+    "name": "Šedý sliz",
+    "type": "Sliz",
+    "size": "Střední",
+    "alignment": "bez přesvědčení",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "slizy.md"
+  },
+  "sejtan": {
+    "name": "Šejtán",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 20,
+    "crDisplay": "20",
+    "book": "bestiar",
+    "file": "dablove.md"
+  },
+  "stitovy-strazce": {
+    "name": "Štítový strážce",
+    "type": "Výtvor",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 7,
+    "crDisplay": "7",
+    "book": "bestiar",
+    "file": "stitovy-strazce.md"
+  },
+  "susuva": {
+    "name": "Šúsuva",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 8,
+    "crDisplay": "8",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Demoni.md"
+  },
+  "svihak": {
+    "name": "Švihák",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli nezákonné přesvědčení",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "tanaruk": {
+    "name": "Tanaruk",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "ork), chaotické zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Orci.md"
+  },
+  "tarask": {
+    "name": "Tarask",
+    "type": "Obluda",
+    "size": "Gigantický",
+    "alignment": "bez přesvědčení",
+    "cr": 30,
+    "crDisplay": "30",
+    "book": "bestiar",
+    "file": "tarask.md"
+  },
+  "temnik": {
+    "name": "Temník",
+    "type": "Víl",
+    "size": "Malý",
+    "alignment": "chaoticky neutrální",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Temnici.md"
+  },
+  "temnik-staresina": {
+    "name": "Temník stařešina",
+    "type": "Víl",
+    "size": "Střední",
+    "alignment": "chaoticky neutrální",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Temnici.md"
+  },
+  "temnoplast": {
+    "name": "Temnoplášť",
+    "type": "Obluda",
+    "size": "Malý",
+    "alignment": "bez přesvědčení",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "temnoplast.md"
+  },
+  "thri-kreen": {
+    "name": "Thri-kreen",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaoticky neutrální",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "bestiar",
+    "file": "thri-kreen.md"
+  },
+  "tlejici-valivec": {
+    "name": "Tlející valivec",
+    "type": "Rostlina",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "tlejici-valivec.md"
+  },
+  "tlinkal": {
+    "name": "Tlinkal",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "neutrální zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Tlinkal.md"
+  },
+  "triceratops": {
+    "name": "Triceratops",
+    "type": "Zvíře",
+    "size": "Obrovský",
+    "alignment": "bez přesvědčení",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "dinosauri.md"
+  },
+  "tridron": {
+    "name": "Tridron",
+    "type": "Výtvor",
+    "size": "Střední",
+    "alignment": "zákonně neutrální",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "modroni.md"
+  },
+  "trnitec": {
+    "name": "Trnitec",
+    "type": "Rostlina",
+    "size": "Střední",
+    "alignment": "neutrální",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Vegepygmejove.md"
+  },
+  "trnity-dabel": {
+    "name": "Trnitý ďábel",
+    "type": "Běs",
+    "size": "Malý",
+    "alignment": "zákonné zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "dablove.md"
+  },
+  "troglodyt": {
+    "name": "Troglodyt",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "troglodyt.md"
+  },
+  "troll": {
+    "name": "Troll",
+    "type": "Obr",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "troll.md"
+  },
+  "tygrodlak": {
+    "name": "Tygrodlak",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "tvaroměnec), neutrální",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "bestiar",
+    "file": "lykantropove.md"
+  },
+  "tyranosaurus-rex": {
+    "name": "Tyranosaurus Rex",
+    "type": "Zvíře",
+    "size": "Obrovský",
+    "alignment": "bez přesvědčení",
+    "cr": 8,
+    "crDisplay": "8",
+    "book": "bestiar",
+    "file": "dinosauri.md"
+  },
+  "ulitharid": {
+    "name": "Ulitharid",
+    "type": "Zrůda",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Mozkozrouti.md"
+  },
+  "ultrolot": {
+    "name": "Ultrolot",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 13,
+    "crDisplay": "13",
+    "book": "bestiar",
+    "file": "yugoloti.md"
+  },
+  "upir": {
+    "name": "Upír",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 13,
+    "crDisplay": "13",
+    "book": "bestiar",
+    "file": "upiri.md"
+  },
+  "upiri-zplozenec": {
+    "name": "Upíří zplozenec",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "upiri.md"
+  },
+  "usta-grolantorova": {
+    "name": "Ústa Grolantorova",
+    "type": "Obr",
+    "size": "Obrovský",
+    "alignment": "chaotické zlo",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Obri.md"
+  },
+  "valecny-knez": {
+    "name": "Válečný kněz",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "varguj": {
+    "name": "Varguj",
+    "type": "Běs",
+    "size": "Drobný",
+    "alignment": "chaotické zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Varguj.md"
+  },
+  "vegepygmej": {
+    "name": "Vegepygmej",
+    "type": "Rostlina",
+    "size": "Malý",
+    "alignment": "neutrální",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Vegepygmejove.md"
+  },
+  "vegepygmejsky-nacelnik": {
+    "name": "Vegepygmejský náčelník",
+    "type": "Rostlina",
+    "size": "Malý",
+    "alignment": "neutrální",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Vegepygmejove.md"
+  },
+  "velociraptor": {
+    "name": "Velociraptor",
+    "type": "Zvíře",
+    "size": "Drobný",
+    "alignment": "bez přesvědčení",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dinosauri.md"
+  },
+  "vestec": {
+    "name": "Věštec",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 8,
+    "crDisplay": "8",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "vetevni-snet": {
+    "name": "Větevní sněť",
+    "type": "Rostlina",
+    "size": "Malý",
+    "alignment": "neutrální zlo",
+    "cr": 0.125,
+    "crDisplay": "1/8",
+    "book": "bestiar",
+    "file": "sneti.md"
+  },
+  "vili-dracek": {
+    "name": "Vílí dráček",
+    "type": "Drak",
+    "size": "Drobný",
+    "alignment": "chaotické dobro",
+    "cr": 1,
+    "crDisplay": "1 pro zeleného, modrého, indigového či fialového vílího dráčka",
+    "book": "bestiar",
+    "file": "vili-dracek.md"
+  },
+  "vlkodlak": {
+    "name": "Vlkodlak",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "tvaroměnec), chaotické zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "lykantropove.md"
+  },
+  "vodni-div": {
+    "name": "Vodní div",
+    "type": "Elementál",
+    "size": "Velký",
+    "alignment": "neutrální",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "vodni-div.md"
+  },
+  "vodni-elemental": {
+    "name": "Vodní elementál",
+    "type": "Elementál",
+    "size": "Velký",
+    "alignment": "neutrální",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "elementalove.md"
+  },
+  "vojvoda": {
+    "name": "Vojvoda",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 12,
+    "crDisplay": "12",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "vousaty-dabel": {
+    "name": "Vousatý ďábel",
+    "type": "Běs",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "dablove.md"
+  },
+  "vrok": {
+    "name": "Vrok",
+    "type": "Běs",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "bestiar",
+    "file": "demoni.md"
+  },
+  "vresk": {
+    "name": "Vřesk",
+    "type": "Rostlina",
+    "size": "Střední",
+    "alignment": "bez přesvědčení",
+    "cr": 0,
+    "crDisplay": "0",
+    "book": "bestiar",
+    "file": "houby.md"
+  },
+  "vudce-gnoli-smecky": {
+    "name": "Vůdce gnolí smečky",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "chaotické zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "gnolove.md"
+  },
+  "vymitac": {
+    "name": "Vymítač",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "vytrusnice": {
+    "name": "Výtrusnice",
+    "type": "Rostlina",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 0.5,
+    "crDisplay": "1/2",
+    "book": "bestiar",
+    "file": "houby.md"
+  },
+  "vyverna": {
+    "name": "Vyverna",
+    "type": "Drak",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "bestiar",
+    "file": "vyverna.md"
+  },
+  "vyvolavac": {
+    "name": "Vyvolávač",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 6,
+    "crDisplay": "6",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "vzdusny-elemental": {
+    "name": "Vzdušný elementál",
+    "type": "Elementál",
+    "size": "Velký",
+    "alignment": "neutrální",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "elementalove.md"
+  },
+  "vznesena-mumie": {
+    "name": "Vznešená mumie",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 15,
+    "crDisplay": "15",
+    "book": "bestiar",
+    "file": "mumie.md"
+  },
+  "xorn": {
+    "name": "Xorn",
+    "type": "Elementál",
+    "size": "Střední",
+    "alignment": "neutrální",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "xorn.md"
+  },
+  "xvart": {
+    "name": "Xvart",
+    "type": "Humanoid",
+    "size": "Malý",
+    "alignment": "chaotické zlo",
+    "cr": 0.125,
+    "crDisplay": "1/8",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Xvarti.md"
+  },
+  "xvarti-raxivortuv-cernokneznik": {
+    "name": "Xvartí Raxivortův černokněžník",
+    "type": "Humanoid",
+    "size": "Malý",
+    "alignment": "chaotické zlo",
+    "cr": 1,
+    "crDisplay": "1",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Xvarti.md"
+  },
+  "yetti": {
+    "name": "Yetti",
+    "type": "Obluda",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "yettiove.md"
+  },
+  "yuan-tska-mluvci-nocni-mury": {
+    "name": "Yuan-tská mluvčí noční můry",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "yuan-tijka), neutrální zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Yuan-tiove.md"
+  },
+  "yuan-tsky-naseptavac-mysli": {
+    "name": "Yuan-tský našeptávač mysli",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "yuan-ti), neutrální zlo",
+    "cr": 4,
+    "crDisplay": "4",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Yuan-tiove.md"
+  },
+  "yuan-tsky-pan-jam": {
+    "name": "Yuan-tský pán jam",
+    "type": "Obluda",
+    "size": "Střední",
+    "alignment": "yuan-ti), neutrální zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Yuan-tiove.md"
+  },
+  "yuan-tsky-strazce-potomstva": {
+    "name": "Yuan-tský strážce potomstva",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Yuan-tiove.md"
+  },
+  "zaklinac": {
+    "name": "Zaklínač",
+    "type": "Humanoid",
+    "size": "Střední",
+    "alignment": "jakékoli přesvědčení",
+    "cr": 9,
+    "crDisplay": "9",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-B.md"
+  },
+  "zatraceny-yuan-ti": {
+    "name": "Zatracený yuan-ti",
+    "type": "Obluda",
+    "size": "Obrovský",
+    "alignment": "yuan-ti), neutrální zlo",
+    "cr": 12,
+    "crDisplay": "12",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Yuan-tiove.md"
+  },
+  "zelena-jezibaba": {
+    "name": "Zelená ježibaba",
+    "type": "Víla",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "jezibaby.md"
+  },
+  "zelene-drace": {
+    "name": "Zelené dráče",
+    "type": "Drak",
+    "size": "Střední",
+    "alignment": "zákonné zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "zeleny-slad": {
+    "name": "Zelený slád",
+    "type": "Zrůda",
+    "size": "Velký",
+    "alignment": "chaoticky neutrální",
+    "cr": 8,
+    "crDisplay": "8",
+    "book": "bestiar",
+    "file": "sladi.md"
+  },
+  "zemni-elemental": {
+    "name": "Zemní elementál",
+    "type": "Elementál",
+    "size": "Velký",
+    "alignment": "neutrální",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "elementalove.md"
+  },
+  "zlate-drace": {
+    "name": "Zlaté dráče",
+    "type": "Drak",
+    "size": "Střední",
+    "alignment": "zákonné dobro",
+    "cr": 3,
+    "crDisplay": "3",
+    "book": "bestiar",
+    "file": "draci.md"
+  },
+  "zlobr": {
+    "name": "Zlobr",
+    "type": "Obr",
+    "size": "Velký",
+    "alignment": "chaotické zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "zlobri.md"
+  },
+  "zlobri-zombie": {
+    "name": "Zlobří zombie",
+    "type": "Nemrtvý",
+    "size": "Velký",
+    "alignment": "neutrální zlo",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "bestiar",
+    "file": "zombie.md"
+  },
+  "zombie": {
+    "name": "Zombie",
+    "type": "Nemrtvý",
+    "size": "Střední",
+    "alignment": "neutrální zlo",
+    "cr": 0.25,
+    "crDisplay": "1/4",
+    "book": "bestiar",
+    "file": "zombie.md"
+  },
+  "zrici": {
+    "name": "Zřící",
+    "type": "Zrůda",
+    "size": "Velký",
+    "alignment": "zákonné zlo",
+    "cr": 13,
+    "crDisplay": "13",
+    "book": "bestiar",
+    "file": "zrici.md"
+  },
+  "zrici-zombie": {
+    "name": "Zřící zombie",
+    "type": "Nemrtvý",
+    "size": "Velký",
+    "alignment": "neutrální zlo",
+    "cr": 5,
+    "crDisplay": "5",
+    "book": "bestiar",
+    "file": "zombie.md"
+  },
+  "zubr": {
+    "name": "Zubr",
+    "type": "Zvíře",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 2,
+    "crDisplay": "2",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Dodatek-A.md"
+  },
+  "zabomot": {
+    "name": "Žabomot",
+    "type": "Obluda",
+    "size": "Obrovský",
+    "alignment": "bez přesvědčení",
+    "cr": 10,
+    "crDisplay": "10",
+    "book": "voluv-pruvodce-netvory",
+    "file": "Zabomot.md"
+  },
+  "zelezny-golem": {
+    "name": "Železný golem",
+    "type": "Výtvor",
+    "size": "Velký",
+    "alignment": "bez přesvědčení",
+    "cr": 16,
+    "crDisplay": "16",
+    "book": "bestiar",
+    "file": "golemove.md"
+  }
+}

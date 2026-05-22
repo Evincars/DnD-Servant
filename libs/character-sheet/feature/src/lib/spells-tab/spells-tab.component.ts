@@ -186,7 +186,6 @@ interface SpellItem {
       cursor: pointer;
       transition: background .15s, color .15s;
       white-space: nowrap;
-      mat-icon { font-size: 13px; width: 13px; height: 13px; }
       &:hover { background: rgba(200,160,60,.07); color: rgba(200,160,60,.75); }
       &.active {
         background: rgba(200,160,60,.14);
@@ -301,11 +300,11 @@ interface SpellItem {
         <div class="sort-toggle" role="group" aria-label="Řazení">
           <button class="sort-toggle-btn" [class.active]="sortMode() === 'school'" type="button"
             (click)="sortMode.set('school')" matTooltip="Řadit podle školy magie">
-            <mat-icon>auto_awesome</mat-icon>Škola
+            Škola
           </button>
           <button class="sort-toggle-btn" [class.active]="sortMode() === 'level'" type="button"
             (click)="sortMode.set('level')" matTooltip="Řadit podle úrovně kouzla">
-            <mat-icon>filter_list</mat-icon>Úroveň
+            Úroveň
           </button>
         </div>
       </div>

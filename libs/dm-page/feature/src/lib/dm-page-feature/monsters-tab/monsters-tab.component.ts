@@ -1,0 +1,374 @@
+import {
+  afterRenderEffect,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  input,
+  signal,
+  viewChild,
+} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { JadMonster, JadMonstersService } from './jad-monsters.service';
+import {
+  MonsterDetailDialogComponent,
+  MonsterDetailDialogData,
+} from './monster-detail-dialog.component';
+
+// ── Fuzzy-search helpers (same pattern as spells-tab) ──────────────────────
+
+function posNorm(s: string): string {
+  return s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+}
+
+function fuzzySubsequence(query: string, text: string): number[] | null {
+  const indices: number[] = [];
+  let ti = 0;
+  for (let qi = 0; qi < query.length; qi++) {
+    const ch = query[qi];
+    while (ti < text.length && text[ti] !== ch) ti++;
+    if (ti >= text.length) return null;
+    indices.push(ti);
+    ti++;
+  }
+  return indices;
+}
+
+function escHtml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function buildHighlightHtml(original: string, indices: number[]): string {
+  const matchSet = new Set(indices);
+  const parts: string[] = [];
+  let inSpan = false;
+  for (let i = 0; i < original.length; i++) {
+    const ch = escHtml(original[i]);
+    if (matchSet.has(i)) {
+      if (!inSpan) { parts.push('<span class="hl">'); inSpan = true; }
+      parts.push(ch);
+    } else {
+      if (inSpan) { parts.push('</span>'); inSpan = false; }
+      parts.push(ch);
+    }
+  }
+  if (inSpan) parts.push('</span>');
+  return parts.join('');
+}
+
+interface MonsterItem {
+  monster: JadMonster;
+  highlightedName: string;
+}
+
+// ── CR display helpers ─────────────────────────────────────────────────────
+
+const CR_ORDER: Record<string, number> = {
+  '0': 0, '1/8': 0.125, '1/4': 0.25, '1/2': 0.5,
+};
+
+function crSortKey(cr: number | undefined): number {
+  return cr ?? 999;
+}
+
+/** Label used when grouping by CR. */
+function crGroupLabel(cr: number | undefined): string {
+  if (cr === undefined) return 'Ostatní';
+  if (cr === 0) return 'NB 0';
+  if (cr === 0.125) return 'NB 1/8';
+  if (cr === 0.25) return 'NB 1/4';
+  if (cr === 0.5) return 'NB 1/2';
+  return `NB ${cr}`;
+}
+
+@Component({
+  selector: 'monsters-tab',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [MatIcon, MatTooltip],
+  styles: `
+    :host {
+      display: flex; flex-direction: column;
+      height: 100%; color: #d4c9a0;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px 9px; flex-shrink: 0;
+      border-bottom: 1px solid rgba(200,160,60,.22);
+      background: linear-gradient(180deg, rgba(22,15,5,.97) 0%, rgba(14,10,4,.98) 100%);
+    }
+    .search-wrap {
+      flex: 1; position: relative; display: flex; align-items: center;
+      .search-icon { position: absolute; left: 10px; font-size: 18px; width: 18px; height: 18px; color: rgba(200,160,60,.45); pointer-events: none; }
+    }
+    .search {
+      width: 100%; background: rgba(5,3,12,.75); border: 1px solid rgba(200,160,60,.28);
+      border-radius: 4px; color: #d4c9a0; font-family: sans-serif; font-size: 13px;
+      padding: 7px 34px; outline: none; transition: border-color .18s, box-shadow .18s;
+      &::placeholder { color: rgba(200,160,60,.28); font-style: italic; }
+      &:focus { border-color: rgba(200,160,60,.6); box-shadow: 0 0 10px rgba(200,160,60,.12); }
+    }
+    .search-clear {
+      position: absolute; right: 6px; background: none; border: none; cursor: pointer;
+      color: rgba(200,160,60,.45); display: flex; align-items: center;
+      padding: 2px; border-radius: 3px; transition: color .15s;
+      mat-icon { font-size: 16px; width: 16px; height: 16px; }
+      &:hover { color: #e8c96a; }
+    }
+    .count { font-family: sans-serif; font-size: 11px; color: rgba(200,160,60,.35); white-space: nowrap; flex-shrink: 0; }
+
+    /* ── Filter bar ── */
+    .filters {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 4px;
+      padding: 7px 14px; border-bottom: 1px solid rgba(200,160,60,.15);
+      flex-shrink: 0; background: rgba(8,5,18,.7);
+    }
+    .chip {
+      padding: 2px 10px; border: 1px solid rgba(200,160,60,.25); border-radius: 12px;
+      background: none; color: rgba(200,160,60,.5); font-family: sans-serif; font-size: 11px;
+      cursor: pointer; transition: all .15s; white-space: nowrap;
+      &:hover { border-color: rgba(200,160,60,.55); color: #d4c9a0; background: rgba(200,160,60,.07); }
+      &.active { background: rgba(200,160,60,.14); border-color: #c8a03c; color: #e8c96a; box-shadow: 0 0 7px rgba(200,160,60,.18); }
+    }
+    .sort-toggle {
+      margin-left: auto; flex-shrink: 0; display: flex;
+      border: 1px solid rgba(200,160,60,.22); border-radius: 12px; overflow: hidden;
+    }
+    .sort-btn {
+      padding: 2px 9px; background: none; border: none; color: rgba(200,160,60,.4);
+      font-family: sans-serif; font-size: 11px; cursor: pointer;
+      transition: background .15s, color .15s; white-space: nowrap;
+      &:hover { background: rgba(200,160,60,.07); color: rgba(200,160,60,.75); }
+      &.active { background: rgba(200,160,60,.14); color: #e8c96a; }
+      & + & { border-left: 1px solid rgba(200,160,60,.22); }
+    }
+
+    /* ── Scroll area ── */
+    .scroll {
+      flex: 1; overflow-y: auto; padding: 6px 12px 12px;
+      scrollbar-width: thin; scrollbar-color: rgba(200,160,60,.3) rgba(5,3,12,.6);
+    }
+    .group { margin-bottom: 14px; }
+    .group-heading {
+      font-family: sans-serif; font-size: 13px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(200,160,60,.55); padding: 6px 2px 5px;
+      border-bottom: 1px solid rgba(200,160,60,.12); margin-bottom: 5px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .group-count { margin-left: auto; opacity: .45; font-weight: 400; }
+    .grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 4px;
+    }
+
+    /* ── Monster card ── */
+    .card {
+      display: flex; align-items: center; gap: 5px;
+      padding: 6px 9px; background: rgba(5,3,12,.55);
+      border: 1px solid rgba(200,160,60,.1); border-radius: 5px;
+      color: #c8b896; font-family: sans-serif; font-size: 12px;
+      cursor: pointer; text-align: left;
+      transition: background .14s, color .14s, border-color .14s, box-shadow .14s;
+      min-height: 38px;
+      &:hover {
+        background: rgba(200,160,60,.09); color: #e8c96a;
+        border-color: rgba(200,160,60,.26); box-shadow: 0 2px 8px rgba(200,160,60,.09);
+        .cr-badge { opacity: .9; }
+      }
+    }
+    .card-name {
+      flex: 1; line-height: 1.3;
+      ::ng-deep .hl { color: #f5d76e; font-weight: 700; }
+    }
+    .cr-badge {
+      flex-shrink: 0; min-width: 22px; height: 18px; border-radius: 3px;
+      font-family: sans-serif; font-size: 10px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 3px; opacity: .75; transition: opacity .14s;
+      border: 1px solid rgba(200,80,60,.35); background: rgba(200,80,60,.1); color: rgba(220,120,80,.8);
+    }
+
+    /* ── States ── */
+    .state {
+      padding: 48px 24px; text-align: center; font-family: sans-serif; font-size: 13px;
+      color: rgba(200,160,60,.3); font-style: italic;
+      mat-icon { display: block; font-size: 36px; width: 36px; height: 36px; margin: 0 auto 12px; color: rgba(200,160,60,.18); }
+    }
+  `,
+  template: `
+    <!-- Search -->
+    <div class="header">
+      <div class="search-wrap">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input
+          #searchInput
+          class="search"
+          [value]="searchQuery()"
+          (input)="searchQuery.set($any($event.target).value)"
+          placeholder="Hledat netvora&#8230;"
+          autocomplete="off" spellcheck="false"
+        />
+        @if (searchQuery()) {
+          <button class="search-clear" type="button" (click)="searchQuery.set('')" matTooltip="Vymazat">
+            <mat-icon>close</mat-icon>
+          </button>
+        }
+      </div>
+      <span class="count">{{ filtered().length }}&thinsp;/&thinsp;{{ monstersService.allMonsters().length }}</span>
+    </div>
+
+    <!-- Type filter chips + sort toggle -->
+    @if (monstersService.availableTypes().length > 0) {
+      <div class="filters">
+        <button class="chip" [class.active]="selectedType() === null" type="button" (click)="selectedType.set(null)">Vše</button>
+        @for (t of monstersService.availableTypes(); track t) {
+          <button class="chip" [class.active]="selectedType() === t" type="button" (click)="toggleType(t)">{{ t }}</button>
+        }
+        <div class="sort-toggle" role="group" aria-label="Řazení">
+          <button class="sort-btn" [class.active]="sortMode() === 'type'" type="button"
+            (click)="sortMode.set('type')" matTooltip="Řadit podle typu">Typ</button>
+          <button class="sort-btn" [class.active]="sortMode() === 'cr'" type="button"
+            (click)="sortMode.set('cr')" matTooltip="Řadit podle nebezpečnosti">NB</button>
+        </div>
+      </div>
+    }
+
+    <!-- Grouped content -->
+    <div class="scroll">
+      @if (monstersService.allMonsters().length === 0) {
+        <div class="state"><mat-icon>hourglass_empty</mat-icon>Načítám seznam netvorů&#8230;</div>
+      } @else if (filtered().length === 0) {
+        <div class="state"><mat-icon>search_off</mat-icon>Žádný netvor neodpovídá.</div>
+      } @else {
+        @for (group of grouped(); track group.label) {
+          <div class="group">
+            <div class="group-heading">
+              {{ group.label }}
+              <span class="group-count">({{ group.monsters.length }})</span>
+            </div>
+            <div class="grid">
+              @for (item of group.monsters; track item.monster.slug) {
+                <button
+                  class="card"
+                  type="button"
+                  (click)="openDetail(item.monster.name)"
+                  [matTooltip]="cardTooltip(item.monster)"
+                  matTooltipShowDelay="500"
+                >
+                  <span class="card-name" [innerHTML]="item.highlightedName"></span>
+                  @if (item.monster.crDisplay) {
+                    <span class="cr-badge" [matTooltip]="'Nebezpečnost ' + item.monster.crDisplay" matTooltipShowDelay="700">
+                      {{ item.monster.crDisplay }}
+                    </span>
+                  }
+                </button>
+              }
+            </div>
+          </div>
+        }
+      }
+    </div>
+  `,
+})
+export class MonstersTabComponent {
+  readonly active = input<boolean>(false);
+  readonly monstersService = inject(JadMonstersService);
+  private readonly dialog = inject(MatDialog);
+
+  readonly searchQuery = signal('');
+  readonly selectedType = signal<string | null>(null);
+  readonly sortMode = signal<'type' | 'cr'>('type');
+  private readonly _searchRef = viewChild<ElementRef<HTMLInputElement>>('searchInput');
+
+  readonly filtered = computed((): MonsterItem[] => {
+    const q = JadMonstersService.normalizeStr(this.searchQuery());
+    const type = this.selectedType();
+    const result: MonsterItem[] = [];
+
+    for (const m of this.monstersService.allMonsters()) {
+      if (type !== null && m.type !== type) continue;
+
+      if (!q) {
+        result.push({ monster: m, highlightedName: escHtml(m.name) });
+      } else {
+        const normName = posNorm(m.name);
+        const indices = fuzzySubsequence(q, normName);
+        if (indices !== null) {
+          result.push({ monster: m, highlightedName: buildHighlightHtml(m.name, indices) });
+        }
+      }
+    }
+    return result;
+  });
+
+  readonly grouped = computed((): Array<{ label: string; monsters: MonsterItem[] }> => {
+    const byCr = this.sortMode() === 'cr';
+    const groupMap = new Map<string, MonsterItem[]>();
+
+    for (const item of this.filtered()) {
+      const key = byCr
+        ? crGroupLabel(item.monster.cr)
+        : (item.monster.type || 'Ostatní');
+      if (!groupMap.has(key)) groupMap.set(key, []);
+      groupMap.get(key)!.push(item);
+    }
+
+    if (byCr) {
+      return [...groupMap.entries()]
+        .sort(([a], [b]) => {
+          const aVal = this._crLabelToNum(a);
+          const bVal = this._crLabelToNum(b);
+          return aVal - bVal;
+        })
+        .map(([label, monsters]) => ({ label, monsters }));
+    }
+
+    return [...groupMap.entries()]
+      .sort(([a], [b]) => a.localeCompare(b, 'cs'))
+      .map(([label, monsters]) => ({ label, monsters }));
+  });
+
+  constructor() {
+    afterRenderEffect(() => {
+      if (this.active()) this._searchRef()?.nativeElement.focus();
+    });
+  }
+
+  toggleType(type: string): void {
+    this.selectedType.update(cur => (cur === type ? null : type));
+  }
+
+  cardTooltip(m: JadMonster): string {
+    const parts: string[] = [];
+    if (m.size) parts.push(m.size);
+    if (m.type) parts.push(m.type);
+    if (m.crDisplay) parts.push(`NB ${m.crDisplay}`);
+    return parts.join(' · ') || 'Zobrazit detail';
+  }
+
+  openDetail(name: string): void {
+    const n = name.trim();
+    if (!n) return;
+    this.dialog.open(MonsterDetailDialogComponent, {
+      data: { monsterName: n } satisfies MonsterDetailDialogData,
+      panelClass: 'monster-detail-panel',
+      maxWidth: '96vw',
+    });
+  }
+
+  private _crLabelToNum(label: string): number {
+    if (label === 'Ostatní') return 9999;
+    const m = label.match(/NB (.+)/);
+    if (!m) return 9998;
+    const v = m[1];
+    if (v === '1/8') return 0.125;
+    if (v === '1/4') return 0.25;
+    if (v === '1/2') return 0.5;
+    return parseFloat(v) || 9997;
+  }
+}
+

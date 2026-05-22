@@ -7,9 +7,10 @@ import { DmNotesComponent } from './dm-notes/dm-notes.component';
 import { DmGeneratorComponent } from './dm-generator/dm-generator.component';
 import { DmStoryTimelineComponent } from './dm-story-timeline/dm-story-timeline.component';
 import { DmPageStore } from '../dm-page.store';
+import { MonstersTabComponent } from './monsters-tab/monsters-tab.component';
 
 /** Total number of tabs in the DM page tab group. Keep in sync with the template. */
-const DM_TAB_COUNT = 5;
+const DM_TAB_COUNT = 6;
 
 
 @Component({
@@ -35,6 +36,9 @@ const DM_TAB_COUNT = 5;
       </mat-tab>
       <mat-tab label="Příběhové události">
         <dm-story-timeline />
+      </mat-tab>
+      <mat-tab label="Netvori">
+        <monsters-tab [active]="selectedTab() === 5" />
       </mat-tab>
     </mat-tab-group>
   `,
@@ -208,7 +212,7 @@ const DM_TAB_COUNT = 5;
   `,
   providers: [DmPageStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatTabGroup, MatTab, InitiativeTrackerComponent, DmQuestsComponent, DmNotesComponent, DmGeneratorComponent, DmStoryTimelineComponent],
+  imports: [MatTabGroup, MatTab, InitiativeTrackerComponent, DmQuestsComponent, DmNotesComponent, DmGeneratorComponent, DmStoryTimelineComponent, MonstersTabComponent],
 })
 export class DmPageComponent implements OnInit, OnDestroy {
   private readonly ls = inject(LocalStorageService);
