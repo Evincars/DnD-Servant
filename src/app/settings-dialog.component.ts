@@ -219,6 +219,8 @@ export interface SettingsDialogData {
               </a>
             </div>
           </div>
+        </div>
+
         </div><!-- /sd-col-panel RIGHT -->
 
       </div>
@@ -226,7 +228,7 @@ export interface SettingsDialogData {
       <!-- Version footer -->
       <div class="sd-version-bar">
         <span class="sd-version-label">DnD Servant</span>
-        <span class="sd-version-badge">v0.9.4</span>
+        <span class="sd-version-badge">v0.9.5</span>
       </div>
     </div>
   `,
@@ -470,6 +472,7 @@ export interface SettingsDialogData {
     }
 
     .sd-btn-sub {
+      font-family: sans-serif;
       font-size: 10px;
       color: rgba(180,160,130,.45);
       letter-spacing: .04em;
@@ -527,6 +530,7 @@ export interface SettingsDialogData {
     }
 
     .sd-shortcut-desc {
+      font-family: sans-serif;
       font-size: 11px;
       color: rgba(180,160,130,.6);
       letter-spacing: .04em;
@@ -576,6 +580,7 @@ export interface SettingsDialogData {
     }
 
     .sd-credits-text {
+      font-family: sans-serif;
       font-size: 11px;
       color: rgba(180, 155, 130, .65);
       letter-spacing: .03em;

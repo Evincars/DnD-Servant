@@ -22,8 +22,10 @@ const RELEASE_NOTES: ReleaseGroup[] = [
       { type: 'feature', text: 'Příběhové události — kronika kampaně s časovou osou, typy, důležitostí, štítky, obrázky a PH poznámkami' },
       { type: 'feature', text: 'Dialog „Co je nového" dostupný z horní lišty' },
       { type: 'feature', text: 'Klávesové zkratky a gesta zobrazeny v dialogu Nastavení' },
+      { type: 'fix', text: 'Záložka Kouzla — 30 chybějících kouzel (Mystická čepel, Černá chapadla, Věrný pes, aj.) nyní správně řazeno podle úrovně a školy místo skupiny „Ostatní"' },
       { type: 'fix', text: 'Vyhledávání v příkazové paletě ignoruje diakritiku' },
       { type: 'fix', text: 'Přímé přepnutí záložky z příkazové palety bez znovunačtení stránky' },
+      { type: 'improvement', text: 'Čitelnější písmo (sans-serif) v dialogu Nastavení a Co je nového' },
     ],
   },
   {
@@ -291,6 +293,7 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
 
     .rn-entry-text {
       flex: 1;
+      font-family: sans-serif;
       font-size: 12px;
       color: rgba(200,185,155,.75);
       letter-spacing: .03em;

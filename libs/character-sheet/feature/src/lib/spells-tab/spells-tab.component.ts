@@ -206,24 +206,17 @@ interface SpellItem {
     .school-section { margin-bottom: 14px; }
     .school-heading {
       font-family: sans-serif;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
-      letter-spacing: .12em;
+      letter-spacing: .1em;
       text-transform: uppercase;
-      color: rgba(200,160,60,.45);
+      color: rgba(200,160,60,.55);
       padding: 6px 2px 5px;
       border-bottom: 1px solid rgba(200,160,60,.12);
       margin-bottom: 5px;
       display: flex;
       align-items: center;
       gap: 6px;
-      &::before {
-        content: '';
-        display: inline-block;
-        width: 3px; height: 10px;
-        background: rgba(200,160,60,.35);
-        border-radius: 2px;
-      }
     }
     .school-grid {
       display: grid;
@@ -447,7 +440,7 @@ export class SpellsTabComponent {
   private _levelLabel(level: number | undefined): string {
     if (level === undefined) return 'Ostatn\u00ED';
     if (level === 0) return 'Triky';
-    return `${level}.\u00A0kruh`;
+    return `${level}.\u00A0\u00FArove\u0148`;
   }
 
   private _levelSortKey(label: string): number {
