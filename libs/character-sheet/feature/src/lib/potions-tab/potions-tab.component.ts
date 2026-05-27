@@ -4,6 +4,10 @@ import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/c
 
 type PotionCategory = 'vse' | 'leceni' | 'boj' | 'pohyb' | 'mysl' | 'jedy' | 'ostatni';
 type Rarity = 'Běžný' | 'Neobvyklý' | 'Vzácný' | 'Velmi vzácný' | 'Legendární';
+type RarityFilter = 'vse' | 'Běžný' | 'Neobvyklý' | 'Vzácný' | 'Velmi vzácný' | 'Legendární';
+
+/** Hex color of the liquid inside the potion bottle SVG */
+type PotionColor = string;
 
 interface Potion {
   name: string;
@@ -14,7 +18,29 @@ interface Potion {
   priceBuy: string;
   priceCraft: string;
   craftTime: string;
+  color: PotionColor;
 }
+
+// ── Potion color palette (by type/effect) ───────────────────────────────────
+const C = {
+  red: '#e84040',
+  crimson: '#c02040',
+  pink: '#e86088',
+  orange: '#e88030',
+  gold: '#d4a020',
+  yellow: '#e8d040',
+  green: '#40c860',
+  teal: '#30b8a0',
+  cyan: '#40c8e8',
+  blue: '#4080e8',
+  indigo: '#5040d8',
+  purple: '#9040d8',
+  violet: '#b040e8',
+  white: '#e8e0d0',
+  silver: '#b0b8c8',
+  black: '#282030',
+  brown: '#8a5030',
+};
 
 const POTIONS: Potion[] = [
   // ─── LÉČENÍ ───────────────────────────────────────────
@@ -27,6 +53,7 @@ const POTIONS: Potion[] = [
     priceBuy: '50 zl',
     priceCraft: '25 zl',
     craftTime: '1 den',
+    color: C.red,
   },
   {
     name: 'Lektvar většího léčení',
@@ -37,6 +64,7 @@ const POTIONS: Potion[] = [
     priceBuy: '100 zl',
     priceCraft: '50 zl',
     craftTime: '2 dny',
+    color: C.crimson,
   },
   {
     name: 'Lektvar vynikajícího léčení',
@@ -47,6 +75,7 @@ const POTIONS: Potion[] = [
     priceBuy: '500 zl',
     priceCraft: '200 zl',
     craftTime: '3 dny',
+    color: C.crimson,
   },
   {
     name: 'Lektvar nejvyššího léčení',
@@ -57,6 +86,7 @@ const POTIONS: Potion[] = [
     priceBuy: '5 000 zl',
     priceCraft: '1 000 zl',
     craftTime: '7 dní',
+    color: C.crimson,
   },
   {
     name: 'Lektvar proti jedu',
@@ -67,6 +97,7 @@ const POTIONS: Potion[] = [
     priceBuy: '100 zl',
     priceCraft: '50 zl',
     craftTime: '1 den',
+    color: C.green,
   },
   {
     name: 'Lektvar zotavení',
@@ -77,6 +108,7 @@ const POTIONS: Potion[] = [
     priceBuy: '300 zl',
     priceCraft: '150 zl',
     craftTime: '2 dny',
+    color: C.gold,
   },
   {
     name: 'Lektvar regenerace',
@@ -87,6 +119,7 @@ const POTIONS: Potion[] = [
     priceBuy: '2 000 zl',
     priceCraft: '600 zl',
     craftTime: '5 dní',
+    color: C.pink,
   },
   // ─── BOJ ──────────────────────────────────────────────
   {
@@ -98,6 +131,7 @@ const POTIONS: Potion[] = [
     priceBuy: '500 zl',
     priceCraft: '200 zl',
     craftTime: '3 dny',
+    color: C.brown,
   },
   {
     name: 'Lektvar síly kopcového obra',
@@ -108,6 +142,7 @@ const POTIONS: Potion[] = [
     priceBuy: '500 zl',
     priceCraft: '200 zl',
     craftTime: '3 dny',
+    color: C.brown,
   },
   {
     name: 'Lektvar síly ledového obra',
@@ -118,6 +153,7 @@ const POTIONS: Potion[] = [
     priceBuy: '2 000 zl',
     priceCraft: '600 zl',
     craftTime: '5 dní',
+    color: C.cyan,
   },
   {
     name: 'Lektvar síly ohnivého obra',
@@ -128,6 +164,7 @@ const POTIONS: Potion[] = [
     priceBuy: '3 000 zl',
     priceCraft: '900 zl',
     craftTime: '7 dní',
+    color: C.orange,
   },
   {
     name: 'Lektvar odolnosti',
@@ -138,6 +175,7 @@ const POTIONS: Potion[] = [
     priceBuy: '400 zl',
     priceCraft: '150 zl',
     craftTime: '2 dny',
+    color: C.silver,
   },
   {
     name: 'Lektvar hrdinství',
@@ -148,6 +186,7 @@ const POTIONS: Potion[] = [
     priceBuy: '200 zl',
     priceCraft: '100 zl',
     craftTime: '2 dny',
+    color: C.gold,
   },
   {
     name: 'Lektvar rychlosti',
@@ -158,6 +197,7 @@ const POTIONS: Potion[] = [
     priceBuy: '2 000 zl',
     priceCraft: '500 zl',
     craftTime: '5 dní',
+    color: C.yellow,
   },
   {
     name: 'Lektvar neviditelnosti',
@@ -168,6 +208,7 @@ const POTIONS: Potion[] = [
     priceBuy: '2 000 zl',
     priceCraft: '600 zl',
     craftTime: '4 dny',
+    color: C.white,
   },
   {
     name: 'Lektvar nezranitelnosti',
@@ -178,6 +219,7 @@ const POTIONS: Potion[] = [
     priceBuy: '10 000 zl',
     priceCraft: '3 000 zl',
     craftTime: '14 dní',
+    color: C.silver,
   },
   {
     name: 'Olej ostření',
@@ -188,6 +230,7 @@ const POTIONS: Potion[] = [
     priceBuy: '8 000 zl',
     priceCraft: '2 500 zl',
     craftTime: '10 dní',
+    color: C.indigo,
   },
   // ─── POHYB ────────────────────────────────────────────
   {
@@ -199,6 +242,7 @@ const POTIONS: Potion[] = [
     priceBuy: '75 zl',
     priceCraft: '30 zl',
     craftTime: '1 den',
+    color: C.teal,
   },
   {
     name: 'Lektvar vodního dechu',
@@ -209,6 +253,7 @@ const POTIONS: Potion[] = [
     priceBuy: '75 zl',
     priceCraft: '30 zl',
     craftTime: '1 den',
+    color: C.blue,
   },
   {
     name: 'Lektvar levitace',
@@ -219,6 +264,7 @@ const POTIONS: Potion[] = [
     priceBuy: '400 zl',
     priceCraft: '150 zl',
     craftTime: '2 dny',
+    color: C.white,
   },
   {
     name: 'Lektvar létání',
@@ -229,6 +275,7 @@ const POTIONS: Potion[] = [
     priceBuy: '3 000 zl',
     priceCraft: '800 zl',
     craftTime: '5 dní',
+    color: C.cyan,
   },
   {
     name: 'Lektvar éteričnosti',
@@ -239,16 +286,18 @@ const POTIONS: Potion[] = [
     priceBuy: '4 000 zl',
     priceCraft: '1 200 zl',
     craftTime: '7 dní',
+    color: C.violet,
   },
   {
     name: 'Lektvar plazivosti',
     effect: 'Svobodný pohyb po zdech a stropě na 1 hod.',
     category: 'pohyb',
     rarity: 'Neobvyklý',
-    ingredients: ['Gekon í tlapka (z obřího gekona)', 'Lepivá pryskyřice (SO 13)', 'Alchymistická guma'],
+    ingredients: ['Gekoní tlapka (z obřího gekona)', 'Lepivá pryskyřice (SO 13)', 'Alchymistická guma'],
     priceBuy: '350 zl',
     priceCraft: '130 zl',
     craftTime: '2 dny',
+    color: C.green,
   },
   // ─── MYSL ─────────────────────────────────────────────
   {
@@ -260,6 +309,7 @@ const POTIONS: Potion[] = [
     priceBuy: '100 zl',
     priceCraft: '40 zl',
     craftTime: '1 den',
+    color: C.gold,
   },
   {
     name: 'Lektvar charismatu',
@@ -270,6 +320,7 @@ const POTIONS: Potion[] = [
     priceBuy: '400 zl',
     priceCraft: '180 zl',
     craftTime: '2 dny',
+    color: C.pink,
   },
   {
     name: 'Lektvar jasnovidnosti',
@@ -280,6 +331,7 @@ const POTIONS: Potion[] = [
     priceBuy: '1 500 zl',
     priceCraft: '500 zl',
     craftTime: '4 dny',
+    color: C.indigo,
   },
   {
     name: 'Lektvar čtení myšlenek',
@@ -290,6 +342,7 @@ const POTIONS: Potion[] = [
     priceBuy: '2 000 zl',
     priceCraft: '700 zl',
     craftTime: '5 dní',
+    color: C.purple,
   },
   {
     name: 'Lektvar telepatie',
@@ -300,6 +353,7 @@ const POTIONS: Potion[] = [
     priceBuy: '400 zl',
     priceCraft: '160 zl',
     craftTime: '2 dny',
+    color: C.teal,
   },
   {
     name: 'Lektvar inteligence',
@@ -310,6 +364,7 @@ const POTIONS: Potion[] = [
     priceBuy: '400 zl',
     priceCraft: '160 zl',
     craftTime: '2 dny',
+    color: C.blue,
   },
   // ─── JEDY ─────────────────────────────────────────────
   {
@@ -317,20 +372,22 @@ const POTIONS: Potion[] = [
     effect: '1k4 jedového zranění (OČ povlečeného)',
     category: 'jedy',
     rarity: 'Běžný',
-    ingredients: ['Had í jedový váček (z jedovatého hada)', 'Bolehlav (bylina, SO 11)', 'Alkohol (na konzervaci)'],
+    ingredients: ['Hadí jedový váček (z jedovatého hada)', 'Bolehlav (bylina, SO 11)', 'Alkohol (na konzervaci)'],
     priceBuy: '100 zl',
     priceCraft: '40 zl',
     craftTime: '1 den',
+    color: C.green,
   },
   {
     name: 'Jed spánku',
     effect: 'Cíl musí uspět v ZH ODL (SO 13) nebo usne na 1 min.',
     category: 'jedy',
     rarity: 'Běžný',
-    ingredients: ['Mák spánku (bylina, SO 12)', 'Sliny obřího žáby (SO 11)', 'Valeriánový kořen'],
+    ingredients: ['Mák spánku (bylina, SO 12)', 'Sliny obří žáby (SO 11)', 'Valeriánový kořen'],
     priceBuy: '150 zl',
     priceCraft: '60 zl',
     craftTime: '1 den',
+    color: C.purple,
   },
   {
     name: 'Drow jed',
@@ -341,6 +398,7 @@ const POTIONS: Potion[] = [
     priceBuy: '600 zl',
     priceCraft: '200 zl',
     craftTime: '3 dny',
+    color: C.black,
   },
   {
     name: 'Jed wyverna',
@@ -351,6 +409,7 @@ const POTIONS: Potion[] = [
     priceBuy: '1 200 zl',
     priceCraft: '400 zl',
     craftTime: '4 dny',
+    color: C.green,
   },
   {
     name: 'Purpurový červí jed',
@@ -361,36 +420,40 @@ const POTIONS: Potion[] = [
     priceBuy: '8 000 zl',
     priceCraft: '2 500 zl',
     craftTime: '10 dní',
+    color: C.violet,
   },
   {
     name: 'Jed paralýzy',
     effect: 'ZH ODL SO 14 nebo Paralyzovaný na 1 min. (opak. ZH)',
     category: 'jedy',
     rarity: 'Neobvyklý',
-    ingredients: ['Carrion crawler sliz (z crawler)',  'Ghúlí dráp (z ghúla)', 'Octová esence'],
+    ingredients: ['Carrion crawler sliz (z crawler)', 'Ghúlí dráp (z ghúla)', 'Octová esence'],
     priceBuy: '500 zl',
     priceCraft: '180 zl',
     craftTime: '2 dny',
+    color: C.teal,
   },
   {
     name: 'Assassin Blood',
     effect: '1k12 jed. zranění + Otrávení 24 hod. (ZH ODL SO 10)',
     category: 'jedy',
     rarity: 'Běžný',
-    ingredients: ['Belladonna (bylina, SO 12)', 'Krysa žluč (od obří krysy)', 'Řepkový olej'],
+    ingredients: ['Belladonna (bylina, SO 12)', 'Kryší žluč (od obří krysy)', 'Řepkový olej'],
     priceBuy: '150 zl',
     priceCraft: '60 zl',
     craftTime: '1 den',
+    color: C.crimson,
   },
   {
     name: 'Midnight Tears',
     effect: 'Bez efektu do půlnoci, pak 9k6 jed. (ZH ODL SO 17)',
     category: 'jedy',
     rarity: 'Vzácný',
-    ingredients: ['Půlnoční květ (SO 17, čerstvý, kvete jen o půlnoci)', 'Stínová esence (SO 15)', 'Černý jantar (minerál)'],
+    ingredients: ['Půlnoční květ (SO 17, kvete jen o půlnoci)', 'Stínová esence (SO 15)', 'Černý jantar (minerál)'],
     priceBuy: '3 000 zl',
     priceCraft: '900 zl',
     craftTime: '5 dní',
+    color: C.black,
   },
   // ─── OSTATNÍ ──────────────────────────────────────────
   {
@@ -402,6 +465,7 @@ const POTIONS: Potion[] = [
     priceBuy: '300 zl',
     priceCraft: '120 zl',
     craftTime: '2 dny',
+    color: C.violet,
   },
   {
     name: 'Lektvar růstu',
@@ -412,6 +476,7 @@ const POTIONS: Potion[] = [
     priceBuy: '300 zl',
     priceCraft: '120 zl',
     craftTime: '2 dny',
+    color: C.orange,
   },
   {
     name: 'Lektvar iluzorního vzhledu',
@@ -422,6 +487,7 @@ const POTIONS: Potion[] = [
     priceBuy: '150 zl',
     priceCraft: '60 zl',
     craftTime: '1 den',
+    color: C.silver,
   },
   {
     name: 'Lektvar vitality',
@@ -432,6 +498,7 @@ const POTIONS: Potion[] = [
     priceBuy: '500 zl',
     priceCraft: '200 zl',
     craftTime: '3 dny',
+    color: C.gold,
   },
   {
     name: 'Lektvar dlouhého dechu',
@@ -442,6 +509,7 @@ const POTIONS: Potion[] = [
     priceBuy: '100 zl',
     priceCraft: '40 zl',
     craftTime: '1 den',
+    color: C.cyan,
   },
   {
     name: 'Elixír zdraví',
@@ -452,6 +520,7 @@ const POTIONS: Potion[] = [
     priceBuy: '10 000 zl',
     priceCraft: '2 000 zl',
     craftTime: '14 dní',
+    color: C.gold,
   },
   {
     name: 'Lektvar odolnosti ohni',
@@ -462,6 +531,7 @@ const POTIONS: Potion[] = [
     priceBuy: '400 zl',
     priceCraft: '150 zl',
     craftTime: '2 dny',
+    color: C.orange,
   },
   {
     name: 'Lektvar odolnosti chladu',
@@ -472,6 +542,7 @@ const POTIONS: Potion[] = [
     priceBuy: '400 zl',
     priceCraft: '150 zl',
     craftTime: '2 dny',
+    color: C.cyan,
   },
   {
     name: 'Lektvar ohnivého dechu',
@@ -482,6 +553,7 @@ const POTIONS: Potion[] = [
     priceBuy: '400 zl',
     priceCraft: '150 zl',
     craftTime: '2 dny',
+    color: C.orange,
   },
   {
     name: 'Lektvar tmavozraku',
@@ -492,6 +564,7 @@ const POTIONS: Potion[] = [
     priceBuy: '120 zl',
     priceCraft: '50 zl',
     craftTime: '1 den',
+    color: C.indigo,
   },
   {
     name: 'Lektvar mládí',
@@ -502,6 +575,7 @@ const POTIONS: Potion[] = [
     priceBuy: '15 000 zl',
     priceCraft: '5 000 zl',
     craftTime: '21 dní',
+    color: C.pink,
   },
   {
     name: 'Univerzální rozpouštědlo',
@@ -512,6 +586,7 @@ const POTIONS: Potion[] = [
     priceBuy: '50 000 zl',
     priceCraft: '15 000 zl',
     craftTime: '30 dní',
+    color: C.white,
   },
 ];
 
@@ -525,6 +600,52 @@ const CATEGORY_LABELS: { key: PotionCategory; label: string }[] = [
   { key: 'ostatni', label: 'Ostatní' },
 ];
 
+const RARITY_LABELS: { key: RarityFilter; label: string }[] = [
+  { key: 'vse', label: 'Vše' },
+  { key: 'Běžný', label: 'Běžný' },
+  { key: 'Neobvyklý', label: 'Neobvyklý' },
+  { key: 'Vzácný', label: 'Vzácný' },
+  { key: 'Velmi vzácný', label: 'Velmi vzácný' },
+  { key: 'Legendární', label: 'Legendární' },
+];
+
+/**
+ * Generates an inline SVG data URL for a potion bottle with the given liquid color.
+ * The bottle shape is consistent; only the fill color changes.
+ */
+function potionSvg(color: string): string {
+  // A fantasy-style potion bottle  
+  return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 96" width="64" height="96">
+  <defs>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,.25)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,.05)"/>
+    </linearGradient>
+    <linearGradient id="liq" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${color}" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="${color}" stop-opacity=".6"/>
+    </linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="2" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <!-- Cork -->
+  <rect x="24" y="2" width="16" height="10" rx="3" fill="#8B5E3C" stroke="#5C3A1E" stroke-width=".8"/>
+  <!-- Neck -->
+  <path d="M26 12 L26 26 Q26 30 22 34 L22 34" fill="none" stroke="rgba(200,200,220,.4)" stroke-width="1.5"/>
+  <path d="M38 12 L38 26 Q38 30 42 34 L42 34" fill="none" stroke="rgba(200,200,220,.4)" stroke-width="1.5"/>
+  <rect x="26" y="12" width="12" height="16" rx="2" fill="url(#glass)" stroke="rgba(200,200,220,.3)" stroke-width=".8"/>
+  <!-- Body -->
+  <path d="M22 34 Q12 40 12 54 L12 78 Q12 90 22 92 L42 92 Q52 90 52 78 L52 54 Q52 40 42 34 Z" fill="url(#glass)" stroke="rgba(200,200,220,.35)" stroke-width="1"/>
+  <!-- Liquid fill -->
+  <path d="M16 50 Q14 54 14 58 L14 76 Q14 88 22 90 L42 90 Q50 88 50 76 L50 58 Q50 54 48 50 Z" fill="url(#liq)" filter="url(#glow)"/>
+  <!-- Highlight -->
+  <ellipse cx="22" cy="58" rx="4" ry="8" fill="rgba(255,255,255,.2)"/>
+  <!-- Bubbles -->
+  <circle cx="34" cy="70" r="2" fill="rgba(255,255,255,.3)"/>
+  <circle cx="28" cy="76" r="1.5" fill="rgba(255,255,255,.2)"/>
+  <circle cx="38" cy="64" r="1" fill="rgba(255,255,255,.25)"/>
+</svg>`)}`;
+}
+
 @Component({
   selector: 'potions-tab',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -537,13 +658,27 @@ const CATEGORY_LABELS: { key: PotionCategory; label: string }[] = [
       </header>
 
       <div class="pt-filters">
-        @for (cat of categories; track cat.key) {
-          <button
-            class="pt-filter-btn"
-            [class.active]="activeCategory() === cat.key"
-            (click)="activeCategory.set(cat.key)"
-          >{{ cat.label }}</button>
-        }
+        <div class="pt-filter-row">
+          <span class="pt-filter-label">Typ:</span>
+          @for (cat of categories; track cat.key) {
+            <button
+              class="pt-filter-btn"
+              [class.active]="activeCategory() === cat.key"
+              (click)="activeCategory.set(cat.key)"
+            >{{ cat.label }}</button>
+          }
+        </div>
+        <div class="pt-filter-row">
+          <span class="pt-filter-label">Vzácnost:</span>
+          @for (r of rarities; track r.key) {
+            <button
+              class="pt-filter-btn pt-rarity-btn"
+              [class.active]="activeRarity() === r.key"
+              [attr.data-rarity]="r.key"
+              (click)="activeRarity.set(r.key)"
+            >{{ r.label }}</button>
+          }
+        </div>
       </div>
 
       <div class="pt-search-row">
@@ -568,10 +703,15 @@ const CATEGORY_LABELS: { key: PotionCategory; label: string }[] = [
           </thead>
           <tbody>
             @for (p of filteredPotions(); track p.name) {
-              <tr>
+              <tr class="pt-row">
                 <td class="col-name">
-                  <div class="pt-name">{{ p.name }}</div>
-                  <div class="pt-effect">{{ p.effect }}</div>
+                  <div class="pt-name-wrap">
+                    <div class="pt-name">{{ p.name }}</div>
+                    <div class="pt-effect">{{ p.effect }}</div>
+                  </div>
+                  <div class="pt-potion-preview">
+                    <img [src]="getPotionImg(p.color)" alt="" />
+                  </div>
                 </td>
                 <td class="col-rarity"><span class="pt-tag" [attr.data-rarity]="p.rarity">{{ p.rarity }}</span></td>
                 <td class="col-ingr">
@@ -607,14 +747,24 @@ const CATEGORY_LABELS: { key: PotionCategory; label: string }[] = [
     .pt-title { font-size: 20px; color: #e8c96a; margin: 0 0 4px; font-weight: 600; }
     .pt-subtitle { font-size: 12px; color: #9a8a6a; margin: 0; }
 
-    .pt-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    /* ─── Filters ─── */
+    .pt-filters { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+    .pt-filter-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .pt-filter-label { font-size: 11px; color: #7a6a58; min-width: 62px; text-transform: uppercase; letter-spacing: .06em; }
     .pt-filter-btn {
       background: rgba(200,160,60,.08); border: 1px solid rgba(200,160,60,.2); border-radius: 6px;
-      padding: 5px 14px; font-size: 12px; color: #9a8a6a; cursor: pointer; transition: all .15s;
+      padding: 4px 12px; font-size: 11px; color: #9a8a6a; cursor: pointer; transition: all .15s;
       font-family: sans-serif;
     }
     .pt-filter-btn:hover { background: rgba(200,160,60,.15); color: #d4c9a0; border-color: rgba(200,160,60,.4); }
     .pt-filter-btn.active { background: rgba(200,160,60,.25); color: #e8c96a; border-color: rgba(200,160,60,.6); }
+
+    /* Rarity-specific active colors */
+    .pt-rarity-btn.active[data-rarity="Běžný"] { background: rgba(100,180,60,.2); color: #8fc95a; border-color: rgba(100,180,60,.5); }
+    .pt-rarity-btn.active[data-rarity="Neobvyklý"] { background: rgba(80,160,220,.2); color: #6ab8e8; border-color: rgba(80,160,220,.5); }
+    .pt-rarity-btn.active[data-rarity="Vzácný"] { background: rgba(220,160,40,.2); color: #d4a830; border-color: rgba(220,160,40,.5); }
+    .pt-rarity-btn.active[data-rarity="Velmi vzácný"] { background: rgba(200,60,60,.2); color: #d46a6a; border-color: rgba(200,60,60,.5); }
+    .pt-rarity-btn.active[data-rarity="Legendární"] { background: rgba(160,80,200,.2); color: #b880d8; border-color: rgba(160,80,200,.5); }
 
     .pt-search-row { margin-bottom: 14px; }
     .pt-search {
@@ -625,6 +775,7 @@ const CATEGORY_LABELS: { key: PotionCategory; label: string }[] = [
     .pt-search::placeholder { color: #7a6a58; }
     .pt-search:focus { border-color: rgba(200,160,60,.5); background: rgba(200,160,60,.1); }
 
+    /* ─── Table ─── */
     .pt-table-wrap { overflow-x: auto; }
     .pt-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .pt-table thead tr th {
@@ -638,14 +789,38 @@ const CATEGORY_LABELS: { key: PotionCategory; label: string }[] = [
     .pt-table tbody tr:hover td { background: rgba(200,160,60,.04); }
     .pt-table tbody tr:last-child td { border-bottom: none; }
 
-    .col-name { width: 22%; }
+    .col-name { width: 22%; position: relative; }
     .col-rarity { width: 11%; }
     .col-ingr { width: 37%; }
     .col-price { width: 15%; }
     .col-time { width: 10%; white-space: nowrap; color: #9a8a6a; font-size: 12px; }
 
+    .pt-name-wrap { position: relative; }
     .pt-name { font-weight: 600; font-size: 13px; color: #e0cfa0; }
     .pt-effect { font-size: 11px; color: #9a8a6a; margin-top: 2px; }
+
+    /* ─── Potion image preview on hover ─── */
+    .pt-potion-preview {
+      position: absolute;
+      top: 50%; left: -8px;
+      transform: translate(-100%, -50%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+      z-index: 100;
+      background: rgba(10,8,20,.95);
+      border: 1px solid rgba(200,160,60,.3);
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.7), 0 0 12px rgba(200,160,60,.15);
+    }
+    .pt-potion-preview img {
+      width: 64px; height: 96px; display: block;
+    }
+    .pt-row:hover .pt-potion-preview {
+      opacity: 1;
+      transform: translate(-100%, -50%) scale(1);
+    }
 
     .pt-tag {
       display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 500; white-space: nowrap;
@@ -675,17 +850,35 @@ const CATEGORY_LABELS: { key: PotionCategory; label: string }[] = [
 })
 export class PotionsTabComponent {
   readonly categories = CATEGORY_LABELS;
+  readonly rarities = RARITY_LABELS;
   readonly activeCategory = signal<PotionCategory>('vse');
+  readonly activeRarity = signal<RarityFilter>('vse');
   readonly searchQuery = signal('');
+
+  private readonly svgCache = new Map<string, string>();
+
+  getPotionImg(color: string): string {
+    let url = this.svgCache.get(color);
+    if (!url) {
+      url = potionSvg(color);
+      this.svgCache.set(color, url);
+    }
+    return url;
+  }
 
   readonly filteredPotions = computed(() => {
     const cat = this.activeCategory();
+    const rar = this.activeRarity();
     const q = this.searchQuery().normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().trim();
 
     let result = POTIONS;
 
     if (cat !== 'vse') {
       result = result.filter(p => p.category === cat);
+    }
+
+    if (rar !== 'vse') {
+      result = result.filter(p => p.rarity === rar);
     }
 
     if (q.length >= 2) {
