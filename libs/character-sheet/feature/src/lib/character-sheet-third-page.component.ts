@@ -2804,12 +2804,17 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
     </div>
 
         @if (dropdownOpen() && filteredSpells().length > 0) {
-      <div class="spell-dropdown" [style]="dropdownStyle()" (mousedown)="$event.preventDefault()">
+      <div
+        class="spell-dropdown"
+        [style]="dropdownStyle()"
+        (mouseenter)="onDropdownMouseEnter()"
+        (mouseleave)="onDropdownMouseLeave()"
+      >
         @for (spell of filteredSpells(); track spell.slug; let i = $index) {
           <div
             class="spell-dropdown__item"
             [class.spell-dropdown__item--active]="i === activeIndex()"
-            (mousedown)="pickSpell(spell.name)"
+            (mousedown)="$event.preventDefault(); pickSpell(spell.name)"
           >{{ spell.name }}</div>
         }
       </div>
@@ -2828,6 +2833,8 @@ export class CharacterSheetThirdPageComponent {
   dropdownOpen = signal(false);
   activeIndex = signal(-1);
   private _dropdownPos = signal<{ top: number; left: number; width: number } | null>(null);
+  /** True while the pointer is inside the spell-suggestion dropdown. */
+  private _mouseInDropdown = false;
 
   readonly dropdownStyle = computed(() => {
     const pos = this._dropdownPos();
@@ -2879,10 +2886,25 @@ export class CharacterSheetThirdPageComponent {
   }
 
   closeDropdown(): void {
+    this._blurSub?.unsubscribe();
     this._blurSub = timer(150).subscribe(() => {
+      // Don't close while the pointer is still over the dropdown (e.g. dragging
+      // the scrollbar) — the dropdown will close once the pointer leaves.
+      if (this._mouseInDropdown) return;
       this.dropdownOpen.set(false);
       this.activeIndex.set(-1);
     });
+  }
+
+  onDropdownMouseEnter(): void {
+    this._mouseInDropdown = true;
+  }
+
+  /** When the pointer leaves the dropdown, attempt a deferred close so that a
+   *  scrollbar-triggered blur (which was ignored earlier) finally closes it. */
+  onDropdownMouseLeave(): void {
+    this._mouseInDropdown = false;
+    if (this.dropdownOpen()) this.closeDropdown();
   }
 
   onSpellInput(): void {

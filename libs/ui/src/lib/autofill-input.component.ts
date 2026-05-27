@@ -51,6 +51,7 @@ const MAX_VISIBLE = 80;
       />
       @if (open() && filtered().length > 0) {
         <ul
+          #dropdownEl
           class="afc-dropdown"
           role="listbox"
           [style.top]="dropTop()"
@@ -126,6 +127,8 @@ const MAX_VISIBLE = 80;
 export class AutofillInputComponent implements ControlValueAccessor {
   private readonly destroyRef = inject(DestroyRef);
   private readonly inputEl = viewChild<ElementRef<HTMLInputElement>>('inputEl');
+  /** Reference to the dropdown list — used to ignore scroll events from the list itself. */
+  private readonly _dropdownEl = viewChild<ElementRef<HTMLUListElement>>('dropdownEl');
 
   suggestions = input<string[]>([]);
   placeholder = input<string>('');
@@ -152,10 +155,14 @@ export class AutofillInputComponent implements ControlValueAccessor {
   readonly listId = `autofill-list-${nextId}`;
 
   constructor() {
-    // Close on any scroll (capture phase catches scrolls inside overflow containers)
+    // Close on any scroll (capture phase catches scrolls inside overflow containers),
+    // but SKIP scrolls that originate from the dropdown list itself.
     fromEvent(document, 'scroll', { capture: true, passive: true })
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => this.open.set(false));
+      .subscribe((e) => {
+        if (this._dropdownEl()?.nativeElement === e.target) return;
+        this.open.set(false);
+      });
 
     // Close on window resize
     fromEvent(window, 'resize', { passive: true })
