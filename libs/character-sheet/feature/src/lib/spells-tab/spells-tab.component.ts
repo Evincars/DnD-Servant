@@ -80,6 +80,8 @@ interface SpellItem {
   highlightedName: string;
 }
 
+type SpellTypeFilter = 'kouzlo' | 'ritual' | 'trik';
+
 @Component({
   selector: 'spells-tab',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -139,8 +141,8 @@ interface SpellItem {
       font-family: sans-serif; font-size: 11px;
       color: rgba(200,160,60,.35); white-space: nowrap; flex-shrink: 0;
     }
-    /* ── Class filter chips ── */
-    .class-filters {
+    /* ── Filter rows (class chips + type/level chips) ── */
+    .filters {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -150,7 +152,12 @@ interface SpellItem {
       flex-shrink: 0;
       background: rgba(8,5,18,.7);
     }
-    .class-chip {
+    .filter-label {
+      font-family: sans-serif; font-size: 10px; letter-spacing: .07em;
+      text-transform: uppercase; color: rgba(200,160,60,.35);
+      flex-shrink: 0; margin-right: 2px;
+    }
+    .chip {
       padding: 2px 10px;
       border: 1px solid rgba(200,160,60,.25);
       border-radius: 12px;
@@ -163,6 +170,12 @@ interface SpellItem {
       white-space: nowrap;
       &:hover { border-color: rgba(200,160,60,.55); color: #d4c9a0; background: rgba(200,160,60,.07); }
       &.active { background: rgba(200,160,60,.14); border-color: #c8a03c; color: #e8c96a; box-shadow: 0 0 7px rgba(200,160,60,.18); }
+    }
+    /* Level chips use a purple/violet tint to match the ritual badge colour */
+    .chip--level {
+      border-color: rgba(160,80,220,.3); color: rgba(180,120,240,.6);
+      &:hover { border-color: rgba(180,120,240,.6); color: #c898f8; background: rgba(140,60,200,.07); }
+      &.active { background: rgba(140,60,200,.18); border-color: rgba(180,120,240,.8); color: #d0a8ff; box-shadow: 0 0 7px rgba(140,60,200,.2); }
     }
     /* ── Sort-mode toggle ── */
     .sort-toggle {
@@ -289,12 +302,13 @@ interface SpellItem {
       <span class="spells-count">{{ filteredSpells().length }}&thinsp;/&thinsp;{{ spellsService.allSpells().length }}</span>
     </div>
 
-    <!-- Class filter chips -->
+    <!-- Class filter chips (row 1) -->
     @if (spellsService.availableClasses().length > 0) {
-      <div class="class-filters">
-        <button class="class-chip" [class.active]="selectedClass() === null" type="button" (click)="selectedClass.set(null)">V&#353;e</button>
+      <div class="filters">
+        <span class="filter-label">Povolání</span>
+        <button class="chip" [class.active]="selectedClass() === null" type="button" (click)="selectedClass.set(null)">V&#353;e</button>
         @for (cls of spellsService.availableClasses(); track cls) {
-          <button class="class-chip" [class.active]="selectedClass() === cls" type="button" (click)="toggleClass(cls)">{{ cls }}</button>
+          <button class="chip" [class.active]="selectedClass() === cls" type="button" (click)="toggleClass(cls)">{{ cls }}</button>
         }
         <!-- Sort-mode toggle -->
         <div class="sort-toggle" role="group" aria-label="Řazení">
@@ -307,6 +321,30 @@ interface SpellItem {
             Úroveň
           </button>
         </div>
+      </div>
+    }
+
+    <!-- Type + level filter chips (row 2) -->
+    @if (spellsService.allSpells().length > 0) {
+      <div class="filters">
+        <span class="filter-label">Typ</span>
+        <button class="chip" [class.active]="selectedSpellType() === null" type="button" (click)="selectedSpellType.set(null)">V&#353;e</button>
+        <button class="chip" [class.active]="selectedSpellType() === 'kouzlo'" type="button" (click)="toggleSpellType('kouzlo')" matTooltip="Pouze kouzla (ne triky, ne rituály)">Kouzlo</button>
+        <button class="chip" [class.active]="selectedSpellType() === 'ritual'" type="button" (click)="toggleSpellType('ritual')" matTooltip="Pouze rituály">Rituál</button>
+        <button class="chip" [class.active]="selectedSpellType() === 'trik'" type="button" (click)="toggleSpellType('trik')" matTooltip="Pouze triky (0. úroveň)">Trik</button>
+        @if (availableLevels().length > 0) {
+          <span class="filter-label" style="margin-left: 6px">Úroveň</span>
+          <button class="chip chip--level" [class.active]="selectedLevel() === null" type="button" (click)="selectedLevel.set(null)">V&#353;e</button>
+          @for (lvl of availableLevels(); track lvl) {
+            <button
+              class="chip chip--level"
+              [class.active]="selectedLevel() === lvl"
+              type="button"
+              (click)="toggleLevel(lvl)"
+              [matTooltip]="lvl === 0 ? 'Trik (0. úroveň)' : lvl + '. úroveň'"
+            >{{ lvl === 0 ? 'T' : lvl }}</button>
+          }
+        }
       </div>
     }
 
@@ -332,7 +370,7 @@ interface SpellItem {
                   <span class="spell-card-name" [innerHTML]="item.highlightedName"></span>
                   <span class="badges">
                     @if (item.spell.ritual) {
-                      <span class="badge badge-ritual" matTooltip="Rit&#225;l" matTooltipShowDelay="700">R</span>
+                      <span class="badge badge-ritual" matTooltip="Ritu&#225;l" matTooltipShowDelay="700">R</span>
                     }
                     @if (item.spell.level === 0) {
                       <span class="badge badge-cantrip" matTooltip="Trik" matTooltipShowDelay="700">T</span>
@@ -356,20 +394,43 @@ export class SpellsTabComponent {
 
   readonly searchQuery = signal('');
   readonly selectedClass = signal<string | null>(null);
+  readonly selectedSpellType = signal<SpellTypeFilter | null>(null);
+  readonly selectedLevel = signal<number | null>(null);
   readonly sortMode = signal<'school' | 'level'>('school');
   private readonly _searchRef = viewChild<ElementRef<HTMLInputElement>>('searchInput');
 
+  /** Sorted list of spell levels present in the full (unfiltered) list. */
+  readonly availableLevels = computed((): number[] => {
+    const levelSet = new Set<number>();
+    for (const s of this.spellsService.allSpells()) {
+      if (s.level !== undefined) levelSet.add(s.level);
+    }
+    return [...levelSet].sort((a, b) => a - b);
+  });
+
   /**
-   * Spells after fuzzy search + class filter.
+   * Spells after fuzzy search + class filter + type filter + level filter.
    * Each item carries the pre-built highlighted HTML for its name.
    */
   readonly filteredSpells = computed((): SpellItem[] => {
     const q = JadSpellsService.normalizeStr(this.searchQuery());
     const cls = this.selectedClass();
+    const spellType = this.selectedSpellType();
+    const level = this.selectedLevel();
     const result: SpellItem[] = [];
 
     for (const s of this.spellsService.allSpells()) {
       if (cls !== null && !s.classes.some(c => c === cls)) continue;
+
+      // Type filter
+      if (spellType !== null) {
+        if (spellType === 'trik' && s.level !== 0) continue;
+        if (spellType === 'ritual' && !s.ritual) continue;
+        if (spellType === 'kouzlo' && (s.level === 0 || s.ritual)) continue;
+      }
+
+      // Level filter
+      if (level !== null && s.level !== level) continue;
 
       if (!q) {
         result.push({ spell: s, highlightedName: escHtml(s.name) });
@@ -417,6 +478,14 @@ export class SpellsTabComponent {
 
   toggleClass(cls: string): void {
     this.selectedClass.update(current => (current === cls ? null : cls));
+  }
+
+  toggleSpellType(type: SpellTypeFilter): void {
+    this.selectedSpellType.update(cur => (cur === type ? null : type));
+  }
+
+  toggleLevel(level: number): void {
+    this.selectedLevel.update(cur => (cur === level ? null : level));
   }
 
   spellTooltip(spell: JadSpell): string {
