@@ -16,7 +16,6 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { JadSpell, JadSpellsService } from '../jad-spells.service';
 import { SpellDetailDialogComponent, SpellDetailDialogData } from '../spell-detail-dialog.component';
 import { SpellSheetService } from '../spell-sheet.service';
-import { TabNavigatorService } from '@dn-d-servant/util';
 
 // ── Fuzzy-search helpers ────────────────────────────────────────────────────
 
@@ -412,7 +411,6 @@ export class SpellsTabComponent {
   readonly spellSheetService = inject(SpellSheetService);
   private readonly dialog = inject(MatDialog);
   private readonly snackBar = inject(MatSnackBar);
-  private readonly tabNavigator = inject(TabNavigatorService);
 
   readonly searchQuery = signal('');
   readonly selectedClass = signal<string | null>(null);
@@ -536,8 +534,6 @@ export class SpellsTabComponent {
         duration: 2500,
         panelClass: ['snackbar--save'],
       });
-      // Navigate to "Karta postavy" tab (index 0) so the user sees the result
-      this.tabNavigator.navigateTo(0);
     } else {
       this.snackBar.open('Všechny řádky v listu kouzel jsou obsazeny.', '✕', {
         verticalPosition: 'top',

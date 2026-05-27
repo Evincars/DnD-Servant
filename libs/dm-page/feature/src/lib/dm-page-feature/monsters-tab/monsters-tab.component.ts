@@ -202,7 +202,6 @@ const CR_RANGES: CrRange[] = [
         background: rgba(200,160,60,.09); color: #e8c96a;
         border-color: rgba(200,160,60,.26); box-shadow: 0 2px 8px rgba(200,160,60,.09);
         .cr-badge { opacity: .9; }
-        .init-btn { opacity: 1; }
       }
     }
     .card-name {
@@ -217,12 +216,16 @@ const CR_RANGES: CrRange[] = [
       border: 1px solid rgba(200,80,60,.35); background: rgba(200,80,60,.1); color: rgba(220,120,80,.8);
     }
     .init-btn {
-      flex-shrink: 0; border: none; background: none; cursor: pointer; padding: 1px 2px;
-      opacity: 0; transition: opacity .14s, color .14s;
-      color: rgba(80,160,220,.55); border-radius: 3px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px;
+      background: none; border: 1px solid rgba(80,160,220,.2); border-radius: 4px;
+      color: rgba(80,160,220,.35);
+      cursor: pointer; padding: 0;
+      transition: all .15s;
       mat-icon { font-size: 14px; width: 14px; height: 14px; }
-      &:hover { color: #60c8f8; background: rgba(60,130,200,.12); }
-      &.added { opacity: 1; color: #60ee88; }
+      &:hover { border-color: rgba(80,160,220,.7); color: #60c8f8; background: rgba(60,130,200,.12); }
+      &.added { border-color: rgba(60,220,100,.7); color: #60ee88; background: rgba(40,180,80,.1); }
     }
 
     /* ── States ── */

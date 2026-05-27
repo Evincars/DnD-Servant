@@ -5,6 +5,9 @@ import { SpellsForm } from '@dn-d-servant/character-sheet-util';
 /** Total number of spell rows available in the spell sheet (r1 … r35). */
 const SPELL_ROW_COUNT = 35;
 
+/** All column suffixes that make up a single spell row. */
+const SPELL_ROW_FIELDS = ['P', 'S', 'Nazev', 'Utok', 'DobaSesilani', 'Slozky', 'Dosah', 'Trvani', 'Poznamka', 'Str'] as const;
+
 /**
  * Shared singleton service that bridges the Kouzla browser tab with the
  * Kouzla section on the character-sheet (third page).
@@ -34,7 +37,8 @@ export class SpellSheetService {
   }
 
   /**
-   * Writes `spellName` into the first empty `rXNazev` control.
+   * Writes `spellName` into the `rXNazev` control of the first row where
+   * **all** 10 fields are empty.
    * Returns `true` if a slot was found, `false` if all 35 rows are filled.
    */
   addSpell(spellName: string): boolean {
@@ -44,11 +48,14 @@ export class SpellSheetService {
     const controls = form.controls as Record<string, { value: unknown; setValue(v: string): void }>;
 
     for (let i = 1; i <= SPELL_ROW_COUNT; i++) {
-      const ctrl = controls[`r${i}Nazev`];
-      if (!ctrl) continue;
-      const val = ctrl.value;
-      if (!val || (typeof val === 'string' && val.trim() === '')) {
-        ctrl.setValue(spellName);
+      // A row is considered empty only when EVERY field is blank.
+      const isRowEmpty = SPELL_ROW_FIELDS.every(field => {
+        const val = controls[`r${i}${field}`]?.value;
+        return !val || (typeof val === 'string' && val.trim() === '');
+      });
+
+      if (isRowEmpty) {
+        controls[`r${i}Nazev`].setValue(spellName);
         return true;
       }
     }
