@@ -12,11 +12,12 @@ import { openAutofillAbilitiesDialog } from './help-dialogs/autofill-abilities-d
 import { ImageConverterComponent } from './image-converter/image-converter.component';
 import { WikiTabComponent } from './wiki/wiki-tab.component';
 import { SpellsTabComponent } from './spells-tab/spells-tab.component';
+import { PotionsTabComponent } from './potions-tab/potions-tab.component';
 import { Subscription, timer } from 'rxjs';
 
 const TAB_INDEX_KEY = ACTIVE_TAB_INDEX_KEY;
 /** Total number of tabs in the character-sheet tab group. Keep in sync with the template. */
-const TAB_COUNT = 8;
+const TAB_COUNT = 9;
 
 @Component({
   selector: 'character-sheet-tabs',
@@ -31,6 +32,7 @@ const TAB_COUNT = 8;
       <mat-tab label="Questy"><quests-tab /></mat-tab>
       <mat-tab label="Karta družiny"><group-sheet class="u-mt-2" /></mat-tab>
       <mat-tab label="Kouzla"><spells-tab [active]="selectedTab() === 3" /></mat-tab>
+      <mat-tab label="Lektvary"><potions-tab /></mat-tab>
       <mat-tab label="Poznámky"><notes-sheet /></mat-tab>
       <mat-tab label="Iniciativa"><initiative-tracker [disableMonsterSearch]="true" /></mat-tab>
       <mat-tab label="Konvertor obrázků"><image-converter /></mat-tab>
@@ -233,6 +235,7 @@ const TAB_COUNT = 8;
     ImageConverterComponent,
     WikiTabComponent,
     SpellsTabComponent,
+    PotionsTabComponent,
   ],
 })
 export class CharacterSheetTabsComponent implements OnInit, OnDestroy {
