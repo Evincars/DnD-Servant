@@ -411,12 +411,11 @@ export class InitiativeTrackerComponent {
       this._monsterLookup$(entry.name)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(result => {
-          const hp = (mode === 'dice' && result.hitPointsRoll)
-            ? this._rollDiceFormula(result.hitPointsRoll)
-            : result.hitPoints;
-
-          // Apply HP/AC to ALL rows sharing this base name
+          // Roll separately for each copy so every monster gets its own HP value.
           for (const rowId of entry.rowIds) {
+            const hp = (mode === 'dice' && result.hitPointsRoll)
+              ? this._rollDiceFormula(result.hitPointsRoll)
+              : result.hitPoints;
             this._applyHpAcForce(rowId, hp, result.armorClass);
           }
 
@@ -479,7 +478,9 @@ export class InitiativeTrackerComponent {
       map(m => ({
         isJad: false, monster: m, jadMonsterHtml: null,
         hitPoints: m.hit_points ?? null,
-        hitPointsRoll: m.hit_points_roll ?? null,
+        // hit_points_roll (e.g. "9d8+18") is preferred; fall back to hit_dice ("9d8")
+        // so the dice mode always has a formula to roll even if the API omits the field.
+        hitPointsRoll: (m.hit_points_roll || m.hit_dice) ?? null,
         armorClass: m.armor_class?.[0]?.value ?? null,
         error: null,
       } as MonsterLookupResult)),
