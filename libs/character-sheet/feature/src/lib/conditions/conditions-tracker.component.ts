@@ -72,15 +72,15 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
       display: flex; align-items: flex-start; justify-content: space-between;
       flex-wrap: wrap; gap: 14px; margin-bottom: 24px; padding-bottom: 14px;
       border-bottom: 2px solid transparent;
-      border-image: linear-gradient(90deg, transparent, rgba(160,80,200,.6) 20%, rgba(200,120,240,.8) 50%, rgba(160,80,200,.6) 80%, transparent) 1;
+      border-image: linear-gradient(90deg, transparent, rgba(200,160,60,.6) 20%, rgba(220,180,60,.8) 50%, rgba(200,160,60,.6) 80%, transparent) 1;
     }
     .ct-title {
       font-size: 22px; letter-spacing: .12em; text-transform: uppercase;
-      color: #c890e8; text-shadow: 0 0 18px rgba(160,80,200,.4), 0 0 4px rgba(160,80,200,.2);
+      color: #e8c96a; text-shadow: 0 0 18px rgba(200,160,60,.4), 0 0 4px rgba(200,160,60,.2);
       display: flex; align-items: center; gap: 10px;
-      mat-icon { font-size: 26px; width: 26px; height: 26px; color: #a060c0; }
+      mat-icon { font-size: 26px; width: 26px; height: 26px; color: #c8a03c; }
     }
-    .ct-subtitle { font-size: 11px; color: rgba(160,80,200,.4); letter-spacing: .05em; margin-top: 5px; font-family: sans-serif; font-style: italic; text-transform: none; }
+    .ct-subtitle { font-size: 11px; color: rgba(200,160,60,.4); letter-spacing: .05em; margin-top: 5px; font-family: sans-serif; font-style: italic; text-transform: none; }
 
     .ct-header-right { display: flex; align-items: center; gap: 12px; }
 
