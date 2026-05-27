@@ -1,4 +1,4 @@
-﻿import { ChangeDetectionStrategy, Component, computed, inject, input, signal, Signal } from '@angular/core';
+﻿import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, input, signal, Signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -12,6 +12,7 @@ import { SheetThemeService } from './sheet-theme.service';
 import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.component';
 import { CdkDropList } from '@angular/cdk/drag-drop';
 import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
+import { SpellSheetService } from './spell-sheet.service';
 
 @Component({
   selector: 'third-page',
@@ -2828,6 +2829,18 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
 export class CharacterSheetThirdPageComponent {
   form = input.required<FormGroup<ThirdPageForm>>();
   readonly sheetTheme = inject(SheetThemeService);
+  private readonly _spellSheet = inject(SpellSheetService);
+  private readonly _destroyRef = inject(DestroyRef);
+
+  constructor() {
+    // Register the spells form with the shared service so the Kouzla tab can
+    // add spells to the sheet directly.
+    effect(() => {
+      const spellsForm = this.form().controls.spellsForm;
+      this._spellSheet.registerForm(spellsForm);
+    });
+    this._destroyRef.onDestroy(() => this._spellSheet.unregisterForm());
+  }
 
   activeRow = signal(0);
   dropdownOpen = signal(false);

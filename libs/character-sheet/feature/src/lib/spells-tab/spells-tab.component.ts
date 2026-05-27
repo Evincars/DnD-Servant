@@ -11,9 +11,12 @@
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
 import { JadSpell, JadSpellsService } from '../jad-spells.service';
 import { SpellDetailDialogComponent, SpellDetailDialogData } from '../spell-detail-dialog.component';
+import { SpellSheetService } from '../spell-sheet.service';
+import { TabNavigatorService } from '@dn-d-servant/util';
 
 // ── Fuzzy-search helpers ────────────────────────────────────────────────────
 
@@ -80,7 +83,7 @@ interface SpellItem {
   highlightedName: string;
 }
 
-type SpellTypeFilter = 'kouzlo' | 'ritual' | 'trik';
+type SpellTypeFilter = 'kouzlo' | 'ritual';
 
 @Component({
   selector: 'spells-tab',
@@ -171,12 +174,8 @@ type SpellTypeFilter = 'kouzlo' | 'ritual' | 'trik';
       &:hover { border-color: rgba(200,160,60,.55); color: #d4c9a0; background: rgba(200,160,60,.07); }
       &.active { background: rgba(200,160,60,.14); border-color: #c8a03c; color: #e8c96a; box-shadow: 0 0 7px rgba(200,160,60,.18); }
     }
-    /* Level chips use a purple/violet tint to match the ritual badge colour */
-    .chip--level {
-      border-color: rgba(160,80,220,.3); color: rgba(180,120,240,.6);
-      &:hover { border-color: rgba(180,120,240,.6); color: #c898f8; background: rgba(140,60,200,.07); }
-      &.active { background: rgba(140,60,200,.18); border-color: rgba(180,120,240,.8); color: #d0a8ff; box-shadow: 0 0 7px rgba(140,60,200,.2); }
-    }
+    /* Level chips – same gold family as class chips */
+    .chip--level { /* inherits .chip styles – no extra override needed */ }
     /* ── Sort-mode toggle ── */
     .sort-toggle {
       margin-left: auto;
@@ -279,6 +278,18 @@ type SpellTypeFilter = 'kouzlo' | 'ritual' | 'trik';
       color: rgba(200,160,60,.3); font-style: italic;
       mat-icon { display: block; font-size: 36px; width: 36px; height: 36px; margin: 0 auto 12px; color: rgba(200,160,60,.18); }
     }
+    /* ── Add-to-sheet button inside spell card ── */
+    .add-to-sheet-btn {
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px;
+      background: none; border: 1px solid rgba(200,160,60,.18); border-radius: 4px;
+      color: rgba(200,160,60,.35);
+      cursor: pointer; padding: 0;
+      transition: all .15s;
+      mat-icon { font-size: 14px; width: 14px; height: 14px; }
+      &:hover { border-color: rgba(200,160,60,.7); color: #e8c96a; background: rgba(200,160,60,.1); }
+    }
   `,
   template: `
     <!-- Search bar -->
@@ -328,23 +339,22 @@ type SpellTypeFilter = 'kouzlo' | 'ritual' | 'trik';
     @if (spellsService.allSpells().length > 0) {
       <div class="filters">
         <span class="filter-label">Typ</span>
-        <button class="chip" [class.active]="selectedSpellType() === null" type="button" (click)="selectedSpellType.set(null)">V&#353;e</button>
+        <button class="chip" [class.active]="selectedSpellType() === null" type="button" (click)="selectedSpellType.set(null)">Vše</button>
         <button class="chip" [class.active]="selectedSpellType() === 'kouzlo'" type="button" (click)="toggleSpellType('kouzlo')" matTooltip="Pouze kouzla (ne triky, ne rituály)">Kouzlo</button>
         <button class="chip" [class.active]="selectedSpellType() === 'ritual'" type="button" (click)="toggleSpellType('ritual')" matTooltip="Pouze rituály">Rituál</button>
-        <button class="chip" [class.active]="selectedSpellType() === 'trik'" type="button" (click)="toggleSpellType('trik')" matTooltip="Pouze triky (0. úroveň)">Trik</button>
-        @if (availableLevels().length > 0) {
-          <span class="filter-label" style="margin-left: 6px">Úroveň</span>
-          <button class="chip chip--level" [class.active]="selectedLevel() === null" type="button" (click)="selectedLevel.set(null)">V&#353;e</button>
-          @for (lvl of availableLevels(); track lvl) {
-            <button
-              class="chip chip--level"
-              [class.active]="selectedLevel() === lvl"
-              type="button"
-              (click)="toggleLevel(lvl)"
-              [matTooltip]="lvl === 0 ? 'Trik (0. úroveň)' : lvl + '. úroveň'"
-            >{{ lvl === 0 ? 'T' : lvl }}</button>
+          @if (availableLevels().length > 0) {
+            <span class="filter-label" style="margin-left: 6px">Úroveň</span>
+            <button class="chip chip--level" [class.active]="selectedLevel() === null" type="button" (click)="selectedLevel.set(null)">Vše</button>
+            @for (lvl of availableLevels(); track lvl) {
+              <button
+                class="chip chip--level"
+                [class.active]="selectedLevel() === lvl"
+                type="button"
+                (click)="toggleLevel(lvl)"
+                [matTooltip]="lvl === 0 ? 'Trik (0. úroveň)' : lvl + '. úroveň'"
+              >{{ lvl === 0 ? 'Trik' : lvl }}</button>
+            }
           }
-        }
       </div>
     }
 
@@ -370,14 +380,23 @@ type SpellTypeFilter = 'kouzlo' | 'ritual' | 'trik';
                   <span class="spell-card-name" [innerHTML]="item.highlightedName"></span>
                   <span class="badges">
                     @if (item.spell.ritual) {
-                      <span class="badge badge-ritual" matTooltip="Ritu&#225;l" matTooltipShowDelay="700">R</span>
+                      <span class="badge badge-ritual" matTooltip="Rituál" matTooltipShowDelay="700">R</span>
                     }
                     @if (item.spell.level === 0) {
                       <span class="badge badge-cantrip" matTooltip="Trik" matTooltipShowDelay="700">T</span>
                     } @else if (item.spell.level !== undefined) {
-                      <span class="badge badge-level" [matTooltip]="item.spell.level + '. &#250;rove&#328;'" matTooltipShowDelay="700">{{ item.spell.level }}</span>
+                      <span class="badge badge-level" [matTooltip]="item.spell.level + '. úroveň'" matTooltipShowDelay="700">{{ item.spell.level }}</span>
                     }
                   </span>
+                  @if (spellSheetService.hasActiveForm()) {
+                    <button
+                      class="add-to-sheet-btn"
+                      type="button"
+                      (click)="addSpellToSheet(item.spell, $event)"
+                      matTooltip="Přidat do listu kouzel"
+                      matTooltipShowDelay="400"
+                    ><mat-icon>playlist_add</mat-icon></button>
+                  }
                 </button>
               }
             </div>
@@ -390,7 +409,10 @@ type SpellTypeFilter = 'kouzlo' | 'ritual' | 'trik';
 export class SpellsTabComponent {
   readonly active = input<boolean>(false);
   readonly spellsService = inject(JadSpellsService);
+  readonly spellSheetService = inject(SpellSheetService);
   private readonly dialog = inject(MatDialog);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly tabNavigator = inject(TabNavigatorService);
 
   readonly searchQuery = signal('');
   readonly selectedClass = signal<string | null>(null);
@@ -399,7 +421,8 @@ export class SpellsTabComponent {
   readonly sortMode = signal<'school' | 'level'>('school');
   private readonly _searchRef = viewChild<ElementRef<HTMLInputElement>>('searchInput');
 
-  /** Sorted list of spell levels present in the full (unfiltered) list. */
+  /** Sorted list of all spell levels (0–9) present in the full (unfiltered) list.
+   *  Level 0 is shown as "Trik" in the Úroveň chip row. */
   readonly availableLevels = computed((): number[] => {
     const levelSet = new Set<number>();
     for (const s of this.spellsService.allSpells()) {
@@ -424,7 +447,6 @@ export class SpellsTabComponent {
 
       // Type filter
       if (spellType !== null) {
-        if (spellType === 'trik' && s.level !== 0) continue;
         if (spellType === 'ritual' && !s.ritual) continue;
         if (spellType === 'kouzlo' && (s.level === 0 || s.ritual)) continue;
       }
@@ -503,6 +525,25 @@ export class SpellsTabComponent {
       panelClass: 'spell-detail-panel',
       maxWidth: '95vw',
     });
+  }
+
+  addSpellToSheet(spell: JadSpell, event: MouseEvent): void {
+    event.stopPropagation();
+    const added = this.spellSheetService.addSpell(spell.name);
+    if (added) {
+      this.snackBar.open(`✨ „${spell.name}" přidáno do listu kouzel`, '✕', {
+        verticalPosition: 'top',
+        duration: 2500,
+        panelClass: ['snackbar--save'],
+      });
+      // Navigate to "Karta postavy" tab (index 0) so the user sees the result
+      this.tabNavigator.navigateTo(0);
+    } else {
+      this.snackBar.open('Všechny řádky v listu kouzel jsou obsazeny.', '✕', {
+        verticalPosition: 'top',
+        duration: 3000,
+      });
+    }
   }
 
   private _levelLabel(level: number | undefined): string {
