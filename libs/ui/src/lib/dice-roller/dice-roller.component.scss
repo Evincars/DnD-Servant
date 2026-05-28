@@ -282,8 +282,8 @@ $accent-k20:  #a840ff;
   align-items: center;
   gap: 3px;
   position: relative;
-  padding-top: calc(18px + 3px);   // reserve space for − button
-  padding-bottom: calc(18px + 3px); // reserve space for + button
+  padding-top: calc(18px + 1px);   // reserve space for − button
+  padding-bottom: calc(18px + 1px); // reserve space for + button
 }
 
 // +/- controls
