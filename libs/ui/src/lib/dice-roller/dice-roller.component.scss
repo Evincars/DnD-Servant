@@ -282,10 +282,15 @@ $accent-k20:  #a840ff;
   align-items: center;
   gap: 3px;
   position: relative;
+  padding-top: calc(18px + 3px);   // reserve space for − button
+  padding-bottom: calc(18px + 3px); // reserve space for + button
 }
 
 // +/- controls
 .dr-die-ctrl {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   width: 22px; height: 18px;
   background: rgba(200,154,60,.12);
   border: 1px solid rgba(200,154,60,.3);
@@ -295,8 +300,8 @@ $accent-k20:  #a840ff;
   transition: background .15s;
   display: flex; align-items: center; justify-content: center;
   &:hover { background: rgba(200,154,60,.28); }
-  &--plus { order: 2; }
-  &--minus { order: 0; }
+  &--plus  { bottom: 0; }
+  &--minus { top: 0; }
 }
 
 // Die button
