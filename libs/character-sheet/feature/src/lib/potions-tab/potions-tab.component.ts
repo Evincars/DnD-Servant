@@ -90,7 +90,7 @@ const POTIONS: Potion[] = [
     effect: 'Obnoví 2k4+2 HP',
     category: 'leceni',
     rarity: 'Běžný',
-    ingredients: ing(['Červená jetelina (bylina, louky)', 'Včelí med (obchod / úl)', 'Čistá pramenitá voda'], 38, 'Lektvar léčení'),
+    ingredients: ing(['Červená jetelina (bylina, louky)', 'Včelí med (obchod / úl)', 'Ryzí voda z lesní elfské říše'], 38, 'Lektvar léčení'),
     priceBuy: '50 zl',
     priceCraft: '38 zl',
     craftTime: '2 hodiny',
@@ -675,7 +675,7 @@ const FAIL_TABLE: FailEntry[] = [
   {
     min: 1, max: 1,
     title: 'VELKÝ TŘESK', severity: 'doom',
-    desc: r => `Výbuch srovnatelný s pěstí obřů srovná laboratoř a vše do ${r * 10} sáhů se zemí. Všechny bytosti v dosahu si hází ZH ODL SO ${10 + r * 3} nebo utrpí ${r * 2}k10 ohnivého zranění (½ při úspěchu). Výbuch je viditelný z ${r} míle.`,
+    desc: r => `Výbuch srovnatelný s pěstí obrů srovná laboratoř a vše do ${r * 10} sáhů se zemí. Všechny bytosti v dosahu si hází ZH ODL SO ${10 + r * 3} nebo utrpí ${r * 2}k10 ohnivého zranění (½ při úspěchu). Výbuch je viditelný z ${r} míle.`,
   },
   {
     min: 2, max: 2,
