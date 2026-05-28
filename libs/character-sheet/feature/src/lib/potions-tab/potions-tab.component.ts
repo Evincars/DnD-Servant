@@ -609,42 +609,85 @@ const RARITY_LABELS: { key: RarityFilter; label: string }[] = [
   { key: 'Legendární', label: 'Legendární' },
 ];
 
-/**
- * Generates an inline SVG data URL for a potion bottle with the given liquid color.
- * The bottle shape is consistent; only the fill color changes.
- */
-function potionSvg(color: string): string {
-  // A fantasy-style potion bottle  
-  return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 96" width="64" height="96">
-  <defs>
-    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="rgba(255,255,255,.25)"/>
-      <stop offset="100%" stop-color="rgba(255,255,255,.05)"/>
-    </linearGradient>
-    <linearGradient id="liq" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="${color}" stop-opacity=".9"/>
-      <stop offset="100%" stop-color="${color}" stop-opacity=".6"/>
-    </linearGradient>
-    <filter id="glow"><feGaussianBlur stdDeviation="2" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-  </defs>
-  <!-- Cork -->
-  <rect x="24" y="2" width="16" height="10" rx="3" fill="#8B5E3C" stroke="#5C3A1E" stroke-width=".8"/>
-  <!-- Neck -->
-  <path d="M26 12 L26 26 Q26 30 22 34 L22 34" fill="none" stroke="rgba(200,200,220,.4)" stroke-width="1.5"/>
-  <path d="M38 12 L38 26 Q38 30 42 34 L42 34" fill="none" stroke="rgba(200,200,220,.4)" stroke-width="1.5"/>
-  <rect x="26" y="12" width="12" height="16" rx="2" fill="url(#glass)" stroke="rgba(200,200,220,.3)" stroke-width=".8"/>
-  <!-- Body -->
-  <path d="M22 34 Q12 40 12 54 L12 78 Q12 90 22 92 L42 92 Q52 90 52 78 L52 54 Q52 40 42 34 Z" fill="url(#glass)" stroke="rgba(200,200,220,.35)" stroke-width="1"/>
-  <!-- Liquid fill -->
-  <path d="M16 50 Q14 54 14 58 L14 76 Q14 88 22 90 L42 90 Q50 88 50 76 L50 58 Q50 54 48 50 Z" fill="url(#liq)" filter="url(#glow)"/>
-  <!-- Highlight -->
-  <ellipse cx="22" cy="58" rx="4" ry="8" fill="rgba(255,255,255,.2)"/>
-  <!-- Bubbles -->
-  <circle cx="34" cy="70" r="2" fill="rgba(255,255,255,.3)"/>
-  <circle cx="28" cy="76" r="1.5" fill="rgba(255,255,255,.2)"/>
-  <circle cx="38" cy="64" r="1" fill="rgba(255,255,255,.25)"/>
-</svg>`)}`;
+// ── Crafting SO & fail table data ────────────────────────────────────────────
+
+const RARITY_SCALE = new Map<Rarity, number>([
+  ['Běžný', 1], ['Neobvyklý', 2], ['Vzácný', 3], ['Velmi vzácný', 4], ['Legendární', 5],
+]);
+
+/** Lower SO values — failures are now interesting, not just "lost materials". */
+const CRAFT_SO = new Map<Rarity, number>([
+  ['Běžný', 8], ['Neobvyklý', 12], ['Vzácný', 16], ['Velmi vzácný', 20], ['Legendární', 25],
+]);
+
+type FailSeverity = 'great' | 'good' | 'mixed' | 'bad' | 'terrible' | 'doom';
+
+interface FailEntry {
+  min: number;
+  max: number;
+  icon: string;
+  title: string;
+  severity: FailSeverity;
+  desc: (r: number) => string;
 }
+
+const FAIL_TABLE: FailEntry[] = [
+  {
+    min: 1, max: 1,
+    icon: '💥', title: 'VELKÝ TŘESK', severity: 'doom',
+    desc: r => `Výbuch srovnatelný s pěstí obřů srovná laboratoř a vše do ${r * 10} sáhů se zemí. Všechny bytosti v dosahu si hází ZH ODL SO ${10 + r * 3} nebo utrpí ${r * 2}k10 ohnivého zranění (½ při úspěchu). Výbuch je viditelný z ${r} míle. Okolní domy hoří. Místní alchymisté se modlí, aby nebyli příbuzní.`,
+  },
+  {
+    min: 2, max: 3,
+    icon: '☠️', title: 'Smrtelná otrava', severity: 'doom',
+    desc: r => `Jedovatý oblak zasahuje tebe a vše do ${r * 3} sáhů. ZH ODL SO ${8 + r * 3} nebo ${r}k6 jedového zranění za každé kolo po dobu ${r} kol + Otrávení na ${r} hodin. A to pro každého, kdo se nachází v dosahu. A pro svého mazlíčka. A pro souseda.`,
+  },
+  {
+    min: 4, max: 5,
+    icon: '🔥', title: 'Jiskrový požár', severity: 'terrible',
+    desc: r => `Výbuch jisker zapaluje laboratoř a vše do ${r * 4} sáhů. ZH ODL SO 14 nebo ${r}k6 ohnivého zranění. Škoda na vybavení dosahuje přibližně ${r * 150} zlatých. Oheň se šíří, dokud ho někdo nezastaví.`,
+  },
+  {
+    min: 6, max: 7,
+    icon: '🌀', title: 'Divoká magie', severity: 'terrible',
+    desc: r => `Hraj ${r}× na tabulce efektů Divoké magie. Každý efekt je nezávislý a nastane okamžitě, jeden po druhém. Legenda praví, že jeden alchymista takto omylem vyvolal ${r} kopií sebe sama — všechny nepřátelské.`,
+  },
+  {
+    min: 8, max: 9,
+    icon: '🤢', title: 'Vlastní otrava', severity: 'bad',
+    desc: r => `Spolkneš stabilizační vzorek. ZH ODL SO ${10 + r * 2} nebo Otrávení na ${r * 2} hodiny a ${r}k4 jedového zranění. Suroviny jsou ztraceny. Laboratoř smrdí.`,
+  },
+  {
+    min: 10, max: 11,
+    icon: '😵', title: 'Záhadná látka', severity: 'bad',
+    desc: _r => `Vyrobil jsi něco stabilního — ale jen matně tušíš co to může dělat. Nevíš jak to vyrobit znovu. PH si hodí tajně za výsledek (může být cokoliv od "nic" po "kouzlo 5. kruh"). Přesto ses trochu naučil.`,
+  },
+  {
+    min: 12, max: 13,
+    icon: '🤮', title: 'Odporná chuť', severity: 'mixed',
+    desc: r => `Lektvar je funkční, ale chutná nevýslovně hrozně — jako kobliha namočená v bažinaté vodě. Pití vyžaduje ZH ODL SO ${11 + r}. Selhání = ${r} kol zvracení (Otrávení) a ztráta akce. Přesto lektvar po spolknutí účinkuje normálně.`,
+  },
+  {
+    min: 14, max: 15,
+    icon: '⚗️', title: 'Poloviční efekt', severity: 'mixed',
+    desc: _r => `Lektvar funguje, ale s polovičním efektem a na poloviční dobu trvání. Léčivé lektvary obnoví jen polovinu HP, buff lektvary trvají ½ doby. Na druhou stranu — aspoň nechytlo.`,
+  },
+  {
+    min: 16, max: 17,
+    icon: '🌟', title: 'Vedlejší efekt', severity: 'mixed',
+    desc: r => `Lektvar funguje správně! Ale má nepříjemný vedlejší efekt (PH volí nebo hod k6): 1 Otrávení na 1 hodinu • 2 Spánek ${r} kol • 3 Halucinace ${r} hodiny • 4 Zmenšení na 1 hodinu • 5 Nesnesitelný zápach (6 sáhů, ${r} hodin) • 6 Kůže zmodrá na ${r * 24} hodin.`,
+  },
+  {
+    min: 18, max: 19,
+    icon: '✨', title: 'Šťastná nehoda', severity: 'good',
+    desc: _r => `Selhal jsi na zamýšlený lektvar — ale omylem syntetizoval jiný náhodný lektvar stejné vzácnosti. PH určí který. Suroviny ztraceny, ale laboratorní deník se obohatil o zajímavou poznámku.`,
+  },
+  {
+    min: 20, max: 20,
+    icon: '🎉', title: 'Geniální omyl!', severity: 'great',
+    desc: _r => `Mishap, který se vymknul! Omylem jsi vyrobil vylepšenou verzi — lektvar má DVOJNÁSOBNÝ efekt a DVOJNÁSOBNOU dobu trvání. Někdy se génius projeví náhodou. Přesto si neplánuješ postup zopakovat.`,
+  },
+];
 
 @Component({
   selector: 'potions-tab',
@@ -654,40 +697,29 @@ function potionSvg(color: string): string {
     <div class="pt-wrap">
       <header class="pt-header">
         <h2 class="pt-title">🧪 Lektvary & Jedy – Receptář</h2>
-        <p class="pt-subtitle">Přísady, ceny a čas vaření • Výroba je vždy levnější než nákup</p>
+        <p class="pt-subtitle">Přísady, ceny a čas vaření • Výroba vždy levnější než nákup</p>
       </header>
 
       <div class="pt-filters">
         <div class="pt-filter-row">
           <span class="pt-filter-label">Typ:</span>
           @for (cat of categories; track cat.key) {
-            <button
-              class="pt-filter-btn"
-              [class.active]="activeCategory() === cat.key"
-              (click)="activeCategory.set(cat.key)"
-            >{{ cat.label }}</button>
+            <button class="pt-filter-btn" [class.active]="activeCategory() === cat.key"
+              (click)="activeCategory.set(cat.key)">{{ cat.label }}</button>
           }
         </div>
         <div class="pt-filter-row">
           <span class="pt-filter-label">Vzácnost:</span>
           @for (r of rarities; track r.key) {
-            <button
-              class="pt-filter-btn pt-rarity-btn"
-              [class.active]="activeRarity() === r.key"
-              [attr.data-rarity]="r.key"
-              (click)="activeRarity.set(r.key)"
-            >{{ r.label }}</button>
+            <button class="pt-filter-btn pt-rarity-btn" [class.active]="activeRarity() === r.key"
+              [attr.data-rarity]="r.key" (click)="activeRarity.set(r.key)">{{ r.label }}</button>
           }
         </div>
       </div>
 
       <div class="pt-search-row">
-        <input
-          class="pt-search"
-          placeholder="Hledat lektvar…"
-          [value]="searchQuery()"
-          (input)="searchQuery.set($any($event.target).value)"
-        />
+        <input class="pt-search" placeholder="Hledat lektvar…"
+          [value]="searchQuery()" (input)="searchQuery.set($any($event.target).value)"/>
       </div>
 
       <div class="pt-table-wrap">
@@ -705,20 +737,13 @@ function potionSvg(color: string): string {
             @for (p of filteredPotions(); track p.name) {
               <tr class="pt-row">
                 <td class="col-name">
-                  <div class="pt-name-wrap">
-                    <div class="pt-name">{{ p.name }}</div>
-                    <div class="pt-effect">{{ p.effect }}</div>
-                  </div>
-                  <div class="pt-potion-preview">
-                    <img [src]="getPotionImg(p.color)" alt="" />
-                  </div>
+                  <div class="pt-name">{{ p.name }}</div>
+                  <div class="pt-effect">{{ p.effect }}</div>
                 </td>
                 <td class="col-rarity"><span class="pt-tag" [attr.data-rarity]="p.rarity">{{ p.rarity }}</span></td>
                 <td class="col-ingr">
                   <div class="pt-ingr">
-                    @for (ing of p.ingredients; track ing) {
-                      <span>{{ ing }}</span>
-                    }
+                    @for (ing of p.ingredients; track ing) { <span>{{ ing }}</span> }
                   </div>
                 </td>
                 <td class="col-price">
@@ -734,10 +759,86 @@ function potionSvg(color: string): string {
         </table>
       </div>
 
-      <footer class="pt-footer">
-        <p><strong>Pravidla výroby:</strong> Postava musí mít zdatnost v Alchymistické soupravě. Hod INT (Arkána) nebo MDR (Lékařství) proti SO dle vzácnosti. Neúspěch = ztráta ½ surovin.</p>
-        <p><strong>SO vaření:</strong> Běžný = 10 • Neobvyklý = 15 • Vzácný = 20 • Velmi vzácný = 25 • Legendární = 30</p>
-      </footer>
+      <!-- ═══ Crafting Rules & d20 Fail Table ═══ -->
+      <section class="craft-section">
+        <h3 class="craft-title">⚗️ Pravidla výroby</h3>
+
+        <!-- SO summary -->
+        <div class="craft-intro">
+          <p>Postava musí mít zdatnost v <strong>Alchymistické soupravě</strong>. Hodí si na <strong>INT (Arkána)</strong> nebo <strong>MDR (Lékařství)</strong> proti SO dle vzácnosti.</p>
+          <p>Při selhání neztratíš jen suroviny — hodíš si na <strong>Tabulku selhání (k20)</strong> níže a zjistíš, jak moc se to pokazilo. 🎲</p>
+        </div>
+
+        <!-- SO table -->
+        <div class="so-table-wrap">
+          <table class="so-table">
+            <thead>
+              <tr>
+                <th>Vzácnost</th>
+                <th>SO vaření</th>
+                <th>Při selhání</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of craftSoRows; track row.rarity) {
+                <tr>
+                  <td><span class="pt-tag" [attr.data-rarity]="row.rarity">{{ row.rarity }}</span></td>
+                  <td class="so-value">{{ row.so }}</td>
+                  <td class="so-fail-hint">Hod k20 na tabulku · škáluje ×{{ row.scale }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <!-- d20 Fail Table interactive -->
+        <div class="fail-section">
+          <div class="fail-header">
+            <h4 class="fail-title">🎲 Tabulka selhání (k20)</h4>
+            <div class="fail-controls">
+              <span class="fail-label">Vzácnost lektvaru:</span>
+              @for (r of rarityOnly; track r.key) {
+                <button class="pt-filter-btn pt-rarity-btn fail-rar-btn"
+                  [class.active]="failRarity() === r.key"
+                  [attr.data-rarity]="r.key"
+                  (click)="failRarity.set(r.key)">{{ r.label }}</button>
+              }
+              <button class="roll-btn" (click)="rollD20()">
+                🎲 Hodit k20{{ d20Roll() !== null ? ' — ' + d20Roll() : '' }}
+              </button>
+            </div>
+          </div>
+
+          <div class="fail-table-wrap">
+            <table class="fail-table">
+              <thead>
+                <tr>
+                  <th class="col-roll">k20</th>
+                  <th class="col-result">Výsledek</th>
+                  <th class="col-desc">Popis (škáluje dle vzácnosti)</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (entry of failTable; track entry.min) {
+                  <tr class="fail-row" [class.fail-highlighted]="isHighlighted(entry)"
+                    [attr.data-sev]="entry.severity">
+                    <td class="col-roll">
+                      <span class="roll-badge" [attr.data-sev]="entry.severity">
+                        {{ entry.min === entry.max ? entry.min : entry.min + '–' + entry.max }}
+                      </span>
+                    </td>
+                    <td class="col-result">
+                      <span class="fail-icon">{{ entry.icon }}</span>
+                      <span class="fail-name">{{ entry.title }}</span>
+                    </td>
+                    <td class="col-desc">{{ entry.desc(failRarityScale()) }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
     </div>
   `,
   styles: `
@@ -760,11 +861,11 @@ function potionSvg(color: string): string {
     .pt-filter-btn.active { background: rgba(200,160,60,.25); color: #e8c96a; border-color: rgba(200,160,60,.6); }
 
     /* Rarity-specific active colors */
-    .pt-rarity-btn.active[data-rarity="Běžný"] { background: rgba(100,180,60,.2); color: #8fc95a; border-color: rgba(100,180,60,.5); }
-    .pt-rarity-btn.active[data-rarity="Neobvyklý"] { background: rgba(80,160,220,.2); color: #6ab8e8; border-color: rgba(80,160,220,.5); }
-    .pt-rarity-btn.active[data-rarity="Vzácný"] { background: rgba(220,160,40,.2); color: #d4a830; border-color: rgba(220,160,40,.5); }
-    .pt-rarity-btn.active[data-rarity="Velmi vzácný"] { background: rgba(200,60,60,.2); color: #d46a6a; border-color: rgba(200,60,60,.5); }
-    .pt-rarity-btn.active[data-rarity="Legendární"] { background: rgba(160,80,200,.2); color: #b880d8; border-color: rgba(160,80,200,.5); }
+    .pt-filter-btn.active[data-rarity="Běžný"] { background: rgba(100,180,60,.2); color: #8fc95a; border-color: rgba(100,180,60,.5); }
+    .pt-filter-btn.active[data-rarity="Neobvyklý"] { background: rgba(80,160,220,.2); color: #6ab8e8; border-color: rgba(80,160,220,.5); }
+    .pt-filter-btn.active[data-rarity="Vzácný"] { background: rgba(220,160,40,.2); color: #d4a830; border-color: rgba(220,160,40,.5); }
+    .pt-filter-btn.active[data-rarity="Velmi vzácný"] { background: rgba(200,60,60,.2); color: #d46a6a; border-color: rgba(200,60,60,.5); }
+    .pt-filter-btn.active[data-rarity="Legendární"] { background: rgba(160,80,200,.2); color: #b880d8; border-color: rgba(160,80,200,.5); }
 
     .pt-search-row { margin-bottom: 14px; }
     .pt-search {
@@ -789,38 +890,14 @@ function potionSvg(color: string): string {
     .pt-table tbody tr:hover td { background: rgba(200,160,60,.04); }
     .pt-table tbody tr:last-child td { border-bottom: none; }
 
-    .col-name { width: 22%; position: relative; }
+    .col-name { width: 22%; }
     .col-rarity { width: 11%; }
     .col-ingr { width: 37%; }
     .col-price { width: 15%; }
     .col-time { width: 10%; white-space: nowrap; color: #9a8a6a; font-size: 12px; }
 
-    .pt-name-wrap { position: relative; }
     .pt-name { font-weight: 600; font-size: 13px; color: #e0cfa0; }
     .pt-effect { font-size: 11px; color: #9a8a6a; margin-top: 2px; }
-
-    /* ─── Potion image preview on hover ─── */
-    .pt-potion-preview {
-      position: absolute;
-      top: 50%; left: -8px;
-      transform: translate(-100%, -50%);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .2s ease, transform .2s ease;
-      z-index: 100;
-      background: rgba(10,8,20,.95);
-      border: 1px solid rgba(200,160,60,.3);
-      border-radius: 10px;
-      padding: 10px;
-      box-shadow: 0 8px 32px rgba(0,0,0,.7), 0 0 12px rgba(200,160,60,.15);
-    }
-    .pt-potion-preview img {
-      width: 64px; height: 96px; display: block;
-    }
-    .pt-row:hover .pt-potion-preview {
-      opacity: 1;
-      transform: translate(-100%, -50%) scale(1);
-    }
 
     .pt-tag {
       display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 500; white-space: nowrap;
@@ -840,12 +917,55 @@ function potionSvg(color: string): string {
 
     .pt-empty { text-align: center; color: #7a6a58; padding: 32px 0 !important; font-style: italic; }
 
-    .pt-footer {
-      margin-top: 20px; padding: 14px 16px; border-radius: 8px;
-      background: rgba(200,160,60,.05); border: 1px solid rgba(200,160,60,.15);
-    }
-    .pt-footer p { margin: 4px 0; font-size: 12px; color: #9a8a6a; }
-    .pt-footer strong { color: #d4c9a0; }
+
+    /* ─── Crafting Section ─── */
+    .craft-section { margin-top: 36px; padding: 24px 20px 28px; background: rgba(200,160,60,.04); border: 1px solid rgba(200,160,60,.18); border-radius: 12px; }
+    .craft-title { font-size: 16px; font-weight: 700; color: #e8c96a; margin: 0 0 14px; }
+    .craft-intro { margin-bottom: 18px; }
+    .craft-intro p { font-size: 13px; color: #b0a080; margin: 0 0 6px; line-height: 1.55; }
+    .craft-intro strong { color: #d4c9a0; }
+    .so-table-wrap { margin-bottom: 28px; overflow-x: auto; }
+    .so-table { border-collapse: collapse; font-size: 12.5px; }
+    .so-table th { text-align: left; padding: 6px 14px; font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: rgba(200,160,60,.6); border-bottom: 1px solid rgba(200,160,60,.2); background: rgba(200,160,60,.06); }
+    .so-table td { padding: 7px 14px; border-bottom: 1px solid rgba(255,255,255,.04); vertical-align: middle; }
+    .so-table tr:last-child td { border-bottom: none; }
+    .so-value { font-weight: 700; font-size: 15px; color: #e8c96a; }
+    .so-fail-hint { font-size: 11px; color: #7a6a58; font-style: italic; }
+    .fail-section { margin-top: 4px; }
+    .fail-title { font-size: 14px; font-weight: 700; color: #d4c9a0; margin: 0 0 10px; }
+    .fail-header { margin-bottom: 14px; }
+    .fail-controls { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .fail-label { font-size: 11px; color: #7a6a58; text-transform: uppercase; letter-spacing: .06em; margin-right: 4px; }
+    .fail-rar-btn { font-size: 10.5px; padding: 3px 10px; }
+    .roll-btn { padding: 6px 18px; font-size: 13px; font-weight: 700; font-family: sans-serif; background: linear-gradient(135deg, rgba(200,120,20,.35), rgba(160,80,0,.25)); border: 1.5px solid rgba(220,150,40,.5); border-radius: 8px; color: #f0c040; cursor: pointer; transition: all .18s; margin-left: 8px; box-shadow: 0 2px 10px rgba(200,120,20,.2); }
+    .roll-btn:hover { background: linear-gradient(135deg, rgba(220,140,30,.5), rgba(180,90,0,.4)); border-color: rgba(240,170,50,.7); transform: translateY(-1px); }
+    .roll-btn:active { transform: translateY(0); }
+    .fail-table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid rgba(200,160,60,.15); }
+    .fail-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    .fail-table thead tr th { text-align: left; padding: 8px 12px; font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: rgba(200,160,60,.6); border-bottom: 1px solid rgba(200,160,60,.2); background: rgba(200,160,60,.06); }
+    .fail-table tbody tr td { padding: 9px 12px; border-bottom: 1px solid rgba(255,255,255,.04); vertical-align: top; }
+    .fail-table tbody tr:last-child td { border-bottom: none; }
+    .fail-table tbody tr[data-sev="doom"]     td { background: rgba(160,20,20,.08); }
+    .fail-table tbody tr[data-sev="terrible"] td { background: rgba(180,80,20,.06); }
+    .fail-table tbody tr[data-sev="bad"]      td { background: rgba(160,130,20,.05); }
+    .fail-table tbody tr[data-sev="mixed"]    td { background: rgba(60,100,160,.04); }
+    .fail-table tbody tr[data-sev="good"]     td { background: rgba(60,160,80,.04); }
+    .fail-table tbody tr[data-sev="great"]    td { background: rgba(160,120,220,.06); }
+    .fail-table tbody tr:hover td { filter: brightness(1.15); }
+    .fail-highlighted td { outline: 2px solid rgba(240,200,60,.65) !important; outline-offset: -2px; animation: hl-pulse .5s ease; }
+    @keyframes hl-pulse { 0%,100% { filter: brightness(1.2); } 50% { filter: brightness(1.65); } }
+    .col-roll { width: 60px; text-align: center; }
+    .col-result { width: 180px; white-space: nowrap; }
+    .col-desc { font-size: 12px; color: #b0a080; line-height: 1.55; }
+    .roll-badge { display: inline-block; min-width: 32px; text-align: center; padding: 3px 6px; border-radius: 6px; font-weight: 800; font-size: 13px; }
+    .roll-badge[data-sev="doom"]    { background: rgba(180,20,20,.35);   color: #f06060; border: 1px solid rgba(200,40,40,.4); }
+    .roll-badge[data-sev="terrible"]{ background: rgba(200,80,20,.3);    color: #e08040; border: 1px solid rgba(200,100,40,.4); }
+    .roll-badge[data-sev="bad"]     { background: rgba(180,140,20,.25);  color: #d0b030; border: 1px solid rgba(180,140,20,.4); }
+    .roll-badge[data-sev="mixed"]   { background: rgba(60,100,180,.25);  color: #80a8e0; border: 1px solid rgba(80,120,200,.4); }
+    .roll-badge[data-sev="good"]    { background: rgba(40,160,80,.2);    color: #60c870; border: 1px solid rgba(60,180,80,.4); }
+    .roll-badge[data-sev="great"]   { background: rgba(140,100,220,.25); color: #b080e8; border: 1px solid rgba(160,120,220,.4); }
+    .fail-icon { font-size: 18px; margin-right: 6px; vertical-align: middle; }
+    .fail-name { font-weight: 700; font-size: 12.5px; color: #d4c9a0; vertical-align: middle; }
   `,
 })
 export class PotionsTabComponent {
@@ -855,41 +975,41 @@ export class PotionsTabComponent {
   readonly activeRarity = signal<RarityFilter>('vse');
   readonly searchQuery = signal('');
 
-  private readonly svgCache = new Map<string, string>();
+  readonly rarityOnly = RARITY_LABELS.filter(r => r.key !== 'vse') as { key: Rarity; label: string }[];
+  readonly failRarity = signal<Rarity>('Běžný');
+  readonly d20Roll = signal<number | null>(null);
+  readonly failRarityScale = computed(() => RARITY_SCALE.get(this.failRarity()) ?? 1);
+  readonly failTable = FAIL_TABLE;
+  readonly craftSoRows = Array.from(CRAFT_SO.entries()).map(([rarity, so]) => ({
+    rarity, so, scale: RARITY_SCALE.get(rarity) ?? 1,
+  }));
 
-  getPotionImg(color: string): string {
-    let url = this.svgCache.get(color);
-    if (!url) {
-      url = potionSvg(color);
-      this.svgCache.set(color, url);
-    }
-    return url;
+  rollD20(): void {
+    this.d20Roll.set(Math.floor(Math.random() * 20) + 1);
+  }
+
+  isHighlighted(entry: FailEntry): boolean {
+    const roll = this.d20Roll();
+    return roll !== null && roll >= entry.min && roll <= entry.max;
   }
 
   readonly filteredPotions = computed(() => {
     const cat = this.activeCategory();
     const rar = this.activeRarity();
     const q = this.searchQuery().normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().trim();
-
     let result = POTIONS;
-
-    if (cat !== 'vse') {
-      result = result.filter(p => p.category === cat);
-    }
-
-    if (rar !== 'vse') {
-      result = result.filter(p => p.rarity === rar);
-    }
-
+    if (cat !== 'vse') result = result.filter(p => p.category === cat);
+    if (rar !== 'vse') result = result.filter(p => p.rarity === rar);
     if (q.length >= 2) {
       result = result.filter(p => {
-        const searchable = (p.name + ' ' + p.effect + ' ' + p.ingredients.join(' ') + ' ' + p.rarity)
+        const s = (p.name + ' ' + p.effect + ' ' + p.ingredients.join(' ') + ' ' + p.rarity)
           .normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
-        return searchable.includes(q);
+        return s.includes(q);
       });
     }
-
     return result;
   });
 }
+
+
 
