@@ -10,16 +10,56 @@ type RarityFilter = 'vse' | 'Běžný' | 'Neobvyklý' | 'Vzácný' | 'Velmi vzá
 /** Hex color of the liquid inside the potion bottle SVG */
 type PotionColor = string;
 
+interface Ingredient {
+  name: string;
+  price: number;
+}
+
 interface Potion {
   name: string;
   effect: string;
   category: PotionCategory;
   rarity: Rarity;
-  ingredients: string[];
+  ingredients: Ingredient[];
   priceBuy: string;
   priceCraft: string;
   craftTime: string;
   color: PotionColor;
+}
+
+// ── Helper: distribute total price among N ingredients with slight randomness ─
+function distributePrices(total: number, count: number, seed: number): number[] {
+  const weights: number[] = [];
+  for (let i = 0; i < count; i++) {
+    const h = ((seed * 31 + i * 17 + 7) % 100) / 100;
+    weights.push(0.7 + h * 0.6);
+  }
+  const wSum = weights.reduce((a, b) => a + b, 0);
+  const raw = weights.map(w => (w / wSum) * total);
+  const rounded = raw.map(v => {
+    if (total >= 1000) return Math.round(v / 10) * 10;
+    if (total >= 100) return Math.round(v / 5) * 5;
+    return Math.round(v);
+  });
+  const diff = total - rounded.reduce((a, b) => a + b, 0);
+  rounded[0] += diff;
+  return rounded;
+}
+
+function strHash(s: string): number {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+
+function ing(names: string[], craftTotal: number, potionName: string): Ingredient[] {
+  const prices = distributePrices(craftTotal, names.length, strHash(potionName));
+  return names.map((name, i) => ({ name, price: prices[i] }));
+}
+
+/** Normalize string for diacritics-insensitive search */
+function normSearch(s: string): string {
+  return s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
 }
 
 // ── Potion color palette (by type/effect) ───────────────────────────────────
@@ -50,10 +90,10 @@ const POTIONS: Potion[] = [
     effect: 'Obnoví 2k4+2 HP',
     category: 'leceni',
     rarity: 'Běžný',
-    ingredients: ['Červená jetelina (bylina, louky)', 'Včelí med (obchod / úl)', 'Čistá pramenitá voda'],
+    ingredients: ing(['Červená jetelina (bylina, louky)', 'Včelí med (obchod / úl)', 'Čistá pramenitá voda'], 38, 'Lektvar léčení'),
     priceBuy: '50 zl',
-    priceCraft: '25 zl',
-    craftTime: '1 den',
+    priceCraft: '38 zl',
+    craftTime: '2 hodiny',
     color: C.red,
   },
   {
@@ -61,10 +101,10 @@ const POTIONS: Potion[] = [
     effect: 'Obnoví 4k4+4 HP',
     category: 'leceni',
     rarity: 'Běžný',
-    ingredients: ['Solný květ (skalní bylina)', 'Trollí krev (z trola)', 'Zlatý mech (les, SO 13)'],
+    ingredients: ing(['Solný květ (skalní bylina)', 'Trollí krev (z trola)', 'Zlatý mech (les, SO 13)'], 75, 'Lektvar většího léčení'),
     priceBuy: '100 zl',
-    priceCraft: '50 zl',
-    craftTime: '2 dny',
+    priceCraft: '75 zl',
+    craftTime: '4 hodiny',
     color: C.crimson,
   },
   {
@@ -72,10 +112,10 @@ const POTIONS: Potion[] = [
     effect: 'Obnoví 8k4+8 HP',
     category: 'leceni',
     rarity: 'Neobvyklý',
-    ingredients: ['Fénixí pero (z fénixe / obchod)', 'Stříbrná kapradina (SO 15)', 'Roztavený jantar (minerál)'],
+    ingredients: ing(['Fénixí pero (z fénixe / obchod)', 'Stříbrná kapradina (SO 15)', 'Roztavený jantar (minerál)'], 380, 'Lektvar vynikajícího léčení'),
     priceBuy: '500 zl',
-    priceCraft: '200 zl',
-    craftTime: '3 dny',
+    priceCraft: '380 zl',
+    craftTime: '1 den',
     color: C.crimson,
   },
   {
@@ -83,10 +123,10 @@ const POTIONS: Potion[] = [
     effect: 'Obnoví 10k4+20 HP',
     category: 'leceni',
     rarity: 'Vzácný',
-    ingredients: ['Dračí žluč (z draka)', 'Měsíční orchidej (SO 18, noc úplňku)', 'Prach z unicorn rohu'],
+    ingredients: ing(['Dračí žluč (z draka)', 'Měsíční orchidej (SO 18, noc úplňku)', 'Prach z unicorn rohu'], 3800, 'Lektvar nejvyššího léčení'),
     priceBuy: '5 000 zl',
-    priceCraft: '1 000 zl',
-    craftTime: '7 dní',
+    priceCraft: '3 800 zl',
+    craftTime: '3 dny',
     color: C.crimson,
   },
   {
@@ -94,10 +134,10 @@ const POTIONS: Potion[] = [
     effect: 'Vyléčí Otrávení, imunita 1 hod.',
     category: 'leceni',
     rarity: 'Běžný',
-    ingredients: ['Bílý bez (bylina, okraje lesů)', 'Hadí svlak (z hada)', 'Citrónová šťáva'],
+    ingredients: ing(['Bílý bez (bylina, okraje lesů)', 'Hadí svlak (z hada)', 'Citrónová šťáva'], 75, 'Lektvar proti jedu'),
     priceBuy: '100 zl',
-    priceCraft: '50 zl',
-    craftTime: '1 den',
+    priceCraft: '75 zl',
+    craftTime: '3 hodiny',
     color: C.green,
   },
   {
@@ -105,10 +145,10 @@ const POTIONS: Potion[] = [
     effect: 'Odstraní jednu nemoc nebo stav',
     category: 'leceni',
     rarity: 'Neobvyklý',
-    ingredients: ['Světluška (chycená za úsvitu)', 'Krev kněze (dobrovolná, 1k4 HP)', 'Šafrán (vzácné koření)'],
+    ingredients: ing(['Světluška (chycená za úsvitu)', 'Krev kněze (dobrovolná, 1k4 HP)', 'Šafrán (vzácné koření)'], 230, 'Lektvar zotavení'),
     priceBuy: '300 zl',
-    priceCraft: '150 zl',
-    craftTime: '2 dny',
+    priceCraft: '230 zl',
+    craftTime: '8 hodin',
     color: C.gold,
   },
   {
@@ -116,10 +156,10 @@ const POTIONS: Potion[] = [
     effect: 'Obnovuje 1 HP/kolo po 1 minutu (10 HP celkem)',
     category: 'leceni',
     rarity: 'Vzácný',
-    ingredients: ['Trollí srdce (z trola, čerstvé)', 'Salamandří olej (z ohnivého salamandra)', 'Diamantový prach (50 zl)'],
+    ingredients: ing(['Trollí srdce (z trola, čerstvé)', 'Salamandří olej (z ohnivého salamandra)', 'Diamantový prach (50 zl)'], 1500, 'Lektvar regenerace'),
     priceBuy: '2 000 zl',
-    priceCraft: '600 zl',
-    craftTime: '5 dní',
+    priceCraft: '1 500 zl',
+    craftTime: '2 dny',
     color: C.pink,
   },
   // ─── BOJ ──────────────────────────────────────────────
@@ -128,10 +168,10 @@ const POTIONS: Potion[] = [
     effect: 'Síla 21 po 1 hodinu',
     category: 'boj',
     rarity: 'Neobvyklý',
-    ingredients: ['Obrova kost (prach z kosti obra)', 'Železný kořen (SO 14, hory)', 'Červené víno (staré, min. 10 let)'],
+    ingredients: ing(['Obrova kost (prach z kosti obra)', 'Železný kořen (SO 14, hory)', 'Červené víno (staré, min. 10 let)'], 380, 'Lektvar síly obra'),
     priceBuy: '500 zl',
-    priceCraft: '200 zl',
-    craftTime: '3 dny',
+    priceCraft: '380 zl',
+    craftTime: '1 den',
     color: C.brown,
   },
   {
@@ -139,10 +179,10 @@ const POTIONS: Potion[] = [
     effect: 'Síla 21 po 1 hodinu',
     category: 'boj',
     rarity: 'Neobvyklý',
-    ingredients: ['Kopcový kořen (SO 14)', 'Obrova svalovina (kopcový obr)', 'Kamenný prach'],
+    ingredients: ing(['Kopcový kořen (SO 14)', 'Obrova svalovina (kopcový obr)', 'Kamenný prach'], 380, 'Lektvar síly kopcového obra'),
     priceBuy: '500 zl',
-    priceCraft: '200 zl',
-    craftTime: '3 dny',
+    priceCraft: '380 zl',
+    craftTime: '1 den',
     color: C.brown,
   },
   {
@@ -150,10 +190,10 @@ const POTIONS: Potion[] = [
     effect: 'Síla 23 po 1 hodinu',
     category: 'boj',
     rarity: 'Vzácný',
-    ingredients: ['Srdce ledového obra', 'Ledovcový krystal (SO 16)', 'Medvědí tuk (polární medvěd)'],
+    ingredients: ing(['Srdce ledového obra', 'Ledovcový krystal (SO 16)', 'Medvědí tuk (polární medvěd)'], 1500, 'Lektvar síly ledového obra'),
     priceBuy: '2 000 zl',
-    priceCraft: '600 zl',
-    craftTime: '5 dní',
+    priceCraft: '1 500 zl',
+    craftTime: '2 dny',
     color: C.cyan,
   },
   {
@@ -161,10 +201,10 @@ const POTIONS: Potion[] = [
     effect: 'Síla 25 po 1 hodinu',
     category: 'boj',
     rarity: 'Vzácný',
-    ingredients: ['Popel ohnivého obra', 'Magmatický kořen (SO 17, vulkán)', 'Obsidiánový prach (minerál)'],
+    ingredients: ing(['Popel ohnivého obra', 'Magmatický kořen (SO 17, vulkán)', 'Obsidiánový prach (minerál)'], 2300, 'Lektvar síly ohnivého obra'),
     priceBuy: '3 000 zl',
-    priceCraft: '900 zl',
-    craftTime: '7 dní',
+    priceCraft: '2 300 zl',
+    craftTime: '3 dny',
     color: C.orange,
   },
   {
@@ -172,10 +212,10 @@ const POTIONS: Potion[] = [
     effect: 'Odolnost vůči jednomu typu poškození 1 hod.',
     category: 'boj',
     rarity: 'Neobvyklý',
-    ingredients: ['Šupina draka (odpovídá typu)', 'Kouřový kámen (minerál)', 'Popel z hromového dubu'],
+    ingredients: ing(['Šupina draka (odpovídá typu)', 'Kouřový kámen (minerál)', 'Popel z hromového dubu'], 300, 'Lektvar odolnosti'),
     priceBuy: '400 zl',
-    priceCraft: '150 zl',
-    craftTime: '2 dny',
+    priceCraft: '300 zl',
+    craftTime: '8 hodin',
     color: C.silver,
   },
   {
@@ -183,10 +223,10 @@ const POTIONS: Potion[] = [
     effect: '10 dočasných HP + Inspirace po 1 hod.',
     category: 'boj',
     rarity: 'Neobvyklý',
-    ingredients: ['Lví srdce (ze lva)', 'Červená rulíková semena (SO 14)', 'Jiskřivý pyrit (minerál)'],
+    ingredients: ing(['Lví srdce (ze lva)', 'Červená rulíková semena (SO 14)', 'Jiskřivý pyrit (minerál)'], 155, 'Lektvar hrdinství'),
     priceBuy: '200 zl',
-    priceCraft: '100 zl',
-    craftTime: '2 dny',
+    priceCraft: '155 zl',
+    craftTime: '6 hodin',
     color: C.gold,
   },
   {
@@ -194,10 +234,10 @@ const POTIONS: Potion[] = [
     effect: 'Jako kouzlo Haste po 1 minutu',
     category: 'boj',
     rarity: 'Vzácný',
-    ingredients: ['Gepardí pazneht (z geparda)', 'Blesková kapradina (SO 16, bouřka)', 'Rtuť (minerál, nebezpečná)'],
+    ingredients: ing(['Gepardí pazneht (z geparda)', 'Blesková kapradina (SO 16, bouřka)', 'Rtuť (minerál, nebezpečná)'], 1500, 'Lektvar rychlosti'),
     priceBuy: '2 000 zl',
-    priceCraft: '500 zl',
-    craftTime: '5 dní',
+    priceCraft: '1 500 zl',
+    craftTime: '2 dny',
     color: C.yellow,
   },
   {
@@ -205,10 +245,10 @@ const POTIONS: Potion[] = [
     effect: 'Neviditelnost po 1 hodinu',
     category: 'boj',
     rarity: 'Vzácný',
-    ingredients: ['Oko mimika (z mimika)', 'Stínový mech (SO 15, tmavé jeskyně)', 'Destilovaný alkohol (90%+)'],
+    ingredients: ing(['Oko mimika (z mimika)', 'Stínový mech (SO 15, tmavé jeskyně)', 'Destilovaný alkohol (90%+)'], 1500, 'Lektvar neviditelnosti'),
     priceBuy: '2 000 zl',
-    priceCraft: '600 zl',
-    craftTime: '4 dny',
+    priceCraft: '1 500 zl',
+    craftTime: '2 dny',
     color: C.white,
   },
   {
@@ -216,10 +256,10 @@ const POTIONS: Potion[] = [
     effect: 'Odolnost vůči VŠEM typům poškození 1 min.',
     category: 'boj',
     rarity: 'Velmi vzácný',
-    ingredients: ['Krev tarraska (z tarraska)', 'Adamantinový prach (50 zl)', 'Srdce goléma (z goléma)'],
+    ingredients: ing(['Krev tarraska (z tarraska)', 'Adamantinový prach (50 zl)', 'Srdce goléma (z goléma)'], 7500, 'Lektvar nezranitelnosti'),
     priceBuy: '10 000 zl',
-    priceCraft: '3 000 zl',
-    craftTime: '14 dní',
+    priceCraft: '7 500 zl',
+    craftTime: '7 dní',
     color: C.silver,
   },
   {
@@ -227,10 +267,10 @@ const POTIONS: Potion[] = [
     effect: 'Zbraň má +3 k zásahu a poškození na 1 hod.',
     category: 'boj',
     rarity: 'Velmi vzácný',
-    ingredients: ['Prach z briliantu (500 zl)', 'Krev pláštníka (z pláštníka)', 'Éterická esence (SO 18)'],
+    ingredients: ing(['Prach z briliantu (500 zl)', 'Krev pláštníka (z pláštníka)', 'Éterická esence (SO 18)'], 6200, 'Olej ostření'),
     priceBuy: '8 000 zl',
-    priceCraft: '2 500 zl',
-    craftTime: '10 dní',
+    priceCraft: '6 200 zl',
+    craftTime: '5 dní',
     color: C.indigo,
   },
   // ─── POHYB ────────────────────────────────────────────
@@ -239,10 +279,10 @@ const POTIONS: Potion[] = [
     effect: 'Rychlost šplhání = rychlost pohybu, 1 hod.',
     category: 'pohyb',
     rarity: 'Běžný',
-    ingredients: ['Pavučina (z velkého pavouka)', 'Pryskyřice břízy', 'Mátový olej'],
+    ingredients: ing(['Pavučina (z velkého pavouka)', 'Pryskyřice břízy', 'Mátový olej'], 55, 'Lektvar šplhání'),
     priceBuy: '75 zl',
-    priceCraft: '30 zl',
-    craftTime: '1 den',
+    priceCraft: '55 zl',
+    craftTime: '2 hodiny',
     color: C.teal,
   },
   {
@@ -250,10 +290,10 @@ const POTIONS: Potion[] = [
     effect: 'Dýchání pod vodou po 1 hod.',
     category: 'pohyb',
     rarity: 'Běžný',
-    ingredients: ['Rybí žábry (z velké ryby)', 'Říční řasa (SO 11)', 'Perleťový prach (z ústřice)'],
+    ingredients: ing(['Rybí žábry (z velké ryby)', 'Říční řasa (SO 11)', 'Perleťový prach (z ústřice)'], 55, 'Lektvar vodního dechu'),
     priceBuy: '75 zl',
-    priceCraft: '30 zl',
-    craftTime: '1 den',
+    priceCraft: '55 zl',
+    craftTime: '2 hodiny',
     color: C.blue,
   },
   {
@@ -261,10 +301,10 @@ const POTIONS: Potion[] = [
     effect: 'Levitace po 10 minut',
     category: 'pohyb',
     rarity: 'Neobvyklý',
-    ingredients: ['Peří gryfa (z gryfa)', 'Vzdušný křemen (minerál, hory)', 'Destilát oblačnice (SO 15)'],
+    ingredients: ing(['Peří gryfa (z gryfa)', 'Vzdušný křemen (minerál, hory)', 'Destilát oblačnice (SO 15)'], 310, 'Lektvar levitace'),
     priceBuy: '400 zl',
-    priceCraft: '150 zl',
-    craftTime: '2 dny',
+    priceCraft: '310 zl',
+    craftTime: '8 hodin',
     color: C.white,
   },
   {
@@ -272,10 +312,10 @@ const POTIONS: Potion[] = [
     effect: 'Rychlost letu 18 m po 1 hod.',
     category: 'pohyb',
     rarity: 'Vzácný',
-    ingredients: ['Pegasovo pero (z pegase)', 'Oblačný jantar (SO 17, bouřka)', 'Destilovaný vítr (magický proces)'],
+    ingredients: ing(['Pegasovo pero (z pegase)', 'Oblačný jantar (SO 17, bouřka)', 'Destilovaný vítr (magický proces)'], 2300, 'Lektvar létání'),
     priceBuy: '3 000 zl',
-    priceCraft: '800 zl',
-    craftTime: '5 dní',
+    priceCraft: '2 300 zl',
+    craftTime: '2 dny',
     color: C.cyan,
   },
   {
@@ -283,10 +323,10 @@ const POTIONS: Potion[] = [
     effect: 'Přechod do Éterické sféry na 1 hod.',
     category: 'pohyb',
     rarity: 'Vzácný',
-    ingredients: ['Éterická mlha (SO 17, místo s portálem)', 'Perla fázového pavouka', 'Duševní křišťál (minerál)'],
+    ingredients: ing(['Éterická mlha (SO 17, místo s portálem)', 'Perla fázového pavouka', 'Duševní křišťál (minerál)'], 3100, 'Lektvar éteričnosti'),
     priceBuy: '4 000 zl',
-    priceCraft: '1 200 zl',
-    craftTime: '7 dní',
+    priceCraft: '3 100 zl',
+    craftTime: '3 dny',
     color: C.violet,
   },
   {
@@ -294,10 +334,10 @@ const POTIONS: Potion[] = [
     effect: 'Svobodný pohyb po zdech a stropě na 1 hod.',
     category: 'pohyb',
     rarity: 'Neobvyklý',
-    ingredients: ['Gekoní tlapka (z obřího gekona)', 'Lepivá pryskyřice (SO 13)', 'Alchymistická guma'],
+    ingredients: ing(['Gekoní tlapka (z obřího gekona)', 'Lepivá pryskyřice (SO 13)', 'Alchymistická guma'], 270, 'Lektvar plazivosti'),
     priceBuy: '350 zl',
-    priceCraft: '130 zl',
-    craftTime: '2 dny',
+    priceCraft: '270 zl',
+    craftTime: '6 hodin',
     color: C.green,
   },
   // ─── MYSL ─────────────────────────────────────────────
@@ -306,10 +346,10 @@ const POTIONS: Potion[] = [
     effect: 'Zvíře přátelské po 1 hod. (ZH 13)',
     category: 'mysl',
     rarity: 'Běžný',
-    ingredients: ['Divoký med (z divokého úlu)', 'Levandule (bylina)', 'Zvířecí srst (odpovídá druhu)'],
+    ingredients: ing(['Divoký med (z divokého úlu)', 'Levandule (bylina)', 'Zvířecí srst (odpovídá druhu)'], 75, 'Lektvar přátelství zvířat'),
     priceBuy: '100 zl',
-    priceCraft: '40 zl',
-    craftTime: '1 den',
+    priceCraft: '75 zl',
+    craftTime: '3 hodiny',
     color: C.gold,
   },
   {
@@ -317,10 +357,10 @@ const POTIONS: Potion[] = [
     effect: 'Charisma 20 po 1 hodinu',
     category: 'mysl',
     rarity: 'Neobvyklý',
-    ingredients: ['Jazyky slavíka (tři, ze slavíka)', 'Růžová růže (sbíraná za rozbřesku)', 'Rubínový prach (minerál)'],
+    ingredients: ing(['Jazyky slavíka (tři, ze slavíka)', 'Růžová růže (sbíraná za rozbřesku)', 'Rubínový prach (minerál)'], 310, 'Lektvar charismatu'),
     priceBuy: '400 zl',
-    priceCraft: '180 zl',
-    craftTime: '2 dny',
+    priceCraft: '310 zl',
+    craftTime: '8 hodin',
     color: C.pink,
   },
   {
@@ -328,10 +368,10 @@ const POTIONS: Potion[] = [
     effect: 'Jako kouzlo Clairvoyance po 10 min.',
     category: 'mysl',
     rarity: 'Vzácný',
-    ingredients: ['Oko basilišky (z basilišky)', 'Modrý lotosový květ (SO 16, noc)', 'Stříbrný prach (minerál)'],
+    ingredients: ing(['Oko basilišky (z basilišky)', 'Modrý lotosový květ (SO 16, noc)', 'Stříbrný prach (minerál)'], 1150, 'Lektvar jasnovidnosti'),
     priceBuy: '1 500 zl',
-    priceCraft: '500 zl',
-    craftTime: '4 dny',
+    priceCraft: '1 150 zl',
+    craftTime: '2 dny',
     color: C.indigo,
   },
   {
@@ -339,10 +379,10 @@ const POTIONS: Potion[] = [
     effect: 'Jako kouzlo Detect Thoughts po 1 hod.',
     category: 'mysl',
     rarity: 'Vzácný',
-    ingredients: ['Mozek mindflayera (z mindflayera)', 'Fialová iris (SO 15)', 'Destilát slz (magický proces)'],
+    ingredients: ing(['Mozek mindflayera (z mindflayera)', 'Fialová iris (SO 15)', 'Destilát slz (magický proces)'], 1500, 'Lektvar čtení myšlenek'),
     priceBuy: '2 000 zl',
-    priceCraft: '700 zl',
-    craftTime: '5 dní',
+    priceCraft: '1 500 zl',
+    craftTime: '2 dny',
     color: C.purple,
   },
   {
@@ -350,10 +390,10 @@ const POTIONS: Potion[] = [
     effect: 'Telepatická komunikace do 36 m na 1 hod.',
     category: 'mysl',
     rarity: 'Neobvyklý',
-    ingredients: ['Mozek flumfa (z flumfa)', 'Tyrkysový prach (minerál)', 'Ušní vosk obřího netopýra'],
+    ingredients: ing(['Mozek flumfa (z flumfa)', 'Tyrkysový prach (minerál)', 'Ušní vosk obřího netopýra'], 310, 'Lektvar telepatie'),
     priceBuy: '400 zl',
-    priceCraft: '160 zl',
-    craftTime: '2 dny',
+    priceCraft: '310 zl',
+    craftTime: '8 hodin',
     color: C.teal,
   },
   {
@@ -361,10 +401,10 @@ const POTIONS: Potion[] = [
     effect: 'Inteligence 19 po 1 hodinu',
     category: 'mysl',
     rarity: 'Neobvyklý',
-    ingredients: ['Mozek aboleta (kousek)', 'Šedá ambra (velryba)', 'Inkoust z chobotnice (SO 12)'],
+    ingredients: ing(['Mozek aboleta (kousek)', 'Šedá ambra (velryba)', 'Inkoust z chobotnice (SO 12)'], 310, 'Lektvar inteligence'),
     priceBuy: '400 zl',
-    priceCraft: '160 zl',
-    craftTime: '2 dny',
+    priceCraft: '310 zl',
+    craftTime: '6 hodin',
     color: C.blue,
   },
   // ─── JEDY ─────────────────────────────────────────────
@@ -373,10 +413,10 @@ const POTIONS: Potion[] = [
     effect: '1k4 jedového zranění (OČ povlečeného)',
     category: 'jedy',
     rarity: 'Běžný',
-    ingredients: ['Hadí jedový váček (z jedovatého hada)', 'Bolehlav (bylina, SO 11)', 'Alkohol (na konzervaci)'],
+    ingredients: ing(['Hadí jedový váček (z jedovatého hada)', 'Bolehlav (bylina, SO 11)', 'Alkohol (na konzervaci)'], 75, 'Základní jed'),
     priceBuy: '100 zl',
-    priceCraft: '40 zl',
-    craftTime: '1 den',
+    priceCraft: '75 zl',
+    craftTime: '2 hodiny',
     color: C.green,
   },
   {
@@ -384,10 +424,10 @@ const POTIONS: Potion[] = [
     effect: 'Cíl musí uspět v ZH ODL (SO 13) nebo usne na 1 min.',
     category: 'jedy',
     rarity: 'Běžný',
-    ingredients: ['Mák spánku (bylina, SO 12)', 'Sliny obří žáby (SO 11)', 'Valeriánový kořen'],
+    ingredients: ing(['Mák spánku (bylina, SO 12)', 'Sliny obří žáby (SO 11)', 'Valeriánový kořen'], 115, 'Jed spánku'),
     priceBuy: '150 zl',
-    priceCraft: '60 zl',
-    craftTime: '1 den',
+    priceCraft: '115 zl',
+    craftTime: '3 hodiny',
     color: C.purple,
   },
   {
@@ -395,10 +435,10 @@ const POTIONS: Potion[] = [
     effect: 'ZH ODL SO 13 nebo Bezvědomí na 1 hod.',
     category: 'jedy',
     rarity: 'Neobvyklý',
-    ingredients: ['Podzemní houba drow (Temné říše)', 'Temná lilie (SO 15, bez světla)', 'Pavouččí žlázový extrakt'],
+    ingredients: ing(['Podzemní houba drow (Temné říše)', 'Temná lilie (SO 15, bez světla)', 'Pavouččí žlázový extrakt'], 460, 'Drow jed'),
     priceBuy: '600 zl',
-    priceCraft: '200 zl',
-    craftTime: '3 dny',
+    priceCraft: '460 zl',
+    craftTime: '1 den',
     color: C.black,
   },
   {
@@ -406,10 +446,10 @@ const POTIONS: Potion[] = [
     effect: '7k6 jedového zranění (ZH ODL SO 15, ½ při úspěchu)',
     category: 'jedy',
     rarity: 'Vzácný',
-    ingredients: ['Wyverní žihadlo (z wyverna, čerstvé)', 'Kyselina z ankhega (SO 14)', 'Tmavá melasa (konzervant)'],
+    ingredients: ing(['Wyverní žihadlo (z wyverna, čerstvé)', 'Kyselina z ankhega (SO 14)', 'Tmavá melasa (konzervant)'], 920, 'Jed wyverna'),
     priceBuy: '1 200 zl',
-    priceCraft: '400 zl',
-    craftTime: '4 dny',
+    priceCraft: '920 zl',
+    craftTime: '2 dny',
     color: C.green,
   },
   {
@@ -417,10 +457,10 @@ const POTIONS: Potion[] = [
     effect: '12k6 jedového zranění (ZH ODL SO 19, ½ při úspěchu)',
     category: 'jedy',
     rarity: 'Velmi vzácný',
-    ingredients: ['Žlázový vak purpurového červa', 'Černý lotos (SO 18, tropické bažiny)', 'Destilát arsenu (alchymický)'],
+    ingredients: ing(['Žlázový vak purpurového červa', 'Černý lotos (SO 18, tropické bažiny)', 'Destilát arsenu (alchymický)'], 6200, 'Purpurový červí jed'),
     priceBuy: '8 000 zl',
-    priceCraft: '2 500 zl',
-    craftTime: '10 dní',
+    priceCraft: '6 200 zl',
+    craftTime: '5 dní',
     color: C.violet,
   },
   {
@@ -428,10 +468,10 @@ const POTIONS: Potion[] = [
     effect: 'ZH ODL SO 14 nebo Paralyzovaný na 1 min. (opak. ZH)',
     category: 'jedy',
     rarity: 'Neobvyklý',
-    ingredients: ['Carrion crawler sliz (z crawler)', 'Ghúlí dráp (z ghúla)', 'Octová esence'],
+    ingredients: ing(['Carrion crawler sliz (z crawler)', 'Ghúlí dráp (z ghúla)', 'Octová esence'], 380, 'Jed paralýzy'),
     priceBuy: '500 zl',
-    priceCraft: '180 zl',
-    craftTime: '2 dny',
+    priceCraft: '380 zl',
+    craftTime: '8 hodin',
     color: C.teal,
   },
   {
@@ -439,10 +479,10 @@ const POTIONS: Potion[] = [
     effect: '1k12 jed. zranění + Otrávení 24 hod. (ZH ODL SO 10)',
     category: 'jedy',
     rarity: 'Běžný',
-    ingredients: ['Belladonna (bylina, SO 12)', 'Kryší žluč (od obří krysy)', 'Řepkový olej'],
+    ingredients: ing(['Belladonna (bylina, SO 12)', 'Kryší žluč (od obří krysy)', 'Řepkový olej'], 115, 'Assassin Blood'),
     priceBuy: '150 zl',
-    priceCraft: '60 zl',
-    craftTime: '1 den',
+    priceCraft: '115 zl',
+    craftTime: '3 hodiny',
     color: C.crimson,
   },
   {
@@ -450,10 +490,10 @@ const POTIONS: Potion[] = [
     effect: 'Bez efektu do půlnoci, pak 9k6 jed. (ZH ODL SO 17)',
     category: 'jedy',
     rarity: 'Vzácný',
-    ingredients: ['Půlnoční květ (SO 17, kvete jen o půlnoci)', 'Stínová esence (SO 15)', 'Černý jantar (minerál)'],
+    ingredients: ing(['Půlnoční květ (SO 17, kvete jen o půlnoci)', 'Stínová esence (SO 15)', 'Černý jantar (minerál)'], 2300, 'Midnight Tears'),
     priceBuy: '3 000 zl',
-    priceCraft: '900 zl',
-    craftTime: '5 dní',
+    priceCraft: '2 300 zl',
+    craftTime: '2 dny',
     color: C.black,
   },
   // ─── OSTATNÍ ──────────────────────────────────────────
@@ -462,10 +502,10 @@ const POTIONS: Potion[] = [
     effect: 'Zmenšení na Tiny po 1 hod.',
     category: 'ostatni',
     rarity: 'Neobvyklý',
-    ingredients: ['Prach z víly (od víly dobrovolně)', 'Mravenčí kyselina (z obřího mravence)', 'Borůvkový extrakt'],
+    ingredients: ing(['Prach z víly (od víly dobrovolně)', 'Mravenčí kyselina (z obřího mravence)', 'Borůvkový extrakt'], 230, 'Lektvar zmenšení'),
     priceBuy: '300 zl',
-    priceCraft: '120 zl',
-    craftTime: '2 dny',
+    priceCraft: '230 zl',
+    craftTime: '6 hodin',
     color: C.violet,
   },
   {
@@ -473,10 +513,10 @@ const POTIONS: Potion[] = [
     effect: 'Zvětšení na Large po 1 hod.',
     category: 'ostatni',
     rarity: 'Neobvyklý',
-    ingredients: ['Obří houba (SO 13, temné lesy)', 'Kost obra (prach)', 'Dubová pryskyřice'],
+    ingredients: ing(['Obří houba (SO 13, temné lesy)', 'Kost obra (prach)', 'Dubová pryskyřice'], 230, 'Lektvar růstu'),
     priceBuy: '300 zl',
-    priceCraft: '120 zl',
-    craftTime: '2 dny',
+    priceCraft: '230 zl',
+    craftTime: '6 hodin',
     color: C.orange,
   },
   {
@@ -484,10 +524,10 @@ const POTIONS: Potion[] = [
     effect: 'Jako kouzlo Disguise Self po 1 hod.',
     category: 'ostatni',
     rarity: 'Běžný',
-    ingredients: ['Chameleoní kůže (z chameleona)', 'Rtuťový květ (SO 12)', 'Popel z černého dřeva'],
+    ingredients: ing(['Chameleoní kůže (z chameleona)', 'Rtuťový květ (SO 12)', 'Popel z černého dřeva'], 115, 'Lektvar iluzorního vzhledu'),
     priceBuy: '150 zl',
-    priceCraft: '60 zl',
-    craftTime: '1 den',
+    priceCraft: '115 zl',
+    craftTime: '3 hodiny',
     color: C.silver,
   },
   {
@@ -495,10 +535,10 @@ const POTIONS: Potion[] = [
     effect: 'Odstraní vyčerpání, obnoví max HP na 1 den',
     category: 'ostatni',
     rarity: 'Neobvyklý',
-    ingredients: ['Ženšenový kořen (SO 13, vzácný)', 'Srdce vrány (ze starého havrana)', 'Zlatý prach (minerál, 10 zl)'],
+    ingredients: ing(['Ženšenový kořen (SO 13, vzácný)', 'Srdce vrány (ze starého havrana)', 'Zlatý prach (minerál, 10 zl)'], 380, 'Lektvar vitality'),
     priceBuy: '500 zl',
-    priceCraft: '200 zl',
-    craftTime: '3 dny',
+    priceCraft: '380 zl',
+    craftTime: '1 den',
     color: C.gold,
   },
   {
@@ -506,10 +546,10 @@ const POTIONS: Potion[] = [
     effect: 'Nepotřebuje dýchat po 1 hod.',
     category: 'ostatni',
     rarity: 'Běžný',
-    ingredients: ['Vzdušná houba (SO 12, jeskyně)', 'Medúzí extrakt (z medúzy)', 'Máta peprná'],
+    ingredients: ing(['Vzdušná houba (SO 12, jeskyně)', 'Medúzí extrakt (z medúzy)', 'Máta peprná'], 75, 'Lektvar dlouhého dechu'),
     priceBuy: '100 zl',
-    priceCraft: '40 zl',
-    craftTime: '1 den',
+    priceCraft: '75 zl',
+    craftTime: '2 hodiny',
     color: C.cyan,
   },
   {
@@ -517,10 +557,10 @@ const POTIONS: Potion[] = [
     effect: 'Vyléčí všechny nemoci, jedy a stavy',
     category: 'ostatni',
     rarity: 'Velmi vzácný',
-    ingredients: ['Slza draka (z živého draka)', 'Světluška jitřenky (SO 19, úsvit)', 'Prach z andělského pera'],
+    ingredients: ing(['Slza draka (z živého draka)', 'Světluška jitřenky (SO 19, úsvit)', 'Prach z andělského pera'], 7800, 'Elixír zdraví'),
     priceBuy: '10 000 zl',
-    priceCraft: '2 000 zl',
-    craftTime: '14 dní',
+    priceCraft: '7 800 zl',
+    craftTime: '7 dní',
     color: C.gold,
   },
   {
@@ -528,10 +568,10 @@ const POTIONS: Potion[] = [
     effect: 'Odolnost vůči ohnivému poškození 1 hod.',
     category: 'ostatni',
     rarity: 'Neobvyklý',
-    ingredients: ['Salamandří šupina (ohnivý salam.)', 'Červený korál (minerál)', 'Popel z ohnivého elementála'],
+    ingredients: ing(['Salamandří šupina (ohnivý salam.)', 'Červený korál (minerál)', 'Popel z ohnivého elementála'], 310, 'Lektvar odolnosti ohni'),
     priceBuy: '400 zl',
-    priceCraft: '150 zl',
-    craftTime: '2 dny',
+    priceCraft: '310 zl',
+    craftTime: '8 hodin',
     color: C.orange,
   },
   {
@@ -539,10 +579,10 @@ const POTIONS: Potion[] = [
     effect: 'Odolnost vůči chladnému poškození 1 hod.',
     category: 'ostatni',
     rarity: 'Neobvyklý',
-    ingredients: ['Ledový mech (SO 14, arktické jeskyně)', 'Yetí srst (z yetiho)', 'Mentolový krystal'],
+    ingredients: ing(['Ledový mech (SO 14, arktické jeskyně)', 'Yetí srst (z yetiho)', 'Mentolový krystal'], 310, 'Lektvar odolnosti chladu'),
     priceBuy: '400 zl',
-    priceCraft: '150 zl',
-    craftTime: '2 dny',
+    priceCraft: '310 zl',
+    craftTime: '8 hodin',
     color: C.cyan,
   },
   {
@@ -550,10 +590,10 @@ const POTIONS: Potion[] = [
     effect: 'Výdech ohně: 4k6 v kuželu 4,5 m (3× za 1 hod.)',
     category: 'ostatni',
     rarity: 'Neobvyklý',
-    ingredients: ['Dračí pepř (SO 14, sopečné oblasti)', 'Síra (minerál)', 'Alkohol (vysokoprocentní)'],
+    ingredients: ing(['Dračí pepř (SO 14, sopečné oblasti)', 'Síra (minerál)', 'Alkohol (vysokoprocentní)'], 310, 'Lektvar ohnivého dechu'),
     priceBuy: '400 zl',
-    priceCraft: '150 zl',
-    craftTime: '2 dny',
+    priceCraft: '310 zl',
+    craftTime: '6 hodin',
     color: C.orange,
   },
   {
@@ -561,10 +601,10 @@ const POTIONS: Potion[] = [
     effect: 'Tmavozrak 18 m na 1 hodinu',
     category: 'ostatni',
     rarity: 'Běžný',
-    ingredients: ['Oči jeskynní ryby', 'Houba temnosvitu (SO 11, jeskyně)', 'Odvar z kořene mrkve'],
+    ingredients: ing(['Oči jeskynní ryby', 'Houba temnosvitu (SO 11, jeskyně)', 'Odvar z kořene mrkve'], 90, 'Lektvar tmavozraku'),
     priceBuy: '120 zl',
-    priceCraft: '50 zl',
-    craftTime: '1 den',
+    priceCraft: '90 zl',
+    craftTime: '2 hodiny',
     color: C.indigo,
   },
   {
@@ -572,10 +612,10 @@ const POTIONS: Potion[] = [
     effect: 'Sníží fyzický věk o 1k6+6 let (nevyléčí)',
     category: 'ostatni',
     rarity: 'Velmi vzácný',
-    ingredients: ['Slza nymfy (dobrovolný dar)', 'Jablko ze stromu života (SO 20)', 'Diamantový prach (500 zl)'],
+    ingredients: ing(['Slza nymfy (dobrovolný dar)', 'Jablko ze stromu života (SO 20)', 'Diamantový prach (500 zl)'], 11500, 'Lektvar mládí'),
     priceBuy: '15 000 zl',
-    priceCraft: '5 000 zl',
-    craftTime: '21 dní',
+    priceCraft: '11 500 zl',
+    craftTime: '10 dní',
     color: C.pink,
   },
   {
@@ -583,9 +623,9 @@ const POTIONS: Potion[] = [
     effect: 'Rozpustí jakékoli lepidlo (Sovereign Glue aj.)',
     category: 'ostatni',
     rarity: 'Legendární',
-    ingredients: ['Sliz z vousatého ďábla', 'Kyselina z černého pudinka', 'Éterická sůl (SO 20)'],
+    ingredients: ing(['Sliz z vousatého ďábla', 'Kyselina z černého pudinka', 'Éterická sůl (SO 20)'], 38000, 'Univerzální rozpouštědlo'),
     priceBuy: '50 000 zl',
-    priceCraft: '15 000 zl',
+    priceCraft: '38 000 zl',
     craftTime: '30 dní',
     color: C.white,
   },
@@ -626,7 +666,6 @@ type FailSeverity = 'great' | 'good' | 'mixed' | 'bad' | 'terrible' | 'doom';
 interface FailEntry {
   min: number;
   max: number;
-  icon: string;
   title: string;
   severity: FailSeverity;
   desc: (r: number) => string;
@@ -635,58 +674,103 @@ interface FailEntry {
 const FAIL_TABLE: FailEntry[] = [
   {
     min: 1, max: 1,
-    icon: '💥', title: 'VELKÝ TŘESK', severity: 'doom',
-    desc: r => `Výbuch srovnatelný s pěstí obřů srovná laboratoř a vše do ${r * 10} sáhů se zemí. Všechny bytosti v dosahu si hází ZH ODL SO ${10 + r * 3} nebo utrpí ${r * 2}k10 ohnivého zranění (½ při úspěchu). Výbuch je viditelný z ${r} míle. Okolní domy hoří. Místní alchymisté se modlí, aby nebyli příbuzní.`,
+    title: 'VELKÝ TŘESK', severity: 'doom',
+    desc: r => `Výbuch srovnatelný s pěstí obřů srovná laboratoř a vše do ${r * 10} sáhů se zemí. Všechny bytosti v dosahu si hází ZH ODL SO ${10 + r * 3} nebo utrpí ${r * 2}k10 ohnivého zranění (½ při úspěchu). Výbuch je viditelný z ${r} míle.`,
   },
   {
-    min: 2, max: 3,
-    icon: '☠️', title: 'Smrtelná otrava', severity: 'doom',
-    desc: r => `Jedovatý oblak zasahuje tebe a vše do ${r * 3} sáhů. ZH ODL SO ${8 + r * 3} nebo ${r}k6 jedového zranění za každé kolo po dobu ${r} kol + Otrávení na ${r} hodin. A to pro každého, kdo se nachází v dosahu. A pro svého mazlíčka. A pro souseda.`,
+    min: 2, max: 2,
+    title: 'Smrtelná otrava', severity: 'doom',
+    desc: r => `Jedovatý oblak zasahuje tebe a vše do ${r * 3} sáhů. ZH ODL SO ${8 + r * 3} nebo ${r}k6 jedového zranění za každé kolo po dobu ${r} kol + Otrávení na ${r} hodin.`,
   },
   {
-    min: 4, max: 5,
-    icon: '🔥', title: 'Jiskrový požár', severity: 'terrible',
-    desc: r => `Výbuch jisker zapaluje laboratoř a vše do ${r * 4} sáhů. ZH ODL SO 14 nebo ${r}k6 ohnivého zranění. Škoda na vybavení dosahuje přibližně ${r * 150} zlatých. Oheň se šíří, dokud ho někdo nezastaví.`,
+    min: 3, max: 3,
+    title: 'Řetězová reakce', severity: 'doom',
+    desc: r => `Všechny lektvary a magické kapaliny v okruhu ${r * 2} sáhů explodují. Každá lahvička způsobí ${r}k4 poškození odpovídajícího typu. Zásoby jsou nenávratně ztraceny.`,
   },
   {
-    min: 6, max: 7,
-    icon: '🌀', title: 'Divoká magie', severity: 'terrible',
-    desc: r => `Hraj ${r}× na tabulce efektů Divoké magie. Každý efekt je nezávislý a nastane okamžitě, jeden po druhém. Legenda praví, že jeden alchymista takto omylem vyvolal ${r} kopií sebe sama — všechny nepřátelské.`,
+    min: 4, max: 4,
+    title: 'Jiskrový požár', severity: 'terrible',
+    desc: r => `Výbuch jisker zapaluje laboratoř a vše do ${r * 4} sáhů. ZH ODL SO 14 nebo ${r}k6 ohnivého zranění. Škoda na vybavení přibližně ${r * 150} zlatých.`,
   },
   {
-    min: 8, max: 9,
-    icon: '🤢', title: 'Vlastní otrava', severity: 'bad',
-    desc: r => `Spolkneš stabilizační vzorek. ZH ODL SO ${10 + r * 2} nebo Otrávení na ${r * 2} hodiny a ${r}k4 jedového zranění. Suroviny jsou ztraceny. Laboratoř smrdí.`,
+    min: 5, max: 5,
+    title: 'Divoká magie', severity: 'terrible',
+    desc: r => `Hraj ${r}× na tabulce efektů Divoké magie. Každý efekt je nezávislý a nastane okamžitě, jeden po druhém.`,
   },
   {
-    min: 10, max: 11,
-    icon: '😵', title: 'Záhadná látka', severity: 'bad',
-    desc: _r => `Vyrobil jsi něco stabilního — ale jen matně tušíš co to může dělat. Nevíš jak to vyrobit znovu. PH si hodí tajně za výsledek (může být cokoliv od "nic" po "kouzlo 5. kruh"). Přesto ses trochu naučil.`,
+    min: 6, max: 6,
+    title: 'Transmutace těla', severity: 'terrible',
+    desc: r => `Tvé tělo se dočasně zmutuje. ZH ODL SO ${10 + r * 2} nebo získáš náhodnou fyzickou mutaci na ${r} dní (PH volí: šupiny, oči navíc, drápy, ocas...).`,
   },
   {
-    min: 12, max: 13,
-    icon: '🤮', title: 'Odporná chuť', severity: 'mixed',
-    desc: r => `Lektvar je funkční, ale chutná nevýslovně hrozně — jako kobliha namočená v bažinaté vodě. Pití vyžaduje ZH ODL SO ${11 + r}. Selhání = ${r} kol zvracení (Otrávení) a ztráta akce. Přesto lektvar po spolknutí účinkuje normálně.`,
+    min: 7, max: 7,
+    title: 'Výbuch kyseliny', severity: 'terrible',
+    desc: r => `Kotlík prasknul a kyselina stříká všude. ${r}k8 kyselinového zranění, vybavení v dosahu zkoroduje. Alchymistická souprava potřebuje opravu za ${r * 50} zl.`,
   },
   {
-    min: 14, max: 15,
-    icon: '⚗️', title: 'Poloviční efekt', severity: 'mixed',
-    desc: _r => `Lektvar funguje, ale s polovičním efektem a na poloviční dobu trvání. Léčivé lektvary obnoví jen polovinu HP, buff lektvary trvají ½ doby. Na druhou stranu — aspoň nechytlo.`,
+    min: 8, max: 8,
+    title: 'Vlastní otrava', severity: 'bad',
+    desc: r => `Spolkneš stabilizační vzorek. ZH ODL SO ${10 + r * 2} nebo Otrávení na ${r * 2} hodiny a ${r}k4 jedového zranění. Suroviny jsou ztraceny.`,
   },
   {
-    min: 16, max: 17,
-    icon: '🌟', title: 'Vedlejší efekt', severity: 'mixed',
-    desc: r => `Lektvar funguje správně! Ale má nepříjemný vedlejší efekt (PH volí nebo hod k6): 1 Otrávení na 1 hodinu • 2 Spánek ${r} kol • 3 Halucinace ${r} hodiny • 4 Zmenšení na 1 hodinu • 5 Nesnesitelný zápach (6 sáhů, ${r} hodin) • 6 Kůže zmodrá na ${r * 24} hodin.`,
+    min: 9, max: 9,
+    title: 'Magnetická anomálie', severity: 'bad',
+    desc: r => `Lektvar vygeneroval silné magnetické pole. Všechny kovové předměty do ${r * 3} sáhů se přilepí k tvojí výbavě na ${r} hodin. Nevýhoda na útoky se zbraněmi.`,
   },
   {
-    min: 18, max: 19,
-    icon: '✨', title: 'Šťastná nehoda', severity: 'good',
-    desc: _r => `Selhal jsi na zamýšlený lektvar — ale omylem syntetizoval jiný náhodný lektvar stejné vzácnosti. PH určí který. Suroviny ztraceny, ale laboratorní deník se obohatil o zajímavou poznámku.`,
+    min: 10, max: 10,
+    title: 'Záhadná látka', severity: 'bad',
+    desc: _r => `Vyrobil jsi něco stabilního — ale jen matně tušíš co to může dělat. Nevíš jak to vyrobit znovu. PH si hodí tajně za výsledek (může být cokoliv od "nic" po "kouzlo 5. kruh").`,
+  },
+  {
+    min: 11, max: 11,
+    title: 'Amnézie procesu', severity: 'bad',
+    desc: r => `Výpary ti zasáhly paměť. Zapomeneš recept na tento lektvar na ${r} dní. Musíš ho najít znovu nebo počkat.`,
+  },
+  {
+    min: 12, max: 12,
+    title: 'Odporná chuť', severity: 'mixed',
+    desc: r => `Lektvar je funkční, ale chutná nevýslovně hrozně. Pití vyžaduje ZH ODL SO ${11 + r}. Selhání = ${r} kol zvracení (Otrávení) a ztráta akce. Po spolknutí účinkuje normálně.`,
+  },
+  {
+    min: 13, max: 13,
+    title: 'Nestabilní směs', severity: 'mixed',
+    desc: r => `Lektvar funguje, ale musí být použit do ${r} hodin, jinak ztratí účinek. Navíc při nárazu (pádu) má 50% šanci explodovat za ${r}k4 poškození.`,
+  },
+  {
+    min: 14, max: 14,
+    title: 'Poloviční efekt', severity: 'mixed',
+    desc: _r => `Lektvar funguje, ale s polovičním efektem a na poloviční dobu trvání. Léčivé lektvary obnoví jen polovinu HP, buff lektvary trvají ½ doby.`,
+  },
+  {
+    min: 15, max: 15,
+    title: 'Zpoždění účinku', severity: 'mixed',
+    desc: r => `Lektvar je funkční, ale účinek nastane až za ${r}k10 minut po vypití. Do té doby žádný efekt — a nevíš přesně kdy zabere.`,
+  },
+  {
+    min: 16, max: 16,
+    title: 'Vedlejší efekt', severity: 'mixed',
+    desc: r => `Lektvar funguje správně! Ale má vedlejší efekt (hod k6): 1 Otrávení 1 hod. • 2 Spánek ${r} kol • 3 Halucinace ${r} hod. • 4 Zmenšení 1 hod. • 5 Zápach 6 sáhů ${r} hod. • 6 Kůže zmodrá ${r * 24} hod.`,
+  },
+  {
+    min: 17, max: 17,
+    title: 'Dvojitá dávka, dvojité riziko', severity: 'good',
+    desc: _r => `Vyrobil jsi dvě dávky místo jedné! Ale obě jsou nestabilní — při použití jedné musíš hodit k20: na 1-5 se obě znehodnotí.`,
+  },
+  {
+    min: 18, max: 18,
+    title: 'Šťastná nehoda', severity: 'good',
+    desc: _r => `Selhal jsi na zamýšlený lektvar — ale omylem syntetizoval jiný náhodný lektvar stejné vzácnosti. PH určí který.`,
+  },
+  {
+    min: 19, max: 19,
+    title: 'Bonusový vedlejší efekt', severity: 'good',
+    desc: r => `Lektvar je hotový a funguje podle plánu, navíc má drobný bonus: +${r} dočasné HP na 1 hodinu po vypití, nebo trvání prodlouženo o 50%.`,
   },
   {
     min: 20, max: 20,
-    icon: '🎉', title: 'Geniální omyl!', severity: 'great',
-    desc: _r => `Mishap, který se vymknul! Omylem jsi vyrobil vylepšenou verzi — lektvar má DVOJNÁSOBNÝ efekt a DVOJNÁSOBNOU dobu trvání. Někdy se génius projeví náhodou. Přesto si neplánuješ postup zopakovat.`,
+    title: 'Geniální omyl!', severity: 'great',
+    desc: _r => `Omylem jsi vyrobil vylepšenou verzi — lektvar má DVOJNÁSOBNÝ efekt a DVOJNÁSOBNOU dobu trvání. Někdy se génius projeví náhodou.`,
   },
 ];
 
@@ -697,7 +781,7 @@ const FAIL_TABLE: FailEntry[] = [
   template: `
     <div class="pt-wrap">
       <header class="pt-header">
-        <h2 class="pt-title">🧪 Lektvary & Jedy – Receptář</h2>
+        <h2 class="pt-title">Lektvary & Jedy – Receptář</h2>
         <p class="pt-subtitle">Přísady, ceny a čas vaření • Výroba vždy levnější než nákup</p>
       </header>
 
@@ -719,123 +803,135 @@ const FAIL_TABLE: FailEntry[] = [
       </div>
 
       <div class="pt-search-row">
-        <input class="pt-search" placeholder="Hledat lektvar…"
+        <input class="pt-search" placeholder="Hledat lektvar nebo přísadu…"
           [value]="searchQuery()" (input)="searchQuery.set($any($event.target).value)"/>
       </div>
 
-      <div class="pt-table-wrap">
-        <table class="pt-table">
-          <thead>
-            <tr>
-              <th class="col-name">Lektvar</th>
-              <th class="col-rarity">Vzácnost</th>
-              <th class="col-ingr">Přísady</th>
-              <th class="col-price">Cena / Výroba</th>
-              <th class="col-time">Čas</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (p of filteredPotions(); track p.name) {
-              <tr class="pt-row">
-                <td class="col-name">
-                  <div class="pt-name">{{ p.name }}</div>
-                  <div class="pt-effect">{{ p.effect }}</div>
-                </td>
-                <td class="col-rarity"><span class="pt-tag" [attr.data-rarity]="p.rarity">{{ p.rarity }}</span></td>
-                <td class="col-ingr">
-                  <div class="pt-ingr">
-                    @for (ing of p.ingredients; track ing) { <span>{{ ing }}</span> }
-                  </div>
-                </td>
-                <td class="col-price">
-                  <div class="pt-price-buy">{{ p.priceBuy }}</div>
-                  <div class="pt-price-craft">⚗️ {{ p.priceCraft }}</div>
-                </td>
-                <td class="col-time">{{ p.craftTime }}</td>
-              </tr>
-            } @empty {
-              <tr><td colspan="5" class="pt-empty">Žádné lektvary neodpovídají filtru.</td></tr>
-            }
-          </tbody>
-        </table>
-      </div>
-
-      <!-- ═══ Crafting Rules & d20 Fail Table ═══ -->
-      <section class="craft-section">
-        <h3 class="craft-title">⚗️ Pravidla výroby</h3>
-
-        <!-- SO summary -->
-        <div class="craft-intro">
-          <p>Postava musí mít zdatnost v <strong>Alchymistické soupravě</strong>. Hodí si na <strong>INT (Arkána)</strong> nebo <strong>MDR (Lékařství)</strong> proti SO dle vzácnosti.</p>
-          <p>Při selhání neztratíš jen suroviny — hodíš si na <strong>Tabulku selhání (k20)</strong> níže a zjistíš, jak moc se to pokazilo. 🎲</p>
-        </div>
-
-        <!-- SO table -->
-        <div class="so-table-wrap">
-          <table class="so-table">
+      <!-- ═══ Potions Table (collapsible) ═══ -->
+      <details class="pt-collapsible" open>
+        <summary class="pt-collapsible-header">Tabulka lektvarů ({{ filteredPotions().length }})</summary>
+        <div class="pt-table-wrap">
+          <table class="pt-table">
             <thead>
               <tr>
-                <th>Vzácnost</th>
-                <th>SO vaření</th>
-                <th>Při selhání</th>
+                <th class="col-name">Lektvar</th>
+                <th class="col-rarity">Vzácnost</th>
+                <th class="col-ingr">Přísady</th>
+                <th class="col-price">Cena / Výroba</th>
+                <th class="col-time">Čas</th>
               </tr>
             </thead>
             <tbody>
-              @for (row of craftSoRows; track row.rarity) {
-                <tr>
-                  <td><span class="pt-tag" [attr.data-rarity]="row.rarity">{{ row.rarity }}</span></td>
-                  <td class="so-value">{{ row.so }}</td>
-                  <td class="so-fail-hint">Hod k20 na tabulku selhání</td>
+              @for (p of filteredPotions(); track p.name) {
+                <tr class="pt-row">
+                  <td class="col-name">
+                    <div class="pt-name">{{ p.name }}</div>
+                    <div class="pt-effect">{{ p.effect }}</div>
+                  </td>
+                  <td class="col-rarity"><span class="pt-tag" [attr.data-rarity]="p.rarity">{{ p.rarity }}</span></td>
+                  <td class="col-ingr">
+                    <div class="pt-ingr">
+                      @for (ingItem of p.ingredients; track ingItem.name) {
+                        <span class="pt-ingr-item">
+                          <span class="pt-ingr-name" [innerHTML]="highlightIngredient(ingItem.name)"></span>
+                          <span class="pt-ingr-price">{{ ingItem.price }} zl</span>
+                        </span>
+                      }
+                    </div>
+                  </td>
+                  <td class="col-price">
+                    <div class="pt-price-buy">{{ p.priceBuy }}</div>
+                    <div class="pt-price-craft">{{ p.priceCraft }}</div>
+                  </td>
+                  <td class="col-time">{{ p.craftTime }}</td>
                 </tr>
+              } @empty {
+                <tr><td colspan="5" class="pt-empty">Žádné lektvary neodpovídají filtru.</td></tr>
               }
             </tbody>
           </table>
         </div>
+      </details>
 
-        <!-- d20 Fail Table interactive -->
-        <div class="fail-section">
-          <div class="fail-header">
-            <h4 class="fail-title">🎲 Tabulka selhání (k20)</h4>
-            <div class="fail-controls">
-              <span class="fail-label">Vzácnost lektvaru:</span>
-              @for (r of rarityOnly; track r.key) {
-                <button class="pt-filter-btn pt-rarity-btn fail-rar-btn"
-                  [class.active]="failRarity() === r.key"
-                  [attr.data-rarity]="r.key"
-                  (click)="failRarity.set(r.key)">{{ r.label }}</button>
-              }
-              <button class="roll-btn" (click)="rollD20()">🎲 Hodit k20</button>
-            </div>
+      <!-- ═══ Crafting Rules & d20 Fail Table (collapsible) ═══ -->
+      <details class="pt-collapsible">
+        <summary class="pt-collapsible-header">Pravidla výroby & Tabulka selhání</summary>
+        <section class="craft-section">
+          <h3 class="craft-title">Pravidla výroby</h3>
+
+          <!-- SO summary -->
+          <div class="craft-intro">
+            <p>Postava musí mít zdatnost v <strong>Alchymistické soupravě</strong>. Hodí si na <strong>INT (Arkána)</strong> nebo <strong>MDR (Lékařství)</strong> proti SO dle vzácnosti.</p>
+            <p>Při selhání neztratíš jen suroviny — hodíš si na <strong>Tabulku selhání (k20)</strong> níže a zjistíš, jak moc se to pokazilo.</p>
           </div>
 
-          <div class="fail-table-wrap">
-            <table class="fail-table">
+          <!-- SO table -->
+          <div class="so-table-wrap">
+            <table class="so-table">
               <thead>
                 <tr>
-                  <th class="col-roll">k20</th>
-                  <th class="col-result">Výsledek</th>
-                  <th class="col-desc">Popis (škáluje dle vzácnosti)</th>
+                  <th>Vzácnost</th>
+                  <th>SO vaření</th>
+                  <th>Při selhání</th>
                 </tr>
               </thead>
               <tbody>
-                @for (entry of failTable; track entry.min) {
-                  <tr [attr.data-sev]="entry.severity">
-                    <td class="col-roll">
-                      <span class="roll-badge" [attr.data-sev]="entry.severity">
-                        {{ entry.min === entry.max ? entry.min : entry.min + '–' + entry.max }}
-                      </span>
-                    </td>
-                    <td class="col-result">
-                      <span class="fail-name">{{ entry.title }}</span>
-                    </td>
-                    <td class="col-desc">{{ entry.desc(failRarityScale()) }}</td>
+                @for (row of craftSoRows; track row.rarity) {
+                  <tr>
+                    <td><span class="pt-tag" [attr.data-rarity]="row.rarity">{{ row.rarity }}</span></td>
+                    <td class="so-value">{{ row.so }}</td>
+                    <td class="so-fail-hint">Hod k20 na tabulku selhání</td>
                   </tr>
                 }
               </tbody>
             </table>
           </div>
-        </div>
-      </section>
+
+          <!-- d20 Fail Table interactive -->
+          <div class="fail-section">
+            <div class="fail-header">
+              <h4 class="fail-title">Tabulka selhání (k20)</h4>
+              <div class="fail-controls">
+                <span class="fail-label">Vzácnost lektvaru:</span>
+                @for (r of rarityOnly; track r.key) {
+                  <button class="pt-filter-btn pt-rarity-btn fail-rar-btn"
+                    [class.active]="failRarity() === r.key"
+                    [attr.data-rarity]="r.key"
+                    (click)="failRarity.set(r.key)">{{ r.label }}</button>
+                }
+                <button class="roll-btn" (click)="rollD20()">Hodit k20</button>
+              </div>
+            </div>
+
+            <div class="fail-table-wrap">
+              <table class="fail-table">
+                <thead>
+                  <tr>
+                    <th class="col-roll">k20</th>
+                    <th class="col-result">Výsledek</th>
+                    <th class="col-desc">Popis (škáluje dle vzácnosti)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (entry of failTable; track entry.min) {
+                    <tr [attr.data-sev]="entry.severity">
+                      <td class="col-roll">
+                        <span class="roll-badge" [attr.data-sev]="entry.severity">
+                          {{ entry.min }}
+                        </span>
+                      </td>
+                      <td class="col-result">
+                        <span class="fail-name">{{ entry.title }}</span>
+                      </td>
+                      <td class="col-desc">{{ entry.desc(failRarityScale()) }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </details>
     </div>
   `,
   styles: `
@@ -844,6 +940,19 @@ const FAIL_TABLE: FailEntry[] = [
     .pt-header { margin-bottom: 16px; }
     .pt-title { font-size: 20px; color: #e8c96a; margin: 0 0 4px; font-weight: 600; }
     .pt-subtitle { font-size: 12px; color: #9a8a6a; margin: 0; }
+
+    /* ─── Collapsible ─── */
+    .pt-collapsible { margin-bottom: 16px; border: 1px solid rgba(200,160,60,.18); border-radius: 10px; overflow: hidden; }
+    .pt-collapsible-header {
+      cursor: pointer; padding: 12px 18px; font-size: 14px; font-weight: 700; color: #e8c96a;
+      background: rgba(200,160,60,.06); border-bottom: 1px solid rgba(200,160,60,.12);
+      list-style: none; display: flex; align-items: center; gap: 8px;
+      user-select: none; transition: background .15s;
+    }
+    .pt-collapsible-header:hover { background: rgba(200,160,60,.12); }
+    .pt-collapsible-header::before { content: '▶'; font-size: 10px; transition: transform .2s; }
+    .pt-collapsible[open] > .pt-collapsible-header::before { transform: rotate(90deg); }
+    .pt-collapsible-header::-webkit-details-marker { display: none; }
 
     /* ─── Filters ─── */
     .pt-filters { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
@@ -874,8 +983,8 @@ const FAIL_TABLE: FailEntry[] = [
     .pt-search:focus { border-color: rgba(200,160,60,.5); background: rgba(200,160,60,.1); }
 
     /* ─── Table ─── */
-    .pt-table-wrap { overflow-x: auto; }
-    .pt-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .pt-table-wrap { overflow-x: auto; padding: 12px 12px 12px; }
+    .pt-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
     .pt-table thead tr th {
       text-align: left; padding: 8px 10px; font-weight: 500; font-size: 11px;
       color: rgba(200,160,60,.7); letter-spacing: .06em; text-transform: uppercase;
@@ -905,9 +1014,13 @@ const FAIL_TABLE: FailEntry[] = [
     .pt-tag[data-rarity="Velmi vzácný"] { background: rgba(200,60,60,.15); color: #d46a6a; }
     .pt-tag[data-rarity="Legendární"] { background: rgba(160,80,200,.15); color: #b880d8; }
 
-    .pt-ingr { display: flex; flex-direction: column; gap: 2px; }
-    .pt-ingr span { font-size: 12px; color: #b0a080; }
-    .pt-ingr span::before { content: "· "; color: rgba(200,160,60,.5); }
+    .pt-ingr { display: flex; flex-direction: column; gap: 3px; }
+    .pt-ingr-item { display: flex; align-items: baseline; gap: 6px; font-size: 12px; color: #b0a080; }
+    .pt-ingr-item::before { content: "· "; color: rgba(200,160,60,.5); flex-shrink: 0; }
+    .pt-ingr-name { flex: 1; }
+    .pt-ingr-price { font-size: 10px; color: #9a8a6a; white-space: nowrap; font-style: italic; }
+
+    :host ::ng-deep .search-hl { color: #f06060; font-weight: 700; background: rgba(240,60,60,.1); border-radius: 2px; padding: 0 1px; }
 
     .pt-price-buy { font-size: 12px; color: #d4c9a0; white-space: nowrap; }
     .pt-price-craft { font-size: 11px; color: #8fc95a; white-space: nowrap; margin-top: 2px; }
@@ -916,7 +1029,7 @@ const FAIL_TABLE: FailEntry[] = [
 
 
     /* ─── Crafting Section ─── */
-    .craft-section { margin-top: 36px; padding: 24px 20px 28px; background: rgba(200,160,60,.04); border: 1px solid rgba(200,160,60,.18); border-radius: 12px; }
+    .craft-section { padding: 20px 18px 24px; }
     .craft-title { font-size: 16px; font-weight: 700; color: #e8c96a; margin: 0 0 14px; }
     .craft-intro { margin-bottom: 18px; }
     .craft-intro p { font-size: 13px; color: #b0a080; margin: 0 0 6px; line-height: 1.55; }
@@ -961,7 +1074,6 @@ const FAIL_TABLE: FailEntry[] = [
     .roll-badge[data-sev="mixed"]   { background: rgba(60,100,180,.25);  color: #80a8e0; border: 1px solid rgba(80,120,200,.4); }
     .roll-badge[data-sev="good"]    { background: rgba(40,160,80,.2);    color: #60c870; border: 1px solid rgba(60,180,80,.4); }
     .roll-badge[data-sev="great"]   { background: rgba(140,100,220,.25); color: #b080e8; border: 1px solid rgba(160,120,220,.4); }
-    .fail-icon { font-size: 18px; margin-right: 6px; vertical-align: middle; }
     .fail-name { font-weight: 700; font-size: 12.5px; color: #d4c9a0; vertical-align: middle; }
   `,
 })
@@ -986,23 +1098,57 @@ export class PotionsTabComponent {
     this.diceRollerService.rollD20WithModifier('Selhání výroby lektvaru', 0);
   }
 
+  /** Highlight matched search chars in ingredient name (diacritics-insensitive) */
+  highlightIngredient(ingredientName: string): string {
+    const q = this.searchQuery().trim();
+    if (q.length < 2) return this._escapeHtml(ingredientName);
+
+    const qNorm = normSearch(q);
+    const nameNorm = normSearch(ingredientName);
+    const idx = nameNorm.indexOf(qNorm);
+    if (idx === -1) return this._escapeHtml(ingredientName);
+
+    // Map normalized index back to original string using char-by-char walk
+    const origChars = [...ingredientName];
+    let ni = 0;
+    let startOrig = 0;
+    for (let oi = 0; oi < origChars.length && ni < idx; oi++) {
+      ni += normSearch(origChars[oi]).length;
+      startOrig = oi + 1;
+    }
+
+    let endOrig = startOrig;
+    let matchedNorm = 0;
+    for (let oi = startOrig; oi < origChars.length && matchedNorm < qNorm.length; oi++) {
+      matchedNorm += normSearch(origChars[oi]).length;
+      endOrig = oi + 1;
+    }
+
+    const beforeStr = this._escapeHtml(origChars.slice(0, startOrig).join(''));
+    const matchStr = this._escapeHtml(origChars.slice(startOrig, endOrig).join(''));
+    const afterStr = this._escapeHtml(origChars.slice(endOrig).join(''));
+
+    return `${beforeStr}<span class="search-hl">${matchStr}</span>${afterStr}`;
+  }
+
+  private _escapeHtml(s: string): string {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
   readonly filteredPotions = computed(() => {
     const cat = this.activeCategory();
     const rar = this.activeRarity();
-    const q = this.searchQuery().normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().trim();
+    const q = normSearch(this.searchQuery().trim());
     let result = POTIONS;
     if (cat !== 'vse') result = result.filter(p => p.category === cat);
     if (rar !== 'vse') result = result.filter(p => p.rarity === rar);
     if (q.length >= 2) {
       result = result.filter(p => {
-        const s = (p.name + ' ' + p.effect + ' ' + p.ingredients.join(' ') + ' ' + p.rarity)
-          .normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+        const s = normSearch(p.name + ' ' + p.effect + ' ' + p.ingredients.map(i => i.name).join(' ') + ' ' + p.rarity);
         return s.includes(q);
       });
     }
     return result;
   });
 }
-
-
 
