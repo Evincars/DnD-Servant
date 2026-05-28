@@ -135,10 +135,6 @@ $accent-k20:  #a840ff;
     &:hover { background: rgba(200,154,60,.15); }
   }
 
-  &__bottom-spacer {
-    height: 12px;
-    flex-shrink: 0;
-  }
 }
 
 // ── Roll animation area ───────────────────────────────────────────────────────
@@ -433,8 +429,8 @@ $accent-k20:  #a840ff;
     flex-direction: row;
     align-content: flex-start;
     gap: 4px;
-    padding: 6px 12px 5px;
-    max-height: calc(2 * 28px + 3 * 4px); // 2 rows + gaps
+    padding: 6px 12px 10px;
+    max-height: calc(2 * 28px + 3 * 4px + 16px); // 2 rows + gaps + top/bottom padding
     overflow: hidden;
   }
 
@@ -466,7 +462,7 @@ $accent-k20:  #a840ff;
     padding: 3px 8px 3px 6px;
     height: 28px;
     border: 1px solid rgba(200,154,60,.15);
-    border-radius: 14px;
+    border-radius: 6px;
     background: rgba(200,154,60,.05);
     transition: background .15s;
     flex-shrink: 0;
