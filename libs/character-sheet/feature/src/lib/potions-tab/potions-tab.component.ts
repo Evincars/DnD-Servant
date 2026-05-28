@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { DiceRollerService } from '@dn-d-servant/ui';
 
 // ── Data model ──────────────────────────────────────────────────────────────
 
@@ -784,7 +785,7 @@ const FAIL_TABLE: FailEntry[] = [
                 <tr>
                   <td><span class="pt-tag" [attr.data-rarity]="row.rarity">{{ row.rarity }}</span></td>
                   <td class="so-value">{{ row.so }}</td>
-                  <td class="so-fail-hint">Hod k20 na tabulku · škáluje ×{{ row.scale }}</td>
+                  <td class="so-fail-hint">Hod k20 na tabulku selhání</td>
                 </tr>
               }
             </tbody>
@@ -803,9 +804,7 @@ const FAIL_TABLE: FailEntry[] = [
                   [attr.data-rarity]="r.key"
                   (click)="failRarity.set(r.key)">{{ r.label }}</button>
               }
-              <button class="roll-btn" (click)="rollD20()">
-                🎲 Hodit k20{{ d20Roll() !== null ? ' — ' + d20Roll() : '' }}
-              </button>
+              <button class="roll-btn" (click)="rollD20()">🎲 Hodit k20</button>
             </div>
           </div>
 
@@ -820,15 +819,13 @@ const FAIL_TABLE: FailEntry[] = [
               </thead>
               <tbody>
                 @for (entry of failTable; track entry.min) {
-                  <tr class="fail-row" [class.fail-highlighted]="isHighlighted(entry)"
-                    [attr.data-sev]="entry.severity">
+                  <tr [attr.data-sev]="entry.severity">
                     <td class="col-roll">
                       <span class="roll-badge" [attr.data-sev]="entry.severity">
                         {{ entry.min === entry.max ? entry.min : entry.min + '–' + entry.max }}
                       </span>
                     </td>
                     <td class="col-result">
-                      <span class="fail-icon">{{ entry.icon }}</span>
                       <span class="fail-name">{{ entry.title }}</span>
                     </td>
                     <td class="col-desc">{{ entry.desc(failRarityScale()) }}</td>
@@ -969,6 +966,8 @@ const FAIL_TABLE: FailEntry[] = [
   `,
 })
 export class PotionsTabComponent {
+  private readonly diceRollerService = inject(DiceRollerService);
+
   readonly categories = CATEGORY_LABELS;
   readonly rarities = RARITY_LABELS;
   readonly activeCategory = signal<PotionCategory>('vse');
@@ -977,20 +976,14 @@ export class PotionsTabComponent {
 
   readonly rarityOnly = RARITY_LABELS.filter(r => r.key !== 'vse') as { key: Rarity; label: string }[];
   readonly failRarity = signal<Rarity>('Běžný');
-  readonly d20Roll = signal<number | null>(null);
   readonly failRarityScale = computed(() => RARITY_SCALE.get(this.failRarity()) ?? 1);
   readonly failTable = FAIL_TABLE;
   readonly craftSoRows = Array.from(CRAFT_SO.entries()).map(([rarity, so]) => ({
-    rarity, so, scale: RARITY_SCALE.get(rarity) ?? 1,
+    rarity, so,
   }));
 
   rollD20(): void {
-    this.d20Roll.set(Math.floor(Math.random() * 20) + 1);
-  }
-
-  isHighlighted(entry: FailEntry): boolean {
-    const roll = this.d20Roll();
-    return roll !== null && roll >= entry.min && roll <= entry.max;
+    this.diceRollerService.rollD20WithModifier('Selhání výroby lektvaru', 0);
   }
 
   readonly filteredPotions = computed(() => {
