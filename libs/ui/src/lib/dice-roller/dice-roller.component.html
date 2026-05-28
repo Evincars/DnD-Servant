@@ -1,3 +1,8 @@
+<!-- ── Backdrop (click outside to close) ── -->
+@if (isOpen()) {
+  <div class="dr-backdrop" (click)="togglePanel()"></div>
+}
+
 <!-- ── Collapsed trigger tab on left ── -->
 <div class="dr-tab" (click)="togglePanel()" [class.dr-tab--open]="isOpen()">
   <span class="dr-tab__icon">🎲</span>
@@ -14,8 +19,12 @@
       @if (totalQueued() > 0) {
         <span class="dr-tray__queued-label">{{ totalQueued() }} kostek</span>
       }
-      <button class="dr-btn dr-btn--ghost dr-btn--sm" (click)="clearQueue()">Vymazat</button>
-      <button class="dr-tray__close" (click)="togglePanel()">✕</button>
+      <button class="dr-btn dr-btn--ghost dr-btn--sm" (click)="clearHistory()">Vymazat historii hodů</button>
+      <button class="dr-tray__close" (click)="togglePanel()" title="Minimalizovat">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="4,6 9,12 14,6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
     </div>
   </div>
 
@@ -129,9 +138,6 @@
   <!-- ── History ── -->
   @if (historyLog().length > 0) {
     <div class="dr-history">
-      <div class="dr-history__header">
-        <span class="dr-history__title">Historie hodů</span>
-      </div>
       <div class="dr-history__list">
         @for (entry of historyLog(); track $index) {
           <div class="dr-history__entry"
@@ -149,7 +155,42 @@
           </div>
         }
       </div>
+      <div class="dr-history__footer">
+        <button class="dr-history__show-all" (click)="showFullHistory.set(true)">📜 Celá historie hodů →</button>
+      </div>
     </div>
   }
 
+  <!-- Bottom margin spacer -->
+  <div class="dr-tray__bottom-spacer"></div>
+
 </div>
+
+<!-- ── Full history dialog ── -->
+@if (showFullHistory()) {
+  <div class="dr-hist-modal">
+    <div class="dr-hist-modal__backdrop" (click)="showFullHistory.set(false)"></div>
+    <div class="dr-hist-modal__panel">
+      <div class="dr-hist-modal__header">
+        <span class="dr-hist-modal__title">Historie hodů</span>
+        <button class="dr-hist-modal__close" (click)="showFullHistory.set(false)">✕</button>
+      </div>
+      <div class="dr-hist-modal__list">
+        @for (entry of historyLog(); track $index) {
+          <div class="dr-history__entry"
+               [class.dr-history__entry--latest]="$index === 0"
+               [class.dr-history__entry--nat20]="entry.isNat20"
+               [class.dr-history__entry--crit]="entry.isCrit">
+            <span class="dr-history__entry-time">{{ entry.timestamp }}</span>
+            <span class="dr-hist-modal__entry-text">{{ entry.text }}</span>
+            <span class="dr-history__entry-total"
+                  [class.dr-history__entry-total--nat20]="entry.isNat20"
+                  [class.dr-history__entry-total--crit]="entry.isCrit">
+              {{ entry.total }}
+            </span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+}

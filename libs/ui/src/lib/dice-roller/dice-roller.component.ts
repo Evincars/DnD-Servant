@@ -53,6 +53,7 @@ export class DiceRollerComponent implements OnDestroy {
 
   isOpen = signal(false);
   isRolling = signal(false);
+  showFullHistory = signal(false);
   animDice = signal<AnimDie[]>([]);
   results = signal<RollResult[]>([]);
   queue = signal<QueuedDie[]>([]);
@@ -129,6 +130,9 @@ export class DiceRollerComponent implements OnDestroy {
     this.results.set([]);
     this.totalSum.set(null);
     this.animDice.set([]);
+  }
+
+  clearHistory(): void {
     this.historyLog.set([]);
     localStorage.removeItem(LS_KEY);
   }
