@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280" width="200" height="280">
+  <defs>
+    <linearGradient id="liq" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0%" stop-color="#40d080" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#40d080" stop-opacity="0.6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="60%" r="50%">
+      <stop offset="0%" stop-color="#60f0a0" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#60f0a0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02"/>
+    </linearGradient>
+    <clipPath id="bottle-clip">
+      <path d="M70 75 Q72 60 80 55 L80 30 Q80 22 88 22 L112 22 Q120 22 120 30 L120 55 Q128 60 130 75 Q145 110 145 150 Q145 185 140 210 Q135 240 125 252 Q115 264 100 264 Q85 264 75 252 Q65 240 60 210 Q55 185 55 150 Q55 110 70 75 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Dark background -->
+  <rect width="200" height="280" fill="#0d0b0f"/>
+
+  <!-- Ambient glow -->
+  <ellipse cx="100" cy="170" rx="70" ry="80" fill="url(#glow)"/>
+
+  <!-- Bottle outline -->
+  <path d="M70 75 Q72 60 80 55 L80 30 Q80 22 88 22 L112 22 Q120 22 120 30 L120 55 Q128 60 130 75 Q145 110 145 150 Q145 185 140 210 Q135 240 125 252 Q115 264 100 264 Q85 264 75 252 Q65 240 60 210 Q55 185 55 150 Q55 110 70 75 Z"
+        fill="rgba(200,220,240,0.04)" stroke="rgba(180,200,220,0.25)" stroke-width="1.5"/>
+
+  <!-- Liquid fill -->
+  <rect x="50" y="100" width="100" height="170" fill="url(#liq)" clip-path="url(#bottle-clip)"/>
+
+  <!-- Liquid surface highlight -->
+  <ellipse cx="100" cy="102" rx="38" ry="4" fill="#40d080" opacity="0.5" clip-path="url(#bottle-clip)"/>
+
+  <!-- Glass reflection -->
+  <path d="M68 90 Q63 130 65 180 Q67 200 70 220" stroke="rgba(255,255,255,0.1)" stroke-width="4" fill="none" stroke-linecap="round" clip-path="url(#bottle-clip)"/>
+  <path d="M75 75 Q73 85 75 100" stroke="rgba(255,255,255,0.08)" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <!-- Bubbles -->
+  <circle cx="85" cy="160" r="4" fill="rgba(255,255,255,0.2)" clip-path="url(#bottle-clip)"/>
+  <circle cx="110" cy="190" r="3" fill="rgba(255,255,255,0.15)" clip-path="url(#bottle-clip)"/>
+  <circle cx="95" cy="220" r="3.5" fill="rgba(255,255,255,0.12)" clip-path="url(#bottle-clip)"/>
+  <circle cx="115" cy="140" r="2.5" fill="rgba(255,255,255,0.18)" clip-path="url(#bottle-clip)"/>
+
+  <!-- Cork -->
+  <rect x="82" y="12" width="36" height="14" rx="4" fill="#6B4423"/>
+  <rect x="84" y="12" width="32" height="7" rx="2" fill="#8B5E3C"/>
+  <line x1="82" y1="19" x2="118" y2="19" stroke="rgba(0,0,0,0.2)" stroke-width="0.8"/>
+
+  <!-- Neck ring -->
+  <rect x="78" y="25" width="44" height="4" rx="2" fill="rgba(180,160,100,0.15)" stroke="rgba(200,180,120,0.3)" stroke-width="0.5"/>
+
+  
+  <!-- Sparkle particles -->
+  <circle cx="80" cy="130" r="1.5" fill="white" opacity="0.6"/>
+  <circle cx="120" cy="170" r="1.2" fill="white" opacity="0.5"/>
+  <circle cx="90" cy="200" r="1" fill="white" opacity="0.4"/>
+  <circle cx="110" cy="120" r="1.3" fill="white" opacity="0.55"/>
+  <line x1="75" y1="95" x2="80" y2="100" stroke="white" stroke-width="0.8" opacity="0.4"/>
+  <line x1="77.5" y1="93" x2="77.5" y2="102" stroke="white" stroke-width="0.6" opacity="0.3"/>
+  
+</svg>
