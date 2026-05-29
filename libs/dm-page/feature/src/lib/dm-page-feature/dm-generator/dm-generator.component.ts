@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { generateAlchemyLoot } from '@dn-d-servant/character-sheet-feature';
 
 // ── Random tables ─────────────────────────────────────────────────────────────
 
@@ -649,11 +650,56 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
         </div>
       </div>
 
+      <!-- Alchemy Loot Card -->
+      <div class="gen-card">
+        <div class="gen-card-rule"></div>
+        <div class="gen-card-header">
+          <mat-icon class="gen-card-icon">science</mat-icon>
+          <span class="gen-card-title">Generovat loot ingredience</span>
+          <button class="gen-btn" type="button" (click)="rollAlchemy()"><mat-icon>shuffle</mat-icon>Generovat</button>
+        </div>
+
+        <div class="gen-loot-budget">
+          <div class="gen-loot-budget-row">
+            <span class="gen-loot-budget-label">Vzácnost:</span>
+            @for (r of alchemyRarities; track r) {
+              <button
+                class="gen-loot-preset"
+                [class.active]="alchemyRarity() === r"
+                type="button"
+                (click)="alchemyRarity.set(r)"
+              >{{ r }}</button>
+            }
+          </div>
+          <div class="gen-loot-budget-row" style="margin-top:6px">
+            <span class="gen-loot-budget-label">Typ:</span>
+            @for (c of alchemyCategories; track c) {
+              <button
+                class="gen-loot-preset"
+                [class.active]="alchemyCategory() === c"
+                type="button"
+                (click)="alchemyCategory.set(c)"
+              >{{ c }}</button>
+            }
+          </div>
+        </div>
+
+        <div class="gen-card-body">
+          @if (alchemyResult()) {
+            <span class="gen-result gen-result--fresh">{{ alchemyResult() }}</span>
+          } @else {
+            <span class="gen-result gen-result--empty">Klikni Generovat…</span>
+          }
+        </div>
+      </div>
+
     </div>
   `,
 })
 export class DmGeneratorComponent {
   readonly lootPresets = LOOT_PRESETS;
+  readonly alchemyRarities = ['Vše', 'Běžný', 'Neobvyklý', 'Vzácný', 'Velmi vzácný', 'Legendární'];
+  readonly alchemyCategories = ['Vše', 'Léčení', 'Boj', 'Pohyb', 'Mysl', 'Jedy', 'Ostatní'];
 
   npc          = signal<{ name: string; race: string; role: string; motivation: string; quirk: string } | null>(null);
   weather      = signal<string | null>(null);
@@ -663,6 +709,9 @@ export class DmGeneratorComponent {
   complication = signal<string | null>(null);
   loot         = signal<string | null>(null);
   lootBudget   = signal<number>(80);
+  alchemyRarity = signal<string>('Vše');
+  alchemyCategory = signal<string>('Vše');
+  alchemyResult = signal<string | null>(null);
 
   readonly lootTier = computed(() => getLootTier(this.lootBudget()));
 
@@ -685,6 +734,14 @@ export class DmGeneratorComponent {
   rollRoom():         void { this.room.set(rand(ROOMS)); }
   rollComplication(): void { this.complication.set(rand(COMPLICATIONS)); }
   rollLoot():         void { this.loot.set(rollLootByBudget(this.lootBudget())); }
+
+  rollAlchemy(): void {
+    const rar = this.alchemyRarity() === 'Vše' ? undefined : this.alchemyRarity();
+    const catMap: Record<string, string> = { 'Vše': 'vse', 'Léčení': 'leceni', 'Boj': 'boj', 'Pohyb': 'pohyb', 'Mysl': 'mysl', 'Jedy': 'jedy', 'Ostatní': 'ostatni' };
+    const cat = catMap[this.alchemyCategory()] || undefined;
+    const result = generateAlchemyLoot(rar, cat === 'vse' ? undefined : cat);
+    this.alchemyResult.set(`${result.ingredient.name} (${result.ingredient.price} zl) — z: ${result.potionName} [${result.potionRarity}]`);
+  }
 
   rerollAll(): void {
     this.rollNpc();

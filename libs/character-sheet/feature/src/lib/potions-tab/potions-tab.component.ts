@@ -62,6 +62,21 @@ function normSearch(s: string): string {
   return s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
 }
 
+// ── Exported for DM page integration ─────────────────────────────────────────
+export { POTIONS as ALCHEMY_POTIONS_DATA };
+export type { Potion as AlchemyPotion, Ingredient as AlchemyIngredient, Rarity as AlchemyRarity };
+
+/** Generate a single random ingredient from the alchemy table filtered by rarity and/or category. */
+export function generateAlchemyLoot(rarity?: string, category?: string): { ingredient: Ingredient; potionName: string; potionRarity: string; potionCategory: string } {
+  let pool = POTIONS;
+  if (rarity && rarity !== 'vse') pool = pool.filter(p => p.rarity === rarity);
+  if (category && category !== 'vse') pool = pool.filter(p => p.category === category);
+  if (!pool.length) pool = POTIONS;
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+  const ingredient = pick.ingredients[Math.floor(Math.random() * pick.ingredients.length)];
+  return { ingredient, potionName: pick.name, potionRarity: pick.rarity, potionCategory: pick.category };
+}
+
 // ── Potion color palette (by type/effect) ───────────────────────────────────
 const C = {
   red: '#e84040',
@@ -134,7 +149,7 @@ const POTIONS: Potion[] = [
     effect: 'Vyléčí Otrávení, imunita 1 hod.',
     category: 'leceni',
     rarity: 'Běžný',
-    ingredients: ing(['Bílý bez (bylina, okraje lesů)', 'Hadí svlak (z hada)', 'Citrónová šťáva'], 75, 'Lektvar proti jedu'),
+    ingredients: ing(['Bílý bez (bylina, okraje lesů)', 'Hadí svlak (z hada)', 'Stříbřitá rosa (sbíraná za úsvitu)'], 75, 'Lektvar proti jedu'),
     priceBuy: '100 zl',
     priceCraft: '75 zl',
     craftTime: '3 hodiny',
@@ -179,7 +194,7 @@ const POTIONS: Potion[] = [
     effect: 'Síla 21 po 1 hodinu',
     category: 'boj',
     rarity: 'Neobvyklý',
-    ingredients: ing(['Kopcový kořen (SO 14)', 'Obrova svalovina (kopcový obr)', 'Kamenný prach'], 380, 'Lektvar síly kopcového obra'),
+    ingredients: ing(['Kopcový kořen (SO 14)', 'Obrova svalovina (kopcový obr)', 'Zemní elementál prach (SO 13)'], 380, 'Lektvar síly kopcového obra'),
     priceBuy: '500 zl',
     priceCraft: '380 zl',
     craftTime: '1 den',
@@ -279,7 +294,7 @@ const POTIONS: Potion[] = [
     effect: 'Rychlost šplhání = rychlost pohybu, 1 hod.',
     category: 'pohyb',
     rarity: 'Běžný',
-    ingredients: ing(['Pavučina (z velkého pavouka)', 'Pryskyřice břízy', 'Mátový olej'], 55, 'Lektvar šplhání'),
+    ingredients: ing(['Pavučina (z velkého pavouka)', 'Gekoní lepidlo (žláza obřího gekona)', 'Kořen šplhavce (SO 12, skalní stěny)'], 55, 'Lektvar šplhání'),
     priceBuy: '75 zl',
     priceCraft: '55 zl',
     craftTime: '2 hodiny',
@@ -346,7 +361,7 @@ const POTIONS: Potion[] = [
     effect: 'Zvíře přátelské po 1 hod. (ZH 13)',
     category: 'mysl',
     rarity: 'Běžný',
-    ingredients: ing(['Divoký med (z divokého úlu)', 'Levandule (bylina)', 'Zvířecí srst (odpovídá druhu)'], 75, 'Lektvar přátelství zvířat'),
+    ingredients: ing(['Divoký med (z divokého úlu)', 'Dryádina slza (dobrovolný dar)', 'Zvířecí srst (odpovídá druhu)'], 75, 'Lektvar přátelství zvířat'),
     priceBuy: '100 zl',
     priceCraft: '75 zl',
     craftTime: '3 hodiny',
@@ -413,7 +428,7 @@ const POTIONS: Potion[] = [
     effect: '1k4 jedového zranění (OČ povlečeného)',
     category: 'jedy',
     rarity: 'Běžný',
-    ingredients: ing(['Hadí jedový váček (z jedovatého hada)', 'Bolehlav (bylina, SO 11)', 'Alkohol (na konzervaci)'], 75, 'Základní jed'),
+    ingredients: ing(['Hadí jedový váček (z jedovatého hada)', 'Bolehlav (bylina, SO 11)', 'Žlučník obřího brouka'], 75, 'Základní jed'),
     priceBuy: '100 zl',
     priceCraft: '75 zl',
     craftTime: '2 hodiny',
@@ -468,7 +483,7 @@ const POTIONS: Potion[] = [
     effect: 'ZH ODL SO 14 nebo Paralyzovaný na 1 min. (opak. ZH)',
     category: 'jedy',
     rarity: 'Neobvyklý',
-    ingredients: ing(['Carrion crawler sliz (z crawler)', 'Ghúlí dráp (z ghúla)', 'Octová esence'], 380, 'Jed paralýzy'),
+    ingredients: ing(['Carrion crawler sliz (z crawler)', 'Ghúlí dráp (z ghúla)', 'Nervový extrakt z fázového pavouka'], 380, 'Jed paralýzy'),
     priceBuy: '500 zl',
     priceCraft: '380 zl',
     craftTime: '8 hodin',
@@ -479,7 +494,7 @@ const POTIONS: Potion[] = [
     effect: '1k12 jed. zranění + Otrávení 24 hod. (ZH ODL SO 10)',
     category: 'jedy',
     rarity: 'Běžný',
-    ingredients: ing(['Belladonna (bylina, SO 12)', 'Kryší žluč (od obří krysy)', 'Řepkový olej'], 115, 'Assassin Blood'),
+    ingredients: ing(['Belladonna (bylina, SO 12)', 'Kryší žluč (od obří krysy)', 'Essence z nightshade (SO 13)'], 115, 'Assassin Blood'),
     priceBuy: '150 zl',
     priceCraft: '115 zl',
     craftTime: '3 hodiny',
@@ -502,7 +517,7 @@ const POTIONS: Potion[] = [
     effect: 'Zmenšení na Tiny po 1 hod.',
     category: 'ostatni',
     rarity: 'Neobvyklý',
-    ingredients: ing(['Prach z víly (od víly dobrovolně)', 'Mravenčí kyselina (z obřího mravence)', 'Borůvkový extrakt'], 230, 'Lektvar zmenšení'),
+    ingredients: ing(['Prach z víly (od víly dobrovolně)', 'Mravenčí kyselina (z obřího mravence)', 'Pixieho křídlový prach'], 230, 'Lektvar zmenšení'),
     priceBuy: '300 zl',
     priceCraft: '230 zl',
     craftTime: '6 hodin',
@@ -513,7 +528,7 @@ const POTIONS: Potion[] = [
     effect: 'Zvětšení na Large po 1 hod.',
     category: 'ostatni',
     rarity: 'Neobvyklý',
-    ingredients: ing(['Obří houba (SO 13, temné lesy)', 'Kost obra (prach)', 'Dubová pryskyřice'], 230, 'Lektvar růstu'),
+    ingredients: ing(['Obří houba (SO 13, temné lesy)', 'Kost obra (prach)', 'Kořen enta (dobrovolný dar)'], 230, 'Lektvar růstu'),
     priceBuy: '300 zl',
     priceCraft: '230 zl',
     craftTime: '6 hodin',
@@ -546,7 +561,7 @@ const POTIONS: Potion[] = [
     effect: 'Nepotřebuje dýchat po 1 hod.',
     category: 'ostatni',
     rarity: 'Běžný',
-    ingredients: ing(['Vzdušná houba (SO 12, jeskyně)', 'Medúzí extrakt (z medúzy)', 'Máta peprná'], 75, 'Lektvar dlouhého dechu'),
+    ingredients: ing(['Vzdušná houba (SO 12, jeskyně)', 'Medúzí extrakt (z medúzy)', 'Vzdušný elementál prach (SO 12)'], 75, 'Lektvar dlouhého dechu'),
     priceBuy: '100 zl',
     priceCraft: '75 zl',
     craftTime: '2 hodiny',
@@ -805,11 +820,20 @@ const FAIL_TABLE: FailEntry[] = [
       <div class="pt-search-row">
         <input class="pt-search" placeholder="Hledat lektvar nebo přísadu…"
           [value]="searchQuery()" (input)="searchQuery.set($any($event.target).value)"/>
+        <button class="pt-gen-btn" [title]="generateTooltip()" (click)="generateRandomIngredients()">Generovat loot ingredience</button>
+        @if (generatedLoot()) {
+          <span class="pt-gen-result">{{ generatedLoot() }}</span>
+        }
       </div>
 
-      <!-- ═══ Potions Table (collapsible) ═══ -->
-      <details class="pt-collapsible" open>
-        <summary class="pt-collapsible-header">Tabulka lektvarů ({{ filteredPotions().length }})</summary>
+      <!-- ═══ Tab Navigation ═══ -->
+      <div class="pt-tabs">
+        <button class="pt-tab" [class.active]="activeTab() === 'potions'" (click)="activeTab.set('potions')">Tabulka lektvarů ({{ filteredPotions().length }})</button>
+        <button class="pt-tab" [class.active]="activeTab() === 'rules'" (click)="activeTab.set('rules')">Pravidla výroby & Tabulka selhání</button>
+      </div>
+
+      <!-- ═══ Tab: Potions Table ═══ -->
+      @if (activeTab() === 'potions') {
         <div class="pt-table-wrap">
           <table class="pt-table">
             <thead>
@@ -851,21 +875,18 @@ const FAIL_TABLE: FailEntry[] = [
             </tbody>
           </table>
         </div>
-      </details>
+      }
 
-      <!-- ═══ Crafting Rules & d20 Fail Table (collapsible) ═══ -->
-      <details class="pt-collapsible">
-        <summary class="pt-collapsible-header">Pravidla výroby & Tabulka selhání</summary>
+      <!-- ═══ Tab: Crafting Rules & Fail Table ═══ -->
+      @if (activeTab() === 'rules') {
         <section class="craft-section">
           <h3 class="craft-title">Pravidla výroby</h3>
 
-          <!-- SO summary -->
           <div class="craft-intro">
             <p>Postava musí mít zdatnost v <strong>Alchymistické soupravě</strong>. Hodí si na <strong>INT (Arkána)</strong> nebo <strong>MDR (Lékařství)</strong> proti SO dle vzácnosti.</p>
             <p>Při selhání neztratíš jen suroviny — hodíš si na <strong>Tabulku selhání (k20)</strong> níže a zjistíš, jak moc se to pokazilo.</p>
           </div>
 
-          <!-- SO table -->
           <div class="so-table-wrap">
             <table class="so-table">
               <thead>
@@ -887,7 +908,6 @@ const FAIL_TABLE: FailEntry[] = [
             </table>
           </div>
 
-          <!-- d20 Fail Table interactive -->
           <div class="fail-section">
             <div class="fail-header">
               <h4 class="fail-title">Tabulka selhání (k20)</h4>
@@ -931,7 +951,7 @@ const FAIL_TABLE: FailEntry[] = [
             </div>
           </div>
         </section>
-      </details>
+      }
     </div>
   `,
   styles: `
@@ -941,18 +961,27 @@ const FAIL_TABLE: FailEntry[] = [
     .pt-title { font-size: 20px; color: #e8c96a; margin: 0 0 4px; font-weight: 600; }
     .pt-subtitle { font-size: 12px; color: #9a8a6a; margin: 0; }
 
-    /* ─── Collapsible ─── */
-    .pt-collapsible { margin-bottom: 16px; border: 1px solid rgba(200,160,60,.18); border-radius: 10px; overflow: hidden; }
-    .pt-collapsible-header {
-      cursor: pointer; padding: 12px 18px; font-size: 14px; font-weight: 700; color: #e8c96a;
-      background: rgba(200,160,60,.06); border-bottom: 1px solid rgba(200,160,60,.12);
-      list-style: none; display: flex; align-items: center; gap: 8px;
-      user-select: none; transition: background .15s;
+    /* ─── Tabs ─── */
+    .pt-tabs { display: flex; align-items: center; gap: 0; margin-bottom: 16px; border-bottom: 1px solid rgba(200,160,60,.2); }
+    .pt-tab {
+      padding: 10px 18px; font-size: 13px; font-weight: 600; color: #9a8a6a; cursor: pointer;
+      background: none; border: none; border-bottom: 2px solid transparent;
+      font-family: sans-serif; transition: all .15s; position: relative; top: 1px;
     }
-    .pt-collapsible-header:hover { background: rgba(200,160,60,.12); }
-    .pt-collapsible-header::before { content: '▶'; font-size: 10px; transition: transform .2s; }
-    .pt-collapsible[open] > .pt-collapsible-header::before { transform: rotate(90deg); }
-    .pt-collapsible-header::-webkit-details-marker { display: none; }
+    .pt-tab:hover { color: #d4c9a0; }
+    .pt-tab.active { color: #e8c96a; border-bottom-color: #e8c96a; }
+
+    /* ─── Generate Button (inline in search row) ─── */
+    .pt-gen-btn {
+      padding: 6px 14px; font-size: 11px; font-weight: 600; font-family: sans-serif;
+      background: rgba(200,160,60,.08); border: 1px solid rgba(200,160,60,.25); border-radius: 6px;
+      color: #b0a080; cursor: pointer; transition: all .15s; white-space: nowrap;
+    }
+    .pt-gen-btn:hover { background: rgba(200,160,60,.18); color: #e8c96a; border-color: rgba(200,160,60,.5); }
+    .pt-gen-result {
+      font-size: 12px; color: #e8c96a; background: rgba(200,160,60,.08); border: 1px solid rgba(200,160,60,.15);
+      border-radius: 6px; padding: 5px 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 400px;
+    }
 
     /* ─── Filters ─── */
     .pt-filters { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
@@ -973,7 +1002,7 @@ const FAIL_TABLE: FailEntry[] = [
     .pt-filter-btn.active[data-rarity="Velmi vzácný"] { background: rgba(200,60,60,.2); color: #d46a6a; border-color: rgba(200,60,60,.5); }
     .pt-filter-btn.active[data-rarity="Legendární"] { background: rgba(160,80,200,.2); color: #b880d8; border-color: rgba(160,80,200,.5); }
 
-    .pt-search-row { margin-bottom: 14px; }
+    .pt-search-row { margin-bottom: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .pt-search {
       width: 100%; max-width: 320px; padding: 7px 12px; font-size: 13px;
       background: rgba(200,160,60,.06); border: 1px solid rgba(200,160,60,.2); border-radius: 6px;
@@ -996,9 +1025,9 @@ const FAIL_TABLE: FailEntry[] = [
     .pt-table tbody tr:hover td { background: rgba(200,160,60,.04); }
     .pt-table tbody tr:last-child td { border-bottom: none; }
 
-    .col-name { width: 22%; }
-    .col-rarity { width: 11%; }
-    .col-ingr { width: 37%; }
+    .col-name { width: 20%; }
+    .col-rarity { width: 10%; }
+    .col-ingr { width: 40%; }
     .col-price { width: 15%; }
     .col-time { width: 10%; white-space: nowrap; color: #9a8a6a; font-size: 12px; }
 
@@ -1085,6 +1114,7 @@ export class PotionsTabComponent {
   readonly activeCategory = signal<PotionCategory>('vse');
   readonly activeRarity = signal<RarityFilter>('vse');
   readonly searchQuery = signal('');
+  readonly activeTab = signal<'potions' | 'rules'>('potions');
 
   readonly rarityOnly = RARITY_LABELS.filter(r => r.key !== 'vse') as { key: Rarity; label: string }[];
   readonly failRarity = signal<Rarity>('Běžný');
@@ -1094,8 +1124,29 @@ export class PotionsTabComponent {
     rarity, so,
   }));
 
+  readonly generatedLoot = signal<string>('');
+
+  readonly generateTooltip = computed(() => {
+    const rar = this.activeRarity();
+    const cat = this.activeCategory();
+    const parts: string[] = [];
+    if (cat !== 'vse') parts.push(`typ: ${CATEGORY_LABELS.find(c => c.key === cat)?.label}`);
+    if (rar !== 'vse') parts.push(`vzácnost: ${rar}`);
+    return parts.length ? `Generuje ingredienci z: ${parts.join(', ')}` : 'Generuje náhodnou ingredienci ze všech lektvarů';
+  });
+
   rollD20(): void {
     this.diceRollerService.rollD20WithModifier('Selhání výroby lektvaru', 0);
+  }
+
+  generateRandomIngredients(): void {
+    const rar = this.activeRarity();
+    const cat = this.activeCategory();
+    const result = generateAlchemyLoot(
+      rar === 'vse' ? undefined : rar,
+      cat === 'vse' ? undefined : cat,
+    );
+    this.generatedLoot.set(`${result.ingredient.name} (${result.ingredient.price} zl) — z: ${result.potionName}`);
   }
 
   /** Highlight matched search chars in ingredient name (diacritics-insensitive) */
