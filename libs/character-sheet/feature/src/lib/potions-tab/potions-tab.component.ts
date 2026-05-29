@@ -673,7 +673,7 @@ const RARITY_SCALE = new Map<Rarity, number>([
 
 /** Lower SO values — failures are now interesting, not just "lost materials". */
 const CRAFT_SO = new Map<Rarity, number>([
-  ['Běžný', 8], ['Neobvyklý', 12], ['Vzácný', 16], ['Velmi vzácný', 20], ['Legendární', 25],
+  ['Běžný', 8], ['Neobvyklý', 12], ['Vzácný', 15], ['Velmi vzácný', 17], ['Legendární', 20],
 ]);
 
 type FailSeverity = 'great' | 'good' | 'mixed' | 'bad' | 'terrible' | 'doom';
@@ -884,8 +884,8 @@ const FAIL_TABLE: FailEntry[] = [
           <h3 class="craft-title">Pravidla výroby</h3>
 
           <div class="craft-intro">
-            <p>Postava musí mít zdatnost v <strong>Alchymistické soupravě</strong>. Hodí si na <strong>INT (Arkána)</strong> nebo <strong>MDR (Lékařství)</strong> proti SO dle vzácnosti.</p>
-            <p>Při selhání neztratíš jen suroviny — hodíš si na <strong>Tabulku selhání (k20)</strong> níže a zjistíš, jak moc se to pokazilo.</p>
+            <p>Postava musí mít zdatnost v <strong>Alchymistické soupravě</strong>. Při sběru bylinek ahub musí mít zdatnost v <b>bylinkářské soupravě</b>. Hodí si na <strong>Inteligenci</strong> nebo <strong>Moudrost</strong> proti SO dle vzácnosti <i>(vaření vyžaduje širokou škálu znalostí ať už ze zkušeností nebo nastudovaného materiálu)</i>.</p>
+            <p>Při selhání ztratíš první 2 suroviny a hodíš si na <strong>Tabulku selhání (k20)</strong> abys zjistil, jak moc jsi to posral.</p>
           </div>
 
           <div class="so-table-wrap">
