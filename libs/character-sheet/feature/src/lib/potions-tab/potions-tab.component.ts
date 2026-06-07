@@ -555,7 +555,7 @@ const RARITY_SCALE = new Map<Rarity, number>([
 
 /** Lower SO values — failures are now interesting, not just "lost materials". */
 const CRAFT_SO = new Map<Rarity, number>([
-  ['Běžný', 8], ['Neobvyklý', 12], ['Vzácný', 15], ['Velmi vzácný', 17], ['Legendární', 20],
+  ['Běžný', 7], ['Neobvyklý', 9], ['Vzácný', 12], ['Velmi vzácný', 13], ['Legendární', 15],
 ]);
 
 type FailSeverity = 'great' | 'good' | 'mixed' | 'bad' | 'terrible' | 'doom';
