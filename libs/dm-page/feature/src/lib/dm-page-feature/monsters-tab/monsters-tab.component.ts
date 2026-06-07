@@ -80,6 +80,23 @@ function crGroupLabel(cr: number | undefined): string {
   return `NB ${cr}`;
 }
 
+// ── CR range filter chips ──────────────────────────────────────────────────
+
+interface CrRange {
+  label: string;
+  min: number;
+  max: number;
+}
+
+const CR_RANGES: CrRange[] = [
+  { label: 'NB 0–½',   min: 0,   max: 0.5      },
+  { label: 'NB 1–4',   min: 1,   max: 4        },
+  { label: 'NB 5–9',   min: 5,   max: 9        },
+  { label: 'NB 10–15', min: 10,  max: 15       },
+  { label: 'NB 16–20', min: 16,  max: 20       },
+  { label: 'NB 21+',   min: 21,  max: Infinity },
+];
+
 @Component({
   selector: 'monsters-tab',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -117,11 +134,16 @@ function crGroupLabel(cr: number | undefined): string {
     }
     .count { font-family: sans-serif; font-size: 11px; color: rgba(200,160,60,.35); white-space: nowrap; flex-shrink: 0; }
 
-    /* ── Filter bar ── */
+    /* ── Filter bars ── */
     .filters {
       display: flex; flex-wrap: wrap; align-items: center; gap: 4px;
       padding: 7px 14px; border-bottom: 1px solid rgba(200,160,60,.15);
       flex-shrink: 0; background: rgba(8,5,18,.7);
+    }
+    .filter-label {
+      font-family: sans-serif; font-size: 10px; letter-spacing: .07em;
+      text-transform: uppercase; color: rgba(200,160,60,.35);
+      flex-shrink: 0; margin-right: 2px;
     }
     .chip {
       padding: 2px 10px; border: 1px solid rgba(200,160,60,.25); border-radius: 12px;
@@ -129,6 +151,12 @@ function crGroupLabel(cr: number | undefined): string {
       cursor: pointer; transition: all .15s; white-space: nowrap;
       &:hover { border-color: rgba(200,160,60,.55); color: #d4c9a0; background: rgba(200,160,60,.07); }
       &.active { background: rgba(200,160,60,.14); border-color: #c8a03c; color: #e8c96a; box-shadow: 0 0 7px rgba(200,160,60,.18); }
+    }
+    /* CR chips use a red/orange tint to visually distinguish from type chips */
+    .chip--cr {
+      border-color: rgba(200,80,60,.3); color: rgba(220,120,80,.6);
+      &:hover { border-color: rgba(220,120,80,.6); color: #e8a070; background: rgba(200,80,60,.07); }
+      &.active { background: rgba(200,80,60,.18); border-color: rgba(220,120,80,.8); color: #f0a070; box-shadow: 0 0 7px rgba(200,80,60,.2); }
     }
     .sort-toggle {
       margin-left: auto; flex-shrink: 0; display: flex;
@@ -174,7 +202,6 @@ function crGroupLabel(cr: number | undefined): string {
         background: rgba(200,160,60,.09); color: #e8c96a;
         border-color: rgba(200,160,60,.26); box-shadow: 0 2px 8px rgba(200,160,60,.09);
         .cr-badge { opacity: .9; }
-        .init-btn { opacity: 1; }
       }
     }
     .card-name {
@@ -189,12 +216,16 @@ function crGroupLabel(cr: number | undefined): string {
       border: 1px solid rgba(200,80,60,.35); background: rgba(200,80,60,.1); color: rgba(220,120,80,.8);
     }
     .init-btn {
-      flex-shrink: 0; border: none; background: none; cursor: pointer; padding: 1px 2px;
-      opacity: 0; transition: opacity .14s, color .14s;
-      color: rgba(80,160,220,.55); border-radius: 3px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px;
+      background: none; border: 1px solid rgba(80,160,220,.2); border-radius: 4px;
+      color: rgba(80,160,220,.35);
+      cursor: pointer; padding: 0;
+      transition: all .15s;
       mat-icon { font-size: 14px; width: 14px; height: 14px; }
-      &:hover { color: #60c8f8; background: rgba(60,130,200,.12); }
-      &.added { opacity: 1; color: #60ee88; }
+      &:hover { border-color: rgba(80,160,220,.7); color: #60c8f8; background: rgba(60,130,200,.12); }
+      &.added { border-color: rgba(60,220,100,.7); color: #60ee88; background: rgba(40,180,80,.1); }
     }
 
     /* ── States ── */
@@ -229,6 +260,7 @@ function crGroupLabel(cr: number | undefined): string {
     <!-- Type filter chips + sort toggle -->
     @if (monstersService.availableTypes().length > 0) {
       <div class="filters">
+        <span class="filter-label">Typ</span>
         <button class="chip" [class.active]="selectedType() === null" type="button" (click)="selectedType.set(null)">Vše</button>
         @for (t of monstersService.availableTypes(); track t) {
           <button class="chip" [class.active]="selectedType() === t" type="button" (click)="toggleType(t)">{{ t }}</button>
@@ -239,6 +271,23 @@ function crGroupLabel(cr: number | undefined): string {
           <button class="sort-btn" [class.active]="sortMode() === 'cr'" type="button"
             (click)="sortMode.set('cr')" matTooltip="Řadit podle nebezpečnosti">NB</button>
         </div>
+      </div>
+    }
+
+    <!-- CR range filter chips -->
+    @if (availableCrRanges().length > 0) {
+      <div class="filters">
+        <span class="filter-label">NB</span>
+        <button class="chip chip--cr" [class.active]="selectedCrRange() === null" type="button" (click)="selectedCrRange.set(null)">Vše</button>
+        @for (range of availableCrRanges(); track range.label) {
+          <button
+            class="chip chip--cr"
+            [class.active]="selectedCrRange() === range.label"
+            type="button"
+            (click)="toggleCrRange(range.label)"
+            [matTooltip]="'Filtrovat: ' + range.label"
+          >{{ range.label }}</button>
+        }
       </div>
     }
 
@@ -296,17 +345,36 @@ export class MonstersTabComponent {
 
   readonly searchQuery = signal('');
   readonly selectedType = signal<string | null>(null);
+  readonly selectedCrRange = signal<string | null>(null);
   readonly sortMode = signal<'type' | 'cr'>('type');
   readonly justAdded = signal<string | null>(null);
   private readonly _addedSlug$ = new Subject<string | null>();
   private readonly _searchRef = viewChild<ElementRef<HTMLInputElement>>('searchInput');
 
+  /** Expose range definitions to the template. */
+  readonly crRanges = CR_RANGES;
+
+  /** CR range chips that have at least one monster in the full (unfiltered) list. */
+  readonly availableCrRanges = computed((): CrRange[] => {
+    const all = this.monstersService.allMonsters();
+    return CR_RANGES.filter(range =>
+      all.some(m => m.cr !== undefined && m.cr >= range.min && m.cr <= range.max)
+    );
+  });
+
   readonly filtered = computed((): MonsterItem[] => {
     const q = JadMonstersService.normalizeStr(this.searchQuery());
     const type = this.selectedType();
+    const crRangeLabel = this.selectedCrRange();
+    const crRange = crRangeLabel ? CR_RANGES.find(r => r.label === crRangeLabel) ?? null : null;
+
     const result: MonsterItem[] = [];
     for (const m of this.monstersService.allMonsters()) {
       if (type !== null && m.type !== type) continue;
+      if (crRange !== null) {
+        // Monsters with unknown CR are excluded when a range is active
+        if (m.cr === undefined || m.cr < crRange.min || m.cr > crRange.max) continue;
+      }
       if (!q) {
         result.push({ monster: m, highlightedName: escHtml(m.name) });
       } else {
@@ -352,6 +420,10 @@ export class MonstersTabComponent {
 
   toggleType(type: string): void {
     this.selectedType.update(cur => (cur === type ? null : type));
+  }
+
+  toggleCrRange(label: string): void {
+    this.selectedCrRange.update(cur => (cur === label ? null : label));
   }
 
   cardTooltip(m: JadMonster): string {

@@ -670,6 +670,16 @@ datalist { display: none; }
   > .it-card-body {
     overflow: hidden;
     min-height: 0;
+
+    // Force DnD-only monster cards (and JaD cards) to fill the slot width
+    // so the clickable header and the card body stay the same width.
+    ::ng-deep .m-card,
+    ::ng-deep .jmc-card {
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      flex: none;
+    }
   }
 
   .it-card-slot--collapsed & {

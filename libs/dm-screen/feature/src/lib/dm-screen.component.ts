@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 
 // ── Search helpers ────────────────────────────────────────────────────────────
 
@@ -766,7 +767,7 @@ function matchesQuery(s: Section, q: string): boolean {
 @Component({
   selector: 'dm-screen',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIcon],
+  imports: [MatIcon, MatTooltip],
   styles: `
     :host {
       display: flex; flex-direction: column;
@@ -930,6 +931,29 @@ function matchesQuery(s: Section, q: string): boolean {
       padding: 60px 24px; text-align: center; font-size: 13px; color: rgba(200,160,60,.25); font-style: italic;
       mat-icon { display: block; font-size: 36px; width: 36px; height: 36px; margin: 0 auto 12px; color: rgba(200,160,60,.15); }
     }
+
+    /* ── View toggle ── */
+    .ds-view-toggle {
+      display: flex; border: 1px solid rgba(200,160,60,.22); border-radius: 12px; overflow: hidden; flex-shrink: 0;
+    }
+    .ds-view-btn {
+      display: flex; align-items: center; gap: 4px;
+      padding: 3px 10px; background: none; border: none; color: rgba(200,160,60,.4);
+      font-family: sans-serif; font-size: 11px; cursor: pointer;
+      transition: background .15s, color .15s; white-space: nowrap;
+      mat-icon { font-size: 14px; width: 14px; height: 14px; }
+      &:hover { background: rgba(200,160,60,.07); color: rgba(200,160,60,.75); }
+      &.active { background: rgba(200,160,60,.14); color: #e8c96a; }
+      & + & { border-left: 1px solid rgba(200,160,60,.22); }
+    }
+
+    /* ── Image view ── */
+    .ds-images {
+      flex: 1; overflow-y: auto; padding: 16px;
+      scrollbar-width: thin; scrollbar-color: rgba(200,160,60,.25) transparent;
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+    }
+    .ds-images img { max-width: 100%; height: auto; border-radius: 4px; border: 1px solid rgba(200,160,60,.12); }
   `,
   template: `
     <div class="ds-header">
@@ -950,7 +974,24 @@ function matchesQuery(s: Section, q: string): boolean {
         }
       </div>
       <span class="ds-count">{{ visibleCount() }}&thinsp;/&thinsp;{{ allSections.length }}</span>
+      <div class="ds-view-toggle">
+        <button class="ds-view-btn" [class.active]="viewMode() === 'text'" type="button" (click)="viewMode.set('text')" matTooltip="Přehled v textu">
+          <mat-icon>article</mat-icon>Text
+        </button>
+        <button class="ds-view-btn" [class.active]="viewMode() === 'images'" type="button" (click)="viewMode.set('images')" matTooltip="Originální obrázky PH zástěny">
+          <mat-icon>image</mat-icon>Obrázky
+        </button>
+      </div>
     </div>
+
+    @if (viewMode() === 'images') {
+      <div class="ds-images">
+        <img src="dm-screen/dm-screen-1.png" alt="PH Zástěna strana 1" />
+        <img src="dm-screen/dm-screen-2.png" alt="PH Zástěna strana 2" />
+        <img src="dm-screen/dm-screen-3.png" alt="PH Zástěna strana 3" />
+        <img src="dm-screen/dm-screen-4.png" alt="PH Zástěna strana 4" />
+      </div>
+    } @else {
 
     <!-- Category chips -->
     <div class="ds-cats">
@@ -980,6 +1021,7 @@ function matchesQuery(s: Section, q: string): boolean {
         }
       }
     </div>
+    }
   `,
 })
 export class DmScreenComponent {
@@ -988,6 +1030,7 @@ export class DmScreenComponent {
 
   readonly searchQuery = signal('');
   readonly selectedCategory = signal<string | null>(null);
+  readonly viewMode = signal<'text' | 'images'>('text');
 
   readonly grouped = computed(() => {
     const q = normSearch(this.searchQuery());

@@ -1,4 +1,4 @@
-﻿import { ChangeDetectionStrategy, Component, computed, inject, input, signal, Signal } from '@angular/core';
+﻿import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, input, signal, Signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -12,6 +12,7 @@ import { SheetThemeService } from './sheet-theme.service';
 import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.component';
 import { CdkDropList } from '@angular/cdk/drag-drop';
 import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
+import { SpellSheetService } from './spell-sheet.service';
 
 @Component({
   selector: 'third-page',
@@ -2804,12 +2805,17 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
     </div>
 
         @if (dropdownOpen() && filteredSpells().length > 0) {
-      <div class="spell-dropdown" [style]="dropdownStyle()" (mousedown)="$event.preventDefault()">
+      <div
+        class="spell-dropdown"
+        [style]="dropdownStyle()"
+        (mouseenter)="onDropdownMouseEnter()"
+        (mouseleave)="onDropdownMouseLeave()"
+      >
         @for (spell of filteredSpells(); track spell.slug; let i = $index) {
           <div
             class="spell-dropdown__item"
             [class.spell-dropdown__item--active]="i === activeIndex()"
-            (mousedown)="pickSpell(spell.name)"
+            (mousedown)="$event.preventDefault(); pickSpell(spell.name)"
           >{{ spell.name }}</div>
         }
       </div>
@@ -2823,11 +2829,25 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
 export class CharacterSheetThirdPageComponent {
   form = input.required<FormGroup<ThirdPageForm>>();
   readonly sheetTheme = inject(SheetThemeService);
+  private readonly _spellSheet = inject(SpellSheetService);
+  private readonly _destroyRef = inject(DestroyRef);
+
+  constructor() {
+    // Register the spells form with the shared service so the Kouzla tab can
+    // add spells to the sheet directly.
+    effect(() => {
+      const spellsForm = this.form().controls.spellsForm;
+      this._spellSheet.registerForm(spellsForm);
+    });
+    this._destroyRef.onDestroy(() => this._spellSheet.unregisterForm());
+  }
 
   activeRow = signal(0);
   dropdownOpen = signal(false);
   activeIndex = signal(-1);
   private _dropdownPos = signal<{ top: number; left: number; width: number } | null>(null);
+  /** True while the pointer is inside the spell-suggestion dropdown. */
+  private _mouseInDropdown = false;
 
   readonly dropdownStyle = computed(() => {
     const pos = this._dropdownPos();
@@ -2879,10 +2899,25 @@ export class CharacterSheetThirdPageComponent {
   }
 
   closeDropdown(): void {
+    this._blurSub?.unsubscribe();
     this._blurSub = timer(150).subscribe(() => {
+      // Don't close while the pointer is still over the dropdown (e.g. dragging
+      // the scrollbar) — the dropdown will close once the pointer leaves.
+      if (this._mouseInDropdown) return;
       this.dropdownOpen.set(false);
       this.activeIndex.set(-1);
     });
+  }
+
+  onDropdownMouseEnter(): void {
+    this._mouseInDropdown = true;
+  }
+
+  /** When the pointer leaves the dropdown, attempt a deferred close so that a
+   *  scrollbar-triggered blur (which was ignored earlier) finally closes it. */
+  onDropdownMouseLeave(): void {
+    this._mouseInDropdown = false;
+    if (this.dropdownOpen()) this.closeDropdown();
   }
 
   onSpellInput(): void {

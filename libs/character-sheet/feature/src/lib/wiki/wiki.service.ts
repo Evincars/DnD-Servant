@@ -30,6 +30,86 @@ export class WikiService {
     );
   }
 
+  /**
+   * Returns the HTML for a single `<Monster title="…">` block from a file.
+   * Used to show only the relevant stat block when a file contains multiple monsters.
+   */
+  loadSingleMonster(bookId: string, file: string, title: string): Observable<string> {
+    const rawKey = `raw:${bookId}/${file}`;
+    const load$ = this.cache.has(rawKey)
+      ? of(this.cache.get(rawKey)!)
+      : (() => {
+          const encodedPath = file.split('/').map(s => encodeURIComponent(s)).join('/');
+          return this.http.get(`/dnd5esrd/${bookId}/${encodedPath}`, { responseType: 'text' }).pipe(
+            tap(md => this.cache.set(rawKey, md)),
+          );
+        })();
+
+    return load$.pipe(
+      map(markdown => {
+        const re = /<Monster([\s\S]*?)>([\s\S]*?)<\/Monster>/gi;
+        let m: RegExpExecArray | null;
+        while ((m = re.exec(markdown)) !== null) {
+          const attrs = this.parseAttrs(m[1]);
+          if (attrs['title']?.toLowerCase() === title.toLowerCase()) {
+            const bodyHtml = marked.parse(m[2].trim(), { async: false }) as string;
+            return this.buildMonsterCard(attrs, bodyHtml);
+          }
+        }
+        return 'error';
+      }),
+    );
+  }
+
+  /**
+   * Returns the family/lore prose from a file — everything except `<Monster>` blocks.
+   * The result is wrapped with a heading from the file's h1 if present.
+   */
+  loadFamilyLore(bookId: string, file: string): Observable<string> {
+    const rawKey = `raw:${bookId}/${file}`;
+    const load$ = this.cache.has(rawKey)
+      ? of(this.cache.get(rawKey)!)
+      : (() => {
+          const encodedPath = file.split('/').map(s => encodeURIComponent(s)).join('/');
+          return this.http.get(`/dnd5esrd/${bookId}/${encodedPath}`, { responseType: 'text' }).pipe(
+            tap(md => this.cache.set(rawKey, md)),
+          );
+        })();
+
+    return load$.pipe(
+      map(markdown => {
+        // Strip all <Monster>…</Monster> blocks (including any surrounding ### headings
+        // that are section titles for that specific variant — keep only the family intro)
+        const stripped = markdown
+          .replace(/<Monster[\s\S]*?<\/Monster>/gi, '')
+          // Remove leading blank lines left after removal
+          .replace(/\n{3,}/g, '\n\n')
+          .trim();
+        if (!stripped) return 'error';
+        return marked.parse(stripped, { async: false }) as string;
+      }),
+    );
+  }
+
+  /**
+   * Returns true when a file contains more than one <Monster> block,
+   * i.e. the monster belongs to a "family" file.
+   */
+  fileHasMultipleMonsters(bookId: string, file: string): Observable<boolean> {
+    const rawKey = `raw:${bookId}/${file}`;
+    const load$ = this.cache.has(rawKey)
+      ? of(this.cache.get(rawKey)!)
+      : (() => {
+          const encodedPath = file.split('/').map(s => encodeURIComponent(s)).join('/');
+          return this.http.get(`/dnd5esrd/${bookId}/${encodedPath}`, { responseType: 'text' }).pipe(
+            tap(md => this.cache.set(rawKey, md)),
+          );
+        })();
+    return load$.pipe(
+      map(md => (md.match(/<Monster[\s\S]*?<\/Monster>/gi) ?? []).length > 1),
+    );
+  }
+
   private parseMarkdown(markdown: string, bookId: string, file: string): string {
     // 1. Replace VuePress Card blocks
     let text = markdown.replace(

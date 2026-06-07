@@ -33,10 +33,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           (click)="onOpenPlayerItemsDialog()"
           type="button"
           matTooltip="Moje předměty — trezor předmětů"
-          style="top:1313px; left:402px; width:26px; height:26px; background:linear-gradient(135deg,#041a2a,#040f1a); border:1px solid rgba(60,140,200,.55); border-radius:5px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all .2s; box-shadow:0 0 8px rgba(60,140,200,.2);"
+          style="top:1313px; left:402px; width:26px; height:26px; min-width:26px; min-height:26px; padding:0; background:linear-gradient(135deg,#041a2a,#040f1a); border:1px solid rgba(60,140,200,.55); border-radius:5px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all .2s; box-shadow:0 0 8px rgba(60,140,200,.2); overflow:hidden;"
           class="field button"
         >
-          <mat-icon style="font-size:16px;width:16px;height:16px;color:#3c8cc8;line-height:1;display:block;">inventory_2</mat-icon>
+          <mat-icon style="font-size:15px;width:15px;height:15px;color:#3c8cc8;line-height:1;display:flex;align-items:center;justify-content:center;flex-shrink:0;">inventory_2</mat-icon>
         </button>
         <div class="cs-inventory-field-wrap" data-label="Peníze">
           <input

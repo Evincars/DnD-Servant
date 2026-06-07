@@ -30,23 +30,23 @@ import { CONDITIONS, EXHAUSTION_EFFECTS, LS_KEY } from './conditions-tracker.com
       font-size: 9px;
       letter-spacing: .13em;
       text-transform: uppercase;
-      background: rgba(14, 8, 28, 0.96);
-      border: 1px solid rgba(160, 80, 200, 0.55);
+      background: rgba(14, 8, 4, 0.96);
+      border: 1px solid rgba(200, 160, 60, 0.55);
       border-radius: 3px;
-      color: #c890e8;
+      color: #d4c9a0;
       padding: 4px 10px 4px 7px;
       cursor: pointer;
       white-space: nowrap;
       transition: background .15s, border-color .15s, color .15s, box-shadow .15s;
-      box-shadow: 0 0 8px rgba(120, 60, 180, 0.25), 0 1px 4px rgba(0,0,0,0.6);
+      box-shadow: 0 0 8px rgba(200, 160, 60, 0.25), 0 1px 4px rgba(0,0,0,0.6);
 
       mat-icon { font-size: 14px; width: 14px; height: 14px; }
 
       &:hover {
-        background: rgba(60, 20, 100, 0.98);
-        border-color: rgba(190, 110, 255, 0.8);
-        color: #e0b8ff;
-        box-shadow: 0 0 14px rgba(160, 80, 220, 0.5), 0 1px 4px rgba(0,0,0,0.7);
+        background: rgba(60, 40, 10, 0.98);
+        border-color: rgba(220, 180, 60, 0.8);
+        color: #e8c96a;
+        box-shadow: 0 0 14px rgba(200, 160, 60, 0.5), 0 1px 4px rgba(0,0,0,0.7);
       }
     }
 

@@ -29,7 +29,7 @@ import { ConditionsTrackerComponent } from '../conditions/conditions-tracker.com
     <div class="dialog-title" mat-dialog-title>
       <span class="dialog-title-spacer"></span>
       <span class="dialog-title-text">
-        <mat-icon style="font-size:20px;width:20px;height:20px;color:#a060c0;flex-shrink:0">health_and_safety</mat-icon>
+        <mat-icon style="font-size:20px;width:20px;height:20px;color:#c8a03c;flex-shrink:0">health_and_safety</mat-icon>
         Stavy &amp; Podmínky
       </span>
       <button (click)="close()" matIconButton>

@@ -11,9 +11,11 @@
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
 import { JadSpell, JadSpellsService } from '../jad-spells.service';
 import { SpellDetailDialogComponent, SpellDetailDialogData } from '../spell-detail-dialog.component';
+import { SpellSheetService } from '../spell-sheet.service';
 
 // ── Fuzzy-search helpers ────────────────────────────────────────────────────
 
@@ -80,6 +82,8 @@ interface SpellItem {
   highlightedName: string;
 }
 
+type SpellTypeFilter = 'kouzlo' | 'ritual';
+
 @Component({
   selector: 'spells-tab',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -139,8 +143,8 @@ interface SpellItem {
       font-family: sans-serif; font-size: 11px;
       color: rgba(200,160,60,.35); white-space: nowrap; flex-shrink: 0;
     }
-    /* ── Class filter chips ── */
-    .class-filters {
+    /* ── Filter rows (class chips + type/level chips) ── */
+    .filters {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -150,7 +154,12 @@ interface SpellItem {
       flex-shrink: 0;
       background: rgba(8,5,18,.7);
     }
-    .class-chip {
+    .filter-label {
+      font-family: sans-serif; font-size: 10px; letter-spacing: .07em;
+      text-transform: uppercase; color: rgba(200,160,60,.35);
+      flex-shrink: 0; margin-right: 2px;
+    }
+    .chip {
       padding: 2px 10px;
       border: 1px solid rgba(200,160,60,.25);
       border-radius: 12px;
@@ -164,6 +173,8 @@ interface SpellItem {
       &:hover { border-color: rgba(200,160,60,.55); color: #d4c9a0; background: rgba(200,160,60,.07); }
       &.active { background: rgba(200,160,60,.14); border-color: #c8a03c; color: #e8c96a; box-shadow: 0 0 7px rgba(200,160,60,.18); }
     }
+    /* Level chips – same gold family as class chips */
+    .chip--level { /* inherits .chip styles – no extra override needed */ }
     /* ── Sort-mode toggle ── */
     .sort-toggle {
       margin-left: auto;
@@ -266,6 +277,18 @@ interface SpellItem {
       color: rgba(200,160,60,.3); font-style: italic;
       mat-icon { display: block; font-size: 36px; width: 36px; height: 36px; margin: 0 auto 12px; color: rgba(200,160,60,.18); }
     }
+    /* ── Add-to-sheet button inside spell card ── */
+    .add-to-sheet-btn {
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px;
+      background: none; border: 1px solid rgba(200,160,60,.18); border-radius: 4px;
+      color: rgba(200,160,60,.35);
+      cursor: pointer; padding: 0;
+      transition: all .15s;
+      mat-icon { font-size: 14px; width: 14px; height: 14px; }
+      &:hover { border-color: rgba(200,160,60,.7); color: #e8c96a; background: rgba(200,160,60,.1); }
+    }
   `,
   template: `
     <!-- Search bar -->
@@ -289,12 +312,13 @@ interface SpellItem {
       <span class="spells-count">{{ filteredSpells().length }}&thinsp;/&thinsp;{{ spellsService.allSpells().length }}</span>
     </div>
 
-    <!-- Class filter chips -->
+    <!-- Class filter chips (row 1) -->
     @if (spellsService.availableClasses().length > 0) {
-      <div class="class-filters">
-        <button class="class-chip" [class.active]="selectedClass() === null" type="button" (click)="selectedClass.set(null)">V&#353;e</button>
+      <div class="filters">
+        <span class="filter-label">Povolání</span>
+        <button class="chip" [class.active]="selectedClass() === null" type="button" (click)="selectedClass.set(null)">V&#353;e</button>
         @for (cls of spellsService.availableClasses(); track cls) {
-          <button class="class-chip" [class.active]="selectedClass() === cls" type="button" (click)="toggleClass(cls)">{{ cls }}</button>
+          <button class="chip" [class.active]="selectedClass() === cls" type="button" (click)="toggleClass(cls)">{{ cls }}</button>
         }
         <!-- Sort-mode toggle -->
         <div class="sort-toggle" role="group" aria-label="Řazení">
@@ -307,6 +331,29 @@ interface SpellItem {
             Úroveň
           </button>
         </div>
+      </div>
+    }
+
+    <!-- Type + level filter chips (row 2) -->
+    @if (spellsService.allSpells().length > 0) {
+      <div class="filters">
+        <span class="filter-label">Typ</span>
+        <button class="chip" [class.active]="selectedSpellType() === null" type="button" (click)="selectedSpellType.set(null)">Vše</button>
+        <button class="chip" [class.active]="selectedSpellType() === 'kouzlo'" type="button" (click)="toggleSpellType('kouzlo')" matTooltip="Pouze kouzla (ne triky, ne rituály)">Kouzlo</button>
+        <button class="chip" [class.active]="selectedSpellType() === 'ritual'" type="button" (click)="toggleSpellType('ritual')" matTooltip="Pouze rituály">Rituál</button>
+          @if (availableLevels().length > 0) {
+            <span class="filter-label" style="margin-left: 6px">Úroveň</span>
+            <button class="chip chip--level" [class.active]="selectedLevel() === null" type="button" (click)="selectedLevel.set(null)">Vše</button>
+            @for (lvl of availableLevels(); track lvl) {
+              <button
+                class="chip chip--level"
+                [class.active]="selectedLevel() === lvl"
+                type="button"
+                (click)="toggleLevel(lvl)"
+                [matTooltip]="lvl === 0 ? 'Trik (0. úroveň)' : lvl + '. úroveň'"
+              >{{ lvl === 0 ? 'Trik' : lvl }}</button>
+            }
+          }
       </div>
     }
 
@@ -332,14 +379,23 @@ interface SpellItem {
                   <span class="spell-card-name" [innerHTML]="item.highlightedName"></span>
                   <span class="badges">
                     @if (item.spell.ritual) {
-                      <span class="badge badge-ritual" matTooltip="Rit&#225;l" matTooltipShowDelay="700">R</span>
+                      <span class="badge badge-ritual" matTooltip="Rituál" matTooltipShowDelay="700">R</span>
                     }
                     @if (item.spell.level === 0) {
                       <span class="badge badge-cantrip" matTooltip="Trik" matTooltipShowDelay="700">T</span>
                     } @else if (item.spell.level !== undefined) {
-                      <span class="badge badge-level" [matTooltip]="item.spell.level + '. &#250;rove&#328;'" matTooltipShowDelay="700">{{ item.spell.level }}</span>
+                      <span class="badge badge-level" [matTooltip]="item.spell.level + '. úroveň'" matTooltipShowDelay="700">{{ item.spell.level }}</span>
                     }
                   </span>
+                  @if (spellSheetService.hasActiveForm()) {
+                    <button
+                      class="add-to-sheet-btn"
+                      type="button"
+                      (click)="addSpellToSheet(item.spell, $event)"
+                      matTooltip="Přidat do listu kouzel"
+                      matTooltipShowDelay="400"
+                    ><mat-icon>playlist_add</mat-icon></button>
+                  }
                 </button>
               }
             </div>
@@ -352,24 +408,49 @@ interface SpellItem {
 export class SpellsTabComponent {
   readonly active = input<boolean>(false);
   readonly spellsService = inject(JadSpellsService);
+  readonly spellSheetService = inject(SpellSheetService);
   private readonly dialog = inject(MatDialog);
+  private readonly snackBar = inject(MatSnackBar);
 
   readonly searchQuery = signal('');
   readonly selectedClass = signal<string | null>(null);
+  readonly selectedSpellType = signal<SpellTypeFilter | null>(null);
+  readonly selectedLevel = signal<number | null>(null);
   readonly sortMode = signal<'school' | 'level'>('school');
   private readonly _searchRef = viewChild<ElementRef<HTMLInputElement>>('searchInput');
 
+  /** Sorted list of all spell levels (0–9) present in the full (unfiltered) list.
+   *  Level 0 is shown as "Trik" in the Úroveň chip row. */
+  readonly availableLevels = computed((): number[] => {
+    const levelSet = new Set<number>();
+    for (const s of this.spellsService.allSpells()) {
+      if (s.level !== undefined) levelSet.add(s.level);
+    }
+    return [...levelSet].sort((a, b) => a - b);
+  });
+
   /**
-   * Spells after fuzzy search + class filter.
+   * Spells after fuzzy search + class filter + type filter + level filter.
    * Each item carries the pre-built highlighted HTML for its name.
    */
   readonly filteredSpells = computed((): SpellItem[] => {
     const q = JadSpellsService.normalizeStr(this.searchQuery());
     const cls = this.selectedClass();
+    const spellType = this.selectedSpellType();
+    const level = this.selectedLevel();
     const result: SpellItem[] = [];
 
     for (const s of this.spellsService.allSpells()) {
       if (cls !== null && !s.classes.some(c => c === cls)) continue;
+
+      // Type filter
+      if (spellType !== null) {
+        if (spellType === 'ritual' && !s.ritual) continue;
+        if (spellType === 'kouzlo' && (s.level === 0 || s.ritual)) continue;
+      }
+
+      // Level filter
+      if (level !== null && s.level !== level) continue;
 
       if (!q) {
         result.push({ spell: s, highlightedName: escHtml(s.name) });
@@ -419,6 +500,14 @@ export class SpellsTabComponent {
     this.selectedClass.update(current => (current === cls ? null : cls));
   }
 
+  toggleSpellType(type: SpellTypeFilter): void {
+    this.selectedSpellType.update(cur => (cur === type ? null : type));
+  }
+
+  toggleLevel(level: number): void {
+    this.selectedLevel.update(cur => (cur === level ? null : level));
+  }
+
   spellTooltip(spell: JadSpell): string {
     const parts: string[] = [];
     if (spell.school) parts.push(spell.school);
@@ -434,6 +523,23 @@ export class SpellsTabComponent {
       panelClass: 'spell-detail-panel',
       maxWidth: '95vw',
     });
+  }
+
+  addSpellToSheet(spell: JadSpell, event: MouseEvent): void {
+    event.stopPropagation();
+    const added = this.spellSheetService.addSpell(spell.name);
+    if (added) {
+      this.snackBar.open(`✨ „${spell.name}" přidáno do listu kouzel`, '✕', {
+        verticalPosition: 'top',
+        duration: 2500,
+        panelClass: ['snackbar--save'],
+      });
+    } else {
+      this.snackBar.open('Všechny řádky v listu kouzel jsou obsazeny.', '✕', {
+        verticalPosition: 'top',
+        duration: 3000,
+      });
+    }
   }
 
   private _levelLabel(level: number | undefined): string {

@@ -24,6 +24,14 @@ $accent-k10:  #d8c030;
 $accent-k12:  #d04848;
 $accent-k20:  #a840ff;
 
+// ── Backdrop ──────────────────────────────────────────────────────────────────
+.dr-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: $z - 1;
+  background: transparent;
+}
+
 // ── Tab trigger ───────────────────────────────────────────────────────────────
 .dr-tab {
   position: fixed;
@@ -118,13 +126,15 @@ $accent-k20:  #a840ff;
   &__close {
     background: none;
     border: 1px solid rgba(200,154,60,.3);
-    color: $gold; font-size: 11px;
-    width: 22px; height: 22px;
+    color: $gold; font-size: 13px;
+    width: 28px; height: 28px;
     border-radius: 4px; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     transition: background .15s;
+    flex-shrink: 0;
     &:hover { background: rgba(200,154,60,.15); }
   }
+
 }
 
 // ── Roll animation area ───────────────────────────────────────────────────────
@@ -272,10 +282,15 @@ $accent-k20:  #a840ff;
   align-items: center;
   gap: 3px;
   position: relative;
+  padding-top: calc(18px + 1px);   // reserve space for − button
+  padding-bottom: calc(18px + 1px); // reserve space for + button
 }
 
 // +/- controls
 .dr-die-ctrl {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   width: 22px; height: 18px;
   background: rgba(200,154,60,.12);
   border: 1px solid rgba(200,154,60,.3);
@@ -285,8 +300,8 @@ $accent-k20:  #a840ff;
   transition: background .15s;
   display: flex; align-items: center; justify-content: center;
   &:hover { background: rgba(200,154,60,.28); }
-  &--plus { order: 2; }
-  &--minus { order: 0; }
+  &--plus  { bottom: 0; }
+  &--minus { top: 0; }
 }
 
 // Die button
@@ -412,22 +427,6 @@ $accent-k20:  #a840ff;
   background: rgba(0,0,0,.25);
   flex-shrink: 0;
 
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 16px 3px;
-    border-bottom: 1px solid rgba(200,154,60,.1);
-  }
-
-  &__title {
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: .1em;
-    color: $gold-dim;
-    font-weight: 700;
-  }
-
   // flex: items fill left→right, wrap to next row
   &__list {
     display: flex;
@@ -435,9 +434,30 @@ $accent-k20:  #a840ff;
     flex-direction: row;
     align-content: flex-start;
     gap: 4px;
-    padding: 6px 12px 7px;
-    max-height: calc(2 * 28px + 3 * 4px); // 2 rows + gaps
+    padding: 6px 12px 10px;
+    max-height: calc(2 * 28px + 3 * 4px + 16px); // 2 rows + gaps + top/bottom padding
     overflow: hidden;
+  }
+
+
+  &__show-all {
+    background: none;
+    border: none;
+    color: $gold-dim;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: .04em;
+    padding: 2px 6px;
+    height: 28px;
+    flex-shrink: 0;
+    align-self: center;
+    border-radius: 4px;
+    transition: color .15s, background .15s;
+    &:hover {
+      color: $gold-light;
+      background: rgba(200,154,60,.1);
+    }
   }
 
   &__entry {
@@ -447,7 +467,7 @@ $accent-k20:  #a840ff;
     padding: 3px 8px 3px 6px;
     height: 28px;
     border: 1px solid rgba(200,154,60,.15);
-    border-radius: 14px;
+    border-radius: 6px;
     background: rgba(200,154,60,.05);
     transition: background .15s;
     flex-shrink: 0;
@@ -519,6 +539,91 @@ $accent-k20:  #a840ff;
   &:hover { background: rgba(200,154,60,.12); color: $gold; }
   &--sm { padding: 3px 10px; font-size: 10px; }
   &--ghost { background: transparent; }
+}
+
+// ── Full history modal ────────────────────────────────────────────────────────
+.dr-hist-modal {
+  position: fixed;
+  inset: 0;
+  z-index: $z + 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.7);
+    backdrop-filter: blur(2px);
+  }
+
+  &__panel {
+    position: relative;
+    z-index: 1;
+    width: min(600px, 92vw);
+    max-height: 70vh;
+    background: #111113;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: $radius-lg;
+    box-shadow: 0 8px 48px rgba(0,0,0,.95);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    background: #0d0d0f;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #e0e0e0;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+  }
+
+  &__close {
+    background: none;
+    border: 1px solid rgba(255,255,255,.2);
+    color: #999;
+    width: 26px; height: 26px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .15s, color .15s;
+    &:hover { background: rgba(255,255,255,.08); color: #fff; }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 12px 14px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar { width: 6px; }
+    &::-webkit-scrollbar-track { background: #0a0a0c; }
+    &::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
+  }
+
+  &__entry-text {
+    font-size: 11px;
+    color: rgba(255,255,255,.6);
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    .dr-history__entry--latest & { color: #fff; font-weight: 600; }
+  }
 }
 
 // ── Animations ────────────────────────────────────────────────────────────────

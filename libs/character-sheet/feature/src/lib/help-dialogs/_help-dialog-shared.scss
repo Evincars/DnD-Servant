@@ -1,0 +1,123 @@
+.hd-text {
+  padding: 16px 24px 24px;
+  color: #d4c9a0;
+  font-family: sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+
+  h3 {
+    font-size: 18px;
+    color: #e8c96a;
+    margin: 0 0 14px;
+    letter-spacing: .05em;
+    border-bottom: 1px solid rgba(200,160,60,.2);
+    padding-bottom: 8px;
+  }
+
+  h4 {
+    font-size: 14px;
+    color: #d4c9a0;
+    margin: 20px 0 10px;
+    letter-spacing: .04em;
+  }
+
+  p {
+    margin: 6px 0;
+    color: #c8b896;
+  }
+
+  strong {
+    color: #e0cfa0;
+  }
+
+  em {
+    color: rgba(200,185,140,.8);
+  }
+
+  ul, ol {
+    margin: 6px 0;
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 4px;
+    color: #c8b896;
+  }
+}
+
+.hd-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 16px;
+  font-size: 12px;
+
+  thead tr th {
+    background: rgba(200,160,60,.1);
+    color: rgba(200,160,60,.8);
+    text-align: left;
+    padding: 6px 10px;
+    font-size: 11px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(200,160,60,.25);
+  }
+
+  tbody tr td {
+    padding: 5px 10px;
+    color: #c8b896;
+    border-bottom: 1px solid rgba(255,255,255,.04);
+    vertical-align: top;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:hover td {
+    background: rgba(200,160,60,.03);
+  }
+
+  .accent {
+    color: #e8c96a;
+    font-weight: 700;
+  }
+}
+
+.hd-note {
+  font-size: 11px;
+  color: rgba(200,185,140,.55);
+  font-style: italic;
+  margin-top: 8px;
+}
+
+.hd-box {
+  background: rgba(5,3,12,.4);
+  border: 1px solid rgba(200,160,60,.12);
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin: 10px 0;
+}
+
+.hd-formula {
+  border-left: 3px solid rgba(80,160,220,.45);
+  background: rgba(4,8,18,.5);
+  padding: 8px 14px;
+  margin: 10px 0;
+  border-radius: 0 4px 4px 0;
+  color: #b8c8e8;
+
+  strong {
+    color: #90c0f0;
+  }
+}
+
+.hd-section {
+  margin-bottom: 20px;
+}
+
+.hd-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+
