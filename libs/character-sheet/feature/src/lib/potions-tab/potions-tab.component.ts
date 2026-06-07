@@ -525,174 +525,8 @@ const POTIONS: Potion[] = [
     category: 'boj', rarity: 'Legendární',
     ingredients: ing(['Srdce bouřného obra', 'Blesk z bouřkového elementála (SO 20)', 'Prach z gromového diamantu'], 38000, 'Lektvar síly bouřného obra'),
     priceBuy: '50 000 zl', priceCraft: '38 000 zl', craftTime: '30 dní', color: C.blue,
-  },
-]
-    category: 'leceni', rarity: 'Vzácný',
-    ingredients: ing(['Fénixí pero', 'Stříbrná kapradina (SO 15)', 'Roztavený jantar'], 380, 'Lektvar vynikajícího léčení'),
-    priceBuy: '500 zl', priceCraft: '380 zl', craftTime: '1 den', color: C.crimson,
-  },
-  {
-    name: 'Lektvar jasnovidnosti', img: '/potions/potion-of-clairvoyance.png',
-    effect: 'Jako kouzlo Clairvoyance po 10 minut. Žlutá, olejnatá tekutina.',
-    category: 'mysl', rarity: 'Vzácný',
-    ingredients: ing(['Oko basilišky', 'Modrý lotosový květ (SO 16)', 'Stříbrný prach'], 1150, 'Lektvar jasnovidnosti'),
-    priceBuy: '1 500 zl', priceCraft: '1 150 zl', craftTime: '2 dny', color: C.indigo,
-  },
-  {
-    name: 'Lektvar plynné podoby', img: '/potions/potion-of-gaseous-form.png',
-    effect: 'Jako kouzlo Gaseous Form na 1 hodinu. Obláček mlhy v lahvičce.',
-    jadDesc: 'Lehká, jako mlha vypadající tekutina.\n\nTrvání: 1 hodina. Na dobu Trvání lektvaru získáš efekt Kouzla Mlžná podoba. Působení můžeš ukončit Bonusovou akcí.',
-    category: 'pohyb', rarity: 'Vzácný',
-    ingredients: ing(['Kouř z duchovního dřeva', 'Prach z mlžného elementála', 'Éterický výpar'], 750, 'Lektvar plynné podoby'),
-    priceBuy: '1 000 zl', priceCraft: '750 zl', craftTime: '1 den', color: C.silver,
-  },
-  {
-    name: 'Lektvar síly kamenného obra', img: '/potions/potion-of-stone-giant-strength.png',
-    effect: 'Síla 23 po 1 hodinu. Pruhovaná tekutina s šedými částečkami.',
-    jadDesc: 'Mírně zakalená tekutina, v níž je zpola rozpuštěný nehet Obra.\n\nTrvání: 1 hodina. Tvá Hodnota síly se změní na 23 (Kamenný obr). Pokud je tvá Síla vyšší, Lektvar na tebe neúčinkuje.',
-    category: 'boj', rarity: 'Vzácný',
-    ingredients: ing(['Kamenný krystal obra', 'Granitový kořen (SO 15)', 'Kamenný elementál prach'], 1500, 'Lektvar síly kamenného obra'),
-    priceBuy: '2 000 zl', priceCraft: '1 500 zl', craftTime: '2 dny', color: C.brown,
-  },
-  {
-    name: 'Lektvar síly ledového obra', img: '/potions/potion-of-frost-giant-strength.png',
-    effect: 'Síla 23 po 1 hodinu. Pruhovaná tekutina s ledovými krystalky.',
-    jadDesc: 'Mírně zakalená tekutina, v níž je zpola rozpuštěný nehet Obra.\n\nTrvání: 1 hodina. Tvá Hodnota síly se změní na 23 (Ledový obr). Pokud je tvá Síla vyšší, Lektvar na tebe neúčinkuje.',
-    category: 'boj', rarity: 'Vzácný',
-    ingredients: ing(['Srdce ledového obra', 'Ledovcový krystal (SO 16)', 'Medvědí tuk (polární)'], 1500, 'Lektvar síly ledového obra'),
-    priceBuy: '2 000 zl', priceCraft: '1 500 zl', craftTime: '2 dny', color: C.cyan,
-  },
-  {
-    name: 'Lektvar síly ohnivého obra', img: '/potions/potion-of-fire-giant-strength.png',
-    effect: 'Síla 25 po 1 hodinu. Pruhovaná tekutina s ohnivými jiskrami.',
-    jadDesc: 'Mírně zakalená tekutina, v níž je zpola rozpuštěný nehet Obra.\n\nTrvání: 1 hodina. Tvá Hodnota síly se změní na 25 (Ohnivý obr). Pokud je tvá Síla vyšší, Lektvar na tebe neúčinkuje.',
-    category: 'boj', rarity: 'Vzácný',
-    ingredients: ing(['Popel ohnivého obra', 'Magmatický kořen (SO 17)', 'Obsidiánový prach'], 2300, 'Lektvar síly ohnivého obra'),
-    priceBuy: '3 000 zl', priceCraft: '2 300 zl', craftTime: '3 dny', color: C.orange,
-  },
-  {
-    name: 'Lektvar nezranitelnosti', img: '/potions/potion-of-invulnerability.png',
-    effect: 'Odolnost vůči VŠEM typům poškození 1 minutu. Stříbrná tekutina.',
-    category: 'boj', rarity: 'Vzácný',
-    ingredients: ing(['Krev tarraska', 'Adamantinový prach (50 zl)', 'Srdce goléma'], 3500, 'Lektvar nezranitelnosti'),
-    priceBuy: '5 000 zl', priceCraft: '3 500 zl', craftTime: '3 dny', color: C.silver,
-  },
-  {
-    name: 'Lektvar čtení myšlenek', img: '/potions/potion-of-mind-reading.png',
-    effect: 'Jako kouzlo Detect Thoughts (ZH MDR SO 13) po 1 minutu.',
-    jadDesc: 'Hustá purpurová kapalina, v níž plavou vejčité kousky růžového kalu.\n\nZískáš efekt Kouzla Odhal myšlenky se SO Záchrany kouzla 13.',
-    category: 'mysl', rarity: 'Vzácný',
-    ingredients: ing(['Mozek mindflayera', 'Fialová iris (SO 15)', 'Destilát slz'], 1500, 'Lektvar čtení myšlenek'),
-    priceBuy: '2 000 zl', priceCraft: '1 500 zl', craftTime: '2 dny', color: C.purple,
-  },
-  {
-    name: 'Elixír zdraví', img: '/potions/elixir-of-health.svg',
-    effect: 'Vyléčí Oslepení, Ohlušení, Paralýzu, Otrávení. Odstraní jednu nemoc.',
-    category: 'leceni', rarity: 'Vzácný',
-    ingredients: ing(['Slza draka (z živého draka)', 'Světluška jitřenky (SO 19)', 'Prach z andělského pera'], 1500, 'Elixír zdraví'),
-    priceBuy: '2 000 zl', priceCraft: '1 500 zl', craftTime: '2 dny', color: C.gold,
-    community: true,
-  },
-
-  // ═══ VELMI VZÁCNÝ (Very Rare) ═════════════════════════════════════════════════
-  {
-    name: 'Lektvar nejvyššího léčení', img: '/potions/potion-of-supreme-healing.png',
-    effect: 'Obnoví 10k4+20 životů. Zářivě rudá tekutina s oslnivým leskem.',
-    jadDesc: 'Klidná, nazlátlá, průzračná a lehce olejnatá tekutina s ostrou vůní citrusů a koření a s ostrou, výraznou a lehce kouřovou chutí.\n\nVypití obnoví 10k4+20 Body výdrže.',
-    category: 'leceni', rarity: 'Velmi vzácný',
-    ingredients: ing(['Dračí žluč', 'Měsíční orchidej (SO 18, úplněk)', 'Prach z unicorn rohu'], 3800, 'Lektvar nejvyššího léčení'),
-    priceBuy: '5 000 zl', priceCraft: '3 800 zl', craftTime: '3 dny', color: C.crimson,
-  },
-  {
-    name: 'Lektvar rychlosti', img: '/potions/potion-of-speed.png',
-    effect: 'Jako kouzlo Haste po 1 minutu (bez koncentrace). Žlutá s černými pruhy.',
-    jadDesc: 'Žlutá tekutina, v níž se táhnou černé pruhy a která sama od sebe víří.\n\nTrvání: 1 minuta. Tvá Rychlost se zdvojnásobí, získáš Bonus +2 k OČ, máš Výhodu k Záchranným hodům na Obratnost a v každém svém Tahu získáš jednu další Akci (pouze pro Odpoutání, Použití předmětu, Skrytí, Běh, nebo právě jeden Útok). Když účinek skončí, jedno Kolo se nemůžeš Pohybovat ani provádět Akce.',
-    category: 'boj', rarity: 'Velmi vzácný',
-    ingredients: ing(['Gepardí pazneht', 'Blesková kapradina (SO 16, bouřka)', 'Rtuť (minerál)'], 3800, 'Lektvar rychlosti'),
-    priceBuy: '5 000 zl', priceCraft: '3 800 zl', craftTime: '3 dny', color: C.yellow,
-  },
-  {
-    name: 'Lektvar neviditelnosti', img: '/potions/potion-of-invisibility.png',
-    effect: 'Neviditelnost 1 hodinu. Končí útokem/kouzlem. Průhledná tekutina.',
-    jadDesc: 'Neviditelná (avšak těžká a hmotná) tekutina.\n\nTrvání: 1 hodina. Získáš Neviditelnost po dobu trvání, nebo dokud nezaútočíš nebo nesešleš Kouzlo. Věci, které držíš nebo neseš, se zneviditelní s tebou.',
-    category: 'boj', rarity: 'Velmi vzácný',
-    ingredients: ing(['Oko mimika', 'Stínový mech (SO 15)', 'Destilovaný alkohol (90%+)'], 3800, 'Lektvar neviditelnosti'),
-    priceBuy: '5 000 zl', priceCraft: '3 800 zl', craftTime: '3 dny', color: C.white,
-  },
-  {
-    name: 'Lektvar létání', img: '/potions/potion-of-flying.png',
-    effect: 'Rychlost letu 18 m po 1 hodinu. Průhledná s bílými obláčky.',
-    jadDesc: 'Čirá, skoro neviditelná tekutina, pod jejíž hladinou se převalují mlžné bílé skvrny připomínající oblaka.\n\nTrvání: 1 hodina. Získáš Rychlost létání rovnou tvé Rychlosti a můžeš se vznášet. Pokud jsi ve vzduchu na konci účinku, spadneš.',
-    category: 'pohyb', rarity: 'Velmi vzácný',
-    ingredients: ing(['Pegasovo pero', 'Oblačný jantar (SO 17)', 'Destilovaný vítr'], 3800, 'Lektvar létání'),
-    priceBuy: '5 000 zl', priceCraft: '3 800 zl', craftTime: '3 dny', color: C.cyan,
-  },
-  {
-    name: 'Lektvar vitality', img: '/potions/potion-of-vitality.png',
-    effect: 'Odstraní vyčerpání, vyléčí nemoci/jedy. Obnoví max. HP na 24 hodin.',
-    category: 'leceni', rarity: 'Velmi vzácný',
-    ingredients: ing(['Ženšenový kořen (SO 13)', 'Unicorn roh (prach)', 'Zlatý prach (100 zl)'], 3800, 'Lektvar vitality'),
-    priceBuy: '5 000 zl', priceCraft: '3 800 zl', craftTime: '3 dny', color: C.gold,
-  },
-  {
-    name: 'Lektvar dlouhověkosti', img: '/potions/potion-of-longevity.png',
-    effect: 'Sníží věk o 1k6+6 let. Opakované použití: 10% kumulativní šance na zestárnutí.',
-    category: 'ostatni', rarity: 'Velmi vzácný',
-    ingredients: ing(['Slza nymfy (dobrovolný dar)', 'Jablko ze stromu života (SO 20)', 'Diamantový prach (500 zl)'], 7500, 'Lektvar dlouhověkosti'),
-    priceBuy: '9 000 zl', priceCraft: '7 500 zl', craftTime: '7 dní', color: C.pink,
-  },
-  {
-    name: 'Olej ostření', img: '/potions/oil-of-sharpness.png',
-    effect: 'Na zbraň/5 ks munice: +3 k útoku a poškození po 1 hodinu.',
-    jadDesc: 'Čirý olej plný plovoucích stříbrných střípků.\n\nTrvání: 1 hodina, nanášení 1 minuta. Hodnota zásahu Zbraně nebo pěti střel způsobujících Bodný nebo Sečný zásah se po nanesení oleje zvedne o +3.',
-    category: 'boj', rarity: 'Velmi vzácný',
-    ingredients: ing(['Prach z briliantu (500 zl)', 'Krev pláštníka', 'Éterická esence (SO 18)'], 6200, 'Olej ostření'),
-    priceBuy: '8 000 zl', priceCraft: '6 200 zl', craftTime: '5 dní', color: C.indigo,
-  },
-  {
-    name: 'Lektvar éteričnosti', img: '/potions/potion-of-etherealness.svg',
-    effect: 'Jako kouzlo Etherealness na 1 hodinu. Přechod do Éterické sféry.',
-    jadDesc: 'Mlžně šedivý průhledný olej.\n\nTrvání: 1 hodina. Získáš efekt jako při použití Éterického oleje — přechod do Éterické sféry s možností pohybu skrz překážky, ale omezené na interakci pouze s tvory v Éterické sféře.',
-    category: 'pohyb', rarity: 'Velmi vzácný',
-    ingredients: ing(['Éterická mlha (SO 17)', 'Perla fázového pavouka', 'Duševní křišťál'], 7500, 'Lektvar éteričnosti'),
-    priceBuy: '10 000 zl', priceCraft: '7 500 zl', craftTime: '7 dní', color: C.violet,
-    community: true,
-  },
-  {
-    name: 'Lektvar síly oblačného obra', img: '/potions/potion-of-stone-giant-strength.png',
-    effect: 'Síla 27 po 1 hodinu.',
-    jadDesc: 'Mírně zakalená tekutina, v níž je zpola rozpuštěný nehet Obra.\n\nTrvání: 1 hodina. Tvá Hodnota síly se změní na 27 (Oblačný obr). Pokud je tvá Síla vyšší, Lektvar na tebe neúčinkuje.',
-    category: 'boj', rarity: 'Velmi vzácný',
-    ingredients: ing(['Pero oblačného obra', 'Křišťál oblaků (SO 18)', 'Vzdušný elementál prach'], 6000, 'Lektvar síly oblačného obra'),
-    priceBuy: '8 000 zl', priceCraft: '6 000 zl', craftTime: '5 dní', color: C.silver,
-  },
-  {
-    name: 'Lektvar regenerace', img: '/potions/potion-of-regeneration.svg',
-    effect: 'Obnovuješ 1 HP/tah po 1 hodinu. Regeneruje ztracené končetiny.',
-    category: 'leceni', rarity: 'Velmi vzácný',
-    ingredients: ing(['Trollí srdce (čerstvé)', 'Salamandří olej', 'Diamantový prach (50 zl)'], 7500, 'Lektvar regenerace'),
-    priceBuy: '10 000 zl', priceCraft: '7 500 zl', craftTime: '5 dní', color: C.green,
-    community: true,
-  },
-  {
-    name: 'Lektvar maximální síly', img: '/potions/potion-of-maximum-power.svg',
-    effect: 'Příští kouzlo do 1 minuty způsobí maximální poškození (max. na kostkách).',
-    category: 'boj', rarity: 'Velmi vzácný',
-    ingredients: ing(['Dračí krev (starověký)', 'Rubín neohroženosti (500 zl)', 'Esence divokého ohně'], 7500, 'Lektvar maximální síly'),
-    priceBuy: '10 000 zl', priceCraft: '7 500 zl', craftTime: '7 dní', color: C.red,
-    community: true,
-  },
-
-  // ═══ LEGENDÁRNÍ (Legendary) ═══════════════════════════════════════════════════
-  {
-    name: 'Lektvar síly bouřného obra', img: '/potions/potion-of-storm-giant-strength.png',
-    effect: 'Síla 29 po 1 hodinu. Pruhovaná tekutina s miniaturními blesky.',
-    jadDesc: 'Mírně zakalená tekutina, v níž je zpola rozpuštěný nehet Obra.\n\nTrvání: 1 hodina. Tvá Hodnota síly se změní na 29 (Bouřný obr). Pokud je tvá Síla vyšší, Lektvar na tebe neúčinkuje.',
-    category: 'boj', rarity: 'Legendární',
-    ingredients: ing(['Srdce bouřného obra', 'Blesk z bouřkového elementála (SO 20)', 'Prach z gromového diamantu'], 38000, 'Lektvar síly bouřného obra'),
-    priceBuy: '50 000 zl', priceCraft: '38 000 zl', craftTime: '30 dní', color: C.blue,
-  },
-]
+   },
+ ]
 
 const CATEGORY_LABELS: { key: PotionCategory; label: string }[] = [
   { key: 'vse', label: 'Vše' },
@@ -849,38 +683,38 @@ const FAIL_TABLE: FailEntry[] = [
         <p class="pt-subtitle">Přísady, ceny a čas vaření • Výroba vždy levnější než nákup • Popis ze světa J&D</p>
       </header>
 
-      <div class="pt-filters">
-        <div class="pt-filter-row">
-          <span class="pt-filter-label">Typ:</span>
-          @for (cat of categories; track cat.key) {
-            <button class="pt-filter-btn" [class.active]="activeCategory() === cat.key"
-              (click)="activeCategory.set(cat.key)">{{ cat.label }}</button>
-          }
-        </div>
-        <div class="pt-filter-row">
-          <span class="pt-filter-label">Vzácnost:</span>
-          @for (r of rarities; track r.key) {
-            <button class="pt-filter-btn pt-rarity-btn" [class.active]="activeRarity() === r.key"
-              [attr.data-rarity]="r.key" (click)="activeRarity.set(r.key)">{{ r.label }}</button>
-          }
-        </div>
-      </div>
+       <div class="pt-filters">
+         <div class="pt-filter-row">
+           <span class="pt-filter-label">Typ:</span>
+           @for (cat of categories; track cat.key) {
+             <button class="pt-filter-btn" type="button" [class.active]="activeCategory() === cat.key"
+               (click)="activeCategory.set(cat.key)">{{ cat.label }}</button>
+           }
+         </div>
+         <div class="pt-filter-row">
+           <span class="pt-filter-label">Vzácnost:</span>
+           @for (r of rarities; track r.key) {
+             <button class="pt-filter-btn pt-rarity-btn" type="button" [class.active]="activeRarity() === r.key"
+               [attr.data-rarity]="r.key" (click)="activeRarity.set(r.key)">{{ r.label }}</button>
+           }
+         </div>
+       </div>
 
-      <div class="pt-search-row">
-        <input class="pt-search" placeholder="Hledat lektvar nebo přísadu…"
-          aria-label="Hledat lektvar nebo přísadu"
-          [value]="searchQuery()" (input)="searchQuery.set($any($event.target).value)"/>
-        <button class="pt-gen-btn" [title]="generateTooltip()" (click)="generateRandomIngredients()">Generovat loot ingredience</button>
-        @if (generatedLoot()) {
-          <span class="pt-gen-result">{{ generatedLoot() }}</span>
-        }
-      </div>
+       <div class="pt-search-row">
+         <input class="pt-search" placeholder="Hledat lektvar nebo přísadu…"
+           aria-label="Hledat lektvar nebo přísadu"
+           [value]="searchQuery()" (input)="searchQuery.set($any($event.target).value)"/>
+         <button class="pt-gen-btn" type="button" [title]="generateTooltip()" (click)="generateRandomIngredients()">Generovat loot ingredience</button>
+         @if (generatedLoot()) {
+           <span class="pt-gen-result">{{ generatedLoot() }}</span>
+         }
+       </div>
 
-      <!-- ═══ Tab Navigation ═══ -->
-      <div class="pt-tabs">
-        <button class="pt-tab" [class.active]="activeTab() === 'potions'" (click)="activeTab.set('potions')">Tabulka lektvarů ({{ filteredPotions().length }})</button>
-        <button class="pt-tab" [class.active]="activeTab() === 'rules'" (click)="activeTab.set('rules')">Pravidla výroby & Tabulka selhání</button>
-      </div>
+       <!-- ═══ Tab Navigation ═══ -->
+       <div class="pt-tabs">
+         <button class="pt-tab" [class.active]="activeTab() === 'potions'" (click)="activeTab.set('potions')" type="button">Tabulka lektvarů ({{ filteredPotions().length }})</button>
+         <button class="pt-tab" [class.active]="activeTab() === 'rules'" (click)="activeTab.set('rules')" type="button">Pravidla výroby & Tabulka selhání</button>
+       </div>
 
       <!-- ═══ Tab: Potions Table ═══ -->
       @if (activeTab() === 'potions') {
@@ -900,10 +734,12 @@ const FAIL_TABLE: FailEntry[] = [
               @for (p of filteredPotions(); track p.name) {
                 <tr class="pt-row">
                   <td class="col-img">
-                    <img class="pt-potion-img pt-potion-img--clickable" [src]="p.img" [alt]="p.name" loading="lazy"
-                      title="Klikni pro zvětšení"
-                      (click)="openModal(p)" />
-                  </td>
+                     <img class="pt-potion-img pt-potion-img--clickable" [src]="p.img" [alt]="p.name" loading="lazy"
+                       title="Klikni pro zvětšení" tabindex="0" role="button"
+                       (click)="openModal(p)"
+                       (keydown.enter)="openModal(p)"
+                       (keydown.space)="openModal(p)" />
+                   </td>
                   <td class="col-name">
                     <div class="pt-name">
                       {{ p.name }}
@@ -979,16 +815,16 @@ const FAIL_TABLE: FailEntry[] = [
           <div class="fail-section">
             <div class="fail-header">
               <h4 class="fail-title">Tabulka selhání (k20)</h4>
-              <div class="fail-controls">
-                <span class="fail-label">Vzácnost lektvaru:</span>
-                @for (r of rarityOnly; track r.key) {
-                  <button class="pt-filter-btn pt-rarity-btn fail-rar-btn"
-                    [class.active]="failRarity() === r.key"
-                    [attr.data-rarity]="r.key"
-                    (click)="failRarity.set(r.key)">{{ r.label }}</button>
-                }
-                <button class="roll-btn" (click)="rollD20()">Hodit k20</button>
-              </div>
+             <div class="fail-controls">
+                 <span class="fail-label">Vzácnost lektvaru:</span>
+                 @for (r of rarityOnly; track r.key) {
+                   <button class="pt-filter-btn pt-rarity-btn fail-rar-btn" type="button"
+                     [class.active]="failRarity() === r.key"
+                     [attr.data-rarity]="r.key"
+                     (click)="failRarity.set(r.key)">{{ r.label }}</button>
+                 }
+                 <button class="roll-btn" type="button" (click)="rollD20()">Hodit k20</button>
+               </div>
             </div>
 
             <div class="fail-table-wrap">
@@ -1023,10 +859,10 @@ const FAIL_TABLE: FailEntry[] = [
     </div>
 
     <!-- ═══ Image / Detail Modal ═══ -->
-    @if (modalPotion(); as p) {
-      <div class="pt-modal-backdrop" (click)="closeModal()" aria-modal="true" role="dialog">
-        <div class="pt-modal" (click)="$event.stopPropagation()">
-          <button class="pt-modal-close" type="button" (click)="closeModal()" aria-label="Zavřít">✕</button>
+     @if (modalPotion(); as p) {
+       <div class="pt-modal-backdrop" (click)="closeModal()" aria-modal="true" role="dialog" (keydown.escape)="closeModal()">
+         <div class="pt-modal" (click)="$event.stopPropagation()">
+           <button class="pt-modal-close" type="button" (click)="closeModal()" aria-label="Zavřít">✕</button>
 
           <div class="pt-modal-img-wrap">
             <img class="pt-modal-img" [src]="p.img" [alt]="p.name" />
@@ -1200,7 +1036,7 @@ const FAIL_TABLE: FailEntry[] = [
     .pt-ingr-name { flex: 1; }
     .pt-ingr-price { font-size: 10px; color: #9a8a6a; white-space: nowrap; font-style: italic; }
 
-    :host ::ng-deep .search-hl { color: #f06060; font-weight: 700; background: rgba(240,60,60,.1); border-radius: 2px; padding: 0 1px; }
+     :host ::ng-deep .search-hl { color: #f06060; font-weight: 700; background: rgba(240,60,60,.1); border-radius: 2px; padding: 0 1px; } /* Used dynamically in highlightIngredient() */
 
     .pt-price-buy { font-size: 12px; color: #d4c9a0; white-space: nowrap; }
     .pt-price-craft { font-size: 11px; color: #8fc95a; white-space: nowrap; margin-top: 2px; }
