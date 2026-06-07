@@ -797,7 +797,6 @@ const FAIL_TABLE: FailEntry[] = [
                 <tr>
                   <th>Vzácnost</th>
                   <th>SO vaření</th>
-                  <th>Při selhání</th>
                 </tr>
               </thead>
               <tbody>
@@ -805,7 +804,6 @@ const FAIL_TABLE: FailEntry[] = [
                   <tr>
                     <td><span class="pt-tag" [attr.data-rarity]="row.rarity">{{ row.rarity }}</span></td>
                     <td class="so-value">{{ row.so }}</td>
-                    <td class="so-fail-hint">Hod k20 na tabulku selhání</td>
                   </tr>
                 }
               </tbody>
