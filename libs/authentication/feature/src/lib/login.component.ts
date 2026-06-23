@@ -12,13 +12,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   template: `
     <div class="auth-page">
       <div class="auth-card">
-        <!-- top strip -->
-        <div class="auth-strip">
-          <span class="auth-gem">◆</span>
-          <span class="auth-line"></span>
-          <span class="auth-gem">◆</span>
-        </div>
-
         <!-- crest -->
         <div class="auth-crest">🛡</div>
         <h1 class="auth-title">Přihlášení</h1>
@@ -67,15 +60,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
           </button>
         </div>
 
-        <div class="auth-divider"><span>🐉</span></div>
-
-
-        <!-- bottom strip -->
-        <div class="auth-strip auth-strip--bottom">
-          <span class="auth-gem">◆</span>
-          <span class="auth-line"></span>
-          <span class="auth-gem">◆</span>
-        </div>
       </div>
     </div>
   `,
