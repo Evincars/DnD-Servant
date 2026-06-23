@@ -1,11 +1,14 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIcon } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CharacterSheetApiService } from '@dn-d-servant/character-sheet-data-access';
+import { forkJoin, of } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'login',
@@ -32,6 +35,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
           {{ errorMessage() }}
         </div>
         }
+
+        <div class="auth-warning">
+          <mat-icon>info</mat-icon>
+          <span>Přihlášení neověřeným emailem je zastaralý (pro náš server už nebezpečný) způsob. Doporučujeme použít Google účet. Všechna data pod starým username lze importovat přes tlačítko na Kartě Postavy nahoře pro Google účet.</span>
+        </div>
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form">
           <div class="auth-field">
@@ -64,10 +72,37 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
         <div class="auth-divider"><span>🐉</span></div>
 
-        <p class="auth-footer">
-          Nemáš účet?
-          <a class="auth-link" [routerLink]="'/register'">Registrovat se</a>
-        </p>
+        <div class="auth-import-section">
+          <div class="auth-import-title">
+            <mat-icon>cloud_download</mat-icon>
+            Importovat data z jiného účtu
+          </div>
+          <p class="auth-import-text">
+            Pokud chceš přenést data (character-sheet, group-sheet, questy, předměty) z jiného uživatele, zadej jeho jméno:
+          </p>
+          <div class="auth-import-form">
+            <input
+              class="auth-input"
+              type="text"
+              [(ngModel)]="importUsername"
+              placeholder="např. Evincars"
+            />
+            <button
+              class="auth-btn-import"
+              type="button"
+              (click)="onImportData()"
+              [disabled]="!importUsername || importLoading()"
+            >
+              @if (importLoading()) {
+                <mat-icon>hourglass_empty</mat-icon>
+                Importuji...
+              } @else {
+                <mat-icon>download</mat-icon>
+                Importovat
+              }
+            </button>
+          </div>
+        </div>
 
         <!-- bottom strip -->
         <div class="auth-strip auth-strip--bottom">
@@ -186,6 +221,22 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       mat-icon { font-size: 16px; width: 16px; height: 16px; }
     }
 
+    .auth-warning {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin: 4px 24px 8px;
+      padding: 8px 12px;
+      background: rgba(200,140,60,.12);
+      border: 1px solid rgba(200,140,60,.3);
+      border-radius: 6px;
+      color: #d4a055;
+      font-size: 11px;
+      line-height: 1.5;
+
+      mat-icon { font-size: 16px; width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
+    }
+
     .auth-form {
       display: flex;
       flex-direction: column;
@@ -300,6 +351,71 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       flex-shrink: 0;
     }
 
+    .auth-import-section {
+      padding: 0 24px 12px;
+      margin-top: 4px;
+    }
+
+    .auth-import-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #c8a03c;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+
+      mat-icon { font-size: 16px; width: 16px; height: 16px; }
+    }
+
+    .auth-import-text {
+      font-size: 11px;
+      color: #8a7a80;
+      line-height: 1.5;
+      margin: 0 0 10px;
+    }
+
+    .auth-import-form {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    .auth-btn-import {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 16px;
+      background: linear-gradient(135deg, rgba(100,160,200,.2) 0%, rgba(80,140,180,.3) 100%);
+      border: 1px solid rgba(100,160,200,.45);
+      border-radius: 6px;
+      color: #7ab8e0;
+      font-family: 'Mikadan', sans-serif;
+      font-size: 13px;
+      letter-spacing: .06em;
+      cursor: pointer;
+      transition: background .18s, border-color .18s, box-shadow .18s, transform .12s;
+      text-shadow: 0 0 10px rgba(100,160,200,.4);
+      white-space: nowrap;
+
+      mat-icon { font-size: 16px; width: 16px; height: 16px; }
+
+      &:hover:not(:disabled) {
+        background: linear-gradient(135deg, rgba(100,160,200,.32) 0%, rgba(80,140,180,.44) 100%);
+        border-color: rgba(100,160,200,.75);
+        box-shadow: 0 0 18px rgba(100,160,200,.25);
+        transform: translateY(-1px);
+      }
+
+      &:disabled {
+        opacity: .4;
+        cursor: not-allowed;
+      }
+    }
+
     .auth-footer {
       text-align: center;
       font-size: 12px;
@@ -316,7 +432,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, MatIcon, RouterLink],
+  imports: [ReactiveFormsModule, FormsModule, MatIcon, RouterLink],
 })
 export class LoginComponent {
   fb = inject(FormBuilder);
@@ -325,12 +441,15 @@ export class LoginComponent {
   authService = inject(AuthService);
   destroyRef = inject(DestroyRef);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly characterSheetApiService = inject(CharacterSheetApiService);
 
   form = this.fb.nonNullable.group({
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
   errorMessage = signal<string | null>(null);
+  importUsername = '';
+  importLoading = signal(false);
 
   onSubmit(): void {
     const rawForm = this.form.getRawValue();
@@ -367,6 +486,80 @@ export class LoginComponent {
         },
         error: err => {
           this.errorMessage.set(err.code || 'Přihlášení přes Google selhalo');
+        },
+      });
+  }
+
+  onImportData(): void {
+    if (!this.importUsername.trim()) return;
+
+    const currentUser = this.authService.currentUser();
+    if (!currentUser) {
+      this.snackBar.open('⚠️ Musíš být přihlášen pro import dat!', '✕', {
+        verticalPosition: 'top',
+        duration: 3000,
+      });
+      return;
+    }
+
+    this.importLoading.set(true);
+    const sourceUsername = this.importUsername.trim();
+    const targetUsername = currentUser.username;
+
+    // Fetch all data from source user
+    forkJoin({
+      characterSheet: this.characterSheetApiService.getCharacterSheetByUsername(sourceUsername).pipe(catchError(() => of(undefined))),
+      groupSheet: this.characterSheetApiService.getGroupSheetByUsername(sourceUsername).pipe(catchError(() => of(undefined))),
+      notesPage: this.characterSheetApiService.getNotesPageByUsername(sourceUsername).pipe(catchError(() => of(undefined))),
+      itemVault: this.characterSheetApiService.getItemVaultByUsername(sourceUsername).pipe(catchError(() => of(undefined))),
+      quests: this.characterSheetApiService.getQuestsByUsername(sourceUsername).pipe(catchError(() => of(undefined))),
+    })
+      .pipe(
+        switchMap(data => {
+          const imports = [];
+
+          // Update username in all data and save to target user
+          if (data.characterSheet) {
+            const updated = { ...data.characterSheet, username: targetUsername };
+            imports.push(this.characterSheetApiService.updateCharacterSheet(updated));
+          }
+          if (data.groupSheet) {
+            const updated = { ...data.groupSheet, username: targetUsername };
+            imports.push(this.characterSheetApiService.updateGroupSheet(updated));
+          }
+          if (data.notesPage) {
+            const updated = { ...data.notesPage, username: targetUsername };
+            imports.push(this.characterSheetApiService.updateNotesPage(updated));
+          }
+          if (data.itemVault) {
+            const updated = { ...data.itemVault, username: targetUsername };
+            imports.push(this.characterSheetApiService.saveItemVault(updated));
+          }
+          if (data.quests) {
+            const updated = { ...data.quests, username: targetUsername };
+            imports.push(this.characterSheetApiService.saveQuests(updated));
+          }
+
+          return imports.length > 0 ? forkJoin(imports) : of(null);
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe({
+        next: () => {
+          this.importLoading.set(false);
+          this.importUsername = '';
+          this.snackBar.open(`📦 Data z účtu "${sourceUsername}" byla úspěšně importována!`, '✕', {
+            verticalPosition: 'top',
+            duration: 4000,
+            panelClass: ['snackbar--success'],
+          });
+        },
+        error: err => {
+          this.importLoading.set(false);
+          this.snackBar.open(`❌ Import dat selhal: ${err.message}`, '✕', {
+            verticalPosition: 'top',
+            duration: 4000,
+          });
         },
       });
   }

@@ -130,7 +130,6 @@ import { MatDialogRef } from '@angular/material/dialog';
               <a class="link token u-mr-2" href="#" (click)="$event.preventDefault(); logout()">Odhlásit</a>
               } @if (authService.currentUser() === null) {
               <a class="link token u-mr-2" [routerLink]="routes.login">Přihlásit</a>
-              <a class="link token u-mr-2" [routerLink]="routes.register">Registrovat</a>
               }
               <a
                 target="_blank"
@@ -167,9 +166,6 @@ import { MatDialogRef } from '@angular/material/dialog';
             } @if (authService.currentUser() === null) {
             <a class="link token mobile-menu-link" [routerLink]="routes.login" (click)="mobileMenuOpen.set(false)">
               <mat-icon class="mobile-menu-icon">login</mat-icon> Přihlásit
-            </a>
-            <a class="link token mobile-menu-link" [routerLink]="routes.register" (click)="mobileMenuOpen.set(false)">
-              <mat-icon class="mobile-menu-icon">person_add</mat-icon> Registrovat
             </a>
             }
           </div>

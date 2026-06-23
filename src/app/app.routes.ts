@@ -20,10 +20,11 @@ export const appRoutes: Array<Route> = [
     path: routes.login,
     loadComponent: () => import('@dn-d-servant/authentication-feature').then(c => c.LoginComponent),
   },
-  {
-    path: routes.register,
-    loadComponent: () => import('@dn-d-servant/authentication-feature').then(c => c.RegisterComponent),
-  },
+  // Registration is now disabled - users should use Google authentication
+  // {
+  //   path: routes.register,
+  //   loadComponent: () => import('@dn-d-servant/authentication-feature').then(c => c.RegisterComponent),
+  // },
   {
     path: routes.characterSheet,
     loadComponent: () => import('@dn-d-servant/character-sheet-feature').then(c => c.CharacterSheetTabsComponent),
