@@ -1035,8 +1035,9 @@ input[type='checkbox'][disabled] {
     position: static !important;
   }
 
-  // ── Save button: hidden on tablet/mobile, shown on desktop ──────────────
-  .cs-save-btn {
+  // ── Save & Import buttons: hidden on tablet/mobile, shown on desktop ──────────────
+  .cs-save-btn,
+  .cs-import-btn {
     display: none !important;
   }
 
