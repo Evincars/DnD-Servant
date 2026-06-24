@@ -17,27 +17,45 @@ const f = (text: string): ReleaseEntry => ({ type: 'fix', text });
 
 const RELEASE_NOTES: ReleaseGroup[] = [
   {
+    date: '25. června 2026',
+    entries: [
+      f('Login pomocí Google účtu, staré přihlašování je povolené, ale nově příchozí musí použít Google'),
+      i('Možnost importovat všechna data (možnost si vybrat která data) z jiného loginu'),
+      i('Přidáno donate tlačítko na horní liště s QR kódem'),
+    ],
+  },
+  {
     date: '7. června 2026',
     entries: [
-      i('Oprava karet monster v iniciativní tabulce (nyní lze házet na životy)'),
+      f('Oprava karet monster v iniciativní tabulce (nyní lze házet na životy)'),
       i("Monstra s tzv. 'rodinou' jsou nyní rozdělena a vyhledatelná, s odkazem na popis dané rodiny"),
       i('Pokročilé filtry pro monstra a kouzla (kouzla dle typu a úrovně, monstra dle třídy CR)'),
       i("Stránka 'DM Screen' má nyní i obrázkovou verzi pro všechny případy"),
-      i('Nápovědné dialogy s pravidly nyní převedeny z obrázků na text (přepínač obrázek/text nahoře, výchozí je obrázek - část textů ještě není správně přeformátovaná, TODO)'),
+      i(
+        'Nápovědné dialogy s pravidly nyní převedeny z obrázků na text (přepínač obrázek/text nahoře, výchozí je obrázek - část textů ještě není správně přeformátovaná, TODO)',
+      ),
       i("Nová záložka 'Lektvary' s tabulkou ingrediencí pro výrobu lektvarů (základní filtrování)"),
-      i('Vylepšený dialog hodu kostkou (odkaz na celou historii hodů, úprava paddingu/margin, změna ikony minimalizace, zavření kliknutím mimo okno)'),
+      i(
+        'Vylepšený dialog hodu kostkou (odkaz na celou historii hodů, úprava paddingu/margin, změna ikony minimalizace, zavření kliknutím mimo okno)',
+      ),
       i('Nová tabulka Alchymie lektvarů s potřebnými surovinami'),
     ],
   },
   {
     date: '22. května 2026',
     entries: [
-      i('Implementace JaD monster do iniciativní tabulky (nové soubory /scripts/jad-monsters-output.txt a /util/jad-monsters-names.ts)'),
-      i('Oprava barvy textu v záložce poznámek PH (rich-textarea)'),
+      i(
+        'Implementace JaD monster do iniciativní tabulky (nové soubory /scripts/jad-monsters-output.txt a /util/jad-monsters-names.ts)',
+      ),
+      f('Oprava barvy textu v záložce poznámek PH (rich-textarea)'),
       i('Rychlá navigace má lepší font, zvýrazňuje zadané znaky, ignoruje mezery a umí najít i sloučené první znaky slov'),
       i('Sloučení tlačítek collapse/expand v obou záložkách Questů'),
-      i("Vylepšení iniciativní tabulky — zobrazení 'health bar' monster pro přehled odebraných životů, zobrazení vlastní J&D karty monstra (souběžně s klasickou D&D kartou), karty monster zobrazené pod tabulkou v mřížce (rozbalí se vždy aktivní monstrum na tahu), tlačítko Instantiate s volbou průměrných nebo kostkou hozených životů a automatickou přípravou karet monster (tlačítka collapse/expand a odstranit vše)"),
-      i("Nová záložka 'Kouzla' (z J&D systému) na character-sheetu se třídění dle kategorií, tagů a pokročilým vyhledáváním (záložka 'Moje předměty' zrušena, nahrazena ikonou v sekci Inventář)"),
+      i(
+        "Vylepšení iniciativní tabulky — zobrazení 'health bar' monster pro přehled odebraných životů, zobrazení vlastní J&D karty monstra (souběžně s klasickou D&D kartou), karty monster zobrazené pod tabulkou v mřížce (rozbalí se vždy aktivní monstrum na tahu), tlačítko Instantiate s volbou průměrných nebo kostkou hozených životů a automatickou přípravou karet monster (tlačítka collapse/expand a odstranit vše)",
+      ),
+      i(
+        "Nová záložka 'Kouzla' (z J&D systému) na character-sheetu se třídění dle kategorií, tagů a pokročilým vyhledáváním (záložka 'Moje předměty' zrušena, nahrazena ikonou v sekci Inventář)",
+      ),
       i("Nová záložka 'Monstra' v DM Tools (z J&D systému) se stejným třídění a možností přidání do iniciativní tabulky"),
       i('Aktualizace stránky Tipy a triky i rychlé navigace'),
     ],
@@ -46,22 +64,24 @@ const RELEASE_NOTES: ReleaseGroup[] = [
     date: '8. května 2026',
     entries: [
       f("Oprava skrytého tlačítka 'Uložit [enter]' na PC verzi"),
-      f('Nová funkce časové osy událostí na stránce DM Tools s ukládáním do databáze'),
+      i('Nová funkce časové osy událostí na stránce DM Tools s ukládáním do databáze'),
       f('Oprava některých slov v názvové konvenci pro JaD'),
-      f('Nahrání SVG obrázků postav a skupinových listů do /public'),
-      f('Použití SVG namísto WEBP obrázků (opravena i pozice některých vstupních polí)'),
-      f('Vytvořeno více tmavých témat (první testovací verze, čeká se na zpětnou vazbu)'),
+      i('Nahrání SVG obrázků postav a skupinových listů do /public'),
+      i('Použití SVG namísto WEBP obrázků (opravena i pozice některých vstupních polí)'),
+      i('Vytvořeno více tmavých témat (první testovací verze, čeká se na zpětnou vazbu)'),
     ],
   },
   {
     date: '1. května 2026',
     entries: [
-      i("Skládací (collapsible) zobrazení všech sekcí na character-sheetu i group-sheetu s uložením stavu do local-storage (drag&drop pořadí), sekce mají v titulku vlastní ikony, některá pole a textarea přesunuta do správné sekce (např. 'SO Záchrany kouzel' nyní pod záložkou Kouzla)"),
+      i(
+        "Skládací (collapsible) zobrazení všech sekcí na character-sheetu i group-sheetu s uložením stavu do local-storage (drag&drop pořadí), sekce mají v titulku vlastní ikony, některá pole a textarea přesunuta do správné sekce (např. 'SO Záchrany kouzel' nyní pod záložkou Kouzla)",
+      ),
       i('Plovoucí tlačítka scroll nahoru/dolů a Uložit'),
       i('Opravené responzivní světlé/tmavé téma'),
       i('Prázdná pole pro kouzla a další vstupy mají placeholdery pro mobil/tablet'),
       i('Horní lišta sloučila login/logout/registraci a další odkazy do jedné ikony na malých obrazovkách'),
-      i("Oprava kouzla 'Dotek smrti', které nezobrazovalo detailní text v dialogu"),
+      f("Oprava kouzla 'Dotek smrti', které nezobrazovalo detailní text v dialogu"),
       i('Tmavé téma (obrázek) pro Group Sheet'),
       i('Responzivní design Group Sheetu (včetně skládacích sekcí)'),
       i('Tlačítka collapse/expand all na obou listech'),
@@ -84,7 +104,9 @@ const RELEASE_NOTES: ReleaseGroup[] = [
       i('Správně vykreslené karty monster, info boxy pro doplňující informace'),
       i('Doplněny i oblasti, které nejsou v oficiální JaD SRD databázi (Příručka hráče, Tashin Kotel, ...)'),
       i('V záložce kouzel přidáno tlačítko pro detail kouzla v dialogu a vyhledávací combo box se všemi kouzly'),
-      i('Základní responzivní design pro mobily, zejména pro tabulky (požadavek z JaD Discordu) — nápovědné tooltips se nezobrazují, jinak je hra plně funkční včetně hodu kostkou'),
+      i(
+        'Základní responzivní design pro mobily, zejména pro tabulky (požadavek z JaD Discordu) — nápovědné tooltips se nezobrazují, jinak je hra plně funkční včetně hodu kostkou',
+      ),
       i('Vyřešena varování z Firebase konzole (i ta, která přibyla po doplnění JaD Wiki) — issue #13 vyřešeno'),
     ],
   },
@@ -94,10 +116,12 @@ const RELEASE_NOTES: ReleaseGroup[] = [
       f("Oprava varování v konzoli 'Calling Firebase APIs outside of an Injection context...'"),
       f("Oprava varování 'Firebase API called outside injection context: getDoc' v character-sheet-api.service.ts"),
       f('Oprava přepisování AC při vyhledávání monstra v iniciativní tabulce (např. při přidání krytů +5/+2)'),
-      f('Alfa verze RPG inventáře s předměty'),
-      f('Doplnění všech oblastí vyhledávání z Public D&D 5e API (např. vlastnosti/feats)'),
-      f('Odstranění zbytečných scrollbarů na některých stránkách a zmenšení/úprava bílé linky na spodním okraji stránky (černé pozadí)'),
-      f('Sjednocení všech klíčů local-storage do souboru local-storages.ts v /util'),
+      i('Alfa verze RPG inventáře s předměty'),
+      i('Doplnění všech oblastí vyhledávání z Public D&D 5e API (např. vlastnosti/feats)'),
+      i(
+        'Odstranění zbytečných scrollbarů na některých stránkách a zmenšení/úprava bílé linky na spodním okraji stránky (černé pozadí)',
+      ),
+      i('Sjednocení všech klíčů local-storage do souboru local-storages.ts v /util'),
     ],
   },
   {
@@ -105,8 +129,8 @@ const RELEASE_NOTES: ReleaseGroup[] = [
     entries: [
       i('Quest log pro hráče a speciální quest log pro DM (ukládáno do Firebase DB, ne do local-storage)'),
       i('Aktualizace záložek poznámek pro hráče a nová speciální stránka poznámek pro DM'),
-      i('Oprava přepisování snížených HP plnými životy při opětovném vyhledání monstra v iniciativní tabulce'),
-      i('Oprava hover oblasti tlačítek pro zvýšení/snížení HP v iniciativní tabulce'),
+      f('Oprava přepisování snížených HP plnými životy při opětovném vyhledání monstra v iniciativní tabulce'),
+      f('Oprava hover oblasti tlačítek pro zvýšení/snížení HP v iniciativní tabulce'),
       i('Generátor událostí/jmen/situací/lootu pro DM'),
       i('Nové tlačítko Podmínky pro hráče (levý horní roh character-sheetu)'),
       i('Nový design obrázku postavy hráče (klasické nahrání obrázku jako např. na stránce předmětů)'),
@@ -117,8 +141,12 @@ const RELEASE_NOTES: ReleaseGroup[] = [
   {
     date: '22. března 2026',
     entries: [
-      i('Nová dedikovaná stránka DM s iniciativní tabulkou a vyhledáváním monster (vyhledávání monster na character-sheetu nyní zakázáno)'),
-      i('Iniciativní tabulka má tlačítka pro kopírování řádků (přidává postfixy B, C, D... stále vyhledatelné v databázi, ale pouze s přesně přidaným postfixem) a tlačítka pro snadné přidání/odebrání HP'),
+      i(
+        'Nová dedikovaná stránka DM s iniciativní tabulkou a vyhledáváním monster (vyhledávání monster na character-sheetu nyní zakázáno)',
+      ),
+      i(
+        'Iniciativní tabulka má tlačítka pro kopírování řádků (přidává postfixy B, C, D... stále vyhledatelné v databázi, ale pouze s přesně přidaným postfixem) a tlačítka pro snadné přidání/odebrání HP',
+      ),
       i('Automatické ukládání iniciativní tabulky do local-storage po 1500ms'),
       i('(TODO: unitTestRunner=jest by měl být v budoucnu nahrazen vitest)'),
     ],
@@ -137,7 +165,9 @@ const RELEASE_NOTES: ReleaseGroup[] = [
       i('Aktualizace URL aplikace v README'),
       i('Migrace Angular v20 na v21 a Nx v22.0.2 na v22.5.4'),
       i("Nové npm příkazy 'update' (nx migrate latest) a 'migrate' (nx migrate --run-migrations)"),
-      i('Vytvořen migrations.json (pozn. bootstrap-options-migration může způsobovat problémy, lze odstranit z migration souboru)'),
+      i(
+        'Vytvořen migrations.json (pozn. bootstrap-options-migration může způsobovat problémy, lze odstranit z migration souboru)',
+      ),
       i('Instalován npm-check-updates (příkaz ncu --interactive pro výběr balíčků k aktualizaci)'),
       i("Aktualizace npm install příkazu na 'npm i --legacy-peer-deps' ve firebase-hosting workflow souborech"),
     ],
@@ -145,18 +175,26 @@ const RELEASE_NOTES: ReleaseGroup[] = [
   {
     date: '5. března 2026',
     entries: [
-      i('Automatické vyplnění formuláře dle zadaných hlavních vlastností — level je výchozí 1, bonus za zdatnost tedy výchozí +2, automaticky se přepočítá při změně levelu a aktualizuje navázaná pole (pole bonusu za zdatnost je nyní needitovatelné, ostatní vlastnosti zůstávají editovatelné)'),
+      i(
+        'Automatické vyplnění formuláře dle zadaných hlavních vlastností — level je výchozí 1, bonus za zdatnost tedy výchozí +2, automaticky se přepočítá při změně levelu a aktualizuje navázaná pole (pole bonusu za zdatnost je nyní needitovatelné, ostatní vlastnosti zůstávají editovatelné)',
+      ),
       i('Hody kostkou nyní dostupné pro všechny vlastnosti včetně záchranných hodů'),
       i('Dlouhé výsledky hodů mají tooltip (zatím základní prohlížečový)'),
-      i("Po přihlášení nápovědný dialog vysvětlující funkci 'autofill' a možnost házet kostkou na konkrétní vlastnost (lze vypnout zobrazování), včetně GIF videa s návodem na správné vyplnění formuláře"),
+      i(
+        "Po přihlášení nápovědný dialog vysvětlující funkci 'autofill' a možnost házet kostkou na konkrétní vlastnost (lze vypnout zobrazování), včetně GIF videa s návodem na správné vyplnění formuláře",
+      ),
       i('Zdatnost a expertíza nyní přes novou ikonu hvězdy místo checkboxů, s automatickým přičtením bonusu'),
       i('Checkboxy záchranných hodů na smrt nahrazeny ikonami srdce a lebky'),
       i('Aktualizace stránky Nápověda a tipy (včetně GIF videa)'),
       i('Historie hodů kostkou nyní uložena v local-storage s možností vymazání'),
-      i('Záloha (screenshot) z horního menu nyní stahuje pouze jeden dlouhý PNG obrázek (obě tlačítka zálohy včetně JSON zmenšena)'),
+      i(
+        'Záloha (screenshot) z horního menu nyní stahuje pouze jeden dlouhý PNG obrázek (obě tlačítka zálohy včetně JSON zmenšena)',
+      ),
       i('Vylepšený styl snackbarů pro informace o uložení'),
       i('Po odhlášení přesměrování na přihlašovací stránku'),
-      i('(Známý bug: stále problémy s automatickým reloadem a náhodným zobrazením snackbaru o ukládání po přihlášení — TODO: zvýraznit hlavní vstupní pole vlastností a levelu šipkou — TODO: rozdělit character-sheet.component na menší komponenty, protože má již několik tisíc řádků)'),
+      i(
+        '(Známý bug: stále problémy s automatickým reloadem a náhodným zobrazením snackbaru o ukládání po přihlášení — TODO: zvýraznit hlavní vstupní pole vlastností a levelu šipkou — TODO: rozdělit character-sheet.component na menší komponenty, protože má již několik tisíc řádků)',
+      ),
     ],
   },
   {
@@ -164,11 +202,17 @@ const RELEASE_NOTES: ReleaseGroup[] = [
     entries: [
       i('character-sheet.store nyní providedIn root a injektován v app.ts (potřeba dořešit)'),
       i('Aktualizace .firebaserc a firebase.json — aplikace by měla běžet na URL dnd-servant.web.app'),
-      i('Hody kostkou (nainstalován three.js, ale 3D modely nebyly dostatečné, zatím jen klasické 2D hody, funguje bez problémů)'),
+      i(
+        'Hody kostkou (nainstalován three.js, ale 3D modely nebyly dostatečné, zatím jen klasické 2D hody, funguje bez problémů)',
+      ),
       i('Automatické vyplnění vlastností, záchranných hodů a pasivních schopností (chybí iniciativa z DEX)'),
       i('Ikony hvězdy namísto čtvercových checkboxů'),
-      i('Character sheet, group sheet a poznámky se po každém uložení ukládají i do local-storage jako záloha (automaticky každých 30s — užitečné při náhlém refreshi stránky, formulář se pak načte ze záložní kopie a vyšle se požadavek na uložení)'),
-      i('Nová stránka Nápověda a tipy pro funkce/použití aplikace (nová knihovna /feature) — zatím neaktualizovaná o autofill a hody kostkou'),
+      i(
+        'Character sheet, group sheet a poznámky se po každém uložení ukládají i do local-storage jako záloha (automaticky každých 30s — užitečné při náhlém refreshi stránky, formulář se pak načte ze záložní kopie a vyšle se požadavek na uložení)',
+      ),
+      i(
+        'Nová stránka Nápověda a tipy pro funkce/použití aplikace (nová knihovna /feature) — zatím neaktualizovaná o autofill a hody kostkou',
+      ),
       i('Reálný překladač (Google Translate API) — odpovědi z DnD-5e-API se automaticky překládají přes translation pipe'),
       i('Aktualizace názvových konvencí pro vyhledávání v DnD API dle pravidel JaD'),
     ],
@@ -176,17 +220,21 @@ const RELEASE_NOTES: ReleaseGroup[] = [
   {
     date: '2. března 2026',
     entries: [
-      i('Vyhledávání v databázi DnD 5e 2014 přes více entit — monstra, rasy, podrasy, kouzla aj. (vlastní modely pro DnD 5e API, komponenty karet pro zobrazení entit, nová knihovna /dnd-rules-database)'),
-      i('Oprava slotů na kouzla po refreshi stránky a nový design checkboxů'),
-      i('Oprava scrollování pod horním menu'),
-      i('Refaktoring umístění souborů (API modely do /util, komponenty související s DnD databází do /dnd-rules-database, rich-textarea a autofill komponenty do /ui)'),
+      i(
+        'Vyhledávání v databázi DnD 5e 2014 přes více entit — monstra, rasy, podrasy, kouzla aj. (vlastní modely pro DnD 5e API, komponenty karet pro zobrazení entit, nová knihovna /dnd-rules-database)',
+      ),
+      f('Oprava slotů na kouzla po refreshi stránky a nový design checkboxů'),
+      f('Oprava scrollování pod horním menu'),
+      i(
+        'Refactoring umístění souborů (API modely do /util, komponenty související s DnD databází do /dnd-rules-database, rich-textarea a autofill komponenty do /ui)',
+      ),
       i('Vylepšení iniciativní tabulky, vyhledávání v dnd5e databázi a celkový refaktoring Nx knihoven'),
     ],
   },
 ];
 
 const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
-  fix: 'Oprava',
+  fix: 'Fix',
   improvement: 'Vylepšení',
 };
 
