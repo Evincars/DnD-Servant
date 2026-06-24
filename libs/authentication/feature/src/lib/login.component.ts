@@ -43,7 +43,7 @@ import { AccountLinkDialogComponent, AccountLinkDialogData } from './account-lin
             <br />
             <br />
             Jestli máš jakýkoliv dotaz nebo chceš nahlásit bug, napiš mi na
-            <b>lasak.ad&#64;gmail.com</b>
+            <b style="color: #1585b3">lasak.ad&#64;gmail.com</b>
           </span>
         </div>
 
