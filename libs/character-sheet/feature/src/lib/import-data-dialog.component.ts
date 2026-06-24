@@ -168,7 +168,7 @@ interface PreviewData {
       @if (state() === 'done') {
         <div class="id-body id-body--center">
           <div class="id-success-icon">📦</div>
-          <p class="id-done-title">Import dokončen!</p>
+          <p class="id-done-title">Import dokončen. Refreshni stránku!</p>
           <p class="id-done-sub">
             Data z účtu <strong class="id-user">{{ importUsername }}</strong>
             byla importována pod <strong class="id-user">{{ currentUsername() }}</strong>.
