@@ -15,14 +15,34 @@ import { from, Observable } from 'rxjs';
 import { User } from './user';
 
 /**
- * Normalizes username by removing spaces and diacritics.
- * Example: "Adam Lasák" → "AdamLasak"
+ * Normalises a raw display name into a safe, camelCase, ASCII-only username
+ * suitable for use as a Firestore document key and as a display name.
+ *
+ * Steps:
+ *  1. NFD decompose → strip combining diacritic marks   ("Lasák" → "Lasak")
+ *  2. Remove every character that is NOT a letter, digit, or space
+ *     ("O'Brien" → "OBrien", "Mary-Jane" → "MaryJane", "J. Smith" → "J Smith")
+ *  3. Collapse multiple spaces, trim ends
+ *  4. camelCase: capitalise the first letter of each subsequent word
+ *  5. Remove all remaining spaces
+ *
+ * Examples:
+ *   "Adam Lasák"   → "AdamLasak"
+ *   "O'Brien John" → "OBrienJohn"
+ *   "Mary-Jane"    → "MaryJane"
+ *   "J. Smith"     → "JSmith"
+ *   "johnsmith"    → "johnsmith"   ← single-word names are left as-is
+ *   "AdamLasak"    → "AdamLasak"   ← already normalised, unchanged
  */
-function normalizeUsername(name: string): string {
+export function normalizeUsername(name: string): string {
   return name
-    .replace(/\s+/g, '') // Remove all spaces
-    .normalize('NFD') // Decompose diacritics
-    .replace(/[\u0300-\u036f]/g, ''); // Remove diacritic marks
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')       // 1. strip diacritics
+    .replace(/[^a-zA-Z0-9 ]/g, '')         // 2. strip non-alphanumeric (keep spaces)
+    .replace(/\s+/g, ' ')                  // 3. collapse spaces
+    .trim()
+    .replace(/\s+(.)/g, (_, c: string) => c.toUpperCase()) // 4. camelCase after space
+    .replace(/\s+/g, '');                  // 5. remove any leftover spaces
 }
 
 /**
