@@ -23,15 +23,13 @@ const NOTES_SUFFIX  = '_notes';
 // ── Internal state ────────────────────────────────────────────────────────────
 type DialogState = 'input' | 'loading' | 'confirm' | 'importing' | 'done' | 'error';
 
-interface PreviewData {
-  characterSheet: boolean;
-  groupSheet: boolean;
-  notesPage: boolean;
-  itemVault: boolean;
-  quests: boolean;
-  dmQuests: boolean;
-  dmNotes: boolean;
-  dmStoryTimeline: boolean;
+type DataKey = 'characterSheet' | 'groupSheet' | 'notesPage' | 'itemVault' | 'quests' | 'dmQuests' | 'dmNotes' | 'dmStoryTimeline';
+
+interface SelectableItem {
+  key: DataKey;
+  label: string;
+  found: boolean;
+  selected: boolean;
 }
 
 @Component({
@@ -118,12 +116,41 @@ interface PreviewData {
             </div>
           </div>
 
-          <!-- Found data list -->
-          <p class="id-preview-heading">Nalezená data z „{{ importUsername }}":</p>
+          <!-- List heading + select-all toggle -->
+          <div class="id-list-header">
+            <p class="id-preview-heading">Nalezená data z „{{ importUsername }}":</p>
+            @if (foundCount() > 0) {
+              <button
+                type="button"
+                class="id-toggle-all-btn"
+                (click)="toggleAll()"
+              >
+                {{ allSelected() ? 'Zrušit vše' : 'Vybrat vše' }}
+              </button>
+            }
+          </div>
+
+          <!-- Selectable list -->
           <ul class="id-preview-list">
-            @for (item of previewItems(); track item.label) {
-              <li class="id-preview-item" [class.id-preview-item--found]="item.found" [class.id-preview-item--missing]="!item.found">
-                <mat-icon>{{ item.found ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+            @for (item of previewItems(); track item.key) {
+              <li
+                class="id-preview-item"
+                [class.id-preview-item--found]="item.found && item.selected"
+                [class.id-preview-item--deselected]="item.found && !item.selected"
+                [class.id-preview-item--missing]="!item.found"
+                (click)="item.found && toggleItem(item.key)"
+                [attr.role]="item.found ? 'checkbox' : null"
+                [attr.aria-checked]="item.found ? item.selected : null"
+              >
+                @if (item.found) {
+                  <span class="id-checkbox" [class.id-checkbox--checked]="item.selected">
+                    @if (item.selected) {
+                      <mat-icon>check</mat-icon>
+                    }
+                  </span>
+                } @else {
+                  <mat-icon class="id-missing-icon">radio_button_unchecked</mat-icon>
+                }
                 {{ item.label }}
                 @if (!item.found) {
                   <span class="id-preview-empty">(nenalezeno)</span>
@@ -141,6 +168,7 @@ interface PreviewData {
         </div>
 
         <div class="id-footer">
+          <span class="id-selected-count">{{ selectedCount() }} / {{ foundCount() }} vybráno</span>
           <button class="id-btn id-btn--cancel" type="button" (click)="resetToInput()">
             <mat-icon>arrow_back</mat-icon> Zpět
           </button>
@@ -148,7 +176,7 @@ interface PreviewData {
             class="id-btn id-btn--danger"
             type="button"
             (click)="onImport()"
-            [disabled]="foundCount() === 0"
+            [disabled]="selectedCount() === 0"
           >
             <mat-icon>download</mat-icon> Potvrdit import
           </button>
@@ -366,10 +394,29 @@ interface PreviewData {
     }
 
     /* ── Preview list ────────────────────────────────────────────── */
+    .id-list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
     .id-preview-heading {
       margin: 0;
       font-size: 12px; font-weight: 600;
       color: rgba(200,160,60,.7); letter-spacing: .06em; text-transform: uppercase;
+    }
+
+    .id-toggle-all-btn {
+      flex-shrink: 0;
+      background: rgba(200,160,60,.08);
+      border: 1px solid rgba(200,160,60,.25);
+      border-radius: 4px;
+      color: rgba(200,160,60,.7);
+      font-size: 11px; letter-spacing: .05em;
+      padding: 3px 10px; cursor: pointer;
+      transition: background .15s, color .15s;
+      &:hover { background: rgba(200,160,60,.18); color: #e8c96a; }
     }
 
     .id-preview-list {
@@ -378,27 +425,67 @@ interface PreviewData {
     }
 
     .id-preview-item {
-      display: flex; align-items: center; gap: 6px;
-      padding: 6px 10px; border-radius: 5px;
-      font-size: 12px;
-
-      mat-icon { font-size: 16px; width: 16px; height: 16px; flex-shrink: 0; }
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; border-radius: 5px;
+      font-size: 12px; transition: background .15s, border-color .15s;
 
       &--found {
         background: rgba(60,180,80,.08);
-        border: 1px solid rgba(60,180,80,.2);
-        color: rgba(120,220,140,.9);
-        mat-icon { color: rgba(80,200,100,.9); }
+        border: 1px solid rgba(60,180,80,.25);
+        color: rgba(140,230,160,.9);
+        cursor: pointer;
+        &:hover { background: rgba(60,180,80,.15); border-color: rgba(60,180,80,.5); }
+      }
+
+      &--deselected {
+        background: rgba(255,255,255,.02);
+        border: 1px solid rgba(255,255,255,.08);
+        color: rgba(160,150,130,.55);
+        cursor: pointer;
+        &:hover { background: rgba(60,180,80,.06); border-color: rgba(60,180,80,.2); }
       }
 
       &--missing {
-        background: rgba(255,255,255,.02);
-        border: 1px solid rgba(255,255,255,.06);
-        color: rgba(120,110,100,.5);
+        background: rgba(255,255,255,.015);
+        border: 1px solid rgba(255,255,255,.05);
+        color: rgba(120,110,100,.4);
+        cursor: default;
       }
     }
 
-    .id-preview-empty { font-size: 10px; color: rgba(120,110,100,.4); }
+    /* Custom checkbox pill */
+    .id-checkbox {
+      flex-shrink: 0;
+      width: 16px; height: 16px;
+      border-radius: 4px;
+      border: 1.5px solid rgba(60,180,80,.45);
+      background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .15s, border-color .15s;
+
+      mat-icon { font-size: 12px !important; width: 12px !important; height: 12px !important; color: #80e8a0; }
+
+      &--checked {
+        background: rgba(60,180,80,.25);
+        border-color: rgba(60,180,80,.8);
+      }
+    }
+
+    .id-missing-icon {
+      font-size: 15px !important; width: 15px !important; height: 15px !important;
+      color: rgba(120,110,100,.35); flex-shrink: 0;
+    }
+
+    .id-preview-empty { font-size: 10px; color: rgba(120,110,100,.4); margin-left: auto; }
+
+    /* Selected count badge in footer */
+    .id-selected-count {
+      margin-right: auto;
+      font-size: 11px;
+      color: rgba(200,160,60,.55);
+      letter-spacing: .04em;
+      align-self: center;
+    }
 
     .id-user { color: #e8c96a; font-style: normal; }
 
@@ -473,30 +560,67 @@ export class ImportDataDialogComponent {
   private readonly snackBar    = inject(MatSnackBar);
 
   // ── State ────────────────────────────────────────────────────────────────────
-  readonly state         = signal<DialogState>('input');
-  readonly errorMsg      = signal<string | null>(null);
+  readonly state           = signal<DialogState>('input');
+  readonly errorMsg        = signal<string | null>(null);
   readonly currentUsername = signal<string>('');
 
   importUsername = '';
 
-  private _preview: PreviewData | null = null;
+  readonly previewItems = signal<SelectableItem[]>([]);
 
-  readonly previewItems = signal<Array<{ label: string; found: boolean }>>([]);
-  readonly foundCount   = signal(0);
+  /** How many items were found in source account. */
+  readonly foundCount = signal(0);
+
+  /** How many found items the user currently has checked. */
+  readonly selectedCount = signal(0);
+
+  /** True when every found item is checked. */
+  readonly allSelected = signal(false);
 
   // ── Helpers ──────────────────────────────────────────────────────────────────
 
-  private buildPreviewItems(p: PreviewData) {
+  private buildItems(data: FetchedData): SelectableItem[] {
+    const make = (key: DataKey, label: string): SelectableItem => ({
+      key,
+      label,
+      found:    !!data[key],
+      selected: !!data[key], // default: checked when found
+    });
     return [
-      { label: 'Karta postavy',     found: p.characterSheet   },
-      { label: 'Karta skupiny',     found: p.groupSheet        },
-      { label: 'Poznámky hráče',    found: p.notesPage         },
-      { label: 'Předměty',          found: p.itemVault         },
-      { label: 'Questy hráče',      found: p.quests            },
-      { label: 'DM Questy',         found: p.dmQuests          },
-      { label: 'DM Poznámky',       found: p.dmNotes           },
-      { label: 'Příběhové události',found: p.dmStoryTimeline   },
+      make('characterSheet',  'Karta postavy'),
+      make('groupSheet',      'Karta skupiny'),
+      make('notesPage',       'Poznámky hráče'),
+      make('itemVault',       'Předměty'),
+      make('quests',          'Questy hráče'),
+      make('dmQuests',        'DM Questy'),
+      make('dmNotes',         'DM Poznámky'),
+      make('dmStoryTimeline', 'Příběhové události'),
     ];
+  }
+
+  private refreshCounters(items: SelectableItem[]): void {
+    const found    = items.filter(i => i.found).length;
+    const selected = items.filter(i => i.found && i.selected).length;
+    this.foundCount.set(found);
+    this.selectedCount.set(selected);
+    this.allSelected.set(found > 0 && selected === found);
+  }
+
+  toggleItem(key: DataKey): void {
+    const updated = this.previewItems().map(i =>
+      i.key === key ? { ...i, selected: !i.selected } : i,
+    );
+    this.previewItems.set(updated);
+    this.refreshCounters(updated);
+  }
+
+  toggleAll(): void {
+    const shouldSelectAll = !this.allSelected();
+    const updated = this.previewItems().map(i =>
+      i.found ? { ...i, selected: shouldSelectAll } : i,
+    );
+    this.previewItems.set(updated);
+    this.refreshCounters(updated);
   }
 
   // ── Step 1 — fetch preview ────────────────────────────────────────────────────
@@ -515,32 +639,20 @@ export class ImportDataDialogComponent {
     this.state.set('loading');
 
     forkJoin({
-      characterSheet:   this.csApi.getCharacterSheetByUsername(src)            .pipe(catchError(() => of(undefined))),
-      groupSheet:       this.csApi.getGroupSheetByUsername(`${src}${GROUP_SUFFIX}`) .pipe(catchError(() => of(undefined))),
-      notesPage:        this.csApi.getNotesPageByUsername(`${src}${NOTES_SUFFIX}`)  .pipe(catchError(() => of(undefined))),
-      itemVault:        this.csApi.getItemVaultByUsername(src)                  .pipe(catchError(() => of(undefined))),
-      quests:           this.csApi.getQuestsByUsername(src)                     .pipe(catchError(() => of(undefined))),
-      dmQuests:         this.dmApi.getDmQuestsByUsername(src)                   .pipe(catchError(() => of(undefined))),
-      dmNotes:          this.dmApi.getDmNotesByUsername(src)                    .pipe(catchError(() => of(undefined))),
-      dmStoryTimeline:  this.dmApi.getDmStoryTimeline(src)                      .pipe(catchError(() => of(undefined))),
+      characterSheet:  this.csApi.getCharacterSheetByUsername(src)                  .pipe(catchError(() => of(undefined))),
+      groupSheet:      this.csApi.getGroupSheetByUsername(`${src}${GROUP_SUFFIX}`)  .pipe(catchError(() => of(undefined))),
+      notesPage:       this.csApi.getNotesPageByUsername(`${src}${NOTES_SUFFIX}`)   .pipe(catchError(() => of(undefined))),
+      itemVault:       this.csApi.getItemVaultByUsername(src)                        .pipe(catchError(() => of(undefined))),
+      quests:          this.csApi.getQuestsByUsername(src)                           .pipe(catchError(() => of(undefined))),
+      dmQuests:        this.dmApi.getDmQuestsByUsername(src)                         .pipe(catchError(() => of(undefined))),
+      dmNotes:         this.dmApi.getDmNotesByUsername(src)                          .pipe(catchError(() => of(undefined))),
+      dmStoryTimeline: this.dmApi.getDmStoryTimeline(src)                            .pipe(catchError(() => of(undefined))),
     }).subscribe({
       next: data => {
-        this._preview = {
-          characterSheet:  !!data.characterSheet,
-          groupSheet:      !!data.groupSheet,
-          notesPage:       !!data.notesPage,
-          itemVault:       !!data.itemVault,
-          quests:          !!data.quests,
-          dmQuests:        !!data.dmQuests,
-          dmNotes:         !!data.dmNotes,
-          dmStoryTimeline: !!data.dmStoryTimeline,
-        };
-        // Store fetched data for the actual import step
         this._fetchedData = data;
-
-        const items = this.buildPreviewItems(this._preview);
+        const items = this.buildItems(data);
         this.previewItems.set(items);
-        this.foundCount.set(items.filter(i => i.found).length);
+        this.refreshCounters(items);
         this.state.set('confirm');
       },
       error: err => {
@@ -550,7 +662,7 @@ export class ImportDataDialogComponent {
     });
   }
 
-  // ── Step 2 — confirmed, do the actual import ─────────────────────────────────
+  // ── Step 2 — confirmed, import only selected items ────────────────────────────
   onImport(): void {
     const data = this._fetchedData;
     if (!data) return;
@@ -561,29 +673,34 @@ export class ImportDataDialogComponent {
     const tgt = currentUser.username;
     this.state.set('importing');
 
+    // Build a Set of selected keys for O(1) lookup
+    const selected = new Set(
+      this.previewItems()
+        .filter(i => i.found && i.selected)
+        .map(i => i.key),
+    );
+
     const writes: Observable<void>[] = [];
 
-    if (data.characterSheet)
+    if (selected.has('characterSheet') && data.characterSheet)
       writes.push(this.csApi.updateCharacterSheet({ ...data.characterSheet, username: tgt }));
-    if (data.groupSheet)
+    if (selected.has('groupSheet') && data.groupSheet)
       writes.push(this.csApi.updateGroupSheet({ ...data.groupSheet, username: `${tgt}${GROUP_SUFFIX}` }));
-    if (data.notesPage)
+    if (selected.has('notesPage') && data.notesPage)
       writes.push(this.csApi.updateNotesPage({ ...data.notesPage, username: `${tgt}${NOTES_SUFFIX}` }));
-    if (data.itemVault)
+    if (selected.has('itemVault') && data.itemVault)
       writes.push(this.csApi.saveItemVault({ ...data.itemVault, username: tgt }));
-    if (data.quests)
+    if (selected.has('quests') && data.quests)
       writes.push(this.csApi.saveQuests({ ...data.quests, username: tgt }));
-    if (data.dmQuests)
+    if (selected.has('dmQuests') && data.dmQuests)
       writes.push(this.dmApi.saveDmQuests({ ...data.dmQuests, username: tgt }));
-    if (data.dmNotes)
+    if (selected.has('dmNotes') && data.dmNotes)
       writes.push(this.dmApi.saveDmNotes({ ...data.dmNotes, username: tgt }));
-    if (data.dmStoryTimeline)
+    if (selected.has('dmStoryTimeline') && data.dmStoryTimeline)
       writes.push(this.dmApi.saveDmStoryTimeline({ ...data.dmStoryTimeline, username: tgt }));
 
     (writes.length > 0 ? forkJoin(writes) : of([] as void[])).subscribe({
-      next: () => {
-        this.state.set('done');
-      },
+      next: () => { this.state.set('done'); },
       error: err => {
         this.errorMsg.set(`Uložení dat selhalo: ${err?.message ?? err}`);
         this.state.set('error');
@@ -602,7 +719,10 @@ export class ImportDataDialogComponent {
 
   resetToInput(): void {
     this._fetchedData = null;
-    this._preview     = null;
+    this.previewItems.set([]);
+    this.foundCount.set(0);
+    this.selectedCount.set(0);
+    this.allSelected.set(false);
     this.errorMsg.set(null);
     this.state.set('input');
   }
