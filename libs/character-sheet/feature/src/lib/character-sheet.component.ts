@@ -56,6 +56,7 @@ import { CsCollapsibleComponent } from './character-sheet/cs-collapsible.compone
 import { CsFloatingActionsComponent } from './character-sheet/cs-floating-actions.component';
 import { CsSectionOrderService } from './character-sheet/cs-section-order.service';
 import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
+import { ImportDataDialogComponent } from './import-data-dialog.component';
 
 interface SectionConfig {
   readonly key: string;
@@ -163,7 +164,17 @@ const CS_DEFAULT_SECTIONS: readonly SectionConfig[] = [
           }
         </div>
 
-        <!-- Save button: visible on desktop, hidden on tablet/mobile (≤1359 px) -->
+        <!-- Save & Import buttons: visible on desktop, hidden on tablet/mobile (≤1359 px) -->
+        <button
+          (click)="onImportClick()"
+          type="button"
+          style="top: 10px; right: 140px; display: flex; align-items: center; gap: var(--spacing-2)"
+          class="field button cs-import-btn"
+          matTooltip="Importovat data z jiného uživatele"
+        >
+          <mat-icon>cloud_download</mat-icon>
+          Import
+        </button>
         <button (click)="onSaveClick()" type="submit" class="field button cs-save-btn">
           Uložit [enter]
         </button>
@@ -683,6 +694,24 @@ export class CharacterSheetComponent {
       this.infoMessage.set('Pro uložení postavy se musíte přihlásit.');
       this.snackBar.open('Pro uložení postavy se musíte přihlásit.', 'Zavřít', { verticalPosition: 'top', duration: 4000 });
     }
+  }
+
+  onImportClick() {
+    const dialogRef = this.dialog.open(ImportDataDialogComponent, {
+      panelClass: 'import-data-dialog-panel',
+      backdropClass: 'import-data-dialog-backdrop',
+      hasBackdrop: true,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Reload data after successful import
+        const username = this.authService.currentUser()?.username;
+        if (username) {
+          this.characterSheetStore.getCharacterSheetByUsername(username);
+        }
+      }
+    });
   }
 
   onImageSaved(base64: string) {

@@ -120,7 +120,7 @@ export interface SettingsDialogData {
 
         <!-- Export section -->
         <div class="sd-section">
-          <div class="sd-section-label">Záloha &amp; export</div>
+          <div class="sd-section-label">Záloha &amp; export <span style="color: red;">(experimentální)</span></div>
           <div class="sd-col">
             <button
               type="button"

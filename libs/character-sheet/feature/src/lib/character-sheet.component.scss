@@ -1035,11 +1035,6 @@ input[type='checkbox'][disabled] {
     position: static !important;
   }
 
-  // ── Save button: hidden on tablet/mobile, shown on desktop ──────────────
-  .cs-save-btn {
-    display: none !important;
-  }
-
   // ── Child component hosts → block cards ───────────────────────────────
   cs-top-info,
   cs-ability-scores,

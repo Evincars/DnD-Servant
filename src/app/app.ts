@@ -17,6 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SettingsDialogComponent, SettingsDialogData } from './settings-dialog.component';
 import { CommandPaletteComponent } from './command-palette.component';
 import { ReleaseNotesDialogComponent } from './release-notes-dialog.component';
+import { DonateDialogComponent } from './donate-dialog.component';
 import { fromEvent } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -123,6 +124,15 @@ import { MatDialogRef } from '@angular/material/dialog';
               >
                 <mat-icon class="toolbar-icon">new_releases</mat-icon>
               </button>
+              <button
+                type="button"
+                class="github-link donate-btn u-ml-2"
+                (click)="openDonate()"
+                matTooltip="Kup mi kafe"
+                aria-label="Kup mi kafe"
+              >
+                <mat-icon class="toolbar-icon donate-icon">coffee</mat-icon>
+              </button>
             </div>
             <div class="toolbar__right author-info u-flex u-align-center">
               @if (authService.currentUser()) {
@@ -130,7 +140,6 @@ import { MatDialogRef } from '@angular/material/dialog';
               <a class="link token u-mr-2" href="#" (click)="$event.preventDefault(); logout()">Odhlásit</a>
               } @if (authService.currentUser() === null) {
               <a class="link token u-mr-2" [routerLink]="routes.login">Přihlásit</a>
-              <a class="link token u-mr-2" [routerLink]="routes.register">Registrovat</a>
               }
               <a
                 target="_blank"
@@ -167,9 +176,6 @@ import { MatDialogRef } from '@angular/material/dialog';
             } @if (authService.currentUser() === null) {
             <a class="link token mobile-menu-link" [routerLink]="routes.login" (click)="mobileMenuOpen.set(false)">
               <mat-icon class="mobile-menu-icon">login</mat-icon> Přihlásit
-            </a>
-            <a class="link token mobile-menu-link" [routerLink]="routes.register" (click)="mobileMenuOpen.set(false)">
-              <mat-icon class="mobile-menu-icon">person_add</mat-icon> Registrovat
             </a>
             }
           </div>
@@ -376,6 +382,14 @@ export class App implements OnInit, OnDestroy {
 
   openReleaseNotes(): void {
     this.dialog.open(ReleaseNotesDialogComponent, {
+      panelClass: 'sd-dialog-panel',
+      backdropClass: 'sd-dialog-backdrop',
+      hasBackdrop: true,
+    });
+  }
+
+  openDonate(): void {
+    this.dialog.open(DonateDialogComponent, {
       panelClass: 'sd-dialog-panel',
       backdropClass: 'sd-dialog-backdrop',
       hasBackdrop: true,
