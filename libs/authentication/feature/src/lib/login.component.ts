@@ -37,9 +37,13 @@ import { AccountLinkDialogComponent, AccountLinkDialogData } from './account-lin
             <br />
             <br />
 
-            Přihlášení neověřeným emailem je zastaralý (pro náš server už nebezpečný) způsob.
-            Když přihlášením přes google "přepíšete" email, kterým jste se přihlašovali starou metodou a neuvidíte žádná data,
-            můžete importovat data ze starého účtu když zadáte starý username (tlačítko je na Kartě Postavy vedle "Uložit")
+            Přihlášení neověřeným emailem je zastaralý (pro náš server už nebezpečný) způsob. Když přihlášením přes google
+            "přepíšete" email, kterým jste se přihlašovali starou metodou a neuvidíte žádná data, můžete importovat data ze
+            starého účtu když zadáte starý username (tlačítko je na Kartě Postavy vedle "Uložit")
+            <br />
+            <br />
+            Jestli máš jakýkoliv dotaz nebo chceš nahlásit bug, napiš mi na
+            <b>lasak.ad&#64;gmail.com</b>
           </span>
         </div>
 
