@@ -5,7 +5,7 @@ import { MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { routes } from './app.routes';
-import { AuthService, LocalStorageService, DB_BACKUP_KEY_CHARACTER, DB_BACKUP_KEY_GROUP, DB_BACKUP_KEY_NOTES, TabNavigatorService } from '@dn-d-servant/util';
+import { AuthService, LocalStorageService, DB_BACKUP_KEY_CHARACTER, DB_BACKUP_KEY_GROUP, DB_BACKUP_KEY_NOTES, TabNavigatorService, normalizeUsername } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -259,14 +259,17 @@ export class App implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.authService.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
       if (user) {
+        // Always normalise the display name so spaces / special characters from
+        // Google accounts (e.g. "Adam Lasák") never reach Firestore as a raw key.
+        const username = normalizeUsername(user.displayName ?? user.email?.split('@')[0] ?? 'User');
         this.authService.currentUser.set({
           email: user.email!,
-          username: user.displayName!,
+          username,
         });
         this.characterSheetStore.restoreDraftsToDb();
 
         if (!this.firstLoad) {
-          this.snackBar.open(`⚔️ Vítej zpět, ${user.displayName}!`, '✕', {
+          this.snackBar.open(`⚔️ Vítej zpět, ${username}!`, '✕', {
             verticalPosition: 'top',
             duration: 3500,
             panelClass: ['snackbar--success'],

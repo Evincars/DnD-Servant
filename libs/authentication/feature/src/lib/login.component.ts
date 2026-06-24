@@ -31,10 +31,19 @@ import { AccountLinkDialogComponent, AccountLinkDialogData } from './account-lin
         <div class="auth-warning">
           <mat-icon>info</mat-icon>
           <span>
-            Přihlášení neověřeným emailem je zastaralý (pro náš server už nebezpečný) způsob kvůli útokům. Musíte použít Google
-            účet. Kartu postavy, družiny atp lze importovat pod starým username přes tlačítko na Kartě Postavy nahoře vedle
-            'Uložit' pro Google účet. Např. na starém ne-google účtu jste měli Armagedon username ale na Googlu už máte Jan Novák
-            - přihlásíte se jako JanNovak a importujete z Armagedon.
+            <b>Noví úživatelé se musí registrovat přes Google účet.</b>
+            <br />
+            <b>Staré přihlášení přes mail/heslo funguje.</b>
+            <br />
+            <br />
+
+            Přihlášení neověřeným emailem je zastaralý (pro náš server už nebezpečný) způsob. Když přihlášením přes google
+            "přepíšete" email, kterým jste se přihlašovali starou metodou a neuvidíte žádná data, můžete importovat data ze
+            starého účtu když zadáte starý username (tlačítko je na Kartě Postavy vedle "Uložit")
+            <br />
+            <br />
+            Jestli máš jakýkoliv dotaz nebo chceš nahlásit bug, napiš mi na
+            <b style="color: #1585b3">lasak.ad&#64;gmail.com</b>
           </span>
         </div>
 
@@ -425,15 +434,12 @@ export class LoginComponent {
   }
 
   private openAccountLinkDialog(conflict: GoogleAccountConflictError): void {
-    this.dialog.open<AccountLinkDialogComponent, AccountLinkDialogData>(
-      AccountLinkDialogComponent,
-      {
-        panelClass: 'sd-dialog-panel',
-        backdropClass: 'sd-dialog-backdrop',
-        hasBackdrop: true,
-        disableClose: true,
-        data: { email: conflict.email, googleCredential: conflict.googleCredential },
-      },
-    );
+    this.dialog.open<AccountLinkDialogComponent, AccountLinkDialogData>(AccountLinkDialogComponent, {
+      panelClass: 'sd-dialog-panel',
+      backdropClass: 'sd-dialog-backdrop',
+      hasBackdrop: true,
+      disableClose: true,
+      data: { email: conflict.email, googleCredential: conflict.googleCredential },
+    });
   }
 }
