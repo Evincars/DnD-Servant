@@ -1,8 +1,10 @@
 import { inject, Injectable, signal } from '@angular/core';
 import {
   Auth,
+  AuthCredential,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  linkWithCredential,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -21,6 +23,29 @@ function normalizeUsername(name: string): string {
     .replace(/\s+/g, '') // Remove all spaces
     .normalize('NFD') // Decompose diacritics
     .replace(/[\u0300-\u036f]/g, ''); // Remove diacritic marks
+}
+
+/**
+ * Thrown by `loginWithGoogle()` when the Google email already belongs to an
+ * existing email/password account. The caller can catch this, show the user a
+ * password prompt, and then call `linkGoogleAccount()` to merge the accounts.
+ */
+export class GoogleAccountConflictError extends Error {
+  constructor(
+    public readonly email: string,
+    public readonly googleCredential: AuthCredential,
+  ) {
+    super('auth/account-exists-with-different-credential');
+    this.name = 'GoogleAccountConflictError';
+  }
+}
+
+/** Result returned by `linkGoogleAccount()` after a successful account merge. */
+export interface AccountLinkResult {
+  /** The old displayName the account had before the Google link (data is stored under this key). */
+  oldUsername: string;
+  /** The new normalised Google display name (data will be migrated to this key). */
+  newUsername: string;
 }
 
 @Injectable({
@@ -45,12 +70,54 @@ export class AuthService {
 
   loginWithGoogle(): Observable<void> {
     const provider = new GoogleAuthProvider();
-    const promise = signInWithPopup(this.firebaseAuth, provider).then((result) => {
-      // Normalize the username: remove spaces and diacritics
-      const displayName = result.user.displayName || result.user.email?.split('@')[0] || 'User';
-      const normalizedName = normalizeUsername(displayName);
-      // Update the profile with normalized username
-      return updateProfile(result.user, { displayName: normalizedName });
+    const promise = signInWithPopup(this.firebaseAuth, provider)
+      .then(result => {
+        const displayName = result.user.displayName || result.user.email?.split('@')[0] || 'User';
+        const normalizedName = normalizeUsername(displayName);
+        return updateProfile(result.user, { displayName: normalizedName });
+      })
+      .catch(error => {
+        if (error.code === 'auth/account-exists-with-different-credential') {
+          const email = (error.customData?.email ?? '') as string;
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          if (email && credential) {
+            throw new GoogleAccountConflictError(email, credential);
+          }
+        }
+        throw error;
+      });
+    return from(promise);
+  }
+
+  /**
+   * Resolves a Google account conflict:
+   * 1. Signs in with the existing email/password account (preserving the old username).
+   * 2. Links the pending Google credential so both providers work in future.
+   * 3. Normalises the Google display name and updates the Firebase Auth profile.
+   * 4. Returns `{ oldUsername, newUsername }` so the caller can migrate Firestore data.
+   *
+   * If `oldUsername === newUsername` after normalisation, no data migration is required.
+   */
+  linkGoogleAccount(
+    email: string,
+    password: string,
+    googleCredential: AuthCredential,
+  ): Observable<AccountLinkResult> {
+    const promise = signInWithEmailAndPassword(this.firebaseAuth, email, password).then(async result => {
+      const oldUsername = result.user.displayName ?? email.split('@')[0];
+
+      // Link the Google credential — this enables future Google sign-ins for this account.
+      const linked = await linkWithCredential(result.user, googleCredential);
+
+      // Retrieve the Google display name from the newly linked provider data.
+      const googleProviderData = linked.user.providerData.find(p => p.providerId === 'google.com');
+      const googleDisplayName = googleProviderData?.displayName || oldUsername;
+      const newUsername = normalizeUsername(googleDisplayName);
+
+      // Update Firebase Auth profile to the Google-derived username.
+      await updateProfile(linked.user, { displayName: newUsername });
+
+      return { oldUsername, newUsername } satisfies AccountLinkResult;
     });
     return from(promise);
   }

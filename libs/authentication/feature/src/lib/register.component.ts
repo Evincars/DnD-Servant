@@ -2,10 +2,12 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '@dn-d-servant/util';
+import { AuthService, GoogleAccountConflictError } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIcon } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { AccountLinkDialogComponent, AccountLinkDialogData } from './account-link-dialog.component';
 
 @Component({
   selector: 'register',
@@ -384,6 +386,7 @@ export class RegisterComponent {
   authService = inject(AuthService);
   destroyRef = inject(DestroyRef);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly dialog = inject(MatDialog);
 
   form = this.fb.nonNullable.group({
     username: ['', Validators.required],
@@ -425,9 +428,27 @@ export class RegisterComponent {
           });
           this.router.navigateByUrl('/');
         },
-        error: err => {
-          this.errorMessage.set(err.code || 'Registrace přes Google selhala');
+        error: (err: unknown) => {
+          if (err instanceof GoogleAccountConflictError) {
+            this.openAccountLinkDialog(err);
+            return;
+          }
+          const code = (err as { code?: string })?.code;
+          this.errorMessage.set(code ?? 'Registrace přes Google selhala');
         },
       });
+  }
+
+  private openAccountLinkDialog(conflict: GoogleAccountConflictError): void {
+    this.dialog.open<AccountLinkDialogComponent, AccountLinkDialogData>(
+      AccountLinkDialogComponent,
+      {
+        panelClass: 'sd-dialog-panel',
+        backdropClass: 'sd-dialog-backdrop',
+        hasBackdrop: true,
+        disableClose: true,
+        data: { email: conflict.email, googleCredential: conflict.googleCredential },
+      },
+    );
   }
 }

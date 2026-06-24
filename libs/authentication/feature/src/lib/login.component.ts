@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '@dn-d-servant/util';
+import { Router } from '@angular/router';
+import { AuthService, GoogleAccountConflictError } from '@dn-d-servant/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIcon } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { AccountLinkDialogComponent, AccountLinkDialogData } from './account-link-dialog.component';
 
 @Component({
   selector: 'login',
@@ -370,6 +372,7 @@ export class LoginComponent {
   authService = inject(AuthService);
   destroyRef = inject(DestroyRef);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly dialog = inject(MatDialog);
 
   form = this.fb.nonNullable.group({
     email: ['', Validators.required],
@@ -410,9 +413,27 @@ export class LoginComponent {
           });
           this.router.navigateByUrl('/');
         },
-        error: err => {
-          this.errorMessage.set(err.code || 'Přihlášení přes Google selhalo');
+        error: (err: unknown) => {
+          if (err instanceof GoogleAccountConflictError) {
+            this.openAccountLinkDialog(err);
+            return;
+          }
+          const code = (err as { code?: string })?.code;
+          this.errorMessage.set(code ?? 'Přihlášení přes Google selhalo');
         },
       });
+  }
+
+  private openAccountLinkDialog(conflict: GoogleAccountConflictError): void {
+    this.dialog.open<AccountLinkDialogComponent, AccountLinkDialogData>(
+      AccountLinkDialogComponent,
+      {
+        panelClass: 'sd-dialog-panel',
+        backdropClass: 'sd-dialog-backdrop',
+        hasBackdrop: true,
+        disableClose: true,
+        data: { email: conflict.email, googleCredential: conflict.googleCredential },
+      },
+    );
   }
 }
