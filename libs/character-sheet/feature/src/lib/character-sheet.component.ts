@@ -168,6 +168,7 @@ const CS_DEFAULT_SECTIONS: readonly SectionConfig[] = [
         <button
           (click)="onImportClick()"
           type="button"
+          style="top: 10px; right: 140px; display: flex; align-items: center; gap: var(--spacing-2)"
           class="field button cs-import-btn"
           matTooltip="Importovat data z jiného uživatele"
         >
