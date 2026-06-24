@@ -3,7 +3,7 @@ import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 
 export interface ReleaseEntry {
-  type: 'feature' | 'fix' | 'improvement';
+  type: 'fix' | 'improvement';
   text: string;
 }
 
@@ -12,59 +12,180 @@ export interface ReleaseGroup {
   entries: ReleaseEntry[];
 }
 
+const i = (text: string): ReleaseEntry => ({ type: 'improvement', text });
+const f = (text: string): ReleaseEntry => ({ type: 'fix', text });
+
 const RELEASE_NOTES: ReleaseGroup[] = [
   {
-    date: 'Květen 2026',
+    date: '7. června 2026',
     entries: [
-      { type: 'feature', text: 'Příkazová paleta (Ctrl+K) — rychlá navigace na všechny stránky a záložky' },
-      { type: 'feature', text: 'Klávesové zkratky Alt+← / Alt+→ pro přepínání záložek (nekonečné)' },
-      { type: 'feature', text: 'Přejetí prstem doleva/doprava pro přepnutí záložky na mobilu' },
-      { type: 'feature', text: 'Příběhové události — kronika kampaně s časovou osou, typy, důležitostí, štítky, obrázky a PH poznámkami' },
-      { type: 'feature', text: 'Dialog „Co je nového" dostupný z horní lišty' },
-      { type: 'feature', text: 'Klávesové zkratky a gesta zobrazeny v dialogu Nastavení' },
-      { type: 'fix', text: 'Záložka Kouzla — 30 chybějících kouzel (Mystická čepel, Černá chapadla, Věrný pes, aj.) nyní správně řazeno podle úrovně a školy místo skupiny „Ostatní"' },
-      { type: 'fix', text: 'Vyhledávání v příkazové paletě ignoruje diakritiku' },
-      { type: 'fix', text: 'Přímé přepnutí záložky z příkazové palety bez znovunačtení stránky' },
-      { type: 'improvement', text: 'Čitelnější písmo (sans-serif) v dialogu Nastavení a Co je nového' },
+      i('Oprava karet monster v iniciativní tabulce (nyní lze házet na životy)'),
+      i("Monstra s tzv. 'rodinou' jsou nyní rozdělena a vyhledatelná, s odkazem na popis dané rodiny"),
+      i('Pokročilé filtry pro monstra a kouzla (kouzla dle typu a úrovně, monstra dle třídy CR)'),
+      i("Stránka 'DM Screen' má nyní i obrázkovou verzi pro všechny případy"),
+      i('Nápovědné dialogy s pravidly nyní převedeny z obrázků na text (přepínač obrázek/text nahoře, výchozí je obrázek - část textů ještě není správně přeformátovaná, TODO)'),
+      i("Nová záložka 'Lektvary' s tabulkou ingrediencí pro výrobu lektvarů (základní filtrování)"),
+      i('Vylepšený dialog hodu kostkou (odkaz na celou historii hodů, úprava paddingu/margin, změna ikony minimalizace, zavření kliknutím mimo okno)'),
+      i('Nová tabulka Alchymie lektvarů s potřebnými surovinami'),
     ],
   },
   {
-    date: 'Duben 2026',
+    date: '22. května 2026',
     entries: [
-      { type: 'fix', text: 'Drag & drop sekcí karty postavy — správné pořadí a animace přesunutí' },
-      { type: 'fix', text: 'Oprava duplicitní registrace přetahovatelného prvku způsobující náhodné pozice' },
-      { type: 'improvement', text: 'Responzivní design — karta postavy se přizpůsobuje velikosti obrazovky' },
+      i('Implementace JaD monster do iniciativní tabulky (nové soubory /scripts/jad-monsters-output.txt a /util/jad-monsters-names.ts)'),
+      i('Oprava barvy textu v záložce poznámek PH (rich-textarea)'),
+      i('Rychlá navigace má lepší font, zvýrazňuje zadané znaky, ignoruje mezery a umí najít i sloučené první znaky slov'),
+      i('Sloučení tlačítek collapse/expand v obou záložkách Questů'),
+      i("Vylepšení iniciativní tabulky — zobrazení 'health bar' monster pro přehled odebraných životů, zobrazení vlastní J&D karty monstra (souběžně s klasickou D&D kartou), karty monster zobrazené pod tabulkou v mřížce (rozbalí se vždy aktivní monstrum na tahu), tlačítko Instantiate s volbou průměrných nebo kostkou hozených životů a automatickou přípravou karet monster (tlačítka collapse/expand a odstranit vše)"),
+      i("Nová záložka 'Kouzla' (z J&D systému) na character-sheetu se třídění dle kategorií, tagů a pokročilým vyhledáváním (záložka 'Moje předměty' zrušena, nahrazena ikonou v sekci Inventář)"),
+      i("Nová záložka 'Monstra' v DM Tools (z J&D systému) se stejným třídění a možností přidání do iniciativní tabulky"),
+      i('Aktualizace stránky Tipy a triky i rychlé navigace'),
     ],
   },
   {
-    date: 'Únor 2026',
+    date: '8. května 2026',
     entries: [
-      { type: 'feature', text: 'Automatické ukládání questů, poznámek a iniciativy při každé změně' },
-      { type: 'feature', text: 'Temné téma karet a přepínání motivu v Nastavení' },
-      { type: 'feature', text: 'Export zálohy jako PNG nebo JSON soubor' },
-      { type: 'improvement', text: 'Přechod na Angular Signals a OnPush detekci změn' },
+      f("Oprava skrytého tlačítka 'Uložit [enter]' na PC verzi"),
+      f('Nová funkce časové osy událostí na stránce DM Tools s ukládáním do databáze'),
+      f('Oprava některých slov v názvové konvenci pro JaD'),
+      f('Nahrání SVG obrázků postav a skupinových listů do /public'),
+      f('Použití SVG namísto WEBP obrázků (opravena i pozice některých vstupních polí)'),
+      f('Vytvořeno více tmavých témat (první testovací verze, čeká se na zpětnou vazbu)'),
     ],
   },
   {
-    date: 'Prosinec 2025',
+    date: '1. května 2026',
     entries: [
-      { type: 'feature', text: 'J&D wiki — vyhledávání v pravidlech Jeskyně a Draci přímo v záložce' },
-      { type: 'feature', text: 'Konvertor obrázků — úprava a ořez fotek profilu postav' },
-      { type: 'improvement', text: 'Drag & drop přeuspořádání sekcí karty postavy s ukládáním pořadí' },
+      i("Skládací (collapsible) zobrazení všech sekcí na character-sheetu i group-sheetu s uložením stavu do local-storage (drag&drop pořadí), sekce mají v titulku vlastní ikony, některá pole a textarea přesunuta do správné sekce (např. 'SO Záchrany kouzel' nyní pod záložkou Kouzla)"),
+      i('Plovoucí tlačítka scroll nahoru/dolů a Uložit'),
+      i('Opravené responzivní světlé/tmavé téma'),
+      i('Prázdná pole pro kouzla a další vstupy mají placeholdery pro mobil/tablet'),
+      i('Horní lišta sloučila login/logout/registraci a další odkazy do jedné ikony na malých obrazovkách'),
+      i("Oprava kouzla 'Dotek smrti', které nezobrazovalo detailní text v dialogu"),
+      i('Tmavé téma (obrázek) pro Group Sheet'),
+      i('Responzivní design Group Sheetu (včetně skládacích sekcí)'),
+      i('Tlačítka collapse/expand all na obou listech'),
+      i('Vylepšená rich-textarea pro mobil/tablet (podpora tmavého/světlého tématu)'),
+      i('Automatické ukládání záložek Poznámky, Questy a Předměty hráčů po psaní'),
+      i('Nový dialog Nastavení (přepínač tématu, export, klávesové zkratky)'),
+      i('Vypnuté matTooltips na mobilu (blokovaly scrollování)'),
+      i('Klávesové zkratky Alt+šipka vlevo/vpravo pro přepínání záložek a Ctrl+K pro rychlou navigaci'),
+      i('Nový dialog Release Notes dostupný z horní lišty'),
     ],
   },
   {
-    date: 'Říjen 2025',
+    date: '27. dubna 2026',
     entries: [
-      { type: 'feature', text: 'PH zástěna — přehledová obrazovka pro Pána Hry s rychlými referencemi' },
-      { type: 'feature', text: 'PH nástroje — tracker iniciativy, DM questy, poznámky PH a generátor' },
-      { type: 'feature', text: 'Databáze D&D — prohledávatelná encyklopedie pravidel a monster' },
+      i('Vyhledávání v J&D SRD databázi — soubory *.md zkopírovány do /public'),
+      i('Vyhledávání umístěno jako poslední záložka na /character-sheet'),
+      i('Pokročilejší vyhledávání než na oficiální JaD wiki (filtrování dle podtitulků, bug #22)'),
+      i('Každý nadpis má odkaz vytvářející unikátní URL'),
+      i('Postranní panel se skládacími tématy a podtématy'),
+      i('Správně vykreslené karty monster, info boxy pro doplňující informace'),
+      i('Doplněny i oblasti, které nejsou v oficiální JaD SRD databázi (Příručka hráče, Tashin Kotel, ...)'),
+      i('V záložce kouzel přidáno tlačítko pro detail kouzla v dialogu a vyhledávací combo box se všemi kouzly'),
+      i('Základní responzivní design pro mobily, zejména pro tabulky (požadavek z JaD Discordu) — nápovědné tooltips se nezobrazují, jinak je hra plně funkční včetně hodu kostkou'),
+      i('Vyřešena varování z Firebase konzole (i ta, která přibyla po doplnění JaD Wiki) — issue #13 vyřešeno'),
+    ],
+  },
+  {
+    date: '12. dubna 2026',
+    entries: [
+      f("Oprava varování v konzoli 'Calling Firebase APIs outside of an Injection context...'"),
+      f("Oprava varování 'Firebase API called outside injection context: getDoc' v character-sheet-api.service.ts"),
+      f('Oprava přepisování AC při vyhledávání monstra v iniciativní tabulce (např. při přidání krytů +5/+2)'),
+      f('Alfa verze RPG inventáře s předměty'),
+      f('Doplnění všech oblastí vyhledávání z Public D&D 5e API (např. vlastnosti/feats)'),
+      f('Odstranění zbytečných scrollbarů na některých stránkách a zmenšení/úprava bílé linky na spodním okraji stránky (černé pozadí)'),
+      f('Sjednocení všech klíčů local-storage do souboru local-storages.ts v /util'),
+    ],
+  },
+  {
+    date: '2. dubna 2026',
+    entries: [
+      i('Quest log pro hráče a speciální quest log pro DM (ukládáno do Firebase DB, ne do local-storage)'),
+      i('Aktualizace záložek poznámek pro hráče a nová speciální stránka poznámek pro DM'),
+      i('Oprava přepisování snížených HP plnými životy při opětovném vyhledání monstra v iniciativní tabulce'),
+      i('Oprava hover oblasti tlačítek pro zvýšení/snížení HP v iniciativní tabulce'),
+      i('Generátor událostí/jmen/situací/lootu pro DM'),
+      i('Nové tlačítko Podmínky pro hráče (levý horní roh character-sheetu)'),
+      i('Nový design obrázku postavy hráče (klasické nahrání obrázku jako např. na stránce předmětů)'),
+      i('Konvertor obrázku na GIF na stránce character-sheet'),
+      i('Aktualizace stránky Nápověda a tipy'),
+    ],
+  },
+  {
+    date: '22. března 2026',
+    entries: [
+      i('Nová dedikovaná stránka DM s iniciativní tabulkou a vyhledáváním monster (vyhledávání monster na character-sheetu nyní zakázáno)'),
+      i('Iniciativní tabulka má tlačítka pro kopírování řádků (přidává postfixy B, C, D... stále vyhledatelné v databázi, ale pouze s přesně přidaným postfixem) a tlačítka pro snadné přidání/odebrání HP'),
+      i('Automatické ukládání iniciativní tabulky do local-storage po 1500ms'),
+      i('(TODO: unitTestRunner=jest by měl být v budoucnu nahrazen vitest)'),
+    ],
+  },
+  {
+    date: '8. března 2026',
+    entries: [
+      f('Automatické vyplnění HP a AC v iniciativní tabulce při vyhledání monstra'),
+      f('Rozdělení character-sheet komponenty na menší komponenty (vyřešeno enhancement issue #8)'),
+      i('Aktualizace verze Angularu v README badge na verzi 21'),
+    ],
+  },
+  {
+    date: '6. března 2026',
+    entries: [
+      i('Aktualizace URL aplikace v README'),
+      i('Migrace Angular v20 na v21 a Nx v22.0.2 na v22.5.4'),
+      i("Nové npm příkazy 'update' (nx migrate latest) a 'migrate' (nx migrate --run-migrations)"),
+      i('Vytvořen migrations.json (pozn. bootstrap-options-migration může způsobovat problémy, lze odstranit z migration souboru)'),
+      i('Instalován npm-check-updates (příkaz ncu --interactive pro výběr balíčků k aktualizaci)'),
+      i("Aktualizace npm install příkazu na 'npm i --legacy-peer-deps' ve firebase-hosting workflow souborech"),
+    ],
+  },
+  {
+    date: '5. března 2026',
+    entries: [
+      i('Automatické vyplnění formuláře dle zadaných hlavních vlastností — level je výchozí 1, bonus za zdatnost tedy výchozí +2, automaticky se přepočítá při změně levelu a aktualizuje navázaná pole (pole bonusu za zdatnost je nyní needitovatelné, ostatní vlastnosti zůstávají editovatelné)'),
+      i('Hody kostkou nyní dostupné pro všechny vlastnosti včetně záchranných hodů'),
+      i('Dlouhé výsledky hodů mají tooltip (zatím základní prohlížečový)'),
+      i("Po přihlášení nápovědný dialog vysvětlující funkci 'autofill' a možnost házet kostkou na konkrétní vlastnost (lze vypnout zobrazování), včetně GIF videa s návodem na správné vyplnění formuláře"),
+      i('Zdatnost a expertíza nyní přes novou ikonu hvězdy místo checkboxů, s automatickým přičtením bonusu'),
+      i('Checkboxy záchranných hodů na smrt nahrazeny ikonami srdce a lebky'),
+      i('Aktualizace stránky Nápověda a tipy (včetně GIF videa)'),
+      i('Historie hodů kostkou nyní uložena v local-storage s možností vymazání'),
+      i('Záloha (screenshot) z horního menu nyní stahuje pouze jeden dlouhý PNG obrázek (obě tlačítka zálohy včetně JSON zmenšena)'),
+      i('Vylepšený styl snackbarů pro informace o uložení'),
+      i('Po odhlášení přesměrování na přihlašovací stránku'),
+      i('(Známý bug: stále problémy s automatickým reloadem a náhodným zobrazením snackbaru o ukládání po přihlášení — TODO: zvýraznit hlavní vstupní pole vlastností a levelu šipkou — TODO: rozdělit character-sheet.component na menší komponenty, protože má již několik tisíc řádků)'),
+    ],
+  },
+  {
+    date: '3. března 2026',
+    entries: [
+      i('character-sheet.store nyní providedIn root a injektován v app.ts (potřeba dořešit)'),
+      i('Aktualizace .firebaserc a firebase.json — aplikace by měla běžet na URL dnd-servant.web.app'),
+      i('Hody kostkou (nainstalován three.js, ale 3D modely nebyly dostatečné, zatím jen klasické 2D hody, funguje bez problémů)'),
+      i('Automatické vyplnění vlastností, záchranných hodů a pasivních schopností (chybí iniciativa z DEX)'),
+      i('Ikony hvězdy namísto čtvercových checkboxů'),
+      i('Character sheet, group sheet a poznámky se po každém uložení ukládají i do local-storage jako záloha (automaticky každých 30s — užitečné při náhlém refreshi stránky, formulář se pak načte ze záložní kopie a vyšle se požadavek na uložení)'),
+      i('Nová stránka Nápověda a tipy pro funkce/použití aplikace (nová knihovna /feature) — zatím neaktualizovaná o autofill a hody kostkou'),
+      i('Reálný překladač (Google Translate API) — odpovědi z DnD-5e-API se automaticky překládají přes translation pipe'),
+      i('Aktualizace názvových konvencí pro vyhledávání v DnD API dle pravidel JaD'),
+    ],
+  },
+  {
+    date: '2. března 2026',
+    entries: [
+      i('Vyhledávání v databázi DnD 5e 2014 přes více entit — monstra, rasy, podrasy, kouzla aj. (vlastní modely pro DnD 5e API, komponenty karet pro zobrazení entit, nová knihovna /dnd-rules-database)'),
+      i('Oprava slotů na kouzla po refreshi stránky a nový design checkboxů'),
+      i('Oprava scrollování pod horním menu'),
+      i('Refaktoring umístění souborů (API modely do /util, komponenty související s DnD databází do /dnd-rules-database, rich-textarea a autofill komponenty do /ui)'),
+      i('Vylepšení iniciativní tabulky, vyhledávání v dnd5e databázi a celkový refaktoring Nx knihoven'),
     ],
   },
 ];
 
 const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
-  feature: 'Novinka',
   fix: 'Oprava',
   improvement: 'Vylepšení',
 };
@@ -94,13 +215,6 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
                 <li class="rn-item">
                   <span class="rn-badge rn-badge--{{ entry.type }}">{{ typeLabel(entry.type) }}</span>
                   <span class="rn-entry-text">{{ entry.text }}</span>
-                  <a
-                    class="rn-author"
-                    href="https://github.com/Evincars"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="GitHub: Evincars"
-                  >Evincars</a>
                 </li>
               }
             </ul>
@@ -130,10 +244,10 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
       border: 1px solid rgba(200,160,60,.4);
       border-radius: 10px;
       overflow: hidden;
-      width: min(520px, 96vw);
+      width: min(540px, 96vw);
       display: flex;
       flex-direction: column;
-      max-height: 80vh;
+      max-height: 82vh;
 
       &::before {
         content: '◆';
@@ -223,14 +337,15 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
       font-size: 11px;
       letter-spacing: .18em;
       text-transform: uppercase;
-      color: rgba(200,160,60,.65);
+      color: rgba(200,160,60,.75);
       padding-bottom: 2px;
+      font-weight: 600;
     }
 
     .rn-divider {
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(200,160,60,.2), transparent);
-      margin: 14px 0;
+      margin: 12px 0;
     }
 
     .rn-list {
@@ -239,20 +354,20 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }
 
     /* ── Entry row ─────────────────────────────────────────── */
     .rn-item {
       display: flex;
-      align-items: flex-start;   /* badge stays at top for multi-line text */
+      align-items: flex-start;
       gap: 8px;
-      padding: 6px 10px;
+      padding: 5px 10px;
       border-radius: 6px;
-      background: rgba(200,160,60,.03);
+      background: rgba(200,160,60,.025);
       transition: background .12s;
 
-      &:hover { background: rgba(200,160,60,.07); }
+      &:hover { background: rgba(200,160,60,.06); }
     }
 
     /* ── Type badge ────────────────────────────────────────── */
@@ -269,14 +384,8 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
       border-radius: 4px;
       border: 1px solid;
       line-height: 1;
-      height: 18px;            /* fixed height so text is always vertically centred */
-      margin-top: 1px;         /* optical alignment with first line of text */
-
-      &--feature {
-        color: rgba(100,200,120,.9);
-        border-color: rgba(100,200,120,.35);
-        background: rgba(100,200,120,.08);
-      }
+      height: 18px;
+      margin-top: 1px;
 
       &--fix {
         color: rgba(220,100,80,.9);
@@ -300,21 +409,6 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
       line-height: 1.5;
     }
 
-    .rn-author {
-      flex-shrink: 0;
-      font-size: 10px;
-      color: rgba(200,160,60,.4);
-      text-decoration: none;
-      letter-spacing: .06em;
-      font-family: sans-serif;
-      transition: color .15s;
-      white-space: nowrap;
-      margin-top: 2px;          /* align to first text line */
-
-      &:hover { color: rgba(200,160,60,.85); text-decoration: underline; }
-
-      &::before { content: '@ '; }
-    }
 
     /* ── Footer ────────────────────────────────────────────── */
     .rn-footer {
