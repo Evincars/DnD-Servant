@@ -17,6 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SettingsDialogComponent, SettingsDialogData } from './settings-dialog.component';
 import { CommandPaletteComponent } from './command-palette.component';
 import { ReleaseNotesDialogComponent } from './release-notes-dialog.component';
+import { DonateDialogComponent } from './donate-dialog.component';
 import { fromEvent } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -122,6 +123,15 @@ import { MatDialogRef } from '@angular/material/dialog';
                 aria-label="Co je nového"
               >
                 <mat-icon class="toolbar-icon">new_releases</mat-icon>
+              </button>
+              <button
+                type="button"
+                class="github-link donate-btn u-ml-2"
+                (click)="openDonate()"
+                matTooltip="Kup mi kafe"
+                aria-label="Kup mi kafe"
+              >
+                <mat-icon class="toolbar-icon donate-icon">coffee</mat-icon>
               </button>
             </div>
             <div class="toolbar__right author-info u-flex u-align-center">
@@ -372,6 +382,14 @@ export class App implements OnInit, OnDestroy {
 
   openReleaseNotes(): void {
     this.dialog.open(ReleaseNotesDialogComponent, {
+      panelClass: 'sd-dialog-panel',
+      backdropClass: 'sd-dialog-backdrop',
+      hasBackdrop: true,
+    });
+  }
+
+  openDonate(): void {
+    this.dialog.open(DonateDialogComponent, {
       panelClass: 'sd-dialog-panel',
       backdropClass: 'sd-dialog-backdrop',
       hasBackdrop: true,
