@@ -13,6 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Forcing Node 20 bypasses the recent HTTP keep-alive bug
       - run: npm i --legacy-peer-deps && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
