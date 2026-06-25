@@ -75,6 +75,11 @@ import { MatDialogRef } from '@angular/material/dialog';
             <span class="sidenav__link-label">Nápověda &amp; Tipy</span>
             <span class="sidenav__link-arrow">›</span>
           </a>
+          <a [routerLink]="routes.contact" class="sidenav__link sidenav__link--contact" (click)="sidenav.toggle()">
+            <span class="sidenav__link-icon"><mat-icon>person_pin</mat-icon></span>
+            <span class="sidenav__link-label">Kontakt</span>
+            <span class="sidenav__link-arrow">›</span>
+          </a>
         </nav>
 
         <div class="sidenav__divider">

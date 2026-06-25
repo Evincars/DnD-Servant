@@ -183,6 +183,24 @@
   transition: opacity .18s, transform .18s;
 }
 
+.sidenav__link--contact {
+  margin-top: 8px;
+  border-top: 1px solid rgba(200, 160, 60, 0.18);
+  padding-top: 14px;
+  border-radius: 0 0 6px 6px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 16px;
+    right: 16px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200,160,60,.3), transparent);
+  }
+}
+
 // ═══════════════════════════════════════════════════════════════════
 // MAIN CONTENT
 // ═══════════════════════════════════════════════════════════════════

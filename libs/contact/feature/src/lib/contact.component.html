@@ -1,0 +1,156 @@
+<div class="contact-page">
+
+  <!-- ── Header ─────────────────────────────────────────── -->
+  <header class="contact-header">
+    <div class="contact-header__glow"></div>
+    <div class="contact-header__strip">
+      <span class="contact-header__gem">◆</span>
+      <span class="contact-header__line"></span>
+      <span class="contact-header__gem">◆</span>
+    </div>
+
+    <div class="contact-header__body">
+      <div class="contact-header__avatar-wrap">
+        <div class="contact-header__avatar">AL</div>
+        <div class="contact-header__avatar-ring"></div>
+      </div>
+
+      <div class="contact-header__text">
+        <h1 class="contact-header__name">Adam Lasák</h1>
+        <p class="contact-header__role">
+          <mat-icon class="contact-header__role-icon">code</mat-icon>
+          Frontend Developer &amp; DM
+        </p>
+        <p class="contact-header__tagline">
+          Tvůrce DnD Servant — nástroje pro hrdiny i průvodce hrou
+        </p>
+      </div>
+    </div>
+
+    <div class="contact-header__strip contact-header__strip--bottom">
+      <span class="contact-header__gem">◆</span>
+      <span class="contact-header__line"></span>
+      <span class="contact-header__gem">◆</span>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ──────────────────────────────── -->
+  <div class="contact-layout">
+
+    <!-- LEFT – Contact cards -->
+    <section class="contact-section">
+      <h2 class="contact-section__title">
+        <mat-icon class="contact-section__icon">contacts</mat-icon>
+        Kontakt
+      </h2>
+
+      <ul class="contact-cards" role="list">
+        @for (card of cards; track card.label) {
+          <li class="contact-card"
+              [class.contact-card--link]="!!card.href"
+              [style.--card-accent]="card.color">
+            @if (card.href) {
+              <a [href]="card.href"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 class="contact-card__inner"
+                 [matTooltip]="card.tooltip">
+                <span class="contact-card__icon-wrap">
+                  <mat-icon class="contact-card__icon">{{ card.icon }}</mat-icon>
+                </span>
+                <span class="contact-card__info">
+                  <span class="contact-card__label">{{ card.label }}</span>
+                  <span class="contact-card__value">{{ card.value }}</span>
+                </span>
+                <mat-icon class="contact-card__arrow">open_in_new</mat-icon>
+              </a>
+            } @else {
+              <div class="contact-card__inner"
+                   [matTooltip]="card.tooltip"
+                   (click)="copyToClipboard(card)">
+                <span class="contact-card__icon-wrap">
+                  <mat-icon class="contact-card__icon">{{ card.icon }}</mat-icon>
+                </span>
+                <span class="contact-card__info">
+                  <span class="contact-card__label">{{ card.label }}</span>
+                  <span class="contact-card__value">{{ card.value }}</span>
+                </span>
+                @if (copiedCard() === card.label) {
+                  <mat-icon class="contact-card__arrow contact-card__arrow--copied">check</mat-icon>
+                } @else {
+                  <mat-icon class="contact-card__arrow">content_copy</mat-icon>
+                }
+              </div>
+            }
+          </li>
+        }
+      </ul>
+    </section>
+
+    <!-- RIGHT – About & skills -->
+    <aside class="contact-aside">
+
+      <!-- About -->
+      <section class="contact-section">
+        <h2 class="contact-section__title">
+          <mat-icon class="contact-section__icon">auto_stories</mat-icon>
+          O mně
+        </h2>
+
+        <div class="contact-bio">
+          <p>
+            Jsem frontend vývojář z&nbsp;České republiky, zapálený pro moderní Angular,
+            typový JavaScript a reaktivní programování.
+          </p>
+          <p>
+            DnD Servant vznikl z&nbsp;potřeby — chtěl jsem digitální kartu postavy,
+            která respektuje pravidla <em>Jeskyně a Draci</em> a zároveň vypadá jako
+            pravý artefakt z&nbsp;Říší.
+          </p>
+          <p>
+            Projekt je open-source; budu rád za zpětnou vazbu, nápady nebo
+            spolupráci&nbsp;⚔️
+          </p>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="contact-section contact-section--skills">
+        <h2 class="contact-section__title">
+          <mat-icon class="contact-section__icon">military_tech</mat-icon>
+          Zdatnosti
+        </h2>
+
+        <ul class="skills-list" role="list">
+          @for (skill of skills; track skill.name) {
+            <li class="skill-row" [style.--skill-color]="skill.color">
+              <span class="skill-row__name">{{ skill.name }}</span>
+              <span class="skill-row__dots">
+                @for (dot of skillDots; track dot) {
+                  <span class="skill-dot"
+                        [class.skill-dot--filled]="dot <= skill.level">
+                  </span>
+                }
+              </span>
+            </li>
+          }
+        </ul>
+      </section>
+
+    </aside>
+  </div>
+
+  <!-- ── Footer strip ──────────────────────────────────── -->
+  <footer class="contact-footer">
+    <span class="contact-footer__gem">◆</span>
+    <span class="contact-footer__line"></span>
+    <span class="contact-footer__text">
+      Vytvořeno s&nbsp;❤️ pro hráče D&amp;D
+    </span>
+    <span class="contact-footer__line"></span>
+    <span class="contact-footer__gem">◆</span>
+  </footer>
+
+</div>
+
+

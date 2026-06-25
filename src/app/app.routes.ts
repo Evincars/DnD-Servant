@@ -6,6 +6,7 @@ export const routes = {
   dmPage: 'ph-nastroje',
   dndDatabase: 'dnd-database',
   helpAndTips: 'help-and-tips',
+  contact: 'contact',
   login: 'login',
   register: 'register',
 };
@@ -44,5 +45,9 @@ export const appRoutes: Array<Route> = [
   {
     path: routes.helpAndTips,
     loadComponent: () => import('@dn-d-servant/help-and-tips-feature').then(c => c.HelpAndTipsComponent),
+  },
+  {
+    path: routes.contact,
+    loadComponent: () => import('@dn-d-servant/contact-feature').then(c => c.ContactComponent),
   },
 ];
