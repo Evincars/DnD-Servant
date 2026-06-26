@@ -21,8 +21,8 @@ const CONTACT_CARDS: ContactCard[] = [
   {
     icon: 'alternate_email',
     label: 'E-mail',
-    value: 'adam.lasak@evincars.cz',
-    href: 'mailto:adam.lasak@evincars.cz',
+    value: 'lasak.ad@gmail.com',
+    href: 'mailto:lasak.ad@gmail.com',
     tooltip: 'Napsat e-mail',
     color: '#c8a03c',
   },
@@ -35,6 +35,14 @@ const CONTACT_CARDS: ContactCard[] = [
     color: '#8b6caf',
   },
   {
+    icon: 'business',
+    label: 'LinkedIn',
+    value: 'linkedin.com/in/adam-lasak',
+    href: 'https://www.linkedin.com/in/adam-lasak/',
+    tooltip: 'Otevřít LinkedIn profil',
+    color: '#8b6caf',
+  },
+  {
     icon: 'language',
     label: 'Web',
     value: 'lasak.netlify.app',
@@ -44,9 +52,17 @@ const CONTACT_CARDS: ContactCard[] = [
   },
   {
     icon: 'place',
+    label: 'Obchodní rejstřík',
+    value: 'Obchodní rejstřík',
+    href: 'https://www.podnikatel.cz/rejstrik/adam-lasak-04258584/',
+    tooltip: 'Otevřít web',
+    color: '#4a8c5c',
+  },
+  {
+    icon: 'place',
     label: 'Lokace',
-    value: 'Česká republika',
-    tooltip: 'Kraj původu',
+    value: 'Ostrava Výškovice',
+    tooltip: 'Ostrava Výškovice',
     color: '#af5555',
   },
 ];
@@ -55,7 +71,7 @@ const SKILLS: Skill[] = [
   { name: 'Angular', level: 5, color: '#c8a03c' },
   { name: 'TypeScript', level: 5, color: '#8b6caf' },
   { name: 'RxJS / Signals', level: 4, color: '#c8a03c' },
-  { name: 'Firebase', level: 4, color: '#af8040' },
+  { name: 'Firebase', level: 3, color: '#af8040' },
   { name: 'SCSS / Tailwind', level: 4, color: '#4a8c5c' },
   { name: 'D&D 5e Rules', level: 5, color: '#af5555' },
 ];
