@@ -67,7 +67,7 @@ import { MatDialogRef } from '@angular/material/dialog';
           </a>
           <a [routerLink]="routes.dndDatabase" class="sidenav__link" (click)="sidenav.toggle()">
             <span class="sidenav__link-icon"><mat-icon>menu_book</mat-icon></span>
-            <span class="sidenav__link-label">Databáze D&amp;D</span>
+            <span class="sidenav__link-label">Databáze D&amp;D 2014</span>
             <span class="sidenav__link-arrow">›</span>
           </a>
           <a [routerLink]="routes.helpAndTips" class="sidenav__link" (click)="sidenav.toggle()">
