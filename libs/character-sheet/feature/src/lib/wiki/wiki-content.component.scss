@@ -243,6 +243,15 @@
 
 /* ── Headings ── */
 .wiki-body h1,
+.wiki-body h2,
+.wiki-body h3,
+.wiki-body h4,
+.wiki-body h5,
+.wiki-body h6 {
+  scroll-margin-top: 12px;
+}
+
+.wiki-body h1,
 .wiki-body h2 {
   font-family: sans-serif;
   font-size: 22px;

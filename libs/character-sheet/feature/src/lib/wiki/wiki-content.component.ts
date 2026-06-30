@@ -78,42 +78,32 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
 
   constructor() {
     /**
-     * Scroll-to-heading via afterRenderEffect.
-     * Only tracks `pendingScrollSlug` — when set, it queries the DOM for the
-     * heading element. If the element isn't found yet (async HTML not painted),
-     * a one-shot MutationObserver waits for it without keeping the render loop busy.
+     * Deferred scroll-to-heading effect — used when the target element is NOT
+     * yet in the DOM (e.g. navigating from search to a chapter that must first
+     * be loaded via HTTP).
+     *
+     * Tracks both `pendingScrollSlug` and `chunks` so it re-executes each time
+     * a new content batch arrives, without needing a MutationObserver.
+     *
+     * For TOC clicks the element is already in the DOM, so `scrollToHeadingSlug`
+     * calls `scrollIntoView` directly and never sets this signal.
      */
     afterRenderEffect(() => {
       const slug = this.pendingScrollSlug();
       if (!slug) return;
 
-      // Don't track any other signals — we only want to re-run when slug changes
+      // Re-execute when chunks update (async HTTP content arrives in DOM).
+      const chunks = this.chunks();
+
       untracked(() => {
         const container = this.scrollContainer()?.nativeElement;
         if (!container) return;
 
         const el = container.querySelector(`[id="${slug}"]`) as HTMLElement | null;
-        if (el) {
-          this.pendingScrollSlug.set(null);
-          const containerRect = container.getBoundingClientRect();
-          const elRect = el.getBoundingClientRect();
-          const absoluteTop = container.scrollTop + (elRect.top - containerRect.top);
-          container.scrollTo({ top: Math.max(0, absoluteTop - SCROLL_TOP_OFFSET), behavior: 'instant' as ScrollBehavior });
-        } else {
-          // Element not in DOM yet — observe mutations and retry once it appears
-          const mo = new MutationObserver(() => {
-            const target = container.querySelector(`[id="${slug}"]`) as HTMLElement | null;
-            if (target) {
-              mo.disconnect();
-              this.pendingScrollSlug.set(null);
-              const cRect = container.getBoundingClientRect();
-              const tRect = target.getBoundingClientRect();
-              const top = container.scrollTop + (tRect.top - cRect.top);
-              container.scrollTo({ top: Math.max(0, top - SCROLL_TOP_OFFSET), behavior: 'instant' as ScrollBehavior });
-            }
-          });
-          mo.observe(container, { childList: true, subtree: true });
-        }
+        if (!el) return; // not yet rendered — will retry on next chunks update
+
+        this.pendingScrollSlug.set(null);
+        el.scrollIntoView({ behavior: chunks.length > 0 ? 'smooth' : ('instant' as ScrollBehavior), block: 'start' });
       });
     });
   }
@@ -196,15 +186,22 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  /** Scroll to any heading by its slug (used by the chapter TOC). */
+  /**
+   * Scroll to a heading by its slug (called from the chapter TOC).
+   *
+   * The content IS already in the DOM when the TOC is visible, so we query
+   * and scroll immediately without going through the signal/effect cycle.
+   * Falls back to the deferred `pendingScrollSlug` path only when the element
+   * is somehow not in the DOM yet.
+   */
   scrollToHeadingSlug(slug: string): void {
     const container = this.scrollContainer().nativeElement;
     const el = container.querySelector(`[id="${slug}"]`) as HTMLElement | null;
-    if (!el) return;
-    const containerRect = container.getBoundingClientRect();
-    const elRect = el.getBoundingClientRect();
-    const absoluteTop = container.scrollTop + (elRect.top - containerRect.top);
-    container.scrollTo({ top: Math.max(0, absoluteTop - SCROLL_TOP_OFFSET), behavior: 'smooth' });
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      this.pendingScrollSlug.set(slug);
+    }
   }
 
   /** Handle clicks on heading anchor buttons via event delegation. */
