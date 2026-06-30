@@ -19,6 +19,28 @@
       <header class="chapter-article__header">
         <span class="chapter-article__label">{{ chunk.label }}</span>
       </header>
+
+      @if (chunk.toc.length > 1) {
+        <details class="chapter-toc" open>
+          <summary class="chapter-toc__summary">
+            <span class="material-symbols-outlined chapter-toc__icon">toc</span>
+            <span class="chapter-toc__title">Obsah kapitoly</span>
+            <span class="material-symbols-outlined chapter-toc__chevron">expand_more</span>
+          </summary>
+          <ul class="chapter-toc__list">
+            @for (entry of chunk.toc; track entry.slug) {
+              <li
+                class="chapter-toc__item"
+                [attr.data-level]="entry.level"
+                tabindex="0"
+                (click)="scrollToHeadingSlug(entry.slug)"
+                (keydown.enter)="scrollToHeadingSlug(entry.slug)"
+              >{{ entry.text }}</li>
+            }
+          </ul>
+        </details>
+      }
+
       <div class="chapter-article__body wiki-body" [innerHTML]="chunk.html"></div>
     </article>
     <hr class="chapter-divider" />

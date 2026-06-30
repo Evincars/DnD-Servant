@@ -16,10 +16,31 @@ import { WikiBook, WikiChapter } from './wiki-catalog.const';
 import { WikiService } from './wiki.service';
 import { MatIcon } from '@angular/material/icon';
 
+export interface TocEntry {
+  level: number; // 2–5
+  text: string;
+  slug: string;
+}
+
 interface LoadedChunk {
   chapterId: string;
   label: string;
   html: SafeHtml;
+  toc: TocEntry[];
+}
+
+/** Extract h2–h5 headings (with id attributes) from a raw HTML string. */
+function extractToc(html: string): TocEntry[] {
+  const entries: TocEntry[] = [];
+  const re = /<(h[2-5])[^>]*\bid="([^"]+)"[^>]*>([\s\S]*?)<\/\1>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html)) !== null) {
+    const level = parseInt(m[1].charAt(1), 10);
+    const slug = m[2];
+    const text = m[3].replace(/<[^>]+>/g, '').trim();
+    if (text) entries.push({ level, text, slug });
+  }
+  return entries;
 }
 
 const CHAPTERS_PER_LOAD = 2;
@@ -156,6 +177,7 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
             chapterId: chapter.id,
             label: chapter.label,
             html: this.sanitizer.bypassSecurityTrustHtml(html),
+            toc: extractToc(html),
           };
           remaining--;
           if (remaining === 0) {
@@ -172,6 +194,17 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
         },
       });
     });
+  }
+
+  /** Scroll to any heading by its slug (used by the chapter TOC). */
+  scrollToHeadingSlug(slug: string): void {
+    const container = this.scrollContainer().nativeElement;
+    const el = container.querySelector(`[id="${slug}"]`) as HTMLElement | null;
+    if (!el) return;
+    const containerRect = container.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const absoluteTop = container.scrollTop + (elRect.top - containerRect.top);
+    container.scrollTo({ top: Math.max(0, absoluteTop - SCROLL_TOP_OFFSET), behavior: 'smooth' });
   }
 
   /** Handle clicks on heading anchor buttons via event delegation. */
