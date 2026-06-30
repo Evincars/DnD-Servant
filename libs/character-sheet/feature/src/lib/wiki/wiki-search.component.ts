@@ -30,6 +30,64 @@ const CHAPTER_INDEX: ChapterEntry[] = WIKI_CATALOG.flatMap(book =>
   }),
 );
 
+// ── Search helpers ────────────────────────────────────────────────────────────
+
+/** Escape HTML special characters so user-provided text is safe inside innerHTML. */
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/**
+ * Fuzzy subsequence check: every character in `nq` appears in-order in `nText`.
+ * Returns the matched character positions (in `nText`) on success, null otherwise.
+ * Works on pre-normalised (diacritic-stripped, lower-cased) strings.
+ */
+function subsequencePositions(nText: string, nq: string): number[] | null {
+  const positions: number[] = [];
+  let qi = 0;
+  for (let ti = 0; ti < nText.length && qi < nq.length; ti++) {
+    if (nText[ti] === nq[qi]) {
+      positions.push(ti);
+      qi++;
+    }
+  }
+  return qi === nq.length ? positions : null;
+}
+
+/**
+ * Build an HTML string with matched characters wrapped in `<mark>`.
+ * Strategy (in priority order):
+ *  1. Contiguous substring — highlights the whole span.
+ *  2. Subsequence        — highlights individual matched characters.
+ *
+ * `normalizeStr` preserves a 1-to-1 character-index mapping for pre-composed
+ * (NFC) Czech text, so positions transfer directly to the original string.
+ */
+function buildHighlightHtml(original: string, nq: string): string {
+  const nOrig = normalizeStr(original);
+
+  // 1. Contiguous substring match
+  const idx = nOrig.indexOf(nq);
+  if (idx !== -1) {
+    return (
+      escapeHtml(original.slice(0, idx)) +
+      '<mark>' +
+      escapeHtml(original.slice(idx, idx + nq.length)) +
+      '</mark>' +
+      escapeHtml(original.slice(idx + nq.length))
+    );
+  }
+
+  // 2. Subsequence match
+  const positions = subsequencePositions(nOrig, nq);
+  if (positions) {
+    const posSet = new Set(positions);
+    return [...original].map((c, i) => (posSet.has(i) ? '<mark>' + escapeHtml(c) + '</mark>' : escapeHtml(c))).join('');
+  }
+
+  return escapeHtml(original);
+}
+
 // ── Heading-level search index (loaded lazily) ───────────────────────────────
 
 /** Shape of one entry in the static heading-index.json file. */
@@ -51,9 +109,11 @@ interface HeadingEntry {
   _words: string[];
 }
 
-// ── Unified result type ───────────────────────────────────────────────────────
+// ── Unified result types ──────────────────────────────────────────────────────
 
 type SearchEntry = ChapterEntry | HeadingEntry;
+/** SearchEntry augmented with pre-computed highlight HTML for the result label. */
+type SearchResult = SearchEntry & { highlightHtml: string };
 
 const MAX_RESULTS = 20;
 const MAX_CHAPTER_RESULTS = 10;
@@ -63,7 +123,11 @@ function matchesChapter(e: ChapterEntry, nq: string): boolean {
   const queryWords = nq.split(/\s+/).filter(Boolean);
   if (queryWords.length === 0) return false;
   // Every query word must match at least one indexed word (prefix match).
-  return queryWords.every(qw => e._words.some(w => w.startsWith(qw)));
+  if (queryWords.every(qw => e._words.some(w => w.startsWith(qw)))) return true;
+  // Fallback: full-label substring match (catches partial-word queries).
+  if (normalizeStr(e.label).includes(nq)) return true;
+  // Fallback: fuzzy subsequence match (e.g. 'nehra' → 'Nezavisli hranicari').
+  return subsequencePositions(normalizeStr(e.label), nq) !== null;
 }
 
 function matchesHeading(e: HeadingEntry, nq: string): boolean {
@@ -71,7 +135,9 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
   if (normalizeStr(e.label).includes(nq)) return true;
   // Fallback: every query word matches at least one indexed word (prefix match).
   const queryWords = nq.split(/\s+/).filter(Boolean);
-  return queryWords.length > 0 && queryWords.every(qw => e._words.some(w => w.startsWith(qw)));
+  if (queryWords.length > 0 && queryWords.every(qw => e._words.some(w => w.startsWith(qw)))) return true;
+  // Fallback: fuzzy subsequence match.
+  return subsequencePositions(normalizeStr(e.label), nq) !== null;
 }
 
 @Component({
@@ -128,7 +194,7 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
               @if (entry.kind === 'heading') {
                 <span class="result__hash">#</span>
               }
-              <span class="result__label">{{ entry.label }}</span>
+              <span class="result__label" [innerHTML]="entry.highlightHtml"></span>
               <span class="result__book">
                 @if (entry.kind === 'heading') {
                   {{ entry.chapterLabel }} &middot; {{ entry.bookLabel }}
@@ -278,11 +344,21 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
       text-overflow: ellipsis;
       flex: 1;
       min-width: 0;
+
+      mark {
+        background: transparent;
+        color: #c8a03c;
+        font-weight: 700;
+      }
     }
 
     .result--heading .result__label {
       font-size: 12.5px;
       color: #b8a898;
+
+      mark {
+        color: #c8a03c;
+      }
     }
 
     .result__book {
@@ -340,15 +416,18 @@ export class WikiSearchComponent {
 
   // ── Search results ─────────────────────────────────────────────────────────
 
-  readonly results = computed<SearchEntry[]>(() => {
+  readonly results = computed<SearchResult[]>(() => {
     const nq = normalizeStr(this.query().trim());
     if (nq.length < 2) return [];
 
-    const chapterResults = CHAPTER_INDEX.filter(e => matchesChapter(e, nq)).slice(0, MAX_CHAPTER_RESULTS);
+    const chapterResults: SearchResult[] = CHAPTER_INDEX.filter(e => matchesChapter(e, nq))
+      .slice(0, MAX_CHAPTER_RESULTS)
+      .map(e => ({ ...e, highlightHtml: buildHighlightHtml(e.label, nq) }));
 
-    const headingResults = this.headingEntries()
+    const headingResults: SearchResult[] = this.headingEntries()
       .filter(e => matchesHeading(e, nq))
-      .slice(0, MAX_HEADING_RESULTS);
+      .slice(0, MAX_HEADING_RESULTS)
+      .map(e => ({ ...e, highlightHtml: buildHighlightHtml(e.label, nq) }));
 
     return [...chapterResults, ...headingResults].slice(0, MAX_RESULTS);
   });
@@ -394,7 +473,7 @@ export class WikiSearchComponent {
     this.open.set(false);
   }
 
-  select(entry: SearchEntry): void {
+  select(entry: SearchResult): void {
     const selection: WikiSelection = { book: entry.book, chapter: entry.chapter };
     if (entry.kind === 'heading') {
       selection.headingSlug = entry.headingSlug;
@@ -410,7 +489,7 @@ export class WikiSearchComponent {
     this.inputRef()?.nativeElement.focus();
   }
 
-  trackEntry(entry: SearchEntry): string {
+  trackEntry(entry: SearchResult): string {
     return entry.kind === 'heading'
       ? `h:${entry.book.id}:${entry.chapter.id}:${entry.headingSlug}`
       : `c:${entry.book.id}:${entry.chapter.id}`;
