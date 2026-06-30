@@ -37,15 +37,19 @@ function extractToc(html: string): TocEntry[] {
   while ((m = re.exec(html)) !== null) {
     const level = parseInt(m[1].charAt(1), 10);
     const slug = m[2];
-    const text = m[3].replace(/<[^>]+>/g, '').trim();
+    // Remove the anchor <button> (contains the "link" icon text) before stripping tags
+    const text = m[3]
+      .replace(/<button[\s\S]*?<\/button>/gi, '')
+      .replace(/<[^>]+>/g, '')
+      .trim();
     if (text) entries.push({ level, text, slug });
   }
   return entries;
 }
 
 const CHAPTERS_PER_LOAD = 2;
-/** Pixels to offset from the top of the scroll container so the heading clears the fixed top-menu. */
-const SCROLL_TOP_OFFSET = 160;
+/** Gap (px) kept above the heading so it isn't flush against the container edge. */
+const SCROLL_HEADING_OFFSET = 24;
 
 @Component({
   selector: 'wiki-content',
@@ -103,7 +107,7 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
         if (!el) return; // not yet rendered — will retry on next chunks update
 
         this.pendingScrollSlug.set(null);
-        el.scrollIntoView({ behavior: chunks.length > 0 ? 'smooth' : ('instant' as ScrollBehavior), block: 'start' });
+        this.scrollHeadingIntoView(el);
       });
     });
   }
@@ -188,17 +192,50 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
 
   /**
    * Scroll to a heading by its slug (called from the chapter TOC).
+  /**
+   * Walk up the DOM from `el` and return the first ancestor whose computed
+   * `overflow-y` is `auto` or `scroll` AND whose content actually overflows
+   * (scrollHeight > clientHeight).  Falls back to `document.documentElement`.
    *
-   * The content IS already in the DOM when the TOC is visible, so we query
-   * and scroll immediately without going through the signal/effect cycle.
-   * Falls back to the deferred `pendingScrollSlug` path only when the element
-   * is somehow not in the DOM yet.
+   * This is necessary because `content-wrap` has `overflow-y: auto` but the
+   * Material tab body forces `height: auto` on its wrapper, which can make
+   * `content-wrap`'s scrollHeight equal its clientHeight — meaning it has
+   * nothing to scroll.  The real scroll container may be an outer element.
+   */
+  private findScrollContainer(el: HTMLElement): HTMLElement {
+    let node: HTMLElement | null = el.parentElement;
+    while (node && node !== document.documentElement) {
+      const oy = getComputedStyle(node).overflowY;
+      if ((oy === 'auto' || oy === 'scroll') && node.scrollHeight > node.clientHeight) {
+        return node;
+      }
+      node = node.parentElement;
+    }
+    return document.documentElement;
+  }
+
+  /**
+   * Scroll `el` into view by scrolling only the nearest scrollable ancestor.
+   * Unlike `scrollIntoView()`, this never scrolls outer containers such as
+   * the window, preventing the heading from landing behind the top toolbar.
+   */
+  private scrollHeadingIntoView(el: HTMLElement): void {
+    const sc = this.findScrollContainer(el);
+    const scRect = sc.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const scrollTarget = sc.scrollTop + (elRect.top - scRect.top) - SCROLL_HEADING_OFFSET;
+    sc.scrollTo({ top: Math.max(0, scrollTarget), behavior: 'smooth' });
+  }
+
+  /**
+   * Scroll to a heading by its slug (called from the chapter TOC).
+   * The element is already in the DOM when the TOC is visible.
    */
   scrollToHeadingSlug(slug: string): void {
     const container = this.scrollContainer().nativeElement;
     const el = container.querySelector(`[id="${slug}"]`) as HTMLElement | null;
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      this.scrollHeadingIntoView(el);
     } else {
       this.pendingScrollSlug.set(slug);
     }
