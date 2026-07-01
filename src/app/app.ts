@@ -30,12 +30,6 @@ import { MatDialogRef } from '@angular/material/dialog';
   template: `
     <mat-sidenav-container class="container">
       <mat-sidenav #sidenav mode="over" class="sidenav">
-        <!-- decorative top border strip -->
-        <div class="sidenav__top-strip">
-          <span class="sidenav__gem sidenav__gem--left">◆</span>
-          <span class="sidenav__strip-line"></span>
-          <span class="sidenav__gem sidenav__gem--right">◆</span>
-        </div>
 
         <!-- logo -->
         <div class="sidenav__logo-wrap">
@@ -82,16 +76,6 @@ import { MatDialogRef } from '@angular/material/dialog';
           </a>
         </nav>
 
-        <div class="sidenav__divider">
-          <span>🐉</span>
-        </div>
-
-        <!-- decorative bottom -->
-        <div class="sidenav__bottom-strip">
-          <span class="sidenav__gem">◆</span>
-          <span class="sidenav__strip-line"></span>
-          <span class="sidenav__gem">◆</span>
-        </div>
       </mat-sidenav>
 
       <mat-sidenav-content #sidenavContent>
