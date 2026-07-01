@@ -209,6 +209,38 @@
   }
 }
 
+/* ── TOC search bar ── */
+.chapter-toc__search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(200,160,60,.1);
+  background: rgba(0,0,0,.15);
+}
+
+.chapter-toc__search-icon {
+  font-size: 15px;
+  color: rgba(200,160,60,.4);
+  flex-shrink: 0;
+}
+
+.chapter-toc__search {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: sans-serif;
+  font-size: 12px;
+  color: #c8baa8;
+  letter-spacing: .04em;
+
+  &::placeholder { color: rgba(200,160,60,.3); }
+
+  // Remove native search cancel button in WebKit
+  &::-webkit-search-cancel-button { -webkit-appearance: none; }
+}
+
 .chapter-toc__item {
   padding: 5px 16px 5px 14px;
   font-family: sans-serif;

@@ -27,15 +27,28 @@
             <span class="chapter-toc__title">Obsah kapitoly</span>
             <span class="material-symbols-outlined chapter-toc__chevron">expand_more</span>
           </summary>
+          <div class="chapter-toc__search-wrap" (click)="$event.stopPropagation()">
+            <span class="material-symbols-outlined chapter-toc__search-icon">search</span>
+            <input
+              class="chapter-toc__search"
+              type="search"
+              placeholder="Hledat v obsahu…"
+              [value]="tocFilter()"
+              (input)="tocFilter.set($any($event.target).value)"
+              aria-label="Hledat v obsahu kapitoly"
+            />
+          </div>
           <ul class="chapter-toc__list">
             @for (entry of chunk.toc; track entry.slug) {
-              <li
-                class="chapter-toc__item"
-                [attr.data-level]="entry.level"
-                tabindex="0"
-                (click)="scrollToHeadingSlug(entry.slug)"
-                (keydown.enter)="scrollToHeadingSlug(entry.slug)"
-              >{{ entry.text }}</li>
+              @if (!tocFilter() || entry.text.toLowerCase().includes(tocFilter().toLowerCase())) {
+                <li
+                  class="chapter-toc__item"
+                  [attr.data-level]="entry.level"
+                  tabindex="0"
+                  (click)="scrollToHeadingSlug(entry.slug)"
+                  (keydown.enter)="scrollToHeadingSlug(entry.slug)"
+                >{{ entry.text }}</li>
+              }
             }
           </ul>
         </details>

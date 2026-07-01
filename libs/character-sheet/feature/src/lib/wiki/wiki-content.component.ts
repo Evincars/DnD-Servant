@@ -71,6 +71,8 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
   readonly loading = signal(false);
   /** The book currently being rendered — set imperatively on chapter select */
   protected readonly currentBook = signal<WikiBook | null>(null);
+  /** Search query for filtering chapter TOC entries. */
+  readonly tocFilter = signal('');
   private nextIndex = 0;
   private observer: IntersectionObserver | null = null;
   /** Heading slug to scroll to after the next batch of chunks renders. */
@@ -150,6 +152,7 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
     const container = this.scrollContainer().nativeElement;
     container.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
 
+    this.tocFilter.set('');
     this.chunks.set([]);
     this.nextIndex = chapterIndex;
     this.loadNext();

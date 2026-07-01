@@ -20,18 +20,22 @@ import { WikiBook, WikiChapter, WikiSelection, WIKI_CATALOG } from './wiki-catal
   imports: [MatIcon],
   template: `
     <div class="sidebar" [class.sidebar--collapsed]="collapsed()">
-      <!-- Toggle button -->
-      <button
-        class="sidebar__toggle"
-        (click)="collapsed.set(!collapsed())"
-        [title]="collapsed() ? 'Rozbalit nabídku' : 'Sbalit nabídku'"
-      >
-        <mat-icon>{{ collapsed() ? 'menu_open' : 'menu' }}</mat-icon>
-      </button>
+      <!-- Header row: toggle + title -->
+      <div class="sidebar__header">
+        <button
+          class="sidebar__toggle"
+          (click)="collapsed.set(!collapsed())"
+          [title]="collapsed() ? 'Rozbalit nabídku' : 'Sbalit nabídku'"
+        >
+          <mat-icon>{{ collapsed() ? 'menu_open' : 'menu' }}</mat-icon>
+        </button>
+        @if (!collapsed()) {
+          <h3 class="sidebar__heading">J&amp;D Wiki</h3>
+        }
+      </div>
 
       @if (!collapsed()) {
         <div class="sidebar__content">
-          <h3 class="sidebar__heading">J&amp;D Wiki</h3>
 
           @for (book of catalog; track book.id) {
             <div class="book" [class.book--active]="expandedBook() === book.id">
@@ -84,6 +88,14 @@ import { WikiBook, WikiChapter, WikiSelection, WIKI_CATALOG } from './wiki-catal
       min-width: 44px;
     }
 
+    /* ── Header row (toggle + title) ── */
+    .sidebar__header {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      border-bottom: 1px solid rgba(200, 160, 60, 0.15);
+    }
+
     /* ── Toggle button ── */
     .sidebar__toggle {
       display: flex;
@@ -94,7 +106,6 @@ import { WikiBook, WikiChapter, WikiSelection, WIKI_CATALOG } from './wiki-catal
       flex-shrink: 0;
       background: transparent;
       border: none;
-      border-bottom: 1px solid rgba(200, 160, 60, 0.15);
       color: #8a7a68;
       cursor: pointer;
       transition:
@@ -138,9 +149,12 @@ import { WikiBook, WikiChapter, WikiSelection, WIKI_CATALOG } from './wiki-catal
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: rgba(200, 160, 60, 0.5);
-      padding: 16px 16px 8px;
+      padding: 0 16px 0 4px;
       margin: 0;
-      border-bottom: 1px solid rgba(200, 160, 60, 0.12);
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     /* ── Book accordion ── */
