@@ -146,12 +146,13 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
   imports: [FormsModule],
   host: {
     '(document:keydown.escape)': 'onEscapeGlobal()',
+    '(document:keydown)': 'onDocKeydown($event)',
   },
   template: `
     <div class="search-wrap">
       <div class="search-row">
         <!-- Search icon -->
-        <svg class="search-icon" viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+        <svg class="search-icon" viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
           <path
             d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
           />
@@ -212,6 +213,8 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
     :host {
       display: block;
       position: relative;
+      flex: 1;
+      max-width: 600px;
     }
 
     .search-wrap {
@@ -222,24 +225,23 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
     .search-row {
       display: flex;
       align-items: center;
-      gap: 7px;
-      padding: 5px 10px;
+      gap: 9px;
+      padding: 9px 16px;
       background: rgba(22, 12, 4, 0.97);
-      border: 1px solid rgba(200, 160, 60, 0.18);
-      border-radius: 3px;
-      min-width: 240px;
+      border: 1px solid rgba(200, 160, 60, 0.22);
+      border-radius: 4px;
       transition:
         border-color 0.15s,
         box-shadow 0.15s;
 
       &:focus-within {
-        border-color: rgba(200, 160, 60, 0.45);
-        box-shadow: 0 0 0 1px rgba(200, 160, 60, 0.12);
+        border-color: rgba(200, 160, 60, 0.52);
+        box-shadow: 0 0 0 2px rgba(200, 160, 60, 0.1);
       }
     }
 
     .search-icon {
-      color: #5a4a38;
+      color: #6a5a48;
       flex-shrink: 0;
     }
 
@@ -249,12 +251,12 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
       border: none;
       outline: none;
       font-family: sans-serif;
-      font-size: 13px;
+      font-size: 14.5px;
       color: #c8baa8;
       min-width: 0;
 
       &::placeholder {
-        color: #3e3028;
+        color: #4a3a28;
       }
     }
 
@@ -494,5 +496,20 @@ export class WikiSearchComponent {
 
   onEscapeGlobal(): void {
     if (this.open()) this.open.set(false);
+  }
+
+  /** Focus the search input when '/' is pressed outside any text field. */
+  onDocKeydown(event: KeyboardEvent): void {
+    if (event.key !== '/') return;
+    const active = document.activeElement;
+    if (
+      active instanceof HTMLInputElement ||
+      active instanceof HTMLTextAreaElement ||
+      (active as HTMLElement)?.isContentEditable
+    ) return;
+    event.preventDefault();
+    this.loadHeadingIndex();
+    this.open.set(true);
+    this.inputRef()?.nativeElement.focus();
   }
 }
