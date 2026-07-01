@@ -16,9 +16,6 @@
 
   @for (chunk of chunks(); track chunk.chapterId) {
     <article class="chapter-article">
-      <header class="chapter-article__header">
-        <span class="chapter-article__label">{{ chunk.label }}</span>
-      </header>
 
       @if (chunk.toc.length > 1) {
         <details class="chapter-toc" open>
@@ -27,7 +24,7 @@
             <span class="chapter-toc__title">Obsah kapitoly</span>
             <span class="material-symbols-outlined chapter-toc__chevron">expand_more</span>
           </summary>
-          <div class="chapter-toc__search-wrap" (click)="$event.stopPropagation()">
+          <div class="chapter-toc__search-wrap">
             <span class="material-symbols-outlined chapter-toc__search-icon">search</span>
             <input
               class="chapter-toc__search"

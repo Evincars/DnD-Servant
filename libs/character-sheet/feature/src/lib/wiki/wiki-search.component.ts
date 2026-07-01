@@ -162,7 +162,7 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
           #inputRef
           class="search-input"
           type="text"
-          placeholder="Hledat v J&D Wiki…"
+          placeholder=""
           autocomplete="off"
           spellcheck="false"
           [ngModel]="query()"
@@ -171,6 +171,12 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
           (focus)="onFocus()"
           (blur)="onBlur()"
         />
+
+        @if (!query() && !focused()) {
+          <span class="search-hint" aria-hidden="true">
+            <kbd class="search-hint__kbd">/</kbd> pro vyhledávání
+          </span>
+        }
 
         @if (query()) {
           <button class="clear-btn" (click)="clear()" tabindex="-1" title="Vymazat">
@@ -230,6 +236,7 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
       background: rgba(22, 12, 4, 0.97);
       border: 1px solid rgba(200, 160, 60, 0.22);
       border-radius: 4px;
+      position: relative;
       transition:
         border-color 0.15s,
         box-shadow 0.15s;
@@ -238,6 +245,39 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
         border-color: rgba(200, 160, 60, 0.52);
         box-shadow: 0 0 0 2px rgba(200, 160, 60, 0.1);
       }
+    }
+
+    /* Hint shown when input is empty and unfocused */
+    .search-hint {
+      position: absolute;
+      left: 46px; /* icon(17) + gap(9) + padding-left(16) + a bit = aligned with input text */
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: sans-serif;
+      font-size: 13px;
+      color: rgba(200, 160, 60, 0.32);
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .search-hint__kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: monospace;
+      font-size: 11px;
+      font-style: normal;
+      line-height: 1;
+      padding: 2px 6px;
+      border: 1px solid rgba(200, 160, 60, 0.35);
+      border-radius: 3px;
+      background: rgba(200, 160, 60, 0.08);
+      color: rgba(200, 160, 60, 0.6);
+      box-shadow: 0 1px 0 rgba(200, 160, 60, 0.2);
     }
 
     .search-icon {
@@ -375,6 +415,7 @@ export class WikiSearchComponent {
   readonly query = signal('');
   readonly open = signal(false);
   readonly focusedIndex = signal(0);
+  readonly focused = signal(false);
 
   readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('inputRef');
 
@@ -434,6 +475,7 @@ export class WikiSearchComponent {
   // ── Event handlers ─────────────────────────────────────────────────────────
 
   onFocus(): void {
+    this.focused.set(true);
     this.open.set(true);
     // Lazy-load heading index on first focus
     this.loadHeadingIndex();
@@ -469,6 +511,7 @@ export class WikiSearchComponent {
   }
 
   onBlur(): void {
+    this.focused.set(false);
     this.open.set(false);
   }
 
