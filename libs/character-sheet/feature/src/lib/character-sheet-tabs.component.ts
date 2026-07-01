@@ -78,8 +78,8 @@ const TAB_COUNT = 9;
         align-items: center;
         justify-content: center;
         background: transparent;
-        border-bottom: 2px solid transparent;
-        transition: border-color 0.15s, background 0.15s;
+        box-shadow: inset 0 -3px 0 transparent;
+        transition: box-shadow 0.15s, background 0.15s;
       }
 
       .mdc-tab__text-label {
@@ -110,11 +110,11 @@ const TAB_COUNT = 9;
       .mdc-tab__content {
         height: 40px;
         background: transparent !important;
-        border-bottom: 2px solid rgba(200, 160, 60, 0.65) !important;
+        box-shadow: inset 0 -3px 0 rgba(200, 160, 60, 1) !important;
       }
 
       .mdc-tab__text-label {
-        color: rgba(200, 160, 60, 0.95) !important;
+        color: rgba(200, 160, 60, 1) !important;
         text-shadow: none !important;
       }
     }
