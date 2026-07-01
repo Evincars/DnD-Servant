@@ -12,6 +12,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { WikiBook, WikiChapter } from './wiki-catalog.const';
 import { WikiService } from './wiki.service';
 import { MatIcon } from '@angular/material/icon';
@@ -61,6 +62,7 @@ const SCROLL_HEADING_OFFSET = 24;
 export class WikiContentComponent implements AfterViewInit, OnDestroy {
   private readonly wikiService = inject(WikiService);
   private readonly sanitizer = inject(DomSanitizer);
+  private readonly snackBar = inject(MatSnackBar);
 
   readonly scrollContainer = viewChild.required<ElementRef<HTMLElement>>('scrollContainer');
   readonly sentinel = viewChild<ElementRef<HTMLElement>>('sentinel');
@@ -214,6 +216,31 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
     return document.documentElement;
   }
 
+  /** Same as findScrollContainer but also considers `el` itself (used for scroll-to-top/bottom). */
+  private findScrollContainerInclusive(el: HTMLElement): HTMLElement {
+    let node: HTMLElement | null = el;
+    while (node && node !== document.documentElement) {
+      const oy = getComputedStyle(node).overflowY;
+      if ((oy === 'auto' || oy === 'scroll') && node.scrollHeight > node.clientHeight) {
+        return node;
+      }
+      node = node.parentElement;
+    }
+    return document.documentElement;
+  }
+
+  /** Scroll to the very top of the wiki content area. */
+  scrollContentToTop(): void {
+    const sc = this.findScrollContainerInclusive(this.scrollContainer().nativeElement);
+    sc.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /** Scroll to the very bottom of the wiki content area. */
+  scrollContentToBottom(): void {
+    const sc = this.findScrollContainerInclusive(this.scrollContainer().nativeElement);
+    sc.scrollTo({ top: sc.scrollHeight, behavior: 'smooth' });
+  }
+
   /**
    * Scroll `el` into view by scrolling only the nearest scrollable ancestor.
    * Unlike `scrollIntoView()`, this never scrolls outer containers such as
@@ -258,7 +285,16 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
     window.history.replaceState(null, '', fragment);
 
     if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(url).catch(() => {});
+      navigator.clipboard
+        .writeText(url)
+        .then(() =>
+          this.snackBar.open('🔗 Odkaz zkopírován do schránky', '✕', {
+            duration: 2500,
+            verticalPosition: 'top',
+            panelClass: ['snackbar--save'],
+          }),
+        )
+        .catch(() => {});
     }
 
     // Brief green flash to confirm copy — removed via animationend, no setTimeout needed

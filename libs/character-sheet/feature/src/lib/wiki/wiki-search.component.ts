@@ -344,21 +344,18 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
       text-overflow: ellipsis;
       flex: 1;
       min-width: 0;
-
-      mark {
-        background: transparent;
-        color: #c8a03c;
-        font-weight: 700;
-      }
     }
 
     .result--heading .result__label {
       font-size: 12.5px;
       color: #b8a898;
+    }
 
-      mark {
-        color: #c8a03c;
-      }
+    /* Highlight matched characters — red, no background */
+    .result__label mark {
+      background: transparent !important;
+      color: #b84949;
+      font-weight: 700;
     }
 
     .result__book {
