@@ -36,16 +36,19 @@
             />
           </div>
           <ul class="chapter-toc__list">
-            @for (entry of chunk.toc; track entry.slug) {
-              @if (!tocFilter() || entry.text.toLowerCase().includes(tocFilter().toLowerCase())) {
-                <li
-                  class="chapter-toc__item"
-                  [attr.data-level]="entry.level"
-                  tabindex="0"
-                  (click)="scrollToHeadingSlug(entry.slug)"
-                  (keydown.enter)="scrollToHeadingSlug(entry.slug)"
-                >{{ entry.text }}</li>
-              }
+            @let filtered = filteredTocEntries().get(chunk.chapterId) ?? [];
+            @if (tocFilter() && filtered.length === 0) {
+              <li class="chapter-toc__item chapter-toc__item--empty">Žádné výsledky</li>
+            }
+            @for (entry of filtered; track entry.slug) {
+              <li
+                class="chapter-toc__item"
+                [attr.data-level]="entry.level"
+                tabindex="0"
+                (click)="scrollToHeadingSlug(entry.slug)"
+                (keydown.enter)="scrollToHeadingSlug(entry.slug)"
+                [innerHTML]="entry.html"
+              ></li>
             }
           </ul>
         </details>

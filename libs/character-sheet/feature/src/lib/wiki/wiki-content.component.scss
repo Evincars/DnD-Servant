@@ -264,6 +264,27 @@
   &[data-level="3"] { padding-left: 26px; font-size: 12px; }
   &[data-level="4"] { padding-left: 38px; font-size: 11.5px; color: #8a7868; }
   &[data-level="5"] { padding-left: 50px; font-size: 11px;   color: #7a6858; }
+
+  &--empty {
+    cursor: default;
+    color: rgba(200,160,60,.25);
+    font-style: italic;
+    font-size: 11.5px;
+
+    &:hover {
+      background: transparent;
+      border-left-color: transparent;
+      color: rgba(200,160,60,.25);
+    }
+  }
+}
+
+/* Search match highlight */
+.toc-hl {
+  background: transparent;
+  color: #c0392b;
+  font-weight: 600;
+  font-style: normal;
 }
 
 /* ── Chapter divider ── */
