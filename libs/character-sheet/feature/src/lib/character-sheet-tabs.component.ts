@@ -29,14 +29,14 @@ const TAB_COUNT = 9;
       (selectedIndexChange)="onTabChange($any($event))"
     >
       <mat-tab label="Karta postavy"><character-sheet class="u-mt-2" /></mat-tab>
-      <mat-tab label="Questy"><quests-tab /></mat-tab>
       <mat-tab label="Karta družiny"><group-sheet class="u-mt-2" /></mat-tab>
+      <mat-tab label="Poznámky"><notes-sheet /></mat-tab>
+      <mat-tab label="J&D wiki"><wiki-tab /></mat-tab>
+      <mat-tab label="Iniciativa"><initiative-tracker [disableMonsterSearch]="true" /></mat-tab>
       <mat-tab label="Kouzla"><spells-tab [active]="selectedTab() === 3" /></mat-tab>
       <mat-tab label="Lektvary"><potions-tab /></mat-tab>
-      <mat-tab label="Poznámky"><notes-sheet /></mat-tab>
-      <mat-tab label="Iniciativa"><initiative-tracker [disableMonsterSearch]="true" /></mat-tab>
+      <mat-tab label="Questy"><quests-tab /></mat-tab>
       <mat-tab label="Konvertor obrázků"><image-converter /></mat-tab>
-      <mat-tab label="J&D wiki"><wiki-tab /></mat-tab>
     </mat-tab-group>
   `,
   styles: `
