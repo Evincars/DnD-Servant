@@ -9,7 +9,6 @@ import { QuestsTabComponent } from './quests/quests.component';
 import { LocalStorageService, ACTIVE_TAB_INDEX_KEY, AUTOFILL_DIALOG_HIDDEN_KEY, TabNavigatorService } from '@dn-d-servant/util';
 import { MatDialog } from '@angular/material/dialog';
 import { openAutofillAbilitiesDialog } from './help-dialogs/autofill-abilities-dialog.component';
-import { ImageConverterComponent } from './image-converter/image-converter.component';
 import { WikiTabComponent } from './wiki/wiki-tab.component';
 import { SpellsTabComponent } from './spells-tab/spells-tab.component';
 import { PotionsTabComponent } from './potions-tab/potions-tab.component';
@@ -17,7 +16,7 @@ import { Subscription, timer } from 'rxjs';
 
 const TAB_INDEX_KEY = ACTIVE_TAB_INDEX_KEY;
 /** Total number of tabs in the character-sheet tab group. Keep in sync with the template. */
-const TAB_COUNT = 9;
+const TAB_COUNT = 8;
 
 @Component({
   selector: 'character-sheet-tabs',
@@ -33,10 +32,9 @@ const TAB_COUNT = 9;
       <mat-tab label="Poznámky"><notes-sheet /></mat-tab>
       <mat-tab label="J&D wiki"><wiki-tab /></mat-tab>
       <mat-tab label="Iniciativa"><initiative-tracker [disableMonsterSearch]="true" /></mat-tab>
-      <mat-tab label="Kouzla"><spells-tab [active]="selectedTab() === 3" /></mat-tab>
+      <mat-tab label="Kouzla"><spells-tab [active]="selectedTab() === 5" /></mat-tab>
       <mat-tab label="Lektvary"><potions-tab /></mat-tab>
       <mat-tab label="Questy"><quests-tab /></mat-tab>
-      <mat-tab label="Konvertor obrázků"><image-converter /></mat-tab>
     </mat-tab-group>
   `,
   styles: `
@@ -179,7 +177,6 @@ const TAB_COUNT = 9;
     NotesSheetComponent,
     InitiativeTrackerComponent,
     QuestsTabComponent,
-    ImageConverterComponent,
     WikiTabComponent,
     SpellsTabComponent,
     PotionsTabComponent,
