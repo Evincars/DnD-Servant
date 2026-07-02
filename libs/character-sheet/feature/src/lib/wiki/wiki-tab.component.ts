@@ -48,6 +48,7 @@ import { slugify } from './wiki-utils';
     .wiki-toolbar {
       display: flex;
       align-items: center;
+      justify-content: center;
       padding: 8px 16px;
       border-bottom: 1px solid rgba(200, 160, 60, 0.12);
       background: rgba(12, 7, 2, 0.98);

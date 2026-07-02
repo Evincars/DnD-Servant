@@ -9,7 +9,6 @@ import { QuestsTabComponent } from './quests/quests.component';
 import { LocalStorageService, ACTIVE_TAB_INDEX_KEY, AUTOFILL_DIALOG_HIDDEN_KEY, TabNavigatorService } from '@dn-d-servant/util';
 import { MatDialog } from '@angular/material/dialog';
 import { openAutofillAbilitiesDialog } from './help-dialogs/autofill-abilities-dialog.component';
-import { ImageConverterComponent } from './image-converter/image-converter.component';
 import { WikiTabComponent } from './wiki/wiki-tab.component';
 import { SpellsTabComponent } from './spells-tab/spells-tab.component';
 import { PotionsTabComponent } from './potions-tab/potions-tab.component';
@@ -17,7 +16,7 @@ import { Subscription, timer } from 'rxjs';
 
 const TAB_INDEX_KEY = ACTIVE_TAB_INDEX_KEY;
 /** Total number of tabs in the character-sheet tab group. Keep in sync with the template. */
-const TAB_COUNT = 9;
+const TAB_COUNT = 8;
 
 @Component({
   selector: 'character-sheet-tabs',
@@ -29,14 +28,13 @@ const TAB_COUNT = 9;
       (selectedIndexChange)="onTabChange($any($event))"
     >
       <mat-tab label="Karta postavy"><character-sheet class="u-mt-2" /></mat-tab>
-      <mat-tab label="Questy"><quests-tab /></mat-tab>
       <mat-tab label="Karta družiny"><group-sheet class="u-mt-2" /></mat-tab>
-      <mat-tab label="Kouzla"><spells-tab [active]="selectedTab() === 3" /></mat-tab>
-      <mat-tab label="Lektvary"><potions-tab /></mat-tab>
       <mat-tab label="Poznámky"><notes-sheet /></mat-tab>
-      <mat-tab label="Iniciativa"><initiative-tracker [disableMonsterSearch]="true" /></mat-tab>
-      <mat-tab label="Konvertor obrázků"><image-converter /></mat-tab>
       <mat-tab label="J&D wiki"><wiki-tab /></mat-tab>
+      <mat-tab label="Iniciativa"><initiative-tracker [disableMonsterSearch]="true" /></mat-tab>
+      <mat-tab label="Kouzla"><spells-tab [active]="selectedTab() === 5" /></mat-tab>
+      <mat-tab label="Lektvary"><potions-tab /></mat-tab>
+      <mat-tab label="Questy"><quests-tab /></mat-tab>
     </mat-tab-group>
   `,
   styles: `
@@ -46,57 +44,22 @@ const TAB_COUNT = 9;
 
     /* ── Tab header ─────────────────────────────────────── */
     ::ng-deep .mat-mdc-tab-header {
-      background:
-        linear-gradient(180deg,
-          rgba(20,14,6,.98) 0%,
-          rgba(14,10,4,.99) 100%) !important;
-      border-bottom: none !important;
+      background: rgba(10, 6, 2, 0.99) !important;
+      border-bottom: 1px solid rgba(200, 160, 60, 0.18) !important;
       box-shadow: none !important;
       overflow: visible !important;
-      position: relative;
-
-      /* top thin gold rule */
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 1px;
-        background: linear-gradient(90deg,
-          transparent, rgba(200,160,60,.5) 30%,
-          rgba(200,160,60,.8) 50%,
-          rgba(200,160,60,.5) 70%, transparent);
-        pointer-events: none;
-        z-index: 5;
-      }
-
-      /* bottom double-rule separator */
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: -1px; left: 0; right: 0;
-        height: 3px;
-        background: linear-gradient(90deg,
-          transparent 0%,
-          rgba(200,160,60,.15) 5%,
-          rgba(200,160,60,.6) 50%,
-          rgba(200,160,60,.15) 95%,
-          transparent 100%);
-        box-shadow: 0 1px 8px rgba(200,160,60,.3), 0 3px 16px rgba(0,0,0,.7);
-        pointer-events: none;
-        z-index: 5;
-      }
     }
 
     /* ── Tab label strip ────────────────────────────────── */
     ::ng-deep .mat-mdc-tab-labels {
-      gap: 6px;
-      padding: 10px 20px 0;
-      align-items: flex-end;
+      gap: 0;
+      padding: 0 8px;
+      align-items: stretch;
     }
 
-    /* ── Individual tab — ribbon bookmark shape ─────────── */
+    /* ── Individual tab ─────────────────────────────────── */
     ::ng-deep .mat-mdc-tab {
-      height: 36px !important;
+      height: 40px !important;
       min-width: 0 !important;
       padding: 0 !important;
       opacity: 1 !important;
@@ -107,30 +70,24 @@ const TAB_COUNT = 9;
       flex-shrink: 0;
 
       .mdc-tab__content {
-        position: relative;
-        height: 36px;
-        padding: 0 18px;
+        height: 40px;
+        padding: 0 14px;
         display: flex;
         align-items: center;
         justify-content: center;
-        /* ribbon shape: flat top, V-notch at bottom */
-        clip-path: polygon(0% 0%, 100% 0%, 100% 72%, 50% 100%, 0% 72%);
-        background: linear-gradient(180deg,
-          rgba(40,18,8,.97) 0%,
-          rgba(28,12,4,.99) 100%);
-        border-top: 1px solid rgba(180,100,40,.25);
-        transition: background .18s, filter .18s;
+        background: transparent;
+        box-shadow: inset 0 -3px 0 transparent;
+        transition: box-shadow 0.15s, background 0.15s;
       }
 
       .mdc-tab__text-label {
         font-family: sans-serif !important;
         font-size: 11px !important;
-        letter-spacing: .14em !important;
+        letter-spacing: .12em !important;
         text-transform: uppercase !important;
-        color: #7a6a58 !important;
-        transition: color .18s, text-shadow .18s !important;
+        color: rgba(200, 160, 60, 0.35) !important;
+        transition: color .15s !important;
         white-space: nowrap;
-        padding-bottom: 4px;
       }
 
       .mat-mdc-tab-ripple,
@@ -138,37 +95,25 @@ const TAB_COUNT = 9;
 
       &:hover:not(.mdc-tab--active) {
         .mdc-tab__content {
-          background: linear-gradient(180deg,
-            rgba(80,40,12,.97) 0%,
-            rgba(55,25,6,.99) 100%);
-          border-top-color: rgba(200,130,40,.5);
-          filter: drop-shadow(0 -2px 6px rgba(200,140,40,.2));
+          background: rgba(200, 160, 60, 0.04);
         }
-        .mdc-tab__text-label { color: #c0986a !important; }
+        .mdc-tab__text-label { color: rgba(200, 160, 60, 0.65) !important; }
       }
     }
 
-    /* ── Active tab — blood red ribbon ──────────────────── */
+    /* ── Active tab ─────────────────────────────────────── */
     ::ng-deep .mat-mdc-tab.mdc-tab--active {
-      height: 42px !important;
+      height: 40px !important;
 
       .mdc-tab__content {
-        height: 42px;
-        background: linear-gradient(180deg,
-          rgba(120,25,15,1) 0%,
-          rgba(90,15,8,1)   55%,
-          rgba(70,10,5,1)   100%) !important;
-        border-top: 2px solid rgba(210,90,60,.9) !important;
-        filter:
-          drop-shadow(0 -4px 10px rgba(180,50,20,.4))
-          drop-shadow(0 0 2px rgba(210,90,60,.2)) !important;
+        height: 40px;
+        background: transparent !important;
+        box-shadow: inset 0 -3px 0 rgba(200, 160, 60, 1) !important;
       }
 
       .mdc-tab__text-label {
-        color: #f0c090 !important;
-        text-shadow:
-          0 0 12px rgba(220,120,60,.7),
-          0 0  4px rgba(220,100,40,.4) !important;
+        color: rgba(200, 160, 60, 1) !important;
+        text-shadow: none !important;
       }
     }
 
@@ -232,7 +177,6 @@ const TAB_COUNT = 9;
     NotesSheetComponent,
     InitiativeTrackerComponent,
     QuestsTabComponent,
-    ImageConverterComponent,
     WikiTabComponent,
     SpellsTabComponent,
     PotionsTabComponent,

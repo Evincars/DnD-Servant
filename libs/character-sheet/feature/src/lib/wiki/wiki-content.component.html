@@ -16,9 +16,44 @@
 
   @for (chunk of chunks(); track chunk.chapterId) {
     <article class="chapter-article">
-      <header class="chapter-article__header">
-        <span class="chapter-article__label">{{ chunk.label }}</span>
-      </header>
+
+      @if (chunk.toc.length > 1) {
+        <details class="chapter-toc" open>
+          <summary class="chapter-toc__summary">
+            <span class="material-symbols-outlined chapter-toc__icon">toc</span>
+            <span class="chapter-toc__title">Obsah kapitoly</span>
+            <span class="material-symbols-outlined chapter-toc__chevron">expand_more</span>
+          </summary>
+          <div class="chapter-toc__search-wrap">
+            <span class="material-symbols-outlined chapter-toc__search-icon">search</span>
+            <input
+              class="chapter-toc__search"
+              type="search"
+              placeholder="Hledat v obsahu…"
+              [value]="tocFilter()"
+              (input)="tocFilter.set($any($event.target).value)"
+              aria-label="Hledat v obsahu kapitoly"
+            />
+          </div>
+          <ul class="chapter-toc__list">
+            @let filtered = filteredTocEntries().get(chunk.chapterId) ?? [];
+            @if (tocFilter() && filtered.length === 0) {
+              <li class="chapter-toc__item chapter-toc__item--empty">Žádné výsledky</li>
+            }
+            @for (entry of filtered; track entry.slug) {
+              <li
+                class="chapter-toc__item"
+                [attr.data-level]="entry.level"
+                tabindex="0"
+                (click)="scrollToHeadingSlug(entry.slug)"
+                (keydown.enter)="scrollToHeadingSlug(entry.slug)"
+                [innerHTML]="entry.html"
+              ></li>
+            }
+          </ul>
+        </details>
+      }
+
       <div class="chapter-article__body wiki-body" [innerHTML]="chunk.html"></div>
     </article>
     <hr class="chapter-divider" />
@@ -36,5 +71,15 @@
       <p class="end-of-book">✦ Konec knihy ✦</p>
     }
   </div>
+</div>
+
+<!-- Floating scroll-to-top / scroll-to-bottom buttons -->
+<div class="wiki-scroll-btns">
+  <button class="wiki-scroll-btn" (click)="scrollContentToTop()" title="Přejít nahoru" aria-label="Přejít nahoru">
+    <mat-icon>keyboard_arrow_up</mat-icon>
+  </button>
+  <button class="wiki-scroll-btn" (click)="scrollContentToBottom()" title="Přejít dolů" aria-label="Přejít dolů">
+    <mat-icon>keyboard_arrow_down</mat-icon>
+  </button>
 </div>
 

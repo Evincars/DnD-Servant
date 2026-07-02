@@ -30,6 +30,64 @@ const CHAPTER_INDEX: ChapterEntry[] = WIKI_CATALOG.flatMap(book =>
   }),
 );
 
+// ── Search helpers ────────────────────────────────────────────────────────────
+
+/** Escape HTML special characters so user-provided text is safe inside innerHTML. */
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/**
+ * Fuzzy subsequence check: every character in `nq` appears in-order in `nText`.
+ * Returns the matched character positions (in `nText`) on success, null otherwise.
+ * Works on pre-normalised (diacritic-stripped, lower-cased) strings.
+ */
+function subsequencePositions(nText: string, nq: string): number[] | null {
+  const positions: number[] = [];
+  let qi = 0;
+  for (let ti = 0; ti < nText.length && qi < nq.length; ti++) {
+    if (nText[ti] === nq[qi]) {
+      positions.push(ti);
+      qi++;
+    }
+  }
+  return qi === nq.length ? positions : null;
+}
+
+/**
+ * Build an HTML string with matched characters wrapped in `<mark>`.
+ * Strategy (in priority order):
+ *  1. Contiguous substring — highlights the whole span.
+ *  2. Subsequence        — highlights individual matched characters.
+ *
+ * `normalizeStr` preserves a 1-to-1 character-index mapping for pre-composed
+ * (NFC) Czech text, so positions transfer directly to the original string.
+ */
+function buildHighlightHtml(original: string, nq: string): string {
+  const nOrig = normalizeStr(original);
+
+  // 1. Contiguous substring match
+  const idx = nOrig.indexOf(nq);
+  if (idx !== -1) {
+    return (
+      escapeHtml(original.slice(0, idx)) +
+      '<mark>' +
+      escapeHtml(original.slice(idx, idx + nq.length)) +
+      '</mark>' +
+      escapeHtml(original.slice(idx + nq.length))
+    );
+  }
+
+  // 2. Subsequence match
+  const positions = subsequencePositions(nOrig, nq);
+  if (positions) {
+    const posSet = new Set(positions);
+    return [...original].map((c, i) => (posSet.has(i) ? '<mark>' + escapeHtml(c) + '</mark>' : escapeHtml(c))).join('');
+  }
+
+  return escapeHtml(original);
+}
+
 // ── Heading-level search index (loaded lazily) ───────────────────────────────
 
 /** Shape of one entry in the static heading-index.json file. */
@@ -51,9 +109,11 @@ interface HeadingEntry {
   _words: string[];
 }
 
-// ── Unified result type ───────────────────────────────────────────────────────
+// ── Unified result types ──────────────────────────────────────────────────────
 
 type SearchEntry = ChapterEntry | HeadingEntry;
+/** SearchEntry augmented with pre-computed highlight HTML for the result label. */
+type SearchResult = SearchEntry & { highlightHtml: string };
 
 const MAX_RESULTS = 20;
 const MAX_CHAPTER_RESULTS = 10;
@@ -63,7 +123,11 @@ function matchesChapter(e: ChapterEntry, nq: string): boolean {
   const queryWords = nq.split(/\s+/).filter(Boolean);
   if (queryWords.length === 0) return false;
   // Every query word must match at least one indexed word (prefix match).
-  return queryWords.every(qw => e._words.some(w => w.startsWith(qw)));
+  if (queryWords.every(qw => e._words.some(w => w.startsWith(qw)))) return true;
+  // Fallback: full-label substring match (catches partial-word queries).
+  if (normalizeStr(e.label).includes(nq)) return true;
+  // Fallback: fuzzy subsequence match (e.g. 'nehra' → 'Nezavisli hranicari').
+  return subsequencePositions(normalizeStr(e.label), nq) !== null;
 }
 
 function matchesHeading(e: HeadingEntry, nq: string): boolean {
@@ -71,7 +135,9 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
   if (normalizeStr(e.label).includes(nq)) return true;
   // Fallback: every query word matches at least one indexed word (prefix match).
   const queryWords = nq.split(/\s+/).filter(Boolean);
-  return queryWords.length > 0 && queryWords.every(qw => e._words.some(w => w.startsWith(qw)));
+  if (queryWords.length > 0 && queryWords.every(qw => e._words.some(w => w.startsWith(qw)))) return true;
+  // Fallback: fuzzy subsequence match.
+  return subsequencePositions(normalizeStr(e.label), nq) !== null;
 }
 
 @Component({
@@ -80,12 +146,13 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
   imports: [FormsModule],
   host: {
     '(document:keydown.escape)': 'onEscapeGlobal()',
+    '(document:keydown)': 'onDocKeydown($event)',
   },
   template: `
     <div class="search-wrap">
       <div class="search-row">
         <!-- Search icon -->
-        <svg class="search-icon" viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+        <svg class="search-icon" viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
           <path
             d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
           />
@@ -95,7 +162,7 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
           #inputRef
           class="search-input"
           type="text"
-          placeholder="Hledat v J&D Wiki…"
+          placeholder=""
           autocomplete="off"
           spellcheck="false"
           [ngModel]="query()"
@@ -104,6 +171,12 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
           (focus)="onFocus()"
           (blur)="onBlur()"
         />
+
+        @if (!query() && !focused()) {
+          <span class="search-hint" aria-hidden="true">
+            <kbd class="search-hint__kbd">/</kbd> pro vyhledávání
+          </span>
+        }
 
         @if (query()) {
           <button class="clear-btn" (click)="clear()" tabindex="-1" title="Vymazat">
@@ -128,7 +201,7 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
               @if (entry.kind === 'heading') {
                 <span class="result__hash">#</span>
               }
-              <span class="result__label">{{ entry.label }}</span>
+              <span class="result__label" [innerHTML]="entry.highlightHtml"></span>
               <span class="result__book">
                 @if (entry.kind === 'heading') {
                   {{ entry.chapterLabel }} &middot; {{ entry.bookLabel }}
@@ -146,6 +219,8 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
     :host {
       display: block;
       position: relative;
+      flex: 1;
+      max-width: 600px;
     }
 
     .search-wrap {
@@ -156,24 +231,57 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
     .search-row {
       display: flex;
       align-items: center;
-      gap: 7px;
-      padding: 5px 10px;
+      gap: 9px;
+      padding: 9px 16px;
       background: rgba(22, 12, 4, 0.97);
-      border: 1px solid rgba(200, 160, 60, 0.18);
-      border-radius: 3px;
-      min-width: 240px;
+      border: 1px solid rgba(200, 160, 60, 0.22);
+      border-radius: 4px;
+      position: relative;
       transition:
         border-color 0.15s,
         box-shadow 0.15s;
 
       &:focus-within {
-        border-color: rgba(200, 160, 60, 0.45);
-        box-shadow: 0 0 0 1px rgba(200, 160, 60, 0.12);
+        border-color: rgba(200, 160, 60, 0.52);
+        box-shadow: 0 0 0 2px rgba(200, 160, 60, 0.1);
       }
     }
 
+    /* Hint shown when input is empty and unfocused */
+    .search-hint {
+      position: absolute;
+      left: 46px; /* icon(17) + gap(9) + padding-left(16) + a bit = aligned with input text */
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: sans-serif;
+      font-size: 13px;
+      color: rgba(200, 160, 60, 0.32);
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .search-hint__kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: monospace;
+      font-size: 11px;
+      font-style: normal;
+      line-height: 1;
+      padding: 2px 6px;
+      border: 1px solid rgba(200, 160, 60, 0.35);
+      border-radius: 3px;
+      background: rgba(200, 160, 60, 0.08);
+      color: rgba(200, 160, 60, 0.6);
+      box-shadow: 0 1px 0 rgba(200, 160, 60, 0.2);
+    }
+
     .search-icon {
-      color: #5a4a38;
+      color: #6a5a48;
       flex-shrink: 0;
     }
 
@@ -183,12 +291,12 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
       border: none;
       outline: none;
       font-family: sans-serif;
-      font-size: 13px;
+      font-size: 14.5px;
       color: #c8baa8;
       min-width: 0;
 
       &::placeholder {
-        color: #3e3028;
+        color: #4a3a28;
       }
     }
 
@@ -285,6 +393,13 @@ function matchesHeading(e: HeadingEntry, nq: string): boolean {
       color: #b8a898;
     }
 
+    /* Highlight matched characters — red, no background */
+    .result__label mark {
+      background: transparent !important;
+      color: #b84949;
+      font-weight: 700;
+    }
+
     .result__book {
       font-family: sans-serif;
       font-size: 10.5px;
@@ -300,6 +415,7 @@ export class WikiSearchComponent {
   readonly query = signal('');
   readonly open = signal(false);
   readonly focusedIndex = signal(0);
+  readonly focused = signal(false);
 
   readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('inputRef');
 
@@ -340,15 +456,18 @@ export class WikiSearchComponent {
 
   // ── Search results ─────────────────────────────────────────────────────────
 
-  readonly results = computed<SearchEntry[]>(() => {
+  readonly results = computed<SearchResult[]>(() => {
     const nq = normalizeStr(this.query().trim());
     if (nq.length < 2) return [];
 
-    const chapterResults = CHAPTER_INDEX.filter(e => matchesChapter(e, nq)).slice(0, MAX_CHAPTER_RESULTS);
+    const chapterResults: SearchResult[] = CHAPTER_INDEX.filter(e => matchesChapter(e, nq))
+      .slice(0, MAX_CHAPTER_RESULTS)
+      .map(e => ({ ...e, highlightHtml: buildHighlightHtml(e.label, nq) }));
 
-    const headingResults = this.headingEntries()
+    const headingResults: SearchResult[] = this.headingEntries()
       .filter(e => matchesHeading(e, nq))
-      .slice(0, MAX_HEADING_RESULTS);
+      .slice(0, MAX_HEADING_RESULTS)
+      .map(e => ({ ...e, highlightHtml: buildHighlightHtml(e.label, nq) }));
 
     return [...chapterResults, ...headingResults].slice(0, MAX_RESULTS);
   });
@@ -356,6 +475,7 @@ export class WikiSearchComponent {
   // ── Event handlers ─────────────────────────────────────────────────────────
 
   onFocus(): void {
+    this.focused.set(true);
     this.open.set(true);
     // Lazy-load heading index on first focus
     this.loadHeadingIndex();
@@ -391,10 +511,11 @@ export class WikiSearchComponent {
   }
 
   onBlur(): void {
+    this.focused.set(false);
     this.open.set(false);
   }
 
-  select(entry: SearchEntry): void {
+  select(entry: SearchResult): void {
     const selection: WikiSelection = { book: entry.book, chapter: entry.chapter };
     if (entry.kind === 'heading') {
       selection.headingSlug = entry.headingSlug;
@@ -410,7 +531,7 @@ export class WikiSearchComponent {
     this.inputRef()?.nativeElement.focus();
   }
 
-  trackEntry(entry: SearchEntry): string {
+  trackEntry(entry: SearchResult): string {
     return entry.kind === 'heading'
       ? `h:${entry.book.id}:${entry.chapter.id}:${entry.headingSlug}`
       : `c:${entry.book.id}:${entry.chapter.id}`;
@@ -418,5 +539,20 @@ export class WikiSearchComponent {
 
   onEscapeGlobal(): void {
     if (this.open()) this.open.set(false);
+  }
+
+  /** Focus the search input when '/' is pressed outside any text field. */
+  onDocKeydown(event: KeyboardEvent): void {
+    if (event.key !== '/') return;
+    const active = document.activeElement;
+    if (
+      active instanceof HTMLInputElement ||
+      active instanceof HTMLTextAreaElement ||
+      (active as HTMLElement)?.isContentEditable
+    ) return;
+    event.preventDefault();
+    this.loadHeadingIndex();
+    this.open.set(true);
+    this.inputRef()?.nativeElement.focus();
   }
 }
