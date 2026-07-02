@@ -21,7 +21,6 @@ import { CsFloatingActionsComponent } from './character-sheet/cs-floating-action
 import { CdkDropList, moveItemInArray, type CdkDragDrop } from '@angular/cdk/drag-drop';
 import { CsSectionOrderService } from './character-sheet/cs-section-order.service';
 import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
-import { ImportDataDialogComponent } from './import-data-dialog.component';
 
 interface GsSectionConfig {
   readonly key: string;
@@ -546,16 +545,7 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
           }
         </div>
 
-        <!-- Save & Import buttons: visible on desktop, hidden on tablet/mobile (≤1359 px) -->
-        <button
-          (click)="onImportClick()"
-          type="button"
-          class="field button cs-import-btn"
-          matTooltip="Importovat data z jiného uživatele"
-        >
-          <mat-icon>cloud_download</mat-icon>
-          Import
-        </button>
+        <!-- Save button: visible on desktop, hidden on tablet/mobile (≤1359 px) -->
         <button (click)="onSaveClick()" type="submit" class="field button cs-save-btn">
           Uložit [enter]
         </button>
@@ -777,23 +767,6 @@ export class GroupSheetComponent {
     }
   }
 
-  onImportClick() {
-    const dialogRef = this.dialog.open(ImportDataDialogComponent, {
-      panelClass: 'import-data-dialog-panel',
-      backdropClass: 'import-data-dialog-backdrop',
-      hasBackdrop: true,
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // Reload data after successful import
-        const username = this.authService.currentUser()?.username;
-        if (username) {
-          this.characterSheetStore.getGroupSheetByUsername(`${username}${this.documentName}`);
-        }
-      }
-    });
-  }
 
   onOpenAnimalsDialog() {
     openAnimalsDialog(this.dialog);
