@@ -10,7 +10,6 @@ import {
   model,
   output,
   signal,
-  untracked,
 } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { WikiBook, WikiChapter, WikiSelection, WIKI_CATALOG } from './wiki-catalog.const';
@@ -457,19 +456,17 @@ export class WikiSidebarComponent {
 
   constructor() {
     // When activeBookId changes (e.g. from a search result), expand the correct
-    // book in the sidebar and scroll the active chapter item into view.
+    // book accordion and queue a scroll to the active chapter item.
+    // NOTE: we deliberately do NOT touch `collapsed` here — opening/closing the
+    // sidebar is the parent's responsibility (wiki-tab). Forcing collapsed=false
+    // here would race with wiki-tab's sidebarCollapsed.set(true) and reopen the
+    // sidebar even after the user (or code) just closed it.
     effect(() => {
       const bookId = this.activeBookId();
       if (!bookId) return;
 
       this.expandedBook.set(bookId);
 
-      // Use untracked so `collapsed` is NOT a reactive dependency of this effect.
-      // Without this, every user click to collapse re-triggers the effect which
-      // immediately un-collapses the sidebar again.
-      if (untracked(() => this.collapsed())) {
-        this.collapsed.set(false);
-      }
 
       this.needsScroll.set(true);
     });
