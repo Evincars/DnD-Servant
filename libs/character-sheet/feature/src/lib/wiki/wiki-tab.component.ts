@@ -35,7 +35,8 @@ import { MatIcon } from '@angular/material/icon';
         }
 
         <wiki-sidebar
-          [(collapsed)]="sidebarCollapsed"
+          [collapsed]="sidebarCollapsed()"
+          (collapsedChange)="sidebarCollapsed.set($event)"
           [activeBookId]="activeBook()?.id ?? null"
           [activeChapterId]="activeChapter()?.id ?? null"
           (chapterSelect)="onChapterSelect($event)"
@@ -63,15 +64,18 @@ import { MatIcon } from '@angular/material/icon';
     .wiki-toolbar {
       display: flex;
       align-items: center;
+      justify-content: center;
       padding: 8px 16px;
       border-bottom: 1px solid rgba(200, 160, 60, 0.12);
       background: rgba(12, 7, 2, 0.98);
       flex-shrink: 0;
-      gap: 8px;
+      position: relative; /* anchor for absolute toggle button */
     }
 
-    /* Mobile toggle — always visible in the toolbar */
+    /* Toggle button — absolutely pinned to left so search stays centred */
     .wiki-toolbar__sidebar-btn {
+      position: absolute;
+      left: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -98,9 +102,10 @@ import { MatIcon } from '@angular/material/icon';
       }
     }
 
-    /* On desktop keep the toolbar search centered */
+    /* Search is the only flex child — it naturally centres */
     wiki-search {
-      flex: 1;
+      max-width: 560px;
+      width: 100%;
     }
 
     /* ── Sidebar + content row ── */
@@ -139,8 +144,9 @@ export class WikiTabComponent implements AfterViewInit {
 
   readonly contentRef = viewChild.required<WikiContentComponent>('contentRef');
 
-  /** Collapsed by default on mobile/tablet (<= 1023 px), expanded on desktop. */
-  readonly sidebarCollapsed = signal(
+  /** Collapsed by default on mobile/tablet (<= 1023 px), expanded on desktop.
+   *  Not readonly — the child's [(collapsed)] two-way binding calls .set() on this signal. */
+  sidebarCollapsed = signal(
     typeof window !== 'undefined' && window.innerWidth <= 1023,
   );
   readonly activeBook = signal<WikiBook | null>(null);

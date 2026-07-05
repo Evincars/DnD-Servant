@@ -143,16 +143,9 @@ interface SearchResult {
       box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
     }
 
-    /* Desktop collapsed: slide left so only the 44 px toggle strip is visible */
+    /* Fully hidden on every viewport when collapsed */
     .sidebar--collapsed {
-      transform: translateX(-236px); /* 280 - 44 = 236 */
-    }
-
-    /* Mobile / tablet: fully hide the sidebar when collapsed */
-    @media (max-width: 1023px) {
-      .sidebar--collapsed {
-        transform: translateX(-100%);
-      }
+      transform: translateX(-100%);
     }
 
     /* ── Header row ── */
