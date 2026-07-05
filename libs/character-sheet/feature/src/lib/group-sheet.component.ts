@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, signal, untracked, viewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, signal, untracked, viewChildren } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { GroupInventoryForm, GroupSheetForm } from '@dn-d-servant/character-sheet-util';
 import { RichTextareaComponent, SpinnerOverlayComponent } from '@dn-d-servant/ui';
@@ -47,11 +47,13 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
       <h2 class="cs-section-title cs-main-title">
         Karta Družiny
         <span class="cs-collapse-all-wrap">
-          <button type="button" class="cs-collapse-all-btn" (click)="expandAll()" matTooltip="Rozbalit vše">
-            <mat-icon>unfold_more</mat-icon>
-          </button>
-          <button type="button" class="cs-collapse-all-btn" (click)="collapseAll()" matTooltip="Sbalit vše">
-            <mat-icon>unfold_less</mat-icon>
+          <button
+            type="button"
+            class="cs-collapse-all-btn"
+            (click)="allExpanded() ? collapseAll() : expandAll()"
+            [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozbalit vše'"
+          >
+            <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
           </button>
         </span>
       </h2>
@@ -579,6 +581,7 @@ export class GroupSheetComponent {
   );
 
   private readonly collapsibles = viewChildren(CsCollapsibleComponent);
+  readonly allExpanded = computed(() => this.collapsibles().every(c => c.isOpen()));
 
   private readonly documentName = '_group';
   animalsSelect = animalsSelect;
