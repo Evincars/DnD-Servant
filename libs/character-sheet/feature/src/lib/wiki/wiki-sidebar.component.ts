@@ -10,6 +10,7 @@ import {
   model,
   output,
   signal,
+  untracked,
 } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { WikiBook, WikiChapter, WikiSelection, WIKI_CATALOG } from './wiki-catalog.const';
@@ -28,27 +29,11 @@ interface SearchResult {
   imports: [MatIcon],
   template: `
     <div class="sidebar" [class.sidebar--collapsed]="collapsed()">
-      <!-- Header row: toggle + title -->
-      <div class="sidebar__header">
-        <button
-          class="sidebar__toggle"
-          (click)="collapsed.set(!collapsed())"
-          [title]="collapsed() ? 'Rozbalit nabídku' : 'Sbalit nabídku'"
-          aria-label="Přepnout postranní panel"
-        >
-          <mat-icon>{{ collapsed() ? 'menu_open' : 'menu' }}</mat-icon>
-        </button>
-        @if (!collapsed()) {
-          <h3 class="sidebar__heading">J&amp;D Wiki</h3>
-        }
-      </div>
-
       @if (!collapsed()) {
         <!-- Search bar -->
         <div class="sidebar__search-wrap">
           <span class="material-symbols-outlined sidebar__search-icon">search</span>
           <input
-            #searchInput
             class="sidebar__search"
             type="search"
             placeholder="Hledat v obsahu…"
@@ -147,55 +132,7 @@ interface SearchResult {
       transform: translateX(-100%);
     }
 
-    /* ── Header row ── */
-    .sidebar__header {
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-      border-bottom: 1px solid rgba(200, 160, 60, 0.15);
-    }
-
-    /* ── Toggle button ── */
-    .sidebar__toggle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      flex-shrink: 0;
-      background: transparent;
-      border: none;
-      color: #8a7a68;
-      cursor: pointer;
-      transition: color 0.15s, background 0.15s;
-
-      &:hover {
-        color: #c8a03c;
-        background: rgba(200, 160, 60, 0.06);
-      }
-
-      mat-icon {
-        font-size: 20px;
-        width: 20px;
-        height: 20px;
-      }
-    }
-
-    .sidebar__heading {
-      font-family: sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(200, 160, 60, 0.5);
-      padding: 0 16px 0 4px;
-      margin: 0;
-      flex: 1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* ── Search bar ── */
+    /* ── Search bar — first visible element ── */
     .sidebar__search-wrap {
       display: flex;
       align-items: center;
@@ -430,6 +367,8 @@ export class WikiSidebarComponent {
   private readonly elRef = inject(ElementRef<HTMLElement>);
   /** Set to true when the sidebar needs to scroll to the active chapter after the next render. */
   private readonly needsScroll = signal(false);
+  /** Tracks the previous collapsed state so we can detect open transitions. */
+  private prevCollapsed = true;
 
   /** Flat list of chapters matching the current filter query. */
   readonly searchResults = computed((): SearchResult[] => {
@@ -455,31 +394,35 @@ export class WikiSidebarComponent {
   });
 
   constructor() {
-    // When activeBookId changes (e.g. from a search result), expand the correct
-    // book accordion and queue a scroll to the active chapter item.
-    // NOTE: we deliberately do NOT touch `collapsed` here — opening/closing the
-    // sidebar is the parent's responsibility (wiki-tab). Forcing collapsed=false
-    // here would race with wiki-tab's sidebarCollapsed.set(true) and reopen the
-    // sidebar even after the user (or code) just closed it.
+    // When activeBookId changes expand the correct book accordion and queue scroll.
     effect(() => {
       const bookId = this.activeBookId();
       if (!bookId) return;
-
       this.expandedBook.set(bookId);
-
-
       this.needsScroll.set(true);
     });
 
-    // After Angular renders (and the chapter list is in the DOM), scroll to the
-    // active chapter. Retries automatically on every render cycle until the element
-    // appears. Uses afterRenderEffect instead of setTimeout to stay zone-less safe.
+    // After Angular renders, scroll to the active chapter item.
     afterRenderEffect(() => {
       if (!this.needsScroll()) return;
       const activeEl = this.elRef.nativeElement.querySelector('.chapter--active') as HTMLElement | null;
-      if (!activeEl) return; // not in DOM yet — next render cycle will retry
+      if (!activeEl) return;
       this.needsScroll.set(false);
       activeEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    });
+
+    // Auto-focus the search input whenever the sidebar transitions from closed → open.
+    // afterRenderEffect guarantees the input is in the DOM before we try to focus.
+    afterRenderEffect(() => {
+      const isCollapsed = this.collapsed();
+      untracked(() => {
+        const wasCollapsed = this.prevCollapsed;
+        this.prevCollapsed = isCollapsed;
+        if (!isCollapsed && wasCollapsed) {
+          const input = this.elRef.nativeElement.querySelector('.sidebar__search') as HTMLInputElement | null;
+          input?.focus();
+        }
+      });
     });
   }
 

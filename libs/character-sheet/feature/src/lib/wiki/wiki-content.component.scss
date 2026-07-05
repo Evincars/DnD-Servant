@@ -482,7 +482,8 @@
    Tables — DnD dark fantasy style with crimson/gold accents
 ══════════════════════════════════════════════════════════════ */
 .wiki-body table {
-  width: 100%;
+  width: fit-content;   /* only as wide as the content needs */
+  max-width: 100%;      /* never overflow the article container */
   border-collapse: separate;
   border-spacing: 0;
   margin: 1.8em 0;
