@@ -15,21 +15,28 @@ import { MatIcon } from '@angular/material/icon';
     <div class="wiki-root">
       <!-- Toolbar with search -->
       <div class="wiki-toolbar">
-        <!-- Mobile/tablet sidebar toggle -->
-        <button
-          class="wiki-toolbar__sidebar-btn"
-          (click)="sidebarCollapsed.set(!sidebarCollapsed())"
-          [title]="sidebarCollapsed() ? 'Otevřít navigaci' : 'Zavřít navigaci'"
-          aria-label="Přepnout postranní panel"
-        >
-          <mat-icon>{{ sidebarCollapsed() ? 'menu' : 'menu_open' }}</mat-icon>
-        </button>
-        <wiki-search (chapterSelect)="onChapterSelect($event)" />
+        <!-- Sidebar toggle — left slot -->
+        <div class="wiki-toolbar__left">
+          <button
+            class="wiki-toolbar__sidebar-btn"
+            (click)="sidebarCollapsed.set(!sidebarCollapsed())"
+            [title]="sidebarCollapsed() ? 'Otevřít navigaci' : 'Zavřít navigaci'"
+            aria-label="Přepnout postranní panel"
+          >
+            <mat-icon>{{ sidebarCollapsed() ? 'menu' : 'menu_open' }}</mat-icon>
+          </button>
+        </div>
+
+        <!-- Search — centre slot -->
+        <wiki-search class="wiki-toolbar__search" (chapterSelect)="onChapterSelect($event)" />
+
+        <!-- Right spacer — mirrors left slot so search stays centred -->
+        <div class="wiki-toolbar__right"></div>
       </div>
 
       <!-- Main layout: sidebar (absolute overlay) + content (always full-width) -->
       <div class="wiki-layout">
-        <!-- Backdrop: visible on mobile/tablet when sidebar is open -->
+        <!-- Backdrop: always shown when sidebar is open, closes it on click -->
         @if (!sidebarCollapsed()) {
           <div class="wiki-backdrop" (click)="sidebarCollapsed.set(true)" aria-hidden="true"></div>
         }
@@ -60,22 +67,31 @@ import { MatIcon } from '@angular/material/icon';
       overflow: hidden;
     }
 
-    /* ── Toolbar ── */
+    /* ── Toolbar — 3-column layout so search is always centred ── */
     .wiki-toolbar {
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 8px 16px;
+      padding: 6px 12px;
       border-bottom: 1px solid rgba(200, 160, 60, 0.12);
       background: rgba(12, 7, 2, 0.98);
       flex-shrink: 0;
-      position: relative; /* anchor for absolute toggle button */
+      gap: 8px;
     }
 
-    /* Toggle button — absolutely pinned to left so search stays centred */
+    /* Left and right slots take equal space → search is perfectly centred */
+    .wiki-toolbar__left,
+    .wiki-toolbar__right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .wiki-toolbar__right {
+      justify-content: flex-end;
+    }
+
+    /* Toggle button */
     .wiki-toolbar__sidebar-btn {
-      position: absolute;
-      left: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -102,10 +118,10 @@ import { MatIcon } from '@angular/material/icon';
       }
     }
 
-    /* Search is the only flex child — it naturally centres */
-    wiki-search {
-      max-width: 560px;
-      width: 100%;
+    /* Centre slot — search stretches up to 560 px but never overflows */
+    .wiki-toolbar__search {
+      flex: 0 1 560px;
+      min-width: 0;
     }
 
     /* ── Sidebar + content row ── */
@@ -122,20 +138,13 @@ import { MatIcon } from '@angular/material/icon';
       min-width: 0;
     }
 
-    /* ── Backdrop (mobile/tablet only) ── */
+    /* ── Backdrop — always rendered when sidebar is open ── */
     .wiki-backdrop {
-      display: none; /* hidden on desktop */
       position: absolute;
       inset: 0;
       z-index: 15; /* below sidebar (z-index: 20) but above content */
       background: rgba(0, 0, 0, 0.55);
       cursor: pointer;
-    }
-
-    @media (max-width: 1023px) {
-      .wiki-backdrop {
-        display: block;
-      }
     }
   `,
 })
@@ -163,10 +172,9 @@ export class WikiTabComponent implements AfterViewInit {
     this.activeBook.set(selection.book);
     this.activeChapter.set(selection.chapter);
 
-    // Close sidebar automatically on mobile/tablet after selecting a chapter
-    if (typeof window !== 'undefined' && window.innerWidth <= 1023) {
-      this.sidebarCollapsed.set(true);
-    }
+    // Always close the sidebar after any chapter selection so the content is
+    // immediately visible (on desktop the user can reopen with the toolbar button).
+    this.sidebarCollapsed.set(true);
 
     this.ls.setDataSync(WIKI_LAST_POSITION_KEY, {
       bookId: selection.book.id,
@@ -210,16 +218,18 @@ export class WikiTabComponent implements AfterViewInit {
 
   /**
    * Restore the last viewed wiki position from LocalStorage.
-   * Used on startup when no URL fragment is present.
+   * Falls back to 'Jeskyně a draci – Úvod' when no position has been saved yet.
    */
   private restoreLastPosition(): void {
     const saved = this.ls.getDataSync<{ bookId: string; chapterId: string }>(WIKI_LAST_POSITION_KEY);
-    if (!saved?.bookId || !saved?.chapterId) return;
 
-    const book = WIKI_CATALOG.find(b => b.id === saved.bookId);
+    const bookId    = saved?.bookId    ?? 'jeskyne-a-draci';
+    const chapterId = saved?.chapterId ?? '0-uvod.md';
+
+    const book = WIKI_CATALOG.find(b => b.id === bookId);
     if (!book) return;
 
-    const chapter = book.chapters.find(c => c.id === saved.chapterId);
+    const chapter = book.chapters.find(c => c.id === chapterId);
     if (!chapter) return;
 
     this.activeBook.set(book);
