@@ -104,8 +104,11 @@ function extractToc(html: string): TocEntry[] {
 }
 
 const CHAPTERS_PER_LOAD = 2;
-/** Gap (px) kept above the heading so it isn't flush against the container edge. */
-const SCROLL_HEADING_OFFSET = 24;
+/**
+ * Gap kept above a heading after scroll-to.
+ * 70 px accounts for the app mat-toolbar (≈ 64 px) + a small breathing gap.
+ */
+const SCROLL_HEADING_OFFSET = 70;
 
 @Component({
   selector: 'wiki-content',

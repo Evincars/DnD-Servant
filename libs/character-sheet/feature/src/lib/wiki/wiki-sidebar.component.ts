@@ -72,7 +72,6 @@ interface SearchResult {
             @for (book of catalog; track book.id) {
               <div class="book" [class.book--active]="expandedBook() === book.id">
                 <button class="book__header" (click)="toggleBook(book.id)">
-                  <mat-icon class="book__icon">{{ book.icon }}</mat-icon>
                   <span class="book__label">{{ book.label }}</span>
                   <mat-icon class="book__chevron">
                     {{ expandedBook() === book.id ? 'expand_less' : 'expand_more' }}
@@ -294,12 +293,6 @@ interface SearchResult {
       background: rgba(200, 100, 30, 0.08);
     }
 
-    .book__icon {
-      font-size: 18px;
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-    }
 
     .book__label {
       flex: 1;

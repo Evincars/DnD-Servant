@@ -17,7 +17,7 @@
 
 body {
   margin: 0;
-  background-color: #0a0710;
+  background-color: #080504;
 }
 
 html,
@@ -37,11 +37,11 @@ body {
 }
 
 :root {
-  --background: hsl(270, 20%, 8%);
-  --background-gradient: hsl(280, 25%, 12%);
+  --background: hsl(0, 12%, 7%);
+  --background-gradient: hsl(0, 10%, 10%);
   --border: hsl(40, 65%, 80%);
   --text: hsl(40, 70%, 85%);
-  --button-hover: hsl(280, 25%, 12%);
+  --button-hover: hsl(0, 10%, 10%);
   --primary-color: #b84949;
 
   --mat-sys-primary: rgb(168, 58, 58);
@@ -67,7 +67,7 @@ body {
     padding: 14px 18px !important;
     color: #e8c96a !important;
     background:
-      linear-gradient(90deg, rgba(8,5,16,.98) 0%, rgba(22,15,38,.98) 50%, rgba(8,5,16,.98) 100%) !important;
+      linear-gradient(90deg, rgba(8,4,4,.98) 0%, rgba(20,10,8,.98) 50%, rgba(8,4,4,.98) 100%) !important;
     border-bottom: 1px solid rgba(200,160,60,.35) !important;
     text-shadow: 0 0 12px rgba(200,160,60,.4);
     position: relative;
@@ -205,7 +205,7 @@ mat-sidenav-content {
 // ════════════════════════════════════════════════════════════════
 mat-toolbar.toolbar {
   background:
-    linear-gradient(90deg, rgba(6,4,12,.98) 0%, rgba(16,11,26,.98) 50%, rgba(6,4,12,.98) 100%) !important;
+    linear-gradient(90deg, rgba(8,4,4,.98) 0%, rgba(16,8,6,.98) 50%, rgba(8,4,4,.98) 100%) !important;
   border-bottom: 1px solid rgba(200,160,60,.3) !important;
   box-shadow: 0 2px 20px rgba(0,0,0,.7), 0 1px 0 rgba(200,160,60,.15) !important;
   color: #e0d4c0 !important;
@@ -228,14 +228,14 @@ mat-toolbar.toolbar {
 
 // Backdrop
 .cdk-overlay-backdrop.cdk-overlay-dark-backdrop {
-  background: rgba(4, 2, 10, 0.82) !important;
+  background: rgba(6, 3, 3, 0.82) !important;
   backdrop-filter: blur(2px);
 }
 
 // Dialog surface
 .mat-mdc-dialog-surface {
   background:
-    linear-gradient(180deg, rgba(10,7,20,.99) 0%, rgba(16,11,28,.99) 100%) !important;
+    linear-gradient(180deg, rgba(10,5,4,.99) 0%, rgba(16,8,6,.99) 100%) !important;
   border: 1px solid rgba(200,160,60,.3) !important;
   border-radius: 10px !important;
   box-shadow:
@@ -284,7 +284,7 @@ mat-dialog-content.dialog-content,
 }
 
 .sd-dialog-backdrop {
-  background: rgba(4,2,10,.75) !important;
+  background: rgba(6,3,3,.75) !important;
   backdrop-filter: blur(3px);
 }
 

@@ -10,7 +10,7 @@
   min-height: 100dvh;
   min-width: 100vw;
   // Ensure the dark wallpaper covers everything even when content is short
-  background-color: #0a0710;
+  background-color: #080504;
   // Override Bootstrap's .container padding so the toolbar fills full width
   padding-left: 0 !important;
   padding-right: 0 !important;
@@ -29,9 +29,9 @@
 .sidenav {
   width: 280px !important;
   background:
-    linear-gradient(180deg, rgba(8,5,16,.97) 0%, rgba(18,12,28,.97) 60%, rgba(8,5,16,.97) 100%),
+    linear-gradient(180deg, rgba(10,5,4,.97) 0%, rgba(16,8,6,.97) 60%, rgba(10,5,4,.97) 100%),
     url('https://www.transparenttextures.com/patterns/dark-leather.png') !important;
-  background-color: #0d0910 !important;
+  background-color: #0a0604 !important;
   border-right: none !important;
   box-shadow: 4px 0 32px rgba(0,0,0,.8), inset -1px 0 0 rgba(200,160,60,.25) !important;
   overflow: hidden;
@@ -90,7 +90,7 @@
 
 .sidenav__subtitle {
   font-size: 11px;
-  color: #6b6070;
+  color: #6b6058;
   letter-spacing: .12em;
   text-transform: uppercase;
 }
@@ -164,7 +164,7 @@
     font-size: 20px;
     width: 20px;
     height: 20px;
-    color: #6b6080;
+    color: #6b6058;
     transition: color .18s;
   }
 }
