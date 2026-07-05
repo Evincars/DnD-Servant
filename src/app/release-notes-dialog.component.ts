@@ -17,6 +17,12 @@ const f = (text: string): ReleaseEntry => ({ type: 'fix', text });
 
 const RELEASE_NOTES: ReleaseGroup[] = [
   {
+    date: '5. července 2026',
+    entries: [
+      i('Vylepšená J&D wiki - lepší vyhledávání, scroll na pozici i pro podkapitoly, přizpůsobení mobilům a tabletům, zlepšení výkonu při dlouhých textech, Obsah Kapitoly s vyhledáváním, opraveny linky pro nadpisy'),
+    ],
+  },
+  {
     date: '25. června 2026',
     entries: [
       f('Login pomocí Google účtu, staré přihlašování je povolené, ale nově příchozí musí použít Google'),
