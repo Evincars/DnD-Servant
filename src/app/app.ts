@@ -29,7 +29,9 @@ import { MatDialogRef } from '@angular/material/dialog';
   },
   template: `
     <mat-sidenav-container class="container">
-      <mat-sidenav #sidenav mode="over" class="sidenav">
+      <mat-sidenav #sidenav mode="over" class="sidenav"
+        (opened)="sidenavOpen.set(true)"
+        (closed)="sidenavOpen.set(false)">
 
         <!-- logo -->
         <div class="sidenav__logo-wrap">
@@ -233,6 +235,7 @@ export class App implements OnInit, OnDestroy {
   showBackToTop = signal(false);
   screenshotLoading = signal(false);
   mobileMenuOpen = signal(false);
+  sidenavOpen = signal(false);
   private firstLoad = true;
 
   // ── Single-finger horizontal swipe tracking ──────────────
@@ -387,6 +390,10 @@ export class App implements OnInit, OnDestroy {
       hasBackdrop: true,
     });
   }
+
+  // ── Sidenav open/close — hide dice-roller tab via body class ────
+  onSidenavOpened(): void { this.doc.body.classList.add('sidenav-open'); }
+  onSidenavClosed(): void { this.doc.body.classList.remove('sidenav-open'); }
 
   // ── Scroll handler ───────────────────────────────────────
 

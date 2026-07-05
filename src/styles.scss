@@ -67,7 +67,7 @@ body {
     padding: 14px 18px !important;
     color: #e8c96a !important;
     background:
-      linear-gradient(90deg, rgba(8,4,4,.98) 0%, rgba(20,10,8,.98) 50%, rgba(8,4,4,.98) 100%) !important;
+      linear-gradient(90deg, rgba(14,2,2,.98) 0%, rgba(24,4,4,.98) 50%, rgba(14,2,2,.98) 100%) !important;
     border-bottom: 1px solid rgba(200,160,60,.35) !important;
     text-shadow: 0 0 12px rgba(200,160,60,.4);
     position: relative;
@@ -205,7 +205,7 @@ mat-sidenav-content {
 // ════════════════════════════════════════════════════════════════
 mat-toolbar.toolbar {
   background:
-    linear-gradient(90deg, rgba(8,4,4,.98) 0%, rgba(16,8,6,.98) 50%, rgba(8,4,4,.98) 100%) !important;
+    linear-gradient(90deg, rgba(14,2,2,.98) 0%, rgba(22,4,4,.98) 50%, rgba(14,2,2,.98) 100%) !important;
   border-bottom: 1px solid rgba(200,160,60,.3) !important;
   box-shadow: 0 2px 20px rgba(0,0,0,.7), 0 1px 0 rgba(200,160,60,.15) !important;
   color: #e0d4c0 !important;
@@ -235,7 +235,7 @@ mat-toolbar.toolbar {
 // Dialog surface
 .mat-mdc-dialog-surface {
   background:
-    linear-gradient(180deg, rgba(10,5,4,.99) 0%, rgba(16,8,6,.99) 100%) !important;
+    linear-gradient(180deg, rgba(14,2,2,.99) 0%, rgba(20,4,4,.99) 100%) !important;
   border: 1px solid rgba(200,160,60,.3) !important;
   border-radius: 10px !important;
   box-shadow:
