@@ -289,9 +289,9 @@
 .toolbar {
   font-family: 'Mikadan', sans-serif;
   background:
-    linear-gradient(90deg, rgba(8,5,16,.98) 0%, rgba(16,11,26,.98) 40%, rgba(16,11,26,.98) 60%, rgba(8,5,16,.98) 100%),
+    linear-gradient(90deg, rgba(10,4,4,.98) 0%, rgba(18,8,6,.98) 40%, rgba(18,8,6,.98) 60%, rgba(10,4,4,.98) 100%),
     url('https://www.transparenttextures.com/patterns/dark-leather.png') !important;
-  background-color: #0a0712 !important;
+  background-color: #0a0504 !important;
   border-bottom: 1px solid rgba(200,160,60,.35) !important;
   box-shadow: 0 3px 28px rgba(0,0,0,.85), inset 0 -1px 0 rgba(200,160,60,.18) !important;
   color: #e0d4c0 !important;
@@ -351,12 +351,12 @@
   margin-left: auto;
   flex: 0 0 auto;
   font-size: 10px;
-  color: #8a8090;
+  color: #8a7870;
   gap: 4px;
 }
 
 .toolbar-label {
-  color: #6b6070;
+  color: #6b5f58;
   font-size: 10px;
   letter-spacing: .04em;
 }
@@ -389,6 +389,10 @@
 
 .author-link {
   font-size: 16px;
+
+  @media (min-width: 901px) {
+    margin-right: 13px;
+  }
 }
 
 .backup-btn {
@@ -481,25 +485,16 @@
   }
 }
 
-@keyframes menu-pulse {
-  0%, 100% { box-shadow: 0 0 6px rgba(200,160,60,.4), 0 0 0 1px rgba(200,160,60,.25); }
-  50%       { box-shadow: 0 0 14px rgba(200,160,60,.7), 0 0 0 1px rgba(200,160,60,.5); }
-}
-
 .menu-btn {
-  color: #c8a03c !important;
+  color: #a08060 !important;
   border-radius: 6px !important;
-  border: 1px solid rgba(200,160,60,.3) !important;
-  background: rgba(200,160,60,.08) !important;
-  animation: menu-pulse 2.8s ease-in-out infinite;
-  transition: background .18s, border-color .18s, transform .12s !important;
+  background: transparent !important;
+  border: none !important;
+  transition: color .15s !important;
 
   &:hover {
-    background: rgba(200,160,60,.18) !important;
-    border-color: rgba(200,160,60,.7) !important;
-    transform: scale(1.08);
-    animation: none;
-    box-shadow: 0 0 18px rgba(200,160,60,.5);
+    color: #c8a03c !important;
+    background: rgba(200,160,60,.08) !important;
   }
 
   mat-icon { font-size: 22px; }
@@ -513,7 +508,7 @@
 
 .author-info {
   font-size: 10px;
-  color: #8a8090;
+  color: #8a7870;
 }
 
 .link {
@@ -575,9 +570,9 @@
   z-index: 201;
   min-width: 200px;
   background:
-    linear-gradient(180deg, rgba(8,5,16,.99) 0%, rgba(18,12,28,.99) 100%),
+    linear-gradient(180deg, rgba(10,5,4,.99) 0%, rgba(18,8,6,.99) 100%),
     url('https://www.transparenttextures.com/patterns/dark-leather.png');
-  background-color: #0d0910;
+  background-color: #0a0504;
   border: 1px solid rgba(200,160,60,.35);
   border-radius: 8px;
   box-shadow: 0 8px 32px rgba(0,0,0,.85), 0 0 0 1px rgba(200,160,60,.12);
@@ -589,7 +584,7 @@
     top: -7px; right: 14px;
     font-size: 9px;
     color: rgba(200,160,60,.6);
-    background: #0d0910;
+    background: #0a0504;
     padding: 0 2px;
     pointer-events: none;
   }
