@@ -159,50 +159,12 @@ type SpellTypeFilter = 'kouzlo' | 'ritual';
       text-transform: uppercase; color: rgba(200,160,60,.35);
       flex-shrink: 0; margin-right: 2px;
     }
-    .chip {
-      padding: 2px 10px;
-      border: 1px solid rgba(200,160,60,.25);
-      border-radius: 12px;
-      background: none;
-      color: rgba(200,160,60,.5);
-      font-family: sans-serif;
-      font-size: 11px;
-      cursor: pointer;
-      transition: all .15s;
-      white-space: nowrap;
-      &:hover { border-color: rgba(200,160,60,.55); color: #d4c9a0; background: rgba(200,160,60,.07); }
-      &.active { background: rgba(200,160,60,.14); border-color: #c8a03c; color: #e8c96a; box-shadow: 0 0 7px rgba(200,160,60,.18); }
-    }
-    /* Level chips – same gold family as class chips */
-    .chip--level { /* inherits .chip styles – no extra override needed */ }
     /* ── Sort-mode toggle ── */
     .sort-toggle {
       margin-left: auto;
       flex-shrink: 0;
       display: flex;
-      border: 1px solid rgba(200,160,60,.22);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .sort-toggle-btn {
-      display: flex;
-      align-items: center;
       gap: 4px;
-      padding: 2px 9px;
-      background: none;
-      border: none;
-      color: rgba(200,160,60,.4);
-      font-family: sans-serif;
-      font-size: 11px;
-      cursor: pointer;
-      transition: background .15s, color .15s;
-      white-space: nowrap;
-      &:hover { background: rgba(200,160,60,.07); color: rgba(200,160,60,.75); }
-      &.active {
-        background: rgba(200,160,60,.14);
-        color: #e8c96a;
-      }
-      & + & { border-left: 1px solid rgba(200,160,60,.22); }
     }
     /* ── Scrollable spell area ── */
     .spells-scroll {
@@ -316,17 +278,17 @@ type SpellTypeFilter = 'kouzlo' | 'ritual';
     @if (spellsService.availableClasses().length > 0) {
       <div class="filters">
         <span class="filter-label">Povolání</span>
-        <button class="chip" [class.active]="selectedClass() === null" type="button" (click)="selectedClass.set(null)">V&#353;e</button>
+        <button class="pt-filter-btn" [class.active]="selectedClass() === null" type="button" (click)="selectedClass.set(null)">V&#353;e</button>
         @for (cls of spellsService.availableClasses(); track cls) {
-          <button class="chip" [class.active]="selectedClass() === cls" type="button" (click)="toggleClass(cls)">{{ cls }}</button>
+          <button class="pt-filter-btn" [class.active]="selectedClass() === cls" type="button" (click)="toggleClass(cls)">{{ cls }}</button>
         }
         <!-- Sort-mode toggle -->
         <div class="sort-toggle" role="group" aria-label="Řazení">
-          <button class="sort-toggle-btn" [class.active]="sortMode() === 'school'" type="button"
+          <button class="pt-filter-btn" [class.active]="sortMode() === 'school'" type="button"
             (click)="sortMode.set('school')" matTooltip="Řadit podle školy magie">
             Škola
           </button>
-          <button class="sort-toggle-btn" [class.active]="sortMode() === 'level'" type="button"
+          <button class="pt-filter-btn" [class.active]="sortMode() === 'level'" type="button"
             (click)="sortMode.set('level')" matTooltip="Řadit podle úrovně kouzla">
             Úroveň
           </button>
@@ -338,15 +300,15 @@ type SpellTypeFilter = 'kouzlo' | 'ritual';
     @if (spellsService.allSpells().length > 0) {
       <div class="filters">
         <span class="filter-label">Typ</span>
-        <button class="chip" [class.active]="selectedSpellType() === null" type="button" (click)="selectedSpellType.set(null)">Vše</button>
-        <button class="chip" [class.active]="selectedSpellType() === 'kouzlo'" type="button" (click)="toggleSpellType('kouzlo')" matTooltip="Pouze kouzla (ne triky, ne rituály)">Kouzlo</button>
-        <button class="chip" [class.active]="selectedSpellType() === 'ritual'" type="button" (click)="toggleSpellType('ritual')" matTooltip="Pouze rituály">Rituál</button>
+        <button class="pt-filter-btn" [class.active]="selectedSpellType() === null" type="button" (click)="selectedSpellType.set(null)">Vše</button>
+        <button class="pt-filter-btn" [class.active]="selectedSpellType() === 'kouzlo'" type="button" (click)="toggleSpellType('kouzlo')" matTooltip="Pouze kouzla (ne triky, ne rituály)">Kouzlo</button>
+        <button class="pt-filter-btn" [class.active]="selectedSpellType() === 'ritual'" type="button" (click)="toggleSpellType('ritual')" matTooltip="Pouze rituály">Rituál</button>
           @if (availableLevels().length > 0) {
             <span class="filter-label" style="margin-left: 6px">Úroveň</span>
-            <button class="chip chip--level" [class.active]="selectedLevel() === null" type="button" (click)="selectedLevel.set(null)">Vše</button>
+            <button class="pt-filter-btn" [class.active]="selectedLevel() === null" type="button" (click)="selectedLevel.set(null)">Vše</button>
             @for (lvl of availableLevels(); track lvl) {
               <button
-                class="chip chip--level"
+                class="pt-filter-btn"
                 [class.active]="selectedLevel() === lvl"
                 type="button"
                 (click)="toggleLevel(lvl)"

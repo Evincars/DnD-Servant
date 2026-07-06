@@ -32,7 +32,7 @@ import { debounceTime } from 'rxjs/operators';
       mat-icon { font-size: 26px; width: 26px; height: 26px; color: #c8a03c; }
     }
     .header-subtitle { font-size: 11px; color: rgba(200,160,60,.4); letter-spacing: .05em; margin-top: 5px; font-family: sans-serif; font-style: italic; text-transform: none; }
-    .header-actions { display: flex; gap: 10px; align-items: center; }
+    .header-actions { display: flex; gap: 10px; align-items: center; justify-content: flex-end; flex-wrap: wrap; margin-bottom: 14px; }
 
     .autosave-indicator {
       font-family: sans-serif; font-size: 10px; letter-spacing: .05em;

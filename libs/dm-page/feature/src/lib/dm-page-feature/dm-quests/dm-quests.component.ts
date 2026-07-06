@@ -268,16 +268,7 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
   `,
   template: `
     <spinner-overlay [showSpinner]="store.loading()" [diameter]="50">
-      <div class="header-actions">
-        <button class="btn btn-icon" type="button" (click)="toggleAllExpanded()"
-          [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">
-          <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
-        </button>
-        <button class="btn" type="button" (click)="addQuest()"><mat-icon>add</mat-icon>Přidat quest</button>
-        <button class="btn btn-save" type="button" (click)="save()"><mat-icon>save</mat-icon>Uložit</button>
-      </div>
-
-      <!-- Filter bar -->
+      <!-- Filter bar + actions in one row -->
       <div class="filter-bar">
         <div class="filter-tabs">
           @for (t of filterTabs; track t.value) {
@@ -285,6 +276,14 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
               {{ t.label }}<span class="filter-count">{{ counts()[t.value] }}</span>
             </button>
           }
+        </div>
+        <div class="bar-actions">
+          <button class="btn btn-icon" type="button" (click)="toggleAllExpanded()"
+            [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">
+            <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
+          </button>
+          <button class="btn" type="button" (click)="addQuest()"><mat-icon>add</mat-icon>Přidat quest</button>
+          <button class="btn btn-save" type="button" (click)="save()"><mat-icon>save</mat-icon>Uložit</button>
         </div>
       </div>
 

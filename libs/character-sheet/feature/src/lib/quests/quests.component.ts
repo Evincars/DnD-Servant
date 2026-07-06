@@ -79,13 +79,6 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
       text-transform: none;
     }
 
-    .quests-header-actions {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
     /* ── Buttons ───────────────────────────────── */
     .btn-dnd {
       font-family: sans-serif;
@@ -125,10 +118,18 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
     .quests-filter-bar {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 20px;
+    }
+
+    .quests-bar-actions {
+      margin-left: auto;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
     .filter-tabs {
@@ -638,23 +639,6 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
   template: `
     <spinner-overlay [showSpinner]="showSpinner()" [diameter]="50">
 
-      <div class="quests-header-actions">
-        <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
-        <button class="btn-dnd btn-dnd-icon" type="button" (click)="toggleAllExpanded()"
-          [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">
-          <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
-        </button>
-        <button class="btn-dnd" type="button" (click)="addQuest()" matTooltip="Přidat nový quest">
-          <mat-icon>add</mat-icon>
-          Přidat quest
-        </button>
-        <button class="btn-dnd btn-dnd-save" type="button" (click)="save(true)" matTooltip="Uložit questy do databáze">
-            <mat-icon>save</mat-icon>
-            Uložit
-          </button>
-      </div>
-
-      <!-- ── Filter + sort bar ───────────────────────── -->
       <div class="quests-filter-bar">
         <div class="filter-tabs">
           @for (tab of filterTabs; track tab.value) {
@@ -675,6 +659,21 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
           </button>
           <button type="button" class="sort-btn" [class.sort-btn--active]="sortMode() === 'date'" (click)="sortMode.set('date')">
             <mat-icon>calendar_today</mat-icon> Datum
+          </button>
+        </div>
+        <div class="quests-bar-actions">
+          <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
+          <button class="btn-dnd btn-dnd-icon" type="button" (click)="toggleAllExpanded()"
+            [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">
+            <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
+          </button>
+          <button class="btn-dnd" type="button" (click)="addQuest()" matTooltip="Přidat nový quest">
+            <mat-icon>add</mat-icon>
+            Přidat quest
+          </button>
+          <button class="btn-dnd btn-dnd-save" type="button" (click)="save(true)" matTooltip="Uložit questy do databáze">
+            <mat-icon>save</mat-icon>
+            Uložit
           </button>
         </div>
       </div>

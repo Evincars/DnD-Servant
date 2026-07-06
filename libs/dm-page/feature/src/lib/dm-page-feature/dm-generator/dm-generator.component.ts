@@ -353,10 +353,8 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
 
     /* ── Header ─────────────────────────────────── */
     .gen-header {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      flex-wrap: wrap; gap: 14px; margin-bottom: 28px; padding-bottom: 14px;
-      border-bottom: 2px solid transparent;
-      border-image: linear-gradient(90deg, transparent, rgba(60,140,200,.6) 20%, rgba(80,180,240,.8) 50%, rgba(60,140,200,.6) 80%, transparent) 1;
+      display: flex; align-items: center; justify-content: flex-end;
+      flex-wrap: wrap; gap: 14px; margin-bottom: 20px;
     }
     .gen-title {
       font-size: 22px; letter-spacing: .12em; text-transform: uppercase;

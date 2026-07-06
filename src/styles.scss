@@ -184,7 +184,40 @@ mat-sidenav-content {
 }
 
 // ════════════════════════════════════════════════════════════════
+// DND FILTER BUTTON — unified filter/chip style used across all tabs
+// (Kouzla, Monstra, Lektvary and any future filter row)
+// Used as: .pt-filter-btn  (canonical class, also aliased as .dnd-filter-btn)
+// ════════════════════════════════════════════════════════════════
+.pt-filter-btn,
+.dnd-filter-btn {
+  background: rgba(200,160,60,.08);
+  border: 1px solid rgba(200,160,60,.2);
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: #9a8a6a;
+  cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+  font-family: sans-serif;
+  white-space: nowrap;
+
+  &:hover  { background: rgba(200,160,60,.15); color: #d4c9a0; border-color: rgba(200,160,60,.4); }
+  &.active { background: rgba(200,160,60,.25); color: #e8c96a; border-color: rgba(200,160,60,.6); }
+}
+
+// CR / challenge-rating variant (red-orange tint)
+.pt-filter-btn--cr,
+.dnd-filter-btn--cr {
+  border-color: rgba(200,80,60,.3);
+  color: rgba(220,120,80,.6);
+
+  &:hover  { border-color: rgba(220,120,80,.6); color: #e8a070; background: rgba(200,80,60,.07); }
+  &.active { background: rgba(200,80,60,.18); border-color: rgba(220,120,80,.8); color: #f0a070; }
+}
+
+// ════════════════════════════════════════════════════════════════
 // TOOLBAR — D&D dark fantasy style
+
 // ════════════════════════════════════════════════════════════════
 mat-toolbar.toolbar {
   background:

@@ -145,30 +145,8 @@ const CR_RANGES: CrRange[] = [
       text-transform: uppercase; color: rgba(200,160,60,.35);
       flex-shrink: 0; margin-right: 2px;
     }
-    .chip {
-      padding: 2px 10px; border: 1px solid rgba(200,160,60,.25); border-radius: 12px;
-      background: none; color: rgba(200,160,60,.5); font-family: sans-serif; font-size: 11px;
-      cursor: pointer; transition: all .15s; white-space: nowrap;
-      &:hover { border-color: rgba(200,160,60,.55); color: #d4c9a0; background: rgba(200,160,60,.07); }
-      &.active { background: rgba(200,160,60,.14); border-color: #c8a03c; color: #e8c96a; box-shadow: 0 0 7px rgba(200,160,60,.18); }
-    }
-    /* CR chips use a red/orange tint to visually distinguish from type chips */
-    .chip--cr {
-      border-color: rgba(200,80,60,.3); color: rgba(220,120,80,.6);
-      &:hover { border-color: rgba(220,120,80,.6); color: #e8a070; background: rgba(200,80,60,.07); }
-      &.active { background: rgba(200,80,60,.18); border-color: rgba(220,120,80,.8); color: #f0a070; box-shadow: 0 0 7px rgba(200,80,60,.2); }
-    }
     .sort-toggle {
-      margin-left: auto; flex-shrink: 0; display: flex;
-      border: 1px solid rgba(200,160,60,.22); border-radius: 12px; overflow: hidden;
-    }
-    .sort-btn {
-      padding: 2px 9px; background: none; border: none; color: rgba(200,160,60,.4);
-      font-family: sans-serif; font-size: 11px; cursor: pointer;
-      transition: background .15s, color .15s; white-space: nowrap;
-      &:hover { background: rgba(200,160,60,.07); color: rgba(200,160,60,.75); }
-      &.active { background: rgba(200,160,60,.14); color: #e8c96a; }
-      & + & { border-left: 1px solid rgba(200,160,60,.22); }
+      margin-left: auto; flex-shrink: 0; display: flex; gap: 4px;
     }
 
     /* ── Scroll area ── */
@@ -261,14 +239,14 @@ const CR_RANGES: CrRange[] = [
     @if (monstersService.availableTypes().length > 0) {
       <div class="filters">
         <span class="filter-label">Typ</span>
-        <button class="chip" [class.active]="selectedType() === null" type="button" (click)="selectedType.set(null)">Vše</button>
+        <button class="pt-filter-btn" [class.active]="selectedType() === null" type="button" (click)="selectedType.set(null)">Vše</button>
         @for (t of monstersService.availableTypes(); track t) {
-          <button class="chip" [class.active]="selectedType() === t" type="button" (click)="toggleType(t)">{{ t }}</button>
+          <button class="pt-filter-btn" [class.active]="selectedType() === t" type="button" (click)="toggleType(t)">{{ t }}</button>
         }
         <div class="sort-toggle" role="group" aria-label="Řazení">
-          <button class="sort-btn" [class.active]="sortMode() === 'type'" type="button"
+          <button class="pt-filter-btn" [class.active]="sortMode() === 'type'" type="button"
             (click)="sortMode.set('type')" matTooltip="Řadit podle typu">Typ</button>
-          <button class="sort-btn" [class.active]="sortMode() === 'cr'" type="button"
+          <button class="pt-filter-btn" [class.active]="sortMode() === 'cr'" type="button"
             (click)="sortMode.set('cr')" matTooltip="Řadit podle nebezpečnosti">NB</button>
         </div>
       </div>
@@ -278,10 +256,10 @@ const CR_RANGES: CrRange[] = [
     @if (availableCrRanges().length > 0) {
       <div class="filters">
         <span class="filter-label">NB</span>
-        <button class="chip chip--cr" [class.active]="selectedCrRange() === null" type="button" (click)="selectedCrRange.set(null)">Vše</button>
+        <button class="pt-filter-btn pt-filter-btn--cr" [class.active]="selectedCrRange() === null" type="button" (click)="selectedCrRange.set(null)">Vše</button>
         @for (range of availableCrRanges(); track range.label) {
           <button
-            class="chip chip--cr"
+            class="pt-filter-btn pt-filter-btn--cr"
             [class.active]="selectedCrRange() === range.label"
             type="button"
             (click)="toggleCrRange(range.label)"

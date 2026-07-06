@@ -90,6 +90,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       display: flex;
       gap: 8px;
       align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
     }
 
     .autosave-indicator {
