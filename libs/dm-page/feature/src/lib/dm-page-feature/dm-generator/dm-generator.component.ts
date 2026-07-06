@@ -489,10 +489,6 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
   `,
   template: `
     <div class="gen-header">
-      <div>
-        <div class="gen-title"><mat-icon>casino</mat-icon>Generátor PH</div>
-        <div class="gen-subtitle">Náhodné tabulky pro Pána Hry — jméno, počasí, setkání, zápletka a více</div>
-      </div>
       <button class="gen-reroll-all" type="button" (click)="rerollAll()" matTooltip="Přegenerovat všechny tabulky">
         <mat-icon>refresh</mat-icon>Generovat vše
       </button>

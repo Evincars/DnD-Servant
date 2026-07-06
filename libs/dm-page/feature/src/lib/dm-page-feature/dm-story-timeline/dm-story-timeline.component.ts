@@ -280,21 +280,11 @@ const ACL = '110,190,160'; // lighter teal
   template: `
     <spinner-overlay [diameter]="60" [showSpinner]="store.loading()">
 
-      <!-- Header -->
-      <div class="header">
-        <div>
-          <div class="header-title">
-            <mat-icon>auto_stories</mat-icon>
-            Příběhové události
-          </div>
-          <div class="header-subtitle">Kronika klíčových momentů vaší kampaně</div>
-        </div>
-        <div class="header-actions">
-          <button class="btn btn-icon" (click)="expandAll()" matTooltip="Rozbalit vše"><mat-icon>unfold_more</mat-icon></button>
-          <button class="btn btn-icon" (click)="collapseAll()" matTooltip="Sbalit vše"><mat-icon>unfold_less</mat-icon></button>
-          <button class="btn" (click)="addEvent()"><mat-icon>add</mat-icon> Přidat událost</button>
-          <button class="btn btn-save" (click)="save()"><mat-icon>save</mat-icon> Uložit</button>
-        </div>
+      <div class="header-actions">
+        <button class="btn btn-icon" (click)="expandAll()" matTooltip="Rozbalit vše"><mat-icon>unfold_more</mat-icon></button>
+        <button class="btn btn-icon" (click)="collapseAll()" matTooltip="Sbalit vše"><mat-icon>unfold_less</mat-icon></button>
+        <button class="btn" (click)="addEvent()"><mat-icon>add</mat-icon> Přidat událost</button>
+        <button class="btn btn-save" (click)="save()"><mat-icon>save</mat-icon> Uložit</button>
       </div>
 
       <!-- Type filter + sort -->

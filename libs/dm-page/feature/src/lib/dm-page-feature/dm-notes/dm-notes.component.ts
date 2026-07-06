@@ -249,24 +249,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   `,
   template: `
     <spinner-overlay [showSpinner]="store.loading()" [diameter]="50">
-      <div class="header">
-        <div>
-          <div class="header-title">
-            <mat-icon>import_contacts</mat-icon>
-            Zápisník Pána Hry
-          </div>
-          <div class="header-subtitle">Soukromé poznámky PH — obsah není sdílen s hráči</div>
-        </div>
-        <div class="header-actions">
-          <span class="autosave-indicator" [class.autosave-indicator--hidden]="!autoSaved()">
-            <mat-icon>check_circle</mat-icon>
-            Automaticky uloženo
-          </span>
-          <button class="btn-save" (click)="save()">
-            <mat-icon>save</mat-icon>
-            Uložit
-          </button>
-        </div>
+      <div class="header-actions">
+        <span class="autosave-indicator" [class.autosave-indicator--hidden]="!autoSaved()">
+          <mat-icon>check_circle</mat-icon>
+          Automaticky uloženo
+        </span>
+        <button class="btn-save" (click)="save()">
+          <mat-icon>save</mat-icon>
+          Uložit
+        </button>
       </div>
 
       <div class="notes-grid">

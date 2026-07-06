@@ -638,32 +638,20 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
   template: `
     <spinner-overlay [showSpinner]="showSpinner()" [diameter]="50">
 
-      <!-- ── Header ──────────────────────────────────── -->
-      <div class="quests-header">
-        <div>
-          <div class="quests-title">
-            <mat-icon>menu_book</mat-icon>
-            Deník Dobrodružství
-          </div>
-          <div class="quests-subtitle">
-            Zaznamenej si questy, úkoly a dobrodružství, která tě čekají
-          </div>
-        </div>
-        <div class="quests-header-actions">
-          <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
-          <button class="btn-dnd btn-dnd-icon" type="button" (click)="toggleAllExpanded()"
-            [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">
-            <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
-          </button>
-          <button class="btn-dnd" type="button" (click)="addQuest()" matTooltip="Přidat nový quest">
-            <mat-icon>add</mat-icon>
-            Přidat quest
-          </button>
-          <button class="btn-dnd btn-dnd-save" type="button" (click)="save(true)" matTooltip="Uložit questy do databáze">
+      <div class="quests-header-actions">
+        <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
+        <button class="btn-dnd btn-dnd-icon" type="button" (click)="toggleAllExpanded()"
+          [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">
+          <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
+        </button>
+        <button class="btn-dnd" type="button" (click)="addQuest()" matTooltip="Přidat nový quest">
+          <mat-icon>add</mat-icon>
+          Přidat quest
+        </button>
+        <button class="btn-dnd btn-dnd-save" type="button" (click)="save(true)" matTooltip="Uložit questy do databáze">
             <mat-icon>save</mat-icon>
             Uložit
           </button>
-        </div>
       </div>
 
       <!-- ── Filter + sort bar ───────────────────────── -->

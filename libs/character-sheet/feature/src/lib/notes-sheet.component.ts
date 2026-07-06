@@ -161,20 +161,14 @@ import { debounceTime } from 'rxjs/operators';
   `,
   template: `
     <form [formGroup]="form">
-      <div class="header">
-        <div>
-          <div class="header-title"><mat-icon>auto_stories</mat-icon>Zápisník Dobrodruhů</div>
-          <div class="header-subtitle">Osobní zápisky, mapy a cíle tvojí postavy</div>
-        </div>
-        <div class="header-actions">
-          <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
-          <span class="autosave-indicator" [class.autosave-indicator--hidden]="!autoSaved()">
-            <mat-icon>check_circle</mat-icon> Automaticky uloženo
-          </span>
-          <button class="btn-save" type="submit" (click)="onSaveClick()">
+      <div class="header-actions">
+        <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
+        <span class="autosave-indicator" [class.autosave-indicator--hidden]="!autoSaved()">
+          <mat-icon>check_circle</mat-icon> Automaticky uloženo
+        </span>
+        <button class="btn-save" type="submit" (click)="onSaveClick()">
             <mat-icon>save</mat-icon>Uložit
           </button>
-        </div>
       </div>
 
       <div class="notes-grid">

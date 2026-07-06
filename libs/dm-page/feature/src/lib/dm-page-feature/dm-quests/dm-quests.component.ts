@@ -268,20 +268,13 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
   `,
   template: `
     <spinner-overlay [showSpinner]="store.loading()" [diameter]="50">
-      <!-- Header -->
-      <div class="header">
-        <div>
-          <div class="header-title"><mat-icon>gavel</mat-icon>DM Questy &amp; Příběhy</div>
-          <div class="header-subtitle">Pouze pro Pána Hry — hráči tuto stránku nevidí</div>
-        </div>
-        <div class="header-actions">
-          <button class="btn btn-icon" type="button" (click)="toggleAllExpanded()"
-            [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">
-            <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
-          </button>
-          <button class="btn" type="button" (click)="addQuest()"><mat-icon>add</mat-icon>Přidat quest</button>
-          <button class="btn btn-save" type="button" (click)="save()"><mat-icon>save</mat-icon>Uložit</button>
-        </div>
+      <div class="header-actions">
+        <button class="btn btn-icon" type="button" (click)="toggleAllExpanded()"
+          [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">
+          <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
+        </button>
+        <button class="btn" type="button" (click)="addQuest()"><mat-icon>add</mat-icon>Přidat quest</button>
+        <button class="btn btn-save" type="button" (click)="save()"><mat-icon>save</mat-icon>Uložit</button>
       </div>
 
       <!-- Filter bar -->
