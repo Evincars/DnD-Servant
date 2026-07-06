@@ -25,7 +25,7 @@ export interface SpellDetailDialogData {
       flex-direction: column;
       max-height: 80vh;
       width: min(820px, 95vw);
-      background: #0d0b1a;
+      background: #0c0a08;
       color: #d4c9a0;
       overflow: hidden;
     }
@@ -34,59 +34,45 @@ export interface SpellDetailDialogData {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 20px 12px;
+      padding: 8px 14px;
       flex-shrink: 0;
       border-bottom: 1px solid rgba(200, 160, 60, 0.25);
-      background: linear-gradient(180deg, rgba(28, 18, 4, 0.9) 0%, rgba(10, 8, 20, 0.9) 100%);
+      background: linear-gradient(90deg, rgba(12,10,8,.98) 0%, rgba(20,16,13,.98) 100%);
     }
 
     .dlg-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 18px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #e8c96a;
-      text-shadow: 0 0 20px rgba(200, 160, 60, 0.5);
-    }
-
-    .dlg-title mat-icon {
-      font-size: 22px;
-      width: 22px;
-      height: 22px;
-      color: #c8a03c;
+      font-size: 14px;
+      font-family: sans-serif;
+      letter-spacing: 0.06em;
+      color: #e0d4c0;
     }
 
     .dlg-close {
-      background: none;
+      background: transparent;
       border: 1px solid rgba(200, 160, 60, 0.25);
       border-radius: 4px;
-      color: rgba(200, 160, 60, 0.6);
+      color: rgba(200, 160, 60, 0.55);
       cursor: pointer;
-      width: 32px;
-      height: 32px;
+      width: 26px;
+      height: 26px;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 0;
-      transition: all 0.18s;
+      transition: background .15s, border-color .15s, color .15s;
+      flex-shrink: 0;
 
       mat-icon {
-        font-size: 18px;
-        width: 18px;
-        height: 18px;
-        line-height: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
       }
-    }
 
-    .dlg-close:hover {
-      border-color: rgba(200, 160, 60, 0.7);
-      color: #e8c96a;
-      background: rgba(200, 160, 60, 0.1);
+      &:hover {
+        background: rgba(200, 160, 60, 0.1);
+        border-color: rgba(200, 160, 60, 0.5);
+        color: #e8c96a;
+      }
     }
 
     .dlg-body {
@@ -172,10 +158,7 @@ export interface SpellDetailDialogData {
   template: `
     <div class="dlg">
       <div class="dlg-header">
-        <div class="dlg-title">
-          <mat-icon>auto_awesome</mat-icon>
-          {{ data.spellName || 'Kouzlo' }}
-        </div>
+        <div class="dlg-title">{{ data.spellName || 'Kouzlo' }}</div>
         <button class="dlg-close" (click)="close()">
           <mat-icon>close</mat-icon>
         </button>
