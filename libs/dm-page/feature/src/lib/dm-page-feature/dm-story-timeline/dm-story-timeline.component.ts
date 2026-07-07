@@ -64,7 +64,7 @@ const ACL = '110,190,160'; // lighter teal
       mat-icon { font-size: 26px; width: 26px; height: 26px; color: #9e8f78; }
     }
     .header-subtitle { font-size: 11px; color: rgba(155,140,115,.45); letter-spacing: .05em; margin-top: 5px; font-family: sans-serif; font-style: italic; text-transform: none; }
-    .header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .header-actions { display: flex; gap: 8px; align-items: end; justify-content: end; flex-wrap: wrap; margin-bottom: var(--spacing-4) }
 
     /* ── Buttons ─────────────────────────────────── */
     .btn { font-family: sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;

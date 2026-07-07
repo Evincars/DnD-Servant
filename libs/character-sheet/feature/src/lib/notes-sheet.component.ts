@@ -178,7 +178,7 @@ import { debounceTime } from 'rxjs/operators';
           <div class="panel-header">
             <mat-icon class="panel-icon">history_edu</mat-icon>
             <span class="panel-title">Zápisky z Výpravy</span>
-            <span class="panel-desc">Deník sezení, klíčové události</span>
+<!--            <span class="panel-desc">Deník sezení, klíčové události</span>-->
           </div>
           <div class="rt-wrap">
             <rich-textarea [formControl]="controls.notesColumn1" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
@@ -190,8 +190,8 @@ import { debounceTime } from 'rxjs/operators';
           <div class="panel-rule"></div>
           <div class="panel-header">
             <mat-icon class="panel-icon">explore</mat-icon>
-            <span class="panel-title">Mapy &amp; Místa</span>
-            <span class="panel-desc">Lokace, sklepy, popisky map</span>
+            <span class="panel-title">Questy</span>
+            <span class="panel-desc">Nebo záložka Questy pro větší přehled</span>
           </div>
           <div class="rt-wrap">
             <rich-textarea [formControl]="controls.notesColumn2" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
@@ -203,8 +203,8 @@ import { debounceTime } from 'rxjs/operators';
           <div class="panel-rule"></div>
           <div class="panel-header">
             <mat-icon class="panel-icon">psychology</mat-icon>
-            <span class="panel-title">Cíle &amp; Tajemství</span>
-            <span class="panel-desc">Otevřené otázky, plány, úkoly</span>
+            <span class="panel-title">Cizí Postavy, frakce, vztahy, ...</span>
+<!--            <span class="panel-desc">Otevřené otázky, plány, úkoly</span>-->
           </div>
           <div class="rt-wrap">
             <rich-textarea [formControl]="controls.notesColumn4" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
