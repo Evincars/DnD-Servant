@@ -337,8 +337,8 @@ export class App implements OnInit, OnDestroy {
   // ── Two-finger swipe ─────────────────────────────────────
 
   private onTouchStart(e: TouchEvent): void {
-    // Only track single-finger touches; pinch/zoom (2+ fingers) are ignored
-    if (e.touches.length !== 1) {
+    // Only track two-finger touches for tab switching
+    if (e.touches.length !== 2) {
       this._touchActive = false;
       return;
     }
@@ -350,7 +350,7 @@ export class App implements OnInit, OnDestroy {
   }
 
   private onTouchMove(e: TouchEvent): void {
-    if (!this._touchActive || e.touches.length !== 1) return;
+    if (!this._touchActive || e.touches.length !== 2) return;
     this._touchLastX = e.touches[0].clientX;
     this._touchLastY = e.touches[0].clientY;
   }

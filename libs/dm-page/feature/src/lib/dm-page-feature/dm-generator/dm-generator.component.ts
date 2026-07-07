@@ -381,6 +381,11 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
       gap: 16px;
     }
 
+    @media (max-width: 600px) {
+      :host { padding: 16px 12px 40px; }
+      .gen-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── Card ────────────────────────────────────── */
     .gen-card {
       --c: rgba(160,145,110,.8);

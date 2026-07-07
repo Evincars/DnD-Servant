@@ -151,6 +151,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       gap: 18px;
     }
 
+    @media (max-width: 700px) {
+      :host { padding: 16px 12px 40px; }
+      .notes-grid { grid-template-columns: 1fr; }
+      .rt-wrap { height: 260px; }
+    }
+
     /* ── Single note panel ───────────────────────── */
     .note-panel {
       border-radius: 3px;

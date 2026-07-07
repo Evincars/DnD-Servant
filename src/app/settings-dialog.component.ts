@@ -172,12 +172,12 @@ export interface SettingsDialogData {
             </div>
             <div class="sd-shortcut-row">
               <div class="sd-shortcut-keys sd-shortcut-keys--gesture">
-                <span class="sd-gesture-icon">👆</span>
-                <span class="sd-gesture-swipe">swipe ←</span>
+                <span class="sd-gesture-icon">✌️</span>
+                <span class="sd-gesture-swipe">2× swipe ←</span>
                 <span class="sd-shortcut-slash">/</span>
-                <span class="sd-gesture-swipe">swipe →</span>
+                <span class="sd-gesture-swipe">2× swipe →</span>
               </div>
-              <span class="sd-shortcut-desc">Přepínání záložek (dotyková gesta)</span>
+              <span class="sd-shortcut-desc">Přepínání záložek (dvěma prsty)</span>
             </div>
           </div>
         </div>
