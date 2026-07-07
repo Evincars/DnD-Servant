@@ -27,23 +27,9 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
   selector: 'dm-quests',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, MatIcon, MatIconButton, MatTooltip, SpinnerOverlayComponent, RichTextareaComponent],
-  host: { '(document:keydown.escape)': 'onEscape()' },
+  host: { '(document:keydown.escape)': 'onEscape()', 'class': 'theme-dark' },
   styles: `
     :host { display: block; padding: 24px 32px 40px; font-family: sans-serif; overflow: visible; }
-
-    /* ── Header ─────────────────────────────────── */
-    .header {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      flex-wrap: wrap; gap: 14px; margin-bottom: 20px; padding-bottom: 14px;
-      border-bottom: 2px solid transparent;
-      border-image: linear-gradient(90deg, transparent, rgba(180,30,30,.6) 20%, rgba(220,60,50,.8) 50%, rgba(180,30,30,.6) 80%, transparent) 1;
-    }
-    .header-title { font-size: 22px; letter-spacing: .12em; text-transform: uppercase; color: #e8a0a0;
-      text-shadow: 0 0 18px rgba(200,60,50,.4); display: flex; align-items: center; gap: 10px;
-      mat-icon { font-size: 26px; width: 26px; height: 26px; color: #c05040; }
-    }
-    .header-subtitle { font-size: 11px; color: rgba(200,80,70,.4); letter-spacing: .05em; margin-top: 5px; font-family: sans-serif; font-style: italic; text-transform: none; }
-    .header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
     /* ── Buttons ─────────────────────────────────── */
     .btn { font-family: sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
@@ -63,10 +49,11 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
     .bar-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
     /* ── Grid ────────────────────────────────────── */
-    .quest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; align-items: start; }
+    .quest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; align-items: start; }
     .empty-state { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: rgba(255,255,255,.12); font-size: 13px; letter-spacing: .1em;
       mat-icon { font-size: 44px; width: 44px; height: 44px; display: block; margin: 0 auto 14px; color: rgba(200,80,60,.15); }
     }
+    @media (max-width: 900px) { .quest-grid { grid-template-columns: 1fr; } }
 
     /* ── Card ────────────────────────────────────── */
     .quest-card {
@@ -75,17 +62,19 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
       border: 1px solid rgba(200,80,60,.15);
       border-left: 3px solid transparent;
       box-shadow: 0 4px 20px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,120,100,.03);
-      transition: border-color .2s, box-shadow .2s; overflow: hidden;
+      transition: border-color .2s, box-shadow .2s;
       &::before { content: '◆'; position: absolute; top: 5px; left: 8px; font-size: 6px; color: rgba(200,80,60,.2); pointer-events: none; }
       &:hover { border-color: rgba(200,80,60,.28); box-shadow: 0 6px 28px rgba(0,0,0,.65), 0 0 10px rgba(200,80,60,.05); }
     }
     .quest-card-rule { height: 2px; background: linear-gradient(90deg, rgba(200,80,60,.0) 0%, rgba(200,80,60,.4) 30%, rgba(240,100,80,.6) 50%, rgba(200,80,60,.4) 70%, rgba(200,80,60,.0) 100%); }
 
     /* ── Card header ─────────────────────────────── */
-    .card-header { display: flex; align-items: center; gap: 6px; padding: 8px 10px 5px; flex-wrap: wrap; }
+    .card-header { display: flex; align-items: center; gap: 6px; padding: 10px 10px 7px; flex-wrap: wrap; cursor: pointer; user-select: none;
+      &:hover { background: rgba(200,80,60,.04); }
+    }
     .status-badge {
-      font-family: sans-serif; font-size: 8px; letter-spacing: .12em; text-transform: uppercase;
-      border-radius: 10px; padding: 2px 9px; cursor: pointer; border: 1px solid currentColor;
+      font-family: sans-serif; font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+      border-radius: 10px; padding: 4px 12px; cursor: pointer; border: 1px solid currentColor;
       transition: filter .15s; white-space: nowrap; flex-shrink: 0;
       &:hover { filter: brightness(1.2); }
       &--planned   { color: rgba(100,130,200,.9); background: rgba(80,100,180,.1); }
@@ -95,8 +84,8 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
       &--abandoned { color: rgba(120,120,120,.7); background: rgba(100,100,100,.07); }
     }
     .diff-badge {
-      font-family: sans-serif; font-size: 7px; letter-spacing: .1em; text-transform: uppercase;
-      border-radius: 2px; padding: 2px 7px; cursor: pointer; transition: filter .15s; white-space: nowrap; flex-shrink: 0;
+      font-family: sans-serif; font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+      border-radius: 2px; padding: 4px 10px; cursor: pointer; transition: filter .15s; white-space: nowrap; flex-shrink: 0;
       &:hover { filter: brightness(1.2); }
       &--trivial  { color: rgba(120,200,120,.8); background: rgba(80,160,80,.1); border: 1px solid rgba(80,160,80,.3); }
       &--easy     { color: rgba(80,180,100,.8);  background: rgba(60,140,80,.1); border: 1px solid rgba(60,160,80,.3); }
@@ -104,29 +93,29 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
       &--hard     { color: rgba(210,110,40,.8);  background: rgba(200,90,30,.1); border: 1px solid rgba(200,90,30,.3); }
       &--deadly   { color: rgba(220,60,50,.85);  background: rgba(200,40,30,.1); border: 1px solid rgba(200,40,30,.4); }
     }
-    .stage-pips { display: flex; gap: 3px; align-items: center; flex-shrink: 0; }
+    .stage-pips { display: flex; gap: 5px; align-items: center; flex-shrink: 0; }
     .stage-pip {
-      width: 8px; height: 8px; border-radius: 50%; cursor: pointer;
+      width: 16px; height: 16px; border-radius: 50%; cursor: pointer;
       border: 1px solid rgba(255,255,255,.15);
       background: rgba(255,255,255,.06);
       transition: background .15s, transform .1s, box-shadow .15s;
       &:hover { transform: scale(1.3); }
-      &--filled { background: rgba(200,80,60,.8); box-shadow: 0 0 5px rgba(200,80,60,.5); border-color: rgba(200,80,60,.6); }
+      &--filled { background: rgba(200,80,60,.8); box-shadow: 0 0 6px rgba(200,80,60,.5); border-color: rgba(200,80,60,.6); }
     }
-    .card-date { font-size: 9px; color: rgba(255,255,255,.2); letter-spacing: .05em; font-family: sans-serif; flex: 1; text-align: right; }
+    .card-header-spacer { flex: 1; min-width: 0; }
     .card-btns { display: flex; flex-shrink: 0; }
     .expand-btn, .delete-btn {
-      width: 26px !important; height: 26px !important; padding: 0 !important;
+      width: 44px !important; height: 44px !important; padding: 0 !important;
       display: inline-flex !important; align-items: center !important; justify-content: center !important;
-      border-radius: 2px !important; transition: color .15s, background .15s !important;
-      mat-icon, .mat-icon { font-size: 16px !important; width: 16px !important; height: 16px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+      border-radius: 3px !important; transition: color .15s, background .15s !important;
+      mat-icon, .mat-icon { font-size: 24px !important; width: 24px !important; height: 24px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
       .mat-mdc-button-touch-target, .mat-mdc-button-persistent-ripple, .mdc-icon-button__ripple { display: none !important; }
     }
     .expand-btn { color: rgba(200,80,60,.4) !important; &:hover { color: rgba(200,80,60,.85) !important; background: rgba(200,80,60,.08) !important; } }
     .delete-btn { color: rgba(180,60,60,.35) !important; &:hover { color: rgba(220,80,70,.85) !important; background: rgba(180,40,30,.1) !important; } }
 
     /* ── Title ───────────────────────────────────── */
-    .title-row { padding: 0 12px 10px; }
+    .title-row { padding: 0 12px 6px; }
     .title-input {
       width: 100%; box-sizing: border-box; background: transparent; border: none;
       border-bottom: 1px solid rgba(200,80,60,.2); color: #e8a0a0;
@@ -135,6 +124,7 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
       &::placeholder { color: rgba(200,80,60,.22); }
       &:focus { border-bottom-color: rgba(200,80,60,.55); }
     }
+    .card-date { font-size: 9px; color: rgba(255,255,255,.2); letter-spacing: .05em; font-family: sans-serif; margin-top: 4px; }
 
     /* ── Expanded body ───────────────────────────── */
     .expanded-body { padding: 0 12px 14px; }
@@ -177,25 +167,6 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
       &:focus { border-bottom-color: rgba(200,80,60,.4); }
     }
 
-    /* ── Player-visible section ──────────────────── */
-    .section-player {
-      margin-top: 12px; border: 1px solid rgba(200,160,60,.18); border-radius: 3px; overflow: hidden;
-      .section-label { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: rgba(200,160,60,.06); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(200,160,60,.7); border-bottom: 1px solid rgba(200,160,60,.12);
-        mat-icon { font-size: 13px; width: 13px; height: 13px; color: rgba(200,160,60,.6); }
-      }
-      .section-body { padding: 8px 10px; }
-    }
-
-    /* ── DM-only secret section ──────────────────── */
-    .section-dm {
-      margin-top: 10px; border: 1px solid rgba(180,30,30,.3); border-radius: 3px; overflow: hidden;
-      background: rgba(60,10,10,.3);
-      .section-label { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: rgba(180,30,30,.15); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(220,80,70,.75); border-bottom: 1px solid rgba(180,30,30,.2);
-        mat-icon { font-size: 13px; width: 13px; height: 13px; color: rgba(220,80,70,.7); }
-      }
-      .section-body { padding: 8px 10px; }
-    }
-
     /* ── Reward row ──────────────────────────────── */
     .reward-row { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
     .reward-icon { font-size: 13px !important; width: 13px !important; height: 13px !important; flex-shrink: 0; }
@@ -206,12 +177,39 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
     .reward-input--secret { color: rgba(220,80,70,.7); &:focus { border-bottom-color: rgba(200,50,40,.4); } }
 
     /* ── Rich-textarea wrap ──────────────────────── */
-    .rt-wrap { position: relative; height: 130px; border-radius: 2px; background: rgba(0,0,0,.2); overflow: hidden;
+    .rt-wrap {
+      position: relative; height: 150px; border-radius: 2px; background: rgba(0,0,0,.2);
       border: 1px solid rgba(200,80,60,.1);
-      & + .rt-wrap { margin-top: 6px; }
+      overflow: visible; z-index: 2;
+      margin-top: 44px; /* space for floating toolbar */
+      & + .rt-wrap { margin-top: 44px; }
     }
     .rt-wrap--player { border-color: rgba(200,160,60,.12); }
-    .rt-label { font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.2); margin-bottom: 3px; }
+    .rt-label { font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.2); margin-bottom: 3px; margin-top: 12px; }
+
+    /* ── Rich-textarea dark-theme overrides ──────── */
+    :host ::ng-deep .rt-toolbar {
+      background: rgba(22,14,6,.97) !important;
+      border-color: rgba(200,160,60,.35) !important;
+      box-shadow: 0 2px 12px rgba(0,0,0,.6) !important;
+      button { color: rgba(220,195,130,.9) !important;
+        &:hover { background: rgba(200,160,60,.14) !important; border-color: rgba(200,160,60,.45) !important; color: #e8c96a !important; }
+      }
+    }
+    :host ::ng-deep .rt-toolbar--inline {
+      background: rgba(18,12,5,.98) !important;
+      border-color: rgba(200,160,60,.25) !important;
+    }
+    :host ::ng-deep .rt-separator { background: rgba(200,160,60,.3) !important; }
+    :host ::ng-deep .rt-done-btn { color: rgba(100,200,100,.9) !important;
+      &:hover { background: rgba(50,160,50,.15) !important; border-color: rgba(80,180,80,.5) !important; }
+    }
+
+    /* ── Collapsed image thumbnail ───────────────── */
+    .collapsed-thumb {
+      height: 70px; overflow: hidden; border-top: 1px solid rgba(200,80,60,.1);
+      img { width: 100%; height: 100%; object-fit: cover; opacity: 0.65; display: block; }
+    }
 
     /* ── Stage bar ───────────────────────────────── */
     .stage-bar { display: flex; gap: 1px; margin-top: 10px; margin-bottom: 2px; }
@@ -286,25 +284,25 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
             <div class="quest-card-rule"></div>
 
             <!-- Card header -->
-            <div class="card-header">
+            <div class="card-header" (click)="toggleExpand(item.quest.id)">
               <button class="status-badge status-badge--{{ item.quest.status }}" type="button"
-                (click)="cycleStatus(item.idx)" matTooltip="Klikni pro změnu stavu">{{ statusLabel(item.quest.status) }}</button>
+                (click)="cycleStatus(item.idx); $event.stopPropagation()" matTooltip="Klikni pro změnu stavu">{{ statusLabel(item.quest.status) }}</button>
               <button class="diff-badge diff-badge--{{ item.quest.difficulty }}" type="button"
-                (click)="cycleDiff(item.idx)" matTooltip="Obtížnost — klikni pro změnu">{{ diffLabel(item.quest.difficulty) }}</button>
+                (click)="cycleDiff(item.idx); $event.stopPropagation()" matTooltip="Obtížnost — klikni pro změnu">{{ diffLabel(item.quest.difficulty) }}</button>
               <!-- Stage pips -->
               <div class="stage-pips">
                 @for (n of [1,2,3,4,5]; track n) {
                   <span class="stage-pip" [class.stage-pip--filled]="n <= item.quest.stage"
-                    (click)="setStage(item.idx, n)" [matTooltip]="stageName(n)"></span>
+                    (click)="setStage(item.idx, n); $event.stopPropagation()" [matTooltip]="stageName(n)"></span>
                 }
               </div>
-              <span class="card-date">{{ item.quest.dateAdded }}</span>
+              <span class="card-header-spacer"></span>
               <div class="card-btns">
-                <button mat-icon-button class="expand-btn" type="button" (click)="toggleExpand(item.quest.id)"
+                <button mat-icon-button class="expand-btn" type="button"
                   [matTooltip]="expandedIds().has(item.quest.id) ? 'Sbalit' : 'Rozbalit'">
                   <mat-icon>{{ expandedIds().has(item.quest.id) ? 'expand_less' : 'expand_more' }}</mat-icon>
                 </button>
-                <button mat-icon-button class="delete-btn" type="button" (click)="askDelete(item.idx)" matTooltip="Smazat">
+                <button mat-icon-button class="delete-btn" type="button" (click)="askDelete(item.idx); $event.stopPropagation()" matTooltip="Smazat">
                   <mat-icon>delete_outline</mat-icon>
                 </button>
               </div>
@@ -325,8 +323,18 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
 
             <!-- Title -->
             <div class="title-row">
-              <input class="title-input" [(ngModel)]="quests()[item.idx].title" placeholder="Název questu / příběhu..." />
+              <input class="title-input" [(ngModel)]="quests()[item.idx].title" placeholder="Název questu / příběhu..." (click)="$event.stopPropagation()" />
+              @if (item.quest.dateAdded) {
+                <div class="card-date">{{ item.quest.dateAdded }}</div>
+              }
             </div>
+
+            <!-- Collapsed image preview -->
+            @if (!expandedIds().has(item.quest.id) && quests()[item.idx].imageBase64) {
+              <div class="collapsed-thumb">
+                <img [src]="'data:image/png;base64,' + quests()[item.idx].imageBase64" [alt]="quests()[item.idx].title" />
+              </div>
+            }
 
             @if (expandedIds().has(item.quest.id)) {
               <div class="expanded-body">
@@ -356,38 +364,22 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
                     <input class="meta-input" [(ngModel)]="quests()[item.idx].antagonist" placeholder="Antagonista / Padouch" /></div>
                 </div>
 
-                <!-- ⚔ Player-visible section -->
-                <div class="section-player">
-                  <div class="section-label"><mat-icon>groups</mat-icon>CO VĚDÍ HRÁČI</div>
-                  <div class="section-body">
-                    <div class="rt-label">Popis pro hráče</div>
-                    <div class="rt-wrap rt-wrap--player">
-                      <rich-textarea [(ngModel)]="quests()[item.idx].playerDescription" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
-                    </div>
-                    <div class="reward-row">
-                      <mat-icon class="reward-icon" style="color:rgba(200,160,60,.55)">payments</mat-icon>
-                      <input class="reward-input" [(ngModel)]="quests()[item.idx].publicRewards" placeholder="Veřejná odměna (hráči to ví)..." />
-                    </div>
-                  </div>
+                <!-- ⚔ Player-visible textarea -->
+                <div class="rt-wrap rt-wrap--player">
+                  <rich-textarea [(ngModel)]="quests()[item.idx].playerDescription" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
+                </div>
+                <div class="reward-row">
+                  <mat-icon class="reward-icon" style="color:rgba(200,160,60,.55)">payments</mat-icon>
+                  <input class="reward-input" [(ngModel)]="quests()[item.idx].publicRewards" placeholder="Veřejná odměna (hráči to ví)..." />
                 </div>
 
-                <!-- 🔒 DM-only section -->
-                <div class="section-dm">
-                  <div class="section-label"><mat-icon>lock</mat-icon>POUZE PH — TAJNÉ POZNÁMKY</div>
-                  <div class="section-body">
-                    <div class="rt-label">DM poznámky &amp; plány</div>
-                    <div class="rt-wrap">
-                      <rich-textarea [(ngModel)]="quests()[item.idx].dmNotes" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
-                    </div>
-                    <div class="rt-label" style="margin-top:8px">Story hooks &amp; vodítka</div>
-                    <div class="rt-wrap">
-                      <rich-textarea [(ngModel)]="quests()[item.idx].storyHooks" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
-                    </div>
-                    <div class="reward-row">
-                      <mat-icon class="reward-icon" style="color:rgba(200,60,50,.5)">lock</mat-icon>
-                      <input class="reward-input reward-input--secret" [(ngModel)]="quests()[item.idx].secretRewards" placeholder="Tajná odměna / DM plán..." />
-                    </div>
-                  </div>
+                <!-- 🔒 DM-only textarea -->
+                <div class="rt-wrap">
+                  <rich-textarea [(ngModel)]="quests()[item.idx].dmNotes" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
+                </div>
+                <div class="reward-row">
+                  <mat-icon class="reward-icon" style="color:rgba(200,60,50,.5)">lock</mat-icon>
+                  <input class="reward-input reward-input--secret" [(ngModel)]="quests()[item.idx].secretRewards" placeholder="Tajná odměna / DM plán..." />
                 </div>
               </div>
             }
