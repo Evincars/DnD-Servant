@@ -516,10 +516,11 @@ mat-sidenav-content {
 
 .cp-dialog-panel .mdc-dialog__surface {
   background: transparent !important;
-  box-shadow: 0 24px 80px rgba(0,0,0,.85), 0 0 0 1px rgba(200,160,60,.2) !important;
+  box-shadow: 0 24px 80px rgba(0,0,0,.85) !important;
   border-radius: 12px !important;
-  overflow: visible !important;
+  overflow: hidden !important;
   height: auto !important;
+  width: min(580px, 96vw) !important;
 }
 
 .cp-dialog-panel {

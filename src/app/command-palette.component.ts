@@ -295,9 +295,8 @@ const APP_COMMANDS: CommandItem[] = [
     .cp-panel {
       background: linear-gradient(180deg, rgba(14,11,9,.97) 0%, rgba(22,17,13,.98) 100%);
       border: 1px solid rgba(200,160,60,.4);
-      border-radius: 12px;
       overflow: hidden;
-      width: min(580px, 96vw);
+      width: 100%;
       display: flex;
       flex-direction: column;
       height: auto;
