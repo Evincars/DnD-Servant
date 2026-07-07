@@ -138,29 +138,6 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
       flex-wrap: wrap;
     }
 
-    .filter-tab {
-      font-family: sans-serif;
-      font-size: 10px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,.07);
-      border-radius: 2px;
-      background: transparent;
-      color: rgba(255,255,255,.3);
-      padding: 4px 12px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: background .15s, border-color .15s, color .15s;
-      &:hover { background: rgba(255,255,255,.05); color: rgba(255,255,255,.55); }
-      &--active {
-        background: rgba(200,160,60,.12);
-        border-color: rgba(200,160,60,.45);
-        color: #e8c96a;
-      }
-    }
-
     .filter-count {
       background: rgba(255,255,255,.08);
       border-radius: 10px;
@@ -567,9 +544,6 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
       min-width: 300px;
       max-width: 400px;
       animation: scaleIn .14s ease;
-
-      &::before { content: '◆'; position: absolute; top: 7px; left: 9px; font-size: 7px; color: rgba(200,160,60,.4); pointer-events: none; }
-      &::after  { content: '◆'; position: absolute; bottom: 7px; right: 9px; font-size: 7px; color: rgba(200,160,60,.4); pointer-events: none; }
     }
 
     .confirm-icon { display: flex; justify-content: center; margin-bottom: 12px;
@@ -644,8 +618,8 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
           @for (tab of filterTabs; track tab.value) {
             <button
               type="button"
-              class="filter-tab"
-              [class.filter-tab--active]="filterStatus() === tab.value"
+              class="pt-filter-btn"
+              [class.active]="filterStatus() === tab.value"
               (click)="filterStatus.set(tab.value)"
             >
               {{ tab.label }}

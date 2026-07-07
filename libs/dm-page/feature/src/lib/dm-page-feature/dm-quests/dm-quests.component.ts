@@ -58,18 +58,9 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
     }
 
     /* ── Filter + sort bar ───────────────────────── */
-    .filter-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
-    .filter-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
-    .filter-tab {
-      font-family: sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,.07); border-radius: 2px; background: transparent;
-      color: rgba(255,255,255,.3); padding: 4px 12px; cursor: pointer;
-      display: flex; align-items: center; gap: 6px; transition: background .15s, border-color .15s, color .15s;
-      &:hover { background: rgba(255,255,255,.05); color: rgba(255,255,255,.55); }
-      &--active { background: rgba(200,80,60,.12); border-color: rgba(200,80,60,.45); color: #e8a090; }
-    }
+    .filter-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
     .filter-count { background: rgba(255,255,255,.08); border-radius: 10px; padding: 0 6px; font-size: 9px; min-width: 18px; text-align: center; line-height: 16px; }
-    .filter-tab--active .filter-count { background: rgba(200,80,60,.2); }
+    .bar-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
     /* ── Grid ────────────────────────────────────── */
     .quest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; align-items: start; }
@@ -237,7 +228,6 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
     /* ── Confirm dialog ──────────────────────────── */
     .confirm-backdrop { position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,.75); display: flex; align-items: center; justify-content: center; animation: fadeIn .14s ease; }
     .confirm-dialog { position: relative; background: linear-gradient(160deg, rgba(50,20,14,.99) 0%, rgba(30,10,8,1) 100%); border: 1px solid rgba(200,80,60,.35); border-top: 2px solid rgba(200,80,60,.7); box-shadow: 0 12px 50px rgba(0,0,0,.9); border-radius: 3px; padding: 26px 30px 22px; min-width: 300px; max-width: 400px; animation: scaleIn .14s ease;
-      &::before { content: '◆'; position: absolute; top: 7px; left: 9px; font-size: 7px; color: rgba(200,80,60,.35); pointer-events: none; }
     }
     .confirm-icon { display: flex; justify-content: center; margin-bottom: 12px; mat-icon { font-size: 34px; width: 34px; height: 34px; color: rgba(200,80,60,.7); } }
     .confirm-title { font-family: sans-serif; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: #e8a090; text-align: center; margin-bottom: 10px; }
@@ -270,13 +260,11 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
     <spinner-overlay [showSpinner]="store.loading()" [diameter]="50">
       <!-- Filter bar + actions in one row -->
       <div class="filter-bar">
-        <div class="filter-tabs">
-          @for (t of filterTabs; track t.value) {
-            <button type="button" class="filter-tab" [class.filter-tab--active]="filterStatus() === t.value" (click)="filterStatus.set(t.value)">
-              {{ t.label }}<span class="filter-count">{{ counts()[t.value] }}</span>
-            </button>
-          }
-        </div>
+        @for (t of filterTabs; track t.value) {
+          <button type="button" class="pt-filter-btn" [class.active]="filterStatus() === t.value" (click)="filterStatus.set(t.value)">
+            {{ t.label }}<span class="filter-count">{{ counts()[t.value] }}</span>
+          </button>
+        }
         <div class="bar-actions">
           <button class="btn btn-icon" type="button" (click)="toggleAllExpanded()"
             [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">

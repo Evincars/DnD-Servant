@@ -260,19 +260,6 @@ mat-toolbar.toolbar {
     inset 0 1px 0 rgba(255,220,100,.07) !important;
   overflow: hidden !important;
 
-  // Corner gem decorators
-  &::before,
-  &::after {
-    content: '◆';
-    position: absolute;
-    color: rgba(200,160,60,.5);
-    font-size: 9px;
-    line-height: 1;
-    pointer-events: none;
-    z-index: 10;
-  }
-  &::before { top: 6px; left: 8px; }
-  &::after  { top: 6px; right: 8px; }
 }
 
 // mat-dialog-content scroll area

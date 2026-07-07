@@ -94,7 +94,6 @@ import { debounceTime } from 'rxjs/operators';
       transition: border-color .2s, box-shadow .2s;
       position: relative;
       &:hover { border-color: rgba(200,160,60,.32); box-shadow: 0 6px 26px rgba(0,0,0,.6), 0 0 8px rgba(200,160,60,.06); }
-      &::before { content: '◆'; position: absolute; top: 5px; left: 8px; font-size: 6px; color: rgba(200,160,60,.2); pointer-events: none; }
     }
 
     .panel-rule { height: 2px; background: linear-gradient(90deg, rgba(200,160,60,0) 0%, rgba(200,160,60,.35) 40%, rgba(240,200,80,.6) 50%, rgba(200,160,60,.35) 60%, rgba(200,160,60,0) 100%); }

@@ -79,18 +79,8 @@ const ACL = '110,190,160'; // lighter teal
     }
 
     /* ── Filter / sort bar ───────────────────────── */
-    .filter-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
-    .filter-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
-    .filter-tab {
-      font-family: sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,.07); border-radius: 2px; background: transparent;
-      color: rgba(255,255,255,.3); padding: 4px 12px; cursor: pointer;
-      display: flex; align-items: center; gap: 6px; transition: background .15s, border-color .15s, color .15s;
-      &:hover { background: rgba(255,255,255,.05); color: rgba(255,255,255,.55); }
-      &--active { background: rgba(140,125,100,.14); border-color: rgba(155,140,115,.45); color: #d8cdb8; }
-    }
+    .filter-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
     .filter-count { background: rgba(255,255,255,.08); border-radius: 10px; padding: 0 6px; font-size: 9px; min-width: 18px; text-align: center; line-height: 16px; }
-    .filter-tab--active .filter-count { background: rgba(140,125,100,.25); }
     .sort-select {
       font-family: sans-serif; font-size: 10px; letter-spacing: .08em;
       background: rgba(140,125,100,.08); border: 1px solid rgba(155,140,115,.25); border-radius: 3px;
@@ -289,16 +279,14 @@ const ACL = '110,190,160'; // lighter teal
 
       <!-- Type filter + sort -->
       <div class="filter-bar">
-        <div class="filter-tabs">
-          <button class="filter-tab" [class.filter-tab--active]="filterType() === 'all'" (click)="filterType.set('all')">
-            Vše <span class="filter-count">{{ events().length }}</span>
+        <button class="pt-filter-btn" [class.active]="filterType() === 'all'" (click)="filterType.set('all')">
+          Vše <span class="filter-count">{{ events().length }}</span>
+        </button>
+        @for (t of typeKeys; track t) {
+          <button class="pt-filter-btn" [class.active]="filterType() === t" (click)="filterType.set(t)">
+            {{ typeMeta(t).label }}<span class="filter-count">{{ countByType()[t] ?? 0 }}</span>
           </button>
-          @for (t of typeKeys; track t) {
-            <button class="filter-tab" [class.filter-tab--active]="filterType() === t" (click)="filterType.set(t)">
-              {{ typeMeta(t).label }}<span class="filter-count">{{ countByType()[t] ?? 0 }}</span>
-            </button>
-          }
-        </div>
+        }
         <select class="sort-select" [ngModel]="sortOrder()" (ngModelChange)="sortOrder.set($event)">
           <option value="newest">Nejnovější první</option>
           <option value="oldest">Nejstarší první</option>

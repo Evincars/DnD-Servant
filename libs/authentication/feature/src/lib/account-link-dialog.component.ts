@@ -157,16 +157,8 @@ type DialogState = 'form' | 'migrating' | 'done' | 'error';
       position: relative;
 
       &::before {
-        content: '◆';
-        position: absolute;
-        top: -7px; left: 50%;
-        transform: translateX(-50%);
-        font-size: 9px;
-        color: rgba(200,160,60,.6);
-        background: rgba(8,5,18,1);
-        padding: 0 6px;
-        pointer-events: none;
-        z-index: 2;
+        content: '';
+        display: none;
       }
     }
 

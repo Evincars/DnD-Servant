@@ -244,16 +244,8 @@ export interface SettingsDialogData {
       max-width: 760px;
 
       &::before {
-        content: '◆';
-        position: absolute;
-        top: -7px; left: 50%;
-        transform: translateX(-50%);
-        font-size: 9px;
-        color: rgba(200,160,60,.6);
-        background: rgba(10,6,20,1);
-        padding: 0 6px;
-        pointer-events: none;
-        z-index: 2;
+        content: '';
+        display: none;
       }
     }
 
