@@ -35,7 +35,7 @@ export interface SettingsDialogData {
         <div class="sd-col-panel">
 
         <!-- Theme section -->
-        <div class="sd-section">
+        <div class="sd-section u-mb-6">
           <div class="sd-section-label">Téma karet</div>
           <div class="sd-theme-grid">
             <button
@@ -77,11 +77,11 @@ export interface SettingsDialogData {
           </div>
         </div>
 
-        <div class="sd-divider"></div>
+<!--        <div class="sd-divider"></div>-->
 
         <!-- Page layout section -->
         <div class="sd-section">
-          <div class="sd-section-label">Rozvržení stránek karty</div>
+          <div class="sd-section-label">Rozvržení stránek</div>
           <div class="sd-col">
             <button
               type="button"
@@ -89,7 +89,7 @@ export interface SettingsDialogData {
               [class.sd-btn--active]="!sheetTheme.spellsFirst()"
               (click)="sheetTheme.spellsFirst() && sheetTheme.toggleSpellsFirst()"
             >
-              <mat-icon class="sd-btn-icon">format_list_numbered</mat-icon>
+<!--              <mat-icon class="sd-btn-icon">format_list_numbered</mat-icon>-->
               <div class="sd-btn-text">
                 <span class="sd-btn-label">Výchozí pořadí</span>
                 <span class="sd-btn-sub">Str. 2 – Vzhled &amp; popis · str. 3 – Kouzla</span>
@@ -101,7 +101,7 @@ export interface SettingsDialogData {
               [class.sd-btn--active]="sheetTheme.spellsFirst()"
               (click)="!sheetTheme.spellsFirst() && sheetTheme.toggleSpellsFirst()"
             >
-              <mat-icon class="sd-btn-icon">auto_fix_high</mat-icon>
+<!--              <mat-icon class="sd-btn-icon">auto_fix_high</mat-icon>-->
               <div class="sd-btn-text">
                 <span class="sd-btn-label">Kouzla napřed</span>
                 <span class="sd-btn-sub">Str. 2 – Kouzla · str. 3 – Vzhled &amp; popis</span>
@@ -119,7 +119,7 @@ export interface SettingsDialogData {
         <div class="sd-col-panel">
 
         <!-- Export section -->
-        <div class="sd-section">
+        <div class="sd-section u-mb-6">
           <div class="sd-section-label">Záloha &amp; export <span style="color: red;">(experimentální)</span></div>
           <div class="sd-col">
             <button
@@ -150,10 +150,10 @@ export interface SettingsDialogData {
           </div>
         </div>
 
-        <div class="sd-divider"></div>
+<!--        <div class="sd-divider"></div>-->
 
         <!-- Keyboard shortcuts section -->
-        <div class="sd-section">
+        <div class="sd-section u-mb-6">
           <div class="sd-section-label">Klávesové zkratky &amp; gesta</div>
           <div class="sd-col">
             <div class="sd-shortcut-row">
@@ -172,32 +172,31 @@ export interface SettingsDialogData {
             </div>
             <div class="sd-shortcut-row">
               <div class="sd-shortcut-keys sd-shortcut-keys--gesture">
-                <span class="sd-gesture-icon">✌️</span>
-                <span class="sd-gesture-swipe">2× swipe ←</span>
-                <span class="sd-shortcut-slash">/</span>
-                <span class="sd-gesture-swipe">2× swipe →</span>
+                <span class="sd-gesture-swipe">swipe 2 prsty doprava/doleva</span>
+<!--                <span class="sd-shortcut-slash">/</span>-->
+<!--                <span class="sd-gesture-swipe">2× swipe →</span>-->
               </div>
-              <span class="sd-shortcut-desc">Přepínání záložek (dvěma prsty)</span>
+              <span class="sd-shortcut-desc">Přepínání záložek</span>
             </div>
           </div>
         </div>
 
-        <div class="sd-divider"></div>
+<!--        <div class="sd-divider"></div>-->
 
         <!-- Credits section -->
         <div class="sd-section">
           <div class="sd-section-label">Poděkování</div>
           <div class="sd-col">
-            <div class="sd-credits-row">
-              <mat-icon class="sd-credits-icon">auto_awesome</mat-icon>
-              <span class="sd-credits-text">
-                Speciální poděkování
-                <span class="sd-credit-name">&#64;Sirien</span>
-                a
-                <span class="sd-credit-name">&#64;Dukolm</span>
-                za jejich příspěvky a podporu projektu. A spoustě dalších z J&D komunity.
-              </span>
-            </div>
+<!--            <div class="sd-credits-row">-->
+<!--              <mat-icon class="sd-credits-icon">auto_awesome</mat-icon>-->
+<!--              <span class="sd-credits-text">-->
+<!--                Speciální poděkování-->
+<!--                <span class="sd-credit-name">&#64;Sirien</span>-->
+<!--                a-->
+<!--                <span class="sd-credit-name">&#64;Dukolm</span>-->
+<!--                za jejich příspěvky a podporu projektu. A spoustě dalších z J&D komunity.-->
+<!--              </span>-->
+<!--            </div>-->
             <div class="sd-credits-links">
               <a
                 href="https://www.jeskyneadraci.cz/"
