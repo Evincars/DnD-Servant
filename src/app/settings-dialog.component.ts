@@ -236,12 +236,16 @@ export interface SettingsDialogData {
     /* ── Panel ─────────────────────────────────────────────── */
     .sd-panel {
       background:
-        linear-gradient(180deg, rgba(10,6,20,.99) 0%, rgba(18,12,28,.99) 100%);
+        linear-gradient(180deg, rgba(14,11,9,.98) 0%, rgba(22,17,13,.99) 100%);
       border: 1px solid rgba(200,160,60,.4);
       border-radius: 10px;
       overflow: hidden;
       min-width: 320px;
       max-width: 760px;
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      max-height: 90vh;
 
       &::before {
         content: '';
@@ -305,6 +309,8 @@ export interface SettingsDialogData {
       grid-template-columns: 1fr auto 1fr;
       gap: 0;
       align-items: start;
+      overflow-y: auto;
+      flex: 1;
     }
 
     /* ── Two-column panels ─────────────────────────────────── */

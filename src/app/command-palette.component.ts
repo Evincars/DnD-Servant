@@ -293,13 +293,15 @@ const APP_COMMANDS: CommandItem[] = [
   `,
   styles: `
     .cp-panel {
-      background: linear-gradient(180deg, rgba(8,5,16,.99) 0%, rgba(14,10,22,.99) 100%);
+      background: linear-gradient(180deg, rgba(14,11,9,.97) 0%, rgba(22,17,13,.98) 100%);
       border: 1px solid rgba(200,160,60,.4);
       border-radius: 12px;
       overflow: hidden;
       width: min(580px, 96vw);
       display: flex;
       flex-direction: column;
+      height: auto;
+      opacity: 0.8;
 
       &::before {
         content: '';

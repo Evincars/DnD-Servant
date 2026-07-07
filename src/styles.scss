@@ -272,18 +272,28 @@ mat-dialog-content.dialog-content,
 // ════════════════════════════════════════════════════════════════
 // SETTINGS DIALOG — zero padding, custom panel handles all styling
 // ════════════════════════════════════════════════════════════════
+.sd-dialog-panel .mat-mdc-dialog-container {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
 .sd-dialog-panel .mat-mdc-dialog-surface {
   padding: 0 !important;
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
   overflow: visible !important;
+  height: auto !important;
 
   &::before, &::after { display: none !important; }
 }
 
 .sd-dialog-panel {
   overflow: visible !important;
+  height: auto !important;
 }
 
 .sd-dialog-backdrop {
@@ -501,6 +511,7 @@ mat-sidenav-content {
   padding: 0 !important;
   border-radius: 12px !important;
   overflow: visible !important;
+  height: auto !important;
 }
 
 .cp-dialog-panel .mdc-dialog__surface {
@@ -508,6 +519,11 @@ mat-sidenav-content {
   box-shadow: 0 24px 80px rgba(0,0,0,.85), 0 0 0 1px rgba(200,160,60,.2) !important;
   border-radius: 12px !important;
   overflow: visible !important;
+  height: auto !important;
+}
+
+.cp-dialog-panel {
+  height: auto !important;
 }
 
 .cp-dialog-backdrop {
