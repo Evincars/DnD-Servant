@@ -96,7 +96,6 @@ import { debounceTime } from 'rxjs/operators';
       &:hover { border-color: rgba(200,160,60,.32); box-shadow: 0 6px 26px rgba(0,0,0,.6), 0 0 8px rgba(200,160,60,.06); }
     }
 
-    .panel-rule { height: 2px; background: linear-gradient(90deg, rgba(200,160,60,0) 0%, rgba(200,160,60,.35) 40%, rgba(240,200,80,.6) 50%, rgba(200,160,60,.35) 60%, rgba(200,160,60,0) 100%); }
 
     .panel-header {
       display: flex; align-items: center; gap: 8px;
@@ -173,7 +172,7 @@ import { debounceTime } from 'rxjs/operators';
       <div class="notes-grid">
         <!-- Zápisky z Výpravy — notesColumn1 (existing data preserved) -->
         <div class="note-panel panel--expedition">
-          <div class="panel-rule"></div>
+
           <div class="panel-header">
             <mat-icon class="panel-icon">history_edu</mat-icon>
             <span class="panel-title">Zápisky z Výpravy</span>
@@ -186,7 +185,7 @@ import { debounceTime } from 'rxjs/operators';
 
         <!-- Mapy & Místa — notesColumn2 (existing data preserved) -->
         <div class="note-panel panel--maps">
-          <div class="panel-rule"></div>
+
           <div class="panel-header">
             <mat-icon class="panel-icon">explore</mat-icon>
             <span class="panel-title">Questy</span>
@@ -199,7 +198,7 @@ import { debounceTime } from 'rxjs/operators';
 
         <!-- Cíle & Tajemství — notesColumn4 (new) -->
         <div class="note-panel panel--goals">
-          <div class="panel-rule"></div>
+
           <div class="panel-header">
             <mat-icon class="panel-icon">psychology</mat-icon>
             <span class="panel-title">Cizí Postavy, frakce, vztahy, ...</span>

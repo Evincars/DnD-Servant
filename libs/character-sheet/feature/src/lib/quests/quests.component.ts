@@ -3,11 +3,9 @@ import {
   Component,
   computed,
   effect,
-  ElementRef,
   inject,
   signal,
   untracked,
-  viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
@@ -17,7 +15,6 @@ import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService } from '@dn-d-servant/util';
 import { QuestEntry, QuestPriority, QuestStatus } from '@dn-d-servant/character-sheet-util';
 import { SpinnerOverlayComponent, RichTextareaComponent } from '@dn-d-servant/ui';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { DOCUMENT } from '@angular/common';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -203,44 +200,27 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
     .quest-card {
       position: relative;
       border-radius: 3px;
-      background: linear-gradient(160deg, rgba(42,32,14,.97) 0%, rgba(28,20,8,.99) 100%);
+      background: rgba(28,24,14,.97);
       border: 1px solid rgba(200,160,60,.15);
       border-left: 3px solid transparent;
-      box-shadow: 0 4px 20px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,220,100,.04);
+      box-shadow: 0 4px 20px rgba(0,0,0,.5);
       transition: border-color .2s, box-shadow .2s;
       overflow: visible;
 
-      &::before {
-        content: '◆';
-        position: absolute;
-        top: 5px; left: 8px;
-        font-size: 6px;
-        color: rgba(200,160,60,.25);
-        pointer-events: none;
-      }
-
       &:hover {
         border-color: rgba(200,160,60,.3);
-        box-shadow: 0 6px 28px rgba(0,0,0,.65), 0 0 10px rgba(200,160,60,.06), inset 0 1px 0 rgba(255,220,100,.06);
+        box-shadow: 0 6px 28px rgba(0,0,0,.65);
       }
 
       &--completed {
-        background: linear-gradient(160deg, rgba(30,42,20,.97) 0%, rgba(18,28,10,.99) 100%);
+        background: rgba(20,28,14,.97);
         border-color: rgba(80,160,80,.2);
       }
 
       &--failed {
-        background: linear-gradient(160deg, rgba(42,18,14,.97) 0%, rgba(28,10,8,.99) 100%);
+        background: rgba(28,14,12,.97);
         border-color: rgba(160,60,50,.2);
       }
-    }
-
-    .quest-card-rule {
-      height: 2px;
-      background: linear-gradient(90deg,
-        rgba(200,160,60,.0) 0%, rgba(200,160,60,.4) 30%,
-        rgba(240,200,80,.7) 50%, rgba(200,160,60,.4) 70%,
-        rgba(200,160,60,.0) 100%);
     }
 
     /* ── Card header ───────────────────────────── */
@@ -356,77 +336,6 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
     .quest-expanded-body {
       padding: 0 12px 14px;
     }
-
-    /* ── Image area ────────────────────────────── */
-    .quest-image-wrap {
-      position: relative;
-      height: 130px;
-      background:
-        repeating-linear-gradient(45deg, rgba(200,160,60,.02) 0px, rgba(200,160,60,.02) 1px, transparent 1px, transparent 8px),
-        rgba(14,10,4,.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      cursor: pointer;
-      border-bottom: 1px solid rgba(200,160,60,.08);
-      transition: background .18s;
-
-      img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-      .image-placeholder {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-        color: rgba(200,160,60,.22);
-        font-size: 9px;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-        pointer-events: none;
-        mat-icon { font-size: 28px; width: 28px; height: 28px; }
-      }
-
-      .image-overlay {
-        position: absolute;
-        inset: 0;
-        background: rgba(0,0,0,.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity .18s;
-        pointer-events: none;
-        mat-icon { color: #e8c96a; font-size: 24px; width: 24px; height: 24px; }
-      }
-      &:hover .image-overlay { opacity: 1; }
-
-      &.drag-over {
-        background:
-          repeating-linear-gradient(45deg, rgba(200,160,60,.06) 0px, rgba(200,160,60,.06) 1px, transparent 1px, transparent 8px),
-          rgba(30,22,8,.85);
-        box-shadow: inset 0 0 0 2px rgba(200,160,60,.5);
-        .image-overlay { opacity: 1; background: rgba(200,160,60,.1); }
-      }
-    }
-
-    .quest-img-view-btn {
-      position: absolute;
-      top: 5px; right: 5px;
-      z-index: 2;
-      width: 24px !important; height: 24px !important;
-      padding: 0 !important;
-      background: rgba(0,0,0,.6) !important;
-      color: rgba(200,160,60,.8) !important;
-      border-radius: 2px !important;
-      display: inline-flex !important;
-      align-items: center !important; justify-content: center !important;
-      mat-icon, .mat-icon { font-size: 13px !important; width: 13px !important; height: 13px !important; }
-      .mat-mdc-button-touch-target, .mat-mdc-button-persistent-ripple, .mdc-icon-button__ripple { display: none !important; }
-      &:hover { background: rgba(0,0,0,.85) !important; color: #e8c96a !important; }
-    }
-
-    .image-file-input { display: none; }
 
     /* ── Meta row ──────────────────────────────── */
     .quest-meta-row {
@@ -566,37 +475,6 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
       &:hover { background: rgba(180,40,30,.45); border-color: rgba(220,80,60,.7); color: #ff9980; }
     }
 
-    /* ── Full-scale image preview ──────────────── */
-    .img-preview-backdrop {
-      position: fixed; inset: 0; z-index: 9999;
-      background: rgba(0,0,0,.88);
-      display: flex; align-items: center; justify-content: center;
-      cursor: zoom-out; animation: fadeIn .18s ease;
-    }
-    .img-preview-container {
-      position: relative; max-width: 90vw; max-height: 88vh;
-      cursor: default; display: flex; flex-direction: column; align-items: center;
-      animation: scaleIn .18s ease;
-    }
-    .img-preview-title { font-family: sans-serif; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #e8c96a; text-shadow: 0 0 12px rgba(200,160,60,.4); margin-bottom: 12px; }
-    .img-preview-frame {
-      border: 1px solid rgba(200,160,60,.35);
-      box-shadow: 0 0 0 1px rgba(0,0,0,.8), 0 8px 40px rgba(0,0,0,.9), 0 0 60px rgba(200,160,60,.08);
-      background: rgba(14,10,4,.95); padding: 6px;
-      img { display: block; max-width: 88vw; max-height: 78vh; object-fit: contain; }
-    }
-    .img-preview-close {
-      position: absolute; top: -14px; right: -14px;
-      width: 28px !important; height: 28px !important; padding: 0 !important;
-      background: rgba(40,28,10,.98) !important; border: 1px solid rgba(200,160,60,.4) !important;
-      color: #c8a03c !important; border-radius: 3px !important;
-      display: inline-flex !important; align-items: center !important; justify-content: center !important;
-      mat-icon, .mat-icon { font-size: 15px !important; width: 15px !important; height: 15px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
-      .mat-mdc-button-touch-target, .mat-mdc-button-persistent-ripple, .mdc-icon-button__ripple { display: none !important; }
-      &:hover { background: rgba(200,160,60,.15) !important; color: #e8c96a !important; }
-    }
-    .img-preview-hint { margin-top: 10px; font-size: 10px; color: rgba(200,160,60,.3); letter-spacing: .1em; }
-
     /* ── Auto-save indicator ─────────────────── */
     .autosave-msg {
       font-family: sans-serif;
@@ -668,8 +546,6 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
             [class.quest-card--failed]="item.quest.status === 'failed'"
             [style.border-left-color]="priorityColor(item.quest.priority)"
           >
-            <div class="quest-card-rule"></div>
-
             <!-- Header row -->
             <div class="quest-card-header" (click)="toggleExpand(item.quest.id)">
               <button
@@ -713,39 +589,6 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
             <!-- Expanded body -->
             @if (expandedIds().has(item.quest.id)) {
               <div class="quest-expanded-body">
-                <!-- Image drop zone -->
-                <div
-                  class="quest-image-wrap"
-                  [class.drag-over]="dragOverIndex() === item.idx"
-                  (click)="selectImage(item.idx)"
-                  (dragover)="onDragOver($event, item.idx)"
-                  (dragleave)="onDragLeave()"
-                  (drop)="onDrop($event, item.idx)"
-                  matTooltip="Klikni nebo přetáhni obrázek questu (max 200 KB)"
-                >
-                  @if (quests()[item.idx].imageBase64) {
-                    <img
-                      [src]="'data:image/png;base64,' + quests()[item.idx].imageBase64"
-                      [alt]="quests()[item.idx].title"
-                    />
-                    <button
-                      mat-icon-button
-                      class="quest-img-view-btn"
-                      type="button"
-                      (click)="openPreview($event, quests()[item.idx])"
-                      matTooltip="Zobrazit v plné velikosti"
-                    >
-                      <mat-icon>open_in_full</mat-icon>
-                    </button>
-                  } @else {
-                    <div class="image-placeholder">
-                      <mat-icon>image_search</mat-icon>
-                      Klikni nebo přetáhni obrázek
-                    </div>
-                  }
-                  <div class="image-overlay"><mat-icon>upload</mat-icon></div>
-                </div>
-
                 <!-- Meta fields -->
                 <div class="quest-meta-row">
                   <div class="quest-meta-field">
@@ -781,9 +624,6 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
       </div>
     </spinner-overlay>
 
-    <!-- Single hidden file input for image selection -->
-    <input #globalFileInput type="file" accept="image/*" class="image-file-input" (change)="onImageSelected($event)" />
-
     <!-- Confirm delete dialog -->
     @if (confirmDeleteIndex() !== null) {
       <div class="confirm-backdrop" (click)="cancelDelete()">
@@ -807,29 +647,11 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
       </div>
     }
 
-    <!-- Full-scale image preview -->
-    @if (previewQuest()) {
-      <div class="img-preview-backdrop" (click)="closePreview()">
-        <div class="img-preview-container" (click)="$event.stopPropagation()">
-          <button mat-icon-button type="button" class="img-preview-close" (click)="closePreview()" matTooltip="Zavřít">
-            <mat-icon>close</mat-icon>
-          </button>
-          @if (previewQuest()!.title) {
-            <div class="img-preview-title">{{ previewQuest()!.title }}</div>
-          }
-          <div class="img-preview-frame">
-            <img [src]="'data:image/png;base64,' + previewQuest()!.imageBase64" [alt]="previewQuest()!.title" />
-          </div>
-          <div class="img-preview-hint">Klikni mimo obrázek nebo stiskni Esc pro zavření</div>
-        </div>
-      </div>
-    }
   `,
 })
 export class QuestsTabComponent {
   readonly store = inject(CharacterSheetStore);
   private readonly authService = inject(AuthService);
-  private readonly snackBar = inject(MatSnackBar);
   private readonly _doc = inject(DOCUMENT);
 
   quests = signal<QuestEntry[]>([]);
@@ -837,11 +659,6 @@ export class QuestsTabComponent {
   sortMode = signal<SortMode>('priority');
   expandedIds = signal<Set<string>>(new Set(this._loadExpandedIds()));
   confirmDeleteIndex = signal<number | null>(null);
-  dragOverIndex = signal<number | null>(null);
-  previewQuest = signal<QuestEntry | null>(null);
-  private pendingFileIdx = signal<number | null>(null);
-
-  private readonly globalFileInput = viewChild<ElementRef<HTMLInputElement>>('globalFileInput');
 
   readonly filterTabs: { value: FilterStatus; label: string }[] = [
     { value: 'all', label: 'Vše' },
@@ -1064,74 +881,9 @@ export class QuestsTabComponent {
   }
 
   onEscape(): void {
-    if (this.previewQuest()) {
-      this.closePreview();
-    } else if (this.confirmDeleteIndex() !== null) {
+    if (this.confirmDeleteIndex() !== null) {
       this.cancelDelete();
     }
-  }
-
-  // ── Image handling ────────────────────────────────────────────────────────
-
-  selectImage(idx: number): void {
-    this.pendingFileIdx.set(idx);
-    this.globalFileInput()?.nativeElement.click();
-  }
-
-  onDragOver(event: DragEvent, idx: number): void {
-    event.preventDefault();
-    event.stopPropagation();
-    this.dragOverIndex.set(idx);
-  }
-
-  onDragLeave(): void {
-    this.dragOverIndex.set(null);
-  }
-
-  onDrop(event: DragEvent, idx: number): void {
-    event.preventDefault();
-    event.stopPropagation();
-    this.dragOverIndex.set(null);
-    const file = event.dataTransfer?.files[0];
-    if (file) this._processImageFile(file, idx);
-  }
-
-  onImageSelected(event: Event): void {
-    const idx = this.pendingFileIdx();
-    if (idx === null) return;
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) this._processImageFile(file, idx);
-    (event.target as HTMLInputElement).value = '';
-    this.pendingFileIdx.set(null);
-  }
-
-  private _processImageFile(file: File, idx: number): void {
-    if (file.size > 200 * 1024) {
-      this.snackBar.open('Obrázek je příliš velký (max 200 KB)', 'Zavřít', {
-        verticalPosition: 'top',
-        duration: 3000,
-      });
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const result = e.target?.result as string;
-      const base64 = result.split(',')[1] ?? result;
-      this.quests.update(list =>
-        list.map((q, i) => (i === idx ? { ...q, imageBase64: base64 } : q)),
-      );
-      this.scheduleAutoSave();
-    };
-    reader.readAsDataURL(file);
-  }
-
-  openPreview(event: MouseEvent, quest: QuestEntry): void {
-    event.stopPropagation();
-    this.previewQuest.set(quest);
-  }
-
-  closePreview(): void {
-    this.previewQuest.set(null);
   }
 
   // ── Display helpers ───────────────────────────────────────────────────────

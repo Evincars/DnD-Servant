@@ -3,11 +3,9 @@ import {
   Component,
   computed,
   effect,
-  ElementRef,
   inject,
   signal,
   untracked,
-  viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
@@ -15,7 +13,6 @@ import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { SpinnerOverlayComponent, RichTextareaComponent } from '@dn-d-servant/ui';
 import { AuthService } from '@dn-d-servant/util';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { DmPageStore } from '../../dm-page.store';
 import { DmQuestDifficulty, DmQuestEntry, DmQuestStatus } from '../../dm-page-models';
 
@@ -58,15 +55,13 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
     /* ── Card ────────────────────────────────────── */
     .quest-card {
       position: relative; border-radius: 3px;
-      background: linear-gradient(160deg, rgba(38,22,18,.97) 0%, rgba(24,12,10,.99) 100%);
+      background: rgba(22,20,18,.97);
       border: 1px solid rgba(200,80,60,.15);
       border-left: 3px solid transparent;
-      box-shadow: 0 4px 20px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,120,100,.03);
+      box-shadow: 0 4px 20px rgba(0,0,0,.55);
       transition: border-color .2s, box-shadow .2s;
-      &::before { content: '◆'; position: absolute; top: 5px; left: 8px; font-size: 6px; color: rgba(200,80,60,.2); pointer-events: none; }
-      &:hover { border-color: rgba(200,80,60,.28); box-shadow: 0 6px 28px rgba(0,0,0,.65), 0 0 10px rgba(200,80,60,.05); }
+      &:hover { border-color: rgba(200,80,60,.28); box-shadow: 0 6px 28px rgba(0,0,0,.65); }
     }
-    .quest-card-rule { height: 2px; background: linear-gradient(90deg, rgba(200,80,60,.0) 0%, rgba(200,80,60,.4) 30%, rgba(240,100,80,.6) 50%, rgba(200,80,60,.4) 70%, rgba(200,80,60,.0) 100%); }
 
     /* ── Card header ─────────────────────────────── */
     .card-header { display: flex; align-items: center; gap: 6px; padding: 10px 10px 7px; flex-wrap: wrap; cursor: pointer; user-select: none;
@@ -105,10 +100,11 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
     .card-header-spacer { flex: 1; min-width: 0; }
     .card-btns { display: flex; flex-shrink: 0; }
     .expand-btn, .delete-btn {
-      width: 44px !important; height: 44px !important; padding: 0 !important;
+      width: 26px !important; height: 26px !important;
+      padding: 0 !important; line-height: 1 !important;
       display: inline-flex !important; align-items: center !important; justify-content: center !important;
-      border-radius: 3px !important; transition: color .15s, background .15s !important;
-      mat-icon, .mat-icon { font-size: 24px !important; width: 24px !important; height: 24px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+      border-radius: 2px !important; transition: color .15s, background .15s !important;
+      mat-icon, .mat-icon { font-size: 16px !important; width: 16px !important; height: 16px !important; line-height: 16px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
       .mat-mdc-button-touch-target, .mat-mdc-button-persistent-ripple, .mdc-icon-button__ripple { display: none !important; }
     }
     .expand-btn { color: rgba(200,80,60,.4) !important; &:hover { color: rgba(200,80,60,.85) !important; background: rgba(200,80,60,.08) !important; } }
@@ -128,33 +124,6 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
 
     /* ── Expanded body ───────────────────────────── */
     .expanded-body { padding: 0 12px 14px; }
-
-    /* ── Image area ──────────────────────────────── */
-    .image-wrap {
-      position: relative; height: 120px;
-      background: repeating-linear-gradient(45deg, rgba(200,80,60,.02) 0px, rgba(200,80,60,.02) 1px, transparent 1px, transparent 8px), rgba(14,8,6,.5);
-      display: flex; align-items: center; justify-content: center; overflow: hidden;
-      cursor: pointer; border-bottom: 1px solid rgba(200,80,60,.08); transition: background .18s;
-      img { width: 100%; height: 100%; object-fit: cover; }
-      .img-placeholder { display: flex; flex-direction: column; align-items: center; gap: 6px; color: rgba(200,80,60,.22); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; pointer-events: none;
-        mat-icon { font-size: 26px; width: 26px; height: 26px; }
-      }
-      .img-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .18s; pointer-events: none;
-        mat-icon { color: #e8a090; font-size: 22px; width: 22px; height: 22px; }
-      }
-      &:hover .img-overlay { opacity: 1; }
-      &.drag-over { box-shadow: inset 0 0 0 2px rgba(200,80,60,.5); .img-overlay { opacity: 1; background: rgba(200,80,60,.1); } }
-    }
-    .img-view-btn {
-      position: absolute; top: 5px; right: 5px; z-index: 2;
-      width: 22px !important; height: 22px !important; padding: 0 !important;
-      background: rgba(0,0,0,.6) !important; color: rgba(200,80,60,.8) !important; border-radius: 2px !important;
-      display: inline-flex !important; align-items: center !important; justify-content: center !important;
-      mat-icon, .mat-icon { font-size: 12px !important; width: 12px !important; height: 12px !important; }
-      .mat-mdc-button-touch-target, .mat-mdc-button-persistent-ripple, .mdc-icon-button__ripple { display: none !important; }
-      &:hover { background: rgba(0,0,0,.85) !important; color: #e8a090 !important; }
-    }
-    .img-file-input { display: none; }
 
     /* ── Meta fields ─────────────────────────────── */
     .meta-row { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
@@ -205,12 +174,6 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
       &:hover { background: rgba(50,160,50,.15) !important; border-color: rgba(80,180,80,.5) !important; }
     }
 
-    /* ── Collapsed image thumbnail ───────────────── */
-    .collapsed-thumb {
-      height: 70px; overflow: hidden; border-top: 1px solid rgba(200,80,60,.1);
-      img { width: 100%; height: 100%; object-fit: cover; opacity: 0.65; display: block; }
-    }
-
     /* ── Stage bar ───────────────────────────────── */
     .stage-bar { display: flex; gap: 1px; margin-top: 10px; margin-bottom: 2px; }
     .stage-seg {
@@ -235,21 +198,6 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
     .confirm-btn { font-family: sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; border-radius: 3px; padding: 7px 20px; cursor: pointer; transition: background .18s, border-color .18s, color .18s; }
     .confirm-cancel { background: rgba(200,80,60,.06); border: 1px solid rgba(200,80,60,.25); color: rgba(200,80,60,.65); &:hover { background: rgba(200,80,60,.14); border-color: rgba(200,80,60,.5); color: #e8a090; } }
     .confirm-delete { background: rgba(160,40,30,.25); border: 1px solid rgba(200,60,50,.4); color: rgba(220,100,80,.85); &:hover { background: rgba(180,40,30,.45); border-color: rgba(220,80,60,.7); color: #ff9980; } }
-
-    /* ── Image preview ───────────────────────────── */
-    .preview-backdrop { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,.88); display: flex; align-items: center; justify-content: center; cursor: zoom-out; animation: fadeIn .18s ease; }
-    .preview-container { position: relative; max-width: 90vw; max-height: 88vh; cursor: default; display: flex; flex-direction: column; align-items: center; animation: scaleIn .18s ease; }
-    .preview-title { font-family: sans-serif; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #e8a090; margin-bottom: 12px; }
-    .preview-frame { border: 1px solid rgba(200,80,60,.35); box-shadow: 0 0 0 1px rgba(0,0,0,.8), 0 8px 40px rgba(0,0,0,.9); background: rgba(14,6,4,.95); padding: 6px; img { display: block; max-width: 88vw; max-height: 78vh; object-fit: contain; } }
-    .preview-close {
-      position: absolute; top: -14px; right: -14px; width: 28px !important; height: 28px !important; padding: 0 !important;
-      background: rgba(40,14,10,.98) !important; border: 1px solid rgba(200,80,60,.4) !important; color: #c05040 !important; border-radius: 3px !important;
-      display: inline-flex !important; align-items: center !important; justify-content: center !important;
-      mat-icon, .mat-icon { font-size: 15px !important; width: 15px !important; height: 15px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
-      .mat-mdc-button-touch-target, .mat-mdc-button-persistent-ripple, .mdc-icon-button__ripple { display: none !important; }
-      &:hover { background: rgba(200,80,60,.15) !important; color: #e8a090 !important; }
-    }
-    .preview-hint { margin-top: 10px; font-size: 10px; color: rgba(200,80,60,.3); letter-spacing: .1em; }
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes scaleIn { from { transform: scale(.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
@@ -281,7 +229,6 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
 
         @for (item of filtered(); track item.quest.id) {
           <div class="quest-card" [style.border-left-color]="statusColor(item.quest.status)">
-            <div class="quest-card-rule"></div>
 
             <!-- Card header -->
             <div class="card-header" (click)="toggleExpand(item.quest.id)">
@@ -329,31 +276,8 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
               }
             </div>
 
-            <!-- Collapsed image preview -->
-            @if (!expandedIds().has(item.quest.id) && quests()[item.idx].imageBase64) {
-              <div class="collapsed-thumb">
-                <img [src]="'data:image/png;base64,' + quests()[item.idx].imageBase64" [alt]="quests()[item.idx].title" />
-              </div>
-            }
-
             @if (expandedIds().has(item.quest.id)) {
               <div class="expanded-body">
-                <!-- Image -->
-                <div class="image-wrap" [class.drag-over]="dragOver() === item.idx"
-                  (click)="selectImage(item.idx)" (dragover)="onDragOver($event, item.idx)"
-                  (dragleave)="dragOver.set(null)" (drop)="onDrop($event, item.idx)"
-                  matTooltip="Klikni nebo přetáhni obrázek (max 200 KB)">
-                  @if (quests()[item.idx].imageBase64) {
-                    <img [src]="'data:image/png;base64,' + quests()[item.idx].imageBase64" [alt]="quests()[item.idx].title" />
-                    <button mat-icon-button class="img-view-btn" type="button" (click)="openPreview($event, quests()[item.idx])" matTooltip="Plná velikost">
-                      <mat-icon>open_in_full</mat-icon>
-                    </button>
-                  } @else {
-                    <div class="img-placeholder"><mat-icon>image_search</mat-icon>Obrázek questu</div>
-                  }
-                  <div class="img-overlay"><mat-icon>upload</mat-icon></div>
-                </div>
-
                 <!-- Meta -->
                 <div class="meta-row">
                   <div class="meta-field"><mat-icon class="meta-icon">place</mat-icon>
@@ -388,8 +312,6 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
       </div>
     </spinner-overlay>
 
-    <input #globalFile type="file" accept="image/*" class="img-file-input" (change)="onImageSelected($event)" />
-
     @if (confirmIdx() !== null) {
       <div class="confirm-backdrop" (click)="cancelDelete()">
         <div class="confirm-dialog" (click)="$event.stopPropagation()">
@@ -407,31 +329,16 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
       </div>
     }
 
-    @if (previewQuest()) {
-      <div class="preview-backdrop" (click)="closePreview()">
-        <div class="preview-container" (click)="$event.stopPropagation()">
-          <button mat-icon-button class="preview-close" (click)="closePreview()"><mat-icon>close</mat-icon></button>
-          @if (previewQuest()!.title) { <div class="preview-title">{{ previewQuest()!.title }}</div> }
-          <div class="preview-frame"><img [src]="'data:image/png;base64,' + previewQuest()!.imageBase64" [alt]="previewQuest()!.title" /></div>
-          <div class="preview-hint">Klikni mimo nebo Esc pro zavření</div>
-        </div>
-      </div>
-    }
   `,
 })
 export class DmQuestsComponent {
   readonly store = inject(DmPageStore);
   private readonly auth = inject(AuthService);
-  private readonly snack = inject(MatSnackBar);
 
   quests = signal<DmQuestEntry[]>([]);
   filterStatus = signal<FilterStatus>('all');
   expandedIds = signal<Set<string>>(new Set());
   confirmIdx = signal<number | null>(null);
-  dragOver = signal<number | null>(null);
-  previewQuest = signal<DmQuestEntry | null>(null);
-  private pendingFileIdx = signal<number | null>(null);
-  private readonly globalFile = viewChild<ElementRef<HTMLInputElement>>('globalFile');
 
   readonly filterTabs: { value: FilterStatus; label: string }[] = [
     { value: 'all', label: 'Vše' },
@@ -526,39 +433,20 @@ export class DmQuestsComponent {
     this.store.saveDmQuests({ username, quests: this.quests() });
   }
 
-  // ── Image ────────────────────────────────────────────────────────────────
-  selectImage(idx: number): void { this.pendingFileIdx.set(idx); this.globalFile()?.nativeElement.click(); }
-  onDragOver(e: DragEvent, idx: number): void { e.preventDefault(); e.stopPropagation(); if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy'; this.dragOver.set(idx); }
-  onDrop(e: DragEvent, idx: number): void { e.preventDefault(); e.stopPropagation(); this.dragOver.set(null); const f = e.dataTransfer?.files?.[0]; if (f) this.processFile(f, idx); }
-  onImageSelected(e: Event): void {
-    const idx = this.pendingFileIdx(); if (idx === null) return;
-    const input = e.target as HTMLInputElement; const file = input.files?.[0]; if (!file) return;
-    this.processFile(file, idx); input.value = ''; this.pendingFileIdx.set(null);
-  }
-  private processFile(file: File, idx: number): void {
-    if (!file.type.startsWith('image/')) { this.snack.open('Soubor není obrázek.', 'Zavřít', { verticalPosition: 'top', duration: 3000 }); return; }
-    if (file.size > 200 * 1024) { this.snack.open(`Obrázek příliš velký (${(file.size/1024).toFixed(0)} KB). Max 200 KB.`, 'Zavřít', { verticalPosition: 'top', duration: 5000 }); return; }
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = (reader.result as string).split(',')[1];
-      this.quests.update(list => { const c = list.map(q => ({ ...q })); c[idx] = { ...c[idx], imageBase64: base64 }; return c; });
-    };
-    reader.readAsDataURL(file);
-  }
-  openPreview(e: MouseEvent, q: DmQuestEntry): void { e.stopPropagation(); this.previewQuest.set(q); }
-  closePreview(): void { this.previewQuest.set(null); }
-
-  onEscape(): void { if (this.previewQuest()) { this.closePreview(); return; } if (this.confirmIdx() !== null) this.cancelDelete(); }
+  onEscape(): void { if (this.confirmIdx() !== null) this.cancelDelete(); }
 
   // ── Labels / colours ─────────────────────────────────────────────────────
   statusLabel(s: DmQuestStatus): string {
-    return { planned: 'Naplánováno', active: 'Aktivní', climax: 'Vyvrcholení', completed: 'Dokončeno', abandoned: 'Opuštěno' }[s];
+    const map: Record<DmQuestStatus, string> = { planned: 'Naplánováno', active: 'Aktivní', climax: 'Vyvrcholení', completed: 'Dokončeno', abandoned: 'Opuštěno' };
+    return map[s];
   }
   diffLabel(d: DmQuestDifficulty): string {
-    return { trivial: 'Trivální', easy: 'Lehké', medium: 'Střední', hard: 'Těžké', deadly: 'Smrtelné' }[d];
+    const map: Record<DmQuestDifficulty, string> = { trivial: 'Trivální', easy: 'Lehké', medium: 'Střední', hard: 'Těžké', deadly: 'Smrtelné' };
+    return map[d];
   }
   statusColor(s: DmQuestStatus): string {
-    return { planned: 'rgba(100,130,200,.8)', active: 'rgba(80,190,100,.8)', climax: 'rgba(220,120,40,.9)', completed: 'rgba(200,160,60,.85)', abandoned: 'rgba(80,80,80,.5)' }[s];
+    const map: Record<DmQuestStatus, string> = { planned: 'rgba(100,130,200,.8)', active: 'rgba(80,190,100,.8)', climax: 'rgba(220,120,40,.9)', completed: 'rgba(200,160,60,.85)', abandoned: 'rgba(80,80,80,.5)' };
+    return map[s];
   }
   stageName(n: number): string { return STAGE_LABELS[n - 1] ?? ''; }
 }
