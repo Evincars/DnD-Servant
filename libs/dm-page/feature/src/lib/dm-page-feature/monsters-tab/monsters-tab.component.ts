@@ -121,7 +121,7 @@ const CR_RANGES: CrRange[] = [
     .search-row {
       display: flex; align-items: center; gap: 9px;
       padding: 8px 14px;
-      background: rgba(22,12,4,.97);
+      background: rgba(200,160,60,.07);
       border: 1px solid rgba(200,160,60,.22);
       border-radius: 4px; position: relative;
       transition: border-color .15s, box-shadow .15s;

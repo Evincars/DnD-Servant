@@ -1,232 +1,206 @@
-<div class="it-wrapper">
-  <div class="it-layout">
+@if (initDialogOpen()) {
+  <div class="it-init-backdrop" (click)="initDialogOpen.set(false)">
+    <div class="it-init-dialog" (click)="$event.stopPropagation()">
+      <h3 class="it-init-dialog__title">Inicializovat encounter</h3>
+      <p class="it-init-dialog__desc">Jak nastavit životy příšer?</p>
+      <div class="it-init-dialog__hp-hint">
+        <span class="it-init-dialog__formula-eg">Příklad: Goblin má <strong>7 (2k6)</strong> — 7 je průměr, 2k6 jsou 2 kostky šestky.</span>
+      </div>
+      <div class="it-init-dialog__actions">
+        <button type="button" class="pt-filter-btn" (click)="runInit('average')">
+          <mat-icon>calculate</mat-icon> Průměr
+        </button>
+        <button type="button" class="pt-filter-btn" (click)="runInit('dice')">
+          <mat-icon>casino</mat-icon> Hodit kostky
+        </button>
+        <button type="button" class="pt-filter-btn" (click)="initDialogOpen.set(false)">
+          Zrušit
+        </button>
+      </div>
+    </div>
+  </div>
+}
 
-    <!-- ── Initiative table card ────────────────────────────── -->
-    <div class="it-card">
+<div class="it-layout">
 
-      <!-- Init dialog overlay -->
-      @if (initDialogOpen()) {
-        <div class="it-init-overlay">
-          <div class="it-init-dialog">
-            <h3 class="it-init-dialog__title">Inicializovat encounter</h3>
-            <p class="it-init-dialog__desc">
-              Jak nastavit životy příšer?
-            </p>
-            <div class="it-init-dialog__hp-hint">
-              <span class="it-init-dialog__formula-eg">Příklad: Goblin má <strong>7 (2k6)</strong> — 7 je průměr, 2k6 jsou 2 kostky šestky.</span>
-            </div>
-            <div class="it-init-dialog__actions">
-              <button type="button" class="it-btn it-btn--avg" (click)="runInit('average')">
-                <mat-icon>calculate</mat-icon> Průměr
-              </button>
-              <button type="button" class="it-btn it-btn--dice" (click)="runInit('dice')">
-                <mat-icon>casino</mat-icon> Hodit kostky
-              </button>
-              <button type="button" class="it-btn it-btn--cancel" (click)="initDialogOpen.set(false)">
-                Zrušit
-              </button>
-            </div>
-          </div>
-        </div>
+  <!-- ── Initiative table ────────────────────────────────── -->
+  <div class="it-card">
+
+    <div class="it-col-headers">
+      <span class="it-col-header it-col-header--indicator"></span>
+      <span class="it-col-header it-col-header--sm">⚔ Init.</span>
+      <span class="it-col-header it-col-header--name">👤 Jméno</span>
+      <span class="it-col-header it-col-header--sm">🛡 OČ</span>
+      <span class="it-col-header it-col-header--hp">❤ HP</span>
+      <span class="it-col-header it-col-header--hp-adj">± HP</span>
+      <span class="it-col-header it-col-header--icon"></span>
+      @if (!disableMonsterSearch()) {
+        <span class="it-col-header it-col-header--icon"></span>
       }
+      <span class="it-col-header it-col-header--icon"></span>
+    </div>
 
-      <div class="it-header">
-        <mat-icon class="it-header__icon">shield</mat-icon>
-        <h2 class="it-header__title">Sledování iniciativy</h2>
-      </div>
-      <p class="it-notice">Data se ukládají pouze v tomto prohlížeči — na jiném zařízení budou řádky prázdné.</p>
-      <p class="it-notice it-notice--monsters">
-        Automatické doplňování jmen vychází z <strong>JaD wiki</strong> (Bestiář v češtině) i ze seznamu příšer
-        <strong>D&amp;D 2014 Monster Manual</strong> (v angličtině).
-        Celý anglický seznam najdeš na
-        <a href="https://www.aidedd.org/dnd-filters/monsters.php" target="_blank" rel="noopener">aidedd.org</a>.
-      </p>
+    <div class="it-rows">
+      @for (row of rows(); track row.id) {
+        <div
+          class="it-row"
+          [class.it-row--odd]="$index % 2 === 1"
+          [class.it-row--active]="$index === activeIndex()"
+          [class.it-row--card-open]="openCardByRowId().has(row.id)"
+        >
+          <span class="it-turn-indicator">{{ $index === activeIndex() ? '▶' : '' }}</span>
+          <input [(ngModel)]="row.initiative" type="number" class="it-input it-input--sm" placeholder="—" />
+          <autofill-input
+            [(ngModel)]="row.name"
+            [suggestions]="monsterNames"
+            placeholder="Název / jméno"
+            inputClass="it-input it-input--name"
+          />
+          <input [(ngModel)]="row.ac" type="number" class="it-input it-input--sm" placeholder="—" />
 
-      <div class="it-col-headers">
-        <span class="it-col-header it-col-header--indicator"></span>
-        <span class="it-col-header it-col-header--sm">⚔ Init.</span>
-        <span class="it-col-header it-col-header--name">👤 Jméno</span>
-        <span class="it-col-header it-col-header--sm">🛡 OČ</span>
-        <span class="it-col-header it-col-header--hp">❤ HP</span>
-        <span class="it-col-header it-col-header--hp-adj">± HP</span>
-        <span class="it-col-header it-col-header--icon"></span>
-        @if (!disableMonsterSearch()) {
-          <span class="it-col-header it-col-header--icon"></span>
-        }
-        <span class="it-col-header it-col-header--icon"></span>
-      </div>
+          <!-- HP input + bar -->
+          <div class="it-hp-col">
+            <input [(ngModel)]="row.hp" type="number" class="it-input it-input--sm" placeholder="—" />
+            @if (row.maxHp !== null && row.maxHp > 0) {
+              <div class="it-hp-bar">
+                <div
+                  class="it-hp-bar__fill"
+                  [style.width.%]="hpPercent(row)"
+                  [class.it-hp-bar__fill--high]="hpPercent(row) > 66"
+                  [class.it-hp-bar__fill--med]="hpPercent(row) <= 66 && hpPercent(row) > 33"
+                  [class.it-hp-bar__fill--low]="hpPercent(row) <= 33"
+                ></div>
+              </div>
+            }
+          </div>
 
-      <div class="it-rows">
-        @for (row of rows(); track row.id) {
-          <div
-            class="it-row"
-            [class.it-row--odd]="$index % 2 === 1"
-            [class.it-row--active]="$index === activeIndex()"
-            [class.it-row--card-open]="openCardByRowId().has(row.id)"
-          >
-            <span class="it-turn-indicator">{{ $index === activeIndex() ? '▶' : '' }}</span>
-            <input [(ngModel)]="row.initiative" type="number" class="it-input it-input--sm" placeholder="—" />
-            <autofill-input
-              [(ngModel)]="row.name"
-              [suggestions]="monsterNames"
-              placeholder="Název / jméno"
-              inputClass="it-input it-input--name"
-            />
-            <input [(ngModel)]="row.ac" type="number" class="it-input it-input--sm" placeholder="—" />
+          <!-- ± HP adjuster -->
+          <div class="it-hp-adj">
+            <button mat-icon-button type="button" class="it-hp-adj__btn it-hp-adj__btn--remove"
+              matTooltip="Odečíst HP" (click)="removeHp($index)">
+              <mat-icon>remove</mat-icon>
+            </button>
+            <input [(ngModel)]="row.hpDelta" type="number" min="1" class="it-hp-adj__input" />
+            <button mat-icon-button type="button" class="it-hp-adj__btn it-hp-adj__btn--add"
+              matTooltip="Přidat HP" (click)="addHp($index)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
 
-            <!-- HP input + bar -->
-            <div class="it-hp-col">
-              <input [(ngModel)]="row.hp" type="number" class="it-input it-input--sm" placeholder="—" />
-              @if (row.maxHp !== null && row.maxHp > 0) {
-                <div class="it-hp-bar">
-                  <div
-                    class="it-hp-bar__fill"
-                    [style.width.%]="hpPercent(row)"
-                    [class.it-hp-bar__fill--high]="hpPercent(row) > 66"
-                    [class.it-hp-bar__fill--med]="hpPercent(row) <= 66 && hpPercent(row) > 33"
-                    [class.it-hp-bar__fill--low]="hpPercent(row) <= 33"
-                  ></div>
-                </div>
-              }
-            </div>
-
-            <!-- ± HP adjuster -->
-            <div class="it-hp-adj">
-              <button mat-icon-button type="button" class="it-hp-adj__btn it-hp-adj__btn--remove"
-                matTooltip="Odečíst HP" (click)="removeHp($index)">
-                <mat-icon>remove</mat-icon>
-              </button>
-              <input [(ngModel)]="row.hpDelta" type="number" min="1" class="it-hp-adj__input" />
-              <button mat-icon-button type="button" class="it-hp-adj__btn it-hp-adj__btn--add"
-                matTooltip="Přidat HP" (click)="addHp($index)">
-                <mat-icon>add</mat-icon>
-              </button>
-            </div>
-
+          <button mat-icon-button type="button" class="it-copy-btn"
+            matTooltip="Kopírovat řádek (přidá B, C, D… za jméno)"
+            (click)="copyRow($index)">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+          @if (!disableMonsterSearch()) {
             <button
               mat-icon-button
               type="button"
-              class="it-copy-btn"
-              matTooltip="Kopírovat řádek (přidá B, C, D… za jméno)"
-              (click)="copyRow($index)"
+              class="it-lookup-btn"
+              [class.it-lookup-btn--active]="openCardByRowId().has(row.id)"
+              [class.it-lookup-btn--loading]="openCardByRowId().get(row.id)?.loading"
+              [matTooltip]="openCardByRowId().has(row.id) ? 'Karta je již otevřena (zvýraznit)' : 'Vyhledat příšeru'"
+              (click)="lookupMonster(row.name, row.id)"
             >
-              <mat-icon>content_copy</mat-icon>
+              <mat-icon>{{ openCardByRowId().get(row.id)?.loading ? 'hourglass_empty' : 'search' }}</mat-icon>
             </button>
-            @if (!disableMonsterSearch()) {
-              <button
-                mat-icon-button
-                type="button"
-                class="it-lookup-btn"
-                [class.it-lookup-btn--active]="openCardByRowId().has(row.id)"
-                [class.it-lookup-btn--loading]="openCardByRowId().get(row.id)?.loading"
-                [matTooltip]="openCardByRowId().has(row.id) ? 'Karta je již otevřena (zvýraznit)' : 'Vyhledat příšeru'"
-                (click)="lookupMonster(row.name, row.id)"
-              >
-                <mat-icon>{{ openCardByRowId().get(row.id)?.loading ? 'hourglass_empty' : 'search' }}</mat-icon>
-              </button>
-            }
-            <button mat-icon-button type="button" class="it-remove-btn" title="Odstranit řádek" (click)="removeRow($index)">
-              <mat-icon>close</mat-icon>
-            </button>
-          </div>
-        }
-      </div>
-
-      <div class="it-actions">
-        <button type="button" class="it-btn it-btn--add" (click)="addRow()">
-          <mat-icon>add</mat-icon> Přidat
-        </button>
-        <button type="button" class="it-btn it-btn--next" (click)="nextRow()">
-          <mat-icon>arrow_downward</mat-icon> Další tah
-        </button>
-        <button type="button" class="it-btn it-btn--sort" (click)="sortRows()">
-          <mat-icon>sort</mat-icon> Seřadit
-        </button>
-        @if (!disableMonsterSearch()) {
-          <button type="button" class="it-btn it-btn--init" [disabled]="initRunning() || undefined" (click)="startInitDialog()">
-            <mat-icon>{{ initRunning() ? 'hourglass_empty' : 'play_arrow' }}</mat-icon>
-            Inicializovat
+          }
+          <button mat-icon-button type="button" class="it-remove-btn" title="Odstranit řádek" (click)="removeRow($index)">
+            <mat-icon>close</mat-icon>
           </button>
-        }
-        <button type="button" class="it-btn it-btn--save" (click)="save()">
-          <mat-icon>save</mat-icon> Uložit
-        </button>
-      </div>
-
-      @if (savedMessage()) {
-        <p class="it-saved-msg">✓ Uloženo do prohlížeče</p>
+        </div>
       }
     </div>
 
-    <!-- ── Monster cards queue ───────────────────────────────── -->
-    @if (openCards().length > 0) {
-      <div class="it-cards-area">
+    <div class="it-actions">
+      <button type="button" class="pt-filter-btn" (click)="addRow()">
+        <mat-icon>add</mat-icon> Přidat
+      </button>
+      <button type="button" class="pt-filter-btn" (click)="nextRow()">
+        <mat-icon>arrow_downward</mat-icon> Další tah
+      </button>
+      <button type="button" class="pt-filter-btn" (click)="sortRows()">
+        <mat-icon>sort</mat-icon> Seřadit
+      </button>
+      @if (!disableMonsterSearch()) {
+        <button type="button" class="pt-filter-btn" [disabled]="initRunning() || undefined" (click)="startInitDialog()">
+          <mat-icon>{{ initRunning() ? 'hourglass_empty' : 'play_arrow' }}</mat-icon>
+          Inicializovat
+        </button>
+      }
+      <button type="button" class="pt-filter-btn" (click)="save()">
+        <mat-icon>save</mat-icon> Uložit
+      </button>
+    </div>
 
-        <!-- Cards bar: title + expand/collapse all + close all -->
-        <div class="it-cards-bar">
-          <div class="it-cards-bar__title">
-            <mat-icon class="it-cards-bar__icon">bug_report</mat-icon>
-            <span>Příšery <span class="it-cards-bar__count">({{ openCards().length }})</span></span>
-          </div>
-          <div class="it-cards-bar__actions">
-            <button type="button" class="it-btn it-btn--expand-all" (click)="toggleAllCards()">
-              <mat-icon>{{ allCardsExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
-              {{ allCardsExpanded() ? 'Sbalit vše' : 'Rozvinout vše' }}
-            </button>
-            <button type="button" class="it-btn it-btn--close-all" (click)="closeAllCards()" matTooltip="Zavřít všechny karty příšer">
-              <mat-icon>clear_all</mat-icon>
-              Zavřít vše
-            </button>
-          </div>
+    @if (savedMessage()) {
+      <p class="it-saved-msg">✓ Uloženo do prohlížeče</p>
+    }
+  </div>
+
+  <!-- ── Monster cards queue ─────────────────────────────── -->
+  @if (openCards().length > 0) {
+    <div class="it-cards-area">
+
+      <div class="it-cards-bar">
+        <div class="it-cards-bar__title">
+          <mat-icon class="it-cards-bar__icon">bug_report</mat-icon>
+          <span>Příšery <span class="it-cards-bar__count">({{ openCards().length }})</span></span>
         </div>
+        <div class="it-cards-bar__actions">
+          <button type="button" class="pt-filter-btn" (click)="toggleAllCards()">
+            <mat-icon>{{ allCardsExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
+            {{ allCardsExpanded() ? 'Sbalit vše' : 'Rozvinout vše' }}
+          </button>
+          <button type="button" class="pt-filter-btn" (click)="closeAllCards()" matTooltip="Zavřít všechny karty příšer">
+            <mat-icon>clear_all</mat-icon>
+            Zavřít vše
+          </button>
+        </div>
+      </div>
 
-        <!-- Card slots -->
-        <div class="it-cards-row">
-          @for (card of openCards(); track card.baseName) {
-            <div
-              class="it-card-slot"
-              [class.it-card-slot--highlight]="card.highlightAnim"
-              [class.it-card-slot--collapsed]="card.collapsed"
-              (animationend)="clearHighlight(card.baseName)"
-            >
-              <!-- Clickable header: row label + chevron -->
-              <div class="it-card-slot__header" (click)="toggleCardCollapse(card.baseName)">
-                <div class="it-card-slot__label">
-                  <mat-icon class="it-card-slot__label-icon">person_pin</mat-icon>
-                  <span>{{ card.rowName }}</span>
-                </div>
-                <mat-icon class="it-card-slot__chevron">
-                  {{ card.collapsed ? 'expand_more' : 'expand_less' }}
-                </mat-icon>
+      <div class="it-cards-row">
+        @for (card of openCards(); track card.baseName) {
+          <div
+            class="it-card-slot"
+            [class.it-card-slot--highlight]="card.highlightAnim"
+            [class.it-card-slot--collapsed]="card.collapsed"
+            (animationend)="clearHighlight(card.baseName)"
+          >
+            <div class="it-card-slot__header" (click)="toggleCardCollapse(card.baseName)">
+              <div class="it-card-slot__label">
+                <mat-icon class="it-card-slot__label-icon">person_pin</mat-icon>
+                <span>{{ card.rowName }}</span>
               </div>
+              <mat-icon class="it-card-slot__chevron">
+                {{ card.collapsed ? 'expand_more' : 'expand_less' }}
+              </mat-icon>
+            </div>
 
-              <!-- Animated body wrapper -->
-              <div class="it-card-body-wrapper">
-                <div class="it-card-body">
-                  @if (card.isJad) {
-                    <jad-monster-card
-                      [html]="card.jadMonsterHtml"
-                      [loading]="card.loading"
-                      [error]="card.error"
-                      (close)="closeCard(card.baseName)"
-                    />
-                  } @else {
-                    <monster-card
-                      [monster]="card.monster"
-                      [loading]="card.loading"
-                      [error]="card.error"
-                      (close)="closeCard(card.baseName)"
-                    />
-                  }
-                </div>
+            <div class="it-card-body-wrapper">
+              <div class="it-card-body">
+                @if (card.isJad) {
+                  <jad-monster-card
+                    [html]="card.jadMonsterHtml"
+                    [loading]="card.loading"
+                    [error]="card.error"
+                    (close)="closeCard(card.baseName)"
+                  />
+                } @else {
+                  <monster-card
+                    [monster]="card.monster"
+                    [loading]="card.loading"
+                    [error]="card.error"
+                    (close)="closeCard(card.baseName)"
+                  />
+                }
               </div>
             </div>
-          }
-        </div>
-
+          </div>
+        }
       </div>
-    }
 
-  </div>
+    </div>
+  }
+
 </div>
-
