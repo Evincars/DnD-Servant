@@ -298,8 +298,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         <div class="note-panel panel--secrets">
           <div class="panel-header">
             <mat-icon class="panel-icon">lock</mat-icon>
-            <span class="panel-title">Tajemství &amp; Plány</span>
-            <span class="panel-desc">Co hráči nevědí, plot twists</span>
+            <span class="panel-title">Plány, NPC, Frakce, ...</span>
+            <span class="panel-desc">Co hráči nevědí</span>
           </div>
           <div class="rt-wrap">
             <rich-textarea
