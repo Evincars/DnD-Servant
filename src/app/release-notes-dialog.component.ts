@@ -21,8 +21,9 @@ const RELEASE_NOTES: ReleaseGroup[] = [
     entries: [
       i('Vylepšená J&D wiki - lepší vyhledávání, scroll na pozici i pro podkapitoly, přizpůsobení mobilům a tabletům, zlepšení výkonu při dlouhých textech, Obsah Kapitoly s vyhledáváním, opraveny linky pro nadpisy.'),
       i('Lepší, jednodušší design tabů (změna pořadí stránek + Konvertor Obrázků přesunut na PH Nástroje), odstranění zbytečných nadpisů z daných stránek, změna barevné palety pro některé prvky.'),
-      i('DM Qeusty a hráčské Questy - vylepšený a zjednodušený design karet, vč. odstranění obrázku.'),
-      i('Tabulka Iniciativy - zjednodušený design.'),
+      i('DM Qeusty a hráčské Questy - vylepšený a zjednodušený design karet, odstranění obrázku, uložení vybraného filtru'),
+      i('Tabulka Iniciativy - zjednodušený a vylepšený design (vč. karet příšer pro DM).'),
+      i(''),
     ],
   },
   {

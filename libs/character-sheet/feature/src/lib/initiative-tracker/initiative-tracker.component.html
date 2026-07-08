@@ -164,14 +164,12 @@
           >
             <div class="it-card-slot__header" (click)="toggleCardCollapse(card.baseName)">
               <div class="it-card-slot__label">
-                <mat-icon class="it-card-slot__label-icon">person_pin</mat-icon>
                 <span>{{ card.rowName }}</span>
               </div>
-              <mat-icon class="it-card-slot__chevron">
-                {{ card.collapsed ? 'expand_more' : 'expand_less' }}
-              </mat-icon>
-              <button class="it-card-slot__close" type="button" title="Zavřít"
-                (click)="closeCard(card.baseName); $event.stopPropagation()">✕</button>
+              <button mat-icon-button class="it-card-slot__close" type="button" title="Zavřít"
+                (click)="closeCard(card.baseName); $event.stopPropagation()">
+                <mat-icon>close</mat-icon>
+              </button>
             </div>
 
             <div class="it-card-body-wrapper">
