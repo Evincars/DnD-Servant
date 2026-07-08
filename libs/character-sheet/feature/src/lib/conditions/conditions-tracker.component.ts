@@ -59,10 +59,12 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
   ],
   styles: `
     :host {
+      --hl-color: #c8a050;
+      --hl-glow: rgba(200, 160, 80, 0.45);
       display: block;
       height: 100%;
       overflow-y: auto;
-      padding: 24px 32px 40px;
+      padding: 8px 12px 16px;
       box-sizing: border-box;
       font-family: sans-serif;
     }
@@ -100,11 +102,9 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
     }
 
     .ct-card {
-      --cond-color: transparent;
-      --cond-glow: transparent;
       position: relative;
       display: flex; align-items: center; justify-content: center;
-      padding: 7px 8px;
+      padding: 10px 12px;
       background: linear-gradient(160deg, rgba(28,20,14,.96) 0%, rgba(18,12,8,.98) 100%);
       border: 1px solid rgba(255,255,255,.07);
       border-radius: 4px;
@@ -118,11 +118,11 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
       &:hover { background: rgba(255,255,255,.05); }
 
       &--active {
-        border-color: var(--cond-color) !important;
-        box-shadow: 0 0 10px var(--cond-glow), inset 0 0 16px rgba(0,0,0,.3);
+        border-color: var(--hl-color) !important;
+        box-shadow: 0 0 10px var(--hl-glow), inset 0 0 16px rgba(0,0,0,.3);
         background: linear-gradient(160deg, rgba(40,28,20,.97) 0%, rgba(24,16,10,.99) 100%) !important;
 
-        .ct-card__name { color: var(--cond-color); }
+        .ct-card__name { color: var(--hl-color); }
         .ct-card__active-dot { opacity: 1; }
       }
     }
@@ -136,8 +136,8 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
     .ct-card__active-dot {
       position: absolute; top: 4px; right: 5px;
       width: 5px; height: 5px; border-radius: 50%;
-      background: var(--cond-color);
-      box-shadow: 0 0 5px var(--cond-glow);
+      background: var(--hl-color);
+      box-shadow: 0 0 5px var(--hl-glow);
       opacity: 0;
       transition: opacity .2s;
     }
@@ -163,8 +163,8 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
       outline: none;
 
       &--active {
-        border-color: rgba(210,60,50,.7) !important;
-        box-shadow: 0 0 10px rgba(200,50,40,.4);
+        border-color: var(--hl-color) !important;
+        box-shadow: 0 0 10px var(--hl-glow);
       }
 
       &:hover { background: rgba(255,255,255,.04); }
@@ -172,15 +172,32 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
       &__level {
         font-size: 14px; font-weight: 700; color: rgba(255,255,255,.25);
         line-height: 1;
-        .ct-exhaustion-btn--active & { color: rgba(220,100,80,.9); }
+        .ct-exhaustion-btn--active & { color: var(--hl-color); }
       }
     }
 
+    .ct-exhaustion-effects-list {
+      margin-top: 8px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+
     .ct-exhaustion-effect {
-      margin-top: 6px; font-family: sans-serif; font-size: 11px;
+      font-family: sans-serif; font-size: 11px;
       color: rgba(255,255,255,.3); font-style: italic; line-height: 1.4;
-      min-height: 20px; transition: color .2s;
-      &--active { color: rgba(220,100,80,.7); }
+      min-height: 16px; transition: color .2s;
+      display: flex; align-items: baseline; gap: 6px;
+
+      &--active { color: rgba(200, 160, 80, 0.75); }
+
+      &__lvl {
+        font-style: normal; font-size: 10px; font-weight: 700;
+        color: var(--hl-color); opacity: .7; min-width: 14px; text-align: right;
+      }
+    }
+
+    .ct-exhaustion-none {
+      margin-top: 6px; font-family: sans-serif; font-size: 11px;
+      color: rgba(255,255,255,.25); font-style: italic;
     }
   `,
   template: `
@@ -201,8 +218,6 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
           type="button"
           class="ct-card"
           [class.ct-card--active]="isActive(cond.id)"
-          [style.--cond-color]="cond.color"
-          [style.--cond-glow]="cond.glow"
           (click)="toggle(cond.id)"
           [matTooltip]="cond.description"
           matTooltipShowDelay="400"
@@ -231,11 +246,16 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
         </button>
       }
     </div>
-    <div class="ct-exhaustion-effect" [class.ct-exhaustion-effect--active]="exhaustion() > 0">
-      @if (exhaustion() > 0) {
-        Efekt: {{ exhaustionEffects[exhaustion()] }}
+    <div class="ct-exhaustion-effects-list">
+      @if (exhaustion() === 0) {
+        <div class="ct-exhaustion-none">Žádné vyčerpání</div>
       } @else {
-        Žádné vyčerpání
+        @for (eff of activeExhaustionEffects(); track eff.level) {
+          <div class="ct-exhaustion-effect ct-exhaustion-effect--active">
+            <span class="ct-exhaustion-effect__lvl">{{ eff.level }}</span>
+            {{ eff.text }}
+          </div>
+        }
       }
     </div>
   `,
@@ -249,6 +269,12 @@ export class ConditionsTrackerComponent implements OnInit {
   exhaustion = signal<number>(0);
 
   activeCount = computed(() => this.active().size + (this.exhaustion() > 0 ? 1 : 0));
+  activeExhaustionEffects = computed(() =>
+    Array.from({ length: this.exhaustion() }, (_, i) => ({
+      level: i + 1,
+      text: EXHAUSTION_EFFECTS[i + 1],
+    }))
+  );
 
   ngOnInit(): void {
     this._load();

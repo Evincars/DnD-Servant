@@ -37,9 +37,18 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       background: rgba(22, 14, 6, 0.97) !important;
       border-color: rgba(200, 160, 60, 0.3) !important;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7) !important;
-      button { color: rgba(220, 195, 130, 0.85); &:hover { background: rgba(200,160,60,.14) !important; border-color: rgba(200,160,60,.4) !important; color: #e8c96a; } }
+      button {
+        color: rgba(220, 195, 130, 0.85);
+        &:hover {
+          background: rgba(200, 160, 60, 0.14) !important;
+          border-color: rgba(200, 160, 60, 0.4) !important;
+          color: #e8c96a;
+        }
+      }
     }
-    :host ::ng-deep rich-textarea .rt-separator { background: rgba(200, 160, 60, 0.25); }
+    :host ::ng-deep rich-textarea .rt-separator {
+      background: rgba(200, 160, 60, 0.25);
+    }
 
     /* ── Header ─────────────────────────────────── */
     .header {
@@ -152,9 +161,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     }
 
     @media (max-width: 700px) {
-      :host { padding: 16px 12px 40px; }
-      .notes-grid { grid-template-columns: 1fr; }
-      .rt-wrap { height: 260px; }
+      :host {
+        padding: 16px 12px 40px;
+      }
+      .notes-grid {
+        grid-template-columns: 1fr;
+      }
+      .rt-wrap {
+        height: 260px;
+      }
     }
 
     /* ── Single note panel ───────────────────────── */
@@ -273,9 +288,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         <!-- World notes -->
         <div class="note-panel panel--world">
           <div class="panel-header">
-            <mat-icon class="panel-icon">public</mat-icon>
-            <span class="panel-title">Světové Poznámky</span>
-            <span class="panel-desc">Lore, lokace, pravidla světa</span>
+            <!--            <mat-icon class="panel-icon">public</mat-icon>-->
+            <span class="panel-title">Hlavní info</span>
+            <!--            <span class="panel-desc">Lore, lokace, pravidla světa</span>-->
           </div>
           <div class="rt-wrap">
             <rich-textarea
@@ -305,9 +320,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         <!-- NPCs & Factions -->
         <div class="note-panel panel--npcs">
           <div class="panel-header">
-            <mat-icon class="panel-icon">groups</mat-icon>
-            <span class="panel-title">NPC &amp; Frakce</span>
-            <span class="panel-desc">Postavy, vztahy, frakce</span>
+            <!--            <mat-icon class="panel-icon">groups</mat-icon>-->
+            <span class="panel-title">NPC, Frakce, Vztahy</span>
+            <!--            <span class="panel-desc">Postavy, vztahy, frakce</span>-->
           </div>
           <div class="rt-wrap">
             <rich-textarea
@@ -321,9 +336,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         <!-- Rewards & Treasure -->
         <div class="note-panel panel--rewards">
           <div class="panel-header">
-            <mat-icon class="panel-icon">auto_awesome</mat-icon>
-            <span class="panel-title">Odměny &amp; Poklady</span>
-            <span class="panel-desc">Magické předměty, zlato, XP</span>
+<!--            <mat-icon class="panel-icon">auto_awesome</mat-icon>-->
+            <span class="panel-title">NPC, Frakce, Vztahy</span>
+<!--            <span class="panel-desc">Magické předměty, zlato, XP</span>-->
           </div>
           <div class="rt-wrap">
             <rich-textarea
