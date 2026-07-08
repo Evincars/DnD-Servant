@@ -182,13 +182,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
       border: 1px solid rgba(200,160,60,.15);
       border-left: 3px solid transparent;
       box-shadow: 0 4px 20px rgba(0,0,0,.5);
-      transition: border-color .2s, box-shadow .2s;
       overflow: visible;
-
-      &:hover {
-        border-color: rgba(200,160,60,.3);
-        box-shadow: 0 6px 28px rgba(0,0,0,.65);
-      }
 
       &--completed {
         background: rgba(20,28,14,.97);
@@ -208,8 +202,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
       gap: 6px;
       padding: 8px 10px 6px;
       cursor: pointer;
-      transition: background .15s;
-      &:hover { background: rgba(200,160,60,.04); }
+      &:hover { background: rgba(255,255,255,.02); }
     }
 
     .status-badge {

@@ -83,7 +83,7 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
       background: rgba(255,255,255,.06);
       transition: background .15s, transform .1s, box-shadow .15s;
       &:hover { transform: scale(1.3); }
-      &--filled { background: rgba(200,80,60,.8); box-shadow: 0 0 6px rgba(200,80,60,.5); border-color: rgba(200,80,60,.6); }
+      &--filled { background: rgba(80,140,210,.8); box-shadow: 0 0 6px rgba(80,140,210,.4); border-color: rgba(100,160,230,.6); }
     }
     .card-header-spacer { flex: 1; min-width: 0; }
     .card-btns { display: flex; flex-shrink: 0; }
