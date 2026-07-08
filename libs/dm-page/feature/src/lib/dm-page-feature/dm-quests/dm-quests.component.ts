@@ -48,7 +48,7 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
     /* ── Grid ────────────────────────────────────── */
     .quest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; align-items: start; }
     .empty-state { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: rgba(255,255,255,.12); font-size: 13px; letter-spacing: .1em;
-      mat-icon { font-size: 44px; width: 44px; height: 44px; display: block; margin: 0 auto 14px; color: rgba(200,80,60,.15); }
+      mat-icon { font-size: 44px; width: 44px; height: 44px; display: block; margin: 0 auto 14px; color: rgba(200,160,60,.15); }
     }
     @media (max-width: 900px) { .quest-grid { grid-template-columns: 1fr; } }
 
@@ -56,10 +56,10 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
     .quest-card {
       position: relative; border-radius: 3px;
       background: rgba(22,20,18,.97);
-      border: 1px solid rgba(200,80,60,.15);
+      border: 1px solid rgba(200,160,60,.15);
       box-shadow: 0 4px 20px rgba(0,0,0,.55);
       transition: border-color .2s, box-shadow .2s;
-      &:hover { border-color: rgba(200,80,60,.28); box-shadow: 0 6px 28px rgba(0,0,0,.65); }
+      &:hover { border-color: rgba(200,160,60,.28); box-shadow: 0 6px 28px rgba(0,0,0,.65); }
     }
 
     /* ── Card header ─────────────────────────────── */
@@ -69,12 +69,18 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
     .quest-done-icon { font-size: 14px !important; width: 14px !important; height: 14px !important; color: rgba(100,200,100,.8); flex-shrink: 0; }
     .diff-badge {
       font-family: sans-serif; font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
-      border-radius: 2px; padding: 4px 10px; cursor: pointer; transition: opacity .15s; white-space: nowrap; flex-shrink: 0;
-      &:hover { opacity: .75; }
-      &--easy     { color: rgba(80,180,100,.8);  background: rgba(60,140,80,.1); border: 1px solid rgba(60,160,80,.3); }
-      &--medium   { color: rgba(200,160,60,.8);  background: rgba(200,160,60,.08); border: 1px solid rgba(200,160,60,.3); }
-      &--hard     { color: rgba(210,110,40,.8);  background: rgba(200,90,30,.1); border: 1px solid rgba(200,90,30,.3); }
-      &--deadly   { color: rgba(220,60,50,.85);  background: rgba(200,40,30,.1); border: 1px solid rgba(200,40,30,.4); }
+      border-radius: 6px; padding: 4px 12px; cursor: pointer; white-space: nowrap; flex-shrink: 0;
+      background: rgba(200,160,60,.08); border: 1px solid rgba(200,160,60,.2); color: #9a8a6a;
+      transition: background .15s, border-color .15s, color .15s;
+      &:hover { background: rgba(200,160,60,.15); border-color: rgba(200,160,60,.4); color: #d4c9a0; }
+      &--easy     { color: rgba(80,180,100,.8);  background: rgba(60,140,80,.08); border-color: rgba(60,160,80,.3);
+        &:hover { background: rgba(60,140,80,.16); border-color: rgba(60,160,80,.5); color: rgba(100,210,120,.9); } }
+      &--medium   { color: rgba(200,160,60,.9);  background: rgba(200,160,60,.08); border-color: rgba(200,160,60,.3);
+        &:hover { background: rgba(200,160,60,.16); border-color: rgba(200,160,60,.55); color: #e8c96a; } }
+      &--hard     { color: rgba(210,130,50,.9);  background: rgba(200,100,30,.08); border-color: rgba(200,110,40,.3);
+        &:hover { background: rgba(200,100,30,.16); border-color: rgba(200,110,40,.55); color: rgba(240,155,70,.9); } }
+      &--deadly   { color: rgba(220,80,60,.9);   background: rgba(200,50,40,.08); border-color: rgba(200,50,40,.3);
+        &:hover { background: rgba(200,50,40,.16); border-color: rgba(200,50,40,.55); color: rgba(255,110,90,.9); } }
     }
     .stage-pips { display: flex; gap: 5px; align-items: center; flex-shrink: 0; }
     .stage-pip {
@@ -83,7 +89,7 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
       background: rgba(255,255,255,.06);
       transition: background .15s, transform .1s, box-shadow .15s;
       &:hover { transform: scale(1.3); }
-      &--filled { background: rgba(80,140,210,.8); box-shadow: 0 0 6px rgba(80,140,210,.4); border-color: rgba(100,160,230,.6); }
+      &--filled { background: rgba(200,160,60,.8); box-shadow: 0 0 6px rgba(200,160,60,.4); border-color: rgba(220,185,80,.6); }
     }
     .card-header-spacer { flex: 1; min-width: 0; }
     .card-btns { display: flex; flex-shrink: 0; }
@@ -102,11 +108,11 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
     .title-row { padding: 0 12px 6px; }
     .title-input {
       width: 100%; box-sizing: border-box; background: transparent; border: none;
-      border-bottom: 1px solid rgba(200,80,60,.2); color: #e8a0a0;
+      border-bottom: 1px solid rgba(200,160,60,.2); color: #e8d8a0;
       font-family: sans-serif; font-size: 14px; letter-spacing: .07em;
       padding: 3px 2px 5px; outline: none; transition: border-color .18s;
-      &::placeholder { color: rgba(200,80,60,.22); }
-      &:focus { border-bottom-color: rgba(200,80,60,.55); }
+      &::placeholder { color: rgba(200,160,60,.22); }
+      &:focus { border-bottom-color: rgba(200,160,60,.55); }
     }
     .card-date { font-size: 9px; color: rgba(255,255,255,.2); letter-spacing: .05em; font-family: sans-serif; margin-top: 4px; }
 
@@ -116,12 +122,12 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
     /* ── Meta fields ─────────────────────────────── */
     .meta-row { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
     .meta-field { display: flex; align-items: center; gap: 6px; }
-    .meta-icon { font-size: 14px !important; width: 14px !important; height: 14px !important; flex-shrink: 0; color: rgba(200,80,60,.4); }
+    .meta-icon { font-size: 14px !important; width: 14px !important; height: 14px !important; flex-shrink: 0; color: rgba(200,160,60,.4); }
     .meta-input {
       flex: 1; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,.06);
       color: #c8b0a8; font-family: sans-serif; font-size: 12px; padding: 2px 2px 3px; outline: none; transition: border-color .15s;
       &::placeholder { color: rgba(255,255,255,.14); font-style: italic; }
-      &:focus { border-bottom-color: rgba(200,80,60,.4); }
+      &:focus { border-bottom-color: rgba(200,160,60,.4); }
     }
 
     /* ── Reward row ──────────────────────────────── */
@@ -136,7 +142,7 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
     /* ── Rich-textarea wrap ──────────────────────── */
     .rt-wrap {
       position: relative; height: 210px; border-radius: 2px; background: rgba(0,0,0,.2);
-      border: 1px solid rgba(200,80,60,.1);
+      border: 1px solid rgba(200,160,60,.1);
       overflow: visible; z-index: 2;
       margin-top: 44px; /* space for floating toolbar */
     }
@@ -259,6 +265,7 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
                 </div>
 
                 <!-- 🔒 DM-only textarea -->
+                <div class="rt-label">Info pro PH</div>
                 <div class="rt-wrap">
                   <rich-textarea [(ngModel)]="quests()[item.idx].dmNotes" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
                 </div>
@@ -296,9 +303,11 @@ export class DmQuestsComponent {
   readonly store = inject(DmPageStore);
   private readonly auth = inject(AuthService);
 
+  private readonly EXPANDED_STORAGE_KEY = 'dm-quests-expanded-ids';
+
   quests = signal<DmQuestEntry[]>([]);
   filterStatus = signal<FilterStatus>('all');
-  expandedIds = signal<Set<string>>(new Set());
+  expandedIds = signal<Set<string>>(this.loadExpandedIds());
   confirmIdx = signal<number | null>(null);
 
   readonly filterTabs: { value: FilterStatus; label: string }[] = [
@@ -338,6 +347,17 @@ export class DmQuestsComponent {
       const username = this.auth.currentUser()?.username;
       untracked(() => { if (username) this.store.loadDmQuests(username); });
     });
+    effect(() => {
+      const ids = this.expandedIds();
+      try { localStorage.setItem(this.EXPANDED_STORAGE_KEY, JSON.stringify([...ids])); } catch { /* ignore */ }
+    });
+  }
+
+  private loadExpandedIds(): Set<string> {
+    try {
+      const stored = localStorage.getItem('dm-quests-expanded-ids');
+      return stored ? new Set<string>(JSON.parse(stored)) : new Set<string>();
+    } catch { return new Set<string>(); }
   }
 
   addQuest(): void {
