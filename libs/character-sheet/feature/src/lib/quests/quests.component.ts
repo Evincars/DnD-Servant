@@ -24,6 +24,7 @@ type FilterStatus = 'all' | QuestStatus;
 
 const LS_QUESTS_KEY = 'dnd_quests_draft';
 const LS_EXPANDED_KEY = 'dnd_quests_expanded';
+const LS_FILTER_KEY = 'dnd_quests_filter';
 
 @Component({
   selector: 'quests-tab',
@@ -602,7 +603,7 @@ export class QuestsTabComponent {
   private readonly _doc = inject(DOCUMENT);
 
   quests = signal<QuestEntry[]>([]);
-  filterStatus = signal<FilterStatus>('all');
+  filterStatus = signal<FilterStatus>(this._loadFilterStatus());
   expandedIds = signal<Set<string>>(new Set(this._loadExpandedIds()));
   confirmDeleteIndex = signal<number | null>(null);
 
@@ -682,6 +683,12 @@ export class QuestsTabComponent {
           this._doc.defaultView?.localStorage.setItem(LS_EXPANDED_KEY, JSON.stringify([...ids]));
         } catch { /* quota exceeded — ignore */ }
       });
+    });
+
+    // ── Auto-persist selected filter to localStorage ───────────────────────
+    effect(() => {
+      const fs = this.filterStatus();
+      try { this._doc.defaultView?.localStorage.setItem(LS_FILTER_KEY, fs); } catch { /* ignore */ }
     });
 
     // ── Auto-save quests with debounce (2.5 s after last user change) ────
@@ -840,6 +847,16 @@ export class QuestsTabComponent {
       return raw ? (JSON.parse(raw) as string[]) : [];
     } catch {
       return [];
+    }
+  }
+
+  private _loadFilterStatus(): FilterStatus {
+    const valid: FilterStatus[] = ['all', 'active', 'completed', 'failed', 'inactive'];
+    try {
+      const raw = this._doc.defaultView?.localStorage.getItem(LS_FILTER_KEY) as FilterStatus;
+      return valid.includes(raw) ? raw : 'all';
+    } catch {
+      return 'all';
     }
   }
 }

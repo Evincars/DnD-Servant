@@ -315,9 +315,10 @@ export class DmQuestsComponent {
   private readonly auth = inject(AuthService);
 
   private readonly EXPANDED_STORAGE_KEY = 'dm-quests-expanded-ids';
+  private readonly FILTER_STORAGE_KEY = 'dm-quests-filter';
 
   quests = signal<DmQuestEntry[]>([]);
-  filterStatus = signal<FilterStatus>('all');
+  filterStatus = signal<FilterStatus>(this.loadFilterStatus());
   expandedIds = signal<Set<string>>(this.loadExpandedIds());
   confirmIdx = signal<number | null>(null);
 
@@ -333,10 +334,10 @@ export class DmQuestsComponent {
     const all = this.quests();
     return {
       all: all.length,
-      planned: all.filter(q => q.status === 'planned').length,
-      active: all.filter(q => q.status === 'active').length,
-      climax: all.filter(q => q.status === 'climax').length,
-      completed: all.filter(q => q.status === 'completed').length,
+      planned: all.filter(q => (q.stage ?? 0) <= 1).length,
+      active: all.filter(q => q.stage === 2).length,
+      climax: all.filter(q => q.stage === 3).length,
+      completed: all.filter(q => q.stage >= 4).length,
     };
   });
 
@@ -344,7 +345,15 @@ export class DmQuestsComponent {
     const fs = this.filterStatus();
     return this.quests()
       .map((quest, idx) => ({ quest, idx }))
-      .filter(({ quest }) => fs === 'all' || quest.status === fs);
+      .filter(({ quest }) => {
+        if (fs === 'all') return true;
+        const s = quest.stage ?? 0;
+        if (fs === 'planned')   return s <= 1;
+        if (fs === 'active')    return s === 2;
+        if (fs === 'climax')    return s === 3;
+        if (fs === 'completed') return s >= 4;
+        return true;
+      });
   });
 
   constructor() {
@@ -360,6 +369,10 @@ export class DmQuestsComponent {
       const ids = this.expandedIds();
       try { localStorage.setItem(this.EXPANDED_STORAGE_KEY, JSON.stringify([...ids])); } catch { /* ignore */ }
     });
+    effect(() => {
+      const fs = this.filterStatus();
+      try { localStorage.setItem(this.FILTER_STORAGE_KEY, fs); } catch { /* ignore */ }
+    });
   }
 
   private loadExpandedIds(): Set<string> {
@@ -367,6 +380,14 @@ export class DmQuestsComponent {
       const stored = localStorage.getItem('dm-quests-expanded-ids');
       return stored ? new Set<string>(JSON.parse(stored)) : new Set<string>();
     } catch { return new Set<string>(); }
+  }
+
+  private loadFilterStatus(): FilterStatus {
+    const valid: FilterStatus[] = ['all', 'planned', 'active', 'climax', 'completed'];
+    try {
+      const stored = localStorage.getItem('dm-quests-filter') as FilterStatus;
+      return valid.includes(stored) ? stored : 'all';
+    } catch { return 'all'; }
   }
 
   addQuest(): void {
