@@ -113,6 +113,7 @@
     </div>
 
     <div class="it-actions">
+      <span class="it-actions__spacer"></span>
       <button type="button" class="pt-filter-btn" (click)="addRow()">
         <mat-icon>add</mat-icon> Přidat
       </button>
@@ -143,20 +144,14 @@
     <div class="it-cards-area">
 
       <div class="it-cards-bar">
-        <div class="it-cards-bar__title">
-          <mat-icon class="it-cards-bar__icon">bug_report</mat-icon>
-          <span>Příšery <span class="it-cards-bar__count">({{ openCards().length }})</span></span>
-        </div>
-        <div class="it-cards-bar__actions">
-          <button type="button" class="pt-filter-btn" (click)="toggleAllCards()">
-            <mat-icon>{{ allCardsExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
-            {{ allCardsExpanded() ? 'Sbalit vše' : 'Rozvinout vše' }}
-          </button>
-          <button type="button" class="pt-filter-btn" (click)="closeAllCards()" matTooltip="Zavřít všechny karty příšer">
-            <mat-icon>clear_all</mat-icon>
-            Zavřít vše
-          </button>
-        </div>
+        <button type="button" class="pt-filter-btn" (click)="toggleAllCards()">
+          <mat-icon>{{ allCardsExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
+          {{ allCardsExpanded() ? 'Sbalit vše' : 'Rozvinout vše' }}
+        </button>
+        <button type="button" class="pt-filter-btn" (click)="closeAllCards()" matTooltip="Zavřít všechny karty příšer">
+          <mat-icon>clear_all</mat-icon>
+          Zavřít vše
+        </button>
       </div>
 
       <div class="it-cards-row">
@@ -175,6 +170,8 @@
               <mat-icon class="it-card-slot__chevron">
                 {{ card.collapsed ? 'expand_more' : 'expand_less' }}
               </mat-icon>
+              <button class="it-card-slot__close" type="button" title="Zavřít"
+                (click)="closeCard(card.baseName); $event.stopPropagation()">✕</button>
             </div>
 
             <div class="it-card-body-wrapper">
