@@ -69,9 +69,8 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
     .quest-done-icon { font-size: 14px !important; width: 14px !important; height: 14px !important; color: rgba(100,200,100,.8); flex-shrink: 0; }
     .diff-badge {
       font-family: sans-serif; font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
-      border-radius: 2px; padding: 4px 10px; cursor: pointer; transition: filter .15s; white-space: nowrap; flex-shrink: 0;
-      &:hover { filter: brightness(1.2); }
-      &--trivial  { color: rgba(120,200,120,.8); background: rgba(80,160,80,.1); border: 1px solid rgba(80,160,80,.3); }
+      border-radius: 2px; padding: 4px 10px; cursor: pointer; transition: opacity .15s; white-space: nowrap; flex-shrink: 0;
+      &:hover { opacity: .75; }
       &--easy     { color: rgba(80,180,100,.8);  background: rgba(60,140,80,.1); border: 1px solid rgba(60,160,80,.3); }
       &--medium   { color: rgba(200,160,60,.8);  background: rgba(200,160,60,.08); border: 1px solid rgba(200,160,60,.3); }
       &--hard     { color: rgba(210,110,40,.8);  background: rgba(200,90,30,.1); border: 1px solid rgba(200,90,30,.3); }
@@ -209,7 +208,7 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
             <!-- Card header -->
             <div class="card-header" (click)="toggleExpand(item.quest.id)">
               <button class="diff-badge diff-badge--{{ item.quest.difficulty }}" type="button"
-                (click)="cycleDiff(item.idx); $event.stopPropagation()" matTooltip="Obtížnost — klikni pro změnu">{{ diffLabel(item.quest.difficulty) }}</button>
+                (click)="cycleDiff(item.idx); $event.stopPropagation()" matTooltip="Obtížnost — klikni pro změnu" matTooltipShowDelay="400">{{ diffLabel(item.quest.difficulty) }}</button>
               <!-- Stage pips -->
               <div class="stage-pips">
                 @for (n of [1,2,3,4]; track n) {
@@ -367,8 +366,8 @@ export class DmQuestsComponent {
   collapseAll(): void { this.expandedIds.set(new Set()); }
 
   cycleDiff(idx: number): void {
-    const order: DmQuestDifficulty[] = ['trivial', 'easy', 'medium', 'hard', 'deadly'];
-    this.quests.update(list => list.map((q, i) => i !== idx ? q : { ...q, difficulty: order[(order.indexOf(q.difficulty) + 1) % order.length] }));
+    const order: DmQuestDifficulty[] = ['easy', 'medium', 'hard', 'deadly'];
+    this.quests.update(list => list.map((q, i) => i !== idx ? q : { ...q, difficulty: order[(Math.max(0, order.indexOf(q.difficulty)) + 1) % order.length] as DmQuestDifficulty }));
   }
   setStage(idx: number, stage: number): void {
     this.quests.update(list => list.map((q, i) => i !== idx ? q : { ...q, stage: q.stage === stage ? stage - 1 : stage }));

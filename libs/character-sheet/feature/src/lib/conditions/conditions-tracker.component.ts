@@ -64,25 +64,14 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
       overflow-y: auto;
       padding: 24px 32px 40px;
       box-sizing: border-box;
-      font-family: 'Mikadan', sans-serif;
+      font-family: sans-serif;
     }
 
-    /* ── Header ─────────────────────────────────── */
-    .ct-header {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      flex-wrap: wrap; gap: 14px; margin-bottom: 24px; padding-bottom: 14px;
-      border-bottom: 2px solid transparent;
-      border-image: linear-gradient(90deg, transparent, rgba(200,160,60,.6) 20%, rgba(220,180,60,.8) 50%, rgba(200,160,60,.6) 80%, transparent) 1;
+    /* ── Top bar (clear btn + active badge) ─────── */
+    .ct-top-bar {
+      display: flex; align-items: center; justify-content: flex-end;
+      gap: 12px; margin-bottom: 16px;
     }
-    .ct-title {
-      font-size: 22px; letter-spacing: .12em; text-transform: uppercase;
-      color: #e8c96a; text-shadow: 0 0 18px rgba(200,160,60,.4), 0 0 4px rgba(200,160,60,.2);
-      display: flex; align-items: center; gap: 10px;
-      mat-icon { font-size: 26px; width: 26px; height: 26px; color: #c8a03c; }
-    }
-    .ct-subtitle { font-size: 11px; color: rgba(200,160,60,.4); letter-spacing: .05em; margin-top: 5px; font-family: sans-serif; font-style: italic; text-transform: none; }
-
-    .ct-header-right { display: flex; align-items: center; gap: 12px; }
 
     .ct-active-badge {
       display: inline-flex; align-items: center; gap: 6px;
@@ -95,20 +84,18 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
     }
 
     .ct-clear-btn {
-      font-family: 'Mikadan', sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+      font-family: sans-serif; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
       border: 1px solid rgba(255,255,255,.1); border-radius: 3px; background: transparent;
       color: rgba(255,255,255,.3); padding: 6px 14px; cursor: pointer;
-      display: flex; align-items: center; gap: 5px;
       transition: background .18s, border-color .18s, color .18s;
-      mat-icon { font-size: 14px; width: 14px; height: 14px; }
       &:hover { background: rgba(180,50,50,.12); border-color: rgba(200,80,60,.3); color: rgba(220,100,80,.85); }
     }
 
     /* ── Conditions grid ─────────────────────────── */
     .ct-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 8px;
       margin-bottom: 28px;
     }
 
@@ -116,50 +103,41 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
       --cond-color: transparent;
       --cond-glow: transparent;
       position: relative;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 6px; padding: 12px 8px 10px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 7px 8px;
       background: linear-gradient(160deg, rgba(28,20,14,.96) 0%, rgba(18,12,8,.98) 100%);
       border: 1px solid rgba(255,255,255,.07);
       border-radius: 4px;
       cursor: pointer;
-      transition: background .15s, border-color .15s, box-shadow .15s, transform .1s;
-      font-family: 'Mikadan', sans-serif;
+      transition: background .15s, border-color .15s, box-shadow .15s;
+      font-family: sans-serif;
       outline: none;
       user-select: none;
       text-align: center;
 
-      &:hover { background: rgba(255,255,255,.03); transform: translateY(-1px); }
-      &:active { transform: translateY(0); }
+      &:hover { background: rgba(255,255,255,.05); }
 
       &--active {
         border-color: var(--cond-color) !important;
-        box-shadow: 0 0 12px var(--cond-glow), inset 0 0 20px rgba(0,0,0,.3);
+        box-shadow: 0 0 10px var(--cond-glow), inset 0 0 16px rgba(0,0,0,.3);
         background: linear-gradient(160deg, rgba(40,28,20,.97) 0%, rgba(24,16,10,.99) 100%) !important;
-        transform: translateY(-2px);
 
-        .ct-card__icon { color: var(--cond-color); text-shadow: 0 0 10px var(--cond-glow); }
         .ct-card__name { color: var(--cond-color); }
         .ct-card__active-dot { opacity: 1; }
       }
     }
 
-    .ct-card__icon {
-      font-size: 22px !important; width: 22px !important; height: 22px !important;
-      color: rgba(255,255,255,.2);
-      transition: color .15s, text-shadow .15s;
-    }
-
     .ct-card__name {
-      font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
-      color: rgba(255,255,255,.3); line-height: 1.2;
+      font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+      color: rgba(255,255,255,.35); line-height: 1.2;
       transition: color .15s;
     }
 
     .ct-card__active-dot {
-      position: absolute; top: 5px; right: 6px;
-      width: 6px; height: 6px; border-radius: 50%;
+      position: absolute; top: 4px; right: 5px;
+      width: 5px; height: 5px; border-radius: 50%;
       background: var(--cond-color);
-      box-shadow: 0 0 6px var(--cond-glow);
+      box-shadow: 0 0 5px var(--cond-glow);
       opacity: 0;
       transition: opacity .2s;
     }
@@ -169,7 +147,6 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
       font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
       color: rgba(255,255,255,.22); margin-bottom: 10px;
       display: flex; align-items: center; gap: 6px;
-      mat-icon { font-size: 14px; width: 14px; height: 14px; }
     }
 
     .ct-exhaustion-track {
@@ -181,7 +158,7 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
       gap: 3px; width: 50px; padding: 8px 4px;
       background: linear-gradient(160deg, rgba(28,20,14,.96), rgba(18,12,8,.98));
       border: 1px solid rgba(255,255,255,.07); border-radius: 3px;
-      cursor: pointer; font-family: 'Mikadan', sans-serif;
+      cursor: pointer; font-family: sans-serif;
       transition: background .15s, border-color .15s, box-shadow .15s;
       outline: none;
 
@@ -190,7 +167,7 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
         box-shadow: 0 0 10px rgba(200,50,40,.4);
       }
 
-      &:hover { background: rgba(255,255,255,.03); }
+      &:hover { background: rgba(255,255,255,.04); }
 
       &__level {
         font-size: 14px; font-weight: 700; color: rgba(255,255,255,.25);
@@ -205,32 +182,16 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
       min-height: 20px; transition: color .2s;
       &--active { color: rgba(220,100,80,.7); }
     }
-
-    /* ── Hint row ────────────────────────────────── */
-    .ct-hint {
-      margin-top: 20px; font-family: sans-serif; font-size: 10px;
-      color: rgba(255,255,255,.12); letter-spacing: .03em; font-style: italic;
-    }
   `,
   template: `
-    <div class="ct-header">
-      <div>
-        <div class="ct-title">
-          <mat-icon>health_and_safety</mat-icon>
-          Stavy &amp; Podmínky
-        </div>
-        <div class="ct-subtitle">Klikni na stav pro aktivaci — uloženo automaticky v prohlížeči</div>
-      </div>
-      <div class="ct-header-right">
-        <span class="ct-active-badge" [class.ct-active-badge--hidden]="activeCount() === 0">
-          <mat-icon>warning</mat-icon>
-          {{ activeCount() }} aktivní{{ activeCount() === 1 ? '' : 'ch' }}
-        </span>
-        <button class="ct-clear-btn" type="button" (click)="clearAll()" matTooltip="Zrušit všechny aktivní stavy">
-          <mat-icon>clear_all</mat-icon>
-          Vymazat vše
-        </button>
-      </div>
+    <div class="ct-top-bar">
+      <span class="ct-active-badge" [class.ct-active-badge--hidden]="activeCount() === 0">
+        <mat-icon>warning</mat-icon>
+        {{ activeCount() }} aktivní{{ activeCount() === 1 ? '' : 'ch' }}
+      </span>
+      <button class="ct-clear-btn" type="button" (click)="clearAll()" matTooltip="Zrušit všechny aktivní stavy">
+        Vymazat vše
+      </button>
     </div>
 
     <!-- Conditions grid -->
@@ -244,9 +205,8 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
           [style.--cond-glow]="cond.glow"
           (click)="toggle(cond.id)"
           [matTooltip]="cond.description"
-          matTooltipShowDelay="300"
+          matTooltipShowDelay="400"
         >
-          <mat-icon class="ct-card__icon">{{ cond.icon }}</mat-icon>
           <span class="ct-card__name">{{ cond.name }}</span>
           <span class="ct-card__active-dot"></span>
         </button>
@@ -255,7 +215,6 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
 
     <!-- Exhaustion -->
     <div class="ct-section-label">
-      <mat-icon>battery_alert</mat-icon>
       Vyčerpání (úroveň {{ exhaustion() }}/6)
     </div>
     <div class="ct-exhaustion-track">
@@ -266,6 +225,7 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
           [class.ct-exhaustion-btn--active]="exhaustion() >= lvl"
           (click)="setExhaustion(exhaustion() === lvl ? lvl - 1 : lvl)"
           [matTooltip]="exhaustionEffects[lvl]"
+          matTooltipShowDelay="400"
         >
           <span class="ct-exhaustion-btn__level">{{ lvl }}</span>
         </button>
@@ -277,10 +237,6 @@ export const LS_KEY = PLAYER_CONDITIONS_KEY;
       } @else {
         Žádné vyčerpání
       }
-    </div>
-
-    <div class="ct-hint">
-      Klikni na podmínku pro aktivaci/deaktivaci. Hover zobrazí popis efektu. Stavy jsou ukládány v prohlížeči (localStorage).
     </div>
   `,
 })
