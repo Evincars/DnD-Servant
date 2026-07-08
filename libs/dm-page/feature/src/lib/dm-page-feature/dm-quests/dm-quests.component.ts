@@ -18,7 +18,7 @@ import { DmQuestDifficulty, DmQuestEntry, DmQuestStatus } from '../../dm-page-mo
 
 type FilterStatus = 'all' | DmQuestStatus;
 
-const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuzlení'];
+const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
 
 @Component({
   selector: 'dm-quests',
@@ -57,27 +57,16 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
       position: relative; border-radius: 3px;
       background: rgba(22,20,18,.97);
       border: 1px solid rgba(200,80,60,.15);
-      border-left: 3px solid transparent;
       box-shadow: 0 4px 20px rgba(0,0,0,.55);
       transition: border-color .2s, box-shadow .2s;
       &:hover { border-color: rgba(200,80,60,.28); box-shadow: 0 6px 28px rgba(0,0,0,.65); }
     }
 
     /* ── Card header ─────────────────────────────── */
-    .card-header { display: flex; align-items: center; gap: 6px; padding: 10px 10px 7px; flex-wrap: wrap; cursor: pointer; user-select: none;
+    .card-header { display: flex; align-items: center; gap: 6px; padding: 8px 10px 6px; flex-wrap: wrap; cursor: pointer; user-select: none;
       &:hover { background: rgba(200,80,60,.04); }
     }
-    .status-badge {
-      font-family: sans-serif; font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
-      border-radius: 10px; padding: 4px 12px; cursor: pointer; border: 1px solid currentColor;
-      transition: filter .15s; white-space: nowrap; flex-shrink: 0;
-      &:hover { filter: brightness(1.2); }
-      &--planned   { color: rgba(100,130,200,.9); background: rgba(80,100,180,.1); }
-      &--active    { color: rgba(80,190,100,.9);  background: rgba(60,160,80,.1); }
-      &--climax    { color: rgba(220,120,40,.9);  background: rgba(200,100,30,.12); }
-      &--completed { color: rgba(200,160,60,.9);  background: rgba(200,160,60,.1); }
-      &--abandoned { color: rgba(120,120,120,.7); background: rgba(100,100,100,.07); }
-    }
+    .quest-done-icon { font-size: 14px !important; width: 14px !important; height: 14px !important; color: rgba(100,200,100,.8); flex-shrink: 0; }
     .diff-badge {
       font-family: sans-serif; font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
       border-radius: 2px; padding: 4px 10px; cursor: pointer; transition: filter .15s; white-space: nowrap; flex-shrink: 0;
@@ -147,13 +136,12 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
 
     /* ── Rich-textarea wrap ──────────────────────── */
     .rt-wrap {
-      position: relative; height: 150px; border-radius: 2px; background: rgba(0,0,0,.2);
+      position: relative; height: 210px; border-radius: 2px; background: rgba(0,0,0,.2);
       border: 1px solid rgba(200,80,60,.1);
       overflow: visible; z-index: 2;
       margin-top: 44px; /* space for floating toolbar */
-      & + .rt-wrap { margin-top: 44px; }
     }
-    .rt-wrap--player { border-color: rgba(200,160,60,.12); }
+    .rt-wrap--player { border-color: rgba(200,160,60,.12); margin-top: 10px; }
     .rt-label { font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.2); margin-bottom: 3px; margin-top: 12px; }
 
     /* ── Rich-textarea dark-theme overrides ──────── */
@@ -172,18 +160,6 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
     :host ::ng-deep .rt-separator { background: rgba(200,160,60,.3) !important; }
     :host ::ng-deep .rt-done-btn { color: rgba(100,200,100,.9) !important;
       &:hover { background: rgba(50,160,50,.15) !important; border-color: rgba(80,180,80,.5) !important; }
-    }
-
-    /* ── Stage bar ───────────────────────────────── */
-    .stage-bar { display: flex; gap: 1px; margin-top: 10px; margin-bottom: 2px; }
-    .stage-seg {
-      flex: 1; height: 18px; cursor: pointer; border: 1px solid rgba(255,255,255,.06);
-      background: rgba(255,255,255,.04); border-radius: 2px;
-      display: flex; align-items: center; justify-content: center;
-      font-family: sans-serif; font-size: 7px; letter-spacing: .06em; color: rgba(255,255,255,.2);
-      text-transform: uppercase; transition: background .15s, color .15s, border-color .15s;
-      &:hover { background: rgba(200,80,60,.12); color: rgba(200,80,60,.8); border-color: rgba(200,80,60,.25); }
-      &--active { background: rgba(200,80,60,.22); border-color: rgba(200,80,60,.5); color: rgba(220,100,80,.9); }
     }
 
     /* ── Confirm dialog ──────────────────────────── */
@@ -228,21 +204,22 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
         }
 
         @for (item of filtered(); track item.quest.id) {
-          <div class="quest-card" [style.border-left-color]="statusColor(item.quest.status)">
+          <div class="quest-card">
 
             <!-- Card header -->
             <div class="card-header" (click)="toggleExpand(item.quest.id)">
-              <button class="status-badge status-badge--{{ item.quest.status }}" type="button"
-                (click)="cycleStatus(item.idx); $event.stopPropagation()" matTooltip="Klikni pro změnu stavu">{{ statusLabel(item.quest.status) }}</button>
               <button class="diff-badge diff-badge--{{ item.quest.difficulty }}" type="button"
                 (click)="cycleDiff(item.idx); $event.stopPropagation()" matTooltip="Obtížnost — klikni pro změnu">{{ diffLabel(item.quest.difficulty) }}</button>
               <!-- Stage pips -->
               <div class="stage-pips">
-                @for (n of [1,2,3,4,5]; track n) {
+                @for (n of [1,2,3,4]; track n) {
                   <span class="stage-pip" [class.stage-pip--filled]="n <= item.quest.stage"
                     (click)="setStage(item.idx, n); $event.stopPropagation()" [matTooltip]="stageName(n)"></span>
                 }
               </div>
+              @if (item.quest.stage >= 4) {
+                <mat-icon class="quest-done-icon" matTooltip="Quest dokončen">task_alt</mat-icon>
+              }
               <span class="card-header-spacer"></span>
               <div class="card-btns">
                 <button mat-icon-button class="expand-btn" type="button"
@@ -254,19 +231,6 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
                 </button>
               </div>
             </div>
-
-            <!-- Stage progress bar -->
-            @if (expandedIds().has(item.quest.id)) {
-              <div class="expanded-body" style="padding-top:4px">
-                <div class="stage-bar">
-                  @for (n of [1,2,3,4,5]; track n) {
-                    <div class="stage-seg" [class.stage-seg--active]="n <= item.quest.stage" (click)="setStage(item.idx, n)">
-                      {{ stageName(n) }}
-                    </div>
-                  }
-                </div>
-              </div>
-            }
 
             <!-- Title -->
             <div class="title-row">
@@ -282,8 +246,6 @@ const STAGE_LABELS = ['Zahájení', 'Rozvoj', 'Konflikt', 'Vyvrcholení', 'Rozuz
                 <div class="meta-row">
                   <div class="meta-field"><mat-icon class="meta-icon">place</mat-icon>
                     <input class="meta-input" [(ngModel)]="quests()[item.idx].location" placeholder="Lokalita / Oblast" /></div>
-                  <div class="meta-field"><mat-icon class="meta-icon">group</mat-icon>
-                    <input class="meta-input" [(ngModel)]="quests()[item.idx].partyMembers" placeholder="Členové skupiny (čárkami)" /></div>
                   <div class="meta-field"><mat-icon class="meta-icon" style="color:rgba(200,60,50,.45)">whatshot</mat-icon>
                     <input class="meta-input" [(ngModel)]="quests()[item.idx].antagonist" placeholder="Antagonista / Padouch" /></div>
                 </div>
@@ -404,16 +366,12 @@ export class DmQuestsComponent {
   expandAll(): void { this.expandedIds.set(new Set(this.quests().map(q => q.id))); }
   collapseAll(): void { this.expandedIds.set(new Set()); }
 
-  cycleStatus(idx: number): void {
-    const order: DmQuestStatus[] = ['planned', 'active', 'climax', 'completed', 'abandoned'];
-    this.quests.update(list => list.map((q, i) => i !== idx ? q : { ...q, status: order[(order.indexOf(q.status) + 1) % order.length] }));
-  }
   cycleDiff(idx: number): void {
     const order: DmQuestDifficulty[] = ['trivial', 'easy', 'medium', 'hard', 'deadly'];
     this.quests.update(list => list.map((q, i) => i !== idx ? q : { ...q, difficulty: order[(order.indexOf(q.difficulty) + 1) % order.length] }));
   }
   setStage(idx: number, stage: number): void {
-    this.quests.update(list => list.map((q, i) => i !== idx ? q : { ...q, stage }));
+    this.quests.update(list => list.map((q, i) => i !== idx ? q : { ...q, stage: q.stage === stage ? stage - 1 : stage }));
   }
 
   askDelete(idx: number): void { this.confirmIdx.set(idx); }
@@ -436,17 +394,9 @@ export class DmQuestsComponent {
   onEscape(): void { if (this.confirmIdx() !== null) this.cancelDelete(); }
 
   // ── Labels / colours ─────────────────────────────────────────────────────
-  statusLabel(s: DmQuestStatus): string {
-    const map: Record<DmQuestStatus, string> = { planned: 'Naplánováno', active: 'Aktivní', climax: 'Vyvrcholení', completed: 'Dokončeno', abandoned: 'Opuštěno' };
-    return map[s];
-  }
   diffLabel(d: DmQuestDifficulty): string {
     const map: Record<DmQuestDifficulty, string> = { trivial: 'Trivální', easy: 'Lehké', medium: 'Střední', hard: 'Těžké', deadly: 'Smrtelné' };
     return map[d];
-  }
-  statusColor(s: DmQuestStatus): string {
-    const map: Record<DmQuestStatus, string> = { planned: 'rgba(100,130,200,.8)', active: 'rgba(80,190,100,.8)', climax: 'rgba(220,120,40,.9)', completed: 'rgba(200,160,60,.85)', abandoned: 'rgba(80,80,80,.5)' };
-    return map[s];
   }
   stageName(n: number): string { return STAGE_LABELS[n - 1] ?? ''; }
 }
