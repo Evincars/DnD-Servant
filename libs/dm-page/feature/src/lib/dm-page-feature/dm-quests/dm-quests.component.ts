@@ -16,7 +16,7 @@ import { AuthService } from '@dn-d-servant/util';
 import { DmPageStore } from '../../dm-page.store';
 import { DmQuestDifficulty, DmQuestEntry, DmQuestStatus } from '../../dm-page-models';
 
-type FilterStatus = 'all' | DmQuestStatus;
+type FilterStatus = 'all' | 'planned' | 'active' | 'climax' | 'completed';
 
 const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
 
@@ -42,7 +42,7 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
 
     /* ── Filter + sort bar ───────────────────────── */
     .filter-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-    .filter-count { background: rgba(255,255,255,.08); border-radius: 10px; padding: 0 6px; font-size: 9px; min-width: 18px; text-align: center; line-height: 16px; }
+    .filter-count { background: rgba(255,255,255,.08); border-radius: 10px; padding: 0 6px; font-size: 9px; min-width: 18px; text-align: center; line-height: 16px; margin-left: 6px; }
     .bar-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
     /* ── Grid ────────────────────────────────────── */
@@ -109,12 +109,22 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
     .title-input {
       width: 100%; box-sizing: border-box; background: transparent; border: none;
       border-bottom: 1px solid rgba(200,160,60,.2); color: #e8d8a0;
-      font-family: sans-serif; font-size: 14px; letter-spacing: .07em;
+      font-family: sans-serif; font-size: 15px; letter-spacing: .07em;
       padding: 3px 2px 5px; outline: none; transition: border-color .18s;
       &::placeholder { color: rgba(200,160,60,.22); }
       &:focus { border-bottom-color: rgba(200,160,60,.55); }
     }
-    .card-date { font-size: 9px; color: rgba(255,255,255,.2); letter-spacing: .05em; font-family: sans-serif; margin-top: 4px; }
+    .card-meta-peek { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 5px; }
+    .card-date { font-size: 10px; color: rgba(255,255,255,.2); letter-spacing: .05em; font-family: sans-serif; flex-shrink: 0; }
+    .peek-sep { color: rgba(255,255,255,.1); font-size: 10px; flex-shrink: 0; }
+    .peek-icon { font-size: 12px !important; width: 12px !important; height: 12px !important; flex-shrink: 0; color: rgba(200,160,60,.35); }
+    .peek-input {
+      background: transparent; border: none; border-bottom: 1px solid transparent;
+      color: rgba(200,185,140,.55); font-family: sans-serif; font-size: 13px;
+      padding: 1px 2px 2px; outline: none; min-width: 60px; max-width: 120px; transition: border-color .15s, color .15s;
+      &::placeholder { color: rgba(255,255,255,.1); font-style: italic; }
+      &:focus { border-bottom-color: rgba(200,160,60,.3); color: rgba(220,200,150,.8); }
+    }
 
     /* ── Expanded body ───────────────────────────── */
     .expanded-body { padding: 0 12px 14px; }
@@ -125,7 +135,7 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
     .meta-icon { font-size: 14px !important; width: 14px !important; height: 14px !important; flex-shrink: 0; color: rgba(200,160,60,.4); }
     .meta-input {
       flex: 1; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,.06);
-      color: #c8b0a8; font-family: sans-serif; font-size: 12px; padding: 2px 2px 3px; outline: none; transition: border-color .15s;
+      color: #c8b0a8; font-family: sans-serif; font-size: 13px; padding: 2px 2px 3px; outline: none; transition: border-color .15s;
       &::placeholder { color: rgba(255,255,255,.14); font-style: italic; }
       &:focus { border-bottom-color: rgba(200,160,60,.4); }
     }
@@ -240,20 +250,21 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
             <!-- Title -->
             <div class="title-row">
               <input class="title-input" [(ngModel)]="quests()[item.idx].title" placeholder="Název questu / příběhu..." (click)="$event.stopPropagation()" />
-              @if (item.quest.dateAdded) {
-                <div class="card-date">{{ item.quest.dateAdded }}</div>
-              }
+              <div class="card-meta-peek">
+                @if (item.quest.dateAdded) {
+                  <span class="card-date">{{ item.quest.dateAdded }}</span>
+                  <span class="peek-sep">·</span>
+                }
+                <mat-icon class="peek-icon">place</mat-icon>
+                <input class="peek-input" [(ngModel)]="quests()[item.idx].location" placeholder="Lokalita..." (click)="$event.stopPropagation()" />
+                <span class="peek-sep">·</span>
+                <mat-icon class="peek-icon" style="color:rgba(200,80,60,.35)">whatshot</mat-icon>
+                <input class="peek-input" [(ngModel)]="quests()[item.idx].antagonist" placeholder="Antagonista..." (click)="$event.stopPropagation()" />
+              </div>
             </div>
 
             @if (expandedIds().has(item.quest.id)) {
               <div class="expanded-body">
-                <!-- Meta -->
-                <div class="meta-row">
-                  <div class="meta-field"><mat-icon class="meta-icon">place</mat-icon>
-                    <input class="meta-input" [(ngModel)]="quests()[item.idx].location" placeholder="Lokalita / Oblast" /></div>
-                  <div class="meta-field"><mat-icon class="meta-icon" style="color:rgba(200,60,50,.45)">whatshot</mat-icon>
-                    <input class="meta-input" [(ngModel)]="quests()[item.idx].antagonist" placeholder="Antagonista / Padouch" /></div>
-                </div>
 
                 <!-- ⚔ Player-visible textarea -->
                 <div class="rt-wrap rt-wrap--player">
@@ -312,11 +323,10 @@ export class DmQuestsComponent {
 
   readonly filterTabs: { value: FilterStatus; label: string }[] = [
     { value: 'all', label: 'Vše' },
-    { value: 'planned', label: 'Naplánováno' },
+    { value: 'planned', label: 'Neaktivní' },
     { value: 'active', label: 'Aktivní' },
-    { value: 'climax', label: 'Vyvrcholení' },
+    { value: 'climax', label: 'Rozuzlení' },
     { value: 'completed', label: 'Dokončeno' },
-    { value: 'abandoned', label: 'Opuštěno' },
   ];
 
   readonly counts = computed((): Record<FilterStatus, number> => {
@@ -327,7 +337,6 @@ export class DmQuestsComponent {
       active: all.filter(q => q.status === 'active').length,
       climax: all.filter(q => q.status === 'climax').length,
       completed: all.filter(q => q.status === 'completed').length,
-      abandoned: all.filter(q => q.status === 'abandoned').length,
     };
   });
 
