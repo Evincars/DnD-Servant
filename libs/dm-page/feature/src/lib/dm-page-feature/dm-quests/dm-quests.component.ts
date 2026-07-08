@@ -30,10 +30,10 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
 
     /* ── Buttons ─────────────────────────────────── */
     .btn { font-family: sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
-      border: 1px solid rgba(200,80,60,.35); border-radius: 3px; background: rgba(200,80,60,.08); color: rgba(200,100,80,.8);
+      border: 1px solid rgba(255,255,255,.12); border-radius: 3px; background: rgba(255,255,255,.04); color: rgba(255,255,255,.55);
       padding: 6px 14px; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: background .18s, border-color .18s, color .18s;
       mat-icon { font-size: 15px; width: 15px; height: 15px; }
-      &:hover { background: rgba(200,80,60,.16); border-color: rgba(200,80,60,.6); color: #e8a090; }
+      &:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.25); color: rgba(255,255,255,.85); }
     }
     .btn-icon { padding: 6px 10px; }
     .btn-save { border-color: rgba(80,160,80,.35); color: rgba(100,200,100,.8); background: rgba(60,120,60,.08);
@@ -64,7 +64,7 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
 
     /* ── Card header ─────────────────────────────── */
     .card-header { display: flex; align-items: center; gap: 6px; padding: 8px 10px 6px; flex-wrap: wrap; cursor: pointer; user-select: none;
-      &:hover { background: rgba(200,80,60,.04); }
+      &:hover { background: rgba(255,255,255,.02); }
     }
     .quest-done-icon { font-size: 14px !important; width: 14px !important; height: 14px !important; color: rgba(100,200,100,.8); flex-shrink: 0; }
     .diff-badge {
@@ -95,7 +95,7 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
       mat-icon, .mat-icon { font-size: 16px !important; width: 16px !important; height: 16px !important; line-height: 16px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
       .mat-mdc-button-touch-target, .mat-mdc-button-persistent-ripple, .mdc-icon-button__ripple { display: none !important; }
     }
-    .expand-btn { color: rgba(200,80,60,.4) !important; &:hover { color: rgba(200,80,60,.85) !important; background: rgba(200,80,60,.08) !important; } }
+    .expand-btn { color: rgba(255,255,255,.3) !important; &:hover { color: rgba(255,255,255,.7) !important; background: rgba(255,255,255,.06) !important; } }
     .delete-btn { color: rgba(180,60,60,.35) !important; &:hover { color: rgba(220,80,70,.85) !important; background: rgba(180,40,30,.1) !important; } }
 
     /* ── Title ───────────────────────────────────── */

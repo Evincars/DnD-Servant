@@ -13,7 +13,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { CharacterSheetStore } from '@dn-d-servant/character-sheet-data-access';
 import { AuthService } from '@dn-d-servant/util';
-import { QuestEntry, QuestPriority, QuestStatus } from '@dn-d-servant/character-sheet-util';
+import { QuestEntry, QuestStatus } from '@dn-d-servant/character-sheet-util';
 import { SpinnerOverlayComponent, RichTextareaComponent } from '@dn-d-servant/ui';
 import { DOCUMENT } from '@angular/common';
 import { Subject } from 'rxjs';
@@ -21,7 +21,6 @@ import { debounceTime } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 type FilterStatus = 'all' | QuestStatus;
-type SortMode = 'priority' | 'date';
 
 const LS_QUESTS_KEY = 'dnd_quests_draft';
 const LS_EXPANDED_KEY = 'dnd_quests_expanded';
@@ -150,28 +149,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
     }
 
     .sort-tabs {
-      display: flex;
-      gap: 4px;
-    }
-
-    .sort-btn {
-      font-family: sans-serif;
-      font-size: 9px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,.06);
-      border-radius: 2px;
-      background: transparent;
-      color: rgba(255,255,255,.25);
-      padding: 4px 10px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      transition: background .15s, color .15s;
-      mat-icon { font-size: 13px; width: 13px; height: 13px; }
-      &:hover { background: rgba(255,255,255,.04); color: rgba(255,255,255,.5); }
-      &--active { color: rgba(200,160,60,.75); border-color: rgba(200,160,60,.25); }
+      display: none;
     }
 
     /* ── Quest grid ────────────────────────────── */
@@ -255,18 +233,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
     }
 
     .priority-dot {
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      cursor: pointer;
-      transition: transform .15s, filter .15s;
-      border: 1px solid rgba(255,255,255,.15);
-      &:hover { transform: scale(1.35); filter: brightness(1.3); }
-
-      &--critical { background: rgba(180,30,30,.9); box-shadow: 0 0 6px rgba(180,30,30,.5); }
-      &--high     { background: rgba(200,100,30,.9); box-shadow: 0 0 6px rgba(200,100,30,.4); }
-      &--medium   { background: rgba(200,160,60,.9); box-shadow: 0 0 6px rgba(200,160,60,.35); }
-      &--low      { background: rgba(80,120,180,.85); box-shadow: 0 0 6px rgba(80,120,180,.3); }
+      display: none;
     }
 
     .quest-date {
@@ -505,14 +472,7 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
             </button>
           }
         </div>
-        <div class="sort-tabs">
-          <button type="button" class="sort-btn" [class.sort-btn--active]="sortMode() === 'priority'" (click)="sortMode.set('priority')">
-            <mat-icon>priority_high</mat-icon> Priorita
-          </button>
-          <button type="button" class="sort-btn" [class.sort-btn--active]="sortMode() === 'date'" (click)="sortMode.set('date')">
-            <mat-icon>calendar_today</mat-icon> Datum
-          </button>
-        </div>
+        <div class="sort-tabs"></div>
         <div class="quests-bar-actions">
           <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
           <button class="btn-dnd btn-dnd-icon" type="button" (click)="toggleAllExpanded()"
@@ -544,7 +504,6 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
             class="quest-card"
             [class.quest-card--completed]="item.quest.status === 'completed'"
             [class.quest-card--failed]="item.quest.status === 'failed'"
-            [style.border-left-color]="priorityColor(item.quest.priority)"
           >
             <!-- Header row -->
             <div class="quest-card-header" (click)="toggleExpand(item.quest.id)">
@@ -554,11 +513,6 @@ const LS_EXPANDED_KEY = 'dnd_quests_expanded';
                 (click)="cycleStatus(item.idx); $event.stopPropagation()"
                 matTooltip="Klikni pro změnu stavu"
               >{{ statusLabel(item.quest.status) }}</button>
-              <span
-                class="priority-dot priority-dot--{{ item.quest.priority }}"
-                (click)="cyclePriority(item.idx); $event.stopPropagation()"
-                [matTooltip]="'Priorita: ' + priorityLabel(item.quest.priority) + ' — klikni pro změnu'"
-              ></span>
               <span class="quest-date">{{ item.quest.dateAdded }}</span>
               <div class="quest-card-btns">
                 <button
@@ -656,7 +610,6 @@ export class QuestsTabComponent {
 
   quests = signal<QuestEntry[]>([]);
   filterStatus = signal<FilterStatus>('all');
-  sortMode = signal<SortMode>('priority');
   expandedIds = signal<Set<string>>(new Set(this._loadExpandedIds()));
   confirmDeleteIndex = signal<number | null>(null);
 
@@ -681,20 +634,11 @@ export class QuestsTabComponent {
 
   readonly filteredAndSorted = computed(() => {
     const fs = this.filterStatus();
-    const sm = this.sortMode();
     let filtered = this.quests().map((quest, idx) => ({ quest, idx }));
     if (fs !== 'all') {
       filtered = filtered.filter(({ quest }) => quest.status === fs);
     }
-    const priorityOrder: Record<QuestPriority, number> = { critical: 0, high: 1, medium: 2, low: 3 };
-    if (sm === 'priority') {
-      filtered.sort((a, b) => {
-        const pd = priorityOrder[a.quest.priority] - priorityOrder[b.quest.priority];
-        return pd !== 0 ? pd : b.quest.dateAdded.localeCompare(a.quest.dateAdded);
-      });
-    } else {
-      filtered.sort((a, b) => b.quest.dateAdded.localeCompare(a.quest.dateAdded));
-    }
+    filtered.sort((a, b) => b.quest.dateAdded.localeCompare(a.quest.dateAdded));
     return filtered;
   });
 
@@ -785,7 +729,6 @@ export class QuestsTabComponent {
       description: '',
       imageBase64: null,
       status: 'active',
-      priority: 'medium',
       rewards: '',
       npcName: '',
       location: '',
@@ -837,18 +780,6 @@ export class QuestsTabComponent {
     this.scheduleAutoSave();
   }
 
-  cyclePriority(idx: number): void {
-    const order: QuestPriority[] = ['critical', 'high', 'medium', 'low'];
-    this.quests.update(list =>
-      list.map((q, i) => {
-        if (i !== idx) return q;
-        const next = order[(order.indexOf(q.priority) + 1) % order.length];
-        return { ...q, priority: next };
-      }),
-    );
-    this.scheduleAutoSave();
-  }
-
   askDelete(idx: number): void {
     this.confirmDeleteIndex.set(idx);
   }
@@ -888,16 +819,6 @@ export class QuestsTabComponent {
 
   // ── Display helpers ───────────────────────────────────────────────────────
 
-  priorityColor(priority: QuestPriority): string {
-    const map: Record<QuestPriority, string> = {
-      critical: 'rgba(180,30,30,.9)',
-      high: 'rgba(200,100,30,.9)',
-      medium: 'rgba(200,160,60,.9)',
-      low: 'rgba(80,120,180,.85)',
-    };
-    return map[priority];
-  }
-
   statusLabel(status: QuestStatus): string {
     const map: Record<QuestStatus, string> = {
       active: 'Aktivní',
@@ -908,15 +829,6 @@ export class QuestsTabComponent {
     return map[status];
   }
 
-  priorityLabel(priority: QuestPriority): string {
-    const map: Record<QuestPriority, string> = {
-      critical: 'Kritická',
-      high: 'Vysoká',
-      medium: 'Střední',
-      low: 'Nízká',
-    };
-    return map[priority];
-  }
 
   // ── LocalStorage helpers ──────────────────────────────────────────────────
 

@@ -1,5 +1,4 @@
 export type QuestStatus = 'active' | 'completed' | 'failed' | 'inactive';
-export type QuestPriority = 'critical' | 'high' | 'medium' | 'low';
 
 export interface QuestEntry {
   id: string;
@@ -8,7 +7,6 @@ export interface QuestEntry {
   description: string;
   imageBase64: string | null;
   status: QuestStatus;
-  priority: QuestPriority;
   rewards: string;
   npcName: string;
   location: string;

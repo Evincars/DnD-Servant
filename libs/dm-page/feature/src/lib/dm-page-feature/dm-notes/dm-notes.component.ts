@@ -153,11 +153,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       }
     }
 
-    /* ── Notes grid — 2 × 2 ─────────────────────── */
+    /* ── Notes grid — 2 columns, full height ─────── */
     .notes-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      display: flex;
       gap: 18px;
+      align-items: stretch;
+      min-height: 600px;
     }
 
     @media (max-width: 700px) {
@@ -165,15 +166,16 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         padding: 16px 12px 40px;
       }
       .notes-grid {
-        grid-template-columns: 1fr;
+        flex-direction: column;
       }
       .rt-wrap {
-        height: 260px;
+        min-height: 260px;
       }
     }
 
     /* ── Single note panel ───────────────────────── */
     .note-panel {
+      flex: 1;
       border-radius: 3px;
       overflow: hidden;
       background: linear-gradient(160deg, rgba(28, 22, 14, 0.97) 0%, rgba(18, 14, 8, 0.99) 100%);
@@ -182,6 +184,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         0 4px 20px rgba(0, 0, 0, 0.5),
         inset 0 1px 0 rgba(255, 255, 255, 0.02);
       transition: border-color 0.2s;
+      display: flex;
+      flex-direction: column;
       &:hover {
         border-color: rgba(255, 255, 255, 0.1);
       }
@@ -251,23 +255,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         color: rgba(170, 140, 230, 0.8);
       }
     }
-    .panel--rewards {
-      border-color: rgba(200, 160, 60, 0.2);
-      .panel-header {
-        background: rgba(200, 160, 60, 0.06);
-      }
-      .panel-icon {
-        color: rgba(200, 160, 60, 0.6);
-      }
-      .panel-title {
-        color: rgba(220, 180, 80, 0.85);
-      }
-    }
 
     /* ── Rich-textarea inside panel ─────────────── */
     .rt-wrap {
       position: relative;
-      height: 380px;
+      flex: 1;
+      min-height: 400px;
       background: rgba(0, 0, 0, 0.15);
     }
   `,
@@ -316,38 +309,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             ></rich-textarea>
           </div>
         </div>
-
-        <!-- NPCs & Factions -->
-        <div class="note-panel panel--npcs">
-          <div class="panel-header">
-            <!--            <mat-icon class="panel-icon">groups</mat-icon>-->
-            <span class="panel-title">NPC, Frakce, Vztahy</span>
-            <!--            <span class="panel-desc">Postavy, vztahy, frakce</span>-->
-          </div>
-          <div class="rt-wrap">
-            <rich-textarea
-              [(ngModel)]="npcsAndFactions"
-              (ngModelChange)="onAnyChange()"
-              style="top:0;left:0;width:100%;height:100%;"
-            ></rich-textarea>
-          </div>
-        </div>
-
-        <!-- Rewards & Treasure -->
-        <div class="note-panel panel--rewards">
-          <div class="panel-header">
-<!--            <mat-icon class="panel-icon">auto_awesome</mat-icon>-->
-            <span class="panel-title">NPC, Frakce, Vztahy</span>
-<!--            <span class="panel-desc">Magické předměty, zlato, XP</span>-->
-          </div>
-          <div class="rt-wrap">
-            <rich-textarea
-              [(ngModel)]="rewards"
-              (ngModelChange)="onAnyChange()"
-              style="top:0;left:0;width:100%;height:100%;"
-            ></rich-textarea>
-          </div>
-        </div>
       </div>
     </spinner-overlay>
   `,
@@ -360,8 +321,6 @@ export class DmNotesComponent {
 
   worldNotes = '';
   secrets = '';
-  npcsAndFactions = '';
-  rewards = '';
   autoSaved = signal(false);
 
   private readonly change$ = new Subject<void>();
@@ -374,8 +333,6 @@ export class DmNotesComponent {
         if (data) {
           this.worldNotes = data.worldNotes ?? '';
           this.secrets = data.secrets ?? '';
-          this.npcsAndFactions = data.npcsAndFactions ?? '';
-          this.rewards = data.rewards ?? '';
           // With OnPush, plain-property mutations are invisible to Angular's CD.
           // markForCheck() schedules a re-check so ngModel propagates to rich-textarea.
           this.cdr.markForCheck();
@@ -409,8 +366,6 @@ export class DmNotesComponent {
       username,
       worldNotes: this.worldNotes,
       secrets: this.secrets,
-      npcsAndFactions: this.npcsAndFactions,
-      rewards: this.rewards,
     };
     this.store.saveDmNotes(model);
   }

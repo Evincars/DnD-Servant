@@ -37,10 +37,6 @@ export interface DmNotesApiModel {
   worldNotes: string;
   /** Secrets, plot twists, hidden information */
   secrets: string;
-  /** NPC & faction descriptions, relationships */
-  npcsAndFactions: string;
-  /** Treasure, magic items, rewards to hand out */
-  rewards: string;
 }
 
 // ── Story Timeline ─────────────────────────────────────────────────────────
