@@ -16,7 +16,7 @@ import { debounceTime } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, RichTextareaComponent, MatIcon],
   styles: `
-    :host { display: block; padding: 24px 32px 40px; font-family: sans-serif; overflow: visible; }
+    :host { display: block; padding: 13px 0 20px; font-family: sans-serif; overflow: visible; }
 
     /* ── Header ─────────────────────────────────── */
     .header {
@@ -70,7 +70,7 @@ import { debounceTime } from 'rxjs/operators';
     }
 
     @media (max-width: 700px) {
-      :host { padding: 16px 12px 40px; }
+      :host { padding: 13px 0 20px; }
 
       .notes-grid {
         grid-template-columns: 1fr;

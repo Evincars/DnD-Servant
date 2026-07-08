@@ -349,7 +349,7 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatIcon, MatTooltip],
   styles: `
-    :host { display: block; height: 100%; overflow-y: auto; padding: 24px 32px 40px; box-sizing: border-box; font-family: sans-serif; }
+    :host { display: block; height: 100%; overflow-y: auto; padding: 13px 0 20px; box-sizing: border-box; font-family: sans-serif; }
 
     /* ── Header ─────────────────────────────────── */
     .gen-header {
@@ -382,7 +382,7 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
     }
 
     @media (max-width: 600px) {
-      :host { padding: 16px 12px 40px; }
+      :host { padding: 13px 0 20px; }
       .gen-grid { grid-template-columns: 1fr; }
     }
 

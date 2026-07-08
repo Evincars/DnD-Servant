@@ -24,7 +24,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styles: `
     :host {
       display: block;
-      padding: 24px 32px 40px;
+      padding: 13px 0 20px;
       font-family: sans-serif;
       overflow: visible;
       /* Pass a readable text colour into rich-textarea via the CSS custom property it supports */
@@ -158,12 +158,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       display: flex;
       gap: 18px;
       align-items: stretch;
-      min-height: 600px;
+      min-height: calc(100vh - 180px);
     }
 
     @media (max-width: 700px) {
       :host {
-        padding: 16px 12px 40px;
+        padding: 13px 0 20px;
       }
       .notes-grid {
         flex-direction: column;

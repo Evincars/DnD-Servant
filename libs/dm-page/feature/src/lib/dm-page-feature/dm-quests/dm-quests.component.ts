@@ -26,7 +26,7 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
   imports: [FormsModule, MatIcon, MatIconButton, MatTooltip, SpinnerOverlayComponent, RichTextareaComponent],
   host: { '(document:keydown.escape)': 'onEscape()', 'class': 'theme-dark' },
   styles: `
-    :host { display: block; padding: 24px 32px 40px; font-family: sans-serif; overflow: visible; }
+    :host { display: block; padding: 13px 0 20px; font-family: sans-serif; overflow: visible; }
 
     /* ── Buttons ─────────────────────────────────── */
     .btn { font-family: sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;

@@ -50,7 +50,7 @@ const ACL = '110,190,160'; // lighter teal
   imports: [FormsModule, MatIcon, MatIconButton, MatTooltip, SpinnerOverlayComponent, RichTextareaComponent],
   host: { '(document:keydown.escape)': 'onEscape()' },
   styles: `
-    :host { display: block; padding: 24px 32px 60px; font-family: sans-serif; overflow: visible; }
+    :host { display: block; padding: 13px 0 20px; font-family: sans-serif; overflow: visible; }
 
     /* ── Header ───────────────────────────────────── */
     .header {

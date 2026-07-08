@@ -34,7 +34,7 @@ const LS_FILTER_KEY = 'dnd_quests_filter';
   styles: `
     :host {
       display: block;
-      padding: 24px 32px 40px;
+      padding: 13px 0 20px;
       font-family: sans-serif;
     }
 
