@@ -158,7 +158,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       display: flex;
       gap: 18px;
       align-items: stretch;
-      min-height: calc(100vh - 180px);
+      min-height: calc(100vh - 120px);
     }
 
     @media (max-width: 700px) {
