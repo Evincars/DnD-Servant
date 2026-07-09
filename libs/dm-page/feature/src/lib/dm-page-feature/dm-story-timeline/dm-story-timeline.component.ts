@@ -19,11 +19,51 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DmPageStore } from '../../dm-page.store';
 import { StoryEvent, StoryEventType } from '../../dm-page-models';
 
+// ── Fuzzy-search helpers ──────────────────────────────────────────────────────
+function posNorm(s: string): string {
+  return s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+}
+
+function fuzzySubsequence(query: string, text: string): number[] | null {
+  const indices: number[] = [];
+  let ti = 0;
+  for (let qi = 0; qi < query.length; qi++) {
+    const ch = query[qi];
+    while (ti < text.length && text[ti] !== ch) ti++;
+    if (ti >= text.length) return null;
+    indices.push(ti);
+    ti++;
+  }
+  return indices;
+}
+
+function escHtml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function buildHighlightHtml(original: string, indices: number[]): string {
+  const matchSet = new Set(indices);
+  const parts: string[] = [];
+  let inSpan = false;
+  for (let i = 0; i < original.length; i++) {
+    const ch = escHtml(original[i]);
+    if (matchSet.has(i)) {
+      if (!inSpan) { parts.push('<span class="hl">'); inSpan = true; }
+      parts.push(ch);
+    } else {
+      if (inSpan) { parts.push('</span>'); inSpan = false; }
+      parts.push(ch);
+    }
+  }
+  if (inSpan) parts.push('</span>');
+  return parts.join('');
+}
+
 const TYPE_META: Record<StoryEventType, { label: string; icon: string; color: string; bg: string }> = {
-  world:     { label: 'Světové události',  icon: 'public',       color: 'rgba(100,140,210,.9)', bg: 'rgba(70,110,190,.10)' },
-  campaign:  { label: 'Události kampaně',  icon: 'auto_stories', color: 'rgba(210,175,55,.9)',  bg: 'rgba(190,155,40,.10)' },
-  character: { label: 'Události postav',   icon: 'person',       color: 'rgba(60,185,150,.9)',  bg: 'rgba(40,160,120,.10)' },
-  other:     { label: 'Jiné',              icon: 'bookmark',     color: 'rgba(130,130,130,.8)', bg: 'rgba(100,100,100,.08)'},
+  world:     { label: 'Světová událost',  icon: 'public',       color: 'rgba(100,140,210,.9)', bg: 'rgba(70,110,190,.10)' },
+  campaign:  { label: 'Událost kampaně',  icon: 'auto_stories', color: 'rgba(210,175,55,.9)',  bg: 'rgba(190,155,40,.10)' },
+  character: { label: 'Událost postav',   icon: 'person',       color: 'rgba(60,185,150,.9)',  bg: 'rgba(40,160,120,.10)' },
+  other:     { label: 'Jiné',             icon: 'bookmark',     color: 'rgba(130,130,130,.8)', bg: 'rgba(100,100,100,.08)'},
 };
 
 const TYPE_ORDER: StoryEventType[] = ['world', 'campaign', 'character', 'other'];
@@ -87,10 +127,10 @@ const ACL = '110,190,160'; // lighter teal
 
     /* ── Tag filter row ──────────────────────────── */
     .tag-filter-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; padding: 6px 0; }
-    .tag-filter-label { font-family: sans-serif; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(155,140,115,.4); flex-shrink: 0; }
+    .tag-filter-label { font-family: sans-serif; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: rgba(155,140,115,.4); flex-shrink: 0; }
     .tag-filter-chip {
-      font-family: sans-serif; font-size: 10px; padding: 2px 8px; border-radius: 10px; cursor: pointer; border: 1px solid; transition: background .12s, color .12s;
-      background: transparent; color: rgba(155,140,115,.55); border-color: rgba(155,140,115,.2);
+      font-family: sans-serif; font-size: 12px; padding: 3px 10px; border-radius: 10px; cursor: pointer; border: 1px solid; transition: background .12s, color .12s;
+      background: transparent; color: rgba(155,140,115,.65); border-color: rgba(155,140,115,.2);
       &:hover { background: rgba(140,125,100,.1); color: rgba(175,160,135,.85); border-color: rgba(155,140,115,.4); }
       &--active { background: rgba(140,125,100,.2); color: #d8cdb8; border-color: rgba(155,140,115,.6); }
     }
@@ -189,10 +229,30 @@ const ACL = '110,190,160'; // lighter teal
       color: rgba(185,170,140,.52); font-style: italic;
     }
     .tag-chip-remove {
-      background: none; border: none; cursor: pointer; color: rgba(185,170,140,.48); font-size: 12px; line-height: 1;
-      padding: 0 1px; display: flex; align-items: center; transition: color .12s;
-      &:hover { color: rgba(220,80,70,.8); }
+      background: none; border: none; cursor: pointer; color: rgba(185,170,140,.55); font-size: 14px; line-height: 1;
+      padding: 2px 4px; display: flex; align-items: center; transition: color .12s, background .12s; border-radius: 3px;
+      &:hover { color: rgba(220,80,70,.9); background: rgba(200,50,40,.15); }
     }
+
+    /* ── Tag suggestion dropdown ─────────────────── */
+    .tag-field-wrap { position: relative; }
+    .tag-suggestions {
+      position: absolute; top: calc(100% + 2px); left: 0; right: 0; z-index: 200;
+      background: rgba(18,14,8,.98);
+      border: 1px solid rgba(155,140,115,.35);
+      border-radius: 4px;
+      max-height: 180px; overflow-y: auto;
+      box-shadow: 0 6px 20px rgba(0,0,0,.7);
+    }
+    .tag-suggestion-item {
+      display: block; width: 100%; text-align: left; padding: 7px 12px;
+      background: none; border: none; border-bottom: 1px solid rgba(155,140,115,.08);
+      color: rgba(220,210,190,.75); font-size: 11px; font-family: sans-serif; cursor: pointer;
+      transition: background .1s, color .1s;
+      &:last-child { border-bottom: none; }
+      &:hover, &--active { background: rgba(155,140,115,.12); color: #d8cdb8; }
+    }
+    ::ng-deep .tag-suggestions .hl { color: rgba(210,175,55,.95); font-weight: 700; }
     .tag-text-input {
       background: transparent; border: none; outline: none; color: rgba(220,210,190,.85);
       font-family: sans-serif; font-size: 12px; min-width: 100px; flex: 1;
@@ -362,26 +422,41 @@ const ACL = '110,190,160'; // lighter teal
                   </div>
                   <div class="field-group" style="flex:2">
                     <div class="field-label">Štítky</div>
-                    <div class="tag-input-wrap" (click)="focusTagInput(item.event.id)">
-                      @for (tag of parseTags(events()[item.idx].tags); track tag) {
-                        <span class="tag-chip tag-chip--removable">
-                          {{ tag }}
-                          <button class="tag-chip-remove" type="button" (click)="$event.stopPropagation(); removeTag(item.idx, tag)">×</button>
-                        </span>
+                    <div class="tag-field-wrap">
+                      <div class="tag-input-wrap" (click)="focusTagInput(item.event.id)">
+                        @for (tag of parseTags(events()[item.idx].tags); track tag) {
+                          <span class="tag-chip tag-chip--removable">
+                            {{ tag }}
+                            <button class="tag-chip-remove" type="button" (click)="$event.stopPropagation(); removeTag(item.idx, tag)">×</button>
+                          </span>
+                        }
+                        <input
+                          class="tag-text-input"
+                          [id]="'tag-input-' + item.event.id"
+                          [ngModel]="getTagInput(item.event.id)"
+                          (ngModelChange)="setTagInput(item.event.id, $event)"
+                          (keydown.enter)="$event.preventDefault(); onTagEnter(item.idx, item.event.id)"
+                          (keydown.space)="$event.preventDefault(); addTagFromInput(item.idx)"
+                          (keydown.arrowdown)="$event.preventDefault(); navigateSuggestions(item.event.id, 1)"
+                          (keydown.arrowup)="$event.preventDefault(); navigateSuggestions(item.event.id, -1)"
+                          (keydown.escape)="setActiveSuggIdx(item.event.id, -1)"
+                          (blur)="onTagBlur(item.idx)"
+                          placeholder="{{ parseTags(events()[item.idx].tags).length ? '' : 'Přidat štítek…' }}"
+                        />
+                      </div>
+                      @if (getTagSuggestions(item.event.id).length > 0) {
+                        <div class="tag-suggestions">
+                          @for (sugg of getTagSuggestions(item.event.id); track sugg.tag; let si = $index) {
+                            <button
+                              class="tag-suggestion-item"
+                              [class.tag-suggestion-item--active]="getActiveSuggIdx(item.event.id) === si"
+                              type="button"
+                              (mousedown)="$event.preventDefault()"
+                              (click)="selectSuggestion(item.idx, sugg.tag)"
+                            ><span [innerHTML]="sugg.html"></span></button>
+                          }
+                        </div>
                       }
-                      @if (getTagInput(item.event.id).trim()) {
-                        <span class="tag-chip tag-chip--preview">{{ getTagInput(item.event.id).trim() }}</span>
-                      }
-                      <input
-                        class="tag-text-input"
-                        [id]="'tag-input-' + item.event.id"
-                        [ngModel]="getTagInput(item.event.id)"
-                        (ngModelChange)="setTagInput(item.event.id, $event)"
-                        (keydown.enter)="$event.preventDefault(); addTagFromInput(item.idx)"
-                        (keydown.space)="$event.preventDefault(); addTagFromInput(item.idx)"
-                        (blur)="addTagFromInput(item.idx)"
-                        placeholder="{{ parseTags(events()[item.idx].tags).length ? '' : 'Přidat štítek…' }}"
-                      />
                     </div>
                   </div>
                 </div>
@@ -518,9 +593,68 @@ export class DmStoryTimelineComponent {
     this.events.update(list => list.map((e, i) => i !== idx ? e : { ...e, type: TYPE_ORDER[(TYPE_ORDER.indexOf(e.type) + 1) % TYPE_ORDER.length] }));
   }
   // ── Tags ──────────────────────────────────────────────────────────────────
-  getTagInput(id: string): string                  { return this.tagInputMap()[id] ?? ''; }
-  setTagInput(id: string, val: string): void       { this.tagInputMap.update(m => ({ ...m, [id]: val })); }
-  focusTagInput(id: string): void                  { document.getElementById('tag-input-' + id)?.focus(); }
+  private readonly activeSuggIdxMap = signal<Record<string, number>>({});
+
+  getTagInput(id: string): string            { return this.tagInputMap()[id] ?? ''; }
+  setTagInput(id: string, val: string): void { this.tagInputMap.update(m => ({ ...m, [id]: val })); this.setActiveSuggIdx(id, -1); }
+  focusTagInput(id: string): void            { document.getElementById('tag-input-' + id)?.focus(); }
+
+  getActiveSuggIdx(id: string): number            { return this.activeSuggIdxMap()[id] ?? -1; }
+  setActiveSuggIdx(id: string, n: number): void   { this.activeSuggIdxMap.update(m => ({ ...m, [id]: n })); }
+
+  getTagSuggestions(eventId: string): Array<{ tag: string; html: string }> {
+    const rawQuery = this.getTagInput(eventId).trim();
+    if (!rawQuery) return [];
+    const query = posNorm(rawQuery);
+    const existingSet = new Set(this.parseTags(this.events().find(e => e.id === eventId)?.tags ?? ''));
+    return this.allTags()
+      .filter(tag => !existingSet.has(tag))
+      .map(tag => {
+        const indices = fuzzySubsequence(query, posNorm(tag));
+        if (!indices) return null;
+        return { tag, html: buildHighlightHtml(tag, indices) };
+      })
+      .filter((x): x is { tag: string; html: string } => x !== null);
+  }
+
+  selectSuggestion(idx: number, tag: string): void {
+    const id = this.events()[idx]?.id; if (!id) return;
+    const existing = this.parseTags(this.events()[idx].tags);
+    if (!existing.includes(tag)) {
+      this.events.update(list => list.map((e, i) => i !== idx ? e : { ...e, tags: [...this.parseTags(e.tags), tag].join(' ') }));
+    }
+    this.setTagInput(id, '');
+    this.setActiveSuggIdx(id, -1);
+    document.getElementById('tag-input-' + id)?.focus();
+  }
+
+  navigateSuggestions(id: string, dir: 1 | -1): void {
+    const len = this.getTagSuggestions(id).length;
+    if (!len) return;
+    const next = Math.max(-1, Math.min(len - 1, this.getActiveSuggIdx(id) + dir));
+    this.setActiveSuggIdx(id, next);
+  }
+
+  onTagEnter(idx: number, id: string): void {
+    const activeIdx = this.getActiveSuggIdx(id);
+    const suggestions = this.getTagSuggestions(id);
+    if (activeIdx >= 0 && activeIdx < suggestions.length) {
+      this.selectSuggestion(idx, suggestions[activeIdx].tag);
+    } else {
+      this.addTagFromInput(idx);
+    }
+  }
+
+  onTagBlur(idx: number): void {
+    const id = this.events()[idx]?.id; if (!id) return;
+    this.setActiveSuggIdx(id, -1);
+    const val = this.getTagInput(id).trim(); if (!val) return;
+    const existing = this.parseTags(this.events()[idx].tags);
+    if (!existing.includes(val)) {
+      this.events.update(list => list.map((e, i) => i !== idx ? e : { ...e, tags: [...existing, val].join(' ') }));
+    }
+    this.setTagInput(id, '');
+  }
 
   addTagFromInput(idx: number): void {
     const id  = this.events()[idx]?.id; if (!id) return;
