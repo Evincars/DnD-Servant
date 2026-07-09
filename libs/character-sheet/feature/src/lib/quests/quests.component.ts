@@ -179,21 +179,12 @@ const LS_FILTER_KEY = 'dnd_quests_filter';
     .quest-card {
       position: relative;
       border-radius: 3px;
-      background: rgba(28,24,14,.97);
+      background: rgba(22,20,18,.97);
       border: 1px solid rgba(200,160,60,.15);
-      border-left: 3px solid transparent;
-      box-shadow: 0 4px 20px rgba(0,0,0,.5);
+      box-shadow: 0 4px 20px rgba(0,0,0,.55);
       overflow: visible;
-
-      &--completed {
-        background: rgba(20,28,14,.97);
-        border-color: rgba(80,160,80,.2);
-      }
-
-      &--failed {
-        background: rgba(28,14,12,.97);
-        border-color: rgba(160,60,50,.2);
-      }
+      transition: border-color .2s, box-shadow .2s;
+      &:hover { border-color: rgba(200,160,60,.28); box-shadow: 0 6px 28px rgba(0,0,0,.65); }
     }
 
     /* ── Card header ───────────────────────────── */
@@ -208,22 +199,19 @@ const LS_FILTER_KEY = 'dnd_quests_filter';
 
     .status-badge {
       font-family: sans-serif;
-      font-size: 8px;
-      letter-spacing: .12em;
+      font-size: 9px;
+      letter-spacing: .1em;
       text-transform: uppercase;
-      border-radius: 10px;
-      padding: 2px 9px;
+      border-radius: 6px;
+      padding: 4px 12px;
       cursor: pointer;
-      border: 1px solid currentColor;
-      transition: opacity .15s, filter .15s;
       white-space: nowrap;
       flex-shrink: 0;
-      &:hover { filter: brightness(1.2); }
-
-      &--active   { color: rgba(80,190,100,.9); background: rgba(60,160,80,.12); }
-      &--completed { color: rgba(200,160,60,.9); background: rgba(200,160,60,.12); }
-      &--failed    { color: rgba(210,80,70,.9); background: rgba(180,50,40,.12); }
-      &--inactive  { color: rgba(140,140,140,.7); background: rgba(120,120,120,.08); }
+      background: rgba(200,160,60,.08);
+      border: 1px solid rgba(200,160,60,.2);
+      color: #9a8a6a;
+      transition: background .15s, border-color .15s, color .15s;
+      &:hover { background: rgba(200,160,60,.15); border-color: rgba(200,160,60,.4); color: #d4c9a0; }
     }
 
     .priority-dot {
