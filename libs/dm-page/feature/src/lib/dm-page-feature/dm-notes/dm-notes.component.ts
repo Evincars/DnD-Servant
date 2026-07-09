@@ -20,6 +20,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'dm-notes',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '(document:keydown.control.s)': 'ctrlSave($event)' },
   imports: [FormsModule, MatIcon, SpinnerOverlayComponent, RichTextareaComponent],
   styles: `
     :host {
@@ -358,6 +359,8 @@ export class DmNotesComponent {
   onAnyChange(): void {
     this.change$.next();
   }
+
+  ctrlSave(e: Event): void { e.preventDefault(); this.save(); }
 
   save(): void {
     const username = this.auth.currentUser()?.username;

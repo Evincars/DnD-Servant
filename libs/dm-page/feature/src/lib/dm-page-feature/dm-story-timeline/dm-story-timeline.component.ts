@@ -19,7 +19,7 @@ import { StoryEventsListComponent } from './story-events-list.component';
   selector: 'dm-story-timeline',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, MatIcon, MatTooltip, SpinnerOverlayComponent, StoryEventsListComponent],
-  host: { '(document:keydown.escape)': 'onEscape()' },
+  host: { '(document:keydown.escape)': 'onEscape()', '(document:keydown.control.s)': 'ctrlSave($event)' },
   styles: `
     :host { display: block; padding: 13px 0 20px; font-family: sans-serif; overflow: visible; }
 
@@ -378,6 +378,7 @@ export class DmStoryTimelineComponent {
   }
 
   onEscape(): void { if (this.shareDialogOpen()) this.shareDialogOpen.set(false); }
+  ctrlSave(e: Event): void { e.preventDefault(); if (this.activeTab() === 'own') this.save(); }
 
   typeLabel(t: string): string {
     const labels: Record<string, string> = {

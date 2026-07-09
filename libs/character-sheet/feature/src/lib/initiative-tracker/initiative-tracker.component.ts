@@ -67,6 +67,7 @@ const CARDS_STORAGE_KEY = INITIATIVE_TRACKER_CARDS_KEY;
   templateUrl: './initiative-tracker.component.html',
   styleUrl: './initiative-tracker.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '(document:keydown.control.s)': 'ctrlSave($event)' },
   imports: [FormsModule, MatIconButton, MatIcon, MatTooltip, MonsterCardComponent, JadMonsterCardComponent, AutofillInputComponent],
 })
 export class InitiativeTrackerComponent {
@@ -283,6 +284,8 @@ export class InitiativeTrackerComponent {
     this.rows.update(r => [...r].sort((a, b) => (b.initiative ?? -Infinity) - (a.initiative ?? -Infinity)));
     this.activeIndex.set(0);
   }
+
+  ctrlSave(e: Event): void { e.preventDefault(); this.save(); }
 
   save() {
     this.localStorageService.setDataSync(STORAGE_KEY, this.rows());

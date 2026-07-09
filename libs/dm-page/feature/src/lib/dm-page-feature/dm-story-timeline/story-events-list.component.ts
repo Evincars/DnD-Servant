@@ -24,13 +24,12 @@ import {
       background: linear-gradient(180deg, transparent, rgba(155,140,115,.28) 5%, rgba(155,140,115,.28) 95%, transparent);
     }
 
-    /* ── Timeline node — 12 px circle centered on line ── */
+    /* ── Timeline node — 12 px solid circle centered on line ── */
     .tl-node {
       position: absolute;
       left: -37px; top: 20px;
       width: 12px; height: 12px; border-radius: 50%;
-      border: 2px solid;
-      box-shadow: 0 0 6px currentColor;
+      border: 2px solid rgba(14,12,8,.96);
     }
 
     /* ── Event card ──────────────────────────────── */
@@ -173,8 +172,7 @@ import {
         <div class="event-card">
 
           <div class="tl-node"
-            [style.border-color]="typeMeta(item.event.type).color"
-            [style.background]="typeMeta(item.event.type).bg">
+            [style.background]="typeMeta(item.event.type).color">
           </div>
 
           <!-- Card header -->

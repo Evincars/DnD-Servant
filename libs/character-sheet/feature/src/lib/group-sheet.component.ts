@@ -558,7 +558,7 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
   `,
   styleUrl: 'character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[class.theme-dark]': 'sheetTheme.darkMode()' },
+  host: { '[class.theme-dark]': 'sheetTheme.darkMode()', '(document:keydown.control.s)': 'ctrlSave($event)' },
   imports: [ReactiveFormsModule, SpinnerOverlayComponent, MatIcon, MatTooltip, NgClass, RichTextareaComponent, CsCollapsibleComponent, CsFloatingActionsComponent, CdkDropList, CsSvgSheetComponent],
 })
 export class GroupSheetComponent {
@@ -757,6 +757,8 @@ export class GroupSheetComponent {
     moveItemInArray(sections, event.previousIndex, event.currentIndex);
     this.orderedSections.set(sections);
   }
+
+  ctrlSave(e: Event): void { e.preventDefault(); this.onSaveClick(); }
 
   onSaveClick() {
     const username = this.authService.currentUser()?.username;

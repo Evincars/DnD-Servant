@@ -30,7 +30,7 @@ const LS_FILTER_KEY = 'dnd_quests_filter';
   selector: 'quests-tab',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, MatIcon, MatIconButton, MatTooltip, SpinnerOverlayComponent, RichTextareaComponent],
-  host: { '(document:keydown.escape)': 'onEscape()' },
+  host: { '(document:keydown.escape)': 'onEscape()', '(document:keydown.control.s)': 'ctrlSave($event)' },
   styles: `
     :host {
       display: block;
@@ -803,6 +803,7 @@ export class QuestsTabComponent {
       this.cancelDelete();
     }
   }
+  ctrlSave(e: Event): void { e.preventDefault(); this.save(true); }
 
   // ── Display helpers ───────────────────────────────────────────────────────
 

@@ -24,7 +24,7 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
   selector: 'dm-quests',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, MatIcon, MatIconButton, MatTooltip, SpinnerOverlayComponent, RichTextareaComponent],
-  host: { '(document:keydown.escape)': 'onEscape()', 'class': 'theme-dark' },
+  host: { '(document:keydown.escape)': 'onEscape()', '(document:keydown.control.s)': 'ctrlSave($event)', 'class': 'theme-dark' },
   styles: `
     :host { display: block; padding: 13px 0 20px; font-family: sans-serif; overflow: visible; }
 
@@ -467,6 +467,7 @@ export class DmQuestsComponent {
   }
 
   onEscape(): void { if (this.confirmIdx() !== null) this.cancelDelete(); }
+  ctrlSave(e: Event): void { e.preventDefault(); this.save(); }
 
   // ── Labels / colours ─────────────────────────────────────────────────────
   diffLabel(d: DmQuestDifficulty): string {

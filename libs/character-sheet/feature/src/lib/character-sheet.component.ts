@@ -188,7 +188,7 @@ const CS_DEFAULT_SECTIONS: readonly SectionConfig[] = [
   `,
   styleUrl: 'character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[class.theme-dark]': 'sheetTheme.darkMode()' },
+  host: { '[class.theme-dark]': 'sheetTheme.darkMode()', '(document:keydown.control.s)': 'ctrlSave($event)' },
   imports: [
     ReactiveFormsModule,
     CharacterSheetSecondPageComponent,
@@ -679,6 +679,8 @@ export class CharacterSheetComponent {
     moveItemInArray(sections, event.previousIndex, event.currentIndex);
     this.orderedSections.set(sections);
   }
+
+  ctrlSave(e: Event): void { e.preventDefault(); this.onSaveClick(); }
 
   onSaveClick() {
     const username = this.authService.currentUser()?.username;
