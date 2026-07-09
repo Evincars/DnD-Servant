@@ -30,198 +30,197 @@ export interface SettingsDialogData {
 
       <!-- Body -->
       <div class="sd-body">
-
         <!-- LEFT column -->
         <div class="sd-col-panel">
+          <!-- Theme section -->
+          <div class="sd-section u-mb-6">
+            <div class="sd-section-label">Téma karet</div>
+            <div class="sd-theme-grid">
+              <button
+                type="button"
+                class="sd-btn sd-btn--theme"
+                [class.sd-btn--active]="sheetTheme.theme() === 'light'"
+                (click)="sheetTheme.setTheme('light')"
+              >
+                <mat-icon class="sd-btn-icon sd-icon--light">light_mode</mat-icon>
+                <span class="sd-btn-label">Světlé</span>
+              </button>
+              <button
+                type="button"
+                class="sd-btn sd-btn--theme"
+                [class.sd-btn--active]="sheetTheme.theme() === 'dark'"
+                (click)="sheetTheme.setTheme('dark')"
+              >
+                <mat-icon class="sd-btn-icon sd-icon--dark">dark_mode</mat-icon>
+                <span class="sd-btn-label">Tmavé</span>
+              </button>
+              <button
+                type="button"
+                class="sd-btn sd-btn--theme"
+                [class.sd-btn--active]="sheetTheme.theme() === 'sirien'"
+                (click)="sheetTheme.setTheme('sirien')"
+              >
+                <mat-icon class="sd-btn-icon sd-icon--sirien">auto_awesome</mat-icon>
+                <span class="sd-btn-label">Sirien</span>
+              </button>
+              <button
+                type="button"
+                class="sd-btn sd-btn--theme"
+                [class.sd-btn--active]="sheetTheme.theme() === 'night'"
+                (click)="sheetTheme.setTheme('night')"
+              >
+                <mat-icon class="sd-btn-icon sd-icon--night">nights_stay</mat-icon>
+                <span class="sd-btn-label">Noční</span>
+              </button>
+            </div>
+          </div>
 
-        <!-- Theme section -->
-        <div class="sd-section u-mb-6">
-          <div class="sd-section-label">Téma karet</div>
-          <div class="sd-theme-grid">
-            <button
-              type="button"
-              class="sd-btn sd-btn--theme"
-              [class.sd-btn--active]="sheetTheme.theme() === 'light'"
-              (click)="sheetTheme.setTheme('light')"
-            >
-              <mat-icon class="sd-btn-icon sd-icon--light">light_mode</mat-icon>
-              <span class="sd-btn-label">Světlé</span>
-            </button>
-            <button
-              type="button"
-              class="sd-btn sd-btn--theme"
-              [class.sd-btn--active]="sheetTheme.theme() === 'dark'"
-              (click)="sheetTheme.setTheme('dark')"
-            >
-              <mat-icon class="sd-btn-icon sd-icon--dark">dark_mode</mat-icon>
-              <span class="sd-btn-label">Tmavé</span>
-            </button>
-            <button
-              type="button"
-              class="sd-btn sd-btn--theme"
-              [class.sd-btn--active]="sheetTheme.theme() === 'sirien'"
-              (click)="sheetTheme.setTheme('sirien')"
-            >
-              <mat-icon class="sd-btn-icon sd-icon--sirien">auto_awesome</mat-icon>
-              <span class="sd-btn-label">Sirien</span>
-            </button>
-            <button
-              type="button"
-              class="sd-btn sd-btn--theme"
-              [class.sd-btn--active]="sheetTheme.theme() === 'night'"
-              (click)="sheetTheme.setTheme('night')"
-            >
-              <mat-icon class="sd-btn-icon sd-icon--night">nights_stay</mat-icon>
-              <span class="sd-btn-label">Noční</span>
-            </button>
+          <!--        <div class="sd-divider"></div>-->
+
+          <!-- Page layout section -->
+          <div class="sd-section">
+            <div class="sd-section-label">Rozvržení stránek</div>
+            <div class="sd-col">
+              <button
+                type="button"
+                class="sd-btn sd-btn--wide"
+                [class.sd-btn--active]="!sheetTheme.spellsFirst()"
+                (click)="sheetTheme.spellsFirst() && sheetTheme.toggleSpellsFirst()"
+              >
+                <!--              <mat-icon class="sd-btn-icon">format_list_numbered</mat-icon>-->
+                <div class="sd-btn-text">
+                  <span class="sd-btn-label">Výchozí pořadí</span>
+                  <span class="sd-btn-sub">Str. 2 – Vzhled &amp; popis · str. 3 – Kouzla</span>
+                </div>
+              </button>
+              <button
+                type="button"
+                class="sd-btn sd-btn--wide"
+                [class.sd-btn--active]="sheetTheme.spellsFirst()"
+                (click)="!sheetTheme.spellsFirst() && sheetTheme.toggleSpellsFirst()"
+              >
+                <!--              <mat-icon class="sd-btn-icon">auto_fix_high</mat-icon>-->
+                <div class="sd-btn-text">
+                  <span class="sd-btn-label">Kouzla napřed</span>
+                  <span class="sd-btn-sub">Str. 2 – Kouzla · str. 3 – Vzhled &amp; popis</span>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
-
-<!--        <div class="sd-divider"></div>-->
-
-        <!-- Page layout section -->
-        <div class="sd-section">
-          <div class="sd-section-label">Rozvržení stránek</div>
-          <div class="sd-col">
-            <button
-              type="button"
-              class="sd-btn sd-btn--wide"
-              [class.sd-btn--active]="!sheetTheme.spellsFirst()"
-              (click)="sheetTheme.spellsFirst() && sheetTheme.toggleSpellsFirst()"
-            >
-<!--              <mat-icon class="sd-btn-icon">format_list_numbered</mat-icon>-->
-              <div class="sd-btn-text">
-                <span class="sd-btn-label">Výchozí pořadí</span>
-                <span class="sd-btn-sub">Str. 2 – Vzhled &amp; popis · str. 3 – Kouzla</span>
-              </div>
-            </button>
-            <button
-              type="button"
-              class="sd-btn sd-btn--wide"
-              [class.sd-btn--active]="sheetTheme.spellsFirst()"
-              (click)="!sheetTheme.spellsFirst() && sheetTheme.toggleSpellsFirst()"
-            >
-<!--              <mat-icon class="sd-btn-icon">auto_fix_high</mat-icon>-->
-              <div class="sd-btn-text">
-                <span class="sd-btn-label">Kouzla napřed</span>
-                <span class="sd-btn-sub">Str. 2 – Kouzla · str. 3 – Vzhled &amp; popis</span>
-              </div>
-            </button>
-          </div>
-        </div>
-
-        </div><!-- /sd-col-panel LEFT -->
+        <!-- /sd-col-panel LEFT -->
 
         <!-- vertical separator -->
         <div class="sd-col-sep"></div>
 
         <!-- RIGHT column -->
         <div class="sd-col-panel">
-
-        <!-- Export section -->
-        <div class="sd-section u-mb-6">
-          <div class="sd-section-label">Záloha &amp; export <span style="color: red;">(experimentální)</span></div>
-          <div class="sd-col">
-            <button
-              type="button"
-              class="sd-btn sd-btn--wide"
-              [disabled]="data.screenshotLoading()"
-              (click)="screenshotClick.emit()"
-            >
-              <mat-icon class="sd-btn-icon">
-                {{ data.screenshotLoading() ? 'hourglass_empty' : 'photo_camera' }}
-              </mat-icon>
-              <div class="sd-btn-text">
-                <span class="sd-btn-label">Záloha jako obrázek (PNG)</span>
-                <span class="sd-btn-sub">Stáhne aktuální kartu jako PNG soubor</span>
-              </div>
-            </button>
-            <button
-              type="button"
-              class="sd-btn sd-btn--wide"
-              (click)="jsonClick.emit()"
-            >
-              <mat-icon class="sd-btn-icon">download</mat-icon>
-              <div class="sd-btn-text">
-                <span class="sd-btn-label">Záloha jako JSON</span>
-                <span class="sd-btn-sub">Exportuje databázi do JSON souboru</span>
-              </div>
-            </button>
-          </div>
-        </div>
-
-<!--        <div class="sd-divider"></div>-->
-
-        <!-- Keyboard shortcuts section -->
-        <div class="sd-section u-mb-6">
-          <div class="sd-section-label">Klávesové zkratky &amp; gesta</div>
-          <div class="sd-col">
-            <div class="sd-shortcut-row">
-              <div class="sd-shortcut-keys">
-                <kbd>Alt</kbd><span class="sd-shortcut-sep">+</span><kbd>←</kbd>
-                <span class="sd-shortcut-slash">/</span>
-                <kbd>Alt</kbd><span class="sd-shortcut-sep">+</span><kbd>→</kbd>
-              </div>
-              <span class="sd-shortcut-desc">Přepínání záložek</span>
+          <!-- Export section -->
+          <div class="sd-section u-mb-6">
+            <div class="sd-section-label">
+              Záloha &amp; export
+              <span style="color: red;">(experimentální)</span>
             </div>
-            <div class="sd-shortcut-row">
-              <div class="sd-shortcut-keys">
-                <kbd>Ctrl</kbd><span class="sd-shortcut-sep">+</span><kbd>K</kbd>
-              </div>
-              <span class="sd-shortcut-desc">Rychlá navigace (příkazová paleta)</span>
-            </div>
-            <div class="sd-shortcut-row">
-              <div class="sd-shortcut-keys sd-shortcut-keys--gesture">
-                <span class="sd-gesture-swipe">swipe 2 prsty doprava/doleva</span>
-<!--                <span class="sd-shortcut-slash">/</span>-->
-<!--                <span class="sd-gesture-swipe">2× swipe →</span>-->
-              </div>
-              <span class="sd-shortcut-desc">Přepínání záložek</span>
-            </div>
-          </div>
-        </div>
-
-<!--        <div class="sd-divider"></div>-->
-
-        <!-- Credits section -->
-        <div class="sd-section">
-          <div class="sd-section-label">Poděkování</div>
-          <div class="sd-col">
-<!--            <div class="sd-credits-row">-->
-<!--              <mat-icon class="sd-credits-icon">auto_awesome</mat-icon>-->
-<!--              <span class="sd-credits-text">-->
-<!--                Speciální poděkování-->
-<!--                <span class="sd-credit-name">&#64;Sirien</span>-->
-<!--                a-->
-<!--                <span class="sd-credit-name">&#64;Dukolm</span>-->
-<!--                za jejich příspěvky a podporu projektu. A spoustě dalších z J&D komunity.-->
-<!--              </span>-->
-<!--            </div>-->
-            <div class="sd-credits-links">
-              <a
-                href="https://www.jeskyneadraci.cz/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="sd-credits-link"
+            <div class="sd-col">
+              <button
+                type="button"
+                class="sd-btn sd-btn--wide"
+                [disabled]="data.screenshotLoading()"
+                (click)="screenshotClick.emit()"
               >
-                <mat-icon class="sd-credits-link-icon">menu_book</mat-icon>
-                <span>Jeskyně a Draci</span>
-              </a>
-              <a
-                href="https://discord.com/invite/5uVhJh2"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="sd-credits-link"
-              >
-                <mat-icon class="sd-credits-link-icon">forum</mat-icon>
-                <span>Discord Mytago</span>
-              </a>
+                <mat-icon class="sd-btn-icon">
+                  {{ data.screenshotLoading() ? 'hourglass_empty' : 'photo_camera' }}
+                </mat-icon>
+                <div class="sd-btn-text">
+                  <span class="sd-btn-label">Záloha jako obrázek (PNG)</span>
+                  <span class="sd-btn-sub">Stáhne aktuální kartu jako PNG soubor</span>
+                </div>
+              </button>
+              <button type="button" class="sd-btn sd-btn--wide" (click)="jsonClick.emit()">
+                <mat-icon class="sd-btn-icon">download</mat-icon>
+                <div class="sd-btn-text">
+                  <span class="sd-btn-label">Záloha jako JSON</span>
+                  <span class="sd-btn-sub">Exportuje databázi do JSON souboru</span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!--        <div class="sd-divider"></div>-->
+
+          <!-- Keyboard shortcuts section -->
+          <div class="sd-section u-mb-6">
+            <div class="sd-section-label">Klávesové zkratky &amp; gesta</div>
+            <div class="sd-col">
+              <div class="sd-shortcut-row">
+                <div class="sd-shortcut-keys">
+                  <kbd>Alt</kbd>
+                  <span class="sd-shortcut-sep">+</span>
+                  <kbd>←</kbd>
+                  <span class="sd-shortcut-slash">/</span>
+                  <kbd>Alt</kbd>
+                  <span class="sd-shortcut-sep">+</span>
+                  <kbd>→</kbd>
+                </div>
+                <span class="sd-shortcut-desc">Přepínání záložek</span>
+              </div>
+              <div class="sd-shortcut-row">
+                <div class="sd-shortcut-keys">
+                  <kbd>Ctrl</kbd>
+                  <span class="sd-shortcut-sep">+</span>
+                  <kbd>K</kbd>
+                </div>
+                <span class="sd-shortcut-desc">Rychlá navigace (příkazová paleta)</span>
+              </div>
+              <div class="sd-shortcut-row">
+                <div class="sd-shortcut-keys">
+                  <kbd>Ctrl</kbd>
+                  <span class="sd-shortcut-sep">+</span>
+                  <kbd>S</kbd>
+                </div>
+                <span class="sd-shortcut-desc">Uložit</span>
+              </div>
+              <div class="sd-shortcut-row">
+                <div class="sd-shortcut-keys sd-shortcut-keys--gesture">
+                  <span class="sd-gesture-swipe">swipe 2 prsty doprava/doleva</span>
+                  <!--                <span class="sd-shortcut-slash">/</span>-->
+                  <!--                <span class="sd-gesture-swipe">2× swipe →</span>-->
+                </div>
+                <span class="sd-shortcut-desc">Přepínání záložek</span>
+              </div>
+            </div>
+          </div>
+
+          <!--        <div class="sd-divider"></div>-->
+
+          <!-- Credits section -->
+          <div class="sd-section">
+            <div class="sd-section-label">Poděkování</div>
+            <div class="sd-col">
+              <!--            <div class="sd-credits-row">-->
+              <!--              <mat-icon class="sd-credits-icon">auto_awesome</mat-icon>-->
+              <!--              <span class="sd-credits-text">-->
+              <!--                Speciální poděkování-->
+              <!--                <span class="sd-credit-name">&#64;Sirien</span>-->
+              <!--                a-->
+              <!--                <span class="sd-credit-name">&#64;Dukolm</span>-->
+              <!--                za jejich příspěvky a podporu projektu. A spoustě dalších z J&D komunity.-->
+              <!--              </span>-->
+              <!--            </div>-->
+              <div class="sd-credits-links">
+                <a href="https://www.jeskyneadraci.cz/" target="_blank" rel="noopener noreferrer" class="sd-credits-link">
+                  <mat-icon class="sd-credits-link-icon">menu_book</mat-icon>
+                  <span>Jeskyně a Draci</span>
+                </a>
+                <a href="https://discord.com/invite/5uVhJh2" target="_blank" rel="noopener noreferrer" class="sd-credits-link">
+                  <mat-icon class="sd-credits-link-icon">forum</mat-icon>
+                  <span>Discord Mytago</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
-
-        </div><!-- /sd-col-panel RIGHT -->
-
+        <!-- /sd-col-panel RIGHT -->
       </div>
 
       <!-- Version footer -->
@@ -234,9 +233,8 @@ export interface SettingsDialogData {
   styles: `
     /* ── Panel ─────────────────────────────────────────────── */
     .sd-panel {
-      background:
-        linear-gradient(180deg, rgba(14,11,9,.98) 0%, rgba(22,17,13,.99) 100%);
-      border: 1px solid rgba(200,160,60,.4);
+      background: linear-gradient(180deg, rgba(14, 11, 9, 0.98) 0%, rgba(22, 17, 13, 0.99) 100%);
+      border: 1px solid rgba(200, 160, 60, 0.4);
       border-radius: 10px;
       overflow: hidden;
       min-width: 320px;
@@ -258,15 +256,15 @@ export interface SettingsDialogData {
       align-items: center;
       gap: 10px;
       padding: 14px 16px 12px;
-      border-bottom: 1px solid rgba(200,160,60,.18);
-      background: rgba(200,160,60,.04);
+      border-bottom: 1px solid rgba(200, 160, 60, 0.18);
+      background: rgba(200, 160, 60, 0.04);
     }
 
     .sd-header-icon {
       font-size: 18px;
       width: 18px;
       height: 18px;
-      color: rgba(200,160,60,.7);
+      color: rgba(200, 160, 60, 0.7);
       flex-shrink: 0;
     }
 
@@ -274,10 +272,10 @@ export interface SettingsDialogData {
       flex: 1;
       font-family: sans-serif;
       font-size: 14px;
-      letter-spacing: .1em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: #e8c96a;
-      text-shadow: 0 0 12px rgba(200,160,60,.4);
+      text-shadow: 0 0 12px rgba(200, 160, 60, 0.4);
     }
 
     .sd-close-btn {
@@ -290,14 +288,20 @@ export interface SettingsDialogData {
       background: transparent;
       cursor: pointer;
       border-radius: 4px;
-      color: rgba(200,160,60,.45);
-      transition: color .15s, background .15s;
+      color: rgba(200, 160, 60, 0.45);
+      transition:
+        color 0.15s,
+        background 0.15s;
 
-      mat-icon { font-size: 18px; width: 18px; height: 18px; }
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
 
       &:hover {
-        background: rgba(200,160,60,.1);
-        color: rgba(200,160,60,.9);
+        background: rgba(200, 160, 60, 0.1);
+        color: rgba(200, 160, 60, 0.9);
       }
     }
 
@@ -325,7 +329,7 @@ export interface SettingsDialogData {
       width: 1px;
       align-self: stretch;
       margin: 0 20px;
-      background: linear-gradient(180deg, transparent, rgba(200,160,60,.25), transparent);
+      background: linear-gradient(180deg, transparent, rgba(200, 160, 60, 0.25), transparent);
     }
 
     .sd-section {
@@ -337,14 +341,14 @@ export interface SettingsDialogData {
     .sd-section-label {
       font-family: sans-serif;
       font-size: 10px;
-      letter-spacing: .15em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: rgba(200,160,60,.5);
+      color: rgba(200, 160, 60, 0.5);
     }
 
     .sd-divider {
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(200,160,60,.25), transparent);
+      background: linear-gradient(90deg, transparent, rgba(200, 160, 60, 0.25), transparent);
       margin: 16px 0;
     }
 
@@ -373,28 +377,35 @@ export interface SettingsDialogData {
       align-items: center;
       gap: 10px;
       padding: 10px 14px;
-      border: 1px solid rgba(200,160,60,.22);
+      border: 1px solid rgba(200, 160, 60, 0.22);
       border-radius: 7px;
-      background: rgba(200,160,60,.06);
+      background: rgba(200, 160, 60, 0.06);
       cursor: pointer;
-      transition: background .15s, border-color .15s, box-shadow .15s;
+      transition:
+        background 0.15s,
+        border-color 0.15s,
+        box-shadow 0.15s;
       text-align: left;
       min-width: 0;
       flex: 1;
 
       &:hover:not(:disabled) {
-        background: rgba(200,160,60,.14);
-        border-color: rgba(200,160,60,.55);
-        box-shadow: 0 0 12px rgba(200,160,60,.2);
+        background: rgba(200, 160, 60, 0.14);
+        border-color: rgba(200, 160, 60, 0.55);
+        box-shadow: 0 0 12px rgba(200, 160, 60, 0.2);
       }
 
       &--active {
-        background: rgba(180,100,20,.25) !important;
-        border-color: rgba(210,130,40,.7) !important;
-        box-shadow: 0 0 14px rgba(200,120,30,.3) !important;
+        background: rgba(180, 100, 20, 0.25) !important;
+        border-color: rgba(210, 130, 40, 0.7) !important;
+        box-shadow: 0 0 14px rgba(200, 120, 30, 0.3) !important;
 
-        .sd-btn-label { color: #f0d080 !important; }
-        .sd-btn-icon { color: #f0c060 !important; }
+        .sd-btn-label {
+          color: #f0d080 !important;
+        }
+        .sd-btn-icon {
+          color: #f0c060 !important;
+        }
       }
 
       &--wide {
@@ -404,7 +415,7 @@ export interface SettingsDialogData {
       }
 
       &:disabled {
-        opacity: .45;
+        opacity: 0.45;
         cursor: not-allowed;
       }
     }
@@ -413,43 +424,65 @@ export interface SettingsDialogData {
       font-size: 20px;
       width: 20px;
       height: 20px;
-      color: rgba(200,160,60,.6);
+      color: rgba(200, 160, 60, 0.6);
       flex-shrink: 0;
-      transition: color .15s;
+      transition: color 0.15s;
     }
 
     /* ── Theme button icon colours ─────────────────────────── */
-    .sd-icon--light  { color: rgba(240, 200, 80, .75); }
-    .sd-icon--dark   { color: rgba(210, 150, 40, .7);  }
-    .sd-icon--sirien { color: rgba(140, 15,  15, .9);  }
-    .sd-icon--night  { color: rgba(80,  130, 210, .8); }
+    .sd-icon--light {
+      color: rgba(240, 200, 80, 0.75);
+    }
+    .sd-icon--dark {
+      color: rgba(210, 150, 40, 0.7);
+    }
+    .sd-icon--sirien {
+      color: rgba(140, 15, 15, 0.9);
+    }
+    .sd-icon--night {
+      color: rgba(80, 130, 210, 0.8);
+    }
 
-    .sd-btn--active .sd-icon--dark   { color: #f0c060 !important; }
-    .sd-btn--active .sd-icon--sirien { color: #c02020 !important; }
-    .sd-btn--active .sd-icon--night  { color: #7ab0f0 !important; }
+    .sd-btn--active .sd-icon--dark {
+      color: #f0c060 !important;
+    }
+    .sd-btn--active .sd-icon--sirien {
+      color: #c02020 !important;
+    }
+    .sd-btn--active .sd-icon--night {
+      color: #7ab0f0 !important;
+    }
 
     /* Tmavé active accent — warm amber */
     .sd-btn.sd-btn--theme:nth-child(2).sd-btn--active {
-      background: rgba(160, 100, 10, .28) !important;
-      border-color: rgba(220, 150, 40, .75) !important;
-      box-shadow: 0 0 14px rgba(200, 130, 20, .3) !important;
-      .sd-btn-label { color: #f5cc70 !important; }
+      background: rgba(160, 100, 10, 0.28) !important;
+      border-color: rgba(220, 150, 40, 0.75) !important;
+      box-shadow: 0 0 14px rgba(200, 130, 20, 0.3) !important;
+      .sd-btn-label {
+        color: #f5cc70 !important;
+      }
     }
 
     /* Sirien active accent — blood red on charcoal */
     .sd-btn.sd-btn--theme:nth-child(3).sd-btn--active {
-      background: rgba(40, 40, 40, .92) !important;
-      border-color: rgba(140, 15,  15, .8) !important;
-      box-shadow: 0 0 16px rgba(140, 15,  15, .45), inset 0 0 8px rgba(100, 8, 8, .25) !important;
-      .sd-btn-label { color: #c84040 !important; }
+      background: rgba(40, 40, 40, 0.92) !important;
+      border-color: rgba(140, 15, 15, 0.8) !important;
+      box-shadow:
+        0 0 16px rgba(140, 15, 15, 0.45),
+        inset 0 0 8px rgba(100, 8, 8, 0.25) !important;
+      .sd-btn-label {
+        color: #c84040 !important;
+      }
     }
 
     /* Noční active accent — steel blue */
     .sd-btn.sd-btn--theme:nth-child(4).sd-btn--active {
-      background: rgba(15,  50,  130, .32) !important;
-      border-color: rgba(70,  130, 220, .75) !important;
-      box-shadow: 0 0 14px rgba(50,  110, 200, .35) !important;
-      .sd-btn-label { color: #90c0f8 !important; }
+      background: rgba(15, 50, 130, 0.32) !important;
+      border-color: rgba(70, 130, 220, 0.75) !important;
+      box-shadow: 0 0 14px rgba(50, 110, 200, 0.35) !important;
+      .sd-btn-label {
+        color: #90c0f8 !important;
+      }
     }
 
     .sd-btn-text {
@@ -462,24 +495,28 @@ export interface SettingsDialogData {
     .sd-btn-label {
       font-family: sans-serif;
       font-size: 12px;
-      letter-spacing: .06em;
+      letter-spacing: 0.06em;
       color: #c8bfb0;
-      transition: color .15s;
+      transition: color 0.15s;
       white-space: nowrap;
     }
 
     .sd-btn-sub {
       font-family: sans-serif;
       font-size: 10px;
-      color: rgba(180,160,130,.45);
-      letter-spacing: .04em;
+      color: rgba(180, 160, 130, 0.45);
+      letter-spacing: 0.04em;
       white-space: normal;
       line-height: 1.3;
     }
 
     .sd-btn:hover:not(:disabled) {
-      .sd-btn-label { color: #e8d5a0; }
-      .sd-btn-icon { color: rgba(200,160,60,.9); }
+      .sd-btn-label {
+        color: #e8d5a0;
+      }
+      .sd-btn-icon {
+        color: rgba(200, 160, 60, 0.9);
+      }
     }
 
     /* ── Keyboard shortcut rows ────────────────────────────── */
@@ -488,9 +525,9 @@ export interface SettingsDialogData {
       align-items: center;
       gap: 12px;
       padding: 8px 12px;
-      border: 1px solid rgba(200,160,60,.15);
+      border: 1px solid rgba(200, 160, 60, 0.15);
       border-radius: 7px;
-      background: rgba(200,160,60,.04);
+      background: rgba(200, 160, 60, 0.04);
     }
 
     .sd-shortcut-keys {
@@ -503,34 +540,34 @@ export interface SettingsDialogData {
 
     .sd-shortcut-sep {
       font-size: 10px;
-      color: rgba(200,160,60,.35);
+      color: rgba(200, 160, 60, 0.35);
       padding: 0 1px;
     }
 
     .sd-shortcut-slash {
       font-size: 12px;
-      color: rgba(200,160,60,.25);
+      color: rgba(200, 160, 60, 0.25);
       padding: 0 4px;
     }
 
     kbd {
       font-size: 10px;
       padding: 2px 6px;
-      border: 1px solid rgba(200,160,60,.35);
+      border: 1px solid rgba(200, 160, 60, 0.35);
       border-bottom-width: 2px;
       border-radius: 4px;
-      background: rgba(200,160,60,.08);
-      color: rgba(200,160,60,.75);
+      background: rgba(200, 160, 60, 0.08);
+      color: rgba(200, 160, 60, 0.75);
       font-family: monospace;
-      letter-spacing: .03em;
+      letter-spacing: 0.03em;
       white-space: nowrap;
     }
 
     .sd-shortcut-desc {
       font-family: sans-serif;
       font-size: 11px;
-      color: rgba(180,160,130,.6);
-      letter-spacing: .04em;
+      color: rgba(180, 160, 130, 0.6);
+      letter-spacing: 0.04em;
       line-height: 1.3;
     }
 
@@ -547,12 +584,12 @@ export interface SettingsDialogData {
     .sd-gesture-swipe {
       font-size: 10px;
       font-family: monospace;
-      letter-spacing: .04em;
+      letter-spacing: 0.04em;
       padding: 2px 6px;
-      border: 1px solid rgba(200,160,60,.3);
+      border: 1px solid rgba(200, 160, 60, 0.3);
       border-radius: 4px;
-      background: rgba(200,160,60,.07);
-      color: rgba(200,160,60,.7);
+      background: rgba(200, 160, 60, 0.07);
+      color: rgba(200, 160, 60, 0.7);
       white-space: nowrap;
     }
 
@@ -562,16 +599,16 @@ export interface SettingsDialogData {
       align-items: flex-start;
       gap: 10px;
       padding: 10px 12px;
-      border: 1px solid rgba(140, 15, 15, .25);
+      border: 1px solid rgba(140, 15, 15, 0.25);
       border-radius: 7px;
-      background: rgba(40, 40, 40, .55);
+      background: rgba(40, 40, 40, 0.55);
     }
 
     .sd-credits-icon {
       font-size: 16px;
       width: 16px;
       height: 16px;
-      color: rgba(140, 15, 15, .8);
+      color: rgba(140, 15, 15, 0.8);
       flex-shrink: 0;
       margin-top: 1px;
     }
@@ -579,16 +616,16 @@ export interface SettingsDialogData {
     .sd-credits-text {
       font-family: sans-serif;
       font-size: 11px;
-      color: rgba(180, 155, 130, .65);
-      letter-spacing: .03em;
+      color: rgba(180, 155, 130, 0.65);
+      letter-spacing: 0.03em;
       line-height: 1.5;
     }
 
     .sd-credit-name {
       font-family: sans-serif;
       font-size: 11px;
-      letter-spacing: .06em;
-      color: rgba(200, 50, 50, .85);
+      letter-spacing: 0.06em;
+      color: rgba(200, 50, 50, 0.85);
       padding: 0 2px;
     }
 
@@ -603,21 +640,25 @@ export interface SettingsDialogData {
       gap: 6px;
       flex: 1;
       padding: 8px 12px;
-      border: 1px solid rgba(140, 15, 15, .2);
+      border: 1px solid rgba(140, 15, 15, 0.2);
       border-radius: 7px;
-      background: rgba(40, 40, 40, .4);
-      color: rgba(180, 60, 60, .8);
+      background: rgba(40, 40, 40, 0.4);
+      color: rgba(180, 60, 60, 0.8);
       text-decoration: none;
       font-size: 11px;
       font-family: sans-serif;
-      letter-spacing: .06em;
-      transition: background .15s, border-color .15s, color .15s, box-shadow .15s;
+      letter-spacing: 0.06em;
+      transition:
+        background 0.15s,
+        border-color 0.15s,
+        color 0.15s,
+        box-shadow 0.15s;
 
       &:hover {
-        background: rgba(40, 40, 40, .8);
-        border-color: rgba(140, 15, 15, .6);
+        background: rgba(40, 40, 40, 0.8);
+        border-color: rgba(140, 15, 15, 0.6);
         color: rgba(200, 80, 80, 1);
-        box-shadow: 0 0 10px rgba(140, 15, 15, .25);
+        box-shadow: 0 0 10px rgba(140, 15, 15, 0.25);
       }
     }
 
@@ -636,27 +677,27 @@ export interface SettingsDialogData {
       justify-content: flex-end;
       gap: 8px;
       padding: 8px 16px;
-      border-top: 1px solid rgba(200,160,60,.1);
-      background: rgba(200,160,60,.02);
+      border-top: 1px solid rgba(200, 160, 60, 0.1);
+      background: rgba(200, 160, 60, 0.02);
     }
 
     .sd-version-label {
       font-family: sans-serif;
       font-size: 10px;
-      letter-spacing: .1em;
-      color: rgba(200,160,60,.25);
+      letter-spacing: 0.1em;
+      color: rgba(200, 160, 60, 0.25);
       text-transform: uppercase;
     }
 
     .sd-version-badge {
       font-size: 10px;
       font-family: monospace;
-      letter-spacing: .08em;
-      color: rgba(200,160,60,.45);
+      letter-spacing: 0.08em;
+      color: rgba(200, 160, 60, 0.45);
       padding: 1px 6px;
-      border: 1px solid rgba(200,160,60,.2);
+      border: 1px solid rgba(200, 160, 60, 0.2);
       border-radius: 4px;
-      background: rgba(200,160,60,.05);
+      background: rgba(200, 160, 60, 0.05);
     }
   `,
 })
@@ -667,7 +708,6 @@ export class SettingsDialogComponent {
   readonly sheetTheme = inject(SheetThemeService);
   readonly data: SettingsDialogData = inject(MAT_DIALOG_DATA);
   private readonly dialogRef = inject(MatDialogRef<SettingsDialogComponent>);
-
 
   close(): void {
     this.dialogRef.close();

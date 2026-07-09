@@ -19,10 +19,18 @@ const RELEASE_NOTES: ReleaseGroup[] = [
   {
     date: '5. července 2026',
     entries: [
-      i('Vylepšená J&D wiki - lepší vyhledávání, scroll na pozici i pro podkapitoly, přizpůsobení mobilům a tabletům, zlepšení výkonu při dlouhých textech, Obsah Kapitoly s vyhledáváním, opraveny linky pro nadpisy.'),
-      i('Lepší, jednodušší design tabů (změna pořadí stránek + Konvertor Obrázků přesunut na PH Nástroje), odstranění zbytečných nadpisů z daných stránek, změna barevné palety pro některé prvky.'),
+      i(
+        'Vylepšená J&D wiki - lepší vyhledávání, scroll na pozici i pro podkapitoly, přizpůsobení mobilům a tabletům, zlepšení výkonu při dlouhých textech, Obsah Kapitoly s vyhledáváním, opraveny linky pro nadpisy.',
+      ),
+      i(
+        'Lepší, jednodušší design tabů (změna pořadí stránek + Konvertor Obrázků přesunut na PH Nástroje), odstranění zbytečných nadpisů z daných stránek, změna barevné palety pro některé prvky.',
+      ),
       i('DM Qeusty a hráčské Questy - vylepšený a zjednodušený design karet, odstranění obrázku, uložení vybraného filtru'),
       i('Tabulka Iniciativy - zjednodušený a vylepšený design (vč. karet příšer pro DM).'),
+      i(
+        'Příběhové události - zjednodušený a vylepšený design. Přidání možnosti sdílení s ostatními hráči (ostatní nemůžou zapisovat do sdílených událostí, jen autor). Hráč může vidět sdílené události a zároveň vytvořit svoje vlastní a sdílet je dál.',
+      ),
+      i('Ctrl+S - klávesová zkratka pro ukládání - funguje všude'),
     ],
   },
   {
