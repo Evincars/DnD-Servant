@@ -199,10 +199,6 @@ import { MatDialogRef } from '@angular/material/dialog';
           </div>
         }
         <div class="main-content u-flex-col" #content>
-          <span class="main-corner main-corner--tl">◆</span>
-          <span class="main-corner main-corner--tr">◆</span>
-          <span class="main-corner main-corner--bl">◆</span>
-          <span class="main-corner main-corner--br">◆</span>
           <router-outlet />
         </div>
         @if (showBackToTop()) {
