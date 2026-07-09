@@ -17,13 +17,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, MatIcon, MatIconButton, MatTooltip, RichTextareaComponent],
   styles: `
-    /* ── pt-filter-btn icon support ─────────────── */
-    .pt-filter-btn { display: inline-flex; align-items: center; gap: 5px;
-      mat-icon, .mat-icon { font-size: 14px; width: 14px; height: 14px; } }
-
-    /* ── List toolbar ────────────────────────────── */
-    .sl-toolbar { display: flex; align-items: center; justify-content: flex-end; margin-bottom: 12px; min-height: 32px; }
-
     /* ── Timeline container ──────────────────────── */
     .timeline { position: relative; padding-left: 48px; }
     .timeline-line {
@@ -31,13 +24,13 @@ import {
       background: linear-gradient(180deg, transparent, rgba(155,140,115,.28) 5%, rgba(155,140,115,.28) 95%, transparent);
     }
 
-    /* ── Timeline node ─────────────────────────── */
+    /* ── Timeline node — 12 px circle centered on line ── */
     .tl-node {
-      position: absolute; left: -40px; top: 18px;
-      width: 28px; height: 28px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      border: 2px solid; background: rgba(14,12,8,.96);
-      mat-icon { font-size: 14px; width: 14px; height: 14px; }
+      position: absolute;
+      left: -37px; top: 20px;
+      width: 12px; height: 12px; border-radius: 50%;
+      border: 2px solid;
+      box-shadow: 0 0 6px currentColor;
     }
 
     /* ── Event card ──────────────────────────────── */
@@ -164,34 +157,24 @@ import {
     @keyframes scaleIn { from { transform: scale(.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
   `,
   template: `
-    <!-- Toolbar: expand/collapse all -->
-    <div class="sl-toolbar">
-      @if (events().length > 0) {
-        <button class="pt-filter-btn" type="button" (click)="toggleAllExpanded()"
-          [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozbalit vše'">
-          <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
-        </button>
-      }
-    </div>
+    @if (filtered().length === 0) {
+      <div class="empty-state">
+        <mat-icon>auto_stories</mat-icon>
+        @if (events().length === 0) { Žádné události — přidej první kapitolu příběhu. }
+        @else { Žádné události neodpovídají filtru. }
+      </div>
+    }
 
+    @if (filtered().length > 0) {
     <div class="timeline">
       <div class="timeline-line"></div>
-
-      @if (filtered().length === 0) {
-        <div class="empty-state">
-          <mat-icon>auto_stories</mat-icon>
-          @if (events().length === 0) { Žádné události — přidej první kapitolu příběhu. }
-          @else { Žádné události neodpovídají filtru. }
-        </div>
-      }
 
       @for (item of filtered(); track item.event.id) {
         <div class="event-card">
 
           <div class="tl-node"
             [style.border-color]="typeMeta(item.event.type).color"
-            [style.color]="typeMeta(item.event.type).color">
-            <mat-icon>{{ typeMeta(item.event.type).icon }}</mat-icon>
+            [style.background]="typeMeta(item.event.type).bg">
           </div>
 
           <!-- Card header -->
@@ -314,6 +297,7 @@ import {
         </div>
       }
     </div>
+    }
 
     @if (confirmIdx() !== null) {
       <div class="confirm-backdrop" (click)="cancelDelete()">

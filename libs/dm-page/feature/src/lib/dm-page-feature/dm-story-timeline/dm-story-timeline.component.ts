@@ -1,5 +1,6 @@
 import {
-  ChangeDetectionStrategy, Component, computed, effect, inject, signal, untracked,
+  ChangeDetectionStrategy, Component, computed, effect, inject, QueryList,
+  signal, untracked, ViewChildren,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
@@ -129,6 +130,12 @@ import { StoryEventsListComponent } from './story-events-list.component';
           <option value="oldest">Nejstarší první</option>
         </select>
         <span class="filter-bar-spacer"></span>
+        @if (activeEvents().length > 0) {
+          <button class="pt-filter-btn" type="button" (click)="activeList?.toggleAllExpanded()"
+            [matTooltip]="activeList?.allExpanded() ? 'Sbalit vše' : 'Rozbalit vše'">
+            <mat-icon>{{ activeList?.allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
+          </button>
+        }
         @if (activeTab() === 'own') {
           <button class="pt-filter-btn" (click)="addEvent()"><mat-icon>add</mat-icon> Přidat událost</button>
           <button class="pt-filter-btn" (click)="openShareDialog()" matTooltip="Sdílet moje události s hráči">
@@ -235,6 +242,9 @@ export class DmStoryTimelineComponent {
   private readonly auth  = inject(AuthService);
   private readonly api   = inject(DmPageApiService);
   private readonly snack = inject(MatSnackBar);
+
+  @ViewChildren(StoryEventsListComponent) private lists!: QueryList<StoryEventsListComponent>;
+  get activeList(): StoryEventsListComponent | undefined { return this.lists?.first; }
 
   // ── Events state ──────────────────────────────────────────────────────────
   ownEvents    = signal<StoryEvent[]>([]);
