@@ -414,7 +414,7 @@ const ACL = '110,190,160'; // lighter teal
                 <!-- Summary -->
                 <div>
                   <div class="rt-label">Shrnutí události</div>
-                  <div class="rt-wrap">
+                  <div class="rt-wrap" style="margin-top: 5px;">
                     <rich-textarea [(ngModel)]="events()[item.idx].summary" style="position:absolute;top:0;left:0;width:100%;height:100%;"></rich-textarea>
                   </div>
                 </div>
