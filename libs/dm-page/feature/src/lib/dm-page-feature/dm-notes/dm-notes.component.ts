@@ -124,35 +124,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       }
     }
 
-    .btn-save {
-      font-family: sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border: 1px solid rgba(80, 160, 80, 0.35);
-      border-radius: 3px;
-      background: rgba(60, 120, 60, 0.08);
-      color: rgba(100, 200, 100, 0.8);
-      padding: 6px 14px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      transition:
-        background 0.18s,
-        border-color 0.18s,
-        color 0.18s;
-      mat-icon {
-        font-size: 15px;
-        width: 15px;
-        height: 15px;
-      }
-      &:hover {
-        background: rgba(60, 140, 60, 0.18);
-        border-color: rgba(80, 180, 80, 0.6);
-        color: #80e080;
-      }
-    }
 
     /* ── Notes grid — 2 columns, full height ─────── */
     .notes-grid {
@@ -272,7 +243,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           <mat-icon>check_circle</mat-icon>
           Automaticky uloženo
         </span>
-        <button class="btn-save" (click)="save()">
+        <button class="pt-filter-btn" (click)="save()">
           <mat-icon>save</mat-icon>
           Uložit
         </button>

@@ -52,14 +52,6 @@ import { debounceTime } from 'rxjs/operators';
     }
     @keyframes fadeBanner { from { opacity: 0; } to { opacity: 1; } }
 
-    .btn-save {
-      font-family: sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
-      border: 1px solid rgba(80,160,80,.35); border-radius: 3px; background: rgba(60,120,60,.08);
-      color: rgba(100,200,100,.8); padding: 6px 16px; cursor: pointer;
-      display: flex; align-items: center; gap: 6px; transition: background .18s, border-color .18s, color .18s;
-      mat-icon { font-size: 15px; width: 15px; height: 15px; }
-      &:hover { background: rgba(60,140,60,.18); border-color: rgba(80,180,80,.6); color: #80e080; }
-    }
 
     /* ── 2-column panel grid ─────────────────────── */
     .notes-grid {
@@ -164,7 +156,7 @@ import { debounceTime } from 'rxjs/operators';
         <span class="autosave-indicator" [class.autosave-indicator--hidden]="!autoSaved()">
           <mat-icon>check_circle</mat-icon> Automaticky uloženo
         </span>
-        <button class="btn-save" type="submit" (click)="onSaveClick()">
+        <button class="pt-filter-btn" type="submit" (click)="onSaveClick()">
             <mat-icon>save</mat-icon>Uložit
           </button>
       </div>

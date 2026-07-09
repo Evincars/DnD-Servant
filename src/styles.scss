@@ -200,6 +200,16 @@ mat-sidenav-content {
   transition: background .15s, border-color .15s, color .15s;
   font-family: sans-serif;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  mat-icon, .mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
 
   &:hover  { background: rgba(200,160,60,.15); color: #d4c9a0; border-color: rgba(200,160,60,.4); }
   &.active { background: rgba(200,160,60,.25); color: #e8c96a; border-color: rgba(200,160,60,.6); }

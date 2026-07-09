@@ -23,16 +23,6 @@ import { StoryEventsListComponent } from './story-events-list.component';
   styles: `
     :host { display: block; padding: 13px 0 20px; font-family: sans-serif; overflow: visible; }
 
-    /* ── Buttons ─────────────────────────────────── */
-    .btn { font-family: sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
-      border: 1px solid rgba(155,140,115,.35); border-radius: 3px; background: rgba(140,125,100,.08); color: rgba(175,160,135,.85);
-      padding: 6px 14px; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: background .18s, border-color .18s, color .18s;
-      mat-icon { font-size: 15px; width: 15px; height: 15px; }
-      &:hover { background: rgba(140,125,100,.16); border-color: rgba(155,140,115,.6); color: #d8cdb8; }
-    }
-    .btn-save { border-color: rgba(80,160,80,.35); color: rgba(100,200,100,.8); background: rgba(60,120,60,.08);
-      &:hover { background: rgba(60,140,60,.18); border-color: rgba(80,180,80,.6); color: #80e080; }
-    }
 
     /* ── pt-filter-btn icon support ─────────────── */
     .pt-filter-btn { display: inline-flex; align-items: center; gap: 5px;
@@ -141,7 +131,7 @@ import { StoryEventsListComponent } from './story-events-list.component';
           <button class="pt-filter-btn" (click)="openShareDialog()" matTooltip="Sdílet moje události s hráči">
             <mat-icon>share</mat-icon> Sdílet
           </button>
-          <button class="btn btn-save" (click)="save()"><mat-icon>save</mat-icon> Uložit</button>
+          <button class="pt-filter-btn" (click)="save()"><mat-icon>save</mat-icon> Uložit</button>
         }
       </div>
 
@@ -228,7 +218,7 @@ import { StoryEventsListComponent } from './story-events-list.component';
 
           <div class="share-dialog__actions">
             <button class="pt-filter-btn" type="button" (click)="shareDialogOpen.set(false)">Zrušit</button>
-            <button class="btn btn-save" type="button" (click)="saveSharing()">
+            <button class="pt-filter-btn" type="button" (click)="saveSharing()">
               <mat-icon>save</mat-icon> Uložit sdílení
             </button>
           </div>

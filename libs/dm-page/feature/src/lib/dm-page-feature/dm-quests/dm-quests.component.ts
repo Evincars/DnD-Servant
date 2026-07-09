@@ -28,17 +28,6 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
   styles: `
     :host { display: block; padding: 13px 0 20px; font-family: sans-serif; overflow: visible; }
 
-    /* ── Buttons ─────────────────────────────────── */
-    .btn { font-family: sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,.12); border-radius: 3px; background: rgba(255,255,255,.04); color: rgba(255,255,255,.55);
-      padding: 6px 14px; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: background .18s, border-color .18s, color .18s;
-      mat-icon { font-size: 15px; width: 15px; height: 15px; }
-      &:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.25); color: rgba(255,255,255,.85); }
-    }
-    .btn-icon { padding: 6px 10px; }
-    .btn-save { border-color: rgba(80,160,80,.35); color: rgba(100,200,100,.8); background: rgba(60,120,60,.08);
-      &:hover { background: rgba(60,140,60,.18); border-color: rgba(80,180,80,.6); color: #80e080; }
-    }
 
     /* ── Filter + sort bar ───────────────────────── */
     .filter-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
@@ -204,15 +193,15 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
           </button>
         }
         <div class="bar-actions">
-          <button class="btn btn-icon" type="button" (click)="toggleAllExpanded()"
+          <button class="pt-filter-btn" type="button" (click)="toggleAllExpanded()"
                   [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">
             <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
           </button>
-          <button class="btn" type="button" (click)="addQuest()">
+          <button class="pt-filter-btn" type="button" (click)="addQuest()">
             <mat-icon>add</mat-icon>
             Přidat quest
           </button>
-          <button class="btn btn-save" type="button" (click)="save()">
+          <button class="pt-filter-btn" type="button" (click)="save()">
             <mat-icon>save</mat-icon>
             Uložit
           </button>

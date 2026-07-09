@@ -76,40 +76,6 @@ const LS_FILTER_KEY = 'dnd_quests_filter';
       text-transform: none;
     }
 
-    /* ── Buttons ───────────────────────────────── */
-    .btn-dnd {
-      font-family: sans-serif;
-      font-size: 11px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      border: 1px solid rgba(200,160,60,.35);
-      border-radius: 3px;
-      background: rgba(200,160,60,.08);
-      color: rgba(200,160,60,.8);
-      padding: 6px 14px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      transition: background .18s, border-color .18s, color .18s;
-      mat-icon { font-size: 15px; width: 15px; height: 15px; }
-      &:hover {
-        background: rgba(200,160,60,.16);
-        border-color: rgba(200,160,60,.6);
-        color: #e8c96a;
-      }
-    }
-
-    .btn-dnd-icon {
-      padding: 6px 10px;
-    }
-
-    .btn-dnd-save {
-      border-color: rgba(80,160,80,.35);
-      color: rgba(100,200,100,.8);
-      background: rgba(60,120,60,.08);
-      &:hover { background: rgba(60,140,60,.18); border-color: rgba(80,180,80,.6); color: #80e080; }
-    }
 
     /* ── Filter + sort bar ─────────────────────── */
     .quests-filter-bar {
@@ -457,15 +423,15 @@ const LS_FILTER_KEY = 'dnd_quests_filter';
         <div class="sort-tabs"></div>
         <div class="quests-bar-actions">
           <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
-          <button class="btn-dnd btn-dnd-icon" type="button" (click)="toggleAllExpanded()"
+          <button class="pt-filter-btn" type="button" (click)="toggleAllExpanded()"
             [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">
             <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
           </button>
-          <button class="btn-dnd" type="button" (click)="addQuest()" matTooltip="Přidat nový quest">
+          <button class="pt-filter-btn" type="button" (click)="addQuest()" matTooltip="Přidat nový quest">
             <mat-icon>add</mat-icon>
             Přidat quest
           </button>
-          <button class="btn-dnd btn-dnd-save" type="button" (click)="save(true)" matTooltip="Uložit questy do databáze">
+          <button class="pt-filter-btn" type="button" (click)="save(true)" matTooltip="Uložit questy do databáze">
             <mat-icon>save</mat-icon>
             Uložit
           </button>
