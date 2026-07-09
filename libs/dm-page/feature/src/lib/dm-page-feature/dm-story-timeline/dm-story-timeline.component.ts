@@ -78,8 +78,14 @@ const ACL = '110,190,160'; // lighter teal
       &:hover { background: rgba(60,140,60,.18); border-color: rgba(80,180,80,.6); color: #80e080; }
     }
 
+    /* ── pt-filter-btn icon support ─────────────── */
+    .pt-filter-btn { display: inline-flex; align-items: center; gap: 5px;
+      mat-icon, .mat-icon { font-size: 14px; width: 14px; height: 14px; }
+    }
+
     /* ── Filter / sort bar ───────────────────────── */
-    .filter-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+    .filter-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .filter-bar-spacer { flex: 1; }
     .filter-count { background: rgba(255,255,255,.08); border-radius: 10px; padding: 0 6px; font-size: 9px; min-width: 18px; text-align: center; line-height: 16px; }
     .sort-select {
       font-family: sans-serif; font-size: 10px; letter-spacing: .08em;
@@ -122,16 +128,12 @@ const ACL = '110,190,160'; // lighter teal
     /* ── Event card ──────────────────────────────── */
     .event-card {
       position: relative; border-radius: 3px; margin-bottom: 20px;
-      background: linear-gradient(160deg, rgba(22,19,14,.97) 0%, rgba(14,12,8,.99) 100%);
-      border: 1px solid rgba(155,140,115,.13);
-      border-left: 3px solid transparent;
-      box-shadow: 0 4px 20px rgba(0,0,0,.55), inset 0 1px 0 rgba(155,140,115,.03);
+      background: rgba(22,20,18,.97);
+      border: 1px solid rgba(200,160,60,.15);
+      box-shadow: 0 4px 20px rgba(0,0,0,.55);
       transition: border-color .2s, box-shadow .2s; overflow: hidden;
-      &::before { content: '◆'; position: absolute; top: 5px; left: 8px; font-size: 6px; color: rgba(155,140,115,.16); pointer-events: none; }
-      &:hover { box-shadow: 0 6px 28px rgba(0,0,0,.65), 0 0 10px rgba(155,140,115,.04); }
+      &:hover { border-color: rgba(200,160,60,.28); box-shadow: 0 6px 28px rgba(0,0,0,.65); }
     }
-    .event-card--epic { box-shadow: 0 4px 24px rgba(0,0,0,.6), 0 0 18px rgba(200,160,40,.07) !important; }
-    .card-rule { height: 2px; background: linear-gradient(90deg, rgba(155,140,115,.0) 0%, rgba(155,140,115,.3) 30%, rgba(185,170,140,.5) 50%, rgba(155,140,115,.3) 70%, rgba(155,140,115,.0) 100%); }
 
     /* ── Card header ────────────────────────────── */
     .card-header { display: flex; align-items: center; gap: 8px; padding: 10px 12px 7px; flex-wrap: wrap; cursor: pointer; user-select: none; }
@@ -270,14 +272,7 @@ const ACL = '110,190,160'; // lighter teal
   template: `
     <spinner-overlay [diameter]="60" [showSpinner]="store.loading()">
 
-      <div class="header-actions">
-        <button class="btn btn-icon" (click)="expandAll()" matTooltip="Rozbalit vše"><mat-icon>unfold_more</mat-icon></button>
-        <button class="btn btn-icon" (click)="collapseAll()" matTooltip="Sbalit vše"><mat-icon>unfold_less</mat-icon></button>
-        <button class="btn" (click)="addEvent()"><mat-icon>add</mat-icon> Přidat událost</button>
-        <button class="btn btn-save" (click)="save()"><mat-icon>save</mat-icon> Uložit</button>
-      </div>
-
-      <!-- Type filter + sort -->
+      <!-- Filter + actions row -->
       <div class="filter-bar">
         <button class="pt-filter-btn" [class.active]="filterType() === 'all'" (click)="filterType.set('all')">
           Vše <span class="filter-count">{{ events().length }}</span>
@@ -291,6 +286,12 @@ const ACL = '110,190,160'; // lighter teal
           <option value="newest">Nejnovější první</option>
           <option value="oldest">Nejstarší první</option>
         </select>
+        <span class="filter-bar-spacer"></span>
+        <button class="pt-filter-btn" (click)="toggleAllExpanded()" [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozbalit vše'">
+          <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
+        </button>
+        <button class="pt-filter-btn" (click)="addEvent()"><mat-icon>add</mat-icon> Přidat událost</button>
+        <button class="btn btn-save" (click)="save()"><mat-icon>save</mat-icon> Uložit</button>
       </div>
 
       <!-- Tag filter row -->
@@ -317,8 +318,7 @@ const ACL = '110,190,160'; // lighter teal
         }
 
         @for (item of filtered(); track item.event.id) {
-          <div class="event-card" [class.event-card--epic]="item.event.importance === 'epic'" [style.border-left-color]="typeMeta(item.event.type).color">
-            <div class="card-rule"></div>
+          <div class="event-card" [class.event-card--epic]="item.event.importance === 'epic'">
 
             <div class="tl-node" [class.tl-node--epic]="item.event.importance === 'epic'"
               [style.border-color]="typeMeta(item.event.type).color"
@@ -370,19 +370,11 @@ const ACL = '110,190,160'; // lighter teal
             @if (expandedIds().has(item.event.id)) {
               <div class="card-body">
 
-                <!-- Row 1: title + in-game date + real date -->
+                <!-- Row 1: title -->
                 <div class="field-row">
-                  <div class="field-group" style="flex:2;min-width:200px">
+                  <div class="field-group" style="flex:1;min-width:200px">
                     <div class="field-label">Název události</div>
                     <input class="field-input" [(ngModel)]="events()[item.idx].title" placeholder="Název…" />
-                  </div>
-                  <div class="field-group">
-                    <div class="field-label">Datum v příběhu</div>
-                    <input class="field-input" [(ngModel)]="events()[item.idx].inGameDate" placeholder="15. Flamerule 1492…" />
-                  </div>
-                  <div class="field-group">
-                    <div class="field-label">Datum záznamu</div>
-                    <input class="field-input" type="date" [(ngModel)]="events()[item.idx].realDate" />
                   </div>
                 </div>
 
@@ -424,24 +416,6 @@ const ACL = '110,190,160'; // lighter teal
                   <div class="rt-wrap">
                     <rich-textarea [(ngModel)]="events()[item.idx].summary" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
                   </div>
-                </div>
-
-                <!-- Image -->
-                <div class="img-zone" [class.img-zone--dragover]="dragOver() === item.idx"
-                  (click)="selectImage(item.idx)"
-                  (dragover)="onDragOver($event, item.idx)"
-                  (dragleave)="dragOver.set(null)"
-                  (drop)="onDrop($event, item.idx)"
-                  matTooltip="Klikni nebo přetáhni obrázek (max 200 KB)">
-                  @if (item.event.imageBase64) {
-                    <img class="img-preview" [src]="'data:image/png;base64,' + item.event.imageBase64" [alt]="item.event.title"
-                      (click)="$event.stopPropagation(); openPreview($event, item.event)" />
-                    <button class="img-remove-btn" (click)="$event.stopPropagation(); removeImage(item.idx)" matTooltip="Odebrat obrázek">
-                      <mat-icon>close</mat-icon>
-                    </button>
-                  } @else {
-                    <div class="img-placeholder"><mat-icon>image</mat-icon>Obrázek (volitelné)</div>
-                  }
                 </div>
 
                 <!-- DM notes -->
@@ -567,9 +541,14 @@ export class DmStoryTimelineComponent {
     this.expandedIds.update(s => new Set([...s, id]));
   }
 
+  readonly allExpanded = computed(() =>
+    this.events().length > 0 && this.events().every(e => this.expandedIds().has(e.id))
+  );
+
   toggleExpand(id: string): void  { this.expandedIds.update(s => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n; }); }
   expandAll():  void               { this.expandedIds.set(new Set(this.events().map(e => e.id))); }
   collapseAll(): void              { this.expandedIds.set(new Set()); }
+  toggleAllExpanded(): void        { this.allExpanded() ? this.collapseAll() : this.expandAll(); }
   toggleDmNotes(id: string): void  { this.dmNotesOpen.update(s => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n; }); }
 
   cycleType(idx: number): void {
