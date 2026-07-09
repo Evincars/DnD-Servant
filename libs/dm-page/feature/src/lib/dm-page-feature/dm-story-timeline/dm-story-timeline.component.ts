@@ -92,12 +92,20 @@ import { StoryEventsListComponent } from './story-events-list.component';
       padding: 6px 10px; background: rgba(200,160,60,.06); border: 1px solid rgba(200,160,60,.15); border-radius: 4px;
     }
     .share-dialog__player-name { font-family: sans-serif; font-size: 12px; color: rgba(220,200,150,.85); }
+    .share-check-icon {
+      font-size: 16px !important; width: 16px !important; height: 16px !important; flex-shrink: 0;
+      &--ok      { color: rgba(80,190,90,.85); }
+      &--warn    { color: rgba(210,80,70,.75); }
+      &--checking { color: rgba(200,160,60,.5); animation: spin .8s linear infinite; }
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
     .share-dialog__remove {
       background: none; border: none; cursor: pointer; color: rgba(200,80,70,.5); font-size: 16px; line-height: 1;
       padding: 2px 4px; border-radius: 2px; transition: color .12s, background .12s;
       &:hover { color: rgba(220,80,70,.9); background: rgba(200,50,40,.12); }
     }
-    .share-dialog__actions { display: flex; gap: 8px; justify-content: flex-end; padding-top: 4px; border-top: 1px solid rgba(200,160,60,.12); margin-top: 4px; }
+    .share-dialog__actions { display: flex; gap: 8px; justify-content: flex-end; padding-top: 4px; margin-top: 4px; }
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes scaleIn { from { transform: scale(.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
@@ -165,6 +173,7 @@ import { StoryEventsListComponent } from './story-events-list.component';
             [filterType]="filterType()"
             [filterTag]="filterTag()"
             [sortOrder]="sortOrder()"
+            storageKey="dnd_story_expanded_shared"
           />
         } @else {
           <div class="no-shared">
@@ -183,6 +192,7 @@ import { StoryEventsListComponent } from './story-events-list.component';
           [filterTag]="filterTag()"
           [sortOrder]="sortOrder()"
           [autoExpandId]="newEventId()"
+          storageKey="dnd_story_expanded_own"
         />
       }
 
@@ -193,7 +203,7 @@ import { StoryEventsListComponent } from './story-events-list.component';
       <div class="share-backdrop" (click)="shareDialogOpen.set(false)">
         <div class="share-dialog" (click)="$event.stopPropagation()">
           <div class="share-dialog__title">Sdílet příběhové události</div>
-          <div class="share-dialog__desc">Pozvaní hráči uvidí tvoje události v režimu pouze pro čtení.</div>
+          <div class="share-dialog__desc">Pozvaní hráči uvidí tvoje události. Editování je pro ně vypnuté.</div>
 
           <div class="share-dialog__section-label">Přidat hráče</div>
           <div class="share-dialog__input-row">
@@ -210,6 +220,13 @@ import { StoryEventsListComponent } from './story-events-list.component';
             }
             @for (player of pendingSharedWith(); track player) {
               <div class="share-dialog__player">
+                @if (userCheckStatus()[player] === 'checking') {
+                  <mat-icon class="share-check-icon share-check-icon--checking">hourglass_empty</mat-icon>
+                } @else if (userCheckStatus()[player] === 'exists') {
+                  <mat-icon class="share-check-icon share-check-icon--ok" matTooltip="Uživatel nalezen">check_circle</mat-icon>
+                } @else if (userCheckStatus()[player] === 'not-found') {
+                  <mat-icon class="share-check-icon share-check-icon--warn" matTooltip="Uživatel nenalezen — mohl by existovat, ale dosud neuložil data">error_outline</mat-icon>
+                }
                 <span class="share-dialog__player-name">{{ player }}</span>
                 <button class="share-dialog__remove" type="button" (click)="removeSharePlayer(player)">✕</button>
               </div>
@@ -247,6 +264,7 @@ export class DmStoryTimelineComponent {
   shareDialogOpen   = signal(false);
   shareInput        = '';
   pendingSharedWith = signal<string[]>([]);
+  userCheckStatus   = signal<Record<string, 'checking' | 'exists' | 'not-found'>>({});
 
   // ── Tabs ───────────────────────────────────────────────────────────────────
   activeTab = signal<'shared' | 'own'>('own');
@@ -332,22 +350,37 @@ export class DmStoryTimelineComponent {
   // ── Share dialog ──────────────────────────────────────────────────────────
   openShareDialog(): void {
     this.pendingSharedWith.set([...this.sharedWith()]);
+    this.userCheckStatus.set({});
     this.shareInput = '';
     this.shareDialogOpen.set(true);
+    // Re-check all existing shared users
+    for (const u of this.sharedWith()) this._checkUser(u);
   }
 
   addSharePlayer(): void {
-    const name = this.shareInput.trim().toLowerCase();
+    const name = this.shareInput.trim();
     if (!name) return;
-    const current = this.auth.currentUser()?.username?.toLowerCase();
-    if (name === current) { this.snack.open('Nemůžeš pozvat sám sebe.', '✕', { verticalPosition: 'top', duration: 2500 }); return; }
-    if (this.pendingSharedWith().includes(name)) return;
+    const current = this.auth.currentUser()?.username;
+    if (name.toLowerCase() === current?.toLowerCase()) {
+      this.snack.open('Nemůžeš pozvat sám sebe.', '✕', { verticalPosition: 'top', duration: 2500 });
+      return;
+    }
+    if (this.pendingSharedWith().some(u => u.toLowerCase() === name.toLowerCase())) return;
     this.pendingSharedWith.update(list => [...list, name]);
     this.shareInput = '';
+    this._checkUser(name);
   }
 
   removeSharePlayer(player: string): void {
     this.pendingSharedWith.update(list => list.filter(p => p !== player));
+    this.userCheckStatus.update(s => { const n = { ...s }; delete n[player]; return n; });
+  }
+
+  private _checkUser(username: string): void {
+    this.userCheckStatus.update(s => ({ ...s, [username]: 'checking' }));
+    this.api.checkUserExists(username).subscribe(exists => {
+      this.userCheckStatus.update(s => ({ ...s, [username]: exists ? 'exists' : 'not-found' }));
+    });
   }
 
   saveSharing(): void {

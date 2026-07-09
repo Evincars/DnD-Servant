@@ -326,6 +326,8 @@ export class StoryEventsListComponent {
   sortOrder  = input<SortOrder>('newest');
   /** When set to an event id, that event is auto-expanded */
   autoExpandId = input<string | null>(null);
+  /** localStorage key for persisting expand state */
+  storageKey = input<string>();
 
   /** Flat read-only view of the signal's current array */
   readonly events = computed(() => this.eventsRef()());
@@ -364,7 +366,32 @@ export class StoryEventsListComponent {
     this.events().length > 0 && this.events().every(e => this.expandedIds().has(e.id))
   );
 
+  private _storageLoaded = false;
+
   constructor() {
+    // Load expandedIds from localStorage when storageKey becomes available
+    effect(() => {
+      const key = this.storageKey();
+      untracked(() => {
+        if (!key || this._storageLoaded) return;
+        this._storageLoaded = true;
+        try {
+          const raw = localStorage.getItem(key);
+          if (raw) this.expandedIds.set(new Set(JSON.parse(raw) as string[]));
+        } catch { /* ignore */ }
+      });
+    });
+
+    // Persist expandedIds to localStorage on every change
+    effect(() => {
+      const ids = this.expandedIds();
+      const key = this.storageKey();
+      if (key && this._storageLoaded) {
+        localStorage.setItem(key, JSON.stringify([...ids]));
+      }
+    });
+
+    // Auto-expand newly added event
     effect(() => {
       const id = this.autoExpandId();
       if (id) untracked(() => this.expandedIds.update(s => { const n = new Set(s); n.add(id); return n; }));

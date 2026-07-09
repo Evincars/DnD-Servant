@@ -56,6 +56,16 @@ export class DmPageApiService {
     }));
   }
 
+  // ── User existence check ─────────────────────────────────────────────────
+
+  /** Returns true if a character-sheet document exists for the given username. */
+  checkUserExists(username: string): Observable<boolean> {
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `character-sheet/${username}`);
+      return getDoc(ref);
+    })).pipe(map(s => s.exists()));
+  }
+
   // ── Timeline Invitations ──────────────────────────────────────────────────
 
   getTimelineInvitation(viewerUsername: string): Observable<TimelineInvitationModel | undefined> {
