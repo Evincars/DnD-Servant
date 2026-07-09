@@ -302,7 +302,7 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
                 <div class="reward-row">
                   <mat-icon class="reward-icon" style="color:rgba(200,60,50,.5)">lock</mat-icon>
                   <input class="reward-input reward-input--secret" [(ngModel)]="quests()[item.idx].secretRewards"
-                         placeholder="Tajná/alternativní odměna..." />
+                         placeholder="Tajná / alternativní odměna..." />
                 </div>
               </div>
             }

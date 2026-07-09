@@ -541,22 +541,21 @@ const LS_FILTER_KEY = 'dnd_quests_filter';
                 <div class="quest-meta-row">
                   <div class="quest-meta-field">
                     <mat-icon class="quest-meta-icon">person</mat-icon>
-                    <input class="quest-meta-input" [(ngModel)]="quests()[item.idx].npcName" (ngModelChange)="scheduleAutoSave()" placeholder="NPC / Zadavatel" />
+                    <input class="quest-meta-input" [(ngModel)]="quests()[item.idx].npcName" (ngModelChange)="scheduleAutoSave()" placeholder="Kdo quest zadal..." />
                   </div>
                   <div class="quest-meta-field">
                     <mat-icon class="quest-meta-icon">place</mat-icon>
-                    <input class="quest-meta-input" [(ngModel)]="quests()[item.idx].location" (ngModelChange)="scheduleAutoSave()" placeholder="Lokalita / Oblast" />
+                    <input class="quest-meta-input" [(ngModel)]="quests()[item.idx].location" (ngModelChange)="scheduleAutoSave()" placeholder="Lokalita / Oblast..." />
                   </div>
                   <div class="quest-meta-field">
                     <mat-icon class="quest-meta-icon" style="color:rgba(200,160,60,.55)">payments</mat-icon>
-                    <input class="quest-meta-input quest-meta-input--gold" [(ngModel)]="quests()[item.idx].rewards" (ngModelChange)="scheduleAutoSave()" placeholder="Odměna, zkušenosti, předměty..." />
+                    <input class="quest-meta-input quest-meta-input--gold" [(ngModel)]="quests()[item.idx].rewards" (ngModelChange)="scheduleAutoSave()" placeholder="Odměna..." />
                   </div>
                 </div>
 
                 <!-- Rich notes -->
                 <div class="quest-section-label">
-                  <mat-icon>notes</mat-icon>
-                  Zápisky &amp; Postup
+                  Zápisky
                 </div>
                 <div class="quest-desc-wrap">
                   <rich-textarea
