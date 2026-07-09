@@ -17,25 +17,16 @@ import { SpinnerOverlayComponent, RichTextareaComponent } from '@dn-d-servant/ui
 import { AuthService } from '@dn-d-servant/util';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DmPageStore } from '../../dm-page.store';
-import { StoryEvent, StoryEventImportance, StoryEventType } from '../../dm-page-models';
+import { StoryEvent, StoryEventType } from '../../dm-page-models';
 
 const TYPE_META: Record<StoryEventType, { label: string; icon: string; color: string; bg: string }> = {
-  battle:    { label: 'Bitva',   icon: 'swords',       color: 'rgba(210,80,65,.9)',   bg: 'rgba(190,60,45,.12)'  },
-  discovery: { label: 'Objev',   icon: 'explore',      color: 'rgba(60,185,150,.9)',  bg: 'rgba(40,160,120,.10)' },
-  npc_met:   { label: 'Setkání', icon: 'person_add',   color: 'rgba(100,140,210,.9)', bg: 'rgba(70,110,190,.10)' },
-  milestone: { label: 'Milník',  icon: 'star',         color: 'rgba(210,175,55,.9)',  bg: 'rgba(190,155,40,.10)' },
-  loss:      { label: 'Ztráta',  icon: 'heart_broken', color: 'rgba(170,80,120,.9)',  bg: 'rgba(140,55,95,.10)'  },
-  other:     { label: 'Ostatní', icon: 'bookmark',     color: 'rgba(130,130,130,.8)', bg: 'rgba(100,100,100,.08)'},
+  world:     { label: 'Světové události',  icon: 'public',       color: 'rgba(100,140,210,.9)', bg: 'rgba(70,110,190,.10)' },
+  campaign:  { label: 'Události kampaně',  icon: 'auto_stories', color: 'rgba(210,175,55,.9)',  bg: 'rgba(190,155,40,.10)' },
+  character: { label: 'Události postav',   icon: 'person',       color: 'rgba(60,185,150,.9)',  bg: 'rgba(40,160,120,.10)' },
+  other:     { label: 'Jiné',              icon: 'bookmark',     color: 'rgba(130,130,130,.8)', bg: 'rgba(100,100,100,.08)'},
 };
 
-const IMPORTANCE_META: Record<StoryEventImportance, { label: string; color: string; glow: string }> = {
-  minor: { label: 'Vedlejší', color: 'rgba(130,130,130,.7)',  glow: 'none' },
-  major: { label: 'Hlavní',  color: 'rgba(200,160,60,.85)',   glow: '0 0 8px rgba(200,160,60,.3)' },
-  epic:  { label: 'Epický',  color: 'rgba(210,175,55,.95)',   glow: '0 0 14px rgba(200,160,40,.45)' },
-};
-
-const TYPE_ORDER: StoryEventType[]            = ['battle', 'discovery', 'npc_met', 'milestone', 'loss', 'other'];
-const IMPORTANCE_ORDER: StoryEventImportance[] = ['minor', 'major'];
+const TYPE_ORDER: StoryEventType[] = ['world', 'campaign', 'character', 'other'];
 
 type FilterType = 'all' | StoryEventType;
 type SortOrder  = 'newest' | 'oldest';
@@ -119,12 +110,6 @@ const ACL = '110,190,160'; // lighter teal
       border: 2px solid; background: rgba(14,12,8,.96);
       mat-icon { font-size: 14px; width: 14px; height: 14px; }
     }
-    .tl-node--epic { animation: epicPulse 2.5s ease-in-out infinite; }
-    @keyframes epicPulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(200,160,40,.0); }
-      50%       { box-shadow: 0 0 0 7px rgba(200,160,40,.28); }
-    }
-
     /* ── Event card ──────────────────────────────── */
     .event-card {
       position: relative; border-radius: 3px; margin-bottom: 20px;
@@ -141,12 +126,6 @@ const ACL = '110,190,160'; // lighter teal
       font-family: sans-serif; font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
       border-radius: 6px; padding: 4px 12px; cursor: pointer; border: 1px solid currentColor;
       transition: filter .15s; white-space: nowrap; flex-shrink: 0;
-      &:hover { filter: brightness(1.18); }
-    }
-    .importance-badge {
-      font-family: sans-serif; font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
-      border-radius: 6px; padding: 4px 12px; cursor: pointer; transition: filter .15s; white-space: nowrap; flex-shrink: 0;
-      border: 1px solid currentColor;
       &:hover { filter: brightness(1.18); }
     }
     .card-title-wrap { flex: 1; min-width: 0; overflow: hidden; }
@@ -318,12 +297,11 @@ const ACL = '110,190,160'; // lighter teal
         }
 
         @for (item of filtered(); track item.event.id) {
-          <div class="event-card" [class.event-card--epic]="item.event.importance === 'epic'">
+          <div class="event-card">
 
-            <div class="tl-node" [class.tl-node--epic]="item.event.importance === 'epic'"
+            <div class="tl-node"
               [style.border-color]="typeMeta(item.event.type).color"
-              [style.color]="typeMeta(item.event.type).color"
-              [style.box-shadow]="importanceMeta(item.event.importance).glow">
+              [style.color]="typeMeta(item.event.type).color">
               <mat-icon>{{ typeMeta(item.event.type).icon }}</mat-icon>
             </div>
 
@@ -331,9 +309,6 @@ const ACL = '110,190,160'; // lighter teal
             <div class="card-header" (click)="toggleExpand(item.event.id)">
               <span class="type-badge" [style.color]="typeMeta(item.event.type).color" [style.background]="typeMeta(item.event.type).bg"
                 (click)="$event.stopPropagation(); cycleType(item.idx)" matTooltip="Kliknutím změnit typ">{{ typeMeta(item.event.type).label }}</span>
-
-              <span class="importance-badge" [style.color]="importanceMeta(item.event.importance).color" [style.box-shadow]="importanceMeta(item.event.importance).glow"
-                (click)="$event.stopPropagation(); cycleImportance(item.idx)" matTooltip="Kliknutím změnit důležitost">{{ importanceMeta(item.event.importance).label }}</span>
 
               <div class="card-title-wrap">
                 <div class="card-title" [class.card-title--placeholder]="!item.event.title">
@@ -525,7 +500,7 @@ export class DmStoryTimelineComponent {
 
   addEvent(): void {
     const id = crypto.randomUUID();
-    this.events.update(list => [{ id, title: '', inGameDate: '', realDate: new Date().toISOString().split('T')[0], type: 'other', importance: 'minor', summary: '', dmNotes: '', imageBase64: null, location: '', tags: '' } as StoryEvent, ...list]);
+    this.events.update(list => [{ id, title: '', inGameDate: '', realDate: new Date().toISOString().split('T')[0], type: 'other', summary: '', dmNotes: '', imageBase64: null, location: '', tags: '' } as StoryEvent, ...list]);
     this.expandedIds.update(s => new Set([...s, id]));
   }
 
@@ -542,10 +517,6 @@ export class DmStoryTimelineComponent {
   cycleType(idx: number): void {
     this.events.update(list => list.map((e, i) => i !== idx ? e : { ...e, type: TYPE_ORDER[(TYPE_ORDER.indexOf(e.type) + 1) % TYPE_ORDER.length] }));
   }
-  cycleImportance(idx: number): void {
-    this.events.update(list => list.map((e, i) => i !== idx ? e : { ...e, importance: IMPORTANCE_ORDER[(IMPORTANCE_ORDER.indexOf(e.importance) + 1) % IMPORTANCE_ORDER.length] }));
-  }
-
   // ── Tags ──────────────────────────────────────────────────────────────────
   getTagInput(id: string): string                  { return this.tagInputMap()[id] ?? ''; }
   setTagInput(id: string, val: string): void       { this.tagInputMap.update(m => ({ ...m, [id]: val })); }
@@ -606,8 +577,7 @@ export class DmStoryTimelineComponent {
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────────
-  typeMeta(t: StoryEventType)            { return TYPE_META[t]; }
-  importanceMeta(i: StoryEventImportance){ return IMPORTANCE_META[i]; }
+  typeMeta(t: string) { return TYPE_META[t as StoryEventType] ?? TYPE_META['other']; }
   parseTags(tags: string): string[]      { return tags.split(/[,\s]+/).map(t => t.trim()).filter(Boolean); }
 }
 
