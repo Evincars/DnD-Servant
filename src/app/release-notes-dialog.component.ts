@@ -23,7 +23,6 @@ const RELEASE_NOTES: ReleaseGroup[] = [
       i('Lepší, jednodušší design tabů (změna pořadí stránek + Konvertor Obrázků přesunut na PH Nástroje), odstranění zbytečných nadpisů z daných stránek, změna barevné palety pro některé prvky.'),
       i('DM Qeusty a hráčské Questy - vylepšený a zjednodušený design karet, odstranění obrázku, uložení vybraného filtru'),
       i('Tabulka Iniciativy - zjednodušený a vylepšený design (vč. karet příšer pro DM).'),
-      i(''),
     ],
   },
   {

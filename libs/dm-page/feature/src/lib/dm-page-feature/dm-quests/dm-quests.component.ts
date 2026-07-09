@@ -198,24 +198,34 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
       <!-- Filter bar + actions in one row -->
       <div class="filter-bar">
         @for (t of filterTabs; track t.value) {
-          <button type="button" class="pt-filter-btn" [class.active]="filterStatus() === t.value" (click)="filterStatus.set(t.value)">
+          <button type="button" class="pt-filter-btn" [class.active]="filterStatus() === t.value"
+                  (click)="filterStatus.set(t.value)">
             {{ t.label }}<span class="filter-count">{{ counts()[t.value] }}</span>
           </button>
         }
         <div class="bar-actions">
           <button class="btn btn-icon" type="button" (click)="toggleAllExpanded()"
-            [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">
+                  [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozvinout vše'">
             <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
           </button>
-          <button class="btn" type="button" (click)="addQuest()"><mat-icon>add</mat-icon>Přidat quest</button>
-          <button class="btn btn-save" type="button" (click)="save()"><mat-icon>save</mat-icon>Uložit</button>
+          <button class="btn" type="button" (click)="addQuest()">
+            <mat-icon>add</mat-icon>
+            Přidat quest
+          </button>
+          <button class="btn btn-save" type="button" (click)="save()">
+            <mat-icon>save</mat-icon>
+            Uložit
+          </button>
         </div>
       </div>
 
       <!-- Grid -->
       <div class="quest-grid">
         @if (filtered().length === 0) {
-          <div class="empty-state"><mat-icon>auto_stories</mat-icon>Žádné questy. Začni psát příběh!</div>
+          <div class="empty-state">
+            <mat-icon>auto_stories</mat-icon>
+            Žádné questy. Začni psát příběh!
+          </div>
         }
 
         @for (item of filtered(); track item.quest.id) {
@@ -224,12 +234,14 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
             <!-- Card header -->
             <div class="card-header" (click)="toggleExpand(item.quest.id)">
               <button class="diff-badge diff-badge--{{ item.quest.difficulty }}" type="button"
-                (click)="cycleDiff(item.idx); $event.stopPropagation()" matTooltip="Obtížnost — klikni pro změnu" matTooltipShowDelay="400">{{ diffLabel(item.quest.difficulty) }}</button>
+                      (click)="cycleDiff(item.idx); $event.stopPropagation()" matTooltip="Obtížnost — klikni pro změnu"
+                      matTooltipShowDelay="400">{{ diffLabel(item.quest.difficulty) }}
+              </button>
               <!-- Stage pips -->
               <div class="stage-pips">
-                @for (n of [1,2,3,4]; track n) {
+                @for (n of [1, 2, 3, 4]; track n) {
                   <span class="stage-pip" [class.stage-pip--filled]="n <= item.quest.stage"
-                    (click)="setStage(item.idx, n); $event.stopPropagation()" [matTooltip]="stageName(n)"></span>
+                        (click)="setStage(item.idx, n); $event.stopPropagation()" [matTooltip]="stageName(n)"></span>
                 }
               </div>
               @if (item.quest.stage >= 4) {
@@ -238,10 +250,11 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
               <span class="card-header-spacer"></span>
               <div class="card-btns">
                 <button mat-icon-button class="expand-btn" type="button"
-                  [matTooltip]="expandedIds().has(item.quest.id) ? 'Sbalit' : 'Rozbalit'">
+                        [matTooltip]="expandedIds().has(item.quest.id) ? 'Sbalit' : 'Rozbalit'">
                   <mat-icon>{{ expandedIds().has(item.quest.id) ? 'expand_less' : 'expand_more' }}</mat-icon>
                 </button>
-                <button mat-icon-button class="delete-btn" type="button" (click)="askDelete(item.idx); $event.stopPropagation()" matTooltip="Smazat">
+                <button mat-icon-button class="delete-btn" type="button"
+                        (click)="askDelete(item.idx); $event.stopPropagation()" matTooltip="Smazat">
                   <mat-icon>delete_outline</mat-icon>
                 </button>
               </div>
@@ -249,17 +262,20 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
 
             <!-- Title -->
             <div class="title-row">
-              <input class="title-input" [(ngModel)]="quests()[item.idx].title" placeholder="Název questu / příběhu..." (click)="$event.stopPropagation()" />
+              <input class="title-input" [(ngModel)]="quests()[item.idx].title" placeholder="Název questu / příběhu..."
+                     (click)="$event.stopPropagation()" />
               <div class="card-meta-peek">
                 @if (item.quest.dateAdded) {
                   <span class="card-date">{{ item.quest.dateAdded }}</span>
                   <span class="peek-sep">·</span>
                 }
                 <mat-icon class="peek-icon">place</mat-icon>
-                <input class="peek-input" [(ngModel)]="quests()[item.idx].location" placeholder="Lokalita..." (click)="$event.stopPropagation()" />
+                <input class="peek-input" [(ngModel)]="quests()[item.idx].location" placeholder="Lokalita..."
+                       (click)="$event.stopPropagation()" />
                 <span class="peek-sep">·</span>
                 <mat-icon class="peek-icon" style="color:rgba(200,80,60,.35)">whatshot</mat-icon>
-                <input class="peek-input" [(ngModel)]="quests()[item.idx].antagonist" placeholder="Antagonista..." (click)="$event.stopPropagation()" />
+                <input class="peek-input" [(ngModel)]="quests()[item.idx].antagonist" placeholder="Co je cílem..."
+                       (click)="$event.stopPropagation()" />
               </div>
             </div>
 
@@ -268,21 +284,25 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
 
                 <!-- ⚔ Player-visible textarea -->
                 <div class="rt-wrap rt-wrap--player">
-                  <rich-textarea [(ngModel)]="quests()[item.idx].playerDescription" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
+                  <rich-textarea [(ngModel)]="quests()[item.idx].playerDescription"
+                                 style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
                 </div>
                 <div class="reward-row">
                   <mat-icon class="reward-icon" style="color:rgba(200,160,60,.55)">payments</mat-icon>
-                  <input class="reward-input" [(ngModel)]="quests()[item.idx].publicRewards" placeholder="Veřejná odměna (hráči to ví)..." />
+                  <input class="reward-input" [(ngModel)]="quests()[item.idx].publicRewards"
+                         placeholder="Dohodnutá odměna..." />
                 </div>
 
                 <!-- 🔒 DM-only textarea -->
-                <div class="rt-label">Info pro PH</div>
-                <div class="rt-wrap">
-                  <rich-textarea [(ngModel)]="quests()[item.idx].dmNotes" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
+                <div class="rt-label" style="font-size: 11px; margin-top: 15px; color: #ba4242;">Info pro PH</div>
+                <div class="rt-wrap" style="margin-top: 4px;">
+                  <rich-textarea [(ngModel)]="quests()[item.idx].dmNotes"
+                                 style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
                 </div>
                 <div class="reward-row">
                   <mat-icon class="reward-icon" style="color:rgba(200,60,50,.5)">lock</mat-icon>
-                  <input class="reward-input reward-input--secret" [(ngModel)]="quests()[item.idx].secretRewards" placeholder="Tajná odměna / DM plán..." />
+                  <input class="reward-input reward-input--secret" [(ngModel)]="quests()[item.idx].secretRewards"
+                         placeholder="Tajná/alternativní odměna..." />
                 </div>
               </div>
             }
@@ -294,10 +314,16 @@ const STAGE_LABELS = ['Neaktivní', 'Aktivní', 'Rozuzlení', 'Dokončeno'];
     @if (confirmIdx() !== null) {
       <div class="confirm-backdrop" (click)="cancelDelete()">
         <div class="confirm-dialog" (click)="$event.stopPropagation()">
-          <div class="confirm-icon"><mat-icon>delete_forever</mat-icon></div>
+          <div class="confirm-icon">
+            <mat-icon>delete_forever</mat-icon>
+          </div>
           <div class="confirm-title">Smazat quest?</div>
           <div class="confirm-msg">Opravdu smazat quest
-            @if (quests()[confirmIdx()!]?.title) { <strong>„{{ quests()[confirmIdx()!].title }}"</strong> } @else { <strong>bez názvu</strong> }?
+            @if (quests()[confirmIdx()!]?.title) {
+              <strong>„{{ quests()[confirmIdx()!].title }}"</strong>
+            } @else {
+              <strong>bez názvu</strong>
+            }?
           </div>
           <div class="confirm-rule"></div>
           <div class="confirm-actions">
