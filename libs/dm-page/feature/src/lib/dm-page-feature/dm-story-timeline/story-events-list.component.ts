@@ -224,7 +224,7 @@ import {
 
               <div class="field-row">
                 <div class="field-group" style="flex:1;min-width:200px">
-                  <div class="field-label">Název události</div>
+                  <div class="field-label" style="margin-top: 11px;">Název události</div>
                   <input class="field-input" [(ngModel)]="events()[item.idx].title" placeholder="Název…" [disabled]="isReadOnly()" />
                 </div>
               </div>
@@ -285,7 +285,7 @@ import {
 
               <div>
                 <div class="rt-label">Shrnutí události</div>
-                <div class="rt-wrap">
+                <div class="rt-wrap" style="margin-top: 10px;">
                   <rich-textarea [(ngModel)]="events()[item.idx].summary" style="position:absolute;top:0;left:0;width:100%;height:100%;"></rich-textarea>
                 </div>
               </div>

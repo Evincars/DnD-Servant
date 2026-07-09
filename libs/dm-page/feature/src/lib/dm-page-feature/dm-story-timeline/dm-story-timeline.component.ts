@@ -148,7 +148,7 @@ import { StoryEventsListComponent } from './story-events-list.component';
       <!-- Tag filter row -->
       @if (allTags().length > 0) {
         <div class="tag-filter-row">
-          <span class="tag-filter-label">Štítek:</span>
+          <span class="tag-filter-label">Štítky:</span>
           <button class="tag-filter-chip" [class.tag-filter-chip--active]="filterTag() === null" (click)="filterTag.set(null)">vše</button>
           @for (tag of allTags(); track tag) {
             <button class="tag-filter-chip" [class.tag-filter-chip--active]="filterTag() === tag" (click)="filterTag.set(filterTag() === tag ? null : tag)">{{ tag }}</button>
