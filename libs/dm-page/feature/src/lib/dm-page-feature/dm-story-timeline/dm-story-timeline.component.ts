@@ -35,7 +35,7 @@ const IMPORTANCE_META: Record<StoryEventImportance, { label: string; color: stri
 };
 
 const TYPE_ORDER: StoryEventType[]            = ['battle', 'discovery', 'npc_met', 'milestone', 'loss', 'other'];
-const IMPORTANCE_ORDER: StoryEventImportance[] = ['minor', 'major', 'epic'];
+const IMPORTANCE_ORDER: StoryEventImportance[] = ['minor', 'major'];
 
 type FilterType = 'all' | StoryEventType;
 type SortOrder  = 'newest' | 'oldest';
@@ -138,30 +138,30 @@ const ACL = '110,190,160'; // lighter teal
     /* ── Card header ────────────────────────────── */
     .card-header { display: flex; align-items: center; gap: 8px; padding: 10px 12px 7px; flex-wrap: wrap; cursor: pointer; user-select: none; }
     .type-badge {
-      font-family: sans-serif; font-size: 8px; letter-spacing: .12em; text-transform: uppercase;
-      border-radius: 10px; padding: 2px 9px; cursor: pointer; border: 1px solid currentColor;
+      font-family: sans-serif; font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+      border-radius: 6px; padding: 4px 12px; cursor: pointer; border: 1px solid currentColor;
       transition: filter .15s; white-space: nowrap; flex-shrink: 0;
       &:hover { filter: brightness(1.18); }
     }
     .importance-badge {
-      font-family: sans-serif; font-size: 7px; letter-spacing: .1em; text-transform: uppercase;
-      border-radius: 2px; padding: 2px 7px; cursor: pointer; transition: filter .15s; white-space: nowrap; flex-shrink: 0;
+      font-family: sans-serif; font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+      border-radius: 6px; padding: 4px 12px; cursor: pointer; transition: filter .15s; white-space: nowrap; flex-shrink: 0;
       border: 1px solid currentColor;
       &:hover { filter: brightness(1.18); }
     }
-    .card-title-wrap { flex: 1; min-width: 0; }
+    .card-title-wrap { flex: 1; min-width: 0; overflow: hidden; }
     .card-title {
-      font-family: sans-serif; font-size: 14px; font-weight: 500; color: #ddd5c5;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      font-family: sans-serif; font-size: 16px; font-weight: 500; color: #ddd5c5;
+      display: flex; align-items: center; gap: 10px; overflow: hidden;
       &--placeholder { color: rgba(200,185,160,.2); font-style: italic; }
     }
-    .card-meta { display: flex; gap: 8px; align-items: center; margin-top: 3px; }
-    .card-date     { font-family: sans-serif; font-size: 9px; color: rgba(175,160,135,.42); letter-spacing: .04em; }
-    .card-location { font-family: sans-serif; font-size: 9px; color: rgba(175,160,135,.32); letter-spacing: .03em;
-      display: flex; align-items: center; gap: 3px;
-      mat-icon { font-size: 10px; width: 10px; height: 10px; }
+    .card-title-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 1; min-width: 0; }
+    .card-date     { font-family: sans-serif; font-size: 9px; color: rgba(175,160,135,.42); letter-spacing: .04em; white-space: nowrap; flex-shrink: 0; }
+    .card-location { font-family: sans-serif; font-size: 10px; color: rgba(175,160,135,.35); letter-spacing: .03em;
+      display: flex; align-items: center; gap: 3px; white-space: nowrap; flex-shrink: 0;
+      mat-icon { font-size: 11px; width: 11px; height: 11px; }
     }
-    .card-actions { display: flex; gap: 2px; margin-left: auto; align-items: center; flex-shrink: 0; }
+    .card-actions { display: flex; gap: 2px; align-items: center; flex-shrink: 0; }
     .card-action-btn {
       background: none; border: none; cursor: pointer; color: rgba(155,140,115,.38); padding: 4px; border-radius: 3px;
       transition: color .15s, background .15s; display: flex; align-items: center;
@@ -175,8 +175,8 @@ const ACL = '110,190,160'; // lighter teal
     /* ── Tag chips (collapsed view) ─────────────── */
     .tag-list { display: flex; gap: 5px; flex-wrap: wrap; padding: 0 12px 8px; }
     .tag-chip {
-      font-family: sans-serif; font-size: 9px; padding: 1px 7px; border-radius: 10px;
-      background: rgba(140,125,100,.1); border: 1px solid rgba(155,140,115,.2); color: rgba(185,170,140,.58);
+      font-family: sans-serif; font-size: 11px; padding: 3px 9px; border-radius: 10px;
+      background: rgba(140,125,100,.1); border: 1px solid rgba(155,140,115,.2); color: rgba(185,170,140,.7);
       letter-spacing: .03em; display: inline-flex; align-items: center; gap: 4px;
     }
 
@@ -192,7 +192,7 @@ const ACL = '110,190,160'; // lighter teal
       &::placeholder { color: rgba(155,140,115,.22); }
     }
     .rt-label { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(155,140,115,.38); margin-bottom: 3px; }
-    .rt-wrap { position: relative; height: 110px; background: rgba(140,125,100,.05); border: 1px solid rgba(155,140,115,.13); border-radius: 3px; overflow: hidden; }
+    .rt-wrap { position: relative; height: 160px; background: rgba(140,125,100,.05); border: 1px solid rgba(155,140,115,.13); border-radius: 3px; overflow: visible; margin-top: 44px; }
 
     /* ── Tag input (edit mode) ───────────────────── */
     .tag-input-wrap {
@@ -337,15 +337,16 @@ const ACL = '110,190,160'; // lighter teal
 
               <div class="card-title-wrap">
                 <div class="card-title" [class.card-title--placeholder]="!item.event.title">
-                  {{ item.event.title || 'Bez názvu…' }}
-                </div>
-                <div class="card-meta">
-                  @if (item.event.inGameDate) { <span class="card-date">📅 {{ item.event.inGameDate }}</span> }
+                  <span class="card-title-text">{{ item.event.title || 'Bez názvu…' }}</span>
                   @if (item.event.location) {
                     <span class="card-location"><mat-icon>location_on</mat-icon>{{ item.event.location }}</span>
                   }
                 </div>
               </div>
+
+              @if (item.event.realDate) {
+                <span class="card-date">{{ item.event.realDate }}</span>
+              }
 
               <div class="card-actions" (click)="$event.stopPropagation()">
                 <button class="card-action-btn card-action-btn--danger" (click)="askDelete(item.idx)" matTooltip="Smazat událost">
@@ -385,7 +386,7 @@ const ACL = '110,190,160'; // lighter teal
                     <input class="field-input" [(ngModel)]="events()[item.idx].location" placeholder="Město, dungeon, les…" />
                   </div>
                   <div class="field-group" style="flex:2">
-                    <div class="field-label">Štítky — Enter nebo čárka přidá</div>
+                    <div class="field-label">Štítky</div>
                     <div class="tag-input-wrap" (click)="focusTagInput(item.event.id)">
                       @for (tag of parseTags(events()[item.idx].tags); track tag) {
                         <span class="tag-chip tag-chip--removable">
@@ -402,7 +403,7 @@ const ACL = '110,190,160'; // lighter teal
                         [ngModel]="getTagInput(item.event.id)"
                         (ngModelChange)="setTagInput(item.event.id, $event)"
                         (keydown.enter)="$event.preventDefault(); addTagFromInput(item.idx)"
-                        (keydown.,)="$event.preventDefault(); addTagFromInput(item.idx)"
+                        (keydown.space)="$event.preventDefault(); addTagFromInput(item.idx)"
                         (blur)="addTagFromInput(item.idx)"
                         placeholder="{{ parseTags(events()[item.idx].tags).length ? '' : 'Přidat štítek…' }}"
                       />
@@ -414,21 +415,8 @@ const ACL = '110,190,160'; // lighter teal
                 <div>
                   <div class="rt-label">Shrnutí události</div>
                   <div class="rt-wrap">
-                    <rich-textarea [(ngModel)]="events()[item.idx].summary" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
+                    <rich-textarea [(ngModel)]="events()[item.idx].summary" style="position:absolute;top:0;left:0;width:100%;height:100%;"></rich-textarea>
                   </div>
-                </div>
-
-                <!-- DM notes -->
-                <div>
-                  <button class="dm-section-toggle" (click)="toggleDmNotes(item.event.id)">
-                    <mat-icon>lock</mat-icon> PH poznámky (tajné)
-                    <mat-icon>{{ dmNotesOpen().has(item.event.id) ? 'expand_less' : 'expand_more' }}</mat-icon>
-                  </button>
-                  @if (dmNotesOpen().has(item.event.id)) {
-                    <div class="dm-rt-wrap">
-                      <rich-textarea [(ngModel)]="events()[item.idx].dmNotes" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
-                    </div>
-                  }
                 </div>
 
               </div>
@@ -568,12 +556,12 @@ export class DmStoryTimelineComponent {
     const val = this.getTagInput(id).trim(); if (!val) return;
     const existing = this.parseTags(this.events()[idx].tags);
     if (!existing.includes(val)) {
-      this.events.update(list => list.map((e, i) => i !== idx ? e : { ...e, tags: [...existing, val].join(', ') }));
+      this.events.update(list => list.map((e, i) => i !== idx ? e : { ...e, tags: [...existing, val].join(' ') }));
     }
     this.setTagInput(id, '');
   }
   removeTag(idx: number, tag: string): void {
-    this.events.update(list => list.map((e, i) => i !== idx ? e : { ...e, tags: this.parseTags(e.tags).filter(t => t !== tag).join(', ') }));
+    this.events.update(list => list.map((e, i) => i !== idx ? e : { ...e, tags: this.parseTags(e.tags).filter(t => t !== tag).join(' ') }));
   }
 
   // ── CRUD ──────────────────────────────────────────────────────────────────
@@ -620,6 +608,6 @@ export class DmStoryTimelineComponent {
   // ── Helpers ───────────────────────────────────────────────────────────────
   typeMeta(t: StoryEventType)            { return TYPE_META[t]; }
   importanceMeta(i: StoryEventImportance){ return IMPORTANCE_META[i]; }
-  parseTags(tags: string): string[]      { return tags.split(',').map(t => t.trim()).filter(Boolean); }
+  parseTags(tags: string): string[]      { return tags.split(/[,\s]+/).map(t => t.trim()).filter(Boolean); }
 }
 
