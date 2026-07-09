@@ -1,7 +1,7 @@
 import { inject, Injectable, Injector, runInInjectionContext } from '@angular/core';
-import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
+import { deleteDoc, doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
 import { from, map, Observable } from 'rxjs';
-import { DmNotesApiModel, DmQuestsApiModel, DmStoryTimelineApiModel } from './dm-page-models';
+import { DmNotesApiModel, DmQuestsApiModel, DmStoryTimelineApiModel, TimelineInvitationModel } from './dm-page-models';
 
 @Injectable({ providedIn: 'root' })
 export class DmPageApiService {
@@ -53,6 +53,29 @@ export class DmPageApiService {
     return from(runInInjectionContext(this.injector, () => {
       const ref = doc(this.firestore, `dm-story-timeline/${model.username}`);
       return setDoc(ref, model);
+    }));
+  }
+
+  // ── Timeline Invitations ──────────────────────────────────────────────────
+
+  getTimelineInvitation(viewerUsername: string): Observable<TimelineInvitationModel | undefined> {
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `timeline-invitations/${viewerUsername}`);
+      return getDoc(ref);
+    })).pipe(map(s => (s.exists() ? (s.data() as TimelineInvitationModel) : undefined)));
+  }
+
+  setTimelineInvitation(model: TimelineInvitationModel): Observable<void> {
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `timeline-invitations/${model.viewerUsername}`);
+      return setDoc(ref, model);
+    }));
+  }
+
+  removeTimelineInvitation(viewerUsername: string): Observable<void> {
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `timeline-invitations/${viewerUsername}`);
+      return deleteDoc(ref);
     }));
   }
 }

@@ -65,5 +65,12 @@ export interface StoryEvent {
 export interface DmStoryTimelineApiModel {
   username: string;
   events: StoryEvent[];
+  /** Usernames of players allowed to view this timeline (read-only) */
+  sharedWith?: string[];
+}
+
+export interface TimelineInvitationModel {
+  viewerUsername: string;
+  ownerUsername: string;
 }
 

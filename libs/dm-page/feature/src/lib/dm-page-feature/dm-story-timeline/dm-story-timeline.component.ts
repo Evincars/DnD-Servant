@@ -16,7 +16,9 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { SpinnerOverlayComponent, RichTextareaComponent } from '@dn-d-servant/ui';
 import { AuthService } from '@dn-d-servant/util';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { forkJoin } from 'rxjs';
 import { DmPageStore } from '../../dm-page.store';
+import { DmPageApiService } from '../../dm-page-api.service';
 import { StoryEvent, StoryEventType } from '../../dm-page-models';
 
 // ── Fuzzy-search helpers ──────────────────────────────────────────────────────
@@ -307,6 +309,53 @@ const ACL = '110,190,160'; // lighter teal
     .preview-title { font-family: sans-serif; font-size: 14px; color: #ddd5c5; text-align: center; }
     .preview-frame { border: 1px solid rgba(155,140,115,.28); border-radius: 4px; overflow: hidden; img { max-width: 85vw; max-height: 80vh; display: block; } }
     .preview-hint { font-size: 10px; color: rgba(155,140,115,.28); letter-spacing: .06em; }
+
+    /* ── Read-only banner ───────────────────────── */
+    .readonly-banner {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 16px; padding: 10px 16px;
+      background: rgba(100,140,210,.08);
+      border: 1px solid rgba(100,140,210,.25);
+      border-radius: 4px;
+      font-family: sans-serif; font-size: 12px; color: rgba(160,190,240,.8);
+      mat-icon { font-size: 16px; width: 16px; height: 16px; flex-shrink: 0; }
+    }
+    .readonly-banner__owner {
+      color: #a8c4f0; font-weight: 600;
+    }
+
+    /* ── Share dialog ───────────────────────────── */
+    .share-backdrop { position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,.75); display: flex; align-items: center; justify-content: center; animation: fadeIn .14s ease; }
+    .share-dialog {
+      background: linear-gradient(160deg, rgba(14,10,4,.99) 0%, rgba(8,6,2,1) 100%);
+      border: 1px solid rgba(200,160,60,.35); border-top: 2px solid rgba(200,160,60,.7);
+      box-shadow: 0 12px 50px rgba(0,0,0,.9); border-radius: 3px;
+      padding: 26px 30px 22px; min-width: 340px; max-width: 460px; width: 90vw;
+      animation: scaleIn .14s ease;
+    }
+    .share-dialog__title { font-family: sans-serif; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: #e8c96a; margin: 0 0 6px; }
+    .share-dialog__desc { font-size: 11px; color: rgba(255,255,255,.35); font-family: sans-serif; margin: 0 0 18px; font-style: italic; }
+    .share-dialog__section-label { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(200,160,60,.4); margin-bottom: 8px; }
+    .share-dialog__input-row { display: flex; gap: 8px; margin-bottom: 16px; }
+    .share-dialog__input {
+      flex: 1; background: rgba(200,160,60,.06); border: 1px solid rgba(200,160,60,.22); border-radius: 4px;
+      color: rgba(220,210,190,.85); font-family: sans-serif; font-size: 13px; padding: 7px 12px; outline: none;
+      &:focus { border-color: rgba(200,160,60,.5); background: rgba(200,160,60,.1); }
+      &::placeholder { color: rgba(200,160,60,.25); }
+    }
+    .share-dialog__list { display: flex; flex-direction: column; gap: 5px; min-height: 40px; margin-bottom: 20px; }
+    .share-dialog__empty { font-size: 11px; color: rgba(255,255,255,.2); font-style: italic; font-family: sans-serif; padding: 6px 0; }
+    .share-dialog__player {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 6px 10px; background: rgba(200,160,60,.06); border: 1px solid rgba(200,160,60,.15); border-radius: 4px;
+    }
+    .share-dialog__player-name { font-family: sans-serif; font-size: 12px; color: rgba(220,200,150,.85); }
+    .share-dialog__remove {
+      background: none; border: none; cursor: pointer; color: rgba(200,80,70,.5); font-size: 16px; line-height: 1;
+      padding: 2px 4px; border-radius: 2px; transition: color .12s, background .12s;
+      &:hover { color: rgba(220,80,70,.9); background: rgba(200,50,40,.12); }
+    }
+    .share-dialog__actions { display: flex; gap: 8px; justify-content: flex-end; padding-top: 4px; border-top: 1px solid rgba(200,160,60,.12); margin-top: 4px; }
   `,
   template: `
     <spinner-overlay [diameter]="60" [showSpinner]="store.loading()">
@@ -329,9 +378,22 @@ const ACL = '110,190,160'; // lighter teal
         <button class="pt-filter-btn" (click)="toggleAllExpanded()" [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozbalit vše'">
           <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
         </button>
-        <button class="pt-filter-btn" (click)="addEvent()"><mat-icon>add</mat-icon> Přidat událost</button>
-        <button class="btn btn-save" (click)="save()"><mat-icon>save</mat-icon> Uložit</button>
+        @if (!isReadOnly()) {
+          <button class="pt-filter-btn" (click)="addEvent()"><mat-icon>add</mat-icon> Přidat událost</button>
+          <button class="pt-filter-btn" (click)="openShareDialog()" matTooltip="Sdílet s hráči">
+            <mat-icon>share</mat-icon> Sdílet
+          </button>
+          <button class="btn btn-save" (click)="save()"><mat-icon>save</mat-icon> Uložit</button>
+        }
       </div>
+
+      <!-- Read-only banner -->
+      @if (isReadOnly()) {
+        <div class="readonly-banner">
+          <mat-icon>visibility</mat-icon>
+          Zobrazuješ příběhové události sdílené hráčem <span class="readonly-banner__owner">{{ ownerUsername() }}</span>. Obsah je pouze pro čtení.
+        </div>
+      }
 
       <!-- Tag filter row -->
       @if (allTags().length > 0) {
@@ -368,7 +430,8 @@ const ACL = '110,190,160'; // lighter teal
             <!-- Card header -->
             <div class="card-header" (click)="toggleExpand(item.event.id)">
               <span class="type-badge" [style.color]="typeMeta(item.event.type).color" [style.background]="typeMeta(item.event.type).bg"
-                (click)="$event.stopPropagation(); cycleType(item.idx)" matTooltip="Kliknutím změnit typ">{{ typeMeta(item.event.type).label }}</span>
+                (click)="$event.stopPropagation(); !isReadOnly() && cycleType(item.idx)"
+                [matTooltip]="isReadOnly() ? '' : 'Kliknutím změnit typ'">{{ typeMeta(item.event.type).label }}</span>
 
               <div class="card-title-wrap">
                 <div class="card-title" [class.card-title--placeholder]="!item.event.title">
@@ -383,11 +446,13 @@ const ACL = '110,190,160'; // lighter teal
                 <span class="card-date">{{ item.event.realDate }}</span>
               }
 
-              <div class="card-actions" (click)="$event.stopPropagation()">
-                <button class="card-action-btn card-action-btn--danger" (click)="askDelete(item.idx)" matTooltip="Smazat událost">
-                  <mat-icon>delete_outline</mat-icon>
-                </button>
-              </div>
+              @if (!isReadOnly()) {
+                <div class="card-actions" (click)="$event.stopPropagation()">
+                  <button class="card-action-btn card-action-btn--danger" (click)="askDelete(item.idx)" matTooltip="Smazat událost">
+                    <mat-icon>delete_outline</mat-icon>
+                  </button>
+                </div>
+              }
               <div class="expand-chevron" [class.expand-chevron--open]="expandedIds().has(item.event.id)">
                 <mat-icon>expand_more</mat-icon>
               </div>
@@ -410,7 +475,7 @@ const ACL = '110,190,160'; // lighter teal
                 <div class="field-row">
                   <div class="field-group" style="flex:1;min-width:200px">
                     <div class="field-label">Název události</div>
-                    <input class="field-input" [(ngModel)]="events()[item.idx].title" placeholder="Název…" />
+                    <input class="field-input" [(ngModel)]="events()[item.idx].title" placeholder="Název…" [disabled]="isReadOnly()" />
                   </div>
                 </div>
 
@@ -418,10 +483,18 @@ const ACL = '110,190,160'; // lighter teal
                 <div class="field-row">
                   <div class="field-group">
                     <div class="field-label">Místo</div>
-                    <input class="field-input" [(ngModel)]="events()[item.idx].location" placeholder="Město, dungeon, les…" />
+                    <input class="field-input" [(ngModel)]="events()[item.idx].location" placeholder="Město, dungeon, les…" [disabled]="isReadOnly()" />
                   </div>
                   <div class="field-group" style="flex:2">
                     <div class="field-label">Štítky</div>
+                    @if (isReadOnly()) {
+                      <div class="tag-input-wrap" style="pointer-events:none;opacity:.7;">
+                        @for (tag of parseTags(events()[item.idx].tags); track tag) {
+                          <span class="tag-chip tag-chip--removable">{{ tag }}</span>
+                        }
+                      </div>
+                    }
+                    @if (!isReadOnly()) {
                     <div class="tag-field-wrap">
                       <div class="tag-input-wrap" (click)="focusTagInput(item.event.id)">
                         @for (tag of parseTags(events()[item.idx].tags); track tag) {
@@ -458,6 +531,7 @@ const ACL = '110,190,160'; // lighter teal
                         </div>
                       }
                     </div>
+                    }
                   </div>
                 </div>
 
@@ -475,6 +549,49 @@ const ACL = '110,190,160'; // lighter teal
         }
       </div>
     </spinner-overlay>
+
+    <!-- Share dialog -->
+    @if (shareDialogOpen()) {
+      <div class="share-backdrop" (click)="shareDialogOpen.set(false)">
+        <div class="share-dialog" (click)="$event.stopPropagation()">
+          <div class="share-dialog__title">Sdílet příběhové události</div>
+          <div class="share-dialog__desc">Pozvaní hráči uvidí události v režimu pouze pro čtení pod svým přihlášením.</div>
+
+          <div class="share-dialog__section-label">Přidat hráče</div>
+          <div class="share-dialog__input-row">
+            <input
+              class="share-dialog__input"
+              [(ngModel)]="shareInput"
+              placeholder="Uživatelské jméno hráče…"
+              (keydown.enter)="addSharePlayer()"
+            />
+            <button class="pt-filter-btn" type="button" (click)="addSharePlayer()">
+              <mat-icon>add</mat-icon> Přidat
+            </button>
+          </div>
+
+          <div class="share-dialog__section-label">Sdíleno s ({{ pendingSharedWith().length }})</div>
+          <div class="share-dialog__list">
+            @if (pendingSharedWith().length === 0) {
+              <span class="share-dialog__empty">Zatím nesdíleno s nikým.</span>
+            }
+            @for (player of pendingSharedWith(); track player) {
+              <div class="share-dialog__player">
+                <span class="share-dialog__player-name">{{ player }}</span>
+                <button class="share-dialog__remove" type="button" (click)="removeSharePlayer(player)" title="Odebrat">✕</button>
+              </div>
+            }
+          </div>
+
+          <div class="share-dialog__actions">
+            <button class="pt-filter-btn" type="button" (click)="shareDialogOpen.set(false)">Zrušit</button>
+            <button class="btn btn-save" type="button" (click)="saveSharing()">
+              <mat-icon>save</mat-icon> Uložit sdílení
+            </button>
+          </div>
+        </div>
+      </div>
+    }
 
     <input #globalFile type="file" accept="image/*" class="img-file-input" (change)="onImageSelected($event)" />
 
@@ -511,6 +628,7 @@ const ACL = '110,190,160'; // lighter teal
 export class DmStoryTimelineComponent {
   readonly store   = inject(DmPageStore);
   private readonly auth  = inject(AuthService);
+  private readonly api   = inject(DmPageApiService);
   private readonly snack = inject(MatSnackBar);
 
   events      = signal<StoryEvent[]>([]);
@@ -522,6 +640,16 @@ export class DmStoryTimelineComponent {
   confirmIdx  = signal<number | null>(null);
   dragOver    = signal<number | null>(null);
   previewEvent = signal<StoryEvent | null>(null);
+
+  // ── Sharing ────────────────────────────────────────────────────────────────
+  /** Username of the owner whose data we're viewing; null = viewing own data */
+  ownerUsername = signal<string | null>(null);
+  readonly isReadOnly = computed(() => this.ownerUsername() !== null);
+  /** sharedWith list from the loaded timeline */
+  sharedWith = signal<string[]>([]);
+  shareDialogOpen = signal(false);
+  shareInput = '';
+  pendingSharedWith = signal<string[]>([]);
 
   /** Per-event current tag text being typed */
   private tagInputMap = signal<Record<string, string>>({});
@@ -563,13 +691,32 @@ export class DmStoryTimelineComponent {
   });
 
   constructor() {
+    // When store data arrives, populate events + sharedWith
     effect(() => {
       const data = this.store.dmStoryTimeline();
-      untracked(() => { if (data?.events) this.events.set(data.events.map(e => ({ ...e }))); });
+      untracked(() => {
+        if (data?.events) {
+          this.events.set(data.events.map(e => ({ ...e })));
+          this.sharedWith.set(data.sharedWith ?? []);
+        }
+      });
     });
+
+    // On auth, check invitation then load appropriate data
     effect(() => {
       const username = this.auth.currentUser()?.username;
-      untracked(() => { if (username) this.store.loadDmStoryTimeline(username); });
+      untracked(() => {
+        if (!username) return;
+        this.api.getTimelineInvitation(username).subscribe(inv => {
+          if (inv?.ownerUsername && inv.ownerUsername !== username) {
+            this.ownerUsername.set(inv.ownerUsername);
+            this.store.loadDmStoryTimeline(inv.ownerUsername);
+          } else {
+            this.ownerUsername.set(null);
+            this.store.loadDmStoryTimeline(username);
+          }
+        });
+      });
     });
   }
 
@@ -682,7 +829,48 @@ export class DmStoryTimelineComponent {
   save(): void {
     const username = this.auth.currentUser()?.username;
     if (!username) { this.snack.open('Nejsi přihlášen.', 'Zavřít', { verticalPosition: 'top', duration: 3000 }); return; }
-    this.store.saveDmStoryTimeline({ username, events: this.events() });
+    this.store.saveDmStoryTimeline({ username, events: this.events(), sharedWith: this.sharedWith() });
+  }
+
+  // ── Share dialog ──────────────────────────────────────────────────────────
+  openShareDialog(): void {
+    this.pendingSharedWith.set([...this.sharedWith()]);
+    this.shareInput = '';
+    this.shareDialogOpen.set(true);
+  }
+
+  addSharePlayer(): void {
+    const name = this.shareInput.trim().toLowerCase();
+    if (!name) return;
+    const current = this.auth.currentUser()?.username?.toLowerCase();
+    if (name === current) { this.snack.open('Nemůžeš pozvat sám sebe.', '✕', { verticalPosition: 'top', duration: 2500 }); return; }
+    if (this.pendingSharedWith().includes(name)) return;
+    this.pendingSharedWith.update(list => [...list, name]);
+    this.shareInput = '';
+  }
+
+  removeSharePlayer(player: string): void {
+    this.pendingSharedWith.update(list => list.filter(p => p !== player));
+  }
+
+  saveSharing(): void {
+    const username = this.auth.currentUser()?.username;
+    if (!username) return;
+
+    const oldList = this.sharedWith();
+    const newList = this.pendingSharedWith();
+    const toAdd    = newList.filter(u => !oldList.includes(u));
+    const toRemove = oldList.filter(u => !newList.includes(u));
+
+    this.sharedWith.set(newList);
+    this.shareDialogOpen.set(false);
+    this.save();
+
+    const ops = [
+      ...toAdd.map(u => this.api.setTimelineInvitation({ viewerUsername: u, ownerUsername: username })),
+      ...toRemove.map(u => this.api.removeTimelineInvitation(u)),
+    ];
+    if (ops.length) forkJoin(ops).subscribe();
   }
 
   // ── Image ─────────────────────────────────────────────────────────────────
