@@ -157,7 +157,7 @@ export const CharacterSheetStore = signalStore(
                 (_: any) => {
                   patchState(store, { characterSheetSaved: true, characterSheetError: '', loading: false });
                   _localStorage.setDataSync(DB_BACKUP_KEY_CHARACTER, req);
-                  _snackBar.open('⚔️ Karta postavy uložena do trezoru!', '✕', {
+                  _snackBar.open('Data uložena', '✕', {
                     verticalPosition: 'top',
                     duration: 2300,
                     panelClass: ['snackbar--save'],
@@ -188,7 +188,7 @@ export const CharacterSheetStore = signalStore(
                 (_: any) => {
                   patchState(store, { groupSheetSaved: true, characterSheetError: '', loading: false });
                   _localStorage.setDataSync(DB_BACKUP_KEY_GROUP, req);
-                  _snackBar.open('🛡️ Karta družiny uložena do trezoru!', '✕', {
+                  _snackBar.open('Data uložena', '✕', {
                     verticalPosition: 'top',
                     duration: 2300,
                     panelClass: ['snackbar--save'],
@@ -219,7 +219,7 @@ export const CharacterSheetStore = signalStore(
                 (_: any) => {
                   patchState(store, { characterSheetError: '', loading: false });
                   _localStorage.setDataSync(DB_BACKUP_KEY_NOTES, req);
-                  _snackBar.open('📜 Poznámky zapsány do svitku!', '✕', {
+                  _snackBar.open('Data uložena', '✕', {
                     verticalPosition: 'top',
                     duration: 2300,
                     panelClass: ['snackbar--save'],
@@ -267,7 +267,7 @@ export const CharacterSheetStore = signalStore(
               tapResponse(
                 () => {
                   patchState(store, { itemVault: req, loading: false });
-                  _snackBar.open('💰 Předměty uloženy do truhly!', '✕', {
+                  _snackBar.open('Data uložena', '✕', {
                     verticalPosition: 'top',
                     duration: 2300,
                     panelClass: ['snackbar--save'],
@@ -316,7 +316,7 @@ export const CharacterSheetStore = signalStore(
               tapResponse(
                 () => {
                   patchState(store, { quests: req, loading: false });
-                  _snackBar.open('📜 Questy zapsány do deníku!', '✕', {
+                  _snackBar.open('Data uložena', '✕', {
                     verticalPosition: 'top',
                     duration: 2300,
                     panelClass: ['snackbar--save'],
