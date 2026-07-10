@@ -72,4 +72,7 @@ export const CS_SPELLS_FIRST_KEY = 'cs-spells-page-first';
 /** Last viewed wiki position (book + chapter) */
 export const WIKI_LAST_POSITION_KEY = 'wiki-last-position';
 
+/** Whether the "Obsah kapitoly" (chapter TOC) accordion is expanded (true) or collapsed (false). */
+export const WIKI_TOC_OPEN_KEY = 'wiki-toc-open';
+
 

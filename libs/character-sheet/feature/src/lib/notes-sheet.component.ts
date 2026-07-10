@@ -16,7 +16,7 @@ import { debounceTime } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, RichTextareaComponent, MatIcon],
   styles: `
-    :host { display: block; padding: 24px 32px 40px; font-family: sans-serif; overflow: visible; }
+    :host { display: block; padding: 13px 0 20px; font-family: sans-serif; overflow: visible; }
 
     /* ── Header ─────────────────────────────────── */
     .header {
@@ -32,7 +32,7 @@ import { debounceTime } from 'rxjs/operators';
       mat-icon { font-size: 26px; width: 26px; height: 26px; color: #c8a03c; }
     }
     .header-subtitle { font-size: 11px; color: rgba(200,160,60,.4); letter-spacing: .05em; margin-top: 5px; font-family: sans-serif; font-style: italic; text-transform: none; }
-    .header-actions { display: flex; gap: 10px; align-items: center; }
+    .header-actions { display: flex; gap: 10px; align-items: center; justify-content: flex-end; flex-wrap: wrap; margin-bottom: 14px; }
 
     .autosave-indicator {
       font-family: sans-serif; font-size: 10px; letter-spacing: .05em;
@@ -52,14 +52,6 @@ import { debounceTime } from 'rxjs/operators';
     }
     @keyframes fadeBanner { from { opacity: 0; } to { opacity: 1; } }
 
-    .btn-save {
-      font-family: sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
-      border: 1px solid rgba(80,160,80,.35); border-radius: 3px; background: rgba(60,120,60,.08);
-      color: rgba(100,200,100,.8); padding: 6px 16px; cursor: pointer;
-      display: flex; align-items: center; gap: 6px; transition: background .18s, border-color .18s, color .18s;
-      mat-icon { font-size: 15px; width: 15px; height: 15px; }
-      &:hover { background: rgba(60,140,60,.18); border-color: rgba(80,180,80,.6); color: #80e080; }
-    }
 
     /* ── 2-column panel grid ─────────────────────── */
     .notes-grid {
@@ -70,7 +62,7 @@ import { debounceTime } from 'rxjs/operators';
     }
 
     @media (max-width: 700px) {
-      :host { padding: 16px 12px 40px; }
+      :host { padding: 13px 0 20px; }
 
       .notes-grid {
         grid-template-columns: 1fr;
@@ -94,10 +86,8 @@ import { debounceTime } from 'rxjs/operators';
       transition: border-color .2s, box-shadow .2s;
       position: relative;
       &:hover { border-color: rgba(200,160,60,.32); box-shadow: 0 6px 26px rgba(0,0,0,.6), 0 0 8px rgba(200,160,60,.06); }
-      &::before { content: '◆'; position: absolute; top: 5px; left: 8px; font-size: 6px; color: rgba(200,160,60,.2); pointer-events: none; }
     }
 
-    .panel-rule { height: 2px; background: linear-gradient(90deg, rgba(200,160,60,0) 0%, rgba(200,160,60,.35) 40%, rgba(240,200,80,.6) 50%, rgba(200,160,60,.35) 60%, rgba(200,160,60,0) 100%); }
 
     .panel-header {
       display: flex; align-items: center; gap: 8px;
@@ -161,30 +151,24 @@ import { debounceTime } from 'rxjs/operators';
   `,
   template: `
     <form [formGroup]="form">
-      <div class="header">
-        <div>
-          <div class="header-title"><mat-icon>auto_stories</mat-icon>Zápisník Dobrodruhů</div>
-          <div class="header-subtitle">Osobní zápisky, mapy a cíle tvojí postavy</div>
-        </div>
-        <div class="header-actions">
-          <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
-          <span class="autosave-indicator" [class.autosave-indicator--hidden]="!autoSaved()">
-            <mat-icon>check_circle</mat-icon> Automaticky uloženo
-          </span>
-          <button class="btn-save" type="submit" (click)="onSaveClick()">
+      <div class="header-actions">
+        <span class="autosave-msg" [class.autosave-msg--hidden]="autoSaveStatus() !== 'saved'">✓ Uloženo</span>
+        <span class="autosave-indicator" [class.autosave-indicator--hidden]="!autoSaved()">
+          <mat-icon>check_circle</mat-icon> Automaticky uloženo
+        </span>
+        <button class="pt-filter-btn" type="submit" (click)="onSaveClick()">
             <mat-icon>save</mat-icon>Uložit
           </button>
-        </div>
       </div>
 
       <div class="notes-grid">
         <!-- Zápisky z Výpravy — notesColumn1 (existing data preserved) -->
         <div class="note-panel panel--expedition">
-          <div class="panel-rule"></div>
+
           <div class="panel-header">
             <mat-icon class="panel-icon">history_edu</mat-icon>
             <span class="panel-title">Zápisky z Výpravy</span>
-            <span class="panel-desc">Deník sezení, klíčové události</span>
+<!--            <span class="panel-desc">Deník sezení, klíčové události</span>-->
           </div>
           <div class="rt-wrap">
             <rich-textarea [formControl]="controls.notesColumn1" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
@@ -193,11 +177,11 @@ import { debounceTime } from 'rxjs/operators';
 
         <!-- Mapy & Místa — notesColumn2 (existing data preserved) -->
         <div class="note-panel panel--maps">
-          <div class="panel-rule"></div>
+
           <div class="panel-header">
             <mat-icon class="panel-icon">explore</mat-icon>
-            <span class="panel-title">Mapy &amp; Místa</span>
-            <span class="panel-desc">Lokace, sklepy, popisky map</span>
+            <span class="panel-title">Questy</span>
+            <span class="panel-desc">Nebo záložka Questy pro větší přehled</span>
           </div>
           <div class="rt-wrap">
             <rich-textarea [formControl]="controls.notesColumn2" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>
@@ -206,11 +190,11 @@ import { debounceTime } from 'rxjs/operators';
 
         <!-- Cíle & Tajemství — notesColumn4 (new) -->
         <div class="note-panel panel--goals">
-          <div class="panel-rule"></div>
+
           <div class="panel-header">
             <mat-icon class="panel-icon">psychology</mat-icon>
-            <span class="panel-title">Cíle &amp; Tajemství</span>
-            <span class="panel-desc">Otevřené otázky, plány, úkoly</span>
+            <span class="panel-title">Cizí Postavy, frakce, vztahy, ...</span>
+<!--            <span class="panel-desc">Otevřené otázky, plány, úkoly</span>-->
           </div>
           <div class="rt-wrap">
             <rich-textarea [formControl]="controls.notesColumn4" style="top:0;left:0;width:100%;height:100%;"></rich-textarea>

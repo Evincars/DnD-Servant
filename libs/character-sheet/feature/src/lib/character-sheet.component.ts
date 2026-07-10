@@ -2,6 +2,7 @@ import {
   afterNextRender,
   ChangeDetectionStrategy,
   Component,
+  computed,
   DestroyRef,
   effect,
   inject,
@@ -90,11 +91,13 @@ const CS_DEFAULT_SECTIONS: readonly SectionConfig[] = [
       <h2 class="cs-section-title cs-main-title">
         Karta Postavy
         <span class="cs-collapse-all-wrap">
-          <button type="button" class="cs-collapse-all-btn" (click)="expandAll()" matTooltip="Rozbalit vše">
-            <mat-icon>unfold_more</mat-icon>
-          </button>
-          <button type="button" class="cs-collapse-all-btn" (click)="collapseAll()" matTooltip="Sbalit vše">
-            <mat-icon>unfold_less</mat-icon>
+          <button
+            type="button"
+            class="cs-collapse-all-btn"
+            (click)="allExpanded() ? collapseAll() : expandAll()"
+            [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozbalit vše'"
+          >
+            <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
           </button>
         </span>
       </h2>
@@ -185,7 +188,7 @@ const CS_DEFAULT_SECTIONS: readonly SectionConfig[] = [
   `,
   styleUrl: 'character-sheet.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[class.theme-dark]': 'sheetTheme.darkMode()' },
+  host: { '[class.theme-dark]': 'sheetTheme.darkMode()', '(document:keydown.control.s)': 'ctrlSave($event)' },
   imports: [
     ReactiveFormsModule,
     CharacterSheetSecondPageComponent,
@@ -236,6 +239,7 @@ export class CharacterSheetComponent {
   _viewInitialized = signal(false);
 
   private readonly collapsibles = viewChildren(CsCollapsibleComponent);
+  readonly allExpanded = computed(() => this.collapsibles().every(c => c.isOpen()));
 
   fb = new FormBuilder().nonNullable;
   form = this.fb.group<CharacterSheetForm>({
@@ -675,6 +679,8 @@ export class CharacterSheetComponent {
     moveItemInArray(sections, event.previousIndex, event.currentIndex);
     this.orderedSections.set(sections);
   }
+
+  ctrlSave(e: Event): void { e.preventDefault(); this.onSaveClick(); }
 
   onSaveClick() {
     const username = this.authService.currentUser()?.username;

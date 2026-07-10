@@ -1,14 +1,9 @@
 :host {
   display: block;
   height: 100%;
-  overflow: hidden;
-}
-
-.it-wrapper {
-  height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 24px 28px;
+  padding: 24px 0;
   box-sizing: border-box;
   font-family: sans-serif;
 }
@@ -20,83 +15,11 @@
   min-width: 0;
 }
 
-// ── Card ─────────────────────────────────────────────────────────────────────
+// ── Card (no bg, full width) ──────────────────────────────────────────────────
 .it-card {
   width: 100%;
-  max-width: 1100px;
   min-width: 0;
-  position: relative;
-  background: #0e0e12;
-  border: 1px solid rgba(255,255,255,.06);
-  border-left: 3px solid rgba(160,30,30,.7);
-  border-radius: 2px;
-  padding: 22px 26px 20px;
   box-sizing: border-box;
-  overflow-x: auto;
-  box-shadow:
-    0 2px 0 rgba(160,30,30,.4),
-    0 12px 40px rgba(0,0,0,.8),
-    inset 1px 0 0 rgba(255,255,255,.02);
-}
-
-// ── Header ────────────────────────────────────────────────────────────────────
-.it-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 4px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255,255,255,.06);
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -1px; left: 0;
-    width: 60px; height: 1px;
-    background: rgba(160,30,30,.8);
-  }
-}
-
-.it-header__icon {
-  font-size: 22px;
-  width: 22px;
-  height: 22px;
-  color: rgba(160,30,30,.8);
-}
-
-.it-header__title {
-  margin: 0;
-  font-family: sans-serif;
-  font-size: 20px;
-  font-weight: normal;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: #d0ccc4;
-}
-
-// ── Notices ───────────────────────────────────────────────────────────────────
-.it-notice {
-  margin: 10px 0 0;
-  font-size: 10px;
-  color: rgba(255,255,255,.2);
-  letter-spacing: .03em;
-  font-style: italic;
-
-  &--monsters {
-    margin-top: 3px;
-    color: rgba(255,255,255,.14);
-
-    strong { color: rgba(255,255,255,.28); font-weight: 600; font-style: normal; }
-
-    a {
-      color: rgba(180,100,90,.7);
-      text-decoration: none;
-      border-bottom: 1px dotted rgba(160,30,30,.4);
-      transition: color .15s, border-color .15s;
-      &:hover { color: #e08070; border-bottom-color: rgba(160,30,30,.7); }
-    }
-  }
 }
 
 // ── Column headers ────────────────────────────────────────────────────────────
@@ -223,7 +146,6 @@ datalist { display: none; }
 // ── Icon buttons ──────────────────────────────────────────────────────────────
 @keyframes it-spin { to { transform: rotate(360deg); } }
 
-// ── Shared touch-target clamp for all icon buttons in the tracker ─────────────
 .it-lookup-btn, .it-remove-btn, .it-copy-btn,
 .it-hp-adj__btn {
   overflow: hidden !important;
@@ -390,71 +312,22 @@ datalist { display: none; }
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,.04);
+
+  &__spacer { flex: 1; }
 }
 
-.it-btn {
-  font-family: sans-serif;
-  font-size: 10px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  border-radius: 1px;
-  padding: 6px 14px;
-  cursor: pointer;
+// pt-filter-btn icon support (scoped to this component)
+.pt-filter-btn {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  transition: background .15s, color .15s, border-color .15s;
 
-  mat-icon { font-size: 14px; width: 14px; height: 14px; }
-
-  &--add  {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,.1);
-    color: rgba(255,255,255,.4);
-    &:hover { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.2); color: #d0ccc4; }
-  }
-  &--next {
-    background: rgba(160,30,30,.12);
-    border: 1px solid rgba(160,30,30,.35);
-    color: rgba(200,80,70,.8);
-    &:hover { background: rgba(160,30,30,.22); border-color: rgba(200,80,70,.5); color: #e08070; }
-  }
-  &--sort {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,.08);
-    color: rgba(255,255,255,.3);
-    &:hover { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.16); color: #c0bcb4; }
-  }
-  &--save {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,.08);
-    color: rgba(255,255,255,.3);
-    &:hover { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.16); color: #c0bcb4; }
-  }
-  &--init {
-    background: rgba(200,160,60,.08);
-    border: 1px solid rgba(200,160,60,.3);
-    color: rgba(200,160,60,.8);
-    &:hover:not([disabled]) { background: rgba(200,160,60,.16); border-color: rgba(200,160,60,.55); color: #c8a03c; }
-    &[disabled] { opacity: 0.45; cursor: not-allowed; }
-  }
-  &--avg {
-    background: rgba(70,120,200,.1);
-    border: 1px solid rgba(70,120,200,.35);
-    color: rgba(120,170,240,.9);
-    &:hover { background: rgba(70,120,200,.2); border-color: rgba(70,120,200,.6); color: #88b8ff; }
-  }
-  &--dice {
-    background: rgba(200,160,60,.08);
-    border: 1px solid rgba(200,160,60,.35);
-    color: rgba(200,160,60,.9);
-    &:hover { background: rgba(200,160,60,.18); border-color: rgba(200,160,60,.6); color: #d4a840; }
-  }
-  &--cancel {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,.08);
-    color: rgba(255,255,255,.3);
-    &:hover { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.16); color: #aaa; }
+  mat-icon, .mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
   }
 }
 
@@ -466,53 +339,55 @@ datalist { display: none; }
   color: rgba(100,180,110,.6);
 }
 
-// ── Init dialog overlay ───────────────────────────────────────────────────────
-.it-init-overlay {
-  position: absolute;
+// ── Init dialog (fixed modal) ─────────────────────────────────────────────────
+.it-init-backdrop {
+  position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.7);
-  backdrop-filter: blur(3px);
+  z-index: 10000;
+  background: rgba(0,0,0,.75);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 20;
-  border-radius: 2px;
+  animation: fadeIn .14s ease;
 }
 
 .it-init-dialog {
-  background: #0d0d11;
-  border: 1px solid rgba(200,160,60,.3);
-  border-left: 3px solid rgba(200,160,60,.7);
-  border-radius: 2px;
-  padding: 22px 26px 18px;
-  min-width: 300px;
-  box-shadow: 0 16px 48px rgba(0,0,0,.95);
+  background: linear-gradient(160deg, rgba(14,10,4,.99) 0%, rgba(8,6,2,1) 100%);
+  border: 1px solid rgba(200,160,60,.35);
+  border-top: 2px solid rgba(200,160,60,.7);
+  box-shadow: 0 12px 50px rgba(0,0,0,.9);
+  border-radius: 3px;
+  padding: 26px 30px 22px;
+  min-width: 320px;
+  max-width: 420px;
+  animation: scaleIn .14s ease;
 
   &__title {
-    margin: 0 0 6px;
     font-family: sans-serif;
-    font-size: 15px;
-    font-weight: normal;
-    letter-spacing: .13em;
+    font-size: 13px;
+    letter-spacing: .1em;
     text-transform: uppercase;
-    color: #d8c88a;
+    color: #e8c96a;
+    margin: 0 0 10px;
   }
 
   &__desc {
-    margin: 0 0 8px;
     font-size: 12px;
     color: rgba(255,255,255,.45);
     letter-spacing: .03em;
+    margin: 0 0 8px;
+    font-family: sans-serif;
   }
 
   &__hp-hint {
-    margin-bottom: 16px;
+    margin-bottom: 20px;
   }
 
   &__formula-eg {
     font-size: 11px;
     color: rgba(255,255,255,.28);
     font-style: italic;
+    font-family: sans-serif;
 
     strong {
       color: rgba(200,160,60,.8);
@@ -527,49 +402,19 @@ datalist { display: none; }
   }
 }
 
-// ── Monster cards area ────────────────────────────────────────────────────────
+// ── Monster cards area (full width) ──────────────────────────────────────────
 .it-cards-area {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-width: 1100px;
 }
 
-// ── Cards bar (title + expand/collapse all) ───────────────────────────────────
+// ── Cards bar (buttons right-aligned) ────────────────────────────────────────
 .it-cards-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 0 2px;
-
-  &__title {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    font-family: sans-serif;
-    font-size: 12px;
-    letter-spacing: .04em;
-    color: rgba(255,255,255,.38);
-  }
-
-  &__icon {
-    font-size: 15px !important;
-    width: 15px !important;
-    height: 15px !important;
-    color: rgba(160,30,30,.6);
-  }
-
-  &__count {
-    color: rgba(255,255,255,.2);
-    font-size: 10px;
-  }
-
-  &__actions {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
+  justify-content: flex-end;
+  gap: 6px;
 }
 
 // ── Card row (wraps slots) ────────────────────────────────────────────────────
@@ -627,10 +472,33 @@ datalist { display: none; }
   }
 }
 
+.it-card-slot__close {
+  width: 26px !important; height: 26px !important;
+  padding: 0 !important; line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important; justify-content: center !important;
+  flex-shrink: 0;
+  color: rgba(255,255,255,.15) !important;
+  border-radius: 1px !important;
+  transition: color .15s, background .15s !important;
+  margin-left: auto;
+
+  mat-icon, .mat-icon {
+    font-size: 15px !important; width: 15px !important;
+    height: 15px !important; line-height: 15px !important;
+    display: flex !important; align-items: center !important; justify-content: center !important;
+  }
+
+  .mat-mdc-button-touch-target,
+  .mat-mdc-button-persistent-ripple,
+  .mdc-icon-button__ripple { display: none !important; }
+
+  &:hover { color: rgba(200,60,50,.9) !important; background: rgba(160,30,30,.1) !important; }
+}
+
 .it-card-slot__label {
   display: flex;
   align-items: center;
-  gap: 5px;
   font-family: sans-serif;
   font-size: 11px;
   letter-spacing: .02em;
@@ -639,26 +507,7 @@ datalist { display: none; }
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.it-card-slot__label-icon {
-  font-size: 13px !important;
-  width: 13px !important;
-  height: 13px !important;
-  color: rgba(160,30,30,.6);
-}
-
-.it-card-slot__chevron {
-  font-size: 16px !important;
-  width: 16px !important;
-  height: 16px !important;
-  color: rgba(255,255,255,.2);
-  transition: color .15s;
-  flex-shrink: 0;
-
-  .it-card-slot__header:hover & {
-    color: rgba(255,255,255,.5);
-  }
+  flex: 1;
 }
 
 // ── Animated body (grid-template-rows collapse trick) ─────────────────────────
@@ -671,14 +520,21 @@ datalist { display: none; }
     overflow: hidden;
     min-height: 0;
 
-    // Force DnD-only monster cards (and JaD cards) to fill the slot width
-    // so the clickable header and the card body stay the same width.
     ::ng-deep .m-card,
     ::ng-deep .jmc-card {
       max-width: 100%;
       width: 100%;
       box-sizing: border-box;
       flex: none;
+      // Remove red left border
+      border-left: 1px solid rgba(255,255,255,.06) !important;
+      box-shadow: none !important;
+    }
+
+    // Hide built-in close buttons — close is in the header now
+    ::ng-deep .m-close,
+    ::ng-deep .jmc-close {
+      display: none !important;
     }
   }
 
@@ -687,35 +543,5 @@ datalist { display: none; }
   }
 }
 
-// ── Expand-all button ─────────────────────────────────────────────────────────
-.it-btn--expand-all {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.07);
-  color: rgba(255,255,255,.28);
-  padding: 4px 10px;
-
-  mat-icon { font-size: 13px; width: 13px; height: 13px; }
-
-  &:hover {
-    background: rgba(255,255,255,.04);
-    border-color: rgba(255,255,255,.14);
-    color: rgba(255,255,255,.6);
-  }
-}
-
-// ── Close-all button ──────────────────────────────────────────────────────────
-.it-btn--close-all {
-  background: transparent;
-  border: 1px solid rgba(180,50,40,.25);
-  color: rgba(200,80,70,.55);
-  padding: 4px 10px;
-
-  mat-icon { font-size: 13px; width: 13px; height: 13px; }
-
-  &:hover {
-    background: rgba(180,40,30,.1);
-    border-color: rgba(200,60,50,.5);
-    color: rgba(220,90,80,.85);
-  }
-}
-
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleIn { from { transform: scale(.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }

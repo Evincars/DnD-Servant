@@ -72,6 +72,15 @@
     color: rgba(255, 255, 255, 0.92);
   }
 
+  select.field {
+    background: rgba(18, 14, 8, 0.96);
+    color: rgba(220, 210, 190, 0.9);
+    option {
+      background: #141008;
+      color: rgba(220, 210, 190, 0.9);
+    }
+  }
+
   // Weight highlights must override the dark .field background
   .field.soft-weight,
   .soft-weight {

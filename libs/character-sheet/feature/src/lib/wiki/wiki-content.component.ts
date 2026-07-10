@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { WikiBook, WikiChapter } from './wiki-catalog.const';
 import { WikiService } from './wiki.service';
 import { MatIcon } from '@angular/material/icon';
+import { LocalStorageService, WIKI_TOC_OPEN_KEY } from '@dn-d-servant/util';
 
 export interface TocEntry {
   level: number; // 2–5
@@ -103,8 +104,11 @@ function extractToc(html: string): TocEntry[] {
 }
 
 const CHAPTERS_PER_LOAD = 2;
-/** Gap (px) kept above the heading so it isn't flush against the container edge. */
-const SCROLL_HEADING_OFFSET = 24;
+/**
+ * Gap kept above a heading after scroll-to.
+ * 70 px accounts for the app mat-toolbar (≈ 64 px) + a small breathing gap.
+ */
+const SCROLL_HEADING_OFFSET = 70;
 
 @Component({
   selector: 'wiki-content',
@@ -117,6 +121,7 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
   private readonly wikiService = inject(WikiService);
   private readonly sanitizer = inject(DomSanitizer);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly ls = inject(LocalStorageService);
 
   readonly scrollContainer = viewChild.required<ElementRef<HTMLElement>>('scrollContainer');
   readonly sentinel = viewChild<ElementRef<HTMLElement>>('sentinel');
@@ -127,6 +132,12 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
   protected readonly currentBook = signal<WikiBook | null>(null);
   /** Search query for filtering chapter TOC entries. */
   readonly tocFilter = signal('');
+  /**
+   * Whether the "Obsah kapitoly" accordion is expanded.
+   * Persisted to localStorage so it survives page reloads.
+   * Defaults to `true` (open) when no saved value exists.
+   */
+  readonly tocOpen = signal<boolean>(this.ls.getDataSync<boolean>(WIKI_TOC_OPEN_KEY) ?? true);
   private nextIndex = 0;
 
   /** Per-chunk filtered + highlighted TOC entries, recomputed on filter change. */
@@ -340,6 +351,13 @@ export class WikiContentComponent implements AfterViewInit, OnDestroy {
     } else {
       this.pendingScrollSlug.set(slug);
     }
+  }
+
+  /** Persist the "Obsah kapitoly" open/closed state to localStorage. */
+  onTocToggle(event: Event): void {
+    const open = (event.target as HTMLDetailsElement).open;
+    this.tocOpen.set(open);
+    this.ls.setDataSync(WIKI_TOC_OPEN_KEY, open);
   }
 
   /** Handle clicks on heading anchor buttons via event delegation. */

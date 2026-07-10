@@ -20,11 +20,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'dm-notes',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '(document:keydown.control.s)': 'ctrlSave($event)' },
   imports: [FormsModule, MatIcon, SpinnerOverlayComponent, RichTextareaComponent],
   styles: `
     :host {
       display: block;
-      padding: 24px 32px 40px;
+      padding: 13px 0 20px;
       font-family: sans-serif;
       overflow: visible;
       /* Pass a readable text colour into rich-textarea via the CSS custom property it supports */
@@ -37,9 +38,18 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       background: rgba(22, 14, 6, 0.97) !important;
       border-color: rgba(200, 160, 60, 0.3) !important;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7) !important;
-      button { color: rgba(220, 195, 130, 0.85); &:hover { background: rgba(200,160,60,.14) !important; border-color: rgba(200,160,60,.4) !important; color: #e8c96a; } }
+      button {
+        color: rgba(220, 195, 130, 0.85);
+        &:hover {
+          background: rgba(200, 160, 60, 0.14) !important;
+          border-color: rgba(200, 160, 60, 0.4) !important;
+          color: #e8c96a;
+        }
+      }
     }
-    :host ::ng-deep rich-textarea .rt-separator { background: rgba(200, 160, 60, 0.25); }
+    :host ::ng-deep rich-textarea .rt-separator {
+      background: rgba(200, 160, 60, 0.25);
+    }
 
     /* ── Header ─────────────────────────────────── */
     .header {
@@ -90,6 +100,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       display: flex;
       gap: 8px;
       align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
     }
 
     .autosave-indicator {
@@ -111,45 +124,30 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       }
     }
 
-    .btn-save {
-      font-family: sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border: 1px solid rgba(80, 160, 80, 0.35);
-      border-radius: 3px;
-      background: rgba(60, 120, 60, 0.08);
-      color: rgba(100, 200, 100, 0.8);
-      padding: 6px 14px;
-      cursor: pointer;
+
+    /* ── Notes grid — 2 columns, full height ─────── */
+    .notes-grid {
       display: flex;
-      align-items: center;
-      gap: 5px;
-      transition:
-        background 0.18s,
-        border-color 0.18s,
-        color 0.18s;
-      mat-icon {
-        font-size: 15px;
-        width: 15px;
-        height: 15px;
-      }
-      &:hover {
-        background: rgba(60, 140, 60, 0.18);
-        border-color: rgba(80, 180, 80, 0.6);
-        color: #80e080;
-      }
+      gap: 18px;
+      align-items: stretch;
+      min-height: calc(100vh - 120px);
     }
 
-    /* ── Notes grid — 2 × 2 ─────────────────────── */
-    .notes-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
-      gap: 18px;
+    @media (max-width: 700px) {
+      :host {
+        padding: 13px 0 20px;
+      }
+      .notes-grid {
+        flex-direction: column;
+      }
+      .rt-wrap {
+        min-height: 260px;
+      }
     }
 
     /* ── Single note panel ───────────────────────── */
     .note-panel {
+      flex: 1;
       border-radius: 3px;
       overflow: hidden;
       background: linear-gradient(160deg, rgba(28, 22, 14, 0.97) 0%, rgba(18, 14, 8, 0.99) 100%);
@@ -158,6 +156,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         0 4px 20px rgba(0, 0, 0, 0.5),
         inset 0 1px 0 rgba(255, 255, 255, 0.02);
       transition: border-color 0.2s;
+      display: flex;
+      flex-direction: column;
       &:hover {
         border-color: rgba(255, 255, 255, 0.1);
       }
@@ -227,55 +227,35 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         color: rgba(170, 140, 230, 0.8);
       }
     }
-    .panel--rewards {
-      border-color: rgba(200, 160, 60, 0.2);
-      .panel-header {
-        background: rgba(200, 160, 60, 0.06);
-      }
-      .panel-icon {
-        color: rgba(200, 160, 60, 0.6);
-      }
-      .panel-title {
-        color: rgba(220, 180, 80, 0.85);
-      }
-    }
 
     /* ── Rich-textarea inside panel ─────────────── */
     .rt-wrap {
       position: relative;
-      height: 380px;
+      flex: 1;
+      min-height: 400px;
       background: rgba(0, 0, 0, 0.15);
     }
   `,
   template: `
     <spinner-overlay [showSpinner]="store.loading()" [diameter]="50">
-      <div class="header">
-        <div>
-          <div class="header-title">
-            <mat-icon>import_contacts</mat-icon>
-            Zápisník Pána Hry
-          </div>
-          <div class="header-subtitle">Soukromé poznámky PH — obsah není sdílen s hráči</div>
-        </div>
-        <div class="header-actions">
-          <span class="autosave-indicator" [class.autosave-indicator--hidden]="!autoSaved()">
-            <mat-icon>check_circle</mat-icon>
-            Automaticky uloženo
-          </span>
-          <button class="btn-save" (click)="save()">
-            <mat-icon>save</mat-icon>
-            Uložit
-          </button>
-        </div>
+      <div class="header-actions">
+        <span class="autosave-indicator" [class.autosave-indicator--hidden]="!autoSaved()">
+          <mat-icon>check_circle</mat-icon>
+          Automaticky uloženo
+        </span>
+        <button class="pt-filter-btn" (click)="save()">
+          <mat-icon>save</mat-icon>
+          Uložit
+        </button>
       </div>
 
       <div class="notes-grid">
         <!-- World notes -->
         <div class="note-panel panel--world">
           <div class="panel-header">
-            <mat-icon class="panel-icon">public</mat-icon>
-            <span class="panel-title">Světové Poznámky</span>
-            <span class="panel-desc">Lore, lokace, pravidla světa</span>
+            <!--            <mat-icon class="panel-icon">public</mat-icon>-->
+            <span class="panel-title">Hlavní info</span>
+            <!--            <span class="panel-desc">Lore, lokace, pravidla světa</span>-->
           </div>
           <div class="rt-wrap">
             <rich-textarea
@@ -290,44 +270,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         <div class="note-panel panel--secrets">
           <div class="panel-header">
             <mat-icon class="panel-icon">lock</mat-icon>
-            <span class="panel-title">Tajemství &amp; Plány</span>
-            <span class="panel-desc">Co hráči nevědí, plot twists</span>
+            <span class="panel-title">Plány, NPC, Frakce, ...</span>
+            <span class="panel-desc">Co hráči nevědí</span>
           </div>
           <div class="rt-wrap">
             <rich-textarea
               [(ngModel)]="secrets"
-              (ngModelChange)="onAnyChange()"
-              style="top:0;left:0;width:100%;height:100%;"
-            ></rich-textarea>
-          </div>
-        </div>
-
-        <!-- NPCs & Factions -->
-        <div class="note-panel panel--npcs">
-          <div class="panel-header">
-            <mat-icon class="panel-icon">groups</mat-icon>
-            <span class="panel-title">NPC &amp; Frakce</span>
-            <span class="panel-desc">Postavy, vztahy, frakce</span>
-          </div>
-          <div class="rt-wrap">
-            <rich-textarea
-              [(ngModel)]="npcsAndFactions"
-              (ngModelChange)="onAnyChange()"
-              style="top:0;left:0;width:100%;height:100%;"
-            ></rich-textarea>
-          </div>
-        </div>
-
-        <!-- Rewards & Treasure -->
-        <div class="note-panel panel--rewards">
-          <div class="panel-header">
-            <mat-icon class="panel-icon">auto_awesome</mat-icon>
-            <span class="panel-title">Odměny &amp; Poklady</span>
-            <span class="panel-desc">Magické předměty, zlato, XP</span>
-          </div>
-          <div class="rt-wrap">
-            <rich-textarea
-              [(ngModel)]="rewards"
               (ngModelChange)="onAnyChange()"
               style="top:0;left:0;width:100%;height:100%;"
             ></rich-textarea>
@@ -345,8 +293,6 @@ export class DmNotesComponent {
 
   worldNotes = '';
   secrets = '';
-  npcsAndFactions = '';
-  rewards = '';
   autoSaved = signal(false);
 
   private readonly change$ = new Subject<void>();
@@ -359,8 +305,6 @@ export class DmNotesComponent {
         if (data) {
           this.worldNotes = data.worldNotes ?? '';
           this.secrets = data.secrets ?? '';
-          this.npcsAndFactions = data.npcsAndFactions ?? '';
-          this.rewards = data.rewards ?? '';
           // With OnPush, plain-property mutations are invisible to Angular's CD.
           // markForCheck() schedules a re-check so ngModel propagates to rich-textarea.
           this.cdr.markForCheck();
@@ -387,6 +331,8 @@ export class DmNotesComponent {
     this.change$.next();
   }
 
+  ctrlSave(e: Event): void { e.preventDefault(); this.save(); }
+
   save(): void {
     const username = this.auth.currentUser()?.username;
     if (!username) return;
@@ -394,8 +340,6 @@ export class DmNotesComponent {
       username,
       worldNotes: this.worldNotes,
       secrets: this.secrets,
-      npcsAndFactions: this.npcsAndFactions,
-      rewards: this.rewards,
     };
     this.store.saveDmNotes(model);
   }

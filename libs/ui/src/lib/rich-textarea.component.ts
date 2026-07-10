@@ -147,11 +147,11 @@ function parseMarkup(raw: string): string {
       flex-wrap: wrap;
       gap: 2px;
       align-items: center;
-      background: #fff;
-      border: 1px solid #ccc;
+      background: rgba(18, 12, 5, 0.97);
+      border: 1px solid rgba(200, 160, 60, 0.3);
       border-radius: 4px;
       padding: 2px 4px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
       white-space: nowrap;
 
       button {
@@ -164,7 +164,8 @@ function parseMarkup(raw: string): string {
         font-size: 13px;
         padding: 0 4px;
         line-height: 1;
-        &:hover { background: #f0f0f0; border-color: #bbb; }
+        color: rgba(220, 195, 130, 0.85);
+        &:hover { background: rgba(200, 160, 60, 0.14); border-color: rgba(200, 160, 60, 0.4); color: #e8c96a; }
       }
     }
 
@@ -178,8 +179,8 @@ function parseMarkup(raw: string): string {
       border-radius: 6px 6px 0 0;
       border-bottom: none;
       box-shadow: none;
-      background: #f8f5ee;
-      border-color: rgba(180, 130, 50, 0.35);
+      background: rgba(18, 12, 5, 0.97);
+      border-color: rgba(200, 160, 60, 0.3);
       flex-wrap: wrap;
       gap: 4px;
       padding: 6px 8px;
@@ -193,14 +194,14 @@ function parseMarkup(raw: string): string {
     }
 
     .rt-done-btn {
-      color: #2a6e2a !important;
+      color: rgba(100, 200, 100, 0.9) !important;
       font-weight: bold !important;
       font-size: 16px !important;
       min-width: 32px !important;
-      &:hover { background: rgba(40,140,40,0.12) !important; border-color: #4caf50 !important; }
+      &:hover { background: rgba(50, 160, 50, 0.15) !important; border-color: rgba(80, 180, 80, 0.5) !important; }
     }
 
-    .rt-separator { width: 1px; height: 18px; background: #ccc; margin: 0 2px; flex-shrink: 0; }
+    .rt-separator { width: 1px; height: 18px; background: rgba(200, 160, 60, 0.25); margin: 0 2px; flex-shrink: 0; }
 
     /* ── Preview ─────────────────────────────────────────────────────── */
     .rt-preview {

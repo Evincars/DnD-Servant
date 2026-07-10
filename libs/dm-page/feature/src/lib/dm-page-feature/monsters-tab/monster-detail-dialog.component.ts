@@ -31,11 +31,10 @@ export interface FamilyLoreDialogData {
   imports: [MatIcon],
   styles: `
     :host { font-family: sans-serif; display: block; }
-    .dlg { display: flex; flex-direction: column; max-height: 82vh; width: min(860px, 96vw); background: #0b0a18; color: #d4c9a0; overflow: hidden; }
-    .dlg-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px 12px; flex-shrink: 0; border-bottom: 1px solid rgba(200,160,60,.25); background: linear-gradient(180deg, rgba(28,18,4,.9) 0%, rgba(10,8,20,.9) 100%); gap: 12px; }
-    .dlg-title { display: flex; align-items: center; gap: 10px; font-size: 17px; letter-spacing: .1em; text-transform: uppercase; color: #e8c96a; text-shadow: 0 0 18px rgba(200,160,60,.5); flex: 1; min-width: 0; }
-    .dlg-title mat-icon { font-size: 20px; width: 20px; height: 20px; color: #c8a03c; flex-shrink: 0; }
-    .dlg-close { background: none; border: 1px solid rgba(200,160,60,.25); border-radius: 4px; color: rgba(200,160,60,.6); cursor: pointer; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; padding: 0; transition: all .18s; flex-shrink: 0; mat-icon { font-size: 18px; width: 18px; height: 18px; } &:hover { background: rgba(200,160,60,.12); color: #e8c96a; border-color: rgba(200,160,60,.6); } }
+    .dlg { display: flex; flex-direction: column; max-height: 82vh; width: min(860px, 96vw); background: #0c0a08; color: #d4c9a0; overflow: hidden; }
+    .dlg-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; flex-shrink: 0; border-bottom: 1px solid rgba(200,160,60,.25); background: linear-gradient(90deg, rgba(12,10,8,.98) 0%, rgba(20,16,13,.98) 100%); gap: 12px; }
+    .dlg-title { font-size: 14px; font-family: sans-serif; letter-spacing: .06em; color: #e0d4c0; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .dlg-close { background: transparent; border: 1px solid rgba(200,160,60,.25); border-radius: 4px; color: rgba(200,160,60,.55); cursor: pointer; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; padding: 0; transition: all .15s; flex-shrink: 0; mat-icon { font-size: 16px; width: 16px; height: 16px; } &:hover { background: rgba(200,160,60,.1); color: #e8c96a; border-color: rgba(200,160,60,.5); } }
     .dlg-body { flex: 1; overflow-y: auto; padding: 20px 24px 24px; scrollbar-width: thin; scrollbar-color: rgba(200,160,60,.25) transparent; }
     .dlg-loading { padding: 60px 24px; text-align: center; font-size: 13px; color: rgba(200,160,60,.3); font-style: italic; mat-icon { display: block; font-size: 38px; width: 38px; height: 38px; margin: 0 auto 14px; color: rgba(200,160,60,.18); } }
     :host ::ng-deep h1, :host ::ng-deep h2, :host ::ng-deep h3 { color: #c8903c; letter-spacing: .06em; margin-top: 18px; margin-bottom: 6px; }
@@ -47,10 +46,7 @@ export interface FamilyLoreDialogData {
   template: `
     <div class="dlg">
       <div class="dlg-header">
-        <div class="dlg-title">
-          <mat-icon>menu_book</mat-icon>
-          <span>{{ data.familyTitle }}</span>
-        </div>
+        <div class="dlg-title">{{ data.familyTitle }}</div>
         <button type="button" class="dlg-close" (click)="dialogRef.close()" aria-label="Zavřít">
           <mat-icon>close</mat-icon>
         </button>
@@ -94,30 +90,28 @@ export class FamilyLoreDialogComponent {
     .dlg {
       display: flex; flex-direction: column;
       max-height: 82vh; width: min(860px, 96vw);
-      background: #0b0a18; color: #d4c9a0; overflow: hidden;
+      background: #0c0a08; color: #d4c9a0; overflow: hidden;
     }
 
     .dlg-header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 20px 12px; flex-shrink: 0;
+      padding: 8px 14px; flex-shrink: 0;
       border-bottom: 1px solid rgba(200,160,60,.25);
-      background: linear-gradient(180deg, rgba(28,18,4,.9) 0%, rgba(10,8,20,.9) 100%);
+      background: linear-gradient(90deg, rgba(12,10,8,.98) 0%, rgba(20,16,13,.98) 100%);
       gap: 12px;
     }
     .dlg-title {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 17px; letter-spacing: .1em; text-transform: uppercase;
-      color: #e8c96a; text-shadow: 0 0 18px rgba(200,160,60,.5);
-      flex: 1; min-width: 0;
+      font-size: 14px; font-family: sans-serif; letter-spacing: .06em;
+      color: #e0d4c0;
+      flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .dlg-title mat-icon { font-size: 20px; width: 20px; height: 20px; color: #c8a03c; flex-shrink: 0; }
-    .dlg-subtitle { font-size: 11px; letter-spacing: .05em; color: rgba(200,160,60,.45); text-transform: none; }
+    .dlg-subtitle { font-size: 11px; letter-spacing: .05em; color: rgba(200,160,60,.45); display: block; }
     .dlg-close {
-      background: none; border: 1px solid rgba(200,160,60,.25); border-radius: 4px;
-      color: rgba(200,160,60,.6); cursor: pointer; width: 32px; height: 32px;
+      background: transparent; border: 1px solid rgba(200,160,60,.25); border-radius: 4px;
+      color: rgba(200,160,60,.55); cursor: pointer; width: 26px; height: 26px;
       display: flex; align-items: center; justify-content: center; padding: 0;
-      transition: all .18s; flex-shrink: 0;
-      mat-icon { font-size: 18px; width: 18px; height: 18px; }
+      transition: all .15s; flex-shrink: 0;
+      mat-icon { font-size: 16px; width: 16px; height: 16px; }
       &:hover { background: rgba(200,160,60,.12); color: #e8c96a; border-color: rgba(200,160,60,.6); }
     }
 
@@ -202,11 +196,10 @@ export class FamilyLoreDialogComponent {
     <div class="dlg">
       <div class="dlg-header">
         <div class="dlg-title">
-          <mat-icon>pets</mat-icon>
           <span>
             {{ monsterName }}
             @if (monsterSubtitle()) {
-              <div class="dlg-subtitle">{{ monsterSubtitle() }}</div>
+              <span class="dlg-subtitle">{{ monsterSubtitle() }}</span>
             }
           </span>
         </div>

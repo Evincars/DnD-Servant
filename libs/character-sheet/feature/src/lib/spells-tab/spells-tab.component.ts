@@ -88,6 +88,7 @@ type SpellTypeFilter = 'kouzlo' | 'ritual';
   selector: 'spells-tab',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatIcon, MatTooltip],
+  host: { '(document:keydown)': 'onDocKeydown($event)' },
   styles: `
     :host {
       display: flex;
@@ -105,39 +106,45 @@ type SpellTypeFilter = 'kouzlo' | 'ritual';
       border-bottom: 1px solid rgba(200,160,60,.22);
       background: linear-gradient(180deg, rgba(22,15,5,.97) 0%, rgba(14,10,4,.98) 100%);
     }
-    .spells-search-wrap {
-      flex: 1;
-      position: relative;
-      display: flex;
-      align-items: center;
-      .search-icon {
-        position: absolute; left: 10px;
-        font-size: 18px; width: 18px; height: 18px;
-        color: rgba(200,160,60,.45); pointer-events: none;
+
+    /* ── Wiki-style search ── */
+    .spells-search-wrap { flex: 1; position: relative; }
+    .search-row {
+      display: flex; align-items: center; gap: 9px;
+      padding: 8px 14px;
+      background: rgba(200,160,60,.07);
+      border: 1px solid rgba(200,160,60,.22);
+      border-radius: 4px; position: relative;
+      transition: border-color .15s, box-shadow .15s;
+      &:focus-within {
+        border-color: rgba(200,160,60,.52);
+        box-shadow: 0 0 0 2px rgba(200,160,60,.1);
       }
     }
+    .search-hint {
+      position: absolute; left: 43px; top: 50%; transform: translateY(-50%);
+      display: flex; align-items: center; gap: 5px;
+      font-family: sans-serif; font-size: 13px; color: rgba(200,160,60,.32);
+      pointer-events: none; user-select: none; white-space: nowrap;
+    }
+    .search-hint__kbd {
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: monospace; font-size: 11px; line-height: 1;
+      padding: 2px 6px; border: 1px solid rgba(200,160,60,.35); border-radius: 3px;
+      background: rgba(200,160,60,.08); color: rgba(200,160,60,.6);
+      box-shadow: 0 1px 0 rgba(200,160,60,.2);
+    }
+    .search-icon { color: #6a5a48; flex-shrink: 0; }
     .spells-search {
-      width: 100%;
-      background: rgba(5,3,12,.75);
-      border: 1px solid rgba(200,160,60,.28);
-      border-radius: 4px;
-      color: #d4c9a0;
-      font-family: sans-serif;
-      font-size: 13px;
-      padding: 7px 34px;
-      outline: none;
-      transition: border-color .18s, box-shadow .18s;
-      &::placeholder { color: rgba(200,160,60,.28); font-style: italic; }
-      &:focus { border-color: rgba(200,160,60,.6); box-shadow: 0 0 10px rgba(200,160,60,.12); }
+      flex: 1; background: transparent; border: none; outline: none;
+      font-family: sans-serif; font-size: 14px; color: #c8baa8; min-width: 0;
+      &::placeholder { color: #4a3a28; }
     }
     .search-clear {
-      position: absolute; right: 6px;
-      background: none; border: none; cursor: pointer;
-      color: rgba(200,160,60,.45);
-      display: flex; align-items: center;
-      padding: 2px; border-radius: 3px; transition: color .15s;
-      mat-icon { font-size: 16px; width: 16px; height: 16px; }
-      &:hover { color: #e8c96a; }
+      background: transparent; border: none; padding: 0; cursor: pointer;
+      color: #4a3a28; display: flex; align-items: center; flex-shrink: 0;
+      transition: color .12s;
+      &:hover { color: #c8a03c; }
     }
     .spells-count {
       font-family: sans-serif; font-size: 11px;
@@ -159,50 +166,12 @@ type SpellTypeFilter = 'kouzlo' | 'ritual';
       text-transform: uppercase; color: rgba(200,160,60,.35);
       flex-shrink: 0; margin-right: 2px;
     }
-    .chip {
-      padding: 2px 10px;
-      border: 1px solid rgba(200,160,60,.25);
-      border-radius: 12px;
-      background: none;
-      color: rgba(200,160,60,.5);
-      font-family: sans-serif;
-      font-size: 11px;
-      cursor: pointer;
-      transition: all .15s;
-      white-space: nowrap;
-      &:hover { border-color: rgba(200,160,60,.55); color: #d4c9a0; background: rgba(200,160,60,.07); }
-      &.active { background: rgba(200,160,60,.14); border-color: #c8a03c; color: #e8c96a; box-shadow: 0 0 7px rgba(200,160,60,.18); }
-    }
-    /* Level chips – same gold family as class chips */
-    .chip--level { /* inherits .chip styles – no extra override needed */ }
     /* ── Sort-mode toggle ── */
     .sort-toggle {
       margin-left: auto;
       flex-shrink: 0;
       display: flex;
-      border: 1px solid rgba(200,160,60,.22);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .sort-toggle-btn {
-      display: flex;
-      align-items: center;
       gap: 4px;
-      padding: 2px 9px;
-      background: none;
-      border: none;
-      color: rgba(200,160,60,.4);
-      font-family: sans-serif;
-      font-size: 11px;
-      cursor: pointer;
-      transition: background .15s, color .15s;
-      white-space: nowrap;
-      &:hover { background: rgba(200,160,60,.07); color: rgba(200,160,60,.75); }
-      &.active {
-        background: rgba(200,160,60,.14);
-        color: #e8c96a;
-      }
-      & + & { border-left: 1px solid rgba(200,160,60,.22); }
     }
     /* ── Scrollable spell area ── */
     .spells-scroll {
@@ -294,20 +263,33 @@ type SpellTypeFilter = 'kouzlo' | 'ritual';
     <!-- Search bar -->
     <div class="spells-header">
       <div class="spells-search-wrap">
-        <mat-icon class="search-icon">search</mat-icon>
-        <input
-          #searchInput
-          class="spells-search"
-          [value]="searchQuery()"
-          (input)="searchQuery.set($any($event.target).value)"
-          placeholder="Hledat kouzlo&#8230;"
-          autocomplete="off" spellcheck="false"
-        />
-        @if (searchQuery()) {
-          <button class="search-clear" type="button" (click)="searchQuery.set('')" matTooltip="Vymazat">
-            <mat-icon>close</mat-icon>
-          </button>
-        }
+        <div class="search-row">
+          <svg class="search-icon" viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+            <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          </svg>
+          <input
+            #searchInput
+            class="spells-search"
+            [value]="searchQuery()"
+            (input)="searchQuery.set($any($event.target).value)"
+            (focus)="searchFocused.set(true)"
+            (blur)="searchFocused.set(false)"
+            placeholder=""
+            autocomplete="off" spellcheck="false"
+          />
+          @if (!searchQuery() && !searchFocused()) {
+            <span class="search-hint" aria-hidden="true">
+              <kbd class="search-hint__kbd">/</kbd> pro vyhledávání
+            </span>
+          }
+          @if (searchQuery()) {
+            <button class="search-clear" type="button" (click)="clearSearch()" title="Vymazat">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+              </svg>
+            </button>
+          }
+        </div>
       </div>
       <span class="spells-count">{{ filteredSpells().length }}&thinsp;/&thinsp;{{ spellsService.allSpells().length }}</span>
     </div>
@@ -316,17 +298,17 @@ type SpellTypeFilter = 'kouzlo' | 'ritual';
     @if (spellsService.availableClasses().length > 0) {
       <div class="filters">
         <span class="filter-label">Povolání</span>
-        <button class="chip" [class.active]="selectedClass() === null" type="button" (click)="selectedClass.set(null)">V&#353;e</button>
+        <button class="pt-filter-btn" [class.active]="selectedClass() === null" type="button" (click)="selectedClass.set(null)">V&#353;e</button>
         @for (cls of spellsService.availableClasses(); track cls) {
-          <button class="chip" [class.active]="selectedClass() === cls" type="button" (click)="toggleClass(cls)">{{ cls }}</button>
+          <button class="pt-filter-btn" [class.active]="selectedClass() === cls" type="button" (click)="toggleClass(cls)">{{ cls }}</button>
         }
         <!-- Sort-mode toggle -->
         <div class="sort-toggle" role="group" aria-label="Řazení">
-          <button class="sort-toggle-btn" [class.active]="sortMode() === 'school'" type="button"
+          <button class="pt-filter-btn" [class.active]="sortMode() === 'school'" type="button"
             (click)="sortMode.set('school')" matTooltip="Řadit podle školy magie">
             Škola
           </button>
-          <button class="sort-toggle-btn" [class.active]="sortMode() === 'level'" type="button"
+          <button class="pt-filter-btn" [class.active]="sortMode() === 'level'" type="button"
             (click)="sortMode.set('level')" matTooltip="Řadit podle úrovně kouzla">
             Úroveň
           </button>
@@ -338,15 +320,15 @@ type SpellTypeFilter = 'kouzlo' | 'ritual';
     @if (spellsService.allSpells().length > 0) {
       <div class="filters">
         <span class="filter-label">Typ</span>
-        <button class="chip" [class.active]="selectedSpellType() === null" type="button" (click)="selectedSpellType.set(null)">Vše</button>
-        <button class="chip" [class.active]="selectedSpellType() === 'kouzlo'" type="button" (click)="toggleSpellType('kouzlo')" matTooltip="Pouze kouzla (ne triky, ne rituály)">Kouzlo</button>
-        <button class="chip" [class.active]="selectedSpellType() === 'ritual'" type="button" (click)="toggleSpellType('ritual')" matTooltip="Pouze rituály">Rituál</button>
+        <button class="pt-filter-btn" [class.active]="selectedSpellType() === null" type="button" (click)="selectedSpellType.set(null)">Vše</button>
+        <button class="pt-filter-btn" [class.active]="selectedSpellType() === 'kouzlo'" type="button" (click)="toggleSpellType('kouzlo')" matTooltip="Pouze kouzla (ne triky, ne rituály)">Kouzlo</button>
+        <button class="pt-filter-btn" [class.active]="selectedSpellType() === 'ritual'" type="button" (click)="toggleSpellType('ritual')" matTooltip="Pouze rituály">Rituál</button>
           @if (availableLevels().length > 0) {
             <span class="filter-label" style="margin-left: 6px">Úroveň</span>
-            <button class="chip chip--level" [class.active]="selectedLevel() === null" type="button" (click)="selectedLevel.set(null)">Vše</button>
+            <button class="pt-filter-btn" [class.active]="selectedLevel() === null" type="button" (click)="selectedLevel.set(null)">Vše</button>
             @for (lvl of availableLevels(); track lvl) {
               <button
-                class="chip chip--level"
+                class="pt-filter-btn"
                 [class.active]="selectedLevel() === lvl"
                 type="button"
                 (click)="toggleLevel(lvl)"
@@ -413,6 +395,7 @@ export class SpellsTabComponent {
   private readonly snackBar = inject(MatSnackBar);
 
   readonly searchQuery = signal('');
+  readonly searchFocused = signal(false);
   readonly selectedClass = signal<string | null>(null);
   readonly selectedSpellType = signal<SpellTypeFilter | null>(null);
   readonly selectedLevel = signal<number | null>(null);
@@ -506,6 +489,24 @@ export class SpellsTabComponent {
 
   toggleLevel(level: number): void {
     this.selectedLevel.update(cur => (cur === level ? null : level));
+  }
+
+  clearSearch(): void {
+    this.searchQuery.set('');
+    this._searchRef()?.nativeElement.focus();
+  }
+
+  /** Focus the search input when '/' is pressed outside any text field. */
+  onDocKeydown(event: KeyboardEvent): void {
+    if (event.key !== '/') return;
+    const active = document.activeElement;
+    if (
+      active instanceof HTMLInputElement ||
+      active instanceof HTMLTextAreaElement ||
+      (active as HTMLElement)?.isContentEditable
+    ) return;
+    event.preventDefault();
+    this._searchRef()?.nativeElement.focus();
   }
 
   spellTooltip(spell: JadSpell): string {

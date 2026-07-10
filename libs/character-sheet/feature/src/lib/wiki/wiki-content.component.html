@@ -18,7 +18,7 @@
     <article class="chapter-article">
 
       @if (chunk.toc.length > 1) {
-        <details class="chapter-toc" open>
+        <details class="chapter-toc" [attr.open]="tocOpen() ? '' : null" (toggle)="onTocToggle($event)">
           <summary class="chapter-toc__summary">
             <span class="material-symbols-outlined chapter-toc__icon">toc</span>
             <span class="chapter-toc__title">Obsah kapitoly</span>

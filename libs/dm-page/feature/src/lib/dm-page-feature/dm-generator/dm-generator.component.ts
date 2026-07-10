@@ -349,14 +349,12 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatIcon, MatTooltip],
   styles: `
-    :host { display: block; height: 100%; overflow-y: auto; padding: 24px 32px 40px; box-sizing: border-box; font-family: sans-serif; }
+    :host { display: block; height: 100%; overflow-y: auto; padding: 13px 0 20px; box-sizing: border-box; font-family: sans-serif; }
 
     /* ── Header ─────────────────────────────────── */
     .gen-header {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      flex-wrap: wrap; gap: 14px; margin-bottom: 28px; padding-bottom: 14px;
-      border-bottom: 2px solid transparent;
-      border-image: linear-gradient(90deg, transparent, rgba(60,140,200,.6) 20%, rgba(80,180,240,.8) 50%, rgba(60,140,200,.6) 80%, transparent) 1;
+      display: flex; align-items: center; justify-content: flex-end;
+      flex-wrap: wrap; gap: 14px; margin-bottom: 20px;
     }
     .gen-title {
       font-size: 22px; letter-spacing: .12em; text-transform: uppercase;
@@ -366,21 +364,17 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
     }
     .gen-subtitle { font-size: 11px; color: rgba(60,140,200,.4); letter-spacing: .05em; margin-top: 5px; font-style: italic; text-transform: none; }
 
-    .gen-reroll-all {
-      font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
-      border: 1px solid rgba(60,140,200,.3); border-radius: 3px; background: rgba(60,140,200,.08);
-      color: rgba(80,160,220,.8); padding: 6px 16px; cursor: pointer;
-      display: flex; align-items: center; gap: 6px;
-      transition: background .18s, border-color .18s, color .18s;
-      mat-icon { font-size: 15px; width: 15px; height: 15px; }
-      &:hover { background: rgba(60,140,200,.18); border-color: rgba(80,180,240,.5); color: #90d0f8; }
-    }
 
     /* ── Grid ────────────────────────────────────── */
     .gen-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+      :host { padding: 13px 0 20px; }
+      .gen-grid { grid-template-columns: 1fr; }
     }
 
     /* ── Card ────────────────────────────────────── */
@@ -418,17 +412,6 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
       color: var(--c); flex: 1;
     }
 
-    .gen-btn {
-      font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
-      border: 1px solid var(--c); border-radius: 2px;
-      background: rgba(0,0,0,.2); color: var(--c);
-      padding: 4px 12px; cursor: pointer;
-      display: flex; align-items: center; gap: 4px;
-      transition: background .15s, opacity .15s;
-      mat-icon { font-size: 12px; width: 12px; height: 12px; }
-      &:hover { background: rgba(255,255,255,.06); }
-      &:active { opacity: .7; }
-    }
 
     .gen-card-body { padding: 12px 14px 14px; min-height: 64px; }
 
@@ -489,11 +472,7 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
   `,
   template: `
     <div class="gen-header">
-      <div>
-        <div class="gen-title"><mat-icon>casino</mat-icon>Generátor PH</div>
-        <div class="gen-subtitle">Náhodné tabulky pro Pána Hry — jméno, počasí, setkání, zápletka a více</div>
-      </div>
-      <button class="gen-reroll-all" type="button" (click)="rerollAll()" matTooltip="Přegenerovat všechny tabulky">
+      <button class="pt-filter-btn" type="button" (click)="rerollAll()" matTooltip="Přegenerovat všechny tabulky">
         <mat-icon>refresh</mat-icon>Generovat vše
       </button>
     </div>
@@ -506,7 +485,7 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">person</mat-icon>
           <span class="gen-card-title">Jméno NPC</span>
-          <button class="gen-btn" type="button" (click)="rollNpc()"><mat-icon>shuffle</mat-icon>Generovat</button>
+          <button class="pt-filter-btn" type="button" (click)="rollNpc()"><mat-icon>shuffle</mat-icon>Generovat</button>
         </div>
         <div class="gen-card-body">
           @if (npc()) {
@@ -528,7 +507,7 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">wb_cloudy</mat-icon>
           <span class="gen-card-title">Počasí</span>
-          <button class="gen-btn" type="button" (click)="rollWeather()"><mat-icon>shuffle</mat-icon>Generovat</button>
+          <button class="pt-filter-btn" type="button" (click)="rollWeather()"><mat-icon>shuffle</mat-icon>Generovat</button>
         </div>
         <div class="gen-card-body">
           @if (weather()) {
@@ -545,7 +524,7 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">warning</mat-icon>
           <span class="gen-card-title">Náhodné setkání</span>
-          <button class="gen-btn" type="button" (click)="rollEncounter()"><mat-icon>shuffle</mat-icon>Generovat</button>
+          <button class="pt-filter-btn" type="button" (click)="rollEncounter()"><mat-icon>shuffle</mat-icon>Generovat</button>
         </div>
         <div class="gen-card-body">
           @if (encounter()) {
@@ -562,7 +541,7 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">psychology</mat-icon>
           <span class="gen-card-title">Zápletka</span>
-          <button class="gen-btn" type="button" (click)="rollPlot()"><mat-icon>shuffle</mat-icon>Generovat</button>
+          <button class="pt-filter-btn" type="button" (click)="rollPlot()"><mat-icon>shuffle</mat-icon>Generovat</button>
         </div>
         <div class="gen-card-body">
           @if (plot()) {
@@ -579,7 +558,7 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">door_back</mat-icon>
           <span class="gen-card-title">Popis místnosti</span>
-          <button class="gen-btn" type="button" (click)="rollRoom()"><mat-icon>shuffle</mat-icon>Generovat</button>
+          <button class="pt-filter-btn" type="button" (click)="rollRoom()"><mat-icon>shuffle</mat-icon>Generovat</button>
         </div>
         <div class="gen-card-body">
           @if (room()) {
@@ -596,7 +575,7 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">bolt</mat-icon>
           <span class="gen-card-title">Bojová komplikace</span>
-          <button class="gen-btn" type="button" (click)="rollComplication()"><mat-icon>shuffle</mat-icon>Generovat</button>
+          <button class="pt-filter-btn" type="button" (click)="rollComplication()"><mat-icon>shuffle</mat-icon>Generovat</button>
         </div>
         <div class="gen-card-body">
           @if (complication()) {
@@ -613,7 +592,7 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">auto_awesome</mat-icon>
           <span class="gen-card-title">Kořist</span>
-          <button class="gen-btn" type="button" (click)="rollLoot()"><mat-icon>shuffle</mat-icon>Generovat</button>
+          <button class="pt-filter-btn" type="button" (click)="rollLoot()"><mat-icon>shuffle</mat-icon>Generovat</button>
         </div>
 
         <!-- Budget control -->
@@ -656,7 +635,7 @@ const LOOT_PRESETS = [15, 80, 300, 1200] as const;
         <div class="gen-card-header">
           <mat-icon class="gen-card-icon">science</mat-icon>
           <span class="gen-card-title">Generovat loot ingredience</span>
-          <button class="gen-btn" type="button" (click)="rollAlchemy()"><mat-icon>shuffle</mat-icon>Generovat</button>
+          <button class="pt-filter-btn" type="button" (click)="rollAlchemy()"><mat-icon>shuffle</mat-icon>Generovat</button>
         </div>
 
         <div class="gen-loot-budget">

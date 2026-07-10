@@ -41,7 +41,7 @@ export const DmPageStore = signalStore(
             tapResponse(
               () => {
                 patchState(store, { dmQuests: req, loading: false });
-                snack.open('📖 DM questy uloženy!', '✕', { verticalPosition: 'top', duration: 2200, panelClass: ['snackbar--save'] });
+                snack.open('Data uložena', '✕', { verticalPosition: 'top', duration: 2200, panelClass: ['snackbar--save'] });
               },
               (e: HttpErrorResponse) => {
                 snack.open('Ukládání DM questů selhalo: ' + e.message, 'Zavřít', { verticalPosition: 'top', duration: 3000 });
@@ -78,7 +78,7 @@ export const DmPageStore = signalStore(
             tapResponse(
               () => {
                 patchState(store, { dmNotes: req, loading: false });
-                snack.open('📜 Poznámky PH uloženy!', '✕', { verticalPosition: 'top', duration: 2200, panelClass: ['snackbar--save'] });
+                snack.open('Data uložena', '✕', { verticalPosition: 'top', duration: 2200, panelClass: ['snackbar--save'] });
               },
               (e: HttpErrorResponse) => {
                 snack.open('Ukládání poznámek selhalo: ' + e.message, 'Zavřít', { verticalPosition: 'top', duration: 3000 });
@@ -115,7 +115,7 @@ export const DmPageStore = signalStore(
             tapResponse(
               () => {
                 patchState(store, { dmStoryTimeline: req, loading: false });
-                snack.open('📖 Příběhové události uloženy!', '✕', { verticalPosition: 'top', duration: 2200, panelClass: ['snackbar--save'] });
+                snack.open('Data uložena', '✕', { verticalPosition: 'top', duration: 2200, panelClass: ['snackbar--save'] });
               },
               (e: HttpErrorResponse) => {
                 snack.open('Ukládání příběhové osy selhalo: ' + e.message, 'Zavřít', { verticalPosition: 'top', duration: 3000 });

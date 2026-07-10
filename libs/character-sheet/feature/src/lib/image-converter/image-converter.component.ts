@@ -380,26 +380,14 @@ const SCALE_STEPS = [1.0, 0.78, 0.6, 0.45, 0.32, 0.22, 0.15];
     }
   `,
   template: `
-    <!-- ── Header ── -->
-    <div class="ic-header">
-      <div>
-        <div class="ic-title">
-          <mat-icon>auto_fix_high</mat-icon>
-          Konvertor Obrázků
-        </div>
-        <div class="ic-subtitle">
-          Převod PNG / JPG / JPEG → GIF · automatická redukce na max 200 KB pro nahrání jako portrét postavy
-        </div>
-      </div>
-      @if (originalPreview()) {
+    @if (originalPreview()) {
+      <div class="ic-header">
         <button class="ic-reset-btn" type="button" (click)="reset()">
           <mat-icon>restart_alt</mat-icon>
           Nový obrázek
         </button>
-      }
-    </div>
-
-    <!-- ── Drop zone (shown only before a file is picked) ── -->
+      </div>
+    }    <!-- ── Drop zone (shown only before a file is picked) ── -->
     @if (!originalPreview()) {
       <div
         class="ic-dropzone"

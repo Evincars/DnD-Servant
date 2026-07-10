@@ -17,7 +17,7 @@
 
 body {
   margin: 0;
-  background-color: #0a0710;
+  background-color: #080504;
 }
 
 html,
@@ -37,11 +37,11 @@ body {
 }
 
 :root {
-  --background: hsl(270, 20%, 8%);
-  --background-gradient: hsl(280, 25%, 12%);
+  --background: hsl(0, 12%, 7%);
+  --background-gradient: hsl(0, 10%, 10%);
   --border: hsl(40, 65%, 80%);
   --text: hsl(40, 70%, 85%);
-  --button-hover: hsl(280, 25%, 12%);
+  --button-hover: hsl(0, 10%, 10%);
   --primary-color: #b84949;
 
   --mat-sys-primary: rgb(168, 58, 58);
@@ -61,78 +61,61 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: var(--spacing-2);
-    font-size: 18px !important;
-    font-family: 'Mikadan', sans-serif !important;
+    font-size: 14px !important;
+    font-family: sans-serif !important;
     letter-spacing: .06em;
-    padding: 14px 18px !important;
-    color: #e8c96a !important;
+    padding: 8px 14px !important;
+    color: #e0d4c0 !important;
     background:
-      linear-gradient(90deg, rgba(8,5,16,.98) 0%, rgba(22,15,38,.98) 50%, rgba(8,5,16,.98) 100%) !important;
-    border-bottom: 1px solid rgba(200,160,60,.35) !important;
-    text-shadow: 0 0 12px rgba(200,160,60,.4);
+      linear-gradient(90deg, rgba(12,10,8,.98) 0%, rgba(20,16,13,.98) 50%, rgba(12,10,8,.98) 100%) !important;
+    border-bottom: 1px solid rgba(200,160,60,.25) !important;
     position: relative;
 
-    // bottom gold rule line
+    // bottom gold shimmer
     &::after {
       content: '';
       position: absolute;
       bottom: -1px; left: 10%; right: 10%;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(200,160,60,.6), transparent);
+      background: linear-gradient(90deg, transparent, rgba(200,160,60,.45), transparent);
     }
 
-    // ── DnD close button — wax seal style ────────────────────
+    // ── Simple close button ────────────────────────────────────
     button {
-      position: relative !important;
-      width: 34px !important;
-      height: 34px !important;
-      min-width: 34px !important;
+      width: 26px !important;
+      height: 26px !important;
+      min-width: 26px !important;
       padding: 0 !important;
       flex-shrink: 0;
+      background: transparent !important;
+      border: 1px solid rgba(200,160,60,.25) !important;
+      border-radius: 4px !important;
+      color: rgba(200,160,60,.55) !important;
+      cursor: pointer;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      transition: background .15s, border-color .15s, color .15s !important;
 
-      // hide Material ripple / state layer noise
       .mat-mdc-button-ripple,
       .mat-mdc-button-persistent-ripple,
       .mdc-button__ripple { display: none !important; }
 
-      // seal base — round dark disc
-      &::before {
-        content: '✕';
-        position: absolute !important;
-        inset: 0 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        border-radius: 50% !important;
-        background: radial-gradient(circle at 38% 32%, rgba(60,20,20,.95), rgba(30,8,8,.98)) !important;
-        border: 1.5px solid rgba(200,80,60,.45) !important;
-        box-shadow:
-          0 0 0 1px rgba(200,160,60,.15),
-          0 2px 8px rgba(0,0,0,.7),
-          inset 0 1px 0 rgba(255,160,120,.08) !important;
-        color: rgba(200,100,80,.85) !important;
-        font-size: 13px !important;
-        font-family: sans-serif !important;
-        line-height: 1 !important;
-        transition: background .18s, border-color .18s, box-shadow .18s, transform .14s !important;
-        z-index: 1;
-        pointer-events: none;
-      }
-
-      // hide the actual mat-icon — our ::before renders the ✕
+      // Show icon normally
       mat-icon, .mat-icon {
-        opacity: 0 !important;
+        font-size: 16px !important;
+        width: 16px !important;
+        height: 16px !important;
+        opacity: 1 !important;
+        color: inherit !important;
       }
 
-      &:hover::before {
-        background: radial-gradient(circle at 38% 32%, rgba(140,30,20,1), rgba(80,10,10,1)) !important;
-        border-color: rgba(220,80,60,.8) !important;
-        box-shadow:
-          0 0 0 1px rgba(200,160,60,.25),
-          0 0 14px rgba(200,60,40,.4),
-          inset 0 1px 0 rgba(255,160,120,.15) !important;
-        color: #ff8070 !important;
-        transform: scale(1.12) !important;
+      &::before { display: none !important; }
+
+      &:hover {
+        background: rgba(200,160,60,.1) !important;
+        border-color: rgba(200,160,60,.5) !important;
+        color: #e8c96a !important;
       }
     }
   }
@@ -201,11 +184,54 @@ mat-sidenav-content {
 }
 
 // ════════════════════════════════════════════════════════════════
+// DND FILTER BUTTON — unified filter/chip style used across all tabs
+// (Kouzla, Monstra, Lektvary and any future filter row)
+// Used as: .pt-filter-btn  (canonical class, also aliased as .dnd-filter-btn)
+// ════════════════════════════════════════════════════════════════
+.pt-filter-btn,
+.dnd-filter-btn {
+  background: rgba(200,160,60,.08);
+  border: 1px solid rgba(200,160,60,.2);
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: #9a8a6a;
+  cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+  font-family: sans-serif;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  mat-icon, .mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  &:hover  { background: rgba(200,160,60,.15); color: #d4c9a0; border-color: rgba(200,160,60,.4); }
+  &.active { background: rgba(200,160,60,.25); color: #e8c96a; border-color: rgba(200,160,60,.6); }
+}
+
+// CR / challenge-rating variant (red-orange tint)
+.pt-filter-btn--cr,
+.dnd-filter-btn--cr {
+  border-color: rgba(200,80,60,.3);
+  color: rgba(220,120,80,.6);
+
+  &:hover  { border-color: rgba(220,120,80,.6); color: #e8a070; background: rgba(200,80,60,.07); }
+  &.active { background: rgba(200,80,60,.18); border-color: rgba(220,120,80,.8); color: #f0a070; }
+}
+
+// ════════════════════════════════════════════════════════════════
 // TOOLBAR — D&D dark fantasy style
+
 // ════════════════════════════════════════════════════════════════
 mat-toolbar.toolbar {
   background:
-    linear-gradient(90deg, rgba(6,4,12,.98) 0%, rgba(16,11,26,.98) 50%, rgba(6,4,12,.98) 100%) !important;
+    linear-gradient(90deg, rgba(12,10,8,.98) 0%, rgba(20,16,13,.98) 50%, rgba(12,10,8,.98) 100%) !important;
   border-bottom: 1px solid rgba(200,160,60,.3) !important;
   box-shadow: 0 2px 20px rgba(0,0,0,.7), 0 1px 0 rgba(200,160,60,.15) !important;
   color: #e0d4c0 !important;
@@ -228,14 +254,14 @@ mat-toolbar.toolbar {
 
 // Backdrop
 .cdk-overlay-backdrop.cdk-overlay-dark-backdrop {
-  background: rgba(4, 2, 10, 0.82) !important;
+  background: rgba(4, 3, 2, 0.82) !important;
   backdrop-filter: blur(2px);
 }
 
 // Dialog surface
 .mat-mdc-dialog-surface {
   background:
-    linear-gradient(180deg, rgba(10,7,20,.99) 0%, rgba(16,11,28,.99) 100%) !important;
+    linear-gradient(180deg, rgba(12,10,8,.99) 0%, rgba(18,15,12,.99) 100%) !important;
   border: 1px solid rgba(200,160,60,.3) !important;
   border-radius: 10px !important;
   box-shadow:
@@ -244,19 +270,6 @@ mat-toolbar.toolbar {
     inset 0 1px 0 rgba(255,220,100,.07) !important;
   overflow: hidden !important;
 
-  // Corner gem decorators
-  &::before,
-  &::after {
-    content: '◆';
-    position: absolute;
-    color: rgba(200,160,60,.5);
-    font-size: 9px;
-    line-height: 1;
-    pointer-events: none;
-    z-index: 10;
-  }
-  &::before { top: 6px; left: 8px; }
-  &::after  { top: 6px; right: 8px; }
 }
 
 // mat-dialog-content scroll area
@@ -269,22 +282,32 @@ mat-dialog-content.dialog-content,
 // ════════════════════════════════════════════════════════════════
 // SETTINGS DIALOG — zero padding, custom panel handles all styling
 // ════════════════════════════════════════════════════════════════
+.sd-dialog-panel .mat-mdc-dialog-container {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
 .sd-dialog-panel .mat-mdc-dialog-surface {
   padding: 0 !important;
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
   overflow: visible !important;
+  height: auto !important;
 
   &::before, &::after { display: none !important; }
 }
 
 .sd-dialog-panel {
   overflow: visible !important;
+  height: auto !important;
 }
 
 .sd-dialog-backdrop {
-  background: rgba(4,2,10,.75) !important;
+  background: rgba(6,3,3,.75) !important;
   backdrop-filter: blur(3px);
 }
 
@@ -498,13 +521,20 @@ mat-sidenav-content {
   padding: 0 !important;
   border-radius: 12px !important;
   overflow: visible !important;
+  height: auto !important;
 }
 
 .cp-dialog-panel .mdc-dialog__surface {
   background: transparent !important;
-  box-shadow: 0 24px 80px rgba(0,0,0,.85), 0 0 0 1px rgba(200,160,60,.2) !important;
+  box-shadow: 0 24px 80px rgba(0,0,0,.85) !important;
   border-radius: 12px !important;
-  overflow: visible !important;
+  overflow: hidden !important;
+  height: auto !important;
+  width: min(580px, 96vw) !important;
+}
+
+.cp-dialog-panel {
+  height: auto !important;
 }
 
 .cp-dialog-backdrop {

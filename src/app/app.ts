@@ -29,8 +29,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   },
   template: `
     <mat-sidenav-container class="container">
-      <mat-sidenav #sidenav mode="over" class="sidenav">
-
+      <mat-sidenav #sidenav mode="over" class="sidenav" (opened)="sidenavOpen.set(true)" (closed)="sidenavOpen.set(false)">
         <!-- logo -->
         <div class="sidenav__logo-wrap">
           <img src="JaD-logo.png" alt="Jeskyně a Draci" class="sidenav__logo" />
@@ -49,14 +48,14 @@ import { MatDialogRef } from '@angular/material/dialog';
             <span class="sidenav__link-label">Karta postavy</span>
             <span class="sidenav__link-arrow">›</span>
           </a>
-          <a [routerLink]="routes.dmScreen" class="sidenav__link" (click)="sidenav.toggle()">
-            <span class="sidenav__link-icon"><mat-icon>full_coverage</mat-icon></span>
-            <span class="sidenav__link-label">PH zástěna</span>
-            <span class="sidenav__link-arrow">›</span>
-          </a>
           <a [routerLink]="routes.dmPage" class="sidenav__link" (click)="sidenav.toggle()">
             <span class="sidenav__link-icon"><mat-icon>construction</mat-icon></span>
             <span class="sidenav__link-label">PH nástroje</span>
+            <span class="sidenav__link-arrow">›</span>
+          </a>
+          <a [routerLink]="routes.dmScreen" class="sidenav__link" (click)="sidenav.toggle()">
+            <span class="sidenav__link-icon"><mat-icon>full_coverage</mat-icon></span>
+            <span class="sidenav__link-label">PH zástěna</span>
             <span class="sidenav__link-arrow">›</span>
           </a>
           <a [routerLink]="routes.dndDatabase" class="sidenav__link" (click)="sidenav.toggle()">
@@ -75,24 +74,24 @@ import { MatDialogRef } from '@angular/material/dialog';
             <span class="sidenav__link-arrow">›</span>
           </a>
         </nav>
-
       </mat-sidenav>
 
       <mat-sidenav-content #sidenavContent>
         <mat-toolbar class="toolbar">
           <div class="toolbar__inner">
             <div class="toolbar__left u-flex u-align-center">
-              <button matIconButton (click)="sidenav.toggle()" class="menu-btn u-mr-3" aria-label="Otevřít menu" matTooltip="Navigace">
+              <button
+                matIconButton
+                (click)="sidenav.toggle()"
+                class="menu-btn u-mr-3"
+                aria-label="Otevřít menu"
+                matTooltip="Navigace"
+              >
                 <mat-icon>menu</mat-icon>
               </button>
               <img src="JaD-logo.png" alt="Dungeons & Dragons Logo" class="logo u-mr-3" />
               <span class="toolbar-servant-text">Servant</span>
-              <button
-                type="button"
-                class="github-link settings-btn u-ml-2"
-                (click)="openSettings()"
-                matTooltip="Nastavení"
-              >
+              <button type="button" class="github-link settings-btn u-ml-2" (click)="openSettings()" matTooltip="Nastavení">
                 <mat-icon class="toolbar-icon">settings</mat-icon>
               </button>
               <button
@@ -125,10 +124,11 @@ import { MatDialogRef } from '@angular/material/dialog';
             </div>
             <div class="toolbar__right author-info u-flex u-align-center">
               @if (authService.currentUser()) {
-              <b class="username u-mr-2">{{ authService.currentUser()!.username }}</b>
-              <a class="link token u-mr-2" href="#" (click)="$event.preventDefault(); logout()">Odhlásit</a>
-              } @if (authService.currentUser() === null) {
-              <a class="link token u-mr-2" [routerLink]="routes.login">Přihlásit</a>
+                <b class="username u-mr-2">{{ authService.currentUser()!.username }}</b>
+                <a class="link token u-mr-2" href="#" (click)="$event.preventDefault(); logout()">Odhlásit</a>
+              }
+              @if (authService.currentUser() === null) {
+                <a class="link token u-mr-2" [routerLink]="routes.login">Přihlásit</a>
               }
               <a
                 target="_blank"
@@ -154,49 +154,64 @@ import { MatDialogRef } from '@angular/material/dialog';
         </mat-toolbar>
         <!-- Mobile account dropdown -->
         @if (mobileMenuOpen()) {
-        <div class="mobile-menu-backdrop" (click)="mobileMenuOpen.set(false)"></div>
-        <div class="mobile-menu-dropdown">
-          <div class="mobile-menu-section">
-            @if (authService.currentUser()) {
-            <b class="mobile-menu-username">{{ authService.currentUser()!.username }}</b>
-            <a class="link token mobile-menu-link" href="#" (click)="$event.preventDefault(); logout(); mobileMenuOpen.set(false)">
-              <mat-icon class="mobile-menu-icon">logout</mat-icon> Odhlásit
-            </a>
-            } @if (authService.currentUser() === null) {
-            <a class="link token mobile-menu-link" [routerLink]="routes.login" (click)="mobileMenuOpen.set(false)">
-              <mat-icon class="mobile-menu-icon">login</mat-icon> Přihlásit
-            </a>
-            }
+          <div class="mobile-menu-backdrop" (click)="mobileMenuOpen.set(false)"></div>
+          <div class="mobile-menu-dropdown">
+            <div class="mobile-menu-section">
+              @if (authService.currentUser()) {
+                <b class="mobile-menu-username">{{ authService.currentUser()!.username }}</b>
+                <a
+                  class="link token mobile-menu-link"
+                  href="#"
+                  (click)="$event.preventDefault(); logout(); mobileMenuOpen.set(false)"
+                >
+                  <mat-icon class="mobile-menu-icon">logout</mat-icon>
+                  Odhlásit
+                </a>
+              }
+              @if (authService.currentUser() === null) {
+                <a class="link token mobile-menu-link" [routerLink]="routes.login" (click)="mobileMenuOpen.set(false)">
+                  <mat-icon class="mobile-menu-icon">login</mat-icon>
+                  Přihlásit
+                </a>
+              }
+            </div>
+            <div class="mobile-menu-divider"></div>
+            <div class="mobile-menu-section">
+              <a
+                target="_blank"
+                href="https://github.com/Evincars/DnD-Servant"
+                class="mobile-menu-link token"
+                (click)="mobileMenuOpen.set(false)"
+              >
+                <mat-icon class="mobile-menu-icon">code_blocks</mat-icon>
+                GitHub
+              </a>
+              <a
+                class="mobile-menu-link token"
+                target="_blank"
+                href="https://lasak.netlify.app/"
+                (click)="mobileMenuOpen.set(false)"
+              >
+                <mat-icon class="mobile-menu-icon">language</mat-icon>
+                lasaks.eu
+              </a>
+            </div>
           </div>
-          <div class="mobile-menu-divider"></div>
-          <div class="mobile-menu-section">
-            <a target="_blank" href="https://github.com/Evincars/DnD-Servant" class="mobile-menu-link token" (click)="mobileMenuOpen.set(false)">
-              <mat-icon class="mobile-menu-icon">code_blocks</mat-icon> GitHub
-            </a>
-            <a class="mobile-menu-link token" target="_blank" href="https://lasak.netlify.app/" (click)="mobileMenuOpen.set(false)">
-              <mat-icon class="mobile-menu-icon">language</mat-icon> lasaks.eu
-            </a>
-          </div>
-        </div>
         }
         <div class="main-content u-flex-col" #content>
-          <span class="main-corner main-corner--tl">◆</span>
-          <span class="main-corner main-corner--tr">◆</span>
-          <span class="main-corner main-corner--bl">◆</span>
-          <span class="main-corner main-corner--br">◆</span>
           <router-outlet />
         </div>
         @if (showBackToTop()) {
-        <button
-          (click)="scrollToTop()"
-          mat-fab
-          class="back-to-top"
-          matTooltip="Scroll zpátky nahoru"
-          color="secondary"
-          aria-label="Back to top"
-        >
-          <mat-icon>arrow_upward</mat-icon>
-        </button>
+          <button
+            (click)="scrollToTop()"
+            mat-fab
+            class="back-to-top"
+            matTooltip="Scroll zpátky nahoru"
+            color="secondary"
+            aria-label="Back to top"
+          >
+            <mat-icon>arrow_upward</mat-icon>
+          </button>
         }
       </mat-sidenav-content>
     </mat-sidenav-container>
@@ -233,6 +248,7 @@ export class App implements OnInit, OnDestroy {
   showBackToTop = signal(false);
   screenshotLoading = signal(false);
   mobileMenuOpen = signal(false);
+  sidenavOpen = signal(false);
   private firstLoad = true;
 
   // ── Single-finger horizontal swipe tracking ──────────────
@@ -317,8 +333,8 @@ export class App implements OnInit, OnDestroy {
   // ── Two-finger swipe ─────────────────────────────────────
 
   private onTouchStart(e: TouchEvent): void {
-    // Only track single-finger touches; pinch/zoom (2+ fingers) are ignored
-    if (e.touches.length !== 1) {
+    // Only track two-finger touches for tab switching
+    if (e.touches.length !== 2) {
       this._touchActive = false;
       return;
     }
@@ -330,7 +346,7 @@ export class App implements OnInit, OnDestroy {
   }
 
   private onTouchMove(e: TouchEvent): void {
-    if (!this._touchActive || e.touches.length !== 1) return;
+    if (!this._touchActive || e.touches.length !== 2) return;
     this._touchLastX = e.touches[0].clientX;
     this._touchLastY = e.touches[0].clientY;
   }
@@ -386,6 +402,14 @@ export class App implements OnInit, OnDestroy {
       backdropClass: 'sd-dialog-backdrop',
       hasBackdrop: true,
     });
+  }
+
+  // ── Sidenav open/close — hide dice-roller tab via body class ────
+  onSidenavOpened(): void {
+    this.doc.body.classList.add('sidenav-open');
+  }
+  onSidenavClosed(): void {
+    this.doc.body.classList.remove('sidenav-open');
   }
 
   // ── Scroll handler ───────────────────────────────────────

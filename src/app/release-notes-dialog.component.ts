@@ -17,6 +17,23 @@ const f = (text: string): ReleaseEntry => ({ type: 'fix', text });
 
 const RELEASE_NOTES: ReleaseGroup[] = [
   {
+    date: '10. července 2026',
+    entries: [
+      i(
+        'Vylepšená J&D wiki - lepší vyhledávání, scroll na pozici i pro podkapitoly, přizpůsobení mobilům a tabletům, zlepšení výkonu při dlouhých textech, Obsah Kapitoly s vyhledáváním, opraveny linky pro nadpisy.',
+      ),
+      i(
+        'Lepší, jednodušší design tabů (změna pořadí stránek + Konvertor Obrázků přesunut na PH Nástroje), odstranění zbytečných nadpisů z daných stránek, změna barevné palety pro některé prvky.',
+      ),
+      i('DM Qeusty a hráčské Questy - vylepšený a zjednodušený design karet, odstranění obrázku, uložení vybraného filtru'),
+      i('Tabulka Iniciativy - zjednodušený a vylepšený design (vč. karet příšer pro DM).'),
+      i(
+        'Příběhové události - zjednodušený a vylepšený design. Přidání možnosti sdílení s ostatními hráči (ostatní nemůžou zapisovat do sdílených událostí, jen autor). Hráč může vidět sdílené události a zároveň vytvořit svoje vlastní a sdílet je dál.',
+      ),
+      i('Ctrl+S - klávesová zkratka pro ukládání - funguje všude'),
+    ],
+  },
+  {
     date: '25. června 2026',
     entries: [
       f('Login pomocí Google účtu, staré přihlašování je povolené, ale nově příchozí musí použít Google'),
@@ -298,16 +315,8 @@ const TYPE_LABELS: Record<ReleaseEntry['type'], string> = {
       max-height: 82vh;
 
       &::before {
-        content: '◆';
-        position: absolute;
-        top: -7px; left: 50%;
-        transform: translateX(-50%);
-        font-size: 9px;
-        color: rgba(200,160,60,.6);
-        background: rgba(8,5,18,1);
-        padding: 0 6px;
-        pointer-events: none;
-        z-index: 2;
+        content: '';
+        display: none;
       }
     }
 

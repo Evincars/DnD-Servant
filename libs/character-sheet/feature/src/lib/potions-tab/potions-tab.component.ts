@@ -919,7 +919,7 @@ const FAIL_TABLE: FailEntry[] = [
   `,
   styles: `
     :host { display: block; overflow-y: auto; height: calc(100svh - 165px); min-height: 400px; }
-    .pt-wrap { padding: 20px 28px 40px; max-width: 1200px; margin: 0 auto; font-family: sans-serif; color: #d4c9a0; }
+    .pt-wrap { padding: 20px 0 40px; max-width: 1200px; font-family: sans-serif; color: #d4c9a0; }
     .pt-header { margin-bottom: 16px; }
     .pt-title { font-size: 20px; color: #e8c96a; margin: 0 0 4px; font-weight: 600; }
     .pt-subtitle { font-size: 12px; color: #9a8a6a; margin: 0; }
