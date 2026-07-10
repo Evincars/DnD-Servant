@@ -29,6 +29,8 @@ import { FormsModule } from '@angular/forms';
           <span>Příště nezobrazovat</span>
         </label>
       </div>
+      
+      <p style="color: red;">Nezapomeň pravidelně ukládat všechny svoje změny přes tlačítka Uložit nebo Ctrl+S</p>
 
       <div class="autofill-intro">
         <p class="autofill-intro__text">
