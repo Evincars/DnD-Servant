@@ -94,8 +94,8 @@ import { StoryEventsListComponent } from './story-events-list.component';
     .share-dialog__player-name { font-family: sans-serif; font-size: 12px; color: rgba(220,200,150,.85); }
     .share-check-icon {
       font-size: 16px !important; width: 16px !important; height: 16px !important; flex-shrink: 0;
-      &--ok      { color: rgba(80,190,90,.85); }
-      &--warn    { color: rgba(210,80,70,.75); }
+      &--ok       { color: rgba(80,190,90,.85); }
+      &--warn     { color: rgba(155,155,155,.5); }
       &--checking { color: rgba(200,160,60,.5); animation: spin .8s linear infinite; }
     }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -225,7 +225,7 @@ import { StoryEventsListComponent } from './story-events-list.component';
                 } @else if (userCheckStatus()[player] === 'exists') {
                   <mat-icon class="share-check-icon share-check-icon--ok" matTooltip="Uživatel nalezen">check_circle</mat-icon>
                 } @else if (userCheckStatus()[player] === 'not-found') {
-                  <mat-icon class="share-check-icon share-check-icon--warn" matTooltip="Uživatel nenalezen — mohl by existovat, ale dosud neuložil data">error_outline</mat-icon>
+                  <mat-icon class="share-check-icon share-check-icon--warn" matTooltip="Uživatel dosud neuložil žádná data — sdílení proběhne správně, pokud je jméno napsáno přesně">help_outline</mat-icon>
                 }
                 <span class="share-dialog__player-name">{{ player }}</span>
                 <button class="share-dialog__remove" type="button" (click)="removeSharePlayer(player)">✕</button>

@@ -111,7 +111,7 @@ import { CsSvgSheetComponent } from './character-sheet/cs-svg-sheet.component';
       class="field char-img-wrap"
       style="top:835px; left:64px; width:369px; height:403px;"
       (click)="triggerFileInput()"
-      matTooltip="Klikni pro nahrání nebo změnu obrázku (max 500 KB, GIF) - poslední záložka Konvertor Obrázků"
+      matTooltip="Klikni pro nahrání nebo změnu obrázku (max 500 KB, GIF) - Menu > Nástroje > poslední záložka Konvertor Obrázků"
     >
       @if (base64Image()) {
         <img [src]="base64Image()!" alt="Obrázek postavy" class="char-img" />
