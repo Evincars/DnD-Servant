@@ -494,11 +494,9 @@ const SCALE_STEPS = [1.0, 0.78, 0.6, 0.45, 0.32, 0.22, 0.15];
     <!-- ── Info note ── -->
     <div class="ic-info">
       <strong>Jak to funguje:</strong>
-      Obrázek je převeden na formát GIF (max 256 barev) a automaticky zmenšen, dokud nepřekročí
+      Obrázek je převeden na formát GIF (max 256 barev) a zmenšen na velikost max
       <strong>200 KB</strong>
-      . Výsledný GIF pak můžeš přímo nahrát jako portrét postavy na stránce
-      <strong>Karta postavy → strana 2</strong>
-      . GIF funguje nejlépe pro ilustrace a kreslené portréty — fotografie mohou ztratit kvalitu.
+      . Zkonvertovaný obrázek můžeš použít kdekoliv v aplikaci (fotka postavy/příbehové události/...).
     </div>
   `,
 })
