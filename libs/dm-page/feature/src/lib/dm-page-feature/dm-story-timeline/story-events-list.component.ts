@@ -94,6 +94,21 @@ import {
     .rt-label { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(155,140,115,.38); margin-bottom: 3px; }
     .rt-wrap { position: relative; height: 160px; background: rgba(140,125,100,.05); border: 1px solid rgba(155,140,115,.13); border-radius: 3px; overflow: visible; margin-top: 44px; }
 
+    /* ── Summary row: 70 % textarea + 30 % image ─────── */
+    .summary-row { display: flex; gap: 14px; align-items: flex-start; }
+    .summary-row .rt-wrap { flex: 7; min-width: 0; }
+    .img-col { flex: 3; min-width: 0; display: flex; flex-direction: column; gap: 8px; padding-top: 44px; }
+    .event-img { width: 100%; border-radius: 4px; object-fit: contain; max-height: 180px; border: 1px solid rgba(155,140,115,.15); background: rgba(0,0,0,.2); }
+    .img-url-input { font-size: 11px !important; padding: 5px 8px !important; }
+
+    /* ── Rich-textarea text color (match Questy) ─────── */
+    ::ng-deep .rt-wrap rich-textarea {
+      .rt-editor { color: #d4c9a0 !important; background: transparent !important;
+        &::placeholder { color: rgba(155,140,115,.28) !important; } }
+      .rt-preview { color: #d4c9a0 !important; }
+      .rt-preview--empty { color: rgba(155,140,115,.28) !important; }
+    }
+
     /* ── Tag input (edit mode) ───────────────────── */
     .tag-field-wrap { position: relative; }
     .tag-input-wrap {
@@ -285,8 +300,25 @@ import {
 
               <div>
                 <div class="rt-label">Shrnutí události</div>
-                <div class="rt-wrap" style="margin-top: 10px;">
-                  <rich-textarea [(ngModel)]="events()[item.idx].summary" style="position:absolute;top:0;left:0;width:100%;height:100%;"></rich-textarea>
+                <div class="summary-row">
+                  <div class="rt-wrap">
+                    <rich-textarea [(ngModel)]="events()[item.idx].summary" style="position:absolute;top:0;left:0;width:100%;height:100%;"></rich-textarea>
+                  </div>
+                  @if (!isReadOnly() || events()[item.idx].imageUrl) {
+                    <div class="img-col">
+                      @if (!isReadOnly()) {
+                        <input class="field-input img-url-input"
+                          [(ngModel)]="events()[item.idx].imageUrl"
+                          placeholder="URL obrázku (volitelné)…" />
+                      }
+                      @if (events()[item.idx].imageUrl) {
+                        <img class="event-img"
+                          [src]="events()[item.idx].imageUrl"
+                          [alt]="item.event.title"
+                          (error)="events()[item.idx].imageUrl = ''" />
+                      }
+                    </div>
+                  }
                 </div>
               </div>
 

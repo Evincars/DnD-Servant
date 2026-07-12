@@ -60,6 +60,8 @@ export interface StoryEvent {
   imageBase64: string | null;
   location: string;
   tags: string;
+  /** Optional external image URL shown next to the summary */
+  imageUrl?: string;
 }
 
 export interface DmStoryTimelineApiModel {
