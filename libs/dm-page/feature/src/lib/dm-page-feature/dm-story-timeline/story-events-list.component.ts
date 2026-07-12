@@ -1,10 +1,12 @@
 import {
-  ChangeDetectionStrategy, Component, computed, effect, input, signal, untracked, WritableSignal,
+  ChangeDetectionStrategy, Component, computed, effect, ElementRef,
+  inject, input, signal, untracked, viewChild, WritableSignal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RichTextareaComponent } from '@dn-d-servant/ui';
 import { StoryEvent } from '../../dm-page-models';
 import {
@@ -15,7 +17,8 @@ import {
 @Component({
   selector: 'story-events-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, MatIcon, MatIconButton, MatTooltip, RichTextareaComponent],
+  host: { '(document:keydown.escape)': 'onEscape()' },
+  imports: [FormsModule, MatIcon, MatTooltip, RichTextareaComponent],
   styles: `
     /* ── Timeline container ──────────────────────── */
     .timeline { position: relative; padding-left: 48px; }
@@ -100,6 +103,39 @@ import {
     .img-col { flex: 3; min-width: 0; display: flex; flex-direction: column; gap: 8px; padding-top: 44px; }
     .event-img { width: 100%; border-radius: 4px; object-fit: contain; max-height: 180px; border: 1px solid rgba(155,140,115,.15); background: rgba(0,0,0,.2); }
     .img-url-input { font-size: 11px !important; padding: 5px 8px !important; }
+
+    .img-actions { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+    .img-clear-btn {
+      width: 22px; height: 22px; border-radius: 2px; border: none; background: transparent; padding: 0;
+      cursor: pointer; color: rgba(200,60,50,.45); display: inline-flex; align-items: center; justify-content: center;
+      transition: color .12s, background .12s; flex-shrink: 0;
+      mat-icon { font-size: 14px !important; width: 14px !important; height: 14px !important; }
+      &:hover { color: rgba(220,80,70,.9); background: rgba(200,50,40,.12); }
+    }
+    .event-img { width: 100%; border-radius: 4px; object-fit: contain; max-height: 180px; border: 1px solid rgba(155,140,115,.15); background: rgba(0,0,0,.2); cursor: zoom-in; transition: opacity .15s; &:hover { opacity: .88; } }
+    .img-error { font-size: 10px; color: rgba(220,80,70,.75); letter-spacing: .03em; }
+    .img-file-input { display: none; }
+
+    /* ── Lightbox ──────────────────────────────────── */
+    .lightbox-backdrop {
+      position: fixed; inset: 0; z-index: 3000;
+      background: rgba(0,0,0,.9); display: flex; align-items: center; justify-content: center;
+      cursor: zoom-out; animation: fadeIn .15s ease;
+    }
+    .lightbox-img {
+      max-width: 92vw; max-height: 90vh; object-fit: contain;
+      border-radius: 4px; box-shadow: 0 12px 50px rgba(0,0,0,.8);
+      cursor: default;
+    }
+    .lightbox-close {
+      position: fixed; top: 16px; right: 20px;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 50%;
+      width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: rgba(255,255,255,.7); transition: background .15s, color .15s;
+      mat-icon { font-size: 20px !important; width: 20px !important; height: 20px !important; }
+      &:hover { background: rgba(255,255,255,.16); color: #fff; }
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     /* ── Rich-textarea text color (match Questy) ─────── */
     ::ng-deep .rt-wrap rich-textarea {
@@ -304,18 +340,32 @@ import {
                   <div class="rt-wrap">
                     <rich-textarea [(ngModel)]="events()[item.idx].summary" style="position:absolute;top:0;left:0;width:100%;height:100%;"></rich-textarea>
                   </div>
-                  @if (!isReadOnly() || events()[item.idx].imageUrl) {
+                  @if (!isReadOnly() || imageSource(item.event)) {
                     <div class="img-col">
                       @if (!isReadOnly()) {
+                        <div class="img-actions">
+                          <button class="pt-filter-btn" type="button"
+                            (click)="selectFile(item.idx)"
+                            matTooltip="Max 500 KB. Pro zmenšení obrázku použij záložku 'Konvertor obrázků'.">
+                            <mat-icon>upload</mat-icon> Nahrát
+                          </button>
+                          @if (imageSource(item.event)) {
+                            <button class="img-clear-btn" type="button" (click)="clearImage(item.idx)" matTooltip="Odebrat obrázek">
+                              <mat-icon>close</mat-icon>
+                            </button>
+                          }
+                        </div>
                         <input class="field-input img-url-input"
                           [(ngModel)]="events()[item.idx].imageUrl"
-                          placeholder="URL obrázku (volitelné)…" />
+                          [disabled]="!!events()[item.idx].imageBase64"
+                          placeholder="nebo vlož URL obrázku…" />
                       }
-                      @if (events()[item.idx].imageUrl) {
+                      @if (imageSource(item.event)) {
                         <img class="event-img"
-                          [src]="events()[item.idx].imageUrl"
+                          [src]="imageSource(item.event)!"
                           [alt]="item.event.title"
-                          (error)="events()[item.idx].imageUrl = ''" />
+                          (click)="openLightbox(imageSource(item.event)!)"
+                          (error)="clearImage(item.idx)" />
                       }
                     </div>
                   }
@@ -327,6 +377,15 @@ import {
         </div>
       }
     </div>
+    }
+
+    <input #fileInput type="file" accept="image/*" class="img-file-input" (change)="onFileSelected($event)" />
+
+    @if (previewSrc()) {
+      <div class="lightbox-backdrop" (click)="closeLightbox()">
+        <button class="lightbox-close" type="button" (click)="closeLightbox()"><mat-icon>close</mat-icon></button>
+        <img class="lightbox-img" [src]="previewSrc()!" (click)="$event.stopPropagation()" />
+      </div>
     }
 
     @if (confirmIdx() !== null) {
@@ -350,6 +409,9 @@ import {
   `,
 })
 export class StoryEventsListComponent {
+  private readonly snack = inject(MatSnackBar);
+  private readonly fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
+
   /** Reference to parent's WritableSignal — child reads and mutates it directly */
   eventsRef  = input.required<WritableSignal<StoryEvent[]>>();
   isReadOnly = input(false);
@@ -388,8 +450,10 @@ export class StoryEventsListComponent {
     return [...set].sort();
   });
 
-  expandedIds = signal<Set<string>>(new Set());
-  confirmIdx  = signal<number | null>(null);
+  expandedIds      = signal<Set<string>>(new Set());
+  confirmIdx       = signal<number | null>(null);
+  previewSrc       = signal<string | null>(null);
+  private _pendingUploadIdx = signal<number | null>(null);
 
   private tagInputMap     = signal<Record<string, string>>({});
   private activeSuggIdxMap = signal<Record<string, number>>({});
@@ -523,4 +587,55 @@ export class StoryEventsListComponent {
 
   typeMeta(t: string) { return TYPE_META[t as keyof typeof TYPE_META] ?? TYPE_META['other']; }
   parseTags = parseTags;
+
+  // ── Image helpers ─────────────────────────────────────────────────────────
+  imageSource(event: StoryEvent): string | null {
+    if (event.imageBase64) return 'data:image/png;base64,' + event.imageBase64;
+    if (event.imageUrl)    return event.imageUrl;
+    return null;
+  }
+
+  clearImage(idx: number): void {
+    this.eventsRef().update(list => list.map((e, i) => i !== idx ? e : { ...e, imageBase64: null, imageUrl: '' }));
+  }
+
+  selectFile(idx: number): void {
+    this._pendingUploadIdx.set(idx);
+    this.fileInput()?.nativeElement.click();
+  }
+
+  onFileSelected(e: Event): void {
+    const idx = this._pendingUploadIdx(); if (idx === null) return;
+    const input = e.target as HTMLInputElement;
+    const file = input.files?.[0]; if (!file) return;
+    this._processFile(file, idx);
+    input.value = '';
+    this._pendingUploadIdx.set(null);
+  }
+
+  private _processFile(file: File, idx: number): void {
+    if (!file.type.startsWith('image/')) {
+      this.snack.open('Soubor není obrázek.', '✕', { verticalPosition: 'top', duration: 3000 });
+      return;
+    }
+    if (file.size > 500 * 1024) {
+      this.snack.open(`Obrázek je příliš velký (${Math.round(file.size / 1024)} KB). Max 500 KB — použij záložku 'Konvertor obrázků'.`, '✕', { verticalPosition: 'top', duration: 5000 });
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const b64 = (reader.result as string).split(',')[1];
+      this.eventsRef().update(list => list.map((e, i) => i !== idx ? e : { ...e, imageBase64: b64, imageUrl: '' }));
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ── Lightbox ──────────────────────────────────────────────────────────────
+  openLightbox(src: string): void { this.previewSrc.set(src); }
+  closeLightbox(): void           { this.previewSrc.set(null); }
+
+  onEscape(): void {
+    if (this.previewSrc())            { this.closeLightbox(); return; }
+    if (this.confirmIdx() !== null)   { this.cancelDelete(); }
+  }
 }
