@@ -16,8 +16,24 @@ interface ConversionResult {
 
 const TARGET_BYTES = 200 * 1024; // 200 KB
 
-/** Scale steps to try before giving up — from 100 % down to 15 % */
-const SCALE_STEPS = [1.0, 0.78, 0.6, 0.45, 0.32, 0.22, 0.15];
+/**
+ * Attempts ordered by priority: try quality degradation at full/near-full size first
+ * so the image keeps its original resolution when possible.
+ * quality = gif.js NeuQuant level — higher = faster/worse colors = smaller file.
+ */
+const ATTEMPTS: Array<{ scale: number; quality: number }> = [
+  { scale: 1.0,  quality: 10 },
+  { scale: 1.0,  quality: 22 },
+  { scale: 1.0,  quality: 38 },
+  { scale: 0.9,  quality: 22 },
+  { scale: 0.9,  quality: 38 },
+  { scale: 0.75, quality: 28 },
+  { scale: 0.75, quality: 42 },
+  { scale: 0.6,  quality: 32 },
+  { scale: 0.45, quality: 36 },
+  { scale: 0.32, quality: 40 },
+  { scale: 0.22, quality: 40 },
+];
 
 @Component({
   selector: 'image-converter',
@@ -567,12 +583,10 @@ export class ImageConverterComponent {
       const img = await this.loadImage(preview);
       let lastResult: ConversionResult | null = null;
 
-      for (let i = 0; i < SCALE_STEPS.length; i++) {
-        const scale = SCALE_STEPS[i];
+      for (let i = 0; i < ATTEMPTS.length; i++) {
+        const { scale, quality } = ATTEMPTS[i];
         const w = Math.max(40, Math.round(img.naturalWidth * scale));
         const h = Math.max(40, Math.round(img.naturalHeight * scale));
-        // Use lower quality (= looser color sampling) for later attempts to shave more bytes
-        const quality = i < 2 ? 10 : i < 4 ? 15 : 20;
 
         const blob = await this.encodeGif(img, w, h, quality);
         lastResult = {

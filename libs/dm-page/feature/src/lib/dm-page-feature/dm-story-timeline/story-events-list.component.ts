@@ -290,9 +290,13 @@ import {
             <div class="card-body">
 
               <div class="field-row">
-                <div class="field-group" style="flex:1;min-width:200px">
+                <div class="field-group" style="flex:2;min-width:200px">
                   <div class="field-label" style="margin-top: 11px;">Název události</div>
                   <input class="field-input" [(ngModel)]="events()[item.idx].title" placeholder="Název…" [disabled]="isReadOnly()" />
+                </div>
+                <div class="field-group" style="flex:1;min-width:120px">
+                  <div class="field-label" style="margin-top: 11px;">Datum v příběhu</div>
+                  <input class="field-input" [(ngModel)]="events()[item.idx].inGameDate" placeholder="15. Flamerule 1492…" [disabled]="isReadOnly()" />
                 </div>
               </div>
 
