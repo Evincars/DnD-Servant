@@ -143,13 +143,34 @@
 
 datalist { display: none; }
 
+// ── Dice roll button (PH tools only) ─────────────────────────────────────────
+.it-dice-btn {
+  width: 26px !important; height: 26px !important;
+  padding: 0 !important; line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important; justify-content: center !important;
+  flex-shrink: 0;
+  color: rgba(200,160,60,.4) !important;
+  border-radius: 1px !important;
+  transition: color .15s, background .15s !important;
+
+  mat-icon, .mat-icon {
+    font-size: 15px !important; width: 15px !important;
+    height: 15px !important; line-height: 15px !important;
+  }
+
+  .mat-mdc-button-touch-target,
+  .mat-mdc-button-persistent-ripple,
+  .mdc-icon-button__ripple { display: none !important; }
+
+  &:hover { color: rgba(200,160,60,.9) !important; background: rgba(200,160,60,.08) !important; }
+}
+
 // ── Icon buttons ──────────────────────────────────────────────────────────────
 @keyframes it-spin { to { transform: rotate(360deg); } }
 
 .it-lookup-btn, .it-remove-btn, .it-copy-btn,
 .it-hp-adj__btn {
-  overflow: hidden !important;
-
   .mat-mdc-button-touch-target {
     width: 100% !important;
     height: 100% !important;

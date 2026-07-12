@@ -16,6 +16,8 @@ export interface JadMonsterResult {
   armorClass: number | null;
   /** Dice formula extracted from the hit-points string, e.g. "2k6" or "5k8 + 10". */
   hitPointsRoll: string | null;
+  /** Constitution (ODL) modifier, e.g. +1 for ODL=13. null if not available. */
+  constitutionModifier: number | null;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -77,7 +79,9 @@ export class JadBestiaryService {
         const hitPoints = this.parseHp(attrs['hit-points']);
         const armorClass = this.parseAc(attrs['armor-class']);
         const hitPointsRoll = this.parseDiceFromHp(attrs['hit-points']);
-        return { title: attrs['title'], html, hitPoints, armorClass, hitPointsRoll };
+        const conScore = attrs['con'] ? parseInt(attrs['con'], 10) : NaN;
+        const constitutionModifier = isNaN(conScore) ? null : Math.floor((conScore - 10) / 2);
+        return { title: attrs['title'], html, hitPoints, armorClass, hitPointsRoll, constitutionModifier };
       }
     }
 
