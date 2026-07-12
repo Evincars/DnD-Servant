@@ -97,14 +97,14 @@ import {
     .rt-label { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(155,140,115,.38); margin-bottom: 3px; }
     .rt-wrap { position: relative; height: 160px; background: rgba(140,125,100,.05); border: 1px solid rgba(155,140,115,.13); border-radius: 3px; overflow: visible; margin-top: 44px; }
 
-    /* ── Summary row: 70 % textarea + 30 % image ─────── */
-    .summary-row { display: flex; gap: 14px; align-items: flex-start; }
-    .summary-row .rt-wrap { flex: 7; min-width: 0; }
-    .img-col { flex: 3; min-width: 0; display: flex; flex-direction: column; gap: 8px; padding-top: 44px; }
-    .event-img { width: 100%; border-radius: 4px; object-fit: contain; max-height: 180px; border: 1px solid rgba(155,140,115,.15); background: rgba(0,0,0,.2); }
+    /* ── Summary row: 65 % textarea + 35 % image ─────── */
+    .summary-row { display: flex; gap: 14px; align-items: flex-end; }
+    .summary-row .rt-wrap { flex: 6.5; min-width: 0; }
+    /* img-col total height = rt-wrap margin-top(44) + height(160) so bottoms align */
+    .img-col { flex: 3.5; min-width: 0; display: flex; flex-direction: column; gap: 6px; height: calc(44px + 160px); }
     .img-url-input { font-size: 11px !important; padding: 5px 8px !important; }
 
-    .img-actions { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+    .img-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
     .img-clear-btn {
       width: 22px; height: 22px; border-radius: 2px; border: none; background: transparent; padding: 0;
       cursor: pointer; color: rgba(200,60,50,.45); display: inline-flex; align-items: center; justify-content: center;
@@ -112,30 +112,46 @@ import {
       mat-icon { font-size: 14px !important; width: 14px !important; height: 14px !important; }
       &:hover { color: rgba(220,80,70,.9); background: rgba(200,50,40,.12); }
     }
-    .event-img { width: 100%; border-radius: 4px; object-fit: contain; max-height: 180px; border: 1px solid rgba(155,140,115,.15); background: rgba(0,0,0,.2); cursor: zoom-in; transition: opacity .15s; &:hover { opacity: .88; } }
+    .event-img {
+      flex: 1; width: 100%; min-height: 0; object-fit: contain;
+      border: 1px solid rgba(200,160,60,.25); background: rgba(14,10,4,.95);
+      cursor: zoom-in; transition: opacity .15s; display: block;
+      &:hover { opacity: .88; }
+    }
     .img-error { font-size: 10px; color: rgba(220,80,70,.75); letter-spacing: .03em; }
     .img-file-input { display: none; }
 
-    /* ── Lightbox ──────────────────────────────────── */
+    /* ── Lightbox (matches character-sheet image dialog) ── */
     .lightbox-backdrop {
       position: fixed; inset: 0; z-index: 3000;
-      background: rgba(0,0,0,.9); display: flex; align-items: center; justify-content: center;
-      cursor: zoom-out; animation: fadeIn .15s ease;
+      background: rgba(0,0,0,.88); display: flex; align-items: center; justify-content: center;
+      cursor: zoom-out; animation: lbFadeIn .18s ease;
     }
-    .lightbox-img {
-      max-width: 92vw; max-height: 90vh; object-fit: contain;
-      border-radius: 4px; box-shadow: 0 12px 50px rgba(0,0,0,.8);
-      cursor: default;
+    .lightbox-container {
+      position: relative; max-width: 90vw; max-height: 88vh;
+      cursor: default; display: flex; flex-direction: column; align-items: center;
+      animation: lbScaleIn .18s ease;
+    }
+    .lightbox-frame {
+      border: 1px solid rgba(200,160,60,.35);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.8), 0 8px 40px rgba(0,0,0,.9), 0 0 60px rgba(200,160,60,.08);
+      background: rgba(14,10,4,.95);
+      padding: 6px;
+      img { display: block; max-width: 88vw; max-height: 78vh; object-fit: contain; }
     }
     .lightbox-close {
-      position: fixed; top: 16px; right: 20px;
-      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 50%;
-      width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
-      cursor: pointer; color: rgba(255,255,255,.7); transition: background .15s, color .15s;
-      mat-icon { font-size: 20px !important; width: 20px !important; height: 20px !important; }
-      &:hover { background: rgba(255,255,255,.16); color: #fff; }
+      position: absolute; top: -14px; right: -14px;
+      width: 30px !important; height: 30px !important; padding: 0 !important; line-height: 1 !important;
+      background: rgba(40,28,10,.98) !important; border: 1px solid rgba(200,160,60,.4) !important;
+      color: #c8a03c !important; border-radius: 3px !important;
+      display: inline-flex !important; align-items: center !important; justify-content: center !important;
+      cursor: pointer;
+      mat-icon { font-size: 16px !important; width: 16px !important; height: 16px !important; }
+      &:hover { background: rgba(200,160,60,.15) !important; color: #e8c96a !important; }
     }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .lightbox-hint { margin-top: 10px; font-size: 10px; color: rgba(155,140,115,.35); letter-spacing: .06em; }
+    @keyframes lbFadeIn  { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes lbScaleIn { from { transform: scale(.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
     /* ── Rich-textarea text color (match Questy) ─────── */
     ::ng-deep .rt-wrap rich-textarea {
@@ -383,8 +399,15 @@ import {
 
     @if (previewSrc()) {
       <div class="lightbox-backdrop" (click)="closeLightbox()">
-        <button class="lightbox-close" type="button" (click)="closeLightbox()"><mat-icon>close</mat-icon></button>
-        <img class="lightbox-img" [src]="previewSrc()!" (click)="$event.stopPropagation()" />
+        <div class="lightbox-container" (click)="$event.stopPropagation()">
+          <button mat-icon-button class="lightbox-close" type="button" (click)="closeLightbox()">
+            <mat-icon>close</mat-icon>
+          </button>
+          <div class="lightbox-frame">
+            <img [src]="previewSrc()!" />
+          </div>
+          <span class="lightbox-hint">Klikni mimo pro zavření • Esc</span>
+        </div>
       </div>
     }
 
