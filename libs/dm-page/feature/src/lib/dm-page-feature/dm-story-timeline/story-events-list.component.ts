@@ -94,14 +94,14 @@ import {
       &::placeholder { color: rgba(155,140,115,.22); }
       &:disabled { opacity: .6; cursor: not-allowed; }
     }
-    .rt-label { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(155,140,115,.38); margin-bottom: 3px; }
-    .rt-wrap { position: relative; height: 160px; background: rgba(140,125,100,.05); border: 1px solid rgba(155,140,115,.13); border-radius: 3px; overflow: visible; margin-top: 44px; }
+    .rt-label { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(155,140,115,.38); }
+    .rt-wrap { position: relative; height: 272px; background: rgba(140,125,100,.05); border: 1px solid rgba(155,140,115,.13); border-radius: 3px; overflow: visible; margin-top: 5px; }
 
     /* ── Summary row: 65 % textarea + 35 % image ─────── */
     .summary-row { display: flex; gap: 14px; align-items: flex-end; }
-    .summary-row .rt-wrap { flex: 6.5; min-width: 0; }
+    .summary-row .rt-wrap { flex: 8; min-width: 0; }
     /* img-col total height = rt-wrap margin-top(44) + height(160) so bottoms align */
-    .img-col { flex: 3.5; min-width: 0; display: flex; flex-direction: column; gap: 6px; height: calc(44px + 160px); }
+    .img-col { flex: 3.5; min-width: 0; display: flex; flex-direction: column; gap: 6px; height: calc(44px + 230px); }
     .img-url-input { font-size: 11px !important; padding: 5px 8px !important; }
 
     .img-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
@@ -351,7 +351,7 @@ import {
               </div>
 
               <div>
-                <div class="rt-label">Shrnutí události</div>
+                    <div class="rt-label">Shrnutí události</div>
                 <div class="summary-row">
                   <div class="rt-wrap">
                     <rich-textarea [(ngModel)]="events()[item.idx].summary" style="position:absolute;top:0;left:0;width:100%;height:100%;"></rich-textarea>
