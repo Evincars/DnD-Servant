@@ -38,6 +38,8 @@ interface MonsterLookupResult {
   hitPoints: number | null;
   hitPointsRoll: string | null;
   armorClass: number | null;
+  /** CON (ODL) modifier, e.g. +1 for ODL=13. null = unknown. */
+  constitutionModifier: number | null;
   error: string | null;
 }
 
@@ -53,6 +55,7 @@ interface MonsterCardEntry {
   hitPointsRoll: string | null;
   hitPointsAverage: number | null;
   armorClass: number | null;
+  constitutionModifier: number | null;
   error: string | null;
   loading: boolean;
   highlightAnim: boolean;
@@ -179,6 +182,7 @@ export class InitiativeTrackerComponent {
               hitPointsRoll: c.hitPointsRoll ?? null,
               hitPointsAverage: c.hitPointsAverage ?? null,
               armorClass: c.armorClass ?? null,
+              constitutionModifier: c.constitutionModifier ?? null,
               error: c.error ?? null,
               loading: false,
               highlightAnim: false,
@@ -325,6 +329,7 @@ export class InitiativeTrackerComponent {
       isJad: false,
       monster: null, jadMonsterHtml: null,
       hitPointsRoll: null, hitPointsAverage: null, armorClass: null,
+      constitutionModifier: null,
       error: null, loading: true, highlightAnim: false, collapsed: false,
     }]);
 
@@ -343,6 +348,7 @@ export class InitiativeTrackerComponent {
             hitPointsRoll: result.hitPointsRoll,
             hitPointsAverage: result.hitPoints,
             armorClass: result.armorClass,
+            constitutionModifier: result.constitutionModifier,
           } : c)
         );
       });
@@ -408,19 +414,29 @@ export class InitiativeTrackerComponent {
         isJad: false,
         monster: null, jadMonsterHtml: null,
         hitPointsRoll: null, hitPointsAverage: null, armorClass: null,
+        constitutionModifier: null,
         error: null, loading: true, highlightAnim: false, collapsed: false,
       }]);
 
       this._monsterLookup$(entry.name)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(result => {
-          // Roll separately for each copy so every monster gets its own HP value.
-          for (const rowId of entry.rowIds) {
-            const hp = (mode === 'dice' && result.hitPointsRoll)
-              ? this._rollDiceFormula(result.hitPointsRoll)
-              : result.hitPoints;
-            this._applyHpAcForce(rowId, hp, result.armorClass);
-          }
+          // Pre-generate all dice rolls before touching signals so each copy gets a unique value.
+          const hpRolls = entry.rowIds.map(() =>
+            (mode === 'dice' && result.hitPointsRoll) ? this._rollDiceFormula(result.hitPointsRoll) : result.hitPoints
+          );
+          const initRolls = entry.rowIds.map(() =>
+            mode === 'dice' ? this._rollDiceFormula('1d20') : 10
+          );
+
+          entry.rowIds.forEach((rowId, i) => {
+            this._applyHpAcForce(rowId, hpRolls[i], result.armorClass);
+            // Apply initiative only if ODL is known; always roll separately per copy
+            const conMod = result.constitutionModifier;
+            if (conMod !== null) {
+              this._applyInitiativeForce(rowId, initRolls[i] + conMod);
+            }
+          });
 
           this.openCards.update(cards =>
             cards.map(c => c.baseName === entry.baseName ? {
@@ -433,6 +449,7 @@ export class InitiativeTrackerComponent {
               hitPointsRoll: result.hitPointsRoll,
               hitPointsAverage: result.hitPoints,
               armorClass: result.armorClass,
+              constitutionModifier: result.constitutionModifier,
             } : c)
           );
           this._initPending.update(n => Math.max(0, n - 1));
@@ -455,15 +472,18 @@ export class InitiativeTrackerComponent {
           hitPoints: result.hitPoints,
           hitPointsRoll: result.hitPointsRoll ?? null,
           armorClass: result.armorClass,
+          constitutionModifier: result.constitutionModifier,
           error: null,
         } as MonsterLookupResult) : ({
           isJad: true, monster: null, jadMonsterHtml: null,
           hitPoints: null, hitPointsRoll: null, armorClass: null,
+          constitutionModifier: null,
           error: `Příšera „${jadName}" nebyla nalezena v JaD wiki.`,
         } as MonsterLookupResult)),
         catchError(() => of<MonsterLookupResult>({
           isJad: true, monster: null, jadMonsterHtml: null,
           hitPoints: null, hitPointsRoll: null, armorClass: null,
+          constitutionModifier: null,
           error: `Příšera „${jadName}" nebyla nalezena v JaD wiki.`,
         })),
       );
@@ -474,22 +494,26 @@ export class InitiativeTrackerComponent {
       .replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 
     if (!apiIndex) {
-      return of({ isJad: false, monster: null, jadMonsterHtml: null, hitPoints: null, hitPointsRoll: null, armorClass: null, error: 'Neplatné jméno.' });
+      return of({ isJad: false, monster: null, jadMonsterHtml: null, hitPoints: null, hitPointsRoll: null, armorClass: null, constitutionModifier: null, error: 'Neplatné jméno.' });
     }
 
     return this.dnd5eApi.getMonster(apiIndex).pipe(
-      map(m => ({
-        isJad: false, monster: m, jadMonsterHtml: null,
-        hitPoints: m.hit_points ?? null,
-        // hit_points_roll (e.g. "9d8+18") is preferred; fall back to hit_dice ("9d8")
-        // so the dice mode always has a formula to roll even if the API omits the field.
-        hitPointsRoll: (m.hit_points_roll || m.hit_dice) ?? null,
-        armorClass: m.armor_class?.[0]?.value ?? null,
-        error: null,
-      } as MonsterLookupResult)),
+      map(m => {
+        const conScore = (m as any).constitution as number | undefined;
+        const constitutionModifier = conScore != null ? Math.floor((conScore - 10) / 2) : null;
+        return {
+          isJad: false, monster: m, jadMonsterHtml: null,
+          hitPoints: m.hit_points ?? null,
+          hitPointsRoll: (m.hit_points_roll || m.hit_dice) ?? null,
+          armorClass: m.armor_class?.[0]?.value ?? null,
+          constitutionModifier,
+          error: null,
+        } as MonsterLookupResult;
+      }),
       catchError(() => of<MonsterLookupResult>({
         isJad: false, monster: null, jadMonsterHtml: null,
         hitPoints: null, hitPointsRoll: null, armorClass: null,
+        constitutionModifier: null,
         error: `Příšera „${name.trim()}" nebyla nalezena.`,
       })),
     );
@@ -518,6 +542,32 @@ export class InitiativeTrackerComponent {
     this.rows.update(rows =>
       rows.map(row => row.id !== rowId ? row : { ...row, ac, baseAc: ac, hp, maxHp: hp })
     );
+  }
+
+  /** Force-sets initiative (used during initialization). */
+  private _applyInitiativeForce(rowId: number, initiative: number): void {
+    this.rows.update(rows =>
+      rows.map(row => row.id !== rowId ? row : { ...row, initiative })
+    );
+  }
+
+  /** Returns the ODL (CON) modifier for the card associated with rowId. */
+  getConModifier(rowId: number): number | null {
+    return this.openCardByRowId().get(rowId)?.constitutionModifier ?? null;
+  }
+
+  getDiceTooltip(rowId: number): string {
+    const mod = this.getConModifier(rowId);
+    if (mod === null) return 'Hodit k20 (ODL neznámo)';
+    const sign = mod >= 0 ? '+' : '';
+    return `Hodit iniciativu k20 + ODL (${sign}${mod})`;
+  }
+
+  /** Rolls d20 + ODL modifier and writes the result directly into the row's initiative field. */
+  rollInitiative(row: InitiativeRow): void {
+    const mod = this.getConModifier(row.id) ?? 0;
+    const result = this._rollDiceFormula('1d20') + mod;
+    this._applyInitiativeForce(row.id, result);
   }
 
   /** Rolls a dice formula like "2d6+2" or "5k8 + 10" (Czech notation supported). */

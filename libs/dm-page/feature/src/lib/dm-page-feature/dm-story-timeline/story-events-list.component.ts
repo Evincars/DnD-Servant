@@ -1,10 +1,12 @@
 import {
-  ChangeDetectionStrategy, Component, computed, effect, input, signal, untracked, WritableSignal,
+  ChangeDetectionStrategy, Component, computed, effect, ElementRef,
+  inject, input, signal, untracked, viewChild, WritableSignal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RichTextareaComponent } from '@dn-d-servant/ui';
 import { StoryEvent } from '../../dm-page-models';
 import {
@@ -15,7 +17,8 @@ import {
 @Component({
   selector: 'story-events-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, MatIcon, MatIconButton, MatTooltip, RichTextareaComponent],
+  host: { '(document:keydown.escape)': 'onEscape()' },
+  imports: [FormsModule, MatIcon, MatTooltip, RichTextareaComponent],
   styles: `
     /* ── Timeline container ──────────────────────── */
     .timeline { position: relative; padding-left: 48px; }
@@ -91,8 +94,72 @@ import {
       &::placeholder { color: rgba(155,140,115,.22); }
       &:disabled { opacity: .6; cursor: not-allowed; }
     }
-    .rt-label { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(155,140,115,.38); margin-bottom: 3px; }
-    .rt-wrap { position: relative; height: 160px; background: rgba(140,125,100,.05); border: 1px solid rgba(155,140,115,.13); border-radius: 3px; overflow: visible; margin-top: 44px; }
+    .rt-label { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(155,140,115,.38); }
+    .rt-wrap { position: relative; height: 272px; background: rgba(140,125,100,.05); border: 1px solid rgba(155,140,115,.13); border-radius: 3px; overflow: visible; margin-top: 5px; }
+
+    /* ── Summary row: 65 % textarea + 35 % image ─────── */
+    .summary-row { display: flex; gap: 14px; align-items: flex-end; }
+    .summary-row .rt-wrap { flex: 8; min-width: 0; }
+    /* img-col total height = rt-wrap margin-top(44) + height(160) so bottoms align */
+    .img-col { flex: 3.5; min-width: 0; display: flex; flex-direction: column; gap: 6px; height: calc(44px + 230px); }
+    .img-url-input { font-size: 11px !important; padding: 5px 8px !important; }
+
+    .img-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .img-clear-btn {
+      width: 22px; height: 22px; border-radius: 2px; border: none; background: transparent; padding: 0;
+      cursor: pointer; color: rgba(200,60,50,.45); display: inline-flex; align-items: center; justify-content: center;
+      transition: color .12s, background .12s; flex-shrink: 0;
+      mat-icon { font-size: 14px !important; width: 14px !important; height: 14px !important; }
+      &:hover { color: rgba(220,80,70,.9); background: rgba(200,50,40,.12); }
+    }
+    .event-img {
+      flex: 1; width: 100%; min-height: 0; object-fit: contain;
+      border: 1px solid rgba(200,160,60,.25); background: rgba(14,10,4,.95);
+      cursor: zoom-in; transition: opacity .15s; display: block;
+      &:hover { opacity: .88; }
+    }
+    .img-error { font-size: 10px; color: rgba(220,80,70,.75); letter-spacing: .03em; }
+    .img-file-input { display: none; }
+
+    /* ── Lightbox (matches character-sheet image dialog) ── */
+    .lightbox-backdrop {
+      position: fixed; inset: 0; z-index: 3000;
+      background: rgba(0,0,0,.88); display: flex; align-items: center; justify-content: center;
+      cursor: zoom-out; animation: lbFadeIn .18s ease;
+    }
+    .lightbox-container {
+      position: relative; max-width: 90vw; max-height: 88vh;
+      cursor: default; display: flex; flex-direction: column; align-items: center;
+      animation: lbScaleIn .18s ease;
+    }
+    .lightbox-frame {
+      border: 1px solid rgba(200,160,60,.35);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.8), 0 8px 40px rgba(0,0,0,.9), 0 0 60px rgba(200,160,60,.08);
+      background: rgba(14,10,4,.95);
+      padding: 6px;
+      img { display: block; max-width: 88vw; max-height: 78vh; object-fit: contain; }
+    }
+    .lightbox-close {
+      position: absolute; top: -14px; right: -14px;
+      width: 30px !important; height: 30px !important; padding: 0 !important; line-height: 1 !important;
+      background: rgba(40,28,10,.98) !important; border: 1px solid rgba(200,160,60,.4) !important;
+      color: #c8a03c !important; border-radius: 3px !important;
+      display: inline-flex !important; align-items: center !important; justify-content: center !important;
+      cursor: pointer;
+      mat-icon { font-size: 16px !important; width: 16px !important; height: 16px !important; }
+      &:hover { background: rgba(200,160,60,.15) !important; color: #e8c96a !important; }
+    }
+    .lightbox-hint { margin-top: 10px; font-size: 10px; color: rgba(155,140,115,.35); letter-spacing: .06em; }
+    @keyframes lbFadeIn  { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes lbScaleIn { from { transform: scale(.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    /* ── Rich-textarea text color (match Questy) ─────── */
+    ::ng-deep .rt-wrap rich-textarea {
+      .rt-editor { color: #d4c9a0 !important; background: transparent !important;
+        &::placeholder { color: rgba(155,140,115,.28) !important; } }
+      .rt-preview { color: #d4c9a0 !important; }
+      .rt-preview--empty { color: rgba(155,140,115,.28) !important; }
+    }
 
     /* ── Tag input (edit mode) ───────────────────── */
     .tag-field-wrap { position: relative; }
@@ -223,9 +290,13 @@ import {
             <div class="card-body">
 
               <div class="field-row">
-                <div class="field-group" style="flex:1;min-width:200px">
+                <div class="field-group" style="flex:2;min-width:200px">
                   <div class="field-label" style="margin-top: 11px;">Název události</div>
                   <input class="field-input" [(ngModel)]="events()[item.idx].title" placeholder="Název…" [disabled]="isReadOnly()" />
+                </div>
+                <div class="field-group" style="flex:1;min-width:120px">
+                  <div class="field-label" style="margin-top: 11px;">Datum v příběhu</div>
+                  <input class="field-input" [(ngModel)]="events()[item.idx].inGameDate" placeholder="15. Flamerule 1492…" [disabled]="isReadOnly()" />
                 </div>
               </div>
 
@@ -284,9 +355,40 @@ import {
               </div>
 
               <div>
-                <div class="rt-label">Shrnutí události</div>
-                <div class="rt-wrap" style="margin-top: 10px;">
-                  <rich-textarea [(ngModel)]="events()[item.idx].summary" style="position:absolute;top:0;left:0;width:100%;height:100%;"></rich-textarea>
+                    <div class="rt-label">Shrnutí události</div>
+                <div class="summary-row">
+                  <div class="rt-wrap">
+                    <rich-textarea [(ngModel)]="events()[item.idx].summary" style="position:absolute;top:0;left:0;width:100%;height:100%;"></rich-textarea>
+                  </div>
+                  @if (!isReadOnly() || imageSource(item.event)) {
+                    <div class="img-col">
+                      @if (!isReadOnly()) {
+                        <div class="img-actions">
+                          <button class="pt-filter-btn" type="button"
+                            (click)="selectFile(item.idx)"
+                            matTooltip="Max 500 KB. Pro zmenšení obrázku použij záložku 'Konvertor obrázků'.">
+                            <mat-icon>upload</mat-icon> Nahrát
+                          </button>
+                          @if (imageSource(item.event)) {
+                            <button class="img-clear-btn" type="button" (click)="clearImage(item.idx)" matTooltip="Odebrat obrázek">
+                              <mat-icon>close</mat-icon>
+                            </button>
+                          }
+                        </div>
+                        <input class="field-input img-url-input"
+                          [(ngModel)]="events()[item.idx].imageUrl"
+                          [disabled]="!!events()[item.idx].imageBase64"
+                          placeholder="nebo vlož URL obrázku…" />
+                      }
+                      @if (imageSource(item.event)) {
+                        <img class="event-img"
+                          [src]="imageSource(item.event)!"
+                          [alt]="item.event.title"
+                          (click)="openLightbox(imageSource(item.event)!)"
+                          (error)="clearImage(item.idx)" />
+                      }
+                    </div>
+                  }
                 </div>
               </div>
 
@@ -295,6 +397,22 @@ import {
         </div>
       }
     </div>
+    }
+
+    <input #fileInput type="file" accept="image/*" class="img-file-input" (change)="onFileSelected($event)" />
+
+    @if (previewSrc()) {
+      <div class="lightbox-backdrop" (click)="closeLightbox()">
+        <div class="lightbox-container" (click)="$event.stopPropagation()">
+          <button mat-icon-button class="lightbox-close" type="button" (click)="closeLightbox()">
+            <mat-icon>close</mat-icon>
+          </button>
+          <div class="lightbox-frame">
+            <img [src]="previewSrc()!" />
+          </div>
+          <span class="lightbox-hint">Klikni mimo pro zavření • Esc</span>
+        </div>
+      </div>
     }
 
     @if (confirmIdx() !== null) {
@@ -318,6 +436,9 @@ import {
   `,
 })
 export class StoryEventsListComponent {
+  private readonly snack = inject(MatSnackBar);
+  private readonly fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
+
   /** Reference to parent's WritableSignal — child reads and mutates it directly */
   eventsRef  = input.required<WritableSignal<StoryEvent[]>>();
   isReadOnly = input(false);
@@ -356,8 +477,10 @@ export class StoryEventsListComponent {
     return [...set].sort();
   });
 
-  expandedIds = signal<Set<string>>(new Set());
-  confirmIdx  = signal<number | null>(null);
+  expandedIds      = signal<Set<string>>(new Set());
+  confirmIdx       = signal<number | null>(null);
+  previewSrc       = signal<string | null>(null);
+  private _pendingUploadIdx = signal<number | null>(null);
 
   private tagInputMap     = signal<Record<string, string>>({});
   private activeSuggIdxMap = signal<Record<string, number>>({});
@@ -491,4 +614,55 @@ export class StoryEventsListComponent {
 
   typeMeta(t: string) { return TYPE_META[t as keyof typeof TYPE_META] ?? TYPE_META['other']; }
   parseTags = parseTags;
+
+  // ── Image helpers ─────────────────────────────────────────────────────────
+  imageSource(event: StoryEvent): string | null {
+    if (event.imageBase64) return 'data:image/png;base64,' + event.imageBase64;
+    if (event.imageUrl)    return event.imageUrl;
+    return null;
+  }
+
+  clearImage(idx: number): void {
+    this.eventsRef().update(list => list.map((e, i) => i !== idx ? e : { ...e, imageBase64: null, imageUrl: '' }));
+  }
+
+  selectFile(idx: number): void {
+    this._pendingUploadIdx.set(idx);
+    this.fileInput()?.nativeElement.click();
+  }
+
+  onFileSelected(e: Event): void {
+    const idx = this._pendingUploadIdx(); if (idx === null) return;
+    const input = e.target as HTMLInputElement;
+    const file = input.files?.[0]; if (!file) return;
+    this._processFile(file, idx);
+    input.value = '';
+    this._pendingUploadIdx.set(null);
+  }
+
+  private _processFile(file: File, idx: number): void {
+    if (!file.type.startsWith('image/')) {
+      this.snack.open('Soubor není obrázek.', '✕', { verticalPosition: 'top', duration: 3000 });
+      return;
+    }
+    if (file.size > 500 * 1024) {
+      this.snack.open(`Obrázek je příliš velký (${Math.round(file.size / 1024)} KB). Max 500 KB — použij záložku 'Konvertor obrázků'.`, '✕', { verticalPosition: 'top', duration: 5000 });
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const b64 = (reader.result as string).split(',')[1];
+      this.eventsRef().update(list => list.map((e, i) => i !== idx ? e : { ...e, imageBase64: b64, imageUrl: '' }));
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ── Lightbox ──────────────────────────────────────────────────────────────
+  openLightbox(src: string): void { this.previewSrc.set(src); }
+  closeLightbox(): void           { this.previewSrc.set(null); }
+
+  onEscape(): void {
+    if (this.previewSrc())            { this.closeLightbox(); return; }
+    if (this.confirmIdx() !== null)   { this.cancelDelete(); }
+  }
 }

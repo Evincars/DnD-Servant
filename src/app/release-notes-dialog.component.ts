@@ -17,6 +17,15 @@ const f = (text: string): ReleaseEntry => ({ type: 'fix', text });
 
 const RELEASE_NOTES: ReleaseGroup[] = [
   {
+    date: '13. července 2026',
+    entries: [
+      i(
+        'Tabulka iniciativy - pro PH je možnost hození kostky iniciativy pro monstrum a rovnou se připočte oprava ODL monstra. Nebo se iniciativy hážou pro všechny při inicializaci tabulky. Když není nalezena ODL v DB (tudíž hráč) tak se nepřičítá nic.',
+      ),
+      i('Příběhové události - možnost nahrání obrázku nebo přidání URL k obrázku + políčko pro datum v příběhu.'),
+    ],
+  },
+  {
     date: '10. července 2026',
     entries: [
       i(

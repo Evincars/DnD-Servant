@@ -336,7 +336,7 @@ export class DmStoryTimelineComponent {
     const id = crypto.randomUUID();
     this.ownEvents.update(list => [{
       id, title: '', inGameDate: '', realDate: new Date().toISOString().split('T')[0],
-      type: 'other', summary: '', dmNotes: '', imageBase64: null, location: '', tags: '',
+      type: 'other', summary: '', dmNotes: '', imageBase64: null, location: '', tags: '', imageUrl: '',
     } as StoryEvent, ...list]);
     this.newEventId.set(id);
   }
