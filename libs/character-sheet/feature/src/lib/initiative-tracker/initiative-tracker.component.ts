@@ -421,19 +421,22 @@ export class InitiativeTrackerComponent {
       this._monsterLookup$(entry.name)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(result => {
-          // Roll separately for each copy so every monster gets its own HP and initiative.
-          for (const rowId of entry.rowIds) {
-            const hp = (mode === 'dice' && result.hitPointsRoll)
-              ? this._rollDiceFormula(result.hitPointsRoll)
-              : result.hitPoints;
-            this._applyHpAcForce(rowId, hp, result.armorClass);
+          // Pre-generate all dice rolls before touching signals so each copy gets a unique value.
+          const hpRolls = entry.rowIds.map(() =>
+            (mode === 'dice' && result.hitPointsRoll) ? this._rollDiceFormula(result.hitPointsRoll) : result.hitPoints
+          );
+          const initRolls = entry.rowIds.map(() =>
+            mode === 'dice' ? this._rollDiceFormula('1d20') : 10
+          );
 
-            // Roll initiative = d20 + ODL modifier (only if ODL is known)
-            if (result.constitutionModifier !== null) {
-              const initRoll = mode === 'dice' ? this._rollDiceFormula('1d20') : 10;
-              this._applyInitiativeForce(rowId, initRoll + result.constitutionModifier);
+          entry.rowIds.forEach((rowId, i) => {
+            this._applyHpAcForce(rowId, hpRolls[i], result.armorClass);
+            // Apply initiative only if ODL is known; always roll separately per copy
+            const conMod = result.constitutionModifier;
+            if (conMod !== null) {
+              this._applyInitiativeForce(rowId, initRolls[i] + conMod);
             }
-          }
+          });
 
           this.openCards.update(cards =>
             cards.map(c => c.baseName === entry.baseName ? {
@@ -551,6 +554,13 @@ export class InitiativeTrackerComponent {
   /** Returns the ODL (CON) modifier for the card associated with rowId. */
   getConModifier(rowId: number): number | null {
     return this.openCardByRowId().get(rowId)?.constitutionModifier ?? null;
+  }
+
+  getDiceTooltip(rowId: number): string {
+    const mod = this.getConModifier(rowId);
+    if (mod === null) return 'Hodit k20 (ODL neznámo)';
+    const sign = mod >= 0 ? '+' : '';
+    return `Hodit iniciativu k20 + ODL (${sign}${mod})`;
   }
 
   /** Rolls d20 + ODL modifier and writes the result directly into the row's initiative field. */

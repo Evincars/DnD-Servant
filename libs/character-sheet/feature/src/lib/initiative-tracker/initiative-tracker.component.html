@@ -53,7 +53,8 @@
         >
           @if (!disableMonsterSearch()) {
             <button mat-icon-button type="button" class="it-dice-btn"
-              [matTooltip]="getConModifier(row.id) !== null ? 'Hodit iniciativu k20 + ODL (' + (getConModifier(row.id)! >= 0 ? '+' : '') + getConModifier(row.id) + ')' : 'Hodit k20 (ODL neznámo)'"
+              [matTooltip]="getDiceTooltip(row.id)"
+              [matTooltipShowDelay]="300"
               (click)="rollInitiative(row)">
               <mat-icon>casino</mat-icon>
             </button>
