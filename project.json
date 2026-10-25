@@ -108,7 +108,11 @@
         "port": 4200,
         "staticFilePath": "dist/DnD-Servant/browser",
         "spa": true
-      }
+      },
+      "readyWhen": {
+        "signal": true
+      },
+      "dependsOn": ["build"]
     }
   }
 }
