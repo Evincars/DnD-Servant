@@ -7,10 +7,9 @@
   "tags": ["type:feature"],
   "targets": {
     "test": {
-      "executor": "@nx/vitest:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": ["{projectRoot}/{options.coverage.reportsDirectory}", "{workspaceRoot}/coverage/libs/dm-screen/feature"],
       "options": {
-        "reportsDirectory": "../../../coverage/libs/dm-screen/feature"
+        "coverage.reportsDirectory": "../../../coverage/libs/dm-screen/feature"
       }
     },
     "lint": {

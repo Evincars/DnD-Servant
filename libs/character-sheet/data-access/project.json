@@ -7,10 +7,12 @@
   "tags": ["type:data-access"],
   "targets": {
     "test": {
-      "executor": "@nx/vitest:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": [
+        "{projectRoot}/{options.coverage.reportsDirectory}",
+        "{workspaceRoot}/coverage/libs/character-sheet/data-access"
+      ],
       "options": {
-        "reportsDirectory": "../../../coverage/libs/character-sheet/data-access"
+        "coverage.reportsDirectory": "../../../coverage/libs/character-sheet/data-access"
       }
     },
     "lint": {

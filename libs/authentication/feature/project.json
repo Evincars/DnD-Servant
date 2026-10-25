@@ -7,10 +7,9 @@
   "tags": ["type:feature"],
   "targets": {
     "test": {
-      "executor": "@nx/vitest:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": ["{projectRoot}/{options.coverage.reportsDirectory}", "{workspaceRoot}/coverage/libs/authentication/feature"],
       "options": {
-        "reportsDirectory": "../../../coverage/libs/authentication/feature"
+        "coverage.reportsDirectory": "../../../coverage/libs/authentication/feature"
       }
     },
     "lint": {

@@ -44,10 +44,6 @@
           "codeCoverage": true
         }
       }
-    },
-    "@nx/vitest:test": {
-      "cache": true,
-      "inputs": ["default", "^production"]
     }
   },
   "plugins": [
@@ -62,6 +58,25 @@
       "options": {
         "targetName": "lint"
       }
+    },
+    {
+      "plugin": "@nx/vitest",
+      "options": {
+        "testMode": "watch",
+        "testTargetName": "test"
+      },
+      "include": [
+        "libs/authentication/feature/**/*",
+        "libs/character-sheet/data-access/**/*",
+        "libs/character-sheet/feature/**/*",
+        "libs/character-sheet/util/**/*",
+        "libs/data-access/**/*",
+        "libs/dm-screen/feature/**/*",
+        "libs/dnd-rules-database/feature/**/*",
+        "libs/help-and-tips/feature/**/*",
+        "libs/ui/**/*",
+        "libs/util/**/*"
+      ]
     }
   ],
   "generators": {

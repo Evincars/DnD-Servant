@@ -7,10 +7,12 @@
   "tags": ["type:feature"],
   "targets": {
     "test": {
-      "executor": "@nx/vitest:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": [
+        "{projectRoot}/{options.coverage.reportsDirectory}",
+        "{workspaceRoot}/coverage/libs/dnd-rules-database/feature"
+      ],
       "options": {
-        "reportsDirectory": "../../../coverage/libs/dnd-rules-database/feature"
+        "coverage.reportsDirectory": "../../../coverage/libs/dnd-rules-database/feature"
       }
     },
     "lint": {
