@@ -59,6 +59,9 @@
         "development": {
           "buildTarget": "DnD-Servant:build:development"
         }
+      },
+      "readyWhen": {
+        "signal": true
       }
     },
     "extract-i18n": {
@@ -103,16 +106,16 @@
     "serve-static": {
       "continuous": true,
       "executor": "@nx/web:file-server",
+      "readyWhen": {
+        "signal": true
+      },
+      "dependsOn": ["build"],
       "options": {
         "buildTarget": "DnD-Servant:build",
         "port": 4200,
         "staticFilePath": "dist/DnD-Servant/browser",
         "spa": true
-      },
-      "readyWhen": {
-        "signal": true
-      },
-      "dependsOn": ["build"]
+      }
     }
   }
 }
