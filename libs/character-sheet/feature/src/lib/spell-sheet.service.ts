@@ -61,5 +61,25 @@ export class SpellSheetService {
     }
     return false;
   }
+
+  /**
+   * Swaps every field of row `row` with the neighbouring row in direction `dir`
+   * (-1 = up, 1 = down). Repeated moves let a spell travel past any row,
+   * including empty ones. Does nothing at the top/bottom edge.
+   */
+  moveRow(row: number, dir: -1 | 1): void {
+    const form = this._form();
+    const target = row + dir;
+    if (!form || target < 1 || target > SPELL_ROW_COUNT) return;
+
+    const values = form.getRawValue() as Record<string, unknown>;
+    const patch: Record<string, unknown> = {};
+    for (const field of SPELL_ROW_FIELDS) {
+      patch[`r${row}${field}`] = values[`r${target}${field}`];
+      patch[`r${target}${field}`] = values[`r${row}${field}`];
+    }
+    form.patchValue(patch);
+    form.markAsDirty();
+  }
 }
 

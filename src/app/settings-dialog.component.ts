@@ -75,6 +75,29 @@ export interface SettingsDialogData {
             </div>
           </div>
 
+          <!-- App UI style section -->
+          <div class="sd-section u-mb-6">
+            <div class="sd-section-label">Vzhled aplikace</div>
+            <div class="sd-theme-grid">
+              <button
+                type="button"
+                class="sd-btn"
+                [class.sd-btn--active]="sheetTheme.uiStyle() === 'ornate'"
+                (click)="sheetTheme.setUiStyle('ornate')"
+              >
+                <span class="sd-btn-label">Zdobený</span>
+              </button>
+              <button
+                type="button"
+                class="sd-btn"
+                [class.sd-btn--active]="sheetTheme.uiStyle() === 'plain'"
+                (click)="sheetTheme.setUiStyle('plain')"
+              >
+                <span class="sd-btn-label">Čistý</span>
+              </button>
+            </div>
+          </div>
+
           <!--        <div class="sd-divider"></div>-->
 
           <!-- Page layout section -->
@@ -226,7 +249,7 @@ export interface SettingsDialogData {
       <!-- Version footer -->
       <div class="sd-version-bar">
         <span class="sd-version-label">DnD Servant</span>
-        <span class="sd-version-badge">v0.9.5</span>
+        <span class="sd-version-badge">v0.9.6</span>
       </div>
     </div>
   `,
