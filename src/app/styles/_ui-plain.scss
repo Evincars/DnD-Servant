@@ -75,7 +75,6 @@ html.ui-plain:not(#_):not(#_) {
     h6,
     .dialog-title,
     .mat-mdc-dialog-title,
-    .mdc-tab__text-label,
     .sd-title,
     .sd-section-label,
     .panel-title,
@@ -90,6 +89,11 @@ html.ui-plain:not(#_):not(#_) {
   ::selection {
     background: #8a6a43;
     color: var(--p-bg);
+  }
+
+  // Tab pages paint their own active-tab fill with `!important`
+  .mat-mdc-tab {
+    background: transparent !important;
   }
 }
 
@@ -422,10 +426,54 @@ html.ui-plain {
     }
   }
 
-  // ── Tab bars (character sheet, DM page) ───────────────────────────
+  // ── Tab bars (character sheet, DM page) — same look as the story-timeline
+  // sub-tabs: plain labels, amber text + 2px underline on the active tab
   .mat-mdc-tab-header {
-    background-color: var(--p-bg-alt) !important;
+    background-color: transparent !important;
     border-bottom: 1px solid var(--p-border) !important;
+  }
+
+  .mat-mdc-tab .mdc-tab__content {
+    background: transparent !important;
+    border-bottom: 2px solid transparent;
+    box-sizing: border-box; // keep the underline inside the fixed 40px tab
+  }
+
+  .mat-mdc-tab .mdc-tab__text-label {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    color: var(--p-text-dim) !important;
+  }
+
+  .mat-mdc-tab:hover:not(.mdc-tab--active) .mdc-tab__text-label {
+    color: var(--p-text) !important;
+  }
+
+  .mat-mdc-tab.mdc-tab--active {
+    .mdc-tab__content {
+      border-bottom-color: var(--p-amber-bright);
+    }
+
+    .mdc-tab__text-label {
+      color: var(--p-amber-bright) !important;
+    }
+  }
+
+  .mat-mdc-tab .mdc-tab-indicator {
+    display: none !important; // the 2px border above replaces it
+  }
+
+  .mat-mdc-tab-header-pagination {
+    background: transparent !important;
+    border-bottom: none !important;
+  }
+
+  // ── Wiki headings used gradient text (transparent fill) ──────────
+  .wiki-body :is(h1, h2) {
+    -webkit-text-fill-color: currentColor !important;
+    color: var(--p-amber-bright) !important;
   }
 
   // ── Floating surfaces whose background was gradient-only ──────────
@@ -560,16 +608,21 @@ html.ui-plain {
 // turns transparent and every border neutral; active states get the
 // amber accent back and floating surfaces get a solid panel.
 // ═══════════════════════════════════════════════════════════════════
-$plain-pages: 'spells-tab, wiki-tab, potions-tab, quests-tab, initiative-tracker, dm-page, lib-dm-page-feature, dm-screen, dnd-database-search, help-and-tips, .cdk-overlay-pane:not(.sd-dialog-panel, .cp-dialog-panel, .import-data-dialog-panel) .mat-mdc-dialog-surface';
+$plain-pages: 'spells-tab, wiki-tab, potions-tab, quests-tab, initiative-tracker, dm-page, lib-dm-page-feature, dm-screen, dnd-database-search, help-and-tips';
+// Dialogs: regular surfaces, plus the custom panels (command palette, …)
+// whose own background is set in the dialog section above
+$plain-dialogs: '.cdk-overlay-pane:not(.sd-dialog-panel, .cp-dialog-panel, .import-data-dialog-panel) .mat-mdc-dialog-surface, .cp-panel, .dn-panel, .rn-panel, .al-panel, .id-panel';
 
-// Page hosts themselves (dialog surfaces keep their panel colour)
-html.ui-plain:not(#_):not(#_) :is(#{$plain-pages}):not(.mat-mdc-dialog-surface) {
+// Page hosts themselves
+html.ui-plain:not(#_):not(#_) :is(#{$plain-pages}) {
   background-color: transparent !important;
 }
 
-html.ui-plain:not(#_):not(#_) :is(#{$plain-pages}) {
+html.ui-plain:not(#_):not(#_) :is(#{$plain-pages}, #{$plain-dialogs}) {
   // Material internals and data-bearing fills (HP bars, dots, pips) keep theirs
-  *:not([class*='mdc'], [class*='fill'], [class*='hp-bar'], [class*='dot'], [class*='pip']) {
+  *:not([class*='mdc'], [class*='fill'], [class*='hp-bar'], [class*='dot'], [class*='pip']),
+  // …but [matTooltip] hosts only carry the `mat-mdc-tooltip-trigger` class
+  .mat-mdc-tooltip-trigger:not([class*='fill'], [class*='hp-bar'], [class*='dot'], [class*='pip']) {
     background-color: transparent !important;
   }
 
@@ -593,6 +646,10 @@ html.ui-plain:not(#_):not(#_) :is(#{$plain-pages}) {
     border-color: var(--p-border-strong) !important;
   }
 
+  .mat-mdc-tab.mdc-tab--active .mdc-tab__content {
+    border-bottom-color: var(--p-amber-bright) !important;
+  }
+
   // Floating surfaces need a solid panel
   :is(
     .sidebar,
@@ -603,10 +660,20 @@ html.ui-plain:not(#_):not(#_) :is(#{$plain-pages}) {
     .confirm-dialog,
     .it-init-dialog,
     .share-dialog,
-    .lightbox-container
+    .lightbox-container,
+    .rt-toolbar
   ) {
     background-color: var(--p-panel-alt) !important;
     border-color: var(--p-border-strong) !important;
+  }
+
+  // DM notes use the same panels as the player's Poznámky
+  .note-panel {
+    background-color: var(--p-panel-alt) !important;
+  }
+
+  .note-panel .panel-header {
+    background-color: var(--p-bg-alt) !important;
   }
 
   :is(.wiki-backdrop, .pt-modal-backdrop, .confirm-backdrop, .it-init-backdrop, .share-backdrop, .lightbox-backdrop) {
