@@ -249,7 +249,7 @@ export interface SettingsDialogData {
       <!-- Version footer -->
       <div class="sd-version-bar">
         <span class="sd-version-label">DnD Servant</span>
-        <span class="sd-version-badge">v0.9.5</span>
+        <span class="sd-version-badge">v0.9.6</span>
       </div>
     </div>
   `,
