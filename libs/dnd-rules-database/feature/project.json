@@ -22,7 +22,7 @@
         "{workspaceRoot}/.eslintrc.json",
         "{workspaceRoot}/.eslintignore",
         "{workspaceRoot}/eslint.config.mjs",
-        "{workspaceRoot}/tools/eslint-rules/**/*",
+        "{workspaceRoot}/scripts/eslint-rules/**/*",
         {
           "externalDependencies": ["eslint"]
         }

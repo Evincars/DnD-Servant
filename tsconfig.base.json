@@ -5,7 +5,7 @@
     "emitDecoratorMetadata": false,
     "target": "es2022",
     "module": "preserve",
-    "lib": ["es2020", "dom"],
+    "lib": ["es2020", "dom", "esnext.temporal"],
     "baseUrl": ".",
     "paths": {
       "@dn-d-servant/data-access": ["libs/data-access/src/index.ts"],
