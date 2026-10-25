@@ -20,7 +20,12 @@
       "@dn-d-servant/help-and-tips-feature": ["libs/help-and-tips/feature/src/index.ts"],
       "@dn-d-servant/dm-page-feature": ["libs/dm-page/feature/src/index.ts"],
       "@dn-d-servant/contact-feature": ["libs/contact/feature/src/index.ts"]
-    }
+    },
+    "strict": false,
+    "noUncheckedSideEffectImports": false,
+    "types": ["*"],
+    "esModuleInterop": false,
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["node_modules", "tmp"]
 }

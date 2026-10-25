@@ -9,7 +9,7 @@ import { MAT_ICON_DEFAULT_OPTIONS, MatIconDefaultOptions } from '@angular/materi
 import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions } from '@angular/material/tooltip';
 import { appInitializer } from '@dn-d-servant/data-access';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { environment, REALTIME_DB_URL_TOKEN } from '@dn-d-servant/util';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
@@ -20,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
-    provideHttpClient(),
+    provideHttpClient(withXhr()),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),

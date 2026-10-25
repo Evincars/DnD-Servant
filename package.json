@@ -67,6 +67,7 @@
     "@nx/js": "23.3.1",
     "@nx/playwright": "23.3.1",
     "@nx/vite": "23.3.1",
+    "@nx/vitest": "23.3.1",
     "@nx/web": "23.3.1",
     "@nx/workspace": "23.3.1",
     "@playwright/test": "^1.58.2",
