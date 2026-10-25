@@ -5,7 +5,7 @@
     "emitDecoratorMetadata": false,
     "target": "es2022",
     "module": "preserve",
-    "lib": ["es2020", "dom"],
+    "lib": ["es2020", "dom", "esnext.temporal"],
     "baseUrl": ".",
     "paths": {
       "@dn-d-servant/data-access": ["libs/data-access/src/index.ts"],
@@ -20,7 +20,12 @@
       "@dn-d-servant/help-and-tips-feature": ["libs/help-and-tips/feature/src/index.ts"],
       "@dn-d-servant/dm-page-feature": ["libs/dm-page/feature/src/index.ts"],
       "@dn-d-servant/contact-feature": ["libs/contact/feature/src/index.ts"]
-    }
+    },
+    "strict": false,
+    "noUncheckedSideEffectImports": false,
+    "types": ["*"],
+    "esModuleInterop": false,
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["node_modules", "tmp"]
 }

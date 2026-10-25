@@ -56,7 +56,7 @@ module.exports = {
   },
 
   create(context) {
-    const filename = context.getFilename();
+    const filename = context.filename;
 
     // The canonical file is exempt from rule #2 (it IS the registry).
     const isKeyFile = filename.endsWith(STORAGE_KEY_FILE);

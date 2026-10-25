@@ -21,32 +21,22 @@
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
     },
-    "@nx/eslint:lint": {
-      "cache": true,
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.json",
-        "{workspaceRoot}/.eslintignore",
-        "{workspaceRoot}/eslint.config.mjs"
-      ]
-    },
-    "@nx/jest:jest": {
-      "cache": true,
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
-      "options": {
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
+    "test": [
+      {
+        "filter": {
+          "plugin": "@nx/jest/plugin"
+        },
+        "configurations": {
+          "ci": {
+            "ci": true,
+            "coverage": true
+          }
+        },
+        "options": {
+          "passWithNoTests": true
         }
       }
-    },
-    "@nx/vite:test": {
-      "cache": true,
-      "inputs": ["default", "^production"]
-    }
+    ]
   },
   "plugins": [
     {
@@ -60,6 +50,32 @@
       "options": {
         "targetName": "lint"
       }
+    },
+    {
+      "plugin": "@nx/vitest",
+      "options": {
+        "testMode": "watch",
+        "testTargetName": "test"
+      },
+      "include": [
+        "libs/authentication/feature/**/*",
+        "libs/character-sheet/data-access/**/*",
+        "libs/character-sheet/feature/**/*",
+        "libs/character-sheet/util/**/*",
+        "libs/data-access/**/*",
+        "libs/dm-screen/feature/**/*",
+        "libs/dnd-rules-database/feature/**/*",
+        "libs/help-and-tips/feature/**/*",
+        "libs/ui/**/*",
+        "libs/util/**/*"
+      ]
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      },
+      "include": ["libs/contact/feature/**/*", "libs/dm-page/feature/**/*"]
     }
   ],
   "generators": {
@@ -77,5 +93,10 @@
       "style": "css"
     }
   },
-  "defaultProject": "DnD-Servant"
+  "defaultProject": "DnD-Servant",
+  "analytics": true,
+  "nxCloudId": "6ade43ea27d99e86eb17b04b",
+  "affected": {
+    "legacy": true
+  }
 }
