@@ -18,6 +18,7 @@ html.ui-plain {
   --p-amber: #d68a2e;
   --p-amber-bright: #ffb54a;
   --p-steel: #6f97a8;
+  --p-steel-bright: #a9d0e0;
   --p-text: #c6d0d4;
   --p-text-dim: #85939c;
   --p-text-faint: #566169;
@@ -549,5 +550,91 @@ html.ui-plain {
 
   * {
     scrollbar-color: var(--p-border-strong) var(--p-bg-alt);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// APP PAGES — neutralise the brown / purple tinted surfaces
+// Scoped to app-style pages and regular dialogs (not the paper sheets,
+// and not dialogs that draw their own panel). Inside them every surface
+// turns transparent and every border neutral; active states get the
+// amber accent back and floating surfaces get a solid panel.
+// ═══════════════════════════════════════════════════════════════════
+$plain-pages: 'spells-tab, wiki-tab, potions-tab, quests-tab, initiative-tracker, dm-page, lib-dm-page-feature, dm-screen, dnd-database-search, help-and-tips, .cdk-overlay-pane:not(.sd-dialog-panel, .cp-dialog-panel, .import-data-dialog-panel) .mat-mdc-dialog-surface';
+
+// Page hosts themselves (dialog surfaces keep their panel colour)
+html.ui-plain:not(#_):not(#_) :is(#{$plain-pages}):not(.mat-mdc-dialog-surface) {
+  background-color: transparent !important;
+}
+
+html.ui-plain:not(#_):not(#_) :is(#{$plain-pages}) {
+  // Material internals and data-bearing fills (HP bars, dots, pips) keep theirs
+  *:not([class*='mdc'], [class*='fill'], [class*='hp-bar'], [class*='dot'], [class*='pip']) {
+    background-color: transparent !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    border-color: var(--p-border) !important;
+  }
+
+  // Hover: no lift, only a stronger border
+  :is([class*='card'], [class*='item'], [class*='btn']):hover {
+    transform: none !important;
+    border-color: var(--p-border-strong) !important;
+  }
+
+  :is(.active, .selected, [class*='--active'], [class*='--selected'], [class$='-active'], [class*='-active ']) {
+    border-color: var(--p-amber) !important;
+  }
+
+  [class*='search']:focus-within {
+    border-color: var(--p-border-strong) !important;
+  }
+
+  // Floating surfaces need a solid panel
+  :is(
+    .sidebar,
+    .dropdown,
+    .tag-suggestions,
+    .help-nav,
+    .pt-modal,
+    .confirm-dialog,
+    .it-init-dialog,
+    .share-dialog,
+    .lightbox-container
+  ) {
+    background-color: var(--p-panel-alt) !important;
+    border-color: var(--p-border-strong) !important;
+  }
+
+  :is(.wiki-backdrop, .pt-modal-backdrop, .confirm-backdrop, .it-init-backdrop, .share-backdrop, .lightbox-backdrop) {
+    background-color: rgba(7, 10, 12, 0.85) !important;
+  }
+
+  .timeline-line {
+    background-color: var(--p-border-strong) !important;
+  }
+}
+
+// Purple text / accents → metro steel or amber
+html.ui-plain:not(#_):not(#_) {
+  .badge-ritual,
+  .sc-badge--level,
+  .roll-badge[data-sev='great'],
+  .db-switcher__btn:nth-child(6),
+  .db-switcher__btn:nth-child(6) .db-switcher__icon,
+  .mi-rarity[style*='160, 96, 208'] {
+    color: var(--p-steel-bright) !important;
+  }
+
+  .pt-tag[data-rarity='Legendární'],
+  .pt-filter-btn.active[data-rarity='Legendární'],
+  .panel--npcs :is(.panel-icon, .panel-title),
+  .cc-name,
+  .db-header__icon,
+  .db-search-btn {
+    color: var(--p-amber-bright) !important;
   }
 }

@@ -1,162 +1,74 @@
 <div class="contact-page">
-
   <!-- ── Header ─────────────────────────────────────────── -->
   <header class="contact-header">
-    <div class="contact-header__glow"></div>
-    <div class="contact-header__strip">
-      <span class="contact-header__gem">◆</span>
-      <span class="contact-header__line"></span>
-      <span class="contact-header__gem">◆</span>
-    </div>
-
-    <div class="contact-header__body">
-      <div class="contact-header__avatar-wrap">
-        <div class="contact-header__avatar">AL</div>
-        <div class="contact-header__avatar-ring"></div>
-      </div>
-
-      <div class="contact-header__text">
-        <h1 class="contact-header__name">Adam Lasák</h1>
-        <p class="contact-header__role">
-          <mat-icon class="contact-header__role-icon">code</mat-icon>
-          Senior FE Developer &amp; DM
-        </p>
-<!--        <p class="contact-header__tagline">-->
-<!--          Tvůrce DnD Servant — nástroje pro hrdiny i průvodce hrou-->
-<!--        </p>-->
-      </div>
-    </div>
-
-    <div class="contact-header__strip contact-header__strip--bottom">
-      <span class="contact-header__gem">◆</span>
-      <span class="contact-header__line"></span>
-      <span class="contact-header__gem">◆</span>
+    <div class="contact-header__avatar" aria-hidden="true">AL</div>
+    <div>
+      <h1 class="contact-header__name">Adam Lasák</h1>
+      <p class="contact-header__role">Senior FE Developer &amp; DM</p>
     </div>
   </header>
 
-  <!-- ── Two-column layout ──────────────────────────────── -->
   <div class="contact-layout">
+    <!-- ── Contact list ───────────────────────────────────── -->
+    <section class="contact-section" aria-labelledby="contact-title">
+      <h2 class="contact-section__title" id="contact-title">Kontakt</h2>
 
-    <!-- LEFT – Contact cards -->
-    <section class="contact-section">
-      <h2 class="contact-section__title">
-        <mat-icon class="contact-section__icon">contacts</mat-icon>
-        Kontakt
-      </h2>
-
-      <ul class="contact-cards" role="list">
+      <ul class="contact-list" role="list">
         @for (card of cards; track card.label) {
-          <li class="contact-card"
-              [class.contact-card--link]="!!card.href"
-              [style.--card-accent]="card.color">
+          <li>
             @if (card.href) {
-              <a [href]="card.href"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 class="contact-card__inner"
-                 [matTooltip]="card.tooltip">
-                <span class="contact-card__icon-wrap">
-                  <mat-icon class="contact-card__icon">{{ card.icon }}</mat-icon>
+              <a class="contact-item" [href]="card.href" target="_blank" rel="noopener noreferrer" [matTooltip]="card.tooltip">
+                <mat-icon class="contact-item__icon">{{ card.icon }}</mat-icon>
+                <span class="contact-item__text">
+                  <span class="contact-item__label">{{ card.label }}</span>
+                  <span class="contact-item__value">{{ card.value }}</span>
                 </span>
-                <span class="contact-card__info">
-                  <span class="contact-card__label">{{ card.label }}</span>
-                  <span class="contact-card__value">{{ card.value }}</span>
-                </span>
-                <mat-icon class="contact-card__arrow">open_in_new</mat-icon>
+                <mat-icon class="contact-item__action">open_in_new</mat-icon>
               </a>
             } @else {
-              <div class="contact-card__inner"
-                   [matTooltip]="card.tooltip"
-                   (click)="copyToClipboard(card)">
-                <span class="contact-card__icon-wrap">
-                  <mat-icon class="contact-card__icon">{{ card.icon }}</mat-icon>
+              <button type="button" class="contact-item" [matTooltip]="card.tooltip" (click)="copyToClipboard(card)">
+                <mat-icon class="contact-item__icon">{{ card.icon }}</mat-icon>
+                <span class="contact-item__text">
+                  <span class="contact-item__label">{{ card.label }}</span>
+                  <span class="contact-item__value">{{ card.value }}</span>
                 </span>
-                <span class="contact-card__info">
-                  <span class="contact-card__label">{{ card.label }}</span>
-                  <span class="contact-card__value">{{ card.value }}</span>
-                </span>
-                @if (copiedCard() === card.label) {
-                  <mat-icon class="contact-card__arrow contact-card__arrow--copied">check</mat-icon>
-                } @else {
-                  <mat-icon class="contact-card__arrow">content_copy</mat-icon>
-                }
-              </div>
+                <mat-icon class="contact-item__action">{{ copiedCard() === card.label ? 'check' : 'content_copy' }}</mat-icon>
+              </button>
             }
           </li>
         }
       </ul>
     </section>
 
-    <!-- RIGHT – About & skills -->
-    <aside class="contact-aside">
+    <!-- ── About ──────────────────────────────────────────── -->
+    <section class="contact-section" aria-labelledby="about-title">
+      <h2 class="contact-section__title" id="about-title">O mně a projektu</h2>
 
-      <!-- About -->
-      <section class="contact-section">
-        <h2 class="contact-section__title">
-          <mat-icon class="contact-section__icon">auto_stories</mat-icon>
-          O mně a projektu
-        </h2>
-
-        <div class="contact-bio">
-          <p>
-            Jsem frontend vývojář z Ostravy, který chtěl udělat jednoduchý ekvivalent pro české <a style="color: #a53232;" target="_blank" href="https://www.jeskyneadraci.cz/">Jeskyně a Draky</a> jako
-            je D&D Beyond od WotC.
-          </p>
-          <p>
-            Veškerý kód a materiál Servanta je dostupný na <a style="color: #a53232;" target="_blank" href="https://github.com/Evincars/DnD-Servant">github.com/Evincars/DnD-Servant</a>
-            a jsem otevřený jakýmkoliv nápadům, vylepšením nebo contributováním do kódu.
-          </p>
-          <p>
-            Projekt a jeho featury vznikly v rekordním čase díky Anthropic AI, ač kostra projektu a základní mechaniky byly vytvořeny ručně.
-          </p>
-          <p>
-            <b>Nepoužívá se cookies, jen local-storage</b>. Přihlášení přes Google účet je kvůli bezpečnosti, protože starý typ přihlášení bez ověření mailu mohl vést k tomu,
-            že by útočníci mohli vytvořit účty s cizími emaily a získat přístup k datům jiných hráčů. Kdyby jste měli jakékoliv dotazy ohledně GDPR, tak se neváhejte na mne obrátit.
-            Nakonec se jedná jen o fanouškovský projekt, který nemá žádný komerční záměr a je určen jen pro hráče.
-          </p>
-          <p>
-            Tech stack: Nx, Angular, RxJS, Google Firebase (DB a hosting)
-          </p>
-        </div>
-      </section>
-
-      <!-- Skills -->
-<!--      <section class="contact-section contact-section&#45;&#45;skills">-->
-<!--        <h2 class="contact-section__title">-->
-<!--          <mat-icon class="contact-section__icon">military_tech</mat-icon>-->
-<!--          Zdatnosti-->
-<!--        </h2>-->
-
-<!--        <ul class="skills-list" role="list">-->
-<!--          @for (skill of skills; track skill.name) {-->
-<!--            <li class="skill-row" [style.&#45;&#45;skill-color]="skill.color">-->
-<!--              <span class="skill-row__name">{{ skill.name }}</span>-->
-<!--              <span class="skill-row__dots">-->
-<!--                @for (dot of skillDots; track dot) {-->
-<!--                  <span class="skill-dot"-->
-<!--                        [class.skill-dot&#45;&#45;filled]="dot <= skill.level">-->
-<!--                  </span>-->
-<!--                }-->
-<!--              </span>-->
-<!--            </li>-->
-<!--          }-->
-<!--        </ul>-->
-<!--      </section>-->
-
-    </aside>
+      <!-- Kept unformatted: line breaks inside <a>/<b> would render as extra spaces -->
+      <!-- prettier-ignore -->
+      <div class="contact-bio">
+        <p>
+          Jsem frontend vývojář z Ostravy, který chtěl udělat jednoduchý ekvivalent pro české
+          <a class="contact-link" target="_blank" rel="noopener noreferrer" href="https://www.jeskyneadraci.cz/">Jeskyně a Draky</a>
+          jako je D&amp;D Beyond od WotC.
+        </p>
+        <p>
+          Veškerý kód a materiál Servanta je dostupný na
+          <a class="contact-link" target="_blank" rel="noopener noreferrer" href="https://github.com/Evincars/DnD-Servant">github.com/Evincars/DnD-Servant</a>
+          a jsem otevřený jakýmkoliv nápadům, vylepšením nebo contributováním do kódu.
+        </p>
+        <p>
+          Projekt a jeho featury vznikly v rekordním čase díky Anthropic AI, ač kostra projektu a základní mechaniky byly
+          vytvořeny ručně.
+        </p>
+        <p>
+          <b>Nepoužívá se cookies, jen local-storage</b>. Přihlášení přes Google účet je kvůli bezpečnosti, protože starý typ
+          přihlášení bez ověření mailu mohl vést k tomu, že by útočníci mohli vytvořit účty s cizími emaily a získat přístup k datům
+          jiných hráčů. Kdyby jste měli jakékoliv dotazy ohledně GDPR, tak se neváhejte na mne obrátit. Nakonec se jedná jen o
+          fanouškovský projekt, který nemá žádný komerční záměr a je určen jen pro hráče.
+        </p>
+        <p>Tech stack: Nx, Angular, RxJS, Google Firebase (DB a hosting)</p>
+      </div>
+    </section>
   </div>
-
-  <!-- ── Footer strip ──────────────────────────────────── -->
-<!--  <footer class="contact-footer">-->
-<!--    <span class="contact-footer__gem">◆</span>-->
-<!--    <span class="contact-footer__line"></span>-->
-<!--    <span class="contact-footer__text">-->
-<!--      Vytvořeno s&nbsp;❤️ pro hráče D&amp;D-->
-<!--    </span>-->
-<!--    <span class="contact-footer__line"></span>-->
-<!--    <span class="contact-footer__gem">◆</span>-->
-<!--  </footer>-->
-
 </div>
-
-

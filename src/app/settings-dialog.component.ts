@@ -85,7 +85,6 @@ export interface SettingsDialogData {
                 [class.sd-btn--active]="sheetTheme.uiStyle() === 'ornate'"
                 (click)="sheetTheme.setUiStyle('ornate')"
               >
-                <mat-icon class="sd-btn-icon">brush</mat-icon>
                 <span class="sd-btn-label">Zdobený</span>
               </button>
               <button
@@ -94,7 +93,6 @@ export interface SettingsDialogData {
                 [class.sd-btn--active]="sheetTheme.uiStyle() === 'plain'"
                 (click)="sheetTheme.setUiStyle('plain')"
               >
-                <mat-icon class="sd-btn-icon">crop_square</mat-icon>
                 <span class="sd-btn-label">Čistý</span>
               </button>
             </div>
