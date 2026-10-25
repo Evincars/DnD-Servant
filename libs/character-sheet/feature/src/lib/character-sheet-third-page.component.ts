@@ -206,6 +206,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:505px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:505px; left:1224px;">
+      <button type="button" class="spell-move-btn" disabled (click)="moveSpellRow(1, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(1, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r1S"
       class="field spell-row"
@@ -281,6 +289,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:541px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:541px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(2, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(2, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r2S"
       class="field spell-row"
@@ -356,6 +372,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:577px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:577px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(3, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(3, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r3S"
       class="field spell-row"
@@ -431,6 +455,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:613px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:613px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(4, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(4, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r4S"
       class="field spell-row"
@@ -506,6 +538,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:650px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:650px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(5, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(5, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r5S"
       class="field spell-row"
@@ -581,6 +621,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:686px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:686px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(6, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(6, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r6S"
       class="field spell-row"
@@ -656,6 +704,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:722px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:722px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(7, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(7, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r7S"
       class="field spell-row"
@@ -731,6 +787,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:758px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:758px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(8, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(8, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r8S"
       class="field spell-row"
@@ -806,6 +870,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:794px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:794px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(9, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(9, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r9S"
       class="field spell-row"
@@ -881,6 +953,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:831px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:831px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(10, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(10, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r10S"
       class="field spell-row"
@@ -955,6 +1035,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:867px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:867px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(11, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(11, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r11S"
       class="field spell-row"
@@ -1029,6 +1117,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:903px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:903px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(12, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(12, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r12S"
       class="field spell-row"
@@ -1103,6 +1199,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:939px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:939px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(13, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(13, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r13S"
       class="field spell-row"
@@ -1177,6 +1281,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:976px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:976px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(14, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(14, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r14S"
       class="field spell-row"
@@ -1251,6 +1363,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1012px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1012px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(15, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(15, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r15S"
       class="field spell-row"
@@ -1325,6 +1445,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1048px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1048px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(16, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(16, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r16S"
       class="field spell-row"
@@ -1399,6 +1527,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1084px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1084px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(17, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(17, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r17S"
       class="field spell-row"
@@ -1473,6 +1609,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1120px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1120px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(18, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(18, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r18S"
       class="field spell-row"
@@ -1547,6 +1691,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1157px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1157px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(19, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(19, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r19S"
       class="field spell-row"
@@ -1621,6 +1773,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1193px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1193px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(20, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(20, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r20S"
       class="field spell-row"
@@ -1695,6 +1855,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1229px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1229px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(21, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(21, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r21S"
       class="field spell-row"
@@ -1769,6 +1937,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1265px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1265px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(22, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(22, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r22S"
       class="field spell-row"
@@ -1843,6 +2019,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1301px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1301px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(23, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(23, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r23S"
       class="field spell-row"
@@ -1917,6 +2101,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1338px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1338px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(24, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(24, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r24S"
       class="field spell-row"
@@ -1991,6 +2183,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1374px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1374px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(25, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(25, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r25S"
       class="field spell-row"
@@ -2065,6 +2265,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1410px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1410px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(26, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(26, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r26S"
       class="field spell-row"
@@ -2139,6 +2347,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1446px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1446px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(27, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(27, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r27S"
       class="field spell-row"
@@ -2214,6 +2430,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1482px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1482px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(28, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(28, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r28S"
       class="field spell-row"
@@ -2289,6 +2513,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1518px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1518px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(29, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(29, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r29S"
       class="field spell-row"
@@ -2364,6 +2596,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1554px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1554px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(30, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(30, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r30S"
       class="field spell-row"
@@ -2439,6 +2679,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1590px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1590px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(31, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(31, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r31S"
       class="field spell-row"
@@ -2514,6 +2762,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1626px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1626px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(32, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(32, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r32S"
       class="field spell-row"
@@ -2589,6 +2845,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1662px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1662px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(33, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(33, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r33S"
       class="field spell-row"
@@ -2664,6 +2928,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1698px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1698px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(34, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(34, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r34S"
       class="field spell-row"
@@ -2738,6 +3010,14 @@ import { SpellSheetService } from './spell-sheet.service';
       class="field checkbox red-checkbox"
       style="top:1742px; left:59px;"
     /><span class="spell-prep-label">Připraveno</span></span>
+    <span class="spell-move" style="top:1742px; left:1224px;">
+      <button type="button" class="spell-move-btn" (click)="moveSpellRow(35, -1)" aria-label="Posunout kouzlo nahoru" matTooltip="Posunout nahoru">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button type="button" class="spell-move-btn" disabled (click)="moveSpellRow(35, 1)" aria-label="Posunout kouzlo dolů" matTooltip="Posunout dolů">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </span>
     <input
       [formControl]="controls.spellsForm.controls.r35S"
       class="field spell-row"
@@ -2963,6 +3243,10 @@ export class CharacterSheetThirdPageComponent {
     const ctrl = (this.controls.spellsForm.controls as Record<string, AbstractControl>)[`r${this.activeRow()}Nazev`];
     ctrl?.setValue(name);
     this.dropdownOpen.set(false);
+  }
+
+  moveSpellRow(row: number, dir: -1 | 1): void {
+    this._spellSheet.moveRow(row, dir);
   }
 
   /** Returns a computed signal for the poznamka tooltip of row N */

@@ -1,8 +1,11 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
-import { CS_SPELLS_FIRST_KEY, LocalStorageService } from '@dn-d-servant/util';
+import { computed, DOCUMENT, effect, inject, Injectable, signal } from '@angular/core';
+import { CS_SPELLS_FIRST_KEY, LocalStorageService, UI_STYLE_KEY } from '@dn-d-servant/util';
 
 export type DarkTheme = 'dark' | 'sirien' | 'night';
 export type Theme = 'light' | DarkTheme;
+
+/** Whole-app look: 'ornate' fantasy chrome, or 'plain' flat borders without effects. */
+export type UiStyle = 'ornate' | 'plain';
 
 const STORAGE_KEY = 'sheet-theme';
 const LEGACY_KEY = 'sheet-theme-dark';
@@ -21,6 +24,20 @@ export class SheetThemeService {
    * the appearance page (second-page / vzhled). Default: false.
    */
   readonly spellsFirst = signal<boolean>(this.ls.getDataSync<boolean>(CS_SPELLS_FIRST_KEY) ?? false);
+
+  /** Whole-app UI style, applied as the `ui-plain` class on <html>. */
+  readonly uiStyle = signal<UiStyle>(this.ls.getDataSync<UiStyle>(UI_STYLE_KEY) ?? 'ornate');
+
+  private readonly _doc = inject(DOCUMENT);
+
+  constructor() {
+    effect(() => this._doc.documentElement.classList.toggle('ui-plain', this.uiStyle() === 'plain'));
+  }
+
+  setUiStyle(style: UiStyle): void {
+    this.uiStyle.set(style);
+    this.ls.setDataSync(UI_STYLE_KEY, style);
+  }
 
   setTheme(theme: Theme): void {
     this.theme.set(theme);

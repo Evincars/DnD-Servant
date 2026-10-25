@@ -67,6 +67,11 @@ export const PLAYER_CONDITIONS_KEY = 'player-conditions-v1';
 /** Whether the spells page (page 3) should appear before the appearance page (page 2) */
 export const CS_SPELLS_FIRST_KEY = 'cs-spells-page-first';
 
+// ── App — Appearance ──────────────────────────────────────────────────────────
+
+/** Whole-app UI style: 'ornate' (default fantasy look) or 'plain' (flat, no effects) */
+export const UI_STYLE_KEY = 'ui-style';
+
 // ── J&D Wiki ──────────────────────────────────────────────────────────────────
 
 /** Last viewed wiki position (book + chapter) */

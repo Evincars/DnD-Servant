@@ -2,6 +2,7 @@
 @use './app/styles/utils';
 @use './app/styles/spacing-variables';
 @use './app/styles/autofill-input';
+@use './app/styles/ui-plain';
 @use '@angular/material' as mat;
 
 @import '@angular/material/prebuilt-themes/cyan-orange.css';
@@ -14,6 +15,12 @@
 @import '@fontsource/alegreya-sans/index.css';
 @import '@fontsource/barlow/900.css';
 @import '@fontsource/barlow/900-italic.css';
+
+/* ── Plain UI style fonts (metro2033 look; Ubuntu Mono covers Czech diacritics) ─── */
+@import '@fontsource/oswald/400.css';
+@import '@fontsource/oswald/600.css';
+@import '@fontsource/ubuntu-mono/400.css';
+@import '@fontsource/ubuntu-mono/700.css';
 
 body {
   margin: 0;

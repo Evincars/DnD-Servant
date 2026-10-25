@@ -75,6 +75,31 @@ export interface SettingsDialogData {
             </div>
           </div>
 
+          <!-- App UI style section -->
+          <div class="sd-section u-mb-6">
+            <div class="sd-section-label">Vzhled aplikace</div>
+            <div class="sd-theme-grid">
+              <button
+                type="button"
+                class="sd-btn"
+                [class.sd-btn--active]="sheetTheme.uiStyle() === 'ornate'"
+                (click)="sheetTheme.setUiStyle('ornate')"
+              >
+                <mat-icon class="sd-btn-icon">brush</mat-icon>
+                <span class="sd-btn-label">Zdobený</span>
+              </button>
+              <button
+                type="button"
+                class="sd-btn"
+                [class.sd-btn--active]="sheetTheme.uiStyle() === 'plain'"
+                (click)="sheetTheme.setUiStyle('plain')"
+              >
+                <mat-icon class="sd-btn-icon">crop_square</mat-icon>
+                <span class="sd-btn-label">Čistý</span>
+              </button>
+            </div>
+          </div>
+
           <!--        <div class="sd-divider"></div>-->
 
           <!-- Page layout section -->

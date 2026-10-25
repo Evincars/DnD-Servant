@@ -1,0 +1,553 @@
+// ═══════════════════════════════════════════════════════════════════
+// UI STYLE: PLAIN — flat look inspired by the metro2033 project
+// Active when <html> has the `ui-plain` class (Settings → Vzhled aplikace).
+// No gradients, glows, textures or ornaments: solid surfaces, simple
+// 1px borders, Oswald headings, Ubuntu Mono text and hover = colour + bold.
+// The character sheet itself (.field inputs, SVG) keeps its own sheet theme.
+// ═══════════════════════════════════════════════════════════════════
+// Fonts (Oswald, Ubuntu Mono) are imported in src/styles.scss.
+@use '@angular/material' as mat;
+
+html.ui-plain {
+  --p-bg: #070a0c;
+  --p-bg-alt: #0d1114;
+  --p-panel: #11161a;
+  --p-panel-alt: #171d22;
+  --p-border: #283238;
+  --p-border-strong: #3c4a53;
+  --p-amber: #d68a2e;
+  --p-amber-bright: #ffb54a;
+  --p-steel: #6f97a8;
+  --p-text: #c6d0d4;
+  --p-text-dim: #85939c;
+  --p-text-faint: #566169;
+  --p-font-display: 'Oswald', 'Arial Narrow', sans-serif;
+  --p-font-body: 'Ubuntu Mono', 'Courier New', monospace;
+
+  @include mat.tabs-overrides(
+    (
+      active-indicator-color: #d68a2e,
+      active-focus-indicator-color: #d68a2e,
+      active-hover-indicator-color: #ffb54a,
+      active-indicator-height: 2px,
+      label-text-font: 'Oswald',
+      label-text-weight: 400,
+    )
+  );
+
+  background-color: var(--p-bg);
+}
+
+// ── Blanket resets ──────────────────────────────────────────────────
+// `:not(#_)` never matches anything; each one only adds id-level
+// specificity so these resets beat components' own `!important` rules.
+html.ui-plain:not(#_):not(#_) {
+  *,
+  *::before,
+  *::after {
+    background-image: none !important;
+    border-image: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+
+  // Fonts — everywhere except icon fonts and the character sheet itself
+  :not(mat-icon, .mat-icon, [class*='material-symbols'], [class*='material-icons'], .field, svg, svg *) {
+    font-family: var(--p-font-body) !important;
+    // Ubuntu Mono has a small x-height: scale it to match the sans-serif
+    // sizes the components were designed for.
+    font-size-adjust: ex-height 0.52;
+  }
+
+  // font-size-adjust is inherited — keep icon fonts and the sheet untouched
+  :is(mat-icon, .mat-icon, [class*='material-symbols'], [class*='material-icons'], .field, svg, svg *) {
+    font-size-adjust: none !important;
+  }
+
+  :is(
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .dialog-title,
+    .mat-mdc-dialog-title,
+    .mdc-tab__text-label,
+    .sd-title,
+    .sd-section-label,
+    .panel-title,
+    .sidenav__title,
+    .toolbar span
+  ) {
+    font-family: var(--p-font-display) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  ::selection {
+    background: #8a6a43;
+    color: var(--p-bg);
+  }
+}
+
+html.ui-plain {
+  body {
+    background-color: var(--p-bg);
+    color: var(--p-text);
+  }
+
+  // ── Page shell ────────────────────────────────────────────────────
+  .container {
+    background-color: var(--p-bg) !important;
+  }
+
+  .main-content {
+    background-color: var(--p-panel) !important;
+    border: 1px solid var(--p-border) !important;
+    outline: none !important;
+    border-radius: 2px;
+
+    &::after {
+      display: none !important; // "✦ Jeskyně a Draci ✦" ornament
+    }
+  }
+
+  .main-corner,
+  .sidenav__gem,
+  .sidenav__top-strip,
+  .sidenav__bottom-strip,
+  .sidenav__divider {
+    display: none !important;
+  }
+
+  // ── Toolbar ───────────────────────────────────────────────────────
+  mat-toolbar.toolbar,
+  .toolbar {
+    background-color: var(--p-bg-alt) !important;
+    border-bottom: 1px solid var(--p-border) !important;
+    color: var(--p-text) !important;
+
+    &::after {
+      display: none !important;
+    }
+
+    span {
+      color: var(--p-amber-bright) !important;
+    }
+  }
+
+  .toolbar-icon,
+  .backup-button-icon,
+  .backup-btn__label,
+  .menu-btn,
+  .toolbar-action-btn {
+    color: var(--p-text-dim) !important;
+  }
+
+  // Icon buttons: no glow, rotation or scaling — just a colour change
+  .settings-btn:hover .toolbar-icon,
+  .donate-btn:hover .donate-icon,
+  .toolbar-icon:hover {
+    transform: none !important;
+    filter: none !important;
+    color: var(--p-amber-bright) !important;
+  }
+
+  .github-link,
+  .donate-btn {
+    background: transparent !important;
+    border: 1px solid var(--p-border-strong) !important;
+    border-radius: 2px !important;
+
+    &:hover {
+      background: transparent !important;
+      border-color: var(--p-amber) !important;
+    }
+  }
+
+  .donate-btn .donate-icon {
+    color: var(--p-amber) !important;
+  }
+
+  .menu-btn:hover,
+  .backup-btn:hover:not(:disabled) .backup-btn__label {
+    background: transparent !important;
+    color: var(--p-amber-bright) !important;
+  }
+
+  .username,
+  .mobile-menu-username {
+    color: var(--p-amber-bright) !important;
+  }
+
+  // ── Sidenav ───────────────────────────────────────────────────────
+  .sidenav {
+    background-color: var(--p-bg-alt) !important;
+    border-right: 1px solid var(--p-border) !important;
+  }
+
+  .sidenav__logo {
+    filter: none !important;
+  }
+
+  .sidenav__title {
+    color: var(--p-amber-bright) !important;
+  }
+
+  .sidenav__subtitle {
+    color: var(--p-text-faint) !important;
+  }
+
+  .sidenav__link {
+    background: transparent !important;
+    border: 1px solid var(--p-border) !important;
+    border-radius: 2px !important;
+    color: var(--p-text) !important;
+
+    &::before,
+    &::after {
+      display: none !important;
+    }
+
+    &:hover {
+      transform: none !important;
+      border-color: var(--p-border-strong) !important;
+      color: var(--p-amber-bright) !important;
+      font-weight: 700;
+
+      .sidenav__link-arrow {
+        transform: none !important;
+      }
+
+      .sidenav__link-icon mat-icon {
+        color: var(--p-amber) !important;
+      }
+    }
+  }
+
+  .sidenav__link-icon mat-icon {
+    color: var(--p-text-dim) !important;
+  }
+
+  .sidenav__link-arrow {
+    color: var(--p-amber) !important;
+  }
+
+  .sidenav__link--contact {
+    border-top-color: var(--p-border) !important;
+  }
+
+  .mobile-menu-dropdown {
+    background-color: var(--p-panel) !important;
+    border: 1px solid var(--p-border) !important;
+    border-radius: 2px !important;
+
+    &::before {
+      display: none !important;
+    }
+  }
+
+  .mobile-menu-divider {
+    background-color: var(--p-border) !important;
+  }
+
+  .mobile-menu-link:hover {
+    background: transparent !important;
+    color: var(--p-amber-bright) !important;
+    font-weight: 700;
+  }
+
+  // ── Dialogs ───────────────────────────────────────────────────────
+  .cdk-overlay-backdrop.cdk-overlay-dark-backdrop,
+  .sd-dialog-backdrop,
+  .cp-dialog-backdrop,
+  .import-data-dialog-backdrop {
+    background: rgba(7, 10, 12, 0.85) !important;
+  }
+
+  .mat-mdc-dialog-surface {
+    background-color: var(--p-panel) !important;
+    border: 1px solid var(--p-border-strong) !important;
+    border-radius: 2px !important;
+  }
+
+  // These dialogs draw their own panel inside a transparent surface
+  :is(.sd-dialog-panel, .cp-dialog-panel, .import-data-dialog-panel) :is(.mat-mdc-dialog-surface, .mdc-dialog__surface) {
+    background-color: transparent !important;
+    border: none !important;
+  }
+
+  .sd-panel,
+  .dn-panel,
+  .rn-panel,
+  .al-panel,
+  .cp-panel,
+  .id-panel {
+    background-color: var(--p-panel) !important;
+    border: 1px solid var(--p-border-strong) !important;
+    border-radius: 2px !important;
+  }
+
+  .dialog-title {
+    background-color: var(--p-bg-alt) !important;
+    border-bottom: 1px solid var(--p-border) !important;
+    color: var(--p-amber-bright) !important;
+
+    &::after {
+      display: none !important;
+    }
+
+    button {
+      border-color: var(--p-border-strong) !important;
+      border-radius: 2px !important;
+      color: var(--p-text-dim) !important;
+
+      &:hover {
+        background: transparent !important;
+        border-color: var(--p-amber) !important;
+        color: var(--p-amber-bright) !important;
+      }
+    }
+  }
+
+  mat-dialog-content.dialog-content,
+  .mat-mdc-dialog-content {
+    color: var(--p-text) !important;
+  }
+
+  // ── Settings dialog ───────────────────────────────────────────────
+  .sd-header,
+  .sd-version-bar {
+    background: var(--p-bg-alt) !important;
+    border-color: var(--p-border) !important;
+  }
+
+  .sd-title {
+    color: var(--p-amber-bright) !important;
+  }
+
+  .sd-col-sep,
+  .sd-divider {
+    background: var(--p-border) !important;
+  }
+
+  .sd-section-label {
+    color: var(--p-text-dim) !important;
+  }
+
+  .sd-btn,
+  .sd-shortcut-row,
+  .sd-credits-link {
+    background: transparent !important;
+    border: 1px solid var(--p-border) !important;
+    border-radius: 2px !important;
+  }
+
+  .sd-btn:hover:not(:disabled),
+  .sd-credits-link:hover {
+    background: transparent !important;
+    border-color: var(--p-border-strong) !important;
+
+    .sd-btn-label {
+      color: var(--p-amber-bright) !important;
+      font-weight: 700;
+    }
+  }
+
+  .sd-btn.sd-btn--active {
+    background: var(--p-panel-alt) !important;
+    border-color: var(--p-amber) !important;
+
+    .sd-btn-label,
+    .sd-btn-icon {
+      color: var(--p-amber-bright) !important;
+    }
+  }
+
+  .sd-btn-label {
+    color: var(--p-text) !important;
+  }
+
+  .sd-btn-sub,
+  .sd-shortcut-desc {
+    color: var(--p-text-dim) !important;
+  }
+
+  .sd-btn-icon,
+  .sd-credits-link {
+    color: var(--p-text-dim) !important;
+  }
+
+  kbd,
+  .sd-gesture-swipe,
+  .sd-version-badge {
+    background: transparent !important;
+    border: 1px solid var(--p-border-strong) !important;
+    border-radius: 2px !important;
+    color: var(--p-text-dim) !important;
+  }
+
+  // ── Notes page panels (Zápisky, Questy, Cizí postavy) — one shared look
+  .note-panel {
+    background-color: var(--p-panel-alt) !important;
+    border: 1px solid var(--p-border) !important;
+    border-radius: 2px !important;
+
+    &:hover {
+      border-color: var(--p-border-strong) !important;
+    }
+
+    .panel-header {
+      background: var(--p-bg-alt) !important;
+      border-bottom: 1px solid var(--p-border) !important;
+    }
+
+    .panel-icon {
+      color: var(--p-amber) !important;
+    }
+
+    .panel-title {
+      color: var(--p-amber-bright) !important;
+    }
+
+    .panel-desc {
+      color: var(--p-text-faint) !important;
+    }
+
+    .rt-wrap {
+      background: transparent !important;
+    }
+  }
+
+  // ── Tab bars (character sheet, DM page) ───────────────────────────
+  .mat-mdc-tab-header {
+    background-color: var(--p-bg-alt) !important;
+    border-bottom: 1px solid var(--p-border) !important;
+  }
+
+  // ── Floating surfaces whose background was gradient-only ──────────
+  .spell-dropdown,
+  .item-preview,
+  .dr-tray {
+    background-color: var(--p-panel-alt) !important;
+    border-color: var(--p-border-strong) !important;
+    border-radius: 2px !important;
+  }
+
+  .dr-tray {
+    border-top: 1px solid var(--p-border-strong) !important;
+
+    &::before {
+      display: none !important;
+    }
+  }
+
+  .timeline-line {
+    background-color: var(--p-border-strong) !important;
+  }
+
+  // ── Dice roller side tab ──────────────────────────────────────────
+  .dr-tab {
+    background: var(--p-panel) !important;
+    border: 1px solid var(--p-border) !important;
+    border-left: none !important;
+    border-radius: 0 2px 2px 0 !important;
+
+    &::before,
+    &::after {
+      display: none !important;
+    }
+
+    &:hover,
+    &--open {
+      border-color: var(--p-border-strong) !important;
+    }
+  }
+
+  .dr-tab__label {
+    color: var(--p-amber) !important;
+  }
+
+  // ── Shared filter / chip buttons ──────────────────────────────────
+  .pt-filter-btn,
+  .dnd-filter-btn {
+    background: transparent !important;
+    border: 1px solid var(--p-border) !important;
+    border-radius: 2px !important;
+    color: var(--p-text-dim) !important;
+
+    &:hover {
+      border-color: var(--p-border-strong) !important;
+      color: var(--p-amber-bright) !important;
+      font-weight: 700;
+    }
+
+    &.active {
+      background: var(--p-panel-alt) !important;
+      border-color: var(--p-amber) !important;
+      color: var(--p-amber-bright) !important;
+    }
+  }
+
+  // ── Tooltip & snackbar ────────────────────────────────────────────
+  .mat-mdc-tooltip .mdc-tooltip__surface {
+    background-color: var(--p-panel-alt) !important;
+    border: 1px solid var(--p-border-strong) !important;
+    border-radius: 2px !important;
+    color: var(--p-text) !important;
+  }
+
+  .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    background-color: var(--p-panel-alt) !important;
+    border: 1px solid var(--p-border-strong) !important;
+    border-radius: 2px !important;
+
+    &::before {
+      display: none !important;
+    }
+  }
+
+  .mat-mdc-snack-bar-container .mat-mdc-snack-bar-label {
+    color: var(--p-text) !important;
+  }
+
+  .snackbar--success .mdc-snackbar__surface {
+    border-color: #4c7a3f !important;
+  }
+
+  .snackbar--info .mdc-snackbar__surface {
+    border-color: var(--p-steel) !important;
+  }
+
+  .snackbar--save .mdc-snackbar__surface {
+    border-color: var(--p-amber) !important;
+  }
+
+  .snackbar--crit .mdc-snackbar__surface {
+    border-color: #d23b2f !important;
+  }
+
+  // ── Scrollbar ─────────────────────────────────────────────────────
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    background: var(--p-bg-alt) !important;
+    border: none !important;
+  }
+
+  ::-webkit-scrollbar-thumb,
+  ::-webkit-scrollbar-thumb:horizontal {
+    background: var(--p-border-strong) !important;
+    border: none !important;
+    border-radius: 2px !important;
+
+    &:hover {
+      background: #8a6a43 !important;
+    }
+  }
+
+  * {
+    scrollbar-color: var(--p-border-strong) var(--p-bg-alt);
+  }
+}
