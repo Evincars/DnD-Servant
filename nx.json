@@ -81,5 +81,8 @@
   },
   "defaultProject": "DnD-Servant",
   "analytics": true,
-  "nxCloudId": "6ade43ea27d99e86eb17b04b"
+  "nxCloudId": "6ade43ea27d99e86eb17b04b",
+  "affected": {
+    "legacy": true
+  }
 }
