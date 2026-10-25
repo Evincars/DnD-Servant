@@ -17,6 +17,15 @@ const f = (text: string): ReleaseEntry => ({ type: 'fix', text });
 
 const RELEASE_NOTES: ReleaseGroup[] = [
   {
+    date: '25. října 2026',
+    entries: [
+      i(
+        'Čistý design - přidání nové varianty vzhledu aplikace a vylepšení stávajících stylů',
+      ),
+      i('Řádek s kouzlem v tabulce kouzel se může posouvat nahoru/dolu, takze neni treba vyjmout cely radek a zkopirovat ho o radek niz.'),
+    ],
+  },
+  {
     date: '13. července 2026',
     entries: [
       i(
