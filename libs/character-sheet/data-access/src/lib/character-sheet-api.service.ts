@@ -69,6 +69,20 @@ export class CharacterSheetApiService {
     }));
   }
 
+  saveCharacterSheetLayout(username: string, sectionOrder: string[]): Observable<void> {
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `${environment.characterSheetCollectionName}/${username}`);
+      return setDoc(ref, { layout: { sectionOrder } }, { merge: true });
+    }));
+  }
+
+  saveGroupSheetLayout(username: string, sectionOrder: string[]): Observable<void> {
+    return from(runInInjectionContext(this.injector, () => {
+      const ref = doc(this.firestore, `${environment.characterSheetCollectionName}/${username}`);
+      return setDoc(ref, { layout: { sectionOrder } }, { merge: true });
+    }));
+  }
+
   addNotesPage(notesPage: NotesPageApiModel): Observable<void> {
     return from(runInInjectionContext(this.injector, () => {
       const ref = doc(this.characterSheetsCollection, notesPage.username);

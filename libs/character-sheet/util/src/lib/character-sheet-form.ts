@@ -304,9 +304,14 @@ export type AlchemistChestForm = {
   chestUsage20: FormControl<string | undefined>;
 };
 
+export type SheetLayout = {
+  sectionOrder: string[];
+};
+
 // ========== API Model ==========
 export type CharacterSheetApiModel = {
   username: string;
+  layout?: SheetLayout;
   topInfo: {
     rasa?: string;
     povolani?: string;

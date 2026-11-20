@@ -1,5 +1,6 @@
 import {FormControl, FormGroup} from "@angular/forms";
 import {ExtractFormData} from "@dn-d-servant/util";
+import {SheetLayout} from "./character-sheet-form";
 
 export type GroupSheetFormData = ExtractFormData<GroupSheetForm>;
 
@@ -73,6 +74,7 @@ export type GroupInventoryForm = {
 
 export type GroupSheetApiModel = {
   username: string;
+  layout?: SheetLayout;
 
   jmenoSkupinovehoZazemi: string;
   typSkupinovehoZazemi: string;

@@ -1,0 +1,820 @@
+// Image-free D&D Beyond-like presentation for the character and party sheets.
+html:not(.ui-beyond) .cs-collapse-all-label {
+  display: none;
+}
+
+// ── Clean "Čistý 2": strip the ornate main-content chrome so the wallpaper
+//    shows through behind the sheet tabs, exactly like the plain design does. ──
+html.ui-beyond {
+  .main-content {
+    background: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+
+    &::after {
+      display: none !important;
+    }
+  }
+
+  .main-corner {
+    display: none !important;
+  }
+}
+
+html.ui-beyond :is(character-sheet, group-sheet) {
+  // Always dark, semi-transparent surfaces so the main wallpaper shows between
+  // cards — matches D&D Beyond regardless of the selected card theme.
+  --sheet-accent: #c53131;
+  --sheet-accent-bright: #f05a61;
+  --sheet-ink: #e7e2db;
+  --sheet-muted: #aaa39b;
+  --sheet-surface: rgba(16, 21, 26, 0.84);
+  --sheet-panel: rgba(23, 29, 35, 0.9);
+  --sheet-line: rgba(176, 184, 192, 0.22);
+  --sheet-field: rgba(8, 12, 16, 0.55);
+  --sheet-shadow: 0 10px 26px rgba(0, 0, 0, 0.42);
+
+  width: min(100%, 1240px) !important;
+  max-width: 1240px !important;
+  margin-inline: auto !important;
+  padding: 0 12px 24px !important;
+  color: var(--sheet-ink);
+}
+
+html.ui-beyond :is(character-sheet, group-sheet) {
+  .cs-responsive-only {
+    display: block !important;
+  }
+
+
+  .cs-desktop-only,
+  .cs-bg-img,
+  .small-info-button-icon,
+  conditions-button,
+  .death-save-icon {
+    display: none !important;
+  }
+
+  .cs-section-title {
+    display: block;
+  }
+
+  :is(
+    .field,
+    .label,
+    .roll-d20-wrap,
+    .spell-slot-cb,
+    .ability-zdatnost-checkbox,
+    .red-checkbox,
+    .spell-move,
+    .spell-detail-btn
+  ) {
+    position: static !important;
+    inset: auto !important;
+  }
+
+  .field {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0;
+    margin-bottom: 6px;
+    box-sizing: border-box !important;
+  }
+
+  .textarea {
+    width: 100% !important;
+    height: 210px !important;
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  .roll-d20-wrap {
+    display: flex !important;
+    align-items: center;
+    width: 100% !important;
+    gap: 4px;
+  }
+
+  .roll-d20-wrap .field {
+    margin-bottom: 0;
+  }
+
+  .roll-d20-btn {
+    display: flex !important;
+    position: static !important;
+    transform: none !important;
+    flex-shrink: 0;
+  }
+
+  :is(.ability-zdatnost-checkbox, .spell-slot-cb, .checkbox) {
+    width: 24px !important;
+    height: 24px !important;
+    flex-shrink: 0;
+  }
+
+  .ability-zdatnost-checkbox {
+    display: inline-flex !important;
+  }
+
+  .spell-slot-cb {
+    display: inline-block !important;
+  }
+
+  :is(
+    cs-top-info,
+    cs-ability-scores,
+    cs-combat-stats,
+    cs-saving-throws-passive,
+    cs-spell-slots,
+    cs-skills,
+    cs-weapons,
+    cs-languages,
+    cs-inventory,
+    second-page,
+    third-page
+  ) {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+    overflow: visible;
+    padding: 12px !important;
+  }
+
+  :is(
+    .cs-top-field-wrap,
+    .cs-ability-bonus-item,
+    .cs-combat-field-wrap,
+    .cs-passive-field-wrap,
+    .cs-spells-field-wrap,
+    .cs-lang-field-wrap,
+    .cs-inventory-field-wrap,
+    .cs-weapon-extra-wrap,
+    .gs-field-wrap
+  ) {
+    display: block !important;
+    min-width: 0;
+  }
+
+  :is(
+    .cs-top-field-wrap,
+    .cs-ability-bonus-item,
+    .cs-combat-field-wrap,
+    .cs-passive-field-wrap,
+    .cs-spells-field-wrap,
+    .cs-lang-field-wrap,
+    .cs-inventory-field-wrap,
+    .cs-weapon-extra-wrap,
+    .gs-field-wrap
+  )[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 3px;
+    color: var(--sheet-muted);
+    font-family: 'Oswald', 'Arial Narrow', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  cs-top-info {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .cs-top-field-wrap {
+    grid-column: span 1 !important;
+  }
+
+  .cs-top-field-wrap--jmeno {
+    grid-column: 1 / -1 !important;
+  }
+
+  // ── Abilities: no wrapper card — loose Beyond-style stat boxes on the wallpaper ──
+  [data-section-key='ability-scores'] {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+
+  [data-section-key='ability-scores'] .cs-coll-header {
+    background: transparent !important;
+    border: 0 !important;
+    padding-inline: 2px !important;
+  }
+
+  cs-ability-scores {
+    display: grid !important;
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+    align-items: stretch;
+    gap: 6px;
+    background: transparent !important;
+    border: 0 !important;
+    padding: 4px 0 !important;
+  }
+
+  // bonus trio — each its own semi-transparent box (zdatnostní bonus / inspirace / iniciativa)
+  .cs-ability-bonus-row {
+    grid-column: 1 / -1;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .cs-ability-bonus-item {
+    grid-column: span 1 !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 0;
+    padding: 10px 8px;
+    background: var(--sheet-surface);
+    border: 1px solid rgba(197, 49, 49, 0.5);
+    clip-path: polygon(
+      9px 0,
+      calc(100% - 9px) 0,
+      100% 9px,
+      100% calc(100% - 9px),
+      calc(100% - 9px) 100%,
+      9px 100%,
+      0 calc(100% - 9px),
+      0 9px
+    );
+  }
+
+  .cs-ability-bonus-item[data-label]::before {
+    content: attr(data-label);
+    margin-bottom: 0;
+    color: var(--sheet-muted) !important;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .cs-ability-bonus-item .field {
+    width: 46px !important;
+    margin: 0 !important;
+    padding: 2px 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    color: #fff !important;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif !important;
+    font-size: 19px !important;
+    text-align: center !important;
+  }
+
+  .cs-ability-group {
+    position: relative !important;
+    display: flex !important;
+    min-height: 128px;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 4px;
+    min-width: 0;
+    padding: 24px 12px 34px;
+    border: 0 !important;
+    background: url('/character-sheets/ddb-ability-box.svg') center / 100% 100% no-repeat;
+    grid-column: span 1 !important;
+
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  .cs-ability-label {
+    display: block !important;
+    min-width: 0;
+    flex-shrink: 0;
+    color: #cfd6da !important;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .cs-ability-group .roll-d20-wrap {
+    flex: 0 0 auto;
+  }
+
+  .cs-ability-group .roll-d20-btn {
+    display: none !important;
+  }
+
+  .cs-ability-group > input[id$='-input'] {
+    position: absolute !important;
+    left: 50% !important;
+    bottom: 2px !important;
+    width: 40px !important;
+    height: 34px !important;
+    margin: 0;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    color: #e7edf1 !important;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif !important;
+    font-size: 15px !important;
+    text-align: center;
+    transform: translateX(-50%);
+  }
+
+  .cs-ability-group .main-skill {
+    height: 46px;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 1px solid rgba(197, 49, 49, 0.55) !important;
+    border-radius: 2px !important;
+    background: rgba(8, 12, 16, 0.65) !important;
+    color: #fff !important;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif !important;
+    font-size: 26px !important;
+    line-height: 44px;
+    text-align: center;
+  }
+
+  :is(
+    .cs-combat-speed-row,
+    .cs-combat-healing-row,
+    .cs-combat-ac-row,
+    .cs-stp-container,
+    .cs-spell-levels-row,
+    .cs-spell-slots-grid,
+    .cs-alch-chest-grid,
+    .cs-profession-grid
+  ) {
+    display: grid !important;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .cs-combat-speed-row .cs-combat-field-wrap,
+  .cs-combat-ac-row .cs-combat-field-wrap {
+    grid-column: span 4;
+  }
+
+  .cs-combat-healing-row .cs-combat-field-wrap {
+    grid-column: span 6;
+  }
+
+  .cs-combat-armor-prof-row,
+  .cs-combat-prof-item,
+  .cs-weapon-prof-row,
+  .cs-saving-row {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cs-combat-armor-prof-row,
+  .cs-weapon-prof-row {
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+
+  .cs-combat-prof-label {
+    display: inline !important;
+    font-size: 11px;
+  }
+
+  .cs-stp-container,
+  .cs-alch-chest-grid {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .cs-named-area,
+  .cs-pact-magic-area {
+    display: block !important;
+    position: relative;
+    margin: 10px 0;
+    padding: 14px 10px 10px;
+    border: 1px solid var(--sheet-line);
+    background: color-mix(in srgb, var(--sheet-accent), transparent 96%);
+  }
+
+  .cs-named-area::before,
+  .cs-pact-magic-area::before {
+    position: absolute;
+    top: -8px;
+    left: 10px;
+    padding: 0 5px;
+    background: var(--sheet-surface);
+    color: var(--sheet-muted);
+    font-family: 'Oswald', 'Arial Narrow', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .cs-named-area::before {
+    content: attr(data-area-label);
+  }
+
+  .cs-pact-magic-area::before {
+    content: 'Magie paktu';
+  }
+
+  .cs-spell-level-wrap,
+  .cs-spell-level-col {
+    display: flex !important;
+    flex-direction: column;
+    grid-column: span 4;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .cs-alch-chest-row {
+    display: flex !important;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .cs-skill-row {
+    display: grid !important;
+    grid-template-columns: 24px minmax(0, 1fr);
+    align-items: center;
+    gap: 8px;
+    padding: 3px 5px;
+    border-bottom: 1px solid var(--sheet-line);
+  }
+
+  .cs-skill-row .roll-d20-wrap {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 54px 28px;
+    width: 100% !important;
+    gap: 5px;
+  }
+
+  .cs-skill-row .roll-d20-wrap[data-label]::before {
+    content: attr(data-label);
+    min-width: 0;
+    overflow: hidden;
+    color: var(--sheet-ink);
+    font-family: 'Oswald', 'Arial Narrow', sans-serif;
+    font-size: 11px;
+    line-height: 30px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .cs-skill-row .roll-d20-wrap .field {
+    margin: 0;
+    color: var(--sheet-accent-bright) !important;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif !important;
+    font-size: 15px !important;
+    text-align: center !important;
+  }
+
+  .cs-weapon-row {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 5px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--sheet-line);
+  }
+
+  .cs-weapon-row .field-sm:first-of-type {
+    grid-column: 1 / -1;
+  }
+
+  .cs-weapon-extra-wrap {
+    grid-column: 1 / -1;
+  }
+
+  .char-img-wrap {
+    height: 300px !important;
+  }
+
+  .cs-sp-appearance-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .spell-row-grid {
+    display: grid !important;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 5px;
+    align-items: center;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid var(--sheet-line);
+  }
+
+  .spell-row {
+    position: static !important;
+    inset: auto !important;
+    width: 100% !important;
+  }
+
+  .spell-prep-wrap {
+    display: flex !important;
+    grid-column: 1 / span 10;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .spell-prep-label {
+    display: inline !important;
+  }
+
+  .spell-move {
+    display: flex !important;
+    grid-column: span 2;
+    justify-self: end;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .spell-row[placeholder='St.'] { grid-column: span 2; }
+  .spell-row[placeholder='Název'] { grid-column: span 9; }
+  .spell-detail-btn { grid-column: span 1; }
+  .spell-row[placeholder='Útok'],
+  .spell-row[placeholder='Doba'],
+  .spell-row[placeholder='Složky'],
+  .spell-row[placeholder='Dosah'],
+  .spell-row[placeholder='Trvání'],
+  .spell-row[placeholder='Str.'] { grid-column: span 4; }
+  .spell-row[placeholder='Poznámka'] { grid-column: 1 / -1; }
+
+  .gs-section {
+    display: block !important;
+    box-sizing: border-box;
+    padding: 12px !important;
+    border: 1px solid var(--sheet-line);
+  }
+
+  .cs-main-title {
+    margin: 0 0 12px !important;
+    padding: 10px 2px 12px !important;
+    color: var(--sheet-accent-bright) !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--sheet-line) !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif !important;
+    letter-spacing: 0.08em !important;
+    text-shadow: none !important;
+  }
+
+  .cs-collapse-all-wrap {
+    right: 10px;
+  }
+
+  .cs-collapse-all-btn {
+    width: auto !important;
+    min-width: 108px;
+    height: 32px;
+    gap: 7px;
+    padding: 0 11px !important;
+    border: 1px solid color-mix(in srgb, var(--sheet-accent), white 12%) !important;
+    border-radius: 2px;
+    background: color-mix(in srgb, var(--sheet-panel), transparent 8%) !important;
+    color: var(--sheet-accent-bright) !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  }
+
+  .cs-collapse-all-label {
+    display: inline;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  form {
+    padding: 0 0 88px !important;
+  }
+
+  .cs-drop-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+    gap: 12px;
+    align-items: start;
+  }
+
+  [data-section-key='ability-scores'] {
+    grid-column: 1 / -1;
+  }
+
+  :is(
+    [data-section-key='top-info'],
+    [data-section-key='second-page'],
+    [data-section-key='third-page'],
+    [data-section-key='gs-background'],
+    [data-section-key='gs-inventory'],
+    [data-section-key='gs-reputation']
+  ) {
+    grid-column: 1 / -1;
+  }
+
+  :is(
+    cs-top-info,
+    cs-ability-scores,
+    cs-combat-stats,
+    cs-saving-throws-passive,
+    cs-spell-slots,
+    cs-skills,
+    cs-weapons,
+    cs-languages,
+    cs-inventory,
+    second-page,
+    third-page,
+    .gs-section
+  ) {
+    background: transparent !important;
+    border-color: var(--sheet-line) !important;
+    color: var(--sheet-ink);
+  }
+
+  :is(.field, select.field, .textarea) {
+    background: var(--sheet-field) !important;
+    border: 1px solid var(--sheet-line) !important;
+    color: var(--sheet-ink) !important;
+    border-radius: 2px !important;
+    font-family: 'Alegreya Sans', Arial, sans-serif !important;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+  }
+
+  .field:focus {
+    border-color: var(--sheet-accent) !important;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--sheet-accent), transparent 70%) !important;
+  }
+
+  .field::placeholder {
+    color: color-mix(in srgb, var(--sheet-muted), transparent 28%) !important;
+  }
+
+  .cs-section-title {
+    color: var(--sheet-accent) !important;
+    border-bottom-color: var(--sheet-line) !important;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif !important;
+    text-shadow: none !important;
+  }
+
+  :is(
+    [data-label]::before,
+    .cs-ability-label,
+    .cs-combat-prof-label,
+    .cs-slot-level-label,
+    .cs-spell-level-wrap .label,
+    .cs-spell-level-wrap[data-label]::before,
+    .spell-prep-label
+  ) {
+    color: var(--sheet-muted) !important;
+  }
+
+  .gs-row {
+    display: flex !important;
+    align-items: end;
+    gap: 8px;
+  }
+
+  .gs-inventory-section {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+    gap: 4px 10px;
+  }
+
+  .gs-reputation-section .textarea {
+    min-height: 280px;
+    height: 46vh !important;
+  }
+
+  :is(.cs-save-btn, .cs-import-btn) {
+    position: fixed;
+    top: auto !important;
+    right: 22px !important;
+    bottom: 18px;
+    z-index: 20;
+    width: auto !important;
+    min-width: 138px;
+    padding: 9px 14px !important;
+    border-color: var(--sheet-accent) !important;
+    background: var(--sheet-accent) !important;
+    color: white !important;
+  }
+
+  .cs-import-btn {
+    right: 176px !important;
+  }
+
+  // ── Proficiency indicator: D&D Beyond radio-dot (empty → filled → ring = expertise) ──
+  .field.ability-zdatnost-checkbox {
+    position: relative !important;
+    width: 16px !important;
+    height: 16px !important;
+    margin: 4px !important;
+    padding: 0 !important;
+    border: 2px solid color-mix(in srgb, var(--sheet-muted), transparent 20%) !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  // neutralise the legacy star pseudo-elements entirely
+  .field.ability-zdatnost-checkbox::before,
+  .field.ability-zdatnost-checkbox::after {
+    content: '' !important;
+    display: none !important;
+    clip-path: none !important;
+    background: transparent !important;
+    border: 0 !important;
+  }
+
+  // proficient → solid red dot
+  .field.ability-zdatnost-checkbox.ability-zdatnost--checked {
+    border-color: #c53131 !important;
+    background: #c53131 !important;
+  }
+
+  // expertise → solid red dot with a surrounding ring
+  .field.ability-zdatnost-checkbox.ability-zdatnost--expertise {
+    border-color: #c53131 !important;
+    background: #c53131 !important;
+    box-shadow:
+      0 0 0 2px var(--sheet-surface),
+      0 0 0 4px #c53131 !important;
+  }
+
+  // ── SKILLS: authentic D&D Beyond ornamental frame ──
+  [data-section-key='skills'] {
+    border: 0 !important;
+    border-radius: 0 !important;
+    background:
+      url('/character-sheets/ddb-frame.svg') center / 100% 100% no-repeat,
+      var(--sheet-surface) !important;
+    box-shadow: none !important;
+    padding: 12px 14px !important;
+    overflow: visible !important;
+  }
+
+  [data-section-key='skills'] .cs-coll-header,
+  [data-section-key='skills'] .cs-coll-body,
+  [data-section-key='skills'] cs-skills {
+    background: transparent !important;
+    border: 0 !important;
+  }
+}
+
+html.ui-beyond character-sheet.theme-dark,
+html.ui-beyond group-sheet.theme-dark {
+  .textarea {
+    --rt-text-color: #eee9e2;
+    --rt-caret-color: var(--sheet-accent-bright);
+  }
+}
+
+@media (max-width: 575px) {
+  html.ui-beyond :is(character-sheet, group-sheet) {
+    padding-inline: 4px !important;
+
+    .cs-main-title {
+      padding-inline: 44px !important;
+      font-size: 17px !important;
+    }
+
+    .cs-drop-list {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .gs-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    cs-top-info {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    cs-ability-scores {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .cs-sp-appearance-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cs-import-btn {
+      display: none !important;
+    }
+  }
+}

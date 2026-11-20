@@ -17,6 +17,14 @@ const f = (text: string): ReleaseEntry => ({ type: 'fix', text });
 
 const RELEASE_NOTES: ReleaseGroup[] = [
   {
+    date: '20. listopadu 2026',
+    entries: [
+      i(
+        'Čistý design 2 - bez pozadi obrazku karty postavy a karty druziny, i pro PC je ten design čistý a přehledný a bordery po vzoru D&D Beyond.',
+      ),
+    ],
+  },
+  {
     date: '25. října 2026',
     entries: [
       i(

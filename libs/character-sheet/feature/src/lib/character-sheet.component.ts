@@ -98,6 +98,7 @@ const CS_DEFAULT_SECTIONS: readonly SectionConfig[] = [
             [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozbalit vše'"
           >
             <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
+            <span class="cs-collapse-all-label">{{ allExpanded() ? 'Sbalit vše' : 'Rozbalit vše' }}</span>
           </button>
         </span>
       </h2>
@@ -110,10 +111,12 @@ const CS_DEFAULT_SECTIONS: readonly SectionConfig[] = [
             <cs-collapsible
               [title]="section.title"
               [storageKey]="section.key"
+              [attr.data-section-key]="section.key"
               [icon]="section.icon"
               [responsiveTitle]="section.responsiveTitle ?? ''"
               [responsiveIcon]="section.responsiveIcon ?? ''"
               [defaultOpen]="section.defaultOpen ?? true"
+              [alwaysResponsive]="sheetTheme.uiStyle() === 'beyond'"
             >
               @switch (section.key) {
                 @case ('top-info') {
@@ -612,6 +615,12 @@ export class CharacterSheetComponent {
             CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
           );
           this.form.patchValue(formValue);
+          const remoteOrder = this.sectionOrderService.getRemoteOrder(
+            CharacterSheetComponent.PAGE_KEY,
+            characterSheet.layout?.sectionOrder,
+            CharacterSheetComponent.DEFAULT_KEYS,
+          );
+          this.orderedSections.set(remoteOrder.map(k => this._sectionConfigMap.get(k)!));
           this._syncZdatnostniBonusFromUroven();
           this._recalcDerivedStats();
           if (this._viewInitialized()) {
@@ -641,6 +650,12 @@ export class CharacterSheetComponent {
           CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
         );
         model.username = username;
+        model.layout = {
+          sectionOrder: this.sectionOrderService.getLayoutOrder(
+            CharacterSheetComponent.PAGE_KEY,
+            CharacterSheetComponent.DEFAULT_KEYS,
+          ),
+        };
         const imageThisSession = this.characterSheetStore.characterImage();
         const imageFromDb = this.characterSheetStore.characterSheet()?.secondPageForm?.obrazekPostavy ?? null;
         if (model.secondPageForm) {
@@ -690,6 +705,12 @@ export class CharacterSheetComponent {
         CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
       );
       request.username = username;
+      request.layout = {
+        sectionOrder: this.sectionOrderService.getLayoutOrder(
+          CharacterSheetComponent.PAGE_KEY,
+          CharacterSheetComponent.DEFAULT_KEYS,
+        ),
+      };
       if (request.secondPageForm) {
         const imageThisSession = this.characterSheetStore.characterImage();
         const imageFromDb = this.characterSheetStore.characterSheet()?.secondPageForm?.obrazekPostavy ?? null;
@@ -731,6 +752,12 @@ export class CharacterSheetComponent {
       CharacterSheetFormModelMappers.characterSheetFormToApiMapper,
     );
     request.username = username;
+    request.layout = {
+      sectionOrder: this.sectionOrderService.getLayoutOrder(
+        CharacterSheetComponent.PAGE_KEY,
+        CharacterSheetComponent.DEFAULT_KEYS,
+      ),
+    };
     if (!request.secondPageForm) {
       request.secondPageForm = {} as any;
     }
