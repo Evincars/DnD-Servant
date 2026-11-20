@@ -231,17 +231,17 @@ import { SheetThemeService } from '../sheet-theme.service';
     :host-context(html.ui-beyond) {
       margin-bottom: 0;
       overflow: hidden;
-      border: 1px solid rgba(91, 66, 48, 0.35);
-      border-top: 3px solid #b62f35;
+      border: 1px solid rgba(176, 184, 192, 0.18);
+      border-top: 2px solid #c53131;
       border-radius: 3px;
-      background: #fffdf8;
-      box-shadow: 0 8px 22px rgba(31, 20, 14, 0.15);
+      background: rgba(16, 21, 26, 0.84);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.38);
     }
 
     :host-context(html.ui-beyond) .cs-coll-header {
       padding: 11px 14px;
-      border-bottom: 1px solid rgba(91, 66, 48, 0.24);
-      background: #171b20;
+      border-bottom: 1px solid rgba(176, 184, 192, 0.14);
+      background: rgba(10, 14, 18, 0.5);
       color: #f2eee8;
       font-family: 'Oswald', 'Arial Narrow', sans-serif;
       letter-spacing: 0.075em;
@@ -249,7 +249,7 @@ import { SheetThemeService } from '../sheet-theme.service';
     }
 
     :host-context(html.ui-beyond) .cs-coll-header:hover {
-      background: #222830;
+      background: rgba(20, 26, 32, 0.6);
     }
 
     :host-context(html.ui-beyond) .cs-coll-icon,
@@ -263,8 +263,8 @@ import { SheetThemeService } from '../sheet-theme.service';
     }
 
     :host-context(html.ui-beyond).theme-dark {
-      border-color: rgba(173, 180, 187, 0.22);
-      background: #11151a;
+      border-color: rgba(173, 180, 187, 0.2);
+      background: rgba(16, 21, 26, 0.84);
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.44);
     }
   `,

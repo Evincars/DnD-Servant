@@ -3,16 +3,38 @@ html:not(.ui-beyond) .cs-collapse-all-label {
   display: none;
 }
 
+// ── Clean "Čistý 2": strip the ornate main-content chrome so the wallpaper
+//    shows through behind the sheet tabs, exactly like the plain design does. ──
+html.ui-beyond {
+  .main-content {
+    background: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+
+    &::after {
+      display: none !important;
+    }
+  }
+
+  .main-corner {
+    display: none !important;
+  }
+}
+
 html.ui-beyond :is(character-sheet, group-sheet) {
-  --sheet-accent: #b62f35;
-  --sheet-accent-bright: #e14b52;
-  --sheet-ink: #251f1b;
-  --sheet-muted: #6f6259;
-  --sheet-surface: #f8f4eb;
-  --sheet-panel: #fffdf8;
-  --sheet-line: rgba(93, 69, 49, 0.35);
-  --sheet-field: rgba(255, 255, 255, 0.92);
-  --sheet-shadow: 0 10px 28px rgba(27, 19, 15, 0.18);
+  // Always dark, semi-transparent surfaces so the main wallpaper shows between
+  // cards — matches D&D Beyond regardless of the selected card theme.
+  --sheet-accent: #c53131;
+  --sheet-accent-bright: #f05a61;
+  --sheet-ink: #e7e2db;
+  --sheet-muted: #aaa39b;
+  --sheet-surface: rgba(16, 21, 26, 0.84);
+  --sheet-panel: rgba(23, 29, 35, 0.9);
+  --sheet-line: rgba(176, 184, 192, 0.22);
+  --sheet-field: rgba(8, 12, 16, 0.55);
+  --sheet-shadow: 0 10px 26px rgba(0, 0, 0, 0.42);
 
   width: min(100%, 1240px) !important;
   max-width: 1240px !important;
@@ -21,22 +43,11 @@ html.ui-beyond :is(character-sheet, group-sheet) {
   color: var(--sheet-ink);
 }
 
-html.ui-beyond :is(character-sheet, group-sheet).theme-dark {
-  --sheet-accent: #cf3b42;
-  --sheet-accent-bright: #f05a61;
-  --sheet-ink: #e7e2db;
-  --sheet-muted: #aaa39b;
-  --sheet-surface: #11151a;
-  --sheet-panel: #181d23;
-  --sheet-line: rgba(176, 184, 192, 0.24);
-  --sheet-field: #090d11;
-  --sheet-shadow: 0 14px 34px rgba(0, 0, 0, 0.5);
-}
-
 html.ui-beyond :is(character-sheet, group-sheet) {
   .cs-responsive-only {
     display: block !important;
   }
+
 
   .cs-desktop-only,
   .cs-bg-img,
@@ -184,11 +195,18 @@ html.ui-beyond :is(character-sheet, group-sheet) {
     grid-column: 1 / -1 !important;
   }
 
-  .cs-ability-bonus-row {
-    display: grid !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-    margin-bottom: 8px;
+  // ── Abilities: no wrapper card — loose Beyond-style stat boxes on the wallpaper ──
+  [data-section-key='ability-scores'] {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+
+  [data-section-key='ability-scores'] .cs-coll-header {
+    background: transparent !important;
+    border: 0 !important;
+    padding-inline: 2px !important;
   }
 
   cs-ability-scores {
@@ -196,14 +214,65 @@ html.ui-beyond :is(character-sheet, group-sheet) {
     grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
     align-items: stretch;
     gap: 6px;
+    background: transparent !important;
+    border: 0 !important;
+    padding: 4px 0 !important;
   }
 
+  // bonus trio — each its own semi-transparent box (zdatnostní bonus / inspirace / iniciativa)
   .cs-ability-bonus-row {
     grid-column: 1 / -1;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: 4px;
   }
 
   .cs-ability-bonus-item {
     grid-column: span 1 !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 0;
+    padding: 10px 8px;
+    background: var(--sheet-surface);
+    border: 1px solid rgba(197, 49, 49, 0.5);
+    clip-path: polygon(
+      9px 0,
+      calc(100% - 9px) 0,
+      100% 9px,
+      100% calc(100% - 9px),
+      calc(100% - 9px) 100%,
+      9px 100%,
+      0 calc(100% - 9px),
+      0 9px
+    );
+  }
+
+  .cs-ability-bonus-item[data-label]::before {
+    content: attr(data-label);
+    margin-bottom: 0;
+    color: var(--sheet-muted) !important;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .cs-ability-bonus-item .field {
+    width: 46px !important;
+    margin: 0 !important;
+    padding: 2px 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    color: #fff !important;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif !important;
+    font-size: 19px !important;
+    text-align: center !important;
   }
 
   .cs-ability-group {
@@ -491,12 +560,12 @@ html.ui-beyond :is(character-sheet, group-sheet) {
 
   .cs-main-title {
     margin: 0 0 12px !important;
-    padding: 18px 54px 16px !important;
-    color: var(--sheet-accent) !important;
-    border: 1px solid var(--sheet-line) !important;
-    border-top: 3px solid var(--sheet-accent) !important;
-    background: var(--sheet-panel) !important;
-    box-shadow: var(--sheet-shadow) !important;
+    padding: 10px 2px 12px !important;
+    color: var(--sheet-accent-bright) !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--sheet-line) !important;
+    background: transparent !important;
+    box-shadow: none !important;
     font-family: 'Oswald', 'Arial Narrow', sans-serif !important;
     letter-spacing: 0.08em !important;
     text-shadow: none !important;
@@ -569,7 +638,7 @@ html.ui-beyond :is(character-sheet, group-sheet) {
     third-page,
     .gs-section
   ) {
-    background: var(--sheet-surface) !important;
+    background: transparent !important;
     border-color: var(--sheet-line) !important;
     color: var(--sheet-ink);
   }
@@ -689,7 +758,9 @@ html.ui-beyond :is(character-sheet, group-sheet) {
   [data-section-key='skills'] {
     border: 0 !important;
     border-radius: 0 !important;
-    background: url('/character-sheets/ddb-frame.svg') center / 100% 100% no-repeat !important;
+    background:
+      url('/character-sheets/ddb-frame.svg') center / 100% 100% no-repeat,
+      var(--sheet-surface) !important;
     box-shadow: none !important;
     padding: 12px 14px !important;
     overflow: visible !important;
