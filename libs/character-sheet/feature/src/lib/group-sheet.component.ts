@@ -64,8 +64,10 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
             <cs-collapsible
               [title]="section.title"
               [storageKey]="section.key"
+              [attr.data-section-key]="section.key"
               [icon]="section.icon"
               [defaultOpen]="section.defaultOpen ?? true"
+              [alwaysResponsive]="sheetTheme.uiStyle() === 'beyond'"
             >
               @switch (section.key) {
                 @case ('gs-background') {

@@ -1,0 +1,589 @@
+// Image-free D&D Beyond-like presentation for the character and party sheets.
+html.ui-beyond :is(character-sheet, group-sheet) {
+  --sheet-accent: #b62f35;
+  --sheet-accent-bright: #e14b52;
+  --sheet-ink: #251f1b;
+  --sheet-muted: #6f6259;
+  --sheet-surface: #f8f4eb;
+  --sheet-panel: #fffdf8;
+  --sheet-line: rgba(93, 69, 49, 0.35);
+  --sheet-field: rgba(255, 255, 255, 0.92);
+  --sheet-shadow: 0 10px 28px rgba(27, 19, 15, 0.18);
+
+  width: min(100%, 1240px) !important;
+  max-width: 1240px !important;
+  margin-inline: auto !important;
+  padding: 0 12px 24px !important;
+  color: var(--sheet-ink);
+}
+
+html.ui-beyond :is(character-sheet, group-sheet).theme-dark {
+  --sheet-accent: #cf3b42;
+  --sheet-accent-bright: #f05a61;
+  --sheet-ink: #e7e2db;
+  --sheet-muted: #aaa39b;
+  --sheet-surface: #11151a;
+  --sheet-panel: #181d23;
+  --sheet-line: rgba(176, 184, 192, 0.24);
+  --sheet-field: #090d11;
+  --sheet-shadow: 0 14px 34px rgba(0, 0, 0, 0.5);
+}
+
+html.ui-beyond :is(character-sheet, group-sheet) {
+  .cs-responsive-only {
+    display: block !important;
+  }
+
+  .cs-desktop-only,
+  .cs-bg-img,
+  .small-info-button-icon,
+  conditions-button,
+  .death-save-icon {
+    display: none !important;
+  }
+
+  .cs-section-title {
+    display: block;
+  }
+
+  :is(
+    .field,
+    .label,
+    .roll-d20-wrap,
+    .spell-slot-cb,
+    .ability-zdatnost-checkbox,
+    .red-checkbox,
+    .spell-move,
+    .spell-detail-btn
+  ) {
+    position: static !important;
+    inset: auto !important;
+  }
+
+  .field {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0;
+    margin-bottom: 6px;
+    box-sizing: border-box !important;
+  }
+
+  .textarea {
+    width: 100% !important;
+    height: 210px !important;
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  .roll-d20-wrap {
+    display: flex !important;
+    align-items: center;
+    width: 100% !important;
+    gap: 4px;
+  }
+
+  .roll-d20-wrap .field {
+    margin-bottom: 0;
+  }
+
+  .roll-d20-btn {
+    display: flex !important;
+    position: static !important;
+    transform: none !important;
+    flex-shrink: 0;
+  }
+
+  :is(.ability-zdatnost-checkbox, .spell-slot-cb, .checkbox) {
+    width: 24px !important;
+    height: 24px !important;
+    flex-shrink: 0;
+  }
+
+  .ability-zdatnost-checkbox {
+    display: inline-flex !important;
+  }
+
+  .spell-slot-cb {
+    display: inline-block !important;
+  }
+
+  :is(
+    cs-top-info,
+    cs-ability-scores,
+    cs-combat-stats,
+    cs-saving-throws-passive,
+    cs-spell-slots,
+    cs-skills,
+    cs-weapons,
+    cs-languages,
+    cs-inventory,
+    second-page,
+    third-page
+  ) {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+    overflow: visible;
+    padding: 12px !important;
+  }
+
+  :is(
+    .cs-top-field-wrap,
+    .cs-ability-bonus-item,
+    .cs-combat-field-wrap,
+    .cs-passive-field-wrap,
+    .cs-spells-field-wrap,
+    .cs-lang-field-wrap,
+    .cs-inventory-field-wrap,
+    .cs-weapon-extra-wrap,
+    .gs-field-wrap
+  ) {
+    display: block !important;
+    min-width: 0;
+  }
+
+  :is(
+    .cs-top-field-wrap,
+    .cs-ability-bonus-item,
+    .cs-combat-field-wrap,
+    .cs-passive-field-wrap,
+    .cs-spells-field-wrap,
+    .cs-lang-field-wrap,
+    .cs-inventory-field-wrap,
+    .cs-weapon-extra-wrap,
+    .gs-field-wrap
+  )[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 3px;
+    color: var(--sheet-muted);
+    font-family: 'Oswald', 'Arial Narrow', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  cs-top-info {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .cs-top-field-wrap {
+    grid-column: span 1 !important;
+  }
+
+  .cs-top-field-wrap--jmeno {
+    grid-column: 1 / -1 !important;
+  }
+
+  .cs-ability-bonus-row {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  cs-ability-scores {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .cs-ability-bonus-row {
+    grid-column: 1 / -1;
+  }
+
+  .cs-ability-bonus-item {
+    grid-column: span 1 !important;
+  }
+
+  .cs-ability-group {
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--sheet-line);
+    grid-column: span 1 !important;
+  }
+
+  .cs-ability-label {
+    display: block !important;
+    min-width: 70px;
+    flex-shrink: 0;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+
+  .cs-ability-group .roll-d20-wrap {
+    flex: 1 1 76px;
+  }
+
+  .cs-ability-group > input[id$='-input'] {
+    width: 52px !important;
+    flex: 0 0 52px;
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+  :is(
+    .cs-combat-speed-row,
+    .cs-combat-healing-row,
+    .cs-combat-ac-row,
+    .cs-stp-container,
+    .cs-spell-levels-row,
+    .cs-spell-slots-grid,
+    .cs-alch-chest-grid,
+    .cs-profession-grid
+  ) {
+    display: grid !important;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .cs-combat-speed-row .cs-combat-field-wrap,
+  .cs-combat-ac-row .cs-combat-field-wrap {
+    grid-column: span 4;
+  }
+
+  .cs-combat-healing-row .cs-combat-field-wrap {
+    grid-column: span 6;
+  }
+
+  .cs-combat-armor-prof-row,
+  .cs-combat-prof-item,
+  .cs-weapon-prof-row,
+  .cs-saving-row {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cs-combat-armor-prof-row,
+  .cs-weapon-prof-row {
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+
+  .cs-combat-prof-label {
+    display: inline !important;
+    font-size: 11px;
+  }
+
+  .cs-stp-container,
+  .cs-alch-chest-grid {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .cs-named-area,
+  .cs-pact-magic-area {
+    display: block !important;
+    position: relative;
+    margin: 10px 0;
+    padding: 14px 10px 10px;
+    border: 1px solid var(--sheet-line);
+    background: color-mix(in srgb, var(--sheet-accent), transparent 96%);
+  }
+
+  .cs-named-area::before,
+  .cs-pact-magic-area::before {
+    position: absolute;
+    top: -8px;
+    left: 10px;
+    padding: 0 5px;
+    background: var(--sheet-surface);
+    color: var(--sheet-muted);
+    font-family: 'Oswald', 'Arial Narrow', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .cs-named-area::before {
+    content: attr(data-area-label);
+  }
+
+  .cs-pact-magic-area::before {
+    content: 'Magie paktu';
+  }
+
+  .cs-spell-level-wrap,
+  .cs-spell-level-col {
+    display: flex !important;
+    flex-direction: column;
+    grid-column: span 4;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .cs-alch-chest-row {
+    display: flex !important;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .cs-skill-row {
+    display: flex !important;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--sheet-line);
+  }
+
+  .cs-weapon-row {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 5px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--sheet-line);
+  }
+
+  .cs-weapon-row .field-sm:first-of-type {
+    grid-column: 1 / -1;
+  }
+
+  .cs-weapon-extra-wrap {
+    grid-column: 1 / -1;
+  }
+
+  .char-img-wrap {
+    height: 300px !important;
+  }
+
+  .cs-sp-appearance-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .spell-row-grid {
+    display: grid !important;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 5px;
+    align-items: center;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid var(--sheet-line);
+  }
+
+  .spell-row {
+    position: static !important;
+    inset: auto !important;
+    width: 100% !important;
+  }
+
+  .spell-prep-wrap {
+    display: flex !important;
+    grid-column: 1 / span 10;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .spell-prep-label {
+    display: inline !important;
+  }
+
+  .spell-move {
+    display: flex !important;
+    grid-column: span 2;
+    justify-self: end;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .spell-row[placeholder='St.'] { grid-column: span 2; }
+  .spell-row[placeholder='Název'] { grid-column: span 9; }
+  .spell-detail-btn { grid-column: span 1; }
+  .spell-row[placeholder='Útok'],
+  .spell-row[placeholder='Doba'],
+  .spell-row[placeholder='Složky'],
+  .spell-row[placeholder='Dosah'],
+  .spell-row[placeholder='Trvání'],
+  .spell-row[placeholder='Str.'] { grid-column: span 4; }
+  .spell-row[placeholder='Poznámka'] { grid-column: 1 / -1; }
+
+  .gs-section {
+    display: block !important;
+    box-sizing: border-box;
+    padding: 12px !important;
+    border: 1px solid var(--sheet-line);
+  }
+
+  .cs-main-title {
+    margin: 0 0 12px !important;
+    padding: 18px 54px 16px !important;
+    color: var(--sheet-accent) !important;
+    border: 1px solid var(--sheet-line) !important;
+    border-top: 3px solid var(--sheet-accent) !important;
+    background: var(--sheet-panel) !important;
+    box-shadow: var(--sheet-shadow) !important;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif !important;
+    letter-spacing: 0.08em !important;
+    text-shadow: none !important;
+  }
+
+  form {
+    padding: 0 0 88px !important;
+  }
+
+  .cs-drop-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+    gap: 12px;
+    align-items: start;
+  }
+
+  :is(
+    [data-section-key='top-info'],
+    [data-section-key='second-page'],
+    [data-section-key='third-page'],
+    [data-section-key='gs-background'],
+    [data-section-key='gs-inventory'],
+    [data-section-key='gs-reputation']
+  ) {
+    grid-column: 1 / -1;
+  }
+
+  :is(
+    cs-top-info,
+    cs-ability-scores,
+    cs-combat-stats,
+    cs-saving-throws-passive,
+    cs-spell-slots,
+    cs-skills,
+    cs-weapons,
+    cs-languages,
+    cs-inventory,
+    second-page,
+    third-page,
+    .gs-section
+  ) {
+    background: var(--sheet-surface) !important;
+    border-color: var(--sheet-line) !important;
+    color: var(--sheet-ink);
+  }
+
+  :is(.field, select.field, .textarea) {
+    background: var(--sheet-field) !important;
+    border: 1px solid var(--sheet-line) !important;
+    color: var(--sheet-ink) !important;
+    border-radius: 2px !important;
+    font-family: 'Alegreya Sans', Arial, sans-serif !important;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+  }
+
+  .field:focus {
+    border-color: var(--sheet-accent) !important;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--sheet-accent), transparent 70%) !important;
+  }
+
+  .field::placeholder {
+    color: color-mix(in srgb, var(--sheet-muted), transparent 28%) !important;
+  }
+
+  .cs-section-title {
+    color: var(--sheet-accent) !important;
+    border-bottom-color: var(--sheet-line) !important;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif !important;
+    text-shadow: none !important;
+  }
+
+  :is(
+    [data-label]::before,
+    .cs-ability-label,
+    .cs-combat-prof-label,
+    .cs-slot-level-label,
+    .cs-spell-level-wrap .label,
+    .cs-spell-level-wrap[data-label]::before,
+    .spell-prep-label
+  ) {
+    color: var(--sheet-muted) !important;
+  }
+
+  .gs-row {
+    display: flex !important;
+    align-items: end;
+    gap: 8px;
+  }
+
+  .gs-inventory-section {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+    gap: 4px 10px;
+  }
+
+  .gs-reputation-section .textarea {
+    min-height: 280px;
+    height: 46vh !important;
+  }
+
+  :is(.cs-save-btn, .cs-import-btn) {
+    position: fixed;
+    top: auto !important;
+    right: 22px !important;
+    bottom: 18px;
+    z-index: 20;
+    width: auto !important;
+    min-width: 138px;
+    padding: 9px 14px !important;
+    border-color: var(--sheet-accent) !important;
+    background: var(--sheet-accent) !important;
+    color: white !important;
+  }
+
+  .cs-import-btn {
+    right: 176px !important;
+  }
+}
+
+html.ui-beyond character-sheet.theme-dark,
+html.ui-beyond group-sheet.theme-dark {
+  .textarea {
+    --rt-text-color: #eee9e2;
+    --rt-caret-color: var(--sheet-accent-bright);
+  }
+}
+
+@media (max-width: 575px) {
+  html.ui-beyond :is(character-sheet, group-sheet) {
+    padding-inline: 4px !important;
+
+    .cs-main-title {
+      padding-inline: 44px !important;
+      font-size: 17px !important;
+    }
+
+    .cs-drop-list {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .gs-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    cs-top-info {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    cs-ability-scores {
+      grid-template-columns: 1fr;
+    }
+
+    .cs-sp-appearance-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cs-import-btn {
+      display: none !important;
+    }
+  }
+}

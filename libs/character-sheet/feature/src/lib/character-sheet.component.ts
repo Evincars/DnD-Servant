@@ -110,10 +110,12 @@ const CS_DEFAULT_SECTIONS: readonly SectionConfig[] = [
             <cs-collapsible
               [title]="section.title"
               [storageKey]="section.key"
+              [attr.data-section-key]="section.key"
               [icon]="section.icon"
               [responsiveTitle]="section.responsiveTitle ?? ''"
               [responsiveIcon]="section.responsiveIcon ?? ''"
               [defaultOpen]="section.defaultOpen ?? true"
+              [alwaysResponsive]="sheetTheme.uiStyle() === 'beyond'"
             >
               @switch (section.key) {
                 @case ('top-info') {

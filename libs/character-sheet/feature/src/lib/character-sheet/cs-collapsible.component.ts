@@ -227,6 +227,46 @@ import { SheetThemeService } from '../sheet-theme.service';
         color: rgba(200, 160, 60, 0.65);
       }
     }
+
+    :host-context(html.ui-beyond) {
+      margin-bottom: 0;
+      overflow: hidden;
+      border: 1px solid rgba(91, 66, 48, 0.35);
+      border-top: 3px solid #b62f35;
+      border-radius: 3px;
+      background: #fffdf8;
+      box-shadow: 0 8px 22px rgba(31, 20, 14, 0.15);
+    }
+
+    :host-context(html.ui-beyond) .cs-coll-header {
+      padding: 11px 14px;
+      border-bottom: 1px solid rgba(91, 66, 48, 0.24);
+      background: #171b20;
+      color: #f2eee8;
+      font-family: 'Oswald', 'Arial Narrow', sans-serif;
+      letter-spacing: 0.075em;
+      text-transform: uppercase;
+    }
+
+    :host-context(html.ui-beyond) .cs-coll-header:hover {
+      background: #222830;
+    }
+
+    :host-context(html.ui-beyond) .cs-coll-icon,
+    :host-context(html.ui-beyond) .cs-coll-chevron,
+    :host-context(html.ui-beyond) .cs-coll-drag-handle {
+      color: #dc5158;
+    }
+
+    :host-context(html.ui-beyond) .cs-coll-body {
+      padding: 0;
+    }
+
+    :host-context(html.ui-beyond).theme-dark {
+      border-color: rgba(173, 180, 187, 0.22);
+      background: #11151a;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.44);
+    }
   `,
 })
 export class CsCollapsibleComponent {
@@ -239,6 +279,8 @@ export class CsCollapsibleComponent {
   readonly responsiveIcon = input<string>('');
   /** When no localStorage entry exists, this determines the initial state. Default: true (open). */
   readonly defaultOpen = input<boolean>(true);
+  /** Forces the responsive card presentation used by the image-free sheet layout. */
+  readonly alwaysResponsive = input<boolean>(false);
   /**
    * Set to false to permanently disable drag on this collapsible even in responsive mode.
    * Use this whenever cs-collapsible is nested inside another section that is itself a drag
@@ -255,10 +297,11 @@ export class CsCollapsibleComponent {
   readonly _displayIcon = computed(() => (this.responsive() && this.responsiveIcon()) ? this.responsiveIcon() : this.icon());
 
   private readonly _breakpoints = inject(BreakpointObserver);
-  readonly responsive = toSignal(
+  private readonly _responsiveBreakpoint = toSignal(
     this._breakpoints.observe('(max-width: 1359px)').pipe(map(r => r.matches)),
     { initialValue: false },
   );
+  readonly responsive = computed(() => this.alwaysResponsive() || this._responsiveBreakpoint());
 
   readonly isOpen = signal(true);
 

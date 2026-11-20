@@ -77,7 +77,7 @@ export interface SettingsDialogData {
 
           <!-- App UI style section -->
           <div class="sd-section u-mb-6">
-            <div class="sd-section-label">Vzhled aplikace</div>
+            <div class="sd-section-label">Vzhled karet a aplikace</div>
             <div class="sd-theme-grid">
               <button
                 type="button"
@@ -94,6 +94,14 @@ export interface SettingsDialogData {
                 (click)="sheetTheme.setUiStyle('plain')"
               >
                 <span class="sd-btn-label">Čistý</span>
+              </button>
+              <button
+                type="button"
+                class="sd-btn"
+                [class.sd-btn--active]="sheetTheme.uiStyle() === 'beyond'"
+                (click)="sheetTheme.setUiStyle('beyond')"
+              >
+                <span class="sd-btn-label">Čistý 2</span>
               </button>
             </div>
           </div>

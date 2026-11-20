@@ -4,8 +4,8 @@ import { CS_SPELLS_FIRST_KEY, LocalStorageService, UI_STYLE_KEY } from '@dn-d-se
 export type DarkTheme = 'dark' | 'sirien' | 'night';
 export type Theme = 'light' | DarkTheme;
 
-/** Whole-app look: 'ornate' fantasy chrome, or 'plain' flat borders without effects. */
-export type UiStyle = 'ornate' | 'plain';
+/** Whole-app look plus the optional image-free responsive sheet layout. */
+export type UiStyle = 'ornate' | 'plain' | 'beyond';
 
 const STORAGE_KEY = 'sheet-theme';
 const LEGACY_KEY = 'sheet-theme-dark';
@@ -25,13 +25,17 @@ export class SheetThemeService {
    */
   readonly spellsFirst = signal<boolean>(this.ls.getDataSync<boolean>(CS_SPELLS_FIRST_KEY) ?? false);
 
-  /** Whole-app UI style, applied as the `ui-plain` class on <html>. */
-  readonly uiStyle = signal<UiStyle>(this.ls.getDataSync<UiStyle>(UI_STYLE_KEY) ?? 'ornate');
+  /** UI style applied as a matching class on <html>. */
+  readonly uiStyle = signal<UiStyle>(this.ls.getDataSync<UiStyle>(UI_STYLE_KEY) ?? 'beyond');
 
   private readonly _doc = inject(DOCUMENT);
 
   constructor() {
-    effect(() => this._doc.documentElement.classList.toggle('ui-plain', this.uiStyle() === 'plain'));
+    effect(() => {
+      const style = this.uiStyle();
+      this._doc.documentElement.classList.toggle('ui-plain', style === 'plain');
+      this._doc.documentElement.classList.toggle('ui-beyond', style === 'beyond');
+    });
   }
 
   setUiStyle(style: UiStyle): void {
