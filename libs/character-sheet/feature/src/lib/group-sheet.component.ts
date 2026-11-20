@@ -54,6 +54,7 @@ const GS_DEFAULT_SECTIONS: readonly GsSectionConfig[] = [
             [matTooltip]="allExpanded() ? 'Sbalit vše' : 'Rozbalit vše'"
           >
             <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
+            <span class="cs-collapse-all-label">{{ allExpanded() ? 'Sbalit vše' : 'Rozbalit vše' }}</span>
           </button>
         </span>
       </h2>
@@ -679,6 +680,12 @@ export class GroupSheetComponent {
         if (groupSheet) {
           const formValue = FormUtil.convertModelToForm(groupSheet, GroupSheetFormModelMappers.groupSheetFormToApiMapper);
           this.form.patchValue(formValue);
+          const remoteOrder = this.sectionOrderService.getRemoteOrder(
+            GroupSheetComponent.PAGE_KEY,
+            groupSheet.layout?.sectionOrder,
+            GroupSheetComponent.DEFAULT_KEYS,
+          );
+          this.orderedSections.set(remoteOrder.map(k => this._sectionConfigMap.get(k)!));
         }
       });
     });
@@ -720,6 +727,12 @@ export class GroupSheetComponent {
         if (!username) return;
         const model = FormUtil.convertFormToModel(this.form.getRawValue(), GroupSheetFormModelMappers.groupSheetFormToApiMapper);
         model.username = `${username}${this.documentName}`;
+        model.layout = {
+          sectionOrder: this.sectionOrderService.getLayoutOrder(
+            GroupSheetComponent.PAGE_KEY,
+            GroupSheetComponent.DEFAULT_KEYS,
+          ),
+        };
         this.characterSheetStore.saveDraftToLocalStorage({ type: 'group', model });
       });
   }
@@ -767,6 +780,12 @@ export class GroupSheetComponent {
     if (username) {
       const request = FormUtil.convertFormToModel(this.form.getRawValue(), GroupSheetFormModelMappers.groupSheetFormToApiMapper);
       request.username = `${username}${this.documentName}`;
+      request.layout = {
+        sectionOrder: this.sectionOrderService.getLayoutOrder(
+          GroupSheetComponent.PAGE_KEY,
+          GroupSheetComponent.DEFAULT_KEYS,
+        ),
+      };
 
       this.characterSheetStore.saveGroupSheet(request);
     } else {

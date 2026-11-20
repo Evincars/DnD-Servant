@@ -1,4 +1,8 @@
 // Image-free D&D Beyond-like presentation for the character and party sheets.
+html:not(.ui-beyond) .cs-collapse-all-label {
+  display: none;
+}
+
 html.ui-beyond :is(character-sheet, group-sheet) {
   --sheet-accent: #b62f35;
   --sheet-accent-bright: #e14b52;
@@ -189,7 +193,8 @@ html.ui-beyond :is(character-sheet, group-sheet) {
 
   cs-ability-scores {
     display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+    align-items: stretch;
     gap: 6px;
   }
 
@@ -202,32 +207,73 @@ html.ui-beyond :is(character-sheet, group-sheet) {
   }
 
   .cs-ability-group {
+    position: relative !important;
     display: flex !important;
-    align-items: center;
-    gap: 6px;
+    min-height: 128px;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 4px;
     min-width: 0;
-    padding: 5px 0;
-    border-bottom: 1px solid var(--sheet-line);
+    padding: 24px 12px 34px;
+    border: 0 !important;
+    background: url('/character-sheets/ddb-ability-box.svg') center / 100% 100% no-repeat;
     grid-column: span 1 !important;
+
+    > * {
+      position: relative;
+      z-index: 1;
+    }
   }
 
   .cs-ability-label {
     display: block !important;
-    min-width: 70px;
+    min-width: 0;
     flex-shrink: 0;
+    color: #cfd6da !important;
     font-family: 'Oswald', 'Arial Narrow', sans-serif;
-    font-size: 11px;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-align: center;
     text-transform: uppercase;
   }
 
   .cs-ability-group .roll-d20-wrap {
-    flex: 1 1 76px;
+    flex: 0 0 auto;
+  }
+
+  .cs-ability-group .roll-d20-btn {
+    display: none !important;
   }
 
   .cs-ability-group > input[id$='-input'] {
-    width: 52px !important;
-    flex: 0 0 52px;
-    margin-bottom: 0;
+    position: absolute !important;
+    left: 50% !important;
+    bottom: 2px !important;
+    width: 40px !important;
+    height: 34px !important;
+    margin: 0;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    color: #e7edf1 !important;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif !important;
+    font-size: 15px !important;
+    text-align: center;
+    transform: translateX(-50%);
+  }
+
+  .cs-ability-group .main-skill {
+    height: 46px;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 1px solid rgba(197, 49, 49, 0.55) !important;
+    border-radius: 2px !important;
+    background: rgba(8, 12, 16, 0.65) !important;
+    color: #fff !important;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif !important;
+    font-size: 26px !important;
+    line-height: 44px;
     text-align: center;
   }
 
@@ -329,11 +375,39 @@ html.ui-beyond :is(character-sheet, group-sheet) {
   }
 
   .cs-skill-row {
-    display: flex !important;
+    display: grid !important;
+    grid-template-columns: 24px minmax(0, 1fr);
     align-items: center;
-    gap: 5px;
-    padding: 4px 0;
+    gap: 8px;
+    padding: 3px 5px;
     border-bottom: 1px solid var(--sheet-line);
+  }
+
+  .cs-skill-row .roll-d20-wrap {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 54px 28px;
+    width: 100% !important;
+    gap: 5px;
+  }
+
+  .cs-skill-row .roll-d20-wrap[data-label]::before {
+    content: attr(data-label);
+    min-width: 0;
+    overflow: hidden;
+    color: var(--sheet-ink);
+    font-family: 'Oswald', 'Arial Narrow', sans-serif;
+    font-size: 11px;
+    line-height: 30px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .cs-skill-row .roll-d20-wrap .field {
+    margin: 0;
+    color: var(--sheet-accent-bright) !important;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif !important;
+    font-size: 15px !important;
+    text-align: center !important;
   }
 
   .cs-weapon-row {
@@ -428,6 +502,33 @@ html.ui-beyond :is(character-sheet, group-sheet) {
     text-shadow: none !important;
   }
 
+  .cs-collapse-all-wrap {
+    right: 10px;
+  }
+
+  .cs-collapse-all-btn {
+    width: auto !important;
+    min-width: 108px;
+    height: 32px;
+    gap: 7px;
+    padding: 0 11px !important;
+    border: 1px solid color-mix(in srgb, var(--sheet-accent), white 12%) !important;
+    border-radius: 2px;
+    background: color-mix(in srgb, var(--sheet-panel), transparent 8%) !important;
+    color: var(--sheet-accent-bright) !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  }
+
+  .cs-collapse-all-label {
+    display: inline;
+    font-family: 'Oswald', 'Arial Narrow', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
   form {
     padding: 0 0 88px !important;
   }
@@ -437,6 +538,10 @@ html.ui-beyond :is(character-sheet, group-sheet) {
     grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
     gap: 12px;
     align-items: start;
+  }
+
+  [data-section-key='ability-scores'] {
+    grid-column: 1 / -1;
   }
 
   :is(
@@ -541,6 +646,61 @@ html.ui-beyond :is(character-sheet, group-sheet) {
   .cs-import-btn {
     right: 176px !important;
   }
+
+  // ── Proficiency indicator: D&D Beyond radio-dot (empty → filled → ring = expertise) ──
+  .field.ability-zdatnost-checkbox {
+    position: relative !important;
+    width: 16px !important;
+    height: 16px !important;
+    margin: 4px !important;
+    padding: 0 !important;
+    border: 2px solid color-mix(in srgb, var(--sheet-muted), transparent 20%) !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  // neutralise the legacy star pseudo-elements entirely
+  .field.ability-zdatnost-checkbox::before,
+  .field.ability-zdatnost-checkbox::after {
+    content: '' !important;
+    display: none !important;
+    clip-path: none !important;
+    background: transparent !important;
+    border: 0 !important;
+  }
+
+  // proficient → solid red dot
+  .field.ability-zdatnost-checkbox.ability-zdatnost--checked {
+    border-color: #c53131 !important;
+    background: #c53131 !important;
+  }
+
+  // expertise → solid red dot with a surrounding ring
+  .field.ability-zdatnost-checkbox.ability-zdatnost--expertise {
+    border-color: #c53131 !important;
+    background: #c53131 !important;
+    box-shadow:
+      0 0 0 2px var(--sheet-surface),
+      0 0 0 4px #c53131 !important;
+  }
+
+  // ── SKILLS: authentic D&D Beyond ornamental frame ──
+  [data-section-key='skills'] {
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: url('/character-sheets/ddb-frame.svg') center / 100% 100% no-repeat !important;
+    box-shadow: none !important;
+    padding: 12px 14px !important;
+    overflow: visible !important;
+  }
+
+  [data-section-key='skills'] .cs-coll-header,
+  [data-section-key='skills'] .cs-coll-body,
+  [data-section-key='skills'] cs-skills {
+    background: transparent !important;
+    border: 0 !important;
+  }
 }
 
 html.ui-beyond character-sheet.theme-dark,
@@ -575,7 +735,7 @@ html.ui-beyond group-sheet.theme-dark {
     }
 
     cs-ability-scores {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
 
     .cs-sp-appearance-grid {
